@@ -1,0 +1,139 @@
+{{ set(this, 'title', _Blog.getBlogTitle()) }}
+{% set networkData = _Network.getNetworkData() %}
+{% set blogData      = _Blog.getBlog() %}
+{% set blogName      = blogData.title %}
+
+
+<!-- This is latest seminar that is shown in the main card of this index page -->
+        {% set foundSection = false %}
+        {% set currentSection = "" %}
+        {% set sectionMap = blogData.blogHeaderMenu %}
+        {% for key, value in sectionMap if not foundSection %}
+            {% if value['children'] | length > 0 %}
+                {% set currentSection = value['children'][0] %}
+                {% set foundSection = true %}
+            {% endif %}
+        {% endfor %}
+
+        {% set currentSection =  _Blog.getBlog({'guid': currentSection.blogGuid}) %}
+
+        {% set sectionCard = {
+            "title": currentSection.title,
+            "excerpt": currentSection.shortDescription,
+            "featuredMedia": currentSection.media.cover,
+            "url": currentSection.url,
+            "hasMedia": 'TRUE'
+        } %}
+<!-- END -->
+
+
+
+{{this.registerJs("CardController();")}}
+
+{% set limit = 3 %}
+
+{% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
+{% set articles = articlesArr.articles %}
+
+
+<!-- used to index each article as we loop over throughout the template -->
+{% set articleCount = 0 %}
+
+
+
+    <main id="main" class="container site-main" role="main">
+        
+        <div class="row index-top">
+
+            <div class="col-sm-12 col-md-9 mobile-full-width">
+                {% if currentSection %}                                                                
+                    {{this.render('partials/_single-article.twig', {
+                        article: sectionCard,
+                        imageSize: {width: 576, height: 450},
+                        isArticle: true,
+                        containerClass: 'card-front-main card-front-main_mob'
+                    }) | raw}}
+                {% endif %}
+            </div><!-- .col-sm-8-->
+
+
+            <div class="col-sm-12 col-md-3">
+                <div class="kit">
+                    <figure>
+                        <img class="" src="{{networkData.templatePath}}/static/images/sexual-abuse-kit2.jpg">
+                    </figure>
+
+                    <div>
+                        <a target="_blank" href="https://downloads.cwpracticelive.facs.nsw.gov.au/See_Understand_Respond_to_CSA_Practical_Kit.pdf" class="kit-link">
+
+                            <h1>The Child Sexual Assault kit</h1>
+                            <p>NOW AVAILABLE ONLINE</p>
+
+                            <img src="{{networkData.templatePath}}/static/images/arrow.svg">
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="feedback">
+                    <h1>What do you want?</h1>
+                    <p>Share what practice ideas you would like us to explore next.</p>
+                    <a href="mailto:OSPbroadcast@facs.nsw.gov.au" class="feedback-link">Leave feedback</a>
+                </div>
+
+            </div><!-- .col-sm-4-->
+        </div><!-- .row-->
+
+
+        <section class="row index-bottom">
+            
+            <div class="col-sm-8">
+                <section class="row about">
+                    <div class="col-sm-12">
+                        <h1>About Practice Live</h1>
+                        <p>
+                            Your place to discover practice. Practice Live brings together 
+                            inspiring child protection experts from across the globe. 
+                            The FACS Office of the Senior Practitioner gives you the opportunity 
+                            to explore dozens of live speakers, practice notes, register for 
+                            upcoming events and live stream. Delve deep into new ideas today.
+                        </p>
+                    </div>
+                </section>
+            </div>
+
+            <div class="col-sm-offset-1 col-sm-3 loop">
+                <h1>Stay in the loop</h1>
+                <p>Register to hear about practice events and promotions.</p>
+                {# <a href="{{networkData.defaultBlogUrl}}/@register" class="_btn">REGISTER HERE</a> #}
+                <a href="mailto:OSPbroadcast@facs.nsw.gov.au?subject=Conference%202017%20register&body=First%20name:%20%0D%0ALast%20name:%20%0D%0AOrganisation:%20%0D%0AEmail%20Address:%20%0D%0ATelephone%20number:%20%0D%0A" class="_btn">REGISTER HERE</a>
+            </div>
+        </section>
+
+
+
+        <section class="row speakers">
+            <div class="col-sm-12">
+                <h1>Speakers in Demand</h1>
+            </div>
+
+            {% for i in 0..2 %}
+                {% if articles[articleCount] %}                                                                
+                    {{this.render('partials/_single-article.twig', {
+                        article: articles[articleCount], 
+                        position: (articleCount+1),
+                        imageSize: {width: 330, height: 235},
+                        containerClass: 'col-sm-4 card-sm card-sm-mob'
+                    }) | raw}}
+                    {% set articleCount = articleCount + 1 %}
+                {% endif %}
+            {% endfor %}
+        </section>
+    
+
+
+
+
+
+
+    </main><!-- .site-main -->

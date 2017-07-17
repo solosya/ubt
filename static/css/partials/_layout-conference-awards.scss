@@ -1,0 +1,26 @@
+.channel.layout-conference-awards {
+
+    .main-content {
+        margin-top:30px;
+        margin-bottom:100px;
+
+        .intro {
+
+            h1 {
+                font-size: rem(32);
+                margin-bottom:37px;
+            }
+        
+            p {
+                line-height: 1.57;
+                font-size: rem(14);
+                padding-bottom:37px;
+                width:830px;
+
+                @media screen and (max-width: $md-break) {
+                    width:auto;
+                }
+            }
+        }
+    }
+}

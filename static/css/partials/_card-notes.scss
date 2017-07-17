@@ -1,0 +1,49 @@
+.card-notes{
+    position:relative;
+    margin-bottom: 25px;
+
+
+    a.card {
+
+        border-bottom:1px solid color(lightblue);
+
+        > article {
+            margin-bottom:25px;
+            position:relative;
+
+            > figure{
+                display:none;
+            }
+
+            > .content{
+                position:relative;
+                padding: 0;
+
+
+                > h2{
+                    margin-bottom:10px;
+                    font-weight: bold;
+                    font-size: rem(16);
+                    color:color(dark);
+
+                }
+
+                > .author{
+                    display:none;
+                    // order:2;
+                    // font-size: rem(14);
+                    // font-weight:bold;
+                    // font-style:italic;
+                    // color: color(darkblue);
+                }
+
+
+                p {
+                    font-size: rem(12);
+                    line-height: 1.67;
+                }
+            }
+        }     
+    }
+}
+

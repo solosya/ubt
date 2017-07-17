@@ -1,0 +1,125 @@
+
+
+.card-rec-sem-dt {
+    @media screen and (min-width: $sm-break){
+        @include card-image-right(314px);
+        
+        margin-bottom: 38px;
+        position:relative;
+        padding-right: 50px;
+        padding-left: 0px;
+
+        a.card {
+            
+            border-bottom:1px solid color(lightblue);
+
+            > article {
+                margin-bottom:20px;
+                height:205px;
+
+                > figure{
+                    position:static;
+                    margin-left:50px;
+
+
+                    &:before{
+                        @include videoIcon();
+                        top: 120px;
+                        left: 0px;
+                        margin:0;
+                    }
+
+
+                    &.video {
+                        &:before{
+                            top: 150px;
+                            left: 35px;
+                        }
+                    }
+
+
+                }
+
+                > .content{
+                    padding:0 30px 0 0;
+
+                    > h2{
+                        font-size: rem(22);
+                        margin-bottom:7px;
+                        line-height:1.3em;
+                    }
+                    
+                    > p {
+                        display:none;
+                    }
+
+                    > .author{
+                        display:none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.card-rec-sem-mob {
+    @media screen and (max-width: $sm-break-down){
+        @include card-image-top(100%, 350px);
+        margin-bottom: 38px;
+        position:relative;
+
+        a.card {
+            border-bottom:1px solid color(lightblue);
+
+            > article {
+                margin-bottom:20px;
+
+                > figure{
+                    position:relative;
+                    margin-left:0;
+
+                    @media screen and (max-width: $mobile-break){
+                        height: 180px;
+                    }
+
+
+                    &:before{
+                        @include videoIcon();
+                        width: 72px;
+                        height: 72px;
+                        margin-left:-36px;
+                        margin-top:-36px;
+                    }
+                    &.video {
+                        &:before{
+                            top: 50%;
+                            left: 50%;
+                        }
+                    }
+                }
+
+                > .content {
+                    width:auto;
+                    padding:0 30px 0 0;
+
+                    > h2{
+                        font-size: rem(22);
+                        margin-bottom:7px;
+                        margin-top:20px;
+                        line-height:1.3em;
+                    }
+                    
+                    > p {
+                        font-size: rem(14);
+                        line-height: 1.57;
+                    }
+
+                    > .author{
+                        display:none;
+                    }
+                }
+            }
+        }
+    }
+}

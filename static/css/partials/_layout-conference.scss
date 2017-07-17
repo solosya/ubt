@@ -1,0 +1,64 @@
+.channel.layout-conference {
+    // position: relative;
+
+    .main-content {
+        margin-top:55px;
+        margin-bottom:100px;
+
+        .description {
+            font-size: rem(16);
+            margin-bottom:30px;
+            color: #1C2A38;
+            line-height: 1.57;
+            font-weight: 300;
+        }
+
+
+        .section-list {
+            margin-bottom:35px;
+
+            >li {
+                display:table;
+                min-height:70px;
+                width: 100%;
+                >a {
+                    display:table-cell;
+                    vertical-align:middle;
+                }
+            }
+        }
+
+        .video-intro {
+            margin-bottom:41px;
+            padding-bottom: 14px;
+            border-bottom: solid 1px color(lightblue);
+
+
+            h1 {
+                font-size: rem(18);
+                font-weight:bold;
+                color:color(grey);
+                margin-bottom:22px;
+            }
+            p{
+                color:color(dark);
+                font-size: rem(14);
+                line-height: 1.57;
+
+
+            }
+        }
+
+        .gallery {
+            h1 {
+                font-size: rem(32);
+                margin-bottom:15px;
+                margin-top: 50px;
+            }
+        }
+
+    }
+
+}
+
+

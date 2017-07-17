@@ -1,0 +1,114 @@
+.card-search{
+    @media screen and (min-width: $sm-break){
+
+        @include card-image-left(261px);
+        margin-bottom: 20px;
+        position:relative;
+
+
+        a.card {
+            border-bottom:1px solid color(lightblue);
+
+            > article {
+             
+                margin-bottom:20px;
+                height:171px;
+
+                > figure{
+                    overflow: hidden;
+                    margin-right:30px;
+
+                    &.video {
+                        &:before{
+                            width:72px;
+                            height:72px;
+                            margin-left:-36px;
+                            margin-top:-36px;
+
+                        }
+                    }
+
+                }
+
+                > .content{
+                    padding:0 0 0 30px;
+                    background:white;
+
+
+                    > h2{
+                        order:1;
+                        font-size: rem(22);
+                        max-height: 64px;
+                        margin-bottom:14px;
+                        line-height:1.3em;
+                    }
+                    
+                    > p {
+                        order:3;
+                        max-height: 66px;
+                        font-size:rem(14);
+                        line-height: 1.57;
+                    }
+
+                    > .author{
+                        display:none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.card-search-mob{
+    @media screen and (max-width: $sm-break-down){
+
+        @include card-image-top(100%);
+        margin-bottom: 20px;
+        position:relative;
+
+
+        a.card {
+            border-bottom:1px solid color(lightblue);
+
+            > article {
+                margin-bottom:20px;
+
+                > figure{
+                    overflow: hidden;
+
+                    &.video {
+                        &:before{
+                            width:72px;
+                            height:72px;
+                            margin-left:-36px;
+                            margin-top:-36px;
+
+                        }
+                    }
+                }
+
+                > .content{
+                    padding:0 0 0 0;
+
+                    > h2{
+                        font-size: rem(22);
+                        margin-bottom:14px;
+                        margin-top:10px;
+                        line-height:1.3em;
+                    }
+                    
+                    > p {
+                        max-height: 66px;
+                        font-size:rem(14);
+                        line-height: 1.57;
+                    }
+
+                    > .author{
+                        display:none;
+                    }
+                }
+            }
+        }
+    }
+}

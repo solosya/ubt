@@ -1,0 +1,84 @@
+.channel.layout-conference-live-program {
+    // position: relative;
+
+    .presenters {
+        margin-top: 40px;
+
+        >h1 {
+            font-size: rem(32);
+        }
+    }
+
+    .presenter {
+        padding: 30px 0;
+        margin-bottom: 30px;
+        border-bottom:1px solid color(lightblue);
+
+        > figure {
+            float:left;
+            width:165px;
+            height:151px;
+            background:gray;
+        }
+    }
+
+    .presenter-details{
+        margin-left: 200px;
+
+        h2 {
+            font-size: rem(22);
+            color:color(dark);
+        }
+
+        >p {
+            font-size: rem(14);
+            line-height: 1.57;
+            color:color(dark);
+        }
+    }
+
+
+    .workshops {
+        margin-top:40px;
+
+        >h1 {
+            font-size:rem(32);
+            margin-bottom:30px;
+        }
+
+        >p {
+            font-size: rem(14);
+        }
+
+    }
+
+
+    .enquiries {
+        >h2 {
+            font-size:rem(18);
+            margin-bottom:16px;
+            color:color(orange);
+            font-weight:700;
+        }
+
+        >p {
+            font-size: rem(14);
+        }
+
+        >ul {
+            padding:0;
+            padding-bottom: 40px;
+            border-bottom: 1px solid color(lightblue);
+
+            > li {
+                list-style:none;
+                font-size: rem(14);
+            }
+        }
+
+
+    }
+
+}
+
+
