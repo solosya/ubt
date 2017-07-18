@@ -51,7 +51,7 @@
 }
 
 .profile-status, .profile-upload {
-    border-bottom:1px solid rgba($black, 0.2);
+    border-bottom:1px solid rgba(color(black), 0.2);
 
     p {
         margin-bottom:20px;
@@ -86,7 +86,7 @@
             background-repeat: no-repeat;
 
             > i {
-                color:$white;
+                color:color(white);
                 line-height:120px;
                 font-size:($baseFontSize * 5);
             }
@@ -109,7 +109,7 @@
     margin-top:60px;
     margin-bottom:40px;
     @include padding(0px);
-    border-bottom:1px solid rgba($black, 0.2);
+    border-bottom:1px solid rgba(color(black), 0.2);
     background:#f6f6f6 none repeat scroll 0 0;
 
     .portlet-body {
@@ -127,7 +127,7 @@
 
 #upload-page-modal, #upload-cover-image {
     @include padding(40px);
-    background:$white none repeat scroll 0 0;
+    background:color(white) none repeat scroll 0 0;
     @media #{$media-phone} {
         @include padding(20px);
     }

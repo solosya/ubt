@@ -28,7 +28,7 @@
 
     {% set placeholder = 'https://placeholdit.imgix.net/~text?txtsize=33&txt=Loading&w='~imgWidth~'&h='~imgHeight~'' %}
     {% set promotedClass = (article.isPromoted) ? 'ad_icon' : '' %}
-    {% set hasArticleMediaClass = (article.hasMedia == 'TRUE' or article.hasPreviewMedia == 'TRUE') ? 'withImage__content': 'without__image' %}
+    {% set hasArticleMediaClass = ((article.hasMedia == 'TRUE' or article.hasPreviewMedia == 'TRUE') and imageSuppress == 'false') ? 'withImage__content': 'without__image' %}
 
     {% set publishDate = _AppHelper.getDateTimeBasedOnTimezone(article.publishDate, 'F, Y') %}
     {# {% set publishDate = _AppHelper.getDefaultTimezoneDateTime(article.publishDate) %} #}
@@ -65,16 +65,15 @@
 
 
                 <div class="content">
-                    <div class="category">{{article.label}}</div>
-                    
+                    <p class="category">{{article.label}}</p
+                    ><time datetime="{{publishDate}}">{{publishDate}}</time>
+
                     <h2 class="{{figureClass}}">{{ articleTitle }}</h2>
                     
                     {% if cardClass != 'instagram no-caption' %}  
-                        <p>{{ quotes.smarten(article.excerpt | raw) }}</p>
+                        <p class="excerpt">{{ quotes.smarten(article.excerpt | raw) }}</p>
                     {% endif %}
-                    
-                    <time datetime="{{publishDate}}">{{publishDate}}</time>
-                    
+                                        
                     <div class="author">
                         <img src="{{profileImg}}" class="img-circle">
                         <p>{{ article.createdBy['displayName'] }}</p>
@@ -160,12 +159,12 @@
 
                 <div class="content">
                     <div class="category {{social.source}}">{{social.source}}</div>
-                    
+                    <time datetime="2016-11-16">{{_AppHelper.getDateTimeBasedOnTimezone(social.publishDate, 'F, Y')}}</time>
+
                     <p id="updateSocial{{article.socialId}}" data-update="0">
                              {{ quotes.smarten(social.content  | raw) }}
                     </p>
 
-                    <time datetime="2016-11-16">{{_AppHelper.getDateTimeBasedOnTimezone(social.publishDate, 'F, Y')}}</time>
                     
                     <div class="author">
                         <img src="{{social.user.media.path}}" class="img-circle">

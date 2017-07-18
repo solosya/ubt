@@ -35,6 +35,13 @@ fieldset {
     }
 }
 
+hr.divide {
+    margin-top: 32px;
+    margin-bottom: 42px;
+    border: 0;
+    border-top: 1px solid color(lightgrey);
+}
+
 ._btn {
     border:0;
     font-size: rem(10);

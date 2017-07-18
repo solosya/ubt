@@ -1,23 +1,23 @@
 //Fonts
-$font-family-sans-serif:    "Gotham SSm A", "Gotham SSm B", Helvetica, Arial, sans-serif;
+$font-family-sans-serif:    "Roboto Slab", Helvetica, Arial, sans-serif;
 $font-family-serif:    		"PT Serif", "Times New Roman", Times, serif;
-$base-font-family: 			"Gotham SSm A", "Gotham SSm B", Helvetica, Arial, sans-serif !default;
+$base-font-family: 			"Open Sans", Helvetica, Arial, sans-serif !default;
 
+$page-width:  				1327px;
 
 $font-size-base:            16px;
 $font-unit:                 0em; 
 $browser-context:           $font-size-base;
 $baseFontSize:				16px; /* ($baseFontSize * 1) + 0px; */
 
-
-// //colors
 $brand-primary:             #000; 
 $brand-secondary:           #e22f22;
 
-$dark-color:       			#212427;
-$white:						#ffffff;
-$black:             		#000000;
-$blue:              		#46a5fc;
+// //colors
+// $dark-color:       			#212427;
+// $white:						#ffffff;
+// $black:             		#000000;
+// $blue:              		#46a5fc;
 
 $transparent:				rgba(0,0,0,0);
 $gray-2-color:     			#efefef;
@@ -53,18 +53,27 @@ $colors: (
 	youtube:     		#e34336,
     vimeo:       		#00b3ec,
 
-    dark:     			#1C2A38,
-    darklighter: 		#334150,
-	lightblue:    		#B3B3B3,
-	darkblue: 			#687085,
-	grey:   			#6F777B,
-	lightgrey:          #4a4a4a,
-	orange:  	  		#DD7B45,
-	cyan:     			#BFC7DC,
-	green:  	   		#89BB9F,
-	darkgreen: 		    #00823b,
-    red:   	    		#C10018,
-    purple:   			#62288a,
+
+
+    dark-color:       	#212427,
+    white:				#ffffff,
+    black:             	#000000,
+    blue:              	#46a5fc,
+
+    darkblue:           #002d56,
+    lightgrey:          #97999c,
+ //    dark:     			#1C2A38,
+ //    darklighter: 		#334150,
+	// lightblue:    		#B3B3B3,
+	// darkblue: 			#687085,
+	// grey:   			#6F777B,
+	// lightgrey:          #4a4a4a,
+	// orange:  	  		#DD7B45,
+	// cyan:     			#BFC7DC,
+	// green:  	   		#89BB9F,
+	// darkgreen: 		    #00823b,
+ //    red:   	    		#C10018,
+ //    purple:   			#62288a,
 );
 
 
@@ -73,7 +82,7 @@ $colors: (
 
 
 $header-break:              992px;
-$large-break:				1450px;
+$large-break:				1350px;
 $md-break:                  1200px; /* col-lg  */
 $mmd-break:                 992px;  /* col-md ipad landscape */
 $mmd-break-down:            991px;  /* col-md ipad landscape */

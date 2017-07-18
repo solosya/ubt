@@ -23,8 +23,8 @@ a.user__login {
         @extend .container;
     }
     &__menu {
-        background-color:$white;
-        box-shadow:0px 0px 25px 0px rgba($dark-color, 0.2);
+        background-color:color(white);
+        box-shadow:0px 0px 25px 0px rgba(color(dark-color), 0.2);
         float:right;
         padding:30px 20px;
         width:300px;
@@ -84,7 +84,7 @@ a.user__login {
         &-button {
             &, &:link, &:visited, &:active {
                 background-color:$selected-color;
-                color:$white;
+                color:color(white);
                 text-align:center;
                 display:block;
                 padding:10px;
@@ -119,7 +119,7 @@ a.user__login {
     content:'';
     display:none;
     position:fixed;
-    background:rgba($dark-color, 0.01) none repeat scroll 0 0;
+    background:rgba(color(dark-color), 0.01) none repeat scroll 0 0;
 }
 body.no_profile {
     .profile_overlay {

@@ -29,7 +29,7 @@ gulp.task('cache',  function() {
 
 gulp.task('minify-css', function () {
     return gulp.src([
-        './static/deploy/concat.css',
+        './static/css/concat.css',
     ]) 
     .pipe(gp_rename({suffix: '.min'}))
     .pipe(minifyCss())
@@ -47,7 +47,7 @@ gulp.task('concat', function () {
     ]) // path to your file
     .pipe(concat('concat.css'))
 
-    .pipe(gulp.dest('./static/deploy'));
+    .pipe(gulp.dest('./static/css'));
 });
 
 

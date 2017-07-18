@@ -2,7 +2,7 @@
 ----------------------------- */
 .modal {
 	z-index:9999;
-	background:rgba(darken($white, 100%), 0.75) none repeat scroll 0 0;
+	background:rgba(darken(color(white), 100%), 0.75) none repeat scroll 0 0;
 	text-align:center;
 	height:100%;
 
@@ -13,7 +13,7 @@
 
 }
 .modal-intro {
-	color:$white;
+	color:color(white);
 	text-align:left;
 }
 .modal.fade .modal-dialog {
@@ -57,7 +57,7 @@
 .modal-content {
 	border:0px none;
 	@include border-radius(0px);
-	@include box-shadow(0 8px 35px 8px rgba(darken($white, 100%), 0.9));
+	@include box-shadow(0 8px 35px 8px rgba(darken(color(white), 100%), 0.9));
 	position: relative;
 	top: 50%;
 	width: 80%;
@@ -110,7 +110,7 @@
 		height:1px;
 		content:' ';
 		position:absolute;
-		background-color:$white;
+		background-color:color(white);
 		@include transition(all 0.2s ease-in-out);
 	}
 
@@ -127,13 +127,13 @@
 /* Modal Header */
 /*  */
 .modal-header {
-    color:$white;
+    color:color(white);
     @include padding(20px 40px);
     background:#1e1e26 none repeat scroll 0 0;
 
     h3 {
         margin:0px;
-        color:$white;
+        color:color(white);
         font-weight:400;
         @include padding(0px);
         font-size:($baseFontSize * 1) + 6;
@@ -318,7 +318,7 @@
 }
 
 .ajax_body {
-	color:darken($white, 100%);
+	color:darken(color(white), 100%);
 
 	.ajax_body_container {
 		position:relative;
@@ -333,7 +333,7 @@
 		}
 
 		.username {
-			color:darken($white, 100%);
+			color:darken(color(white), 100%);
 			font-weight:600;
 	  		letter-spacing:0.4px;
 			font-size:($baseFontSize * 1) - 1;
@@ -381,7 +381,7 @@
 			border-color:color(facebook);
 
 			&:hover {
-				color:$white;
+				color:color(white);
 				border-color:color(facebook);
 				background:color(facebook) none repeat scroll 0 0;
 			}
@@ -395,7 +395,7 @@
 			border-color:color(twitter);
 
 			&:hover {
-				color:$white;
+				color:color(white);
 				border-color:color(twitter);
 				background:color(twitter) none repeat scroll 0 0;
 			}
@@ -409,7 +409,7 @@
 			border-color:color(instagram);
 
 			&:hover {
-				color:$white;
+				color:color(white);
 				border-color:color(instagram);
 				background:color(instagram) none repeat scroll 0 0;
 			}
@@ -423,7 +423,7 @@
 			border-color:color(youtube);
 
 			&:hover {
-				color:$white;
+				color:color(white);
 				border-color:color(youtube);
 				background:color(youtube) none repeat scroll 0 0;
 			}
@@ -438,7 +438,7 @@
 /*  */
 .profile_popup_body {
 	width:100%;
-	color:darken($white, 100%);
+	color:darken(color(white), 100%);
 	display:table;
 
 	[class^="column_"] {
@@ -468,7 +468,7 @@
 
 	.profile_popup_footer_inner {
 		width:100%;
-		color:darken($white, 100%);
+		color:darken(color(white), 100%);
 		text-align:center;
 		border:1px solid #cecece;
 		@include border-radius(5px);
@@ -517,14 +517,14 @@
 /*  */
 .modal-footer {
 	width:100%;
-	color:$white;
+	color:color(white);
 	margin-top:-5px;
 	border:0px none;
 	text-align:left;
 	display:table;
 	@include border-radius(0px);
 	@include padding(25px 75px);
-	background:darken($white, 100%) none repeat scroll 0 0;
+	background:darken(color(white), 100%) none repeat scroll 0 0;
 
 	> div {
 		width:100%;

@@ -1,74 +1,74 @@
 .card-rec{
-    margin-bottom: 20px;
-    position:relative;
+    @media screen and (min-width: $sm-break){
+        
+        position:relative;
+        margin-bottom: 32px;
+
+        a.card {
+            @include card-image-left(198px, 141px);
+            border-bottom: 1px solid #97999c;
+            height:173px;
+
+            > article {
+                position:relative;
+
+                > figure{
+                    margin-right:18px;
+                }
 
 
-    a.card {
-        max-width:650px;
-        border-bottom:1px solid color(lightblue);
-
-        > article {
-           
-            margin-bottom:20px;
-
-            @extend %flexbox;
-            max-height: 171px;
-            height:171px;
-            flex-wrap: nowrap;
-            -webkit-flex-wrap: nowrap;
-            -ms-flex-wrap: nowrap;
+                > .content{
+                    position:relative;
+                    padding: 0;
 
 
-
-            > figure{
-                width: 261px;
-                -ms-flex: 0 0 261px;
-                -webkit-flex: 0 0 261px;
-                flex: 0 0 261px;
-                overflow: hidden;
-                float: left;
-                height:100%;
-                min-height:100%;
-
-                // &.video {
-                    &:before{
-                        width:72px;
-                        height:72px;
-                        margin-left:-36px;
-                        margin-top:-36px;
-
+                    > .category{
+                        border-right:1px solid color(lightgrey);
                     }
 
-                // }
+                    > h2{
+                        font-family: $font-family-serif;
+                        margin-top:10px;
+                        margin-bottom:0;
+                        color:color(black);
+                    }
 
+                    > p.excerpt {
+                        display:none;
+                    }
+                    .author {
+                        display: block;
 
+                        >p {
+                            font-family: $font-family-serif
+                        }
+                        >img {
+                            display:none;
+                        }
+                    }
+                }
             }
 
-            > .content{
-                padding:0 0 0 30px;
-                background:white;
 
+            &.article.without__image {
+                .content {
+                    padding-top:87px;
+                    height:100%;
 
-                > h2{
-                    order:1;
-                    font-size: rem(22);
-                    max-height: 64px;
-                    margin-bottom:4px;
-                    line-height:1.3em;
+                    h2 {
+                        font-size: rem(17);
+                        font-weight:bold;
+                        max-height:52px;
+                    }
+
+                    > p {
+                        font-size: rem(13);
+                        display: block;
+                        max-height:100px;
+                        margin-bottom: 18px;
+                    }
                 }
-                
-                > p {
-                    order:3;
-                    max-height: 66px;
-                    font-size:rem(14);
-                    line-height: 1.57;
-                }
-
-                > .author{
-                    display:none;
-                }
-
-            }
+            }   
         }
     }
 }

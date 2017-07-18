@@ -7,47 +7,83 @@
     width:100%;
 }
 
-#menu-search {
-    border:1px solid color(dark);
-    position: relative;
-    @media screen and (max-width: $mobile-break){
-        border:none;
-    }
-}
 
 
-.site-header.mobile-menu-active {
-    .site-header-main {
-        background:color(dark);
+// .site-header.mobile-menu-active {
+//     .site-header-main {
+//         background:color(dark);
 
-        .header-top {
-            h1 {
-                color:white;
-            }
+//         .header-top {
+//             h1 {
+//                 color:color(white);
+//             }
 
-            nav.sb-custom-menu {
-                > a {
-                    margin-top:0;
-                    background-image: url(../images/mobile-close.svg);
-                    background-size:cover;
-                    width:20px;
-                    height:20px;
-                }
-            }
-        }
-        .navbar-brand {
-            background-image: url(../images/facs-logo-reverse.svg);
-            background-size: 40px;
-        }
+//             nav.sb-custom-menu {
+//                 > a {
+//                     margin-top:0;
+//                     background-image: url(../images/mobile-close.svg);
+//                     background-size:cover;
+//                     width:20px;
+//                     height:20px;
+//                 }
+//             }
+//         }
+//         .navbar-brand {
+//             background-image: url(../images/facs-logo-reverse.svg);
+//             background-size: 40px;
+//         }
 
-    }
-}
+//     }
+// }
+
+
+
 
 .site-header {
     position:relative;
     padding:0;
     max-width:none;
     z-index:140;
+
+
+
+    .top-header {
+        background: color(darkblue);
+        height: 30px;
+        width:100%;
+        text-align:center;
+
+        > p {
+            font-family:$base-font-family;
+            font-size: rem(10);
+            display: inline-block;
+            color:#fff;
+            letter-spacing: 0.2px;
+        }
+
+        > ul {
+            position: absolute;
+            top: 0;
+            right: 10px;
+            font-family:$base-font-family;
+            font-size: rem(10);
+            margin:0;
+            padding:0;
+
+            > li {
+                color:#fff;
+                display:inline-block;
+                margin:0;
+                padding:0;
+                margin-right:20px;
+            }
+        }
+
+    }
+
+
+
+
 
 
     .site-header-main {
@@ -61,46 +97,27 @@
         
         input.field {
             font-size: rem(16);
-
-
         }
 
         .header-top {
-            height:80px;
-            @media screen and (max-width: $sm-break) {
-                height:60px;
-            }
-
-            h1 {
-                position: relative;
-                top: -10px;
-                font-weight:lighter;
-                display:inline-block;
-                color:$black;
-                font-size: rem(26);
-                margin-left: 20px;
-                @media screen and (max-width: $sm-break) {
-                    font-size: rem(20);
-                    font-weight:300;
-                    position: absolute;
-                    top: 0;
-                    left: 50%;
-                    margin-top: 20px;
-                    margin-left: -70px;
-                }
-            }
+            margin-top: 35px;
+            height:60px;
+            // @media screen and (max-width: $sm-break) {
+            //     height:60px;
+            // }
         }
 
         .header-bottom {
             padding:0;
+            margin-top:6px;
             height:47px;
-            border-top:1px color(lightblue) solid;
-            border-bottom:1px color(lightblue) solid;
+            border-top:2px solid color(black) ;
 
-            @media screen and (max-width: $mmd-break){
-                display:none;
+            h2 {
+                font-size:rem(14);
+                font-weight:600;
+                margin-top:10px;
             }
-
 
             fieldset {
                 border-left:1px color(lightblue) solid;
@@ -114,15 +131,14 @@
         .navbar-brand {
             display:inline-block;
             padding:0;
-            width: 145px;
-            height:48px;
-            margin-top: 15px;
-            margin-left:15px;
-            background-image: url(../images/facs-logo.svg);
+            width: 183px;
+            height:51px;
+            // font-size: rem(50);
+            background-image: url(../images/frank-logo.svg);
             background-repeat:no-repeat;
             background-size:cover;
 
-            @media screen and (max-width: $mobile-break){
+            @media screen and (max-width: $mobile-break) {
                 margin-top: 4px;
                 padding:8px;
                 width: 45px;
@@ -130,9 +146,8 @@
                 background-size: 140px;
                 background-repeat:no-repeat;
             }
-
-
         }
+
         .navbar-right {
             margin-top:25px;
             @media screen and (max-width: $mobile-break){
@@ -149,7 +164,7 @@
                     a {
                         font-family: $base-font-family;
                         font-size: rem(14);
-                        color:white;
+                        color:color(white);
                         letter-spacing: 2.2px;
                     }
                 }
@@ -165,7 +180,7 @@
 
     .site-header-buffer {
         height:15px;
-        background:black;
+        background:color(black);
 
         @media screen and (max-width: $mobile-break){
             display:none;
