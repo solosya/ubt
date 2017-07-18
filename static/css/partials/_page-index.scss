@@ -7,6 +7,10 @@
     }
    
 
+    .top-cards {
+        margin-bottom: 30px;   
+    }
+
     .e-edition {
         background:orange;
         height:100px;
@@ -16,9 +20,106 @@
     .advert {
         background:grey;
         height:250px;
-        // margin-bottom:80px;
     }
 
+    .advert-banner-small {
+
+        margin-bottom:58px;
+
+        > div.advert {
+            background:#d8d8d8;
+            width:728px;
+            height:90px;
+            margin: 0 auto;
+        }
+    }
+
+    .bottom-cards {
+        
+        .top-stories {
+            // background:rgba(200, 0, 150, .4);
+            margin: 0;
+            height: 317px;
+            border-bottom: 1px solid color(lightblue);
+
+            > h2 {
+                color:color(darkblue);
+                font-size: rem(16);
+                margin-bottom:37px;
+                margin-top:10px;
+                font-weight:600;
+            }
+
+        }
+
+        .advert-banner-small {
+
+            // margin-bottom:58px;
+
+            div.advert {
+                background:#d8d8d8;
+                width:728px;
+                height:90px;
+                margin: 0 auto;
+            }
+        }
+
+    }
+
+    .section {
+        
+        margin-top:80px;
+
+
+        >div.section-header {
+            margin-bottom:20px;
+
+            >h2 {
+                font-family:$font-family-serif;
+                font-weight:600;
+                color:color(red);
+                font-size:rem(30);
+                letter-spacing: 0.7px;
+                margin-bottom:15px;
+
+                &:after {
+                    content: '';
+                    display:block;
+                    height:1px;
+                    width: 23px;
+                    margin-top:15px;
+                    background:color(lightgrey);
+                }
+
+            }
+            >p {
+                font-size: rem(13);
+                font-family:$font-family-serif;
+                font-style:italic;
+                color: color(lightgrey);
+            }
+        }
+
+        .finance-widget {
+            height:530px;
+            background:orange;
+            margin-left: 30px;
+            margin-right: 40px;
+        }
+
+
+
+        &.events {
+            .inside {
+                position:absolute;
+                top:25px;
+                right:55px;
+                width:326px;
+                z-index:10;
+            }
+        }
+
+    }
 
 }
 

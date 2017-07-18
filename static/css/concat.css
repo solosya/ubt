@@ -2768,6 +2768,7 @@ span.leadsentence {
 .site-footer {
   width: 100%;
   margin-top: 0;
+  background: #E5E5E5;
   padding-top: 30px;
   padding-bottom: 10px; }
   @media screen and (max-width: 767px) {
@@ -3295,6 +3296,8 @@ ul.sub-menu a:focus {
   @media screen and (max-width: 767px) {
     .site-main {
       margin-top: 0; } }
+  .site-main .top-cards {
+    margin-bottom: 30px; }
   .site-main .e-edition {
     background: orange;
     height: 100px;
@@ -3302,6 +3305,62 @@ ul.sub-menu a:focus {
   .site-main .advert {
     background: grey;
     height: 250px; }
+  .site-main .advert-banner-small {
+    margin-bottom: 58px; }
+    .site-main .advert-banner-small > div.advert {
+      background: #d8d8d8;
+      width: 728px;
+      height: 90px;
+      margin: 0 auto; }
+  .site-main .bottom-cards .top-stories {
+    margin: 0;
+    height: 317px;
+    border-bottom: 1px solid; }
+    .site-main .bottom-cards .top-stories > h2 {
+      color: #002d56;
+      font-size: 1rem;
+      margin-bottom: 37px;
+      margin-top: 10px;
+      font-weight: 600; }
+  .site-main .bottom-cards .advert-banner-small div.advert {
+    background: #d8d8d8;
+    width: 728px;
+    height: 90px;
+    margin: 0 auto; }
+  .site-main .section {
+    margin-top: 80px; }
+    .site-main .section > div.section-header {
+      margin-bottom: 20px; }
+      .site-main .section > div.section-header > h2 {
+        font-family: "PT Serif", "Times New Roman", Times, serif;
+        font-weight: 600;
+        color: #ae232c;
+        font-size: 1.875rem;
+        letter-spacing: 0.7px;
+        margin-bottom: 15px; }
+        .site-main .section > div.section-header > h2:after {
+          content: '';
+          display: block;
+          height: 1px;
+          width: 23px;
+          margin-top: 15px;
+          background: #97999c; }
+      .site-main .section > div.section-header > p {
+        font-size: 0.8125rem;
+        font-family: "PT Serif", "Times New Roman", Times, serif;
+        font-style: italic;
+        color: #97999c; }
+    .site-main .section .finance-widget {
+      height: 530px;
+      background: orange;
+      margin-left: 30px;
+      margin-right: 40px; }
+    .site-main .section.events .inside {
+      position: absolute;
+      top: 25px;
+      right: 55px;
+      width: 326px;
+      z-index: 10; }
 
 .searchPage {
   margin-top: 50px; }
@@ -3846,7 +3905,8 @@ a.card {
         top: 50%;
         left: 50%;
         margin-left: -28px;
-        margin-top: -28px; }
+        margin-top: -28px;
+        z-index: 100; }
       a.card article > figure _:-ms-lang(x) {
         overflow: hidden !important; }
       a.card article > figure :root img {
@@ -3884,8 +3944,6 @@ a.card {
         padding-right: 5px;
         margin-right: 5px;
         line-height: 1; }
-      a.card article > .content .category, a.card article > .content time {
-        margin-top: -4px; }
       a.card article > .content time {
         font-size: 0.625rem;
         display: inline-block;
@@ -4044,6 +4102,116 @@ a.card {
   border-width: 5px 0 5px 5px; }
 
 @media screen and (min-width: 768px) {
+  .card-xs {
+    position: relative;
+    margin-bottom: 32px; }
+    .card-xs a.card {
+      border-bottom: 1px solid white;
+      padding-bottom: 30px; }
+      .card-xs a.card > article > figure {
+        width: auto;
+        height: 184px;
+        float: none; }
+      .card-xs a.card > article > .content {
+        display: block; }
+      .card-xs a.card > article {
+        position: relative; }
+        .card-xs a.card > article > .content {
+          position: relative;
+          padding: 0;
+          color: #fff; }
+          .card-xs a.card > article > .content > .category {
+            color: #fff;
+            border-right: 1px solid white; }
+          .card-xs a.card > article > .content time {
+            color: white; }
+          .card-xs a.card > article > .content > h2 {
+            margin-top: 2px;
+            margin-bottom: 0;
+            line-height: 1.3;
+            color: #fff; }
+          .card-xs a.card > article > .content > p.excerpt {
+            display: none; } }
+
+@media screen and (max-width: 767px) {
+  .card-sm-mob {
+    padding-bottom: 22px;
+    border-bottom: 1px solid #B3B3B3;
+    position: relative;
+    margin-bottom: 45px; }
+    .card-sm-mob a.card > article {
+      position: relative; }
+      .card-sm-mob a.card > article > figure {
+        width: auto;
+        overflow: hidden;
+        height: 235px; }
+        .card-sm-mob a.card > article > figure.video:before {
+          display: none; }
+        .card-sm-mob a.card > article > figure > img {
+          max-width: 100%; }
+      .card-sm-mob a.card > article > .content {
+        position: relative;
+        padding: 0; }
+        .card-sm-mob a.card > article > .content:before {
+          position: absolute;
+          content: '';
+          width: 56px;
+          height: 56px;
+          background-image: url(../icons/large-play-button.svg);
+          background-repeat: no-repeat;
+          background-size: cover;
+          top: 50%;
+          left: 50%;
+          margin-left: -28px;
+          margin-top: -28px;
+          z-index: 100;
+          display: block;
+          top: 20px;
+          left: 0;
+          margin: 0;
+          margin-right: 15px;
+          float: left;
+          width: 40px;
+          height: 40px; }
+        .card-sm-mob a.card > article > .content > .category {
+          display: none; }
+        .card-sm-mob a.card > article > .content > h2 {
+          order: 1;
+          margin-top: 21px;
+          margin-bottom: 0;
+          font-weight: normal;
+          font-size: 1rem;
+          padding-left: 55px; }
+        .card-sm-mob a.card > article > .content > .author {
+          order: 2;
+          padding-left: 55px;
+          margin-top: 0; }
+          .card-sm-mob a.card > article > .content > .author > p {
+            font-weight: bold;
+            font-style: italic;
+            color: #002d56;
+            font-size: 0.75rem; }
+        .card-sm-mob a.card > article > .content > time {
+          display: none; }
+        .card-sm-mob a.card > article > .content > p {
+          color: #002d56;
+          order: 3;
+          line-height: 1.57;
+          font-size: 0.875rem; }
+    .card-sm-mob a.card.article.without__image .content {
+      padding-top: 87px;
+      height: 100%; }
+      .card-sm-mob a.card.article.without__image .content h2 {
+        font-size: 1.0625rem;
+        font-weight: bold;
+        max-height: 52px; }
+      .card-sm-mob a.card.article.without__image .content > p {
+        font-size: 0.8125rem;
+        display: block;
+        max-height: 100px;
+        margin-bottom: 18px; } }
+
+@media screen and (min-width: 768px) {
   .card-sm {
     position: relative;
     margin-bottom: 32px; }
@@ -4059,8 +4227,6 @@ a.card {
         position: relative; }
         .card-sm a.card > article > figure {
           margin-bottom: 10px; }
-          .card-sm a.card > article > figure > img {
-            max-width: 100%; }
         .card-sm a.card > article > .content {
           position: relative;
           padding: 0; }
@@ -4111,6 +4277,7 @@ a.card {
           left: 50%;
           margin-left: -28px;
           margin-top: -28px;
+          z-index: 100;
           display: block;
           top: 20px;
           left: 0;
@@ -4156,6 +4323,214 @@ a.card {
         display: block;
         max-height: 100px;
         margin-bottom: 18px; } }
+
+@media screen and (min-width: 768px) {
+  .card-sm-full {
+    position: relative;
+    margin-bottom: 24px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid; }
+    .card-sm-full a.card {
+      height: 180px; }
+      .card-sm-full a.card > article > figure {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 100%; }
+      .card-sm-full a.card > article {
+        position: relative; }
+        .card-sm-full a.card > article > figure {
+          margin-bottom: 10px; }
+          .card-sm-full a.card > article > figure:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            z-index: 1;
+            background-image: -webkit-linear-gradient(transparent, #000000);
+            background-image: -o-linear-gradient(transparent, #000000);
+            background-image: linear-gradient(transparent, #000000); }
+        .card-sm-full a.card > article > .content {
+          position: relative;
+          padding: 110px 10px 20px 20px;
+          z-index: 10;
+          color: #fff; }
+          .card-sm-full a.card > article > .content > .category {
+            display: none; }
+          .card-sm-full a.card > article > .content time {
+            order: 2;
+            display: block;
+            font-size: 0.5625rem;
+            margin-top: 7px; }
+          .card-sm-full a.card > article > .content > h2 {
+            order: 1;
+            font-size: 0.9375rem;
+            font-weight: 400;
+            line-height: 1.33; }
+          .card-sm-full a.card > article > .content > p.excerpt {
+            display: none; }
+        .card-sm-full a.card > article.video > .content:before {
+          position: absolute;
+          content: '';
+          width: 56px;
+          height: 56px;
+          background-image: url(../icons/large-play-button.svg);
+          background-repeat: no-repeat;
+          background-size: cover;
+          top: 50%;
+          left: 50%;
+          margin-left: -28px;
+          margin-top: -28px;
+          z-index: 100;
+          display: block;
+          top: auto;
+          left: 10px;
+          margin-left: 0;
+          margin-top: 0; }
+        .card-sm-full a.card > article.video > .content h2, .card-sm-full a.card > article.video > .content time {
+          margin-left: 60px; }
+      .card-sm-full a.card.article.without__image {
+        margin-top: -7px; } }
+
+@media screen and (min-width: 768px) {
+  .card-md-full {
+    position: relative;
+    margin-bottom: 32px;
+    height: 422px; }
+    .card-md-full a.card {
+      height: 100%; }
+      .card-md-full a.card > article > figure {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 100%; }
+      .card-md-full a.card:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        opacity: 0.4;
+        background-color: #000;
+        z-index: 1; }
+      .card-md-full a.card > article {
+        position: relative; }
+        .card-md-full a.card > article > figure {
+          margin-bottom: 10px; }
+        .card-md-full a.card > article > .content {
+          position: relative;
+          padding: 35px 0 20px 0;
+          text-align: center;
+          z-index: 10;
+          color: #fff; }
+          .card-md-full a.card > article > .content > .category {
+            display: block;
+            color: white;
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 260px; }
+          .card-md-full a.card > article > .content time {
+            display: none; }
+          .card-md-full a.card > article > .content > h2 {
+            font-size: 1.125rem;
+            font-weight: 400;
+            margin-top: 2px;
+            margin-bottom: 13px;
+            line-height: 1.44;
+            text-transform: uppercase; }
+          .card-md-full a.card > article > .content > p.excerpt {
+            display: none; }
+          .card-md-full a.card > article > .content .author {
+            display: block; }
+            .card-md-full a.card > article > .content .author > p {
+              font-size: 0.875rem;
+              color: white;
+              font-family: "PT Serif", "Times New Roman", Times, serif; }
+              .card-md-full a.card > article > .content .author > p:before {
+                content: 'By '; }
+            .card-md-full a.card > article > .content .author > img {
+              display: none; }
+      .card-md-full a.card.article.without__image {
+        margin-top: -7px; } }
+
+@media screen and (min-width: 768px) {
+  .card-lg-full {
+    position: relative;
+    margin-bottom: 32px;
+    height: 422px; }
+    .card-lg-full a.card {
+      height: 100%; }
+      .card-lg-full a.card > article > figure {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 100%; }
+      .card-lg-full a.card:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        z-index: 1;
+        background-image: -webkit-linear-gradient(transparent, #000000);
+        background-image: -o-linear-gradient(transparent, #000000);
+        background-image: linear-gradient(transparent, #000000); }
+      .card-lg-full a.card > article {
+        position: relative;
+        padding-right: 360px; }
+        .card-lg-full a.card > article > figure.video:before {
+          display: none; }
+        .card-lg-full a.card > article > .content {
+          position: relative;
+          text-align: center;
+          padding: 90px 0 20px 0;
+          z-index: 10;
+          color: #fff; }
+          .card-lg-full a.card > article > .content > .category {
+            display: block;
+            color: white;
+            font-size: 1rem;
+            font-weight: 400; }
+          .card-lg-full a.card > article > .content > h2 {
+            font-size: 1.5625rem;
+            font-weight: 600;
+            margin-top: 20px;
+            width: 65%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 25px;
+            line-height: 1.2;
+            text-align: center; }
+          .card-lg-full a.card > article > .content > p.excerpt {
+            font-size: 0.8125rem;
+            line-height: 1.54;
+            height: 40px;
+            width: 50%;
+            margin: auto; }
+        .card-lg-full a.card > article.video .content:before {
+          position: absolute;
+          content: '';
+          width: 56px;
+          height: 56px;
+          background-image: url(../icons/large-play-button.svg);
+          background-repeat: no-repeat;
+          background-size: cover;
+          top: 50%;
+          left: 50%;
+          margin-left: -28px;
+          margin-top: -28px;
+          z-index: 100;
+          top: auto;
+          bottom: -70px; }
+      .card-lg-full a.card.article.without__image {
+        margin-top: -7px; } }
 
 @media screen and (min-width: 768px) {
   .card-main {
@@ -4239,6 +4614,143 @@ a.card {
           left: 50%;
           margin-left: -28px;
           margin-top: -28px;
+          z-index: 100;
+          display: block;
+          top: 20px;
+          left: 0;
+          margin: 0;
+          margin-right: 15px;
+          float: left;
+          width: 40px;
+          height: 40px; }
+        .card-sm-mob a.card > article > .content > .category {
+          display: none; }
+        .card-sm-mob a.card > article > .content > h2 {
+          order: 1;
+          margin-top: 21px;
+          margin-bottom: 0;
+          font-weight: normal;
+          font-size: 1rem;
+          padding-left: 55px; }
+        .card-sm-mob a.card > article > .content > .author {
+          order: 2;
+          padding-left: 55px;
+          margin-top: 0; }
+          .card-sm-mob a.card > article > .content > .author > p {
+            font-weight: bold;
+            font-style: italic;
+            color: #002d56;
+            font-size: 0.75rem; }
+        .card-sm-mob a.card > article > .content > time {
+          display: none; }
+        .card-sm-mob a.card > article > .content > p {
+          color: #002d56;
+          order: 3;
+          line-height: 1.57;
+          font-size: 0.875rem; }
+    .card-sm-mob a.card.article.without__image .content {
+      padding-top: 87px;
+      height: 100%; }
+      .card-sm-mob a.card.article.without__image .content h2 {
+        font-size: 1.0625rem;
+        font-weight: bold;
+        max-height: 52px; }
+      .card-sm-mob a.card.article.without__image .content > p {
+        font-size: 0.8125rem;
+        display: block;
+        max-height: 100px;
+        margin-bottom: 18px; } }
+
+@media screen and (min-width: 768px) {
+  .card-main-2col {
+    position: relative;
+    margin-bottom: 32px; }
+    .card-main-2col a.card {
+      border-bottom: 1px solid #97999c; }
+      .card-main-2col a.card > article > figure {
+        width: auto;
+        height: 310px;
+        float: none; }
+      .card-main-2col a.card > article > .content {
+        display: block; }
+      .card-main-2col a.card > article {
+        position: relative; }
+        .card-main-2col a.card > article > figure {
+          overflow: hidden;
+          margin-bottom: 22px; }
+        .card-main-2col a.card > article > .content {
+          position: relative;
+          padding: 0;
+          padding-bottom: 13px;
+          overflow: hidden; }
+          .card-main-2col a.card > article > .content > .category {
+            border-right: 1px solid #97999c; }
+          .card-main-2col a.card > article > .content > .category, .card-main-2col a.card > article > .content time {
+            float: left; }
+          .card-main-2col a.card > article > .content > h2 {
+            clear: both;
+            float: left;
+            width: 48%;
+            font-family: "PT Serif", "Times New Roman", Times, serif;
+            font-size: 1.5625rem;
+            font-weight: 600;
+            margin-top: 4px;
+            margin-bottom: 0;
+            color: #000000; }
+          .card-main-2col a.card > article > .content > p.excerpt {
+            float: right;
+            width: 48%;
+            height: 140px;
+            max-height: 140px;
+            color: #000000;
+            line-height: 1.54; }
+          .card-main-2col a.card > article > .content > .author {
+            display: none; }
+      .card-main-2col a.card.article.without__image .content {
+        padding-top: 87px;
+        height: 100%; }
+        .card-main-2col a.card.article.without__image .content h2 {
+          font-size: 1.0625rem;
+          font-weight: bold;
+          max-height: 52px; }
+        .card-main-2col a.card.article.without__image .content > p {
+          font-size: 0.8125rem;
+          display: block;
+          max-height: 100px;
+          margin-bottom: 18px; } }
+
+@media screen and (max-width: 767px) {
+  .card-sm-mob {
+    padding-bottom: 22px;
+    border-bottom: 1px solid #B3B3B3;
+    position: relative;
+    margin-bottom: 45px; }
+    .card-sm-mob a.card > article {
+      position: relative; }
+      .card-sm-mob a.card > article > figure {
+        width: auto;
+        overflow: hidden;
+        height: 235px; }
+        .card-sm-mob a.card > article > figure.video:before {
+          display: none; }
+        .card-sm-mob a.card > article > figure > img {
+          max-width: 100%; }
+      .card-sm-mob a.card > article > .content {
+        position: relative;
+        padding: 0; }
+        .card-sm-mob a.card > article > .content:before {
+          position: absolute;
+          content: '';
+          width: 56px;
+          height: 56px;
+          background-image: url(../icons/large-play-button.svg);
+          background-repeat: no-repeat;
+          background-size: cover;
+          top: 50%;
+          left: 50%;
+          margin-left: -28px;
+          margin-top: -28px;
+          z-index: 100;
           display: block;
           top: 20px;
           left: 0;
@@ -4307,18 +4819,25 @@ a.card {
           position: relative;
           padding: 0; }
           .card-rec a.card > article > .content > .category {
+            margin-bottom: 0;
             border-right: 1px solid #97999c; }
           .card-rec a.card > article > .content > h2 {
+            font-size: 1.5625rem;
+            line-height: 1.2;
             font-family: "PT Serif", "Times New Roman", Times, serif;
             margin-top: 10px;
-            margin-bottom: 0;
+            margin-bottom: 10px;
             color: #000000; }
           .card-rec a.card > article > .content > p.excerpt {
             display: none; }
           .card-rec a.card > article > .content .author {
             display: block; }
             .card-rec a.card > article > .content .author > p {
+              font-size: 0.875rem;
+              color: #ae232c;
               font-family: "PT Serif", "Times New Roman", Times, serif; }
+              .card-rec a.card > article > .content .author > p:before {
+                content: 'By '; }
             .card-rec a.card > article > .content .author > img {
               display: none; }
       .card-rec a.card.article.without__image .content {
@@ -4333,6 +4852,29 @@ a.card {
           display: block;
           max-height: 100px;
           margin-bottom: 18px; } }
+
+@media screen and (min-width: 768px) {
+  .card-top-story {
+    position: relative;
+    margin-bottom: 32px; }
+    .card-top-story a.card > article {
+      position: relative; }
+      .card-top-story a.card > article > .content {
+        position: relative;
+        padding: 0; }
+        .card-top-story a.card > article > .content > .category {
+          display: none; }
+        .card-top-story a.card > article > .content time {
+          display: none; }
+        .card-top-story a.card > article > .content > h2 {
+          font-size: 0.875rem;
+          margin-bottom: 0;
+          line-height: 1.42;
+          color: #000000; }
+        .card-top-story a.card > article > .content > p.excerpt {
+          display: none; }
+    .card-top-story a.card.article.without__image {
+      margin-top: -7px; } }
 
 /*# sourceMappingURL=main.css.map */
 

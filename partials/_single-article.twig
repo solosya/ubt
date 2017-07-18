@@ -53,7 +53,7 @@
             data-article-image="{{articleImg}}" 
             data-article-text="{{Helper.htmlToText(article.title, -1) | raw | escape('html')}}">
 
-            <article class="{{lightbox}}">
+            <article class="{{lightbox}} {{figureClass}}">
                 {% if (article.hasMedia == 'TRUE' or article.hasPreviewMedia == 'TRUE') and imageSuppress == 'false' %}
                     <figure class="{{figureClass}}">
                         <picture>
@@ -68,11 +68,9 @@
                     <p class="category">{{article.label}}</p
                     ><time datetime="{{publishDate}}">{{publishDate}}</time>
 
-                    <h2 class="{{figureClass}}">{{ articleTitle }}</h2>
+                    <h2>{{ articleTitle }}</h2>
                     
-                    {% if cardClass != 'instagram no-caption' %}  
-                        <p class="excerpt">{{ quotes.smarten(article.excerpt | raw) }}</p>
-                    {% endif %}
+                    <p class="excerpt">{{ quotes.smarten(article.excerpt | raw) }}</p>
                                         
                     <div class="author">
                         <img src="{{profileImg}}" class="img-circle">

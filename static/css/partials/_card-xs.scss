@@ -1,4 +1,4 @@
-.card-sm{
+.card-xs{
     @media screen and (min-width: $sm-break){
         
         position:relative;
@@ -6,43 +6,43 @@
 
         a.card {
             @include card-image-top(auto, 184px);
-            border-bottom: 1px solid #97999c;
+            border-bottom: 1px solid white;
+            padding-bottom: 30px;
 
             > article {
                 position:relative;
 
-                > figure{
-                    margin-bottom:10px;
-                }
 
                 > .content{
                     position:relative;
                     padding: 0;
+                    color:#fff;
 
                     > .category{
-                        border-right:1px solid color(lightgrey);
+                        color:#fff;
+                        border-right:1px solid white;
+                    }
+
+                    time {
+                        color:white;
                     }
 
                     > h2{
                         margin-top:2px;
                         margin-bottom:0;
                         line-height: 1.3;
-                        color:color(black);
+                        color:#fff;
                     }
 
                     > p.excerpt {
-                        color:color(black);
-                        line-height: 1.54;
-                        margin-top:15px;
-                        margin-bottom: 30px;
-                        height:100px;
+                        display:none;
                     }
                 }
             }
 
 
             &.article.without__image {
-                margin-top: -7px;
+                // margin-top: -7px;
             }   
         }
     }

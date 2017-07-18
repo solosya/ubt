@@ -1,0 +1,44 @@
+.card-top-story{
+    @media screen and (min-width: $sm-break){
+        
+        position:relative;
+        margin-bottom: 32px;
+        
+        a.card {
+
+            > article {
+                position:relative;
+
+
+                > .content{
+                    position:relative;
+                    padding: 0;
+
+                    > .category{
+                        display:none;
+                    }
+                
+                    time {
+                        display:none;
+                    }
+
+                    > h2{
+                        font-size: rem(14);
+                        margin-bottom:0;
+                        line-height: 1.42;
+                        color:color(black);
+                    }
+
+                    > p.excerpt {
+                        display:none;
+                    }
+                }
+            }
+
+
+            &.article.without__image {
+                margin-top: -7px;
+            }   
+        }
+    }
+}

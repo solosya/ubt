@@ -10,6 +10,7 @@
     left: 50%;
     margin-left:-28px;
     margin-top:-28px;
+    z-index: 100;
 }
 
 
@@ -84,9 +85,6 @@ a.card {
                 padding-right:5px;
                 margin-right:5px;
                 line-height:1;
-            }
-            .category, time {
-                margin-top:-4px;
             }
 
             time{

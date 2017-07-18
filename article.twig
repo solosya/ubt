@@ -7,60 +7,12 @@
 {% set networkData = _Network.getNetworkData() %}
 
 
-{% set currentPage = {
-    "title": this.title,
-    "link": article.url
-} %}
 
-
-{% set parentUrl = article.blog.url | split('@')[1] | replace({'-videos': '', '-notes': ''}) %}
-{% set parentBlog = {
-    "title": "",
-    "link": ""
-} %}
-
-{% set parentPage = {
-    "title": "",
-    "link": ""
-} %}
-
-{% set sectionMap = blogInfo.blogHeaderMenu %}
-
-{% set publishedDate = _AppHelper.getDateTimeBasedOnTimezone(article.publishedDate, 'F Y') %}
-
-{% for key, value in sectionMap  %}
-
-
-    {% if value['children'] | length > 0 %}
-        {% for key, childvalue in value['children']  %}
-
-            {% if childvalue.link | split('@')[1] == parentUrl %}
-                {% set parentBlog = parentBlog|merge({('title'): childvalue.blogTitle}) %}
-                {% set parentBlog = parentBlog|merge({('link'): childvalue.link}) %}
-            {% endif %}
-
-
-            {% if childvalue.blogTitle | lower == parentBlog.title | lower %}
-                {% set parentPage = parentPage|merge({('title'): value.blogTitle}) %}
-                {% set parentPage = parentPage|merge({('link'): value.link}) %}
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-{% endfor %}
 
 
 <main id="main" class="" role="main">
 
 
-    <div class="container" >
-            {{this.render('partials/breadcrumb.twig', {
-                blogInfo: blogInfo, 
-                blogImage:blogImage,
-                networkData: networkData,
-                crumb: [parentPage, parentBlog, currentPage],
-
-            }) | raw}}
-    </div>
 
     <article class="article-main">
 

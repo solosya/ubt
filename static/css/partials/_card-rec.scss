@@ -23,13 +23,16 @@
 
 
                     > .category{
+                        margin-bottom:0;
                         border-right:1px solid color(lightgrey);
                     }
 
                     > h2{
+                        font-size: rem(25);
+                        line-height:1.2;
                         font-family: $font-family-serif;
                         margin-top:10px;
-                        margin-bottom:0;
+                        margin-bottom:10px;
                         color:color(black);
                     }
 
@@ -40,7 +43,12 @@
                         display: block;
 
                         >p {
-                            font-family: $font-family-serif
+                            font-size:rem(14);
+                            color:color(red);
+                            font-family: $font-family-serif;
+                            &:before {
+                                content:'By ';
+                            }
                         }
                         >img {
                             display:none;

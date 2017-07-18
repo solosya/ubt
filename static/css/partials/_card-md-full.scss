@@ -1,0 +1,79 @@
+.card-md-full{
+    @media screen and (min-width: $sm-break){
+        
+        position:relative;
+        margin-bottom: 32px;
+        height:422px;
+
+        a.card {
+            height:100%;
+            @include card-image-full();
+            @include tintbefore();
+
+            > article {
+                position:relative;
+
+                > figure{
+                    margin-bottom:10px;
+
+                }
+
+                > .content{
+                    position:relative;
+                    padding: 35px 0 20px 0;
+                    text-align:center;
+                    z-index:10;
+                    color:#fff;
+
+                    > .category{
+                        display:block;
+                        color:white;
+                        font-size:rem(16);
+                        font-weight:400;
+                        margin-bottom:260px;
+                    }
+                    time {
+                        display:none;
+                    }
+                    > h2{
+                        font-size: rem(18);
+                        font-weight:400;
+                        margin-top:2px;
+                        margin-bottom:13px;
+                        line-height: 1.44;
+                        text-transform:uppercase;
+                    }
+
+                    > p.excerpt {
+                        display:none;
+                    }
+
+
+                    .author {
+                        display: block;
+
+                        >p {
+                            font-size:rem(14);
+                            color:white;
+                            font-family: $font-family-serif;
+                            &:before {
+                                content:'By ';
+                            }
+                        }
+                        >img {
+                            display:none;
+                        }
+                    }
+
+
+
+                }
+            }
+
+
+            &.article.without__image {
+                margin-top: -7px;
+            }   
+        }
+    }
+}

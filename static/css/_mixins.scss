@@ -11,20 +11,42 @@
 	}
 }
 
+@mixin gradientbefore() {
+	&:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 100%;
+		z-index: 1;
+        background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.0), #000000);
+        background-image: -o-linear-gradient(rgba(0, 0, 0, 0.0), #000000);
+        background-image: linear-gradient(rgba(0, 0, 0, 0.0), #000000);
+    }
+}
+
 
 @mixin card-image-size($width, $height) {
 	width: $width;
     height: $height;
 }
 
-@mixin card-image-full {
+@mixin card-image-full($margin: 0) {
+	
+	$width : 100%;
+
+	@if $margin != 0 {
+		$width : auto
+	}
+
 	> article {
 		> figure{
 			position: absolute;
-			left: 0;
+			left: $margin;
+			right: $margin;
 			top: 0;
 			height:100%;
-			width: 100%;
+			width: $width;
 		}
 	}
 }

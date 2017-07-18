@@ -25,8 +25,9 @@
 
 
 
-        <section class="row speakers">
-            <div class="col-sm-3">
+        <section class="row top-cards">
+            
+            <div class="col-md-3">
                 {% set showimages = [true, false, true] %}
                 {% for i in 0..2 if articles[testCount]%}
                     {{this.render('partials/_single-article.twig', {
@@ -40,7 +41,7 @@
                 {% endfor %}
             </div>
 
-            <div class="col-sm-6">
+            <div class="col-md-6">
                 {% set class = 'card-main' %}
                 {% for i in 0..2 if articles[testCount] %}
                     {{this.render('partials/_single-article.twig', {
@@ -55,7 +56,7 @@
             </div>
 
 
-            <div class="col-sm-3">
+            <div class="col-md-3">
 
                 <div class="e-edition">
                 </div>
@@ -79,6 +80,450 @@
 
         </section>
     
+
+        <section class="row advert-banner-small">
+            <div class="advert"></div>
+        </section>
+
+
+
+
+
+
+
+
+
+
+
+        <section class="row bottom-cards">
+            
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-4">
+                        {% if articles[testCount]%}
+                            {{this.render('partials/_single-article.twig', {
+                                article: articles[testCount], 
+                                position: (articleCount+1),
+                                imageSize: {width: 300, height: 422},
+                                containerClass: 'card-md-full'
+                            }) | raw}}
+                            {% set articleCount = articleCount + 1 %}
+                        {% endif %}
+
+                        <div class="row top-stories">
+                            <h2>TOP STORIES</h2>
+
+                            {% for i in 0..3 if articles[testCount] %}
+                                {{this.render('partials/_single-article.twig', {
+                                    article: articles[testCount], 
+                                    imageSuppress: true,
+                                    containerClass: "card-top-story"
+                                }) | raw}}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="row">
+                            {% set class = 'col-md-12 card-main-2col' %}
+                            {% set showimages = [false, true, true] %}
+
+                            {% for i in 0..2 if articles[testCount] %}
+                                {{this.render('partials/_single-article.twig', {
+                                    article: articles[testCount], 
+                                    position: (articleCount+1),
+                                    imageSuppress: showimages[i],
+                                    imageSize: {width: 330, height: 235},
+                                    containerClass: class
+                                }) | raw}}
+                                {% set class = 'col-md-6 card-sm' %}
+                                {% set articleCount = articleCount + 1 %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <section class="row advert-banner-small">
+                    <div class="col-md-12">
+                        <div class="advert"></div>
+                    </div>
+                </section>
+            </div>
+
+
+            <div class="col-md-3">
+
+                {% for i in 0..3 if articles[testCount] %}
+                    {{this.render('partials/_single-article.twig', {
+                        article: articles[testCount], 
+                        position: (articleCount+1),
+                        imageSize: {width: 300, height: 180},
+                        containerClass: 'card-sm-full'
+                    }) | raw}}
+                    {% set articleCount = articleCount + 1 %}
+                {% endfor %}
+            </div>
+
+        </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <section class="row section national">
+
+            <div class="col-md-12 section-header">
+                <h2>National</h2>
+                <p>
+                    Nam porti tasse plat dictmst  blandit accaserio sln hac curabitur hendrerit 
+                    quam ac arcu facilisis faucibus. Curabitur tempus, urna sed semperc
+                </p>
+            </div>
+
+
+            <div class="col-md-6">
+                {% for i in 0..2 if articles[testCount] %}
+                    {{this.render('partials/_single-article.twig', {
+                        article: articles[testCount], 
+                        position: (articleCount+1),
+                        imageSize: {width: 300, height: 422},
+                        containerClass: 'card-rec'
+                    }) | raw}}
+                    {% set articleCount = articleCount + 1 %}
+                {% endfor %}
+            </div>
+
+            <div class="col-md-3">
+                {% if articles[testCount] %}
+                    {{this.render('partials/_single-article.twig', {
+                        article: articles[testCount], 
+                        position: (articleCount+1),
+                        imageSize: {width: 330, height: 235},
+                        containerClass: "card-md-full"
+                    }) | raw}}
+
+                    {% set articleCount = articleCount + 1 %}
+                {% endif %}
+            </div>
+
+
+            <div class="col-md-3">
+
+                {% for i in 0..1 if articles[testCount] %}
+                    {{this.render('partials/_single-article.twig', {
+                        article: articles[testCount], 
+                        position: (articleCount+1),
+                        imageSuppress: true,
+                        imageSize: {width: 300, height: 180},
+                        containerClass: 'card-sm'
+                    }) | raw}}
+                    {% set articleCount = articleCount + 1 %}
+                {% endfor %}
+            </div>
+
+        </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <section class="row section national">
+
+            <div class="col-md-12 section-header">
+                <h2>Section Header</h2>
+                <p>
+                    Nam porti tasse plat dictmst  blandit accaserio sln hac curabitur hendrerit 
+                    quam ac arcu facilisis faucibus. Curabitur tempus, urna sed semperc
+                </p>
+            </div>
+
+
+            <div class="col-md-6">
+                {% if articles[testCount] %}
+                    {{this.render('partials/_single-article.twig', {
+                        article: articles[testCount], 
+                        position: (articleCount+1),
+                        imageSize: {width: 640, height: 420},
+                        containerClass: 'card-md-full'
+                    }) | raw}}
+                    {% set articleCount = articleCount + 1 %}
+                {% endif %}
+            </div>
+
+            <div class="col-md-3">
+                {% if articles[testCount] %}
+                    {{this.render('partials/_single-article.twig', {
+                        article: articles[testCount], 
+                        position: (articleCount+1),
+                        imageSize: {width: 330, height: 235},
+                        containerClass: "card-sm"
+                    }) | raw}}
+
+                    {% set articleCount = articleCount + 1 %}
+                {% endif %}
+            </div>
+
+
+            <div class="col-md-3">
+                {% if articles[testCount] %}
+                    {{this.render('partials/_single-article.twig', {
+                        article: articles[testCount], 
+                        position: (articleCount+1),
+                        imageSize: {width: 330, height: 235},
+                        containerClass: "card-sm"
+                    }) | raw}}
+
+                    {% set articleCount = articleCount + 1 %}
+                {% endif %}
+            </div>
+
+        </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <section class="row section national">
+
+            <div class="col-md-12 section-header">
+                <h2>Section Header</h2>
+                <p>
+                    Nam porti tasse plat dictmst  blandit accaserio sln hac curabitur hendrerit 
+                    quam ac arcu facilisis faucibus. Curabitur tempus, urna sed semperc
+                </p>
+            </div>
+
+
+            <div class="col-md-3">
+                {% for i in 0..1 if articles[testCount] %}
+                    {{this.render('partials/_single-article.twig', {
+                        article: articles[testCount], 
+                        position: (articleCount+1),
+                        imageSuppress: true,
+                        containerClass: 'card-sm'
+                    }) | raw}}
+                    {% set articleCount = articleCount + 1 %}
+                {% endfor %}
+            </div>
+
+            <div class="col-md-6">
+                {% for i in 0..2 if articles[testCount] %}
+                    {{this.render('partials/_single-article.twig', {
+                        article: articles[testCount], 
+                        position: (articleCount+1),
+                        imageSize: {width: 198, height: 141},
+                        containerClass: "card-rec"
+                    }) | raw}}
+
+                    {% set articleCount = articleCount + 1 %}
+                {% endfor %}
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="finance-widget"></div>
+            </div>
+
+        </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <section class="row section events">
+
+            <div class="col-md-12 section-header">
+                <h2>Section Header</h2>
+                <p>
+                    Nam porti tasse plat dictmst  blandit accaserio sln hac curabitur hendrerit 
+                    quam ac arcu facilisis faucibus. Curabitur tempus, urna sed semperc
+                </p>
+            </div>
+
+
+            <div class="col-md-9" style="position:relative">
+                {% for i in 0..0 if articles[testCount] %}
+                    {{this.render('partials/_single-article.twig', {
+                        article: articles[testCount], 
+                        position: (articleCount+1),
+                        imageSize: {width: 980, height: 420},
+                        containerClass: 'card-lg-full'
+                    }) | raw}}
+                    {% set articleCount = articleCount + 1 %}
+                {% endfor %}
+
+                <div class="inside">
+                    {% for i in 0..2 if articles[testCount] %}
+                        {{this.render('partials/_single-article.twig', {
+                            article: articles[testCount], 
+                            position: (articleCount+1),
+                            imageSuppress: true,
+                            containerClass: 'card-xs'
+                        }) | raw}}
+                        {% set articleCount = articleCount + 1 %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                {% for i in 0..0 if articles[testCount] %}
+                    {{this.render('partials/_single-article.twig', {
+                        article: articles[testCount], 
+                        position: (articleCount+1),
+                        imageSize: {width: 198, height: 141},
+                        containerClass: "card-sm"
+                    }) | raw}}
+
+                    {% set articleCount = articleCount + 1 %}
+                {% endfor %}
+            </div>
+
+
+        </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <section class="row section national">
+
+            <div class="col-md-12 section-header">
+                <h2>Section Header</h2>
+                <p>
+                    Nam porti tasse plat dictmst  blandit accaserio sln hac curabitur hendrerit 
+                    quam ac arcu facilisis faucibus. Curabitur tempus, urna sed semperc
+                </p>
+            </div>
+
+
+            {% for i in 0..3 if articles[testCount] %}
+                <div class="col-md-3">
+                    {{this.render('partials/_single-article.twig', {
+                        article: articles[testCount], 
+                        position: (articleCount+1),
+                        imageSize: {width: 300, height: 180},
+                        containerClass: 'card-sm-full'
+                    }) | raw}}
+                </div>
+                {% set articleCount = articleCount + 1 %}
+            {% endfor %}
+
+        </section>
+
+
+
+
+
+
+
+
+
+
+
+        <section class="row section national">
+
+            <div class="col-md-12 section-header">
+                <h2>Section Header</h2>
+                <p>
+                    Nam porti tasse plat dictmst  blandit accaserio sln hac curabitur hendrerit 
+                    quam ac arcu facilisis faucibus. Curabitur tempus, urna sed semperc
+                </p>
+            </div>
+
+
+            <div class="col-md-6">
+                {% if articles[testCount] %}
+                    {{this.render('partials/_single-article.twig', {
+                        article: articles[testCount], 
+                        position: (articleCount+1),
+                        imageSize: {width: 640, height: 420},
+                        containerClass: 'card-md-full'
+                    }) | raw}}
+                    {% set articleCount = articleCount + 1 %}
+                {% endif %}
+            </div>
+
+            <div class="col-md-6">
+                <div class="row">
+                    {% if articles[testCount] %}
+                        {{this.render('partials/_single-article.twig', {
+                            article: articles[testCount], 
+                            position: (articleCount+1),
+                            imageSize: {width: 198, height: 141},
+                            containerClass: "col-md-12 card-rec"
+                        }) | raw}}
+
+                        {% set articleCount = articleCount + 1 %}
+                    {% endif %}
+                </div>
+
+
+
+                <div class="row">
+                    {% for i in 0..1 if articles[testCount] %}
+                        <div class="col-md-6">
+                            {{this.render('partials/_single-article.twig', {
+                                article: articles[testCount], 
+                                position: (articleCount+1),
+                                imageSize: {width: 198, height: 141},
+                                containerClass: "card-sm-full"
+                            }) | raw}}
+                        </div>
+                        {% set articleCount = articleCount + 1 %}
+                    {% endfor %}
+                </div>
+
+
+            </div>
+
+        </section>
+
+
 
 
 
