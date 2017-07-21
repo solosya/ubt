@@ -10,17 +10,19 @@
 <header id="masthead" class="site-header">
 
     <div class="top-header">
-        <p>4:32PM WEDNESDAY JULY 4, 2017</p>
-        <ul class="top-nav">
-            <li>SUBSCRIBE</li>
-            <li>SIGN IN</li>
-            <li>SEARCH</li>
-        </ul>            
+        <div class="index_container">
+            <p>4:32PM WEDNESDAY JULY 4, 2017</p>
+            <ul class="top-nav">
+                <li>SUBSCRIBE</li>
+                <li>SIGN IN</li>
+                <li>SEARCH</li>
+            </ul>   
+        </div>         
     </div>
 
     <div id="mainHeader" class="site-header-main header__navigation showOnScroll">
         
-        <div class="container">
+        <div class="index_container">
             
             <div class="row header-top">
                 <div class="col-xs-12">
@@ -34,63 +36,68 @@
         
 
             <div class="row header-bottom">
-                <div class="col-sm-4">
-                    <h2>TRUSTED SOURCES. GLOBAL STORIES.</h2>
-                </div>
+                <div class="col-sm-12" style="padding:0">
+                    <div class="row">
 
-                <nav class="col-sm-8 sb-custom-menu">
+                        <div class="col-sm-4">
+                            <h2>TRUSTED SOURCES. GLOBAL STORIES.</h2>
+                        </div>
 
-                    <div class="menuContainer">
+                        <nav class="col-sm-8 sb-custom-menu">
 
-                        <ul id="menu-primary-menu" class="menu">
-                            {% set menuItems = blog.blogHeaderMenu %}
-                            {% for parentItem in menuItems  %}
+                            <div class="menuContainer">
 
-                               {% set activeClass = (parentItem.link == _AppHelper.getServerUrl()) ? 'active' : ''%}
-                               {% set externalClass = (parentItem.isExternal) ? 'external-link' : '' %}
+                                <ul id="menu-primary-menu" class="menu">
+                                    {% set menuItems = blog.blogHeaderMenu %}
+                                    {% for parentItem in menuItems  %}
 
-                               <li>
-                                    <a href="{{parentItem.link |raw}}" class="{{activeClass}} {{externalClass}}" {% if parentItem.target != "" %}target="{{parentItem.target}}"{% endif %}>
-                                        {% if parentItem.label != "" %}
-                                            {{parentItem.label | upper}}
-                                        {% elseif parentItem.blogTitle != "" %}
-                                            {{parentItem.blogTitle | upper}}
-                                        {% elseif parentItem.pageTitle != "" %}
-                                            {{parentItem.pageTitle | upper}}
-                                        {% endif %}
-                                        {% if parentItem.children is defined and parentItem.children | length > 0 %}
-                                            <span class="down-arrow"></span>
-                                        {% endif %}
-                                    </a>
+                                       {% set activeClass = (parentItem.link == _AppHelper.getServerUrl()) ? 'active' : ''%}
+                                       {% set externalClass = (parentItem.isExternal) ? 'external-link' : '' %}
 
-                                    {% if parentItem.children is defined and parentItem.children | length > 0 %}
-                                         <ul class="sub-menu">
-{#                                                 {% if loop.last %}
-                                                <li class="conference">
-                                                    <a class="" href="">
-                                                        <p>September</p>
-                                                        <h2>2017 Practice Conference</h2>
-                                                        <h3>REGISTER NOW</h3>
-                                                    </a>
-                                                </li>
+                                       <li>
+                                            <a href="{{parentItem.link |raw}}" class="{{activeClass}} {{externalClass}}" {% if parentItem.target != "" %}target="{{parentItem.target}}"{% endif %}>
+                                                {% if parentItem.label != "" %}
+                                                    {{parentItem.label | upper}}
+                                                {% elseif parentItem.blogTitle != "" %}
+                                                    {{parentItem.blogTitle | upper}}
+                                                {% elseif parentItem.pageTitle != "" %}
+                                                    {{parentItem.pageTitle | upper}}
+                                                {% endif %}
+                                                {% if parentItem.children is defined and parentItem.children | length > 0 %}
+                                                    <span class="down-arrow"></span>
+                                                {% endif %}
+                                            </a>
+
+                                            {% if parentItem.children is defined and parentItem.children | length > 0 %}
+                                                 <ul class="sub-menu">
+        {#                                                 {% if loop.last %}
+                                                        <li class="conference">
+                                                            <a class="" href="">
+                                                                <p>September</p>
+                                                                <h2>2017 Practice Conference</h2>
+                                                                <h3>REGISTER NOW</h3>
+                                                            </a>
+                                                        </li>
+                                                    {% endif %}
+        #}
+                                                    {% for childItem in parentItem.children %}
+                                                        {% set externalClass = (childItem.isExternal) ? 'external-link' : '' %}
+                                                        <li>
+                                                            <a class="{{externalClass}}" href="{{childItem.link |raw}}" {% if childItem.target != "" %}target="{{childItem.target}}"{% endif %}>
+                                                             {{ ((childItem.label is empty) ? ((childItem.pageTitle is empty) ? childItem.blogTitle : childItem.pageTitle) : childItem.label)}}
+                                                            </a>
+                                                        </li>
+                                                   {% endfor %}
+                                                </ul>
                                             {% endif %}
-#}
-                                            {% for childItem in parentItem.children %}
-                                                {% set externalClass = (childItem.isExternal) ? 'external-link' : '' %}
-                                                <li>
-                                                    <a class="{{externalClass}}" href="{{childItem.link |raw}}" {% if childItem.target != "" %}target="{{childItem.target}}"{% endif %}>
-                                                     {{ ((childItem.label is empty) ? ((childItem.pageTitle is empty) ? childItem.blogTitle : childItem.pageTitle) : childItem.label)}}
-                                                    </a>
-                                                </li>
-                                           {% endfor %}
-                                        </ul>
-                                    {% endif %}
-                                </li>
+                                        </li>
 
-                            {% endfor %}
-                        </ul>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </nav>
                     </div>
-                </nav>
+                </div>
 
 {#                 <fieldset id="searchpanel" class="col-sm-3 search-sub-menu"  style="position:relative">
                     <form method="get" id="searchform" action="{{networkData.defaultBlogUrl}}/search">

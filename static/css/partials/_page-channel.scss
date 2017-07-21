@@ -1,0 +1,60 @@
+.channel-main {
+    margin-top:48px;
+    margin-bottom:100px;
+
+    @media screen and (max-width: $sm-break-down){
+        margin-top:0;
+    }
+   
+
+
+
+    .advert {
+        background:grey;
+        height:250px;
+        margin-bottom:32px;
+    }
+
+    .advert-banner-small {
+
+        margin-bottom:58px;
+
+        > div.advert {
+            background:#d8d8d8;
+            width:728px;
+            height:90px;
+            margin: 0 auto;
+        }
+    }
+
+
+    div.section-header {
+        margin-bottom:80px;
+
+        >h2 {
+            // font-family:$font-family-serif;
+            font-weight:600;
+            color:color(red);
+            font-size:rem(30);
+            letter-spacing: 0.7px;
+            margin-bottom:15px;
+
+            &:after {
+                content: '';
+                display:block;
+                height:1px;
+                width: 23px;
+                margin-top:15px;
+                background:color(lightgrey);
+            }
+
+        }
+        >p {
+            font-size: rem(13);
+            font-family:$font-family-serif;
+            font-style:italic;
+            color: color(lightgrey);
+        }
+    }
+}
+

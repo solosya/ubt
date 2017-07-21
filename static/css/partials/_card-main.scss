@@ -28,9 +28,9 @@
                     }
 
                     > h2{
-                        font-family:$font-family-sans-serif;
+                        font-family:$font-family-serif;
                         font-size:rem(34);
-                        font-weight:400;
+                        font-weight:600;
                         margin-top:4px;
                         margin-bottom:0;
                         color:color(black);
@@ -53,134 +53,19 @@
 
             &.article.without__image {
                 .content {
-                    padding-top:87px;
-                    height:100%;
+                    padding: 90px 60px 100px 60px;
 
                     h2 {
-                        font-size: rem(17);
+                        font-size: rem(34);
                         font-weight:bold;
-                        max-height:52px;
+                        max-height:80px;
                     }
 
-                    > p {
-                        font-size: rem(13);
+                    > p.excerpt {
+                        font-size: rem(15);
                         display: block;
-                        max-height:100px;
-                        margin-bottom: 18px;
-                    }
-                }
-            }   
-        }
-    }
-}
-
-
-
-
-
-.card-sm-mob {
-    @media screen and (max-width: $sm-break-down){
-        padding-bottom: 22px;
-        border-bottom: 1px solid #B3B3B3;
-        position:relative;
-        margin-bottom: 45px;
-
-        a.card {
-
-
-            > article {
-                position:relative;
-
-                > figure{
-                    width: auto;
-                    overflow: hidden;
-                    height:235px;
-
-                    &.video {
-                        &:before{
-                            display:none;
-                        }
-                    }
-
-                    > img{
-                        max-width: 100%;
-                    }
-                }
-
-
-                > .content{
-                    position:relative;
-                    padding: 0;
-
-                    &:before{
-                        @include videoIcon();
-                        display:block;
-                        top:20px;
-                        left:0;
-                        margin:0;
-                        margin-right:15px;
-                        float:left;
-                        width: 40px;
-                        height: 40px;
-                    }
-
-                    > .category{
-                        display:none;
-                    }
-
-                    > h2{
-                        order:1;
-                        margin-top:21px;
-                        margin-bottom:0;
-                        font-weight: normal;
-                        color:color(dark);        
-                        font-size: rem(16);
-                        padding-left: 55px; 
-                    }
-
-                    > .author{
-                        order:2;
-                        padding-left: 55px;
-                        margin-top: 0;
-
-                        >p {
-                            font-weight:bold;
-                            font-style:italic;
-                            color: color(darkblue);
-                            font-size: rem(12);
-                        }
-                    }
-
-                    > time{
-                        display:none;
-                    }
-
-                    > p {
-                        color:color(darkblue);
-                        order:3;
-                        line-height:1.57;
-                        font-size: rem(14);
-                    }
-                }
-            }
-
-
-            &.article.without__image {
-                .content {
-                    padding-top:87px;
-                    height:100%;
-
-                    h2 {
-                        font-size: rem(17);
-                        font-weight:bold;
-                        max-height:52px;
-                    }
-
-                    > p {
-                        font-size: rem(13);
-                        display: block;
-                        max-height:100px;
-                        margin-bottom: 18px;
+                        line-height: 1.73;
+                        height:185px;
                     }
                 }
             }   

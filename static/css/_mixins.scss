@@ -16,6 +16,21 @@
 		content: '';
 		position: absolute;
 		top: 0;
+		height:100%;
+		bottom: 0;
+		width: 100%;
+		z-index: 1;
+        background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.0), #000000);
+        background-image: -o-linear-gradient(rgba(0, 0, 0, 0.0), #000000);
+        background-image: linear-gradient(rgba(0, 0, 0, 0.0), #000000);
+    }
+}
+
+@mixin gradientafter() {
+	&:after {
+		content: '';
+		position: absolute;
+		top: 0;
 		bottom: 0;
 		width: 100%;
 		z-index: 1;
@@ -31,6 +46,17 @@
     height: $height;
 }
 
+@mixin image-full($margin:0, $width:100%) {
+	> figure{
+		position: absolute;
+		left: $margin;
+		right: $margin;
+		top: 0;
+		height:100%;
+		width: $width;
+	}
+}
+
 @mixin card-image-full($margin: 0) {
 	
 	$width : 100%;
@@ -40,14 +66,7 @@
 	}
 
 	> article {
-		> figure{
-			position: absolute;
-			left: $margin;
-			right: $margin;
-			top: 0;
-			height:100%;
-			width: $width;
-		}
+		@include image-full($margin,$width);
 	}
 }
 

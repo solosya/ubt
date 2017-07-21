@@ -1,4 +1,4 @@
-.card-sm-full{
+.card-blogger{
     @media screen and (min-width: $sm-break){
         
         position:relative;
@@ -10,36 +10,35 @@
 
         a.card {
             height:180px;
-            @include card-image-full();
+            @include card-image-top(100%);
 
             > article {
                 position:relative;
 
-                > figure{
-                    margin-bottom:10px;
-                    
-                    @include gradientbefore();
-                }
-
                 > .content{
+                    @include flexbox;
+                    @include flex-direction(column);
+
                     position:relative;
-                    padding: 110px 10px 20px 20px;
                     z-index:10;
-                    color:#fff;
 
                   
                     > .category{
-                        display:none;
+                        order:1;
+                        font-size:rem(11);
+                        display:block;
+                        color:color(red);
                     }
                     time {
-                        order:2;
+                        order:5;
                         display:block;
                         font-size: rem(9);
                         margin-top:7px;
                     }
                     > h2{
-                        order: 1;
-                        font-size: rem(15);
+                        order: 2;
+                        margin-bottom:40px;
+                        font-size: rem(18);
                         font-weight:400;
                         line-height: 1.33;
                     }
@@ -48,18 +47,22 @@
                         display:none;
                     }
 
-                }
-                &.video {
-                    > figure {
-                        &:before{
-                            top:0;
-                            left:0;
+                    .author {
+                        order:4;
+                        display:block;
+                        >img {
+                            display:none;
+                        }
+                        >p {
                             margin:0;
+                            color:color(red);
+                            font-weight:600;
                         }
                     }
 
+                }
+                &.video {
                     > .content {
-
                         &:before{
                             @include videoIcon();
                             display:block;
@@ -68,6 +71,12 @@
                             margin-left: 0;
                             margin-top: 0;
                         }
+                        // &:after {
+                        //   content:"";
+                        //   display:table;
+                        //   clear:both;
+                        // }
+
                         h2, time {
                             margin-left:60px;
                         }
@@ -78,33 +87,7 @@
 
 
             &.article.without__image {
-                >article {
-                    .content {
-                        padding:0;
-
-                        > h2{
-                            color:color(black);
-                            order: 1;
-                            font-size: rem(18);
-                            font-weight:600;
-                            line-height: 1.33;
-                            margin-bottom:15px;
-                        }
-                        time {
-                            order:3;
-                        }
-                        > p.excerpt {
-                            order:2;
-                            display:block;
-                            height:100px;
-                            font-size: rem(13);
-                            line-height: 1.54;
-                            color:color(black);
-
-                        }
-
-                    }
-                }
+                margin-top: -7px;
             }   
         }
     }

@@ -3,7 +3,7 @@
     content: '';
     width: 56px;
     height: 56px;
-    background-image: url(../icons/large-play-button.svg);
+    background-image: url(../icons/play-icon.svg);
     background-repeat: no-repeat;
     background-size: cover;
     top: 50%;
@@ -19,6 +19,7 @@
 a.card {
 
     display:block;
+    color:color(black);
     
     &:hover {
         text-decoration:none;
@@ -85,6 +86,7 @@ a.card {
                 padding-right:5px;
                 margin-right:5px;
                 line-height:1;
+                vertical-align:top;
             }
 
             time{
@@ -93,7 +95,7 @@ a.card {
                 color:color(lightgrey);
                 text-transform:uppercase; 
                 line-height:1;
-
+                vertical-align:top;
             }
 
             h2{

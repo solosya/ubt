@@ -3,7 +3,10 @@ $font-family-sans-serif:    "Roboto Slab", Helvetica, Arial, sans-serif;
 $font-family-serif:    		"PT Serif", "Times New Roman", Times, serif;
 $base-font-family: 			"Open Sans", Helvetica, Arial, sans-serif !default;
 
-$page-width:  				1327px;
+$index-width:  				(1320px + $grid-gutter-width) !default;
+$channel-width:  			(980px + $grid-gutter-width) !default;
+$article-width:  			(1095px + $grid-gutter-width) !default;
+
 
 $font-size-base:            16px;
 $font-unit:                 0em; 
@@ -63,6 +66,7 @@ $colors: (
     darkblue:           #002d56,
     lightgrey:          #97999c,
     red: 				#ae232c,
+    orange:             #f37021,
     lightergrey: 		#E5E5E5,
  //    dark:     			#1C2A38,
  //    darklighter: 		#334150,

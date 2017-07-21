@@ -1,0 +1,150 @@
+.article_content {
+	margin-top:45px;
+	> {
+		& span, u, p, ul, li, strong, b, h1, h2, h3, h4, h5, h6, figure, figcaption, img, blockquote {
+			&[style] {
+			font-size: inherit!important;
+			font-weight: inherit!important;
+	    	line-height: inherit!important;
+			font-family: inherit!important;
+			letter-spacing: inherit!important;
+			}
+		}
+	}
+	a {
+		color:#f08b56;
+		font-family: $font-family-sans-serif;
+		@media screen and (max-width: $sm-break) {
+				word-wrap: break-word;
+			}
+		
+	}
+
+	figure {
+		margin-top: 70px;
+		margin-bottom: 60px;
+
+		&:after {
+			content: "";
+			display: table;
+			clear:both;
+		}
+
+		img {
+			max-width: 100%;
+			margin-right: -300px;
+		}
+
+		figcaption {
+			font-family: $font-family-serif;
+			font-size: rem(16);
+			font-weight: normal;
+			font-style: italic;
+			line-height: 1.38;
+			letter-spacing: 0.1px;
+			color: #333333;
+		}
+	}
+
+
+	p {
+		font-size: rem(15);
+		font-weight: 300;
+		font-family: $font-family-sans-serif;
+		font-style: normal;
+		font-stretch: normal;
+		line-height: 1.6;
+		letter-spacing: 0.8px;;
+		color: color(black);
+		padding-right: 10px;
+		clear: both;
+		margin-bottom: 13px;
+		margin-top: 10px;
+		@media screen and (max-width: $sm-break) {
+			font-size: rem(14);
+
+		}
+	}
+
+	li {
+		font-size: rem(15);
+		font-weight: 300;
+		font-family: $font-family-sans-serif;
+		font-style: normal;
+		font-stretch: normal;
+		line-height: 1.8;
+		letter-spacing: normal;
+		color: #1c2a38;
+		padding-right: 10px;
+		clear: both;
+		margin-bottom: 20px;
+		margin-top: 10px;
+	}
+
+    blockquote {
+    	margin: 30px 0;
+    	padding:0;
+        font-size: rem(28);
+        font-weight: bold;
+        font-family: $font-family-serif;
+        border: 0;
+		line-height: 1.36;
+        
+        &:before {
+    		content: '';
+    		margin-bottom: 15px;
+    	    width: 62px;
+    	    height: 4px;
+    	    display: block;
+    	    background:color(red);
+        }
+
+        &:after {
+        	content: '';
+        	margin-top: 18px;
+            width: 62px;
+            height: 4px;
+            display: block;
+            background:color(red);
+        }
+        
+        @media screen and (max-width: $sm-break) {
+            font-size: rem(22);
+        }
+
+        > p {
+        	font-family: $font-family-serif;
+        	font-size: rem(28);
+		    line-height: 1.44;
+		    font-weight: 600;
+        }
+    }
+    h2 {
+    	color:color(black);
+    	font-size: rem(20);
+    	margin-top: 19px;
+    }
+    h3 {
+		font-size: rem(16);
+		font-weight: 700;
+		letter-spacing: normal;
+		color:color(black);
+	}
+	h4 {
+		font-size: rem(14);
+		color:color(black);
+		font-weight: 700;
+		line-height: 1.57;
+		letter-spacing: normal;
+	}
+	hr {
+		border-top: solid 1px #d9d9d6;
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+	ul{
+		@media screen and (max-width: $sm-break) {
+			margin-left: -15px;
+		}
+	}
+}

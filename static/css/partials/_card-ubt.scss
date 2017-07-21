@@ -1,4 +1,4 @@
-.card-sm-full{
+.card-ubt{
     @media screen and (min-width: $sm-break){
         
         position:relative;
@@ -10,7 +10,7 @@
 
         a.card {
             height:180px;
-            @include card-image-full();
+            @include card-image-bottom(454px, 244px);
 
             > article {
                 position:relative;
@@ -50,16 +50,7 @@
 
                 }
                 &.video {
-                    > figure {
-                        &:before{
-                            top:0;
-                            left:0;
-                            margin:0;
-                        }
-                    }
-
                     > .content {
-
                         &:before{
                             @include videoIcon();
                             display:block;
@@ -68,6 +59,12 @@
                             margin-left: 0;
                             margin-top: 0;
                         }
+                        // &:after {
+                        //   content:"";
+                        //   display:table;
+                        //   clear:both;
+                        // }
+
                         h2, time {
                             margin-left:60px;
                         }
@@ -78,33 +75,7 @@
 
 
             &.article.without__image {
-                >article {
-                    .content {
-                        padding:0;
-
-                        > h2{
-                            color:color(black);
-                            order: 1;
-                            font-size: rem(18);
-                            font-weight:600;
-                            line-height: 1.33;
-                            margin-bottom:15px;
-                        }
-                        time {
-                            order:3;
-                        }
-                        > p.excerpt {
-                            order:2;
-                            display:block;
-                            height:100px;
-                            font-size: rem(13);
-                            line-height: 1.54;
-                            color:color(black);
-
-                        }
-
-                    }
-                }
+                margin-top: -7px;
             }   
         }
     }

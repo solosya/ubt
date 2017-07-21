@@ -1,0 +1,30 @@
+{% import "quotes.twig" as quotes %}
+
+<div>
+    <p class="category">{{article.label}}</p
+    ><time datetime="{{params.publishDate}}">{{params.publishDate}}</time>
+</div>
+
+
+{% if (article.hasMedia == 'TRUE' or article.hasPreviewMedia == 'TRUE') and params.imageSuppress == 'false' %}
+    <figure class="{{params.figureClass}}">
+        <picture>
+            <source media="(max-width: 620px)" srcset="{{params.articleImgSmall}}">
+            <img class="img-responsive" src="{{params.articleImg}}" data-original="{{params.articleImg}}"  {% if articleImg is not empty %} style="background-image:url('{{params.placeholder}}');" {%endif%}>
+        </picture>
+    </figure>
+{% endif %}
+
+
+<div class="content">
+
+    <h2>{{ params.articleTitle }}</h2>
+    
+    <p class="excerpt">{{ quotes.smarten(article.excerpt | raw) }}</p>
+                        
+    <div class="author">
+        <img src="{{params.profileImg}}" class="img-circle">
+        <p>{{ article.createdBy['displayName'] }}</p>
+    </div>
+
+</div>

@@ -60,20 +60,12 @@
 
             &.article.without__image {
                 .content {
-                    padding-top:87px;
-                    height:100%;
 
-                    h2 {
-                        font-size: rem(17);
-                        font-weight:bold;
-                        max-height:52px;
-                    }
-
-                    > p {
+                    > p.excerpt {
                         font-size: rem(13);
                         display: block;
-                        max-height:100px;
-                        margin-bottom: 18px;
+                        max-height:45px;
+                        margin-bottom: 11px;
                     }
                 }
             }   

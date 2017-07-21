@@ -1,6 +1,6 @@
 //Bootstrap
-@import "variables";
 @import "bootstrap";
+@import "variables";
 @import "functions";
 @import "mixins";
 @import "login";
@@ -25,10 +25,12 @@
 //Home page
 @import "page-index";
 @import "page-search";
+@import "page-channel";
 
 
 //Article page
 @import "article";
+@import "article-content";
 
 //Section page
 @import "section-page";
@@ -41,18 +43,23 @@
 
 
 // layouts
+@import "layout-community";
 
 
 //Cards
 @import "card";
 @import "card-xs";
 @import "card-sm";
+@import "card-sm-short";
 @import "card-sm-full";
 @import "card-md-full";
 @import "card-lg-full";
-
 @import "card-main";
 @import "card-main-2col";
 @import "card-rec";
 @import "card-top-story";
+@import "card-article-suggested";
+@import "card-event";
+@import "card-ubt";
+@import "card-blogger";
 

@@ -1,0 +1,82 @@
+.card-article-suggested{
+    @media screen and (min-width: $sm-break){
+        
+        position:relative;
+        margin-bottom: 32px;
+        
+
+
+        a.card {
+            @include card-image-left(75px, 63px);
+            padding-bottom: 20px;
+            border-bottom: 1px solid color(lightgrey);
+
+            > article {
+                position:relative;
+
+
+                >figure {
+                    margin-right:18px;
+                }
+
+
+                > div  {
+                    line-height:1;
+                    margin-bottom:6px;
+
+                    > .category{
+                        display:inline-block;
+                        font-size: rem(10);
+                        color:color(lightgrey);
+                        text-transform:uppercase; 
+                        padding-right:5px;
+                        margin-right:5px;
+                        line-height:1;
+                        vertical-align:top;
+                        border-right:1px solid color(lightgrey);
+                    }
+
+                    > time {
+                        font-size: rem(10);
+                        display:inline-block;
+                        color:color(lightgrey);
+                        text-transform:uppercase; 
+                        line-height:1;
+                        vertical-align:top;
+                    }
+                    
+                    &:after {
+                        content: ' ';
+                        display:block;
+                        clear:both;
+                    }
+
+                }
+
+
+
+                > .content{
+                    position:relative;
+                    padding: 0;
+
+                    > h2{
+                        font-size: rem(18);
+                        margin-bottom:0;
+                        line-height: 1;
+                        height:26px;
+                    }
+
+                    > p.excerpt {
+                        font-size: rem(13);
+                        line-height: 1.54;
+                        height:40px;
+                    }
+                }
+            }
+
+
+            &.article.without__image {
+            }   
+        }
+    }
+}

@@ -1,7 +1,5 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
 {% set networkData = _Network.getNetworkData() %}
-{% set blogData      = _Blog.getBlog() %}
-{% set blogName      = blogData.title %}
 
 
 
@@ -13,6 +11,8 @@
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
 
+{% set events = _Event.getEvents() %}
+
 
 <!-- used to index each article as we loop over throughout the template -->
 {% set articleCount = 0 %}
@@ -20,7 +20,7 @@
 
 
 
-    <main id="main" class="container site-main" role="main">
+    <main id="main" class="index_container site-main" role="main">
         
 
 
@@ -28,14 +28,14 @@
         <section class="row top-cards">
             
             <div class="col-md-3">
-                {% set showimages = [true, false, true] %}
+                {% set class = ['card-sm-short', 'card-sm', 'card-sm-short'] %}
                 {% for i in 0..2 if articles[testCount]%}
                     {{this.render('partials/_single-article.twig', {
                         article: articles[testCount], 
                         position: (articleCount+1),
-                        imageSuppress: showimages[i],
+                        imageSuppress: false,
                         imageSize: {width: 330, height: 235},
-                        containerClass: 'card-sm'
+                        containerClass: class[i]
                     }) | raw}}
                     {% set articleCount = articleCount + 1 %}
                 {% endfor %}
@@ -59,6 +59,10 @@
             <div class="col-md-3">
 
                 <div class="e-edition">
+                    <img src="{{networkData.templatePath}}/static/images/frank-logo.svg" width="103px" height="29px">
+                    <p class="name">E-Edition</p>
+                    <a href="#"></a>
+                    <p class="description">The best of frank. available for download here</p>
                 </div>
 
                 <div class="advert">
@@ -126,7 +130,7 @@
                     <div class="col-md-8">
                         <div class="row">
                             {% set class = 'col-md-12 card-main-2col' %}
-                            {% set showimages = [false, true, true] %}
+                            {% set showimages = [false, false, false] %}
 
                             {% for i in 0..2 if articles[testCount] %}
                                 {{this.render('partials/_single-article.twig', {
@@ -136,7 +140,7 @@
                                     imageSize: {width: 330, height: 235},
                                     containerClass: class
                                 }) | raw}}
-                                {% set class = 'col-md-6 card-sm' %}
+                                {% set class = 'col-md-6 card-sm-short' %}
                                 {% set articleCount = articleCount + 1 %}
                             {% endfor %}
                         </div>
@@ -223,9 +227,8 @@
                     {{this.render('partials/_single-article.twig', {
                         article: articles[testCount], 
                         position: (articleCount+1),
-                        imageSuppress: true,
                         imageSize: {width: 300, height: 180},
-                        containerClass: 'card-sm'
+                        containerClass: 'card-sm-short'
                     }) | raw}}
                     {% set articleCount = articleCount + 1 %}
                 {% endfor %}
@@ -326,8 +329,7 @@
                     {{this.render('partials/_single-article.twig', {
                         article: articles[testCount], 
                         position: (articleCount+1),
-                        imageSuppress: true,
-                        containerClass: 'card-sm'
+                        containerClass: 'card-sm-short'
                     }) | raw}}
                     {% set articleCount = articleCount + 1 %}
                 {% endfor %}
@@ -400,16 +402,15 @@
                 </div>
             </div>
 
-            <div class="col-md-3">
-                {% for i in 0..0 if articles[testCount] %}
-                    {{this.render('partials/_single-article.twig', {
-                        article: articles[testCount], 
-                        position: (articleCount+1),
-                        imageSize: {width: 198, height: 141},
-                        containerClass: "card-sm"
-                    }) | raw}}
+            <div class="col-md-3 eventlist">
+                <h2>EVENTS</h2>
 
-                    {% set articleCount = articleCount + 1 %}
+                {% for i in 0..5 if events[testCount] %}
+                    {{this.render('partials/_single-event.twig', {
+                        event: events[testCount], 
+                        imageSize: {width: 60, height: 37},
+                        containerClass: "card-event"
+                    }) | raw}}
                 {% endfor %}
             </div>
 

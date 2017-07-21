@@ -2,9 +2,9 @@
     width: 100%;
     margin-top: 0;
     background: color(lightergrey);
-
-    padding-top:30px;
-    padding-bottom:10px;
+    border-bottom: 8px solid color(darkblue);
+    padding-top:90px;
+    padding-bottom:30px;
 
 
     @media screen and (max-width: $sm-break-down){
@@ -13,94 +13,113 @@
 
 
     .top {
-        margin-bottom:20px;
-        position:relative;
+        h2 {
+            font-size: rem(11);
+            color:color(black);
+            border-top: 1px solid color(black);
+            width:202px;
+            padding-top:3px;
+        }
+
+        .right {
+            text-align:right;
+            p {
+                font-size: rem(11);
+            }
+            img {
+                margin-bottom: 35px;
+            }
+
+            p.copyright {
+                margin-top: 30px;
+                color:color(lightgrey);
+            }
+
+        }
     }
+
 
     .navbar-brand {
         display:inline-block;
         padding:0;
-        width: 145px;
-        height:48px;
-        background-image: url(../images/facs-logo-large-reverse.svg);
+        width: 138px;
+        height:39px;
+        margin-top: 90px;
+        margin-bottom: 7px;
+        background-image: url(../images/frank-logo.svg);
         background-repeat:no-repeat;
         background-size:cover;
+
+        @media screen and (max-width: $mobile-break) {
+            margin-top: 4px;
+            padding:8px;
+            width: 45px;
+            height:50px;
+            background-size: 140px;
+            background-repeat:no-repeat;
+        }
     }
+
     
-    .copyright {
-        font-size:rem(13);
-        color:color(lightblue);
-        margin:0;
+    // .copyright {
+    //     font-size:rem(13);
+    //     color:color(lightblue);
+    //     margin:0;
 
-        @media screen and (max-width: $sm-break-down) { 
-            // margin-top: 60px;
-        }
-    }
+    //     @media screen and (max-width: $sm-break-down) { 
+    //         // margin-top: 60px;
+    //     }
+    // }
 
 
 
-    .footer-brand {
-        position:relative;
-        top:-12px;
-        display:inline-block;
-        color:white;
-        font-size: rem(26);
-        margin-top:40px;
-        margin-left:30px;
-    }
+    // .footer-brand {
+    //     position:relative;
+    //     top:-12px;
+    //     display:inline-block;
+    //     color:white;
+    //     font-size: rem(26);
+    //     margin-top:40px;
+    //     margin-left:30px;
+    // }
 
-    ul.footer-ext-links {
-        text-align: right;
+    // ul.footer-ext-links {
+    //     text-align: right;
 
-        @media screen and (max-width: $sm-break-down) { 
-            padding:0;
-            margin-top:20px;
-            text-align:left;
-        }
+    //     @media screen and (max-width: $sm-break-down) { 
+    //         padding:0;
+    //         margin-top:20px;
+    //         text-align:left;
+    //     }
         
 
-        li {
-            a {
-                font-size:rem(13);
-                color:color(lightblue);
-            }
-        }
-    }
+    //     li {
+    //         a {
+    //             font-size:rem(13);
+    //             color:color(lightblue);
+    //         }
+    //     }
+    // }
 
 
 
     ul.footer-links {
         text-align: right;
-        margin-bottom:0;
-
-        @media screen and (max-width: $sm-break-down){
-            text-align:left;
-            margin-top:25px;
-            padding:0;
-            margin-bottom: 40px;
-        }
-
+        margin-bottom: 3px;
 
         > li {
             display:inline-block;
             margin-right: 7px;
             padding-right: 7px;
-            border-right: 1px solid white;
+            border-right: 1px solid black;
             line-height: .9;
 
-            @media screen and (max-width: $sm-break-down){
-                display:block;
-                border:0;
-                margin:0;
-                padding:0;
-                margin-bottom: 15px;
-            }
 
 
             >a {
-                color: white;
-                font-size: rem(13);
-                font-weight:300;
+                color: color(black);
+                font-size: rem(11);
+                font-weight:600;
             }
 
             &:nth-last-child(1) {

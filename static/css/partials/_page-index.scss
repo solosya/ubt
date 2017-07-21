@@ -12,9 +12,39 @@
     }
 
     .e-edition {
-        background:orange;
+        position:relative;
+        text-align:center;
         height:100px;
         margin-bottom:80px;
+        >a {
+            background-image: url("../images/e-edition-icon.svg");
+            background-repeat:no-repeat;
+            background-size:cover;
+            position:absolute;
+            right:15px;
+            top:7px;
+            display:block;
+            width:42px;
+            height:42px;
+            // background:color(red);
+        }
+        >p.name {
+            margin-top: 7px;
+            margin-bottom:0;
+            padding-bottom: 2px;
+            font-size:rem(12);
+            color:color(lightgrey);
+            border-bottom: 1px solid color(lightgrey);
+        }
+        >p.description {
+            width:200px;
+            font-size:rem(14);
+            font-style:italic;
+            color:color(lightgrey);
+            margin:auto;
+            margin-top: 8px;
+        }
+
     }
 
     .advert {
@@ -68,7 +98,7 @@
 
     .section {
         
-        margin-top:80px;
+        margin-top:40px;
 
 
         >div.section-header {
@@ -116,6 +146,16 @@
                 right:55px;
                 width:326px;
                 z-index:10;
+            }
+
+            .eventlist {
+                > h2 {
+                    font-size: rem(21);
+                    font-weight:600;
+                    padding-bottom: 4px;
+                    margin-bottom:12px;
+                    border-bottom: 1px solid color(lightgrey);
+                }
             }
         }
 

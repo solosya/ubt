@@ -7,24 +7,68 @@
 {% set networkData = _Network.getNetworkData() %}
 
 
+{% set articleImg = false %}
+{% if article.media|length > 0 %}
+    {% set articleImg = _Media.getMediaUrl(article.media[0],1094, 515, {'crop': 'fill', 'gravity': 'auto'} ) %}
+{% endif %}
+
+{% set publishDate = _AppHelper.getDateTimeBasedOnTimezone(article.publishDate, 'F, Y') %}
+
+{% set articles = _Article.getPopularArticles({ limit: 5, excludeArticleIds : article.id }) %}
+{% set testCount = 0 %}
 
 
-
-<main id="main" class="" role="main">
+<main id="main" class="article_container" role="main">
 
 
 
     <article class="article-main">
 
-        <div class="container">
+
+
+
+
+            {% if articleImg %} 
+                 <figure class="featured">
+                     <img src="{{articleImg}}" class="img-responsive">
+                     {% if article.media[0].type == 'video' %} 
+                         {% set mediaUrl = "" %}
+                         {% if article.media[0].media.isSystemVideo == 'TRUE'%}
+                             {% set mediaUrl = _Media.getMediaVideoUrl(article.media[0].media, 0, 0,{resource_type: 'video', format: 'mp4'})  %}
+                         {% endif %}
+                         <a href="javascript:void(0)" itemprop="video" class="video-overlay video-player" data-source="{{article.media[0].source}}" data-video-id="{{article.media[0].videoId}}" data-url="{{mediaUrl}}" data-poster="{{article.media[0].path}}" data-caption="{{article.title | raw}}">
+                            <div class="icons">
+                                <div class="icon"><i class="fa fa-play"></i></div>
+                            </div>
+                         </a>
+                     {% endif %}
+                     <figcaption>
+                         <p>{{article.media[0].caption}}</p>
+                     </figcaption>
+                 </figure>
+             {% endif %}
+
+
+
+
+
+
+
             <div class="page-content">
+                
                 <div class="row">
-                    <div class="col-md-offset-2 col-md-8">
+                    <div class="col-md-8">
                         <div class="content-wrapper">
+
+
                             <div class="content-block-top">
 
+                                <p class="category">{{article.label}}</p
+                                ><time datetime="{{publishedDate}}">{{article.publishedDate}}</time>
+                                
                                 <h1>{{ quotes.smarten(article.title) }}</h1>
-                                <h2>{{parentBlog.title}} - <time datetime="{{publishedDate}}">{{publishedDate}}</time></h2> 
+                                
+                                <p class="author">{{ quotes.smarten(article.title) }}</p>
 
                             </div><!--content-block-top-->
 
@@ -33,11 +77,68 @@
                             </div><!-- .content-->
                         </div><!-- .content-->
 
-                    </div><!-- .col-md-8-->
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="article-sidebar">
+                            <div class="advert"></div>
+
+                            <h2>SUGGESTED READINGS</h2>
+
+
+                            {% for i in 0..4 if articles[testCount] %}
+                                {{this.render('partials/_single-article.twig', {
+                                    article: articles[testCount], 
+                                    position: (articleCount+1),
+                                    template: 'suggested',
+                                    imageSize: {width: 75, height: 63},
+                                    containerClass: 'card-article-suggested'
+                                }) | raw}}
+
+                                {% set articleCount = articleCount + 1 %}
+                            {% endfor %}
+
+                            {% if articles[testCount] %}
+                                {{this.render('partials/_single-article.twig', {
+                                    article: articles[testCount], 
+                                    position: (articleCount+1),
+                                    imageSize: {width: 300, height: 180},
+                                    containerClass: 'card-sm-full'
+                                }) | raw}}
+                            {% endif %}
+
+                        </div>
+                    </div>
+
+
+
                 </div>
+
             </div><!-- .page-content-->
 
-        </div><!--container-->
+
+
+            <div class="row related-articles">
+                <div class="col-md-12">
+                    <h1>RELATED ARTICLES</h1>
+                </div>
+
+                {% for i in 0..2 if articles[testCount] %}
+                    <div class="col-md-4">
+                        {{this.render('partials/_single-article.twig', {
+                            article: articles[testCount], 
+                            position: (articleCount+1),
+                            imageSize: {width: 300, height: 180},
+                            containerClass: 'card-sm'
+                        }) | raw}}
+                    </div>
+                    {% set articleCount = articleCount + 1 %}
+                {% endfor %}
+
+            </div>
+
+
     </article>
 </main><!--site-main-->
 
