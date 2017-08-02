@@ -46,7 +46,6 @@
                     {{this.render('partials/_single-article.twig', {
                         article: articles[testCount], 
                         position: (articleCount+1),
-                        template: 'suggested',
                         imageSize: {width: 75, height: 64},
                         containerClass: 'card-article-suggested'
                     }) | raw}}
@@ -59,7 +58,6 @@
                     {{this.render('partials/_single-article.twig', {
                         article: articles[testCount], 
                         position: (articleCount+1),
-                        template: 'suggested',
                         imageSize: {width: 75, height: 64},
                         containerClass: "card-article-suggested"
                     }) | raw}}
@@ -75,7 +73,7 @@
                         article: articles[testCount], 
                         position: (articleCount+1),
                         imageSize: {width: 300, height: 180},
-                        containerClass: 'card-sm'
+                        containerClass: 'card-sm card-sm-mobile'
                     }) | raw}}
                     {% set articleCount = articleCount + 1 %}
                 {% endif %}
@@ -98,11 +96,6 @@
         <section class="row section national">
 
             <div class="col-sm-offset-1 col-md-10 section-header">
-                <h2>Section Header</h2>
-                <p>
-                    Nam porti tasse plat dictmst  blandit accaserio sln hac curabitur hendrerit 
-                    quam ac arcu facilisis faucibus. Curabitur tempus, urna sed semperc
-                </p>
             </div>
 
 
@@ -112,7 +105,7 @@
                         article: articles[testCount], 
                         position: (articleCount+1),
                         imageSize: {width: 640, height: 420},
-                        containerClass: 'card-main-2col'
+                        containerClass: 'card-main-2col card-main-2col-mobile'
                     }) | raw}}
                     {% set articleCount = articleCount + 1 %}
                 {% endif %}
@@ -194,12 +187,7 @@
         <section class="row section">
 
             <div class="col-sm-offset-1 col-md-10 section-header">
-                <h2>Section Header</h2>
-                <p>
-                    Nam porti tasse plat dictmst  blandit accaserio sln hac curabitur hendrerit 
-                    quam ac arcu facilisis faucibus. Curabitur tempus, urna sed semperc
-                </p>
-            
+
                 <div class="row">
                     <div class="col-md-4">
                         <div style="height:40px;background:red"></div>

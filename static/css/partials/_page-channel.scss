@@ -30,9 +30,12 @@
 
     div.section-header {
         margin-bottom:80px;
+        @media screen and (max-width: $sm-break-down){
+            margin-bottom:20px;
+        }
 
         >h2 {
-            // font-family:$font-family-serif;
+            font-family:$font-family-serif;
             font-weight:600;
             color:color(red);
             font-size:rem(30);
@@ -53,6 +56,7 @@
             font-size: rem(13);
             font-family:$font-family-serif;
             font-style:italic;
+            line-height: 1.54;
             color: color(lightgrey);
         }
     }

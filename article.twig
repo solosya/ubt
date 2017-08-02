@@ -91,7 +91,6 @@
                                 {{this.render('partials/_single-article.twig', {
                                     article: articles[testCount], 
                                     position: (articleCount+1),
-                                    template: 'suggested',
                                     imageSize: {width: 75, height: 63},
                                     containerClass: 'card-article-suggested'
                                 }) | raw}}
@@ -130,7 +129,7 @@
                             article: articles[testCount], 
                             position: (articleCount+1),
                             imageSize: {width: 300, height: 180},
-                            containerClass: 'card-sm'
+                            containerClass: 'card-sm card-sm-mobile'
                         }) | raw}}
                     </div>
                     {% set articleCount = articleCount + 1 %}

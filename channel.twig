@@ -43,7 +43,7 @@
                         article: articles[testCount], 
                         position: (articleCount+1),
                         imageSize: {width: 640, height: 309},
-                        containerClass: 'card-main-2col'
+                        containerClass: 'card-main-2col card-main-2col-mobile'
                     }) | raw}}
                     {% set articleCount = articleCount + 1 %}
                 {% endif %}
@@ -54,7 +54,7 @@
                         article: articles[testCount], 
                         position: (articleCount+1),
                         imageSize: {width: 200, height: 140},
-                        containerClass: 'card-rec'
+                        containerClass: 'card-rec card-rec-mobile'
                     }) | raw}}
                     {% set articleCount = articleCount + 1 %}
                 {% endfor %}
@@ -73,7 +73,7 @@
 
 
                 {% for i in 0..2 if articles[testCount] %}
-                    {% set classes = ["card-sm", "card-sm-full", "card-sm"] %}
+                    {% set classes = ["card-sm card-sm-mobile", "card-sm-full", "card-sm card-sm-mobile"] %}
                     {% set images = [false, false, true] %}
                     {{this.render('partials/_single-article.twig', {
                         article: articles[testCount], 

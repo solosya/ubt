@@ -68,112 +68,105 @@
 
 
 
-.card-sm-mob {
+.card-sm-mobile {
     @media screen and (max-width: $sm-break-down){
-        padding-bottom: 22px;
-        border-bottom: 1px solid #B3B3B3;
         position:relative;
-        margin-bottom: 45px;
+        margin-bottom: 20px;
 
         a.card {
-
+            border-bottom: 1px solid #97999c;
+            @include card-image-left(80px, 82px);
 
             > article {
                 position:relative;
-
-                > figure{
-                    width: auto;
-                    overflow: hidden;
-                    height:235px;
-
-                    &.video {
-                        &:before{
-                            display:none;
-                        }
-                    }
-
-                    > img{
-                        max-width: 100%;
-                    }
+    
+                > figure {
+                    margin-right:12px;
                 }
 
 
                 > .content{
+                    display:block;
                     position:relative;
                     padding: 0;
 
-                    &:before{
-                        @include videoIcon();
-                        display:block;
-                        top:20px;
-                        left:0;
-                        margin:0;
-                        margin-right:15px;
-                        float:left;
-                        width: 40px;
-                        height: 40px;
-                    }
-
                     > .category{
-                        display:none;
+                        border-right:1px solid color(lightgrey);
                     }
 
                     > h2{
-                        order:1;
-                        margin-top:21px;
+                        font-size: rem(18);
+                        margin-top:2px;
+                        max-height:70px;
                         margin-bottom:0;
-                        font-weight: normal;
-                        color:color(dark);        
-                        font-size: rem(16);
-                        padding-left: 55px; 
+                        margin-top:0;
+                        line-height: 1.28;
+                        color:color(black);
                     }
 
-                    > .author{
-                        order:2;
-                        padding-left: 55px;
-                        margin-top: 0;
+                    > p.excerpt {
+                        color:color(black);
+                        line-height: 1.54;
+                        font-size: rem(13);
+                        margin-top:25px;
+                        margin-bottom:20px;
+                        max-height:100px;
+                    }
+                }
 
-                        >p {
-                            font-weight:bold;
-                            font-style:italic;
-                            color: color(darkblue);
-                            font-size: rem(12);
+                &.video {
+                    > figure{
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        top: 20px;
+                        height:165px;
+                        width: 100%;
+
+                        &:before {
+                            top:auto;
+                            bottom: 10px;
+                            left: 35px;
+                            margin-top:0;
                         }
                     }
+                    > .content{
+                        padding-bottom: 38px;
 
-                    > time{
-                        display:none;
+                        > h2 {
+                            margin-left: 77px;
+                            margin-top:105px;
+                            color:color(white);
+                            height:52px;
+                        }
+                        >p.excerpt {
+                            display:none;
+                        }
                     }
+                }
 
-                    > p {
-                        color:color(darkblue);
-                        order:3;
-                        line-height:1.57;
-                        font-size: rem(14);
+            }
+
+
+            &.without__image {
+                > article {
+
+                    > .content{
+
+                        > h2{
+                            height:auto;
+                            margin-left:0;
+                        }
+
+                        > p.excerpt {
+                            margin-top:10px;
+                            margin-bottom: 22px;
+                            height:100px;
+                        }
                     }
                 }
             }
 
-
-            &.article.without__image {
-                .content {
-                    padding-top:87px;
-                    height:100%;
-
-                    h2 {
-                        font-size: rem(17);
-                        font-weight:bold;
-                        max-height:52px;
-                    }
-
-                    > p {
-                        font-size: rem(13);
-                        display: block;
-                        max-height:100px;
-                        margin-bottom: 18px;
-                    }
-                }
-            }   
         }
     }
 }

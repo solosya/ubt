@@ -72,3 +72,67 @@
         }
     }
 }
+
+
+.card-rec-mobile{
+    @media screen and (max-width: $sm-break-down){
+        
+        position:relative;
+        margin-bottom: 20px;
+
+        a.card {
+            @include card-image-left(80px, 82px);
+            border-bottom: 1px solid #97999c;
+            height:102px;
+
+            > article {
+                position:relative;
+
+                > figure{
+                    margin-right:18px;
+                }
+
+
+                > .content{
+                    position:relative;
+                    padding: 0;
+
+
+                    > .category{
+                        margin-bottom:0;
+                        border-right:1px solid color(lightgrey);
+                    }
+
+                    > h2{
+                        font-size: rem(16);
+                        line-height:1.38;
+                        font-family: $font-family-serif;
+                        margin-top:0;
+                        color:color(black);
+                    }
+
+                    > p.excerpt {
+                        display:none;
+                    }
+                    .author {
+                        display: none;
+                    }
+                }
+            }
+
+
+            &.article.without__image {
+                .content {
+
+                    > p.excerpt {
+                        font-size: rem(13);
+                        display: block;
+                        max-height:45px;
+                        margin-bottom: 11px;
+                    }
+                }
+            }   
+        }
+    }
+}
+

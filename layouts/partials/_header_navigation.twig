@@ -9,9 +9,13 @@
 
 <header id="masthead" class="site-header">
 
+
+
+
+
     <div class="top-header">
         <div class="index_container">
-            <p>4:32PM WEDNESDAY JULY 4, 2017</p>
+            <time datetime="" id="headerTime"></time>
             <ul class="top-nav">
                 <li>SUBSCRIBE</li>
                 <li>SIGN IN</li>
@@ -19,6 +23,13 @@
             </ul>   
         </div>         
     </div>
+
+
+
+
+
+
+
 
     <div id="mainHeader" class="site-header-main header__navigation showOnScroll">
         
@@ -31,6 +42,65 @@
                         rel="Home" tabindex="-1" 
                         title="Home">
                     </a>
+
+
+                    <!--  *********** -->
+                    <!--  MOBILE MENU -->
+                    <!--  *********** -->
+
+                    <nav id="sb-custom-menu" class="sb-custom-menu">
+
+                        <a href="#" id="menu-mobile" class="menu-mobile"></a>
+
+                        <div class="menuContainer">
+
+                            <div id="menu-search" class="secondary-menu menu-search">
+                                <form method="get" id="searchformmob" action="{{networkData.defaultBlogUrl}}/search">
+                                    <div>
+                                        <input type="text" class="field" name="s" id="header-search" placeholder="Search" required="">
+                                    </div>
+                                    <button class="btn btn-default" type="submit" id="searchsubmit">
+                                        <span class="icon-search icon"></span>
+                                    </button>
+                                </form>
+                            </div>
+
+
+                            <ul id="menu-primary-menu" class="menu mobile">
+                                {% set menuItems = blog.blogHeaderMenu %}
+                                {% for parentItem in menuItems  %}
+
+                                    {% set activeClass = (parentItem.link == _AppHelper.getServerUrl()) ? 'active' : ''%}
+                                    {% set externalClass = (parentItem.isExternal) ? 'external-link' : '' %}
+
+                                    <li>
+                                        <a href="{{parentItem.link |raw}}" class="{{activeClass}} {{externalClass}}" {% if parentItem.target != "" %}target="{{parentItem.target}}"{% endif %}>
+                                            {% if parentItem.label != "" %}
+                                                {{parentItem.label}}
+                                            {% elseif parentItem.blogTitle != "" %}
+                                                {{parentItem.blogTitle}}
+                                            {% elseif parentItem.pageTitle != "" %}
+                                                {{parentItem.pageTitle}}
+                                            {% endif %}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
                 </div>
             </div><!-- .header top-->  
         
@@ -67,29 +137,6 @@
                                                     <span class="down-arrow"></span>
                                                 {% endif %}
                                             </a>
-
-                                            {% if parentItem.children is defined and parentItem.children | length > 0 %}
-                                                 <ul class="sub-menu">
-        {#                                                 {% if loop.last %}
-                                                        <li class="conference">
-                                                            <a class="" href="">
-                                                                <p>September</p>
-                                                                <h2>2017 Practice Conference</h2>
-                                                                <h3>REGISTER NOW</h3>
-                                                            </a>
-                                                        </li>
-                                                    {% endif %}
-        #}
-                                                    {% for childItem in parentItem.children %}
-                                                        {% set externalClass = (childItem.isExternal) ? 'external-link' : '' %}
-                                                        <li>
-                                                            <a class="{{externalClass}}" href="{{childItem.link |raw}}" {% if childItem.target != "" %}target="{{childItem.target}}"{% endif %}>
-                                                             {{ ((childItem.label is empty) ? ((childItem.pageTitle is empty) ? childItem.blogTitle : childItem.pageTitle) : childItem.label)}}
-                                                            </a>
-                                                        </li>
-                                                   {% endfor %}
-                                                </ul>
-                                            {% endif %}
                                         </li>
 
                                     {% endfor %}

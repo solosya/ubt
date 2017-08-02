@@ -24,17 +24,18 @@ body{
 
 
 .index_container {
-  @include container-fixed;
+    @include container-fixed;
 
-  @media (min-width: $screen-sm-min) {
-    width: $container-sm;
-  }
-  @media (min-width: $screen-md-min) {
-    width: $container-md;
-  }
-  @media (min-width: 1350px) {
-    width: $index-width;
-  }
+    @media (min-width: $screen-sm-min) {
+        width: $container-sm;
+    }
+    @media (min-width: $screen-md-min) {
+        width: $container-md;
+    }
+    @media (min-width: 1350px) {
+        width: $index-width;
+    }
+
 }
 
 .article_container {
@@ -220,30 +221,30 @@ border-bottom: 2px solid $brand-secondary;
     }
 }
 
-figcaption{
-    margin-top: 10px;
+// figcaption{
+//     margin-top: 10px;
 
-    @media screen and (max-width: $sm-break){
-        float: left;
-        margin-bottom: 30px;
-    }
+//     @media screen and (max-width: $sm-break){
+//         float: left;
+//         margin-bottom: 30px;
+//     }
     
-    > p {
-        font-size: rem(14);
-        color: color(lightgrey);
-        font-family: $font-family-serif;
-        float: left;
+//     > p {
+//         font-size: rem(14);
+//         color: color(lightgrey);
+//         font-family: $font-family-serif;
+//         float: left;
 
-        &.credit{
-            font-style: normal;
-            float: right;
+//         &.credit{
+//             font-style: normal;
+//             float: right;
 
-            @media screen and (max-width: $sm-break){
-                float: left;
-            }
-        }
-    }
-}
+//             @media screen and (max-width: $sm-break){
+//                 float: left;
+//             }
+//         }
+//     }
+// }
 
 
 

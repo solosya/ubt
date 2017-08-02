@@ -60,10 +60,6 @@
 		clear: both;
 		margin-bottom: 13px;
 		margin-top: 10px;
-		@media screen and (max-width: $sm-break) {
-			font-size: rem(14);
-
-		}
 	}
 
 	li {
@@ -108,15 +104,16 @@
             background:color(red);
         }
         
-        @media screen and (max-width: $sm-break) {
-            font-size: rem(22);
-        }
 
         > p {
         	font-family: $font-family-serif;
         	font-size: rem(28);
 		    line-height: 1.44;
 		    font-weight: 600;
+		    @media screen and (max-width: $sm-break) {
+		        font-size: rem(20);
+		    }
+
         }
     }
     h2 {

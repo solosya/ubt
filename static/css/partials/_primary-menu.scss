@@ -97,9 +97,10 @@
                 padding: 12px 10px 10px 10px;
                 display:block;
                 color:color(black);
-                font-weight:600;
+                font-weight:400;
                 height: 100%;
-                position: relative; 
+                position: relative;
+                text-transform: uppercase; 
 
                 @media screen and (max-width: $header-break){
                     padding: 15px 20px;
@@ -248,13 +249,13 @@ ul.sub-menu a:focus{
 
 
     .sb-custom-menu .show-on-tablet > ul{
-        background: color(dark);
+        background: color(darkblue);
         width: 100%;
     }
     .sb-custom-menu{
         float:right;
-        margin-top: 20px;
-        padding-left: 50px;
+        margin-top: 10px;
+        padding-right: 15px;
     }
     .menu-mobile {
         padding: 25px 20px 13px 13px;
@@ -277,7 +278,7 @@ ul.sub-menu a:focus{
         display: block;
         width: auto;
         min-width: 330px;
-        max-width: 415px;
+        // max-width: 415px;
         position: absolute;
         top: 40px;
         right: 15px;
@@ -300,12 +301,12 @@ ul.sub-menu a:focus{
         width: 100%;
         float: none;
         display: block;
-        border-bottom: 1px solid rgba(255,255,255,.3);
+        border-bottom: 1px solid rgba(255,255,255,.7);
     }
 
     .sb-custom-menu  ul.sub-menu{
         display:none;
-        border-top: 1px solid rgba(255,255,255,.3);
+        border-top: 1px solid rgba(255,255,255,.7);
         height: auto;
         padding:0;
         min-height: 100%;

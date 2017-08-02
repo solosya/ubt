@@ -9,32 +9,31 @@
 
 
 
-// .site-header.mobile-menu-active {
-//     .site-header-main {
-//         background:color(dark);
+.site-header.mobile-menu-active {
+    .site-header-main {
 
-//         .header-top {
-//             h1 {
-//                 color:color(white);
-//             }
+        .header-top {
+            background:color(darkblue);
+            h1 {
+                color:color(white);
+            }
 
-//             nav.sb-custom-menu {
-//                 > a {
-//                     margin-top:0;
-//                     background-image: url(../images/mobile-close.svg);
-//                     background-size:cover;
-//                     width:20px;
-//                     height:20px;
-//                 }
-//             }
-//         }
-//         .navbar-brand {
-//             background-image: url(../images/facs-logo-reverse.svg);
-//             background-size: 40px;
-//         }
+            nav.sb-custom-menu {
+                > a {
+                    margin-top:0;
+                    background-image: url(../images/mobile-close.svg);
+                    background-size:cover;
+                    width:20px;
+                    height:20px;
+                }
+            }
+        }
+        .navbar-brand {
+            background-image: url(../images/frank-logo-reverse.svg);
+        }
 
-//     }
-// }
+    }
+}
 
 
 
@@ -45,7 +44,11 @@
     max-width:none;
     z-index:140;
 
-
+    .index_container {
+        @media screen and (max-width: $sm-break-down) {
+            padding: 0;
+        }
+    }
 
     .top-header {
 
@@ -56,7 +59,7 @@
             height: 30px;
             text-align:center;
 
-            > p {
+            > time {
                 margin:0;
                 line-height:30px;
                 vertical-align:middle;
@@ -87,6 +90,11 @@
                 margin-right:20px;
             }
         }  
+
+        @media screen and (max-width: $sm-break-down){
+            display:none;
+        }
+
     }
 }
 
@@ -111,9 +119,12 @@
         .header-top {
             margin-top: 35px;
             height:60px;
-            // @media screen and (max-width: $sm-break) {
-            //     height:60px;
-            // }
+            @media screen and (max-width: $sm-break-down) {
+                margin-top: 0;
+                padding-top: 12px;
+                padding-bottom:12px;
+                height:auto;
+            }
         }
 
         .header-bottom {
@@ -131,6 +142,12 @@
                 font-size:rem(14);
                 font-weight:600;
                 margin-top:10px;
+
+                @media screen and (max-width: $sm-break-down) {
+                    font-size:rem(10);
+                    margin-top:7px;
+                    margin-left:20px;
+                }
             }
 
             fieldset {
@@ -153,20 +170,18 @@
             background-size:cover;
 
             @media screen and (max-width: $mobile-break) {
-                margin-top: 4px;
-                padding:8px;
-                width: 45px;
-                height:50px;
-                background-size: 140px;
-                background-repeat:no-repeat;
+                margin-left:20px;
+                margin-top: 0;
+                width: 122px;
+                height:34px;
             }
         }
 
         .navbar-right {
             margin-top:25px;
-            @media screen and (max-width: $mobile-break){
-                margin-top:12px;
-            }
+            // @media screen and (max-width: $mobile-break){
+            //     margin-top:12px;
+            // }
 
 
 

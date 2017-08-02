@@ -92,3 +92,99 @@
         }
     }
 }
+
+
+.card-blogger-mobile {
+    @media screen and (min-width: $sm-break){
+        
+        position:relative;
+        margin-bottom: 24px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid color(lightblue);
+
+
+
+        a.card {
+            height:180px;
+            @include card-image-top(100%);
+
+            > article {
+                position:relative;
+
+                > .content{
+                    @include flexbox;
+                    @include flex-direction(column);
+
+                    position:relative;
+                    z-index:10;
+
+                  
+                    > .category{
+                        order:1;
+                        font-size:rem(11);
+                        display:block;
+                        color:color(red);
+                    }
+                    time {
+                        order:5;
+                        display:block;
+                        font-size: rem(9);
+                        margin-top:7px;
+                    }
+                    > h2{
+                        order: 2;
+                        margin-bottom:40px;
+                        font-size: rem(18);
+                        font-weight:400;
+                        line-height: 1.33;
+                    }
+
+                    > p.excerpt {
+                        display:none;
+                    }
+
+                    .author {
+                        order:4;
+                        display:block;
+                        >img {
+                            display:none;
+                        }
+                        >p {
+                            margin:0;
+                            color:color(red);
+                            font-weight:600;
+                        }
+                    }
+
+                }
+                &.video {
+                    > .content {
+                        &:before{
+                            @include videoIcon();
+                            display:block;
+                            top: auto;
+                            left:10px;
+                            margin-left: 0;
+                            margin-top: 0;
+                        }
+                        // &:after {
+                        //   content:"";
+                        //   display:table;
+                        //   clear:both;
+                        // }
+
+                        h2, time {
+                            margin-left:60px;
+                        }
+
+                    }
+                }
+            }
+
+
+            &.article.without__image {
+                margin-top: -7px;
+            }   
+        }
+    }
+}

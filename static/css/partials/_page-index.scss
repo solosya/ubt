@@ -146,6 +146,15 @@
                 right:55px;
                 width:326px;
                 z-index:10;
+
+                @media screen and (max-width: $sm-break-down){
+                    position:static;
+                    top:0;
+                    right:0;
+                    width:auto;
+                }
+
+
             }
 
             .eventlist {

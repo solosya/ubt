@@ -5,7 +5,7 @@
         <div class="row top">
             
 
-            <div class="col-sm-12 col-md-6 left">
+            <div class="col-xs-12 col-sm-6 left">
 
                 <a  class="navbar-brand" 
                     href="{{networkData.defaultBlogUrl}}" 
@@ -16,8 +16,19 @@
                 <h2>TRUSTED SOURCES. GLOBAL STORIES.</h2>
             </div>
 
+            {% set menuItems = blog.blogFooterMenu %}
 
-            <div class="col-sm-12 col-md-6 right">
+            <div class="col-sm-12 hidden-sm hidden-md hidden-lg">
+                <ul class="footer-section-links">
+                {% for menu in menuItems %}
+                    <li><a href="{{menu.link}}">{{menu.blogTitle}}</a></li>
+                {% endfor %}
+                </ul>
+            </div><!--col-sm-2-->
+
+
+
+            <div class="col-xs-12 col-sm-6 right">
 
                 <img src="{{networkData.templatePath}}/static/images/ubt-logo.png">
 
@@ -26,7 +37,7 @@
                     ><li><a href="#">PRIVACY POLICY</a></li
                     ><li><a href="#">SITEMAP</a></li>
                 </ul>
-                <p>10 Herb Elliott Ave Sydney Olympic Park NSW 1700  | T: 1300 01 01 02 | F: 1300 010 103</p>
+                <p>10 Herb Elliott Ave Sydney Olympic Park NSW 1700  | T:&nbsp;1300&nbsp;01&nbsp;01&nbsp;02 | F:&nbsp;1300&nbsp;010&nbsp;103</p>
                 <p class="copyright">Copyright © UBT Marketing Pty Ltd 2016</p>
 
             </div>

@@ -1,5 +1,5 @@
 .card-article-suggested{
-    @media screen and (min-width: $sm-break){
+    // @media screen and (min-width: $sm-break){
         
         position:relative;
         margin-bottom: 32px;
@@ -17,6 +17,9 @@
 
                 >figure {
                     margin-right:18px;
+                    position: absolute;
+                    margin-right: 18px;
+                    margin-top: 20px;
                 }
 
 
@@ -64,12 +67,14 @@
                         margin-bottom:0;
                         line-height: 1;
                         height:26px;
+                        margin-left:90px;
                     }
 
                     > p.excerpt {
                         font-size: rem(13);
                         line-height: 1.54;
                         height:40px;
+                        margin-left:90px;
                     }
                 }
             }
@@ -78,5 +83,5 @@
             &.article.without__image {
             }   
         }
-    }
+    // }
 }

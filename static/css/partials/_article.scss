@@ -1,7 +1,3 @@
-// body.article {
-// 	background:#fff;
-// }
-
 .article {
 
 
@@ -9,15 +5,51 @@
 		margin-bottom:	96px;
 		margin-top:	50px;
 
+		@media screen and (max-width: $sm-break-down){
+			margin-top:	0;
+		}
+
+
+
 		> figure {
-			width:1095px;
+			width:100%;
 			height:515px;
 			margin-bottom:65px;
-			height: 100%;
+
+			@media screen and (max-width: $sm-break-down){
+				height:190px;
+			}
 
 			img {
 				width:100%;
+				height:100%;
+				object-fit: cover;
 			}
+
+			figcaption{
+			    margin-top: 10px;
+
+			    @media screen and (max-width: $sm-break){
+			        float: left;
+			        margin-bottom: 30px;
+			    }
+			    
+			    > p {
+			        font-size: rem(14);
+			        color: color(lightgrey);
+			        font-family: $font-family-serif;
+
+					@media screen and (max-width: $sm-break) {
+						font-size: rem(11);
+						line-height: 1.45;
+
+					}
+
+			    }
+			}
+
+
+
 		}
 
 
@@ -50,6 +82,9 @@
 
 			.article-sidebar {
 				padding-left: 60px;
+				@media screen and (max-width: $sm-break) {
+				    padding-left: 0;
+				}
 
 				>h2 {
 					margin-top: 65px;
@@ -59,6 +94,11 @@
 					letter-spacing: 0.4px;
 					color: color(darkblue);
 
+					@media screen and (max-width: $sm-break) {
+					    text-align: center;
+					}
+
+
 					&:after {
 						content: '';
 					    display: block;
@@ -66,6 +106,11 @@
 					    width: 23px;
 					    margin-top: 15px;
 					    background: color(darkblue);
+					    @media screen and (max-width: $sm-break) {
+					        margin-left: auto;
+					    	margin-right: auto;
+					    }
+
 					}
 				}
 			}
@@ -109,9 +154,11 @@
 					color:	color(black);
 					font-family: $font-family-serif;
 					
-					// @media screen and (max-width: $sm-break) {
-					// 	margin-top: 40px;
-					// }
+					@media screen and (max-width: $sm-break) {
+						font-size: rem(24);
+						margin-bottom: 15px;
+
+					}
 				}
 				
 				p.author {
