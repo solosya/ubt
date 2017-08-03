@@ -42,9 +42,9 @@
             </div>
 
             <div class="col-sm-offset-1 col-md-3">
-                {% for i in 0..2 if articles[testCount] %}
+                {% for i in 0..2 if articles[articleCount] %}
                     {{this.render('partials/_single-article.twig', {
-                        article: articles[testCount], 
+                        article: articles[articleCount], 
                         position: (articleCount+1),
                         imageSize: {width: 75, height: 64},
                         containerClass: 'card-article-suggested'
@@ -54,9 +54,9 @@
             </div>
 
             <div class="col-md-3">
-                {% for i in 0..2 if articles[testCount] %}
+                {% for i in 0..2 if articles[articleCount] %}
                     {{this.render('partials/_single-article.twig', {
-                        article: articles[testCount], 
+                        article: articles[articleCount], 
                         position: (articleCount+1),
                         imageSize: {width: 75, height: 64},
                         containerClass: "card-article-suggested"
@@ -68,9 +68,9 @@
 
 
             <div class="col-sm-offset-1 col-md-3">
-                {% if articles[testCount] %}
+                {% if articles[articleCount] %}
                     {{this.render('partials/_single-article.twig', {
-                        article: articles[testCount], 
+                        article: articles[articleCount], 
                         position: (articleCount+1),
                         imageSize: {width: 300, height: 180},
                         containerClass: 'card-sm card-sm-mobile'
@@ -100,9 +100,9 @@
 
 
             <div class="col-sm-offset-1 col-md-6">
-                {% if articles[testCount] %}
+                {% if articles[articleCount] %}
                     {{this.render('partials/_single-article.twig', {
-                        article: articles[testCount], 
+                        article: articles[articleCount], 
                         position: (articleCount+1),
                         imageSize: {width: 640, height: 420},
                         containerClass: 'card-main-2col card-main-2col-mobile'
@@ -114,9 +114,9 @@
             <div class="col-sm-offset-1 col-md-3 eventlist">
                 <h2>EVENTS</h2>
 
-                {% for i in 0..6 if events[testCount] %}
+                {% for i in 0..6 if events[articleCount] %}
                     {{this.render('partials/_single-event.twig', {
-                        event: events[testCount], 
+                        event: events[articleCount], 
                         imageSize: {width: 60, height: 37},
                         containerClass: "card-event"
                     }) | raw}}
@@ -146,9 +146,9 @@
             
                 <div class="row">
                     <div class="col-md-3">
-                        {% if articles[testCount] %}
+                        {% if articles[articleCount] %}
                             {{this.render('partials/_single-article.twig', {
-                                article: articles[testCount], 
+                                article: articles[articleCount], 
                                 position: (articleCount+1),
                                 imageSize: {width: 454, height: 245},
                                 containerClass: 'card-ubt'
@@ -158,9 +158,9 @@
                     </div>
 
                     <div class="col-md-2">
-                        {% for i in 0..1 if articles[testCount] %}
+                        {% for i in 0..1 if articles[articleCount] %}
                             {{this.render('partials/_single-article.twig', {
-                                article: articles[testCount], 
+                                article: articles[articleCount], 
                                 imageSuppress: true,
                                 containerClass: "card-blogger"
                             }) | raw}}
@@ -169,9 +169,9 @@
 
 
                     <div class="col-md-2">
-                        {% for i in 0..1 if articles[testCount] %}
+                        {% for i in 0..1 if articles[articleCount] %}
                             {{this.render('partials/_single-article.twig', {
-                                article: articles[testCount], 
+                                article: articles[articleCount], 
                                 imageSuppress: true,
                                 containerClass: "card-blogger"
                             }) | raw}}

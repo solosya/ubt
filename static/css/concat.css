@@ -5542,6 +5542,35 @@ ul.sub-menu a:focus {
   position: fixed !important;
   width: 100%; }
 
+.weather {
+  float: right; }
+  .weather > div {
+    float: left;
+    display: inline-block;
+    margin-right: 10px; }
+  .weather .temp {
+    margin: 0;
+    margin-top: 5px;
+    float: left;
+    color: #ae232c;
+    font-size: 1rem; }
+  .weather .location {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    margin: 0;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-top: 3px; }
+  .weather .description {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    margin: 0;
+    color: #97999c; }
+  .weather .icon {
+    float: left;
+    vertical-align: top;
+    margin-right: 10px; }
+
 .site-header.mobile-menu-active .site-header-main .header-top {
   background: #002d56; }
   .site-header.mobile-menu-active .site-header-main .header-top h1 {
@@ -7617,85 +7646,84 @@ a.card {
       .card-ubt a.card.article.without__image {
         margin-top: -7px; } }
 
-@media screen and (min-width: 768px) {
-  .card-blogger {
-    position: relative;
-    margin-bottom: 24px;
-    padding-bottom: 30px;
-    border-bottom: 1px solid; }
-    .card-blogger a.card {
-      height: 180px; }
-      .card-blogger a.card > article > figure {
-        width: 100%;
-        height: 100%;
-        float: none; }
+.card-blogger {
+  position: relative;
+  margin-bottom: 24px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid; }
+  .card-blogger a.card {
+    height: 180px; }
+    .card-blogger a.card > article > figure {
+      width: 100%;
+      height: 100%;
+      float: none; }
+    .card-blogger a.card > article > .content {
+      display: block; }
+    .card-blogger a.card > article {
+      position: relative; }
       .card-blogger a.card > article > .content {
-        display: block; }
-      .card-blogger a.card > article {
-        position: relative; }
-        .card-blogger a.card > article > .content {
-          display: -webkit-box;
-          display: -webkit-flex;
-          display: -moz-flex;
-          display: -ms-flexbox;
-          display: flex;
-          -webkit-box-direction: normal;
-          -webkit-box-orient: vertical;
-          -webkit-flex-direction: column;
-          -moz-flex-direction: column;
-          -ms-flex-direction: column;
-          flex-direction: column;
-          position: relative;
-          z-index: 10; }
-          .card-blogger a.card > article > .content > .category {
-            order: 1;
-            font-size: 0.6875rem;
-            display: block;
-            color: #ae232c; }
-          .card-blogger a.card > article > .content time {
-            order: 5;
-            display: block;
-            font-size: 0.5625rem;
-            margin-top: 7px; }
-          .card-blogger a.card > article > .content > h2 {
-            order: 2;
-            margin-bottom: 40px;
-            font-size: 1.125rem;
-            font-weight: 400;
-            line-height: 1.33; }
-          .card-blogger a.card > article > .content > p.excerpt {
-            display: none; }
-          .card-blogger a.card > article > .content .author {
-            order: 4;
-            display: block; }
-            .card-blogger a.card > article > .content .author > img {
-              display: none; }
-            .card-blogger a.card > article > .content .author > p {
-              margin: 0;
-              color: #ae232c;
-              font-weight: 600; }
-        .card-blogger a.card > article.video > .content:before {
-          position: absolute;
-          content: '';
-          width: 56px;
-          height: 56px;
-          background-image: url(../icons/play-icon.svg);
-          background-repeat: no-repeat;
-          background-size: cover;
-          top: 50%;
-          left: 50%;
-          margin-left: -28px;
-          margin-top: -28px;
-          z-index: 100;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-direction: normal;
+        -webkit-box-orient: vertical;
+        -webkit-flex-direction: column;
+        -moz-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        position: relative;
+        z-index: 10; }
+        .card-blogger a.card > article > .content > .category {
+          order: 1;
+          font-size: 0.6875rem;
           display: block;
-          top: auto;
-          left: 10px;
-          margin-left: 0;
-          margin-top: 0; }
-        .card-blogger a.card > article.video > .content h2, .card-blogger a.card > article.video > .content time {
-          margin-left: 60px; }
-      .card-blogger a.card.article.without__image {
-        margin-top: -7px; } }
+          color: #ae232c; }
+        .card-blogger a.card > article > .content time {
+          order: 5;
+          display: block;
+          font-size: 0.5625rem;
+          margin-top: 7px; }
+        .card-blogger a.card > article > .content > h2 {
+          order: 2;
+          margin-bottom: 40px;
+          font-size: 1.125rem;
+          font-weight: 400;
+          line-height: 1.33; }
+        .card-blogger a.card > article > .content > p.excerpt {
+          display: none; }
+        .card-blogger a.card > article > .content .author {
+          order: 4;
+          display: block; }
+          .card-blogger a.card > article > .content .author > img {
+            display: none; }
+          .card-blogger a.card > article > .content .author > p {
+            margin: 0;
+            color: #ae232c;
+            font-weight: 600; }
+      .card-blogger a.card > article.video > .content:before {
+        position: absolute;
+        content: '';
+        width: 56px;
+        height: 56px;
+        background-image: url(../icons/play-icon.svg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        top: 50%;
+        left: 50%;
+        margin-left: -28px;
+        margin-top: -28px;
+        z-index: 100;
+        display: block;
+        top: auto;
+        left: 10px;
+        margin-left: 0;
+        margin-top: 0; }
+      .card-blogger a.card > article.video > .content h2, .card-blogger a.card > article.video > .content time {
+        margin-left: 60px; }
+    .card-blogger a.card.article.without__image {
+      margin-top: -7px; }
 
 /*# sourceMappingURL=main.css.map */
 

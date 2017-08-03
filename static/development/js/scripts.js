@@ -16,6 +16,71 @@ $('document').ready(function() {
     });
 
 
+    var server = {
+
+        create: function(uri, queryParams) {return this.call(uri, queryParams, 'post');},
+        request: function(uri, queryParams, datatype){return this.call(uri, queryParams, 'get', datatype);},
+        update: function(uri, queryParams) {return this.call(uri, queryParams, 'put');},
+        delete: function(uri, queryParams) {return this.call(uri, queryParams, 'delete');},
+        call: function(uri, queryParams, type, datatype) {
+
+            if (!window.location.origin) {
+                 window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+            }
+            type = (typeof type !== 'undefined') ? type : 'get';
+
+            queryParams = (typeof queryParams !== 'undefined') ? queryParams : {};
+
+            // console.log(type + ': ' + window.location.origin + '/api/' + uri);
+            // if (Object.keys(queryParams).length > 0 ) console.log(queryParams);
+            console.log(uri);
+            return $.ajax({
+                url: uri,
+                data: queryParams,
+                dataType: datatype || "json",
+                type: type
+            }).fail(function(r) {
+                console.log(r);
+                if (r.status == 501 || r.status == 404) console.log(r.responseText);
+                if (r.responseJSON) console.log(r.responseJSON);
+                console.log(r.responseText);
+            });
+        },
+        callClient: function(uri, queryParams, type) {
+            type = (typeof type !== 'undefined') ? type : 'get';
+            queryParams = (typeof queryParams !== 'undefined') ? queryParams : '';
+            return $.ajax({
+                url: window.location.origin + uri,
+                data: queryParams,
+                dataType: "json",
+                type: type
+            });
+        }
+    }
+
+
+
+    var result = server.request("https://weather.pagemasters.com.au/weather", {'q':'melbourne'})
+        .done(function(r) {
+            console.log(r);
+            var weather = $('#weather');
+            var location = weather.find('.location');
+            var icon = weather.children('.icon');
+            var description = weather.find('.description');
+            var temperature = weather.children('.temp');
+
+            location.text(r.location.split('/')[1]);
+            description.text(r.description);
+            temperature.html(parseInt(r.temperature) + "&deg;");
+            // icon.attr("src", r.icon);
+            console.log(location, icon, description, temperature);
+
+        });
+
+
+
+
+
 
     function formatTo12hrTime(date) {
       var hours = date.getHours();

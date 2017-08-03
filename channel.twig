@@ -38,9 +38,9 @@
         <section class="row">
 
             <div class="col-md-8">
-                {% if articles[testCount] %}
+                {% if articles[articleCount] %}
                     {{this.render('partials/_single-article.twig', {
-                        article: articles[testCount], 
+                        article: articles[articleCount], 
                         position: (articleCount+1),
                         imageSize: {width: 640, height: 309},
                         containerClass: 'card-main-2col card-main-2col-mobile'
@@ -49,9 +49,9 @@
                 {% endif %}
 
 
-                {% for i in 0..4 if articles[testCount] %}
+                {% for i in 0..4 if articles[articleCount] %}
                     {{this.render('partials/_single-article.twig', {
-                        article: articles[testCount], 
+                        article: articles[articleCount], 
                         position: (articleCount+1),
                         imageSize: {width: 200, height: 140},
                         containerClass: 'card-rec card-rec-mobile'
@@ -72,11 +72,11 @@
 
 
 
-                {% for i in 0..2 if articles[testCount] %}
+                {% for i in 0..2 if articles[articleCount] %}
                     {% set classes = ["card-sm card-sm-mobile", "card-sm-full", "card-sm card-sm-mobile"] %}
                     {% set images = [false, false, true] %}
                     {{this.render('partials/_single-article.twig', {
-                        article: articles[testCount], 
+                        article: articles[articleCount], 
                         position: (articleCount+1),
                         imageSuppress: images[i],
                         imageSize: {width: 300, height: 185},
@@ -106,10 +106,10 @@
 
 
         <section class="row">
-            {% for i in 0..2 if articles[testCount] %}
+            {% for i in 0..2 if articles[articleCount] %}
                 <div class="col-md-4">
                     {{this.render('partials/_single-article.twig', {
-                        article: articles[testCount], 
+                        article: articles[articleCount], 
                         position: (articleCount+1),
                         imageSize: {width: 300, height: 180},
                         containerClass: "card-sm-full"
