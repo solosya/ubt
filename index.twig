@@ -67,12 +67,7 @@
         {% endfor %}
     {% endfor %}
 
-{# 
-    <pre>
-        {{dump(sections)}}
-</pre>
 
- #}
 
     <main id="main" class="index_container site-main" role="main">
         
@@ -92,7 +87,7 @@
                         containerClass: class
                     }) | raw}}
                     {% set class = 'card-rec card-rec-mobile' %}
-                    {# {% set articleCount = articleCount + 1 %} #}
+                    {% set articleCount = articleCount + 1 %}
                 {% endfor %}
             </div>
 
@@ -107,7 +102,7 @@
                         imageSize: {width: 330, height: 235},
                         containerClass: class[i]
                     }) | raw}}
-                    {# {% set articleCount = articleCount + 1 %} #}
+                    {% set articleCount = articleCount + 1 %}
                 {% endfor %}
             </div>
 
@@ -134,7 +129,7 @@
                         imageSize: {width: 330, height: 235},
                         containerClass: 'card-sm card-sm-mobile'
                     }) | raw}}
-                    {# {% set articleCount = articleCount + 1 %} #}
+                    {% set articleCount = articleCount + 1 %}
                 {% endif %}
             </div>
 
@@ -177,7 +172,7 @@
                                     containerClass: class
                                 }) | raw}}
                                 {% set class = 'col-md-6 card-sm-short card-sm-mobile' %}
-                                {# {% set articleCount = articleCount + 1 %} #}
+                                {% set articleCount = articleCount + 1 %}
                             {% endfor %}
                         </div>
                     </div>
@@ -193,7 +188,7 @@
                                 imageSize: {width: 300, height: 422},
                                 containerClass: 'card-md-full card-md-full-mobile'
                             }) | raw}}
-                            {# {% set articleCount = articleCount + 1 %} #}
+                            {% set articleCount = articleCount + 1 %}
                         {% endif %}
 
                         <div class="row top-stories">
@@ -228,7 +223,7 @@
                         imageSize: {width: 300, height: 180},
                         containerClass: 'card-sm-full'
                     }) | raw}}
-                    {# {% set articleCount = articleCount + 1 %} #}
+                    {% set articleCount = articleCount + 1 %}
                 {% endfor %}
             </div>
 
