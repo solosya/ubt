@@ -73,7 +73,7 @@
                             </div><!--content-block-top-->
 
                             <div class="article_content">
-                                <p>{{ article.content | _resizeImages({'width': 500}) | raw }}</p>
+                                {{ article.content | _resizeImages({'width': 500}) | raw }}
                             </div><!-- .content-->
                         </div><!-- .content-->
 
