@@ -60,6 +60,10 @@
 		clear: both;
 		margin-bottom: 13px;
 		margin-top: 10px;
+
+		&:first-of-type {
+			font-style: 600;
+		}
 	}
 
 	li {

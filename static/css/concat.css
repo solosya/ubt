@@ -5565,7 +5565,6 @@ ul.sub-menu a:focus {
     margin-top: 3px; }
   .weather .description {
     font-size: 0.8125rem;
-    font-weight: 600;
     margin: 0;
     color: #97999c; }
   .weather .icon {
@@ -5820,7 +5819,7 @@ ul.sub-menu a:focus {
       margin-bottom: 20px; }
       .site-main .section > div.section-header > h2 {
         font-family: "PT Serif", "Times New Roman", Times, serif;
-        font-weight: 600;
+        font-weight: 300;
         font-size: 1.875rem;
         letter-spacing: 0.7px;
         margin-bottom: 15px; }
@@ -6084,6 +6083,8 @@ ul.sub-menu a:focus {
     clear: both;
     margin-bottom: 13px;
     margin-top: 10px; }
+    .article_content p:first-of-type {
+      font-style: 600; }
   .article_content li {
     font-size: 0.9375rem;
     font-weight: 300;
