@@ -6084,7 +6084,7 @@ ul.sub-menu a:focus {
     margin-bottom: 13px;
     margin-top: 10px; }
     .article_content p:first-of-type {
-      font-style: 600; }
+      font-weight: 600; }
   .article_content li {
     font-size: 0.9375rem;
     font-weight: 300;
