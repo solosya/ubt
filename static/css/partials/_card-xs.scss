@@ -4,6 +4,12 @@
         position:relative;
         margin-bottom: 32px;
 
+        &:last-child {
+            a.card {
+                border-bottom:none;
+            }
+        }
+
         a.card {
             @include card-image-top(auto, 184px);
             border-bottom: 1px solid white;

@@ -1,9 +1,9 @@
 {% import "partials/quotes.twig" as quotes %}
+{{ set(this, 'title', article.title) }}
+
+{{ this.registerLinkTag({rel:'amphtml', href:_AppHelper.getServerUrl(false)~'?amp=1'}) }}
 
 {% set blogInfo = _Blog.getBlog() %}
-
-
-{{ set(this, 'title', article.title) }}
 {% set networkData = _Network.getNetworkData() %}
 
 
@@ -90,7 +90,6 @@
                             {% for i in 0..4 if articles[testCount] %}
                                 {{this.render('partials/_single-article.twig', {
                                     article: articles[testCount], 
-                                    position: (articleCount+1),
                                     imageSize: {width: 75, height: 63},
                                     containerClass: 'card-article-suggested'
                                 }) | raw}}
@@ -101,7 +100,6 @@
                             {% if articles[testCount] %}
                                 {{this.render('partials/_single-article.twig', {
                                     article: articles[testCount], 
-                                    position: (articleCount+1),
                                     imageSize: {width: 300, height: 180},
                                     containerClass: 'card-sm-full'
                                 }) | raw}}
@@ -123,16 +121,14 @@
                     <h1>RELATED ARTICLES</h1>
                 </div>
 
-                {% for i in 0..2 if articles[testCount] %}
+                {% for i in 0..2 if articles[i] %}
                     <div class="col-md-4">
                         {{this.render('partials/_single-article.twig', {
-                            article: articles[testCount], 
-                            position: (articleCount+1),
+                            article: articles[i], 
                             imageSize: {width: 300, height: 180},
                             containerClass: 'card-sm card-sm-mobile'
                         }) | raw}}
                     </div>
-                    {% set articleCount = articleCount + 1 %}
                 {% endfor %}
 
             </div>

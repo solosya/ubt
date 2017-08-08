@@ -6528,6 +6528,8 @@ a.card {
   .card-xs {
     position: relative;
     margin-bottom: 32px; }
+    .card-xs:last-child a.card {
+      border-bottom: none; }
     .card-xs a.card {
       border-bottom: 1px solid white;
       padding-bottom: 30px; }
@@ -7007,6 +7009,7 @@ a.card {
             font-size: 1rem;
             font-weight: 400; }
           .card-lg-full a.card > article > .content > h2 {
+            font-family: "PT Serif", "Times New Roman", Times, serif;
             font-size: 1.5625rem;
             font-weight: 600;
             margin-top: 20px;
@@ -7015,7 +7018,8 @@ a.card {
             margin-right: auto;
             margin-bottom: 25px;
             line-height: 1.2;
-            text-align: center; }
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7); }
           .card-lg-full a.card > article > .content > p.excerpt {
             font-size: 0.8125rem;
             line-height: 1.54;
