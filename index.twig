@@ -181,7 +181,7 @@
 
 
                     <div class="col-md-4 col-md-pull-8">
-                        {% if articles[articleCount]%}
+                        {% if articles[articleCount] %}
                             {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
                                 position: (articleCount+1),
@@ -317,9 +317,9 @@
 
 
                 <div class="col-md-6">
-                    {% if sections['national'].feed.articles[worldCount] %}
+                    {% if sections['world'].feed.articles[worldCount] %}
                         {{this.render('partials/_single-article.twig', {
-                            article: sections['national'].feed.articles[worldCount], 
+                            article: sections['world'].feed.articles[worldCount], 
                             imageSize: {width: 640, height: 420},
                             containerClass: 'card-md-full card-md-full-mobile'
                         }) | raw}}
@@ -328,9 +328,9 @@
                 </div>
 
                 <div class="col-md-3">
-                    {% if articles[articleCount] %}
+                    {% if sections['world'].feed.articles[worldCount] %}
                         {{this.render('partials/_single-article.twig', {
-                            article: sections['national'].feed.articles[worldCount], 
+                            article: sections['world'].feed.articles[worldCount], 
                             imageSize: {width: 330, height: 235},
                             containerClass: "card-sm card-sm-mobile"
                         }) | raw}}
@@ -341,9 +341,9 @@
 
 
                 <div class="col-md-3">
-                    {% if articles[articleCount] %}
+                    {% if sections['world'].feed.articles[worldCount] %}
                         {{this.render('partials/_single-article.twig', {
-                            article: sections['national'].feed.articles[worldCount], 
+                            article: sections['world'].feed.articles[worldCount], 
                             imageSize: {width: 330, height: 235},
                             containerClass: "card-sm card-sm-mobile"
                         }) | raw}}
