@@ -107,10 +107,12 @@
             >h2 {
                 font-family:$font-family-serif;
                 font-weight:600;
-                color:color(red);
                 font-size:rem(30);
                 letter-spacing: 0.7px;
                 margin-bottom:15px;
+                > a {
+                    color:color(red);
+                }
 
                 &:after {
                     content: '';

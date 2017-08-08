@@ -9,12 +9,13 @@
 
 .sb-custom-menu > div > ul > li.now-active {
     background:color(dark);
-
+    
     > a {
-        color:color(white);
-        > span {
-            background-image: url(../images/drop-down-arrow-white.svg);
-        }
+        color:color(red);
+        text-decoration:none;
+        // > span {
+        //     background-image: url(../images/drop-down-arrow-white.svg);
+        // }
 
     }
 }
@@ -97,7 +98,7 @@
                 padding: 12px 10px 10px 10px;
                 display:block;
                 color:color(black);
-                font-weight:400;
+                font-weight:600;
                 height: 100%;
                 position: relative;
                 text-transform: uppercase; 

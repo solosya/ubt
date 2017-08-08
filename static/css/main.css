@@ -4781,6 +4781,9 @@ h1, h2 {
   margin: 0;
   font-weight: 300; }
 
+a:hover {
+  text-decoration: none; }
+
 body {
   -webkit-overflow-scrolling: touch;
   background: #fff; }
@@ -5305,9 +5308,8 @@ span.leadsentence {
     height: 100%; }
 
 .sb-custom-menu > div > ul > li.now-active > a {
-  color: #ffffff; }
-  .sb-custom-menu > div > ul > li.now-active > a > span {
-    background-image: url(../images/drop-down-arrow-white.svg); }
+  color: #ae232c;
+  text-decoration: none; }
 
 .sb-custom-menu .menu-mobile {
   display: none;
@@ -5360,7 +5362,7 @@ span.leadsentence {
         padding: 12px 10px 10px 10px;
         display: block;
         color: #000000;
-        font-weight: 400;
+        font-weight: 600;
         height: 100%;
         position: relative;
         text-transform: uppercase; }
@@ -5819,10 +5821,11 @@ ul.sub-menu a:focus {
       .site-main .section > div.section-header > h2 {
         font-family: "PT Serif", "Times New Roman", Times, serif;
         font-weight: 600;
-        color: #ae232c;
         font-size: 1.875rem;
         letter-spacing: 0.7px;
         margin-bottom: 15px; }
+        .site-main .section > div.section-header > h2 > a {
+          color: #ae232c; }
         .site-main .section > div.section-header > h2:after {
           content: '';
           display: block;
