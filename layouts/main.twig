@@ -30,7 +30,7 @@
     <link rel="shortcut icon" href="{{favicon}}" />
     <link rel="icon" href="{{favicon}}" sizes="any" type="image/svg+xml" />
 
-    <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7018996/6322372/css/fonts.css" />    
+    {# <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7018996/6322372/css/fonts.css" />     #}
     
     {% set primaryFont = networkData['styling']['fonts']['primaryFont'] %}
     {% set secFont = networkData['styling']['fonts']['secondaryFont'] %}
@@ -49,7 +49,7 @@
 
 
     {% if _AppHelper.getApplicationEnv() == 'PROD'%}
-        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=c1e73622" type="text/css" media="all">
+        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=3f2e8c10" type="text/css" media="all">
 
     {% else %}
 {#             <link type="text/css" rel="stylesheet" href="{{networkData.templatePath}}/static/css/jquery.fancybox.css?ver=2" />

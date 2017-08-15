@@ -4945,7 +4945,7 @@ button.bootbox-close-button {
 
 h4.modal-title {
   margin-top: 10px;
-  font-family: "Open Sans", Helvetica, Arial, sans-serif; }
+  font-family: "open-sans", Helvetica, Arial, sans-serif; }
 
 .container-fluid {
   max-width: 1600px; }
@@ -5604,7 +5604,7 @@ ul.sub-menu a:focus {
         margin: 0;
         line-height: 30px;
         vertical-align: middle;
-        font-family: "Open Sans", Helvetica, Arial, sans-serif;
+        font-family: "open-sans", Helvetica, Arial, sans-serif;
         font-size: 0.625rem;
         display: inline-block;
         color: #fff;
@@ -5615,7 +5615,7 @@ ul.sub-menu a:focus {
         vertical-align: middle;
         top: 0;
         right: 10px;
-        font-family: "Open Sans", Helvetica, Arial, sans-serif;
+        font-family: "open-sans", Helvetica, Arial, sans-serif;
         font-size: 0.625rem;
         margin: 0;
         padding: 0;
@@ -5692,7 +5692,7 @@ ul.sub-menu a:focus {
         display: inline-block;
         margin-right: 37px; }
         .site-header .site-header-main .navbar-right .section-links ul li a {
-          font-family: "Open Sans", Helvetica, Arial, sans-serif;
+          font-family: "open-sans", Helvetica, Arial, sans-serif;
           font-size: 0.875rem;
           color: #ffffff;
           letter-spacing: 2.2px; }
@@ -5947,7 +5947,7 @@ ul.sub-menu a:focus {
     clear: both;
     font-size: 1.0625rem;
     font-weight: normal;
-    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    font-family: "open-sans", Helvetica, Arial, sans-serif;
     line-height: 1.88;
     letter-spacing: 0.9px; }
     .article article.article-main .page-content .content-wrapper:before {
@@ -6048,7 +6048,7 @@ ul.sub-menu a:focus {
     letter-spacing: inherit !important; }
   .article_content a {
     color: #f08b56;
-    font-family: "Open Sans", Helvetica, Arial, sans-serif; }
+    font-family: "open-sans", Helvetica, Arial, sans-serif; }
     @media screen and (max-width: 768px) {
       .article_content a {
         word-wrap: break-word; } }
@@ -6073,7 +6073,7 @@ ul.sub-menu a:focus {
   .article_content p {
     font-size: 0.9375rem;
     font-weight: 300;
-    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    font-family: "open-sans", Helvetica, Arial, sans-serif;
     font-style: normal;
     font-stretch: normal;
     line-height: 1.6;
@@ -6088,7 +6088,7 @@ ul.sub-menu a:focus {
   .article_content li {
     font-size: 0.9375rem;
     font-weight: 300;
-    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    font-family: "open-sans", Helvetica, Arial, sans-serif;
     font-style: normal;
     font-stretch: normal;
     line-height: 1.8;
@@ -6374,7 +6374,7 @@ a.card {
         line-height: 1;
         vertical-align: top; }
       a.card article > .content h2 {
-        font-family: "Open Sans", Helvetica, Arial, sans-serif;
+        font-family: "open-sans", Helvetica, Arial, sans-serif;
         font-size: 1.25rem;
         font-weight: 600;
         margin-top: 0;
@@ -6386,9 +6386,9 @@ a.card {
         display: none; }
   a.card.social .content > p {
     display: block;
-    font-family: "Open Sans", Helvetica, Arial, sans-serif; }
+    font-family: "open-sans", Helvetica, Arial, sans-serif; }
   a.card.social .content .author > p {
-    font-family: "Open Sans", Helvetica, Arial, sans-serif; }
+    font-family: "open-sans", Helvetica, Arial, sans-serif; }
 
 /*! Overlay Button */
 .btn_overlay {
@@ -7560,7 +7560,7 @@ a.card {
         .card-event a.card > article > .content > h2 {
           font-size: 0.75rem;
           line-height: 1.2;
-          font-family: "Open Sans", Helvetica, Arial, sans-serif;
+          font-family: "open-sans", Helvetica, Arial, sans-serif;
           margin-bottom: 5px;
           color: #000000; }
         .card-event a.card > article > .content > time {
