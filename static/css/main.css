@@ -5818,7 +5818,7 @@ ul.sub-menu a:focus {
     .site-main .section > div.section-header {
       margin-bottom: 20px; }
       .site-main .section > div.section-header > h2 {
-        font-family: "PT Serif", "Times New Roman", Times, serif;
+        font-family: "pt-serif", "Times New Roman", Times, serif;
         font-weight: 300;
         font-size: 1.875rem;
         letter-spacing: 0.7px;
@@ -5834,7 +5834,7 @@ ul.sub-menu a:focus {
           background: #97999c; }
       .site-main .section > div.section-header > p {
         font-size: 0.8125rem;
-        font-family: "PT Serif", "Times New Roman", Times, serif;
+        font-family: "pt-serif", "Times New Roman", Times, serif;
         font-style: italic;
         color: #97999c; }
     .site-main .section .finance-widget {
@@ -5891,7 +5891,7 @@ ul.sub-menu a:focus {
       .channel-main div.section-header {
         margin-bottom: 20px; } }
     .channel-main div.section-header > h2 {
-      font-family: "PT Serif", "Times New Roman", Times, serif;
+      font-family: "pt-serif", "Times New Roman", Times, serif;
       font-weight: 600;
       color: #ae232c;
       font-size: 1.875rem;
@@ -5906,7 +5906,7 @@ ul.sub-menu a:focus {
         background: #97999c; }
     .channel-main div.section-header > p {
       font-size: 0.8125rem;
-      font-family: "PT Serif", "Times New Roman", Times, serif;
+      font-family: "pt-serif", "Times New Roman", Times, serif;
       font-style: italic;
       line-height: 1.54;
       color: #97999c; }
@@ -5937,7 +5937,7 @@ ul.sub-menu a:focus {
       .article article.article-main > figure figcaption > p {
         font-size: 0.875rem;
         color: #97999c;
-        font-family: "PT Serif", "Times New Roman", Times, serif; }
+        font-family: "pt-serif", "Times New Roman", Times, serif; }
         @media screen and (max-width: 768px) {
           .article article.article-main > figure figcaption > p {
             font-size: 0.6875rem;
@@ -6011,13 +6011,13 @@ ul.sub-menu a:focus {
         margin-top: 0;
         margin-bottom: 20px;
         color: #000000;
-        font-family: "PT Serif", "Times New Roman", Times, serif; }
+        font-family: "pt-serif", "Times New Roman", Times, serif; }
         @media screen and (max-width: 768px) {
           .article article.article-main .page-content .content-block-top h1 {
             font-size: 1.5rem;
             margin-bottom: 15px; } }
       .article article.article-main .page-content .content-block-top p.author {
-        font-family: "PT Serif", "Times New Roman", Times, serif;
+        font-family: "pt-serif", "Times New Roman", Times, serif;
         font-size: 0.875rem;
         color: #ae232c; }
         .article article.article-main .page-content .content-block-top p.author:before {
@@ -6063,7 +6063,7 @@ ul.sub-menu a:focus {
       max-width: 100%;
       margin-right: -300px; }
     .article_content figure figcaption {
-      font-family: "PT Serif", "Times New Roman", Times, serif;
+      font-family: "pt-serif", "Times New Roman", Times, serif;
       font-size: 1rem;
       font-weight: normal;
       font-style: italic;
@@ -6103,7 +6103,7 @@ ul.sub-menu a:focus {
     padding: 0;
     font-size: 1.75rem;
     font-weight: bold;
-    font-family: "PT Serif", "Times New Roman", Times, serif;
+    font-family: "pt-serif", "Times New Roman", Times, serif;
     border: 0;
     line-height: 1.36; }
     .article_content blockquote:before {
@@ -6121,7 +6121,7 @@ ul.sub-menu a:focus {
       display: block;
       background: #ae232c; }
     .article_content blockquote > p {
-      font-family: "PT Serif", "Times New Roman", Times, serif;
+      font-family: "pt-serif", "Times New Roman", Times, serif;
       font-size: 1.75rem;
       line-height: 1.44;
       font-weight: 600; }
@@ -6896,7 +6896,7 @@ a.card {
             .card-md-full a.card > article > .content .author > p {
               font-size: 0.875rem;
               color: white;
-              font-family: "PT Serif", "Times New Roman", Times, serif; }
+              font-family: "pt-serif", "Times New Roman", Times, serif; }
               .card-md-full a.card > article > .content .author > p:before {
                 content: 'By '; }
             .card-md-full a.card > article > .content .author > img {
@@ -6959,7 +6959,7 @@ a.card {
             .card-md-full-mobile a.card > article > .content .author > p {
               font-size: 0.75rem;
               color: white;
-              font-family: "PT Serif", "Times New Roman", Times, serif; }
+              font-family: "pt-serif", "Times New Roman", Times, serif; }
               .card-md-full-mobile a.card > article > .content .author > p:before {
                 content: 'By '; }
             .card-md-full-mobile a.card > article > .content .author > img {
@@ -7009,7 +7009,7 @@ a.card {
             font-size: 1rem;
             font-weight: 400; }
           .card-lg-full a.card > article > .content > h2 {
-            font-family: "PT Serif", "Times New Roman", Times, serif;
+            font-family: "pt-serif", "Times New Roman", Times, serif;
             font-size: 1.5625rem;
             font-weight: 600;
             margin-top: 20px;
@@ -7142,7 +7142,7 @@ a.card {
           .card-main a.card > article > .content > .category {
             border-right: 1px solid #97999c; }
           .card-main a.card > article > .content > h2 {
-            font-family: "PT Serif", "Times New Roman", Times, serif;
+            font-family: "pt-serif", "Times New Roman", Times, serif;
             font-size: 2.125rem;
             font-weight: 600;
             margin-top: 4px;
@@ -7192,7 +7192,7 @@ a.card {
           .card-main-mobile a.card > article > .content > .category {
             border-right: 1px solid #97999c; }
           .card-main-mobile a.card > article > .content > h2 {
-            font-family: "PT Serif", "Times New Roman", Times, serif;
+            font-family: "pt-serif", "Times New Roman", Times, serif;
             font-size: 1.5rem;
             font-weight: 600;
             margin-top: 4px;
@@ -7250,7 +7250,7 @@ a.card {
             clear: both;
             float: left;
             width: 48%;
-            font-family: "PT Serif", "Times New Roman", Times, serif;
+            font-family: "pt-serif", "Times New Roman", Times, serif;
             font-size: 1.5625rem;
             font-weight: 600;
             margin-top: 4px;
@@ -7323,7 +7323,7 @@ a.card {
           .card-main-2col-mobile a.card > article > .content > .category {
             border-right: 1px solid #97999c; }
           .card-main-2col-mobile a.card > article > .content > h2 {
-            font-family: "PT Serif", "Times New Roman", Times, serif;
+            font-family: "pt-serif", "Times New Roman", Times, serif;
             font-size: 1.5rem;
             font-weight: 600;
             margin-top: 4px;
@@ -7378,7 +7378,7 @@ a.card {
           .card-rec a.card > article > .content > h2 {
             font-size: 1.5625rem;
             line-height: 1.2;
-            font-family: "PT Serif", "Times New Roman", Times, serif;
+            font-family: "pt-serif", "Times New Roman", Times, serif;
             margin-top: 10px;
             margin-bottom: 10px;
             color: #000000; }
@@ -7389,7 +7389,7 @@ a.card {
             .card-rec a.card > article > .content .author > p {
               font-size: 0.875rem;
               color: #ae232c;
-              font-family: "PT Serif", "Times New Roman", Times, serif; }
+              font-family: "pt-serif", "Times New Roman", Times, serif; }
               .card-rec a.card > article > .content .author > p:before {
                 content: 'By '; }
             .card-rec a.card > article > .content .author > img {
@@ -7427,7 +7427,7 @@ a.card {
           .card-rec-mobile a.card > article > .content > h2 {
             font-size: 1rem;
             line-height: 1.38;
-            font-family: "PT Serif", "Times New Roman", Times, serif;
+            font-family: "pt-serif", "Times New Roman", Times, serif;
             margin-top: 0;
             color: #000000; }
           .card-rec-mobile a.card > article > .content > p.excerpt {
