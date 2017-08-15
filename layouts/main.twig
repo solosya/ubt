@@ -1,4 +1,8 @@
-{{ use('yii/web/JqueryAsset') }}
+<!DOCTYPE html>
+<html lang="en-AU" prefix="og: http://ogp.me/ns#">
+
+
+{{ use('yii/web/JqueryAsset') }} 
 {{ register_jquery_asset() }}
 {% set networkData   = _Network.getNetworkData() %}
 {% set blogData      = _Blog.getBlog() %}
@@ -8,8 +12,6 @@
 {% set layout        = blogData.layout %}
 
 {{ this.beginPage() }}
-<!DOCTYPE html>
-<html lang="en-AU" prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>

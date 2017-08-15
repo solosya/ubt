@@ -15,8 +15,8 @@
 
 
 <!-- used to index each article as we loop over throughout the template -->
-{% set articleCount = 1 %}
-{% set testCount = 0 %}
+{% set articleCount = 0 %}
+{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
 
 
     {% set sections =  {
@@ -87,7 +87,7 @@
                         containerClass: class
                     }) | raw}}
                     {% set class = 'card-rec card-rec-mobile' %}
-                    {% set articleCount = articleCount + 1 %}
+                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 {% endfor %}
             </div>
 
@@ -102,7 +102,7 @@
                         imageSize: {width: 330, height: 235},
                         containerClass: class[i]
                     }) | raw}}
-                    {% set articleCount = articleCount + 1 %}
+                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 {% endfor %}
             </div>
 
@@ -129,7 +129,7 @@
                         imageSize: {width: 330, height: 235},
                         containerClass: 'card-sm card-sm-mobile'
                     }) | raw}}
-                    {% set articleCount = articleCount + 1 %}
+                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 {% endif %}
             </div>
 
@@ -172,7 +172,7 @@
                                     containerClass: class
                                 }) | raw}}
                                 {% set class = 'col-md-6 card-sm-short card-sm-mobile' %}
-                                {% set articleCount = articleCount + 1 %}
+                                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                             {% endfor %}
                         </div>
                     </div>
@@ -188,7 +188,7 @@
                                 imageSize: {width: 300, height: 422},
                                 containerClass: 'card-md-full card-md-full-mobile'
                             }) | raw}}
-                            {% set articleCount = articleCount + 1 %}
+                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                         {% endif %}
 
                         <div class="row top-stories">
@@ -223,7 +223,7 @@
                         imageSize: {width: 300, height: 180},
                         containerClass: 'card-sm-full'
                     }) | raw}}
-                    {% set articleCount = articleCount + 1 %}
+                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 {% endfor %}
             </div>
 
@@ -261,7 +261,7 @@
                             imageSize: {width: 300, height: 422},
                             containerClass: 'card-rec card-rec-mobile'
                         }) | raw}}
-                        {# {% set nationalCount = nationalCount + 1 %} #}
+                        {% set nationalCount = (dev) ? nationalCount : nationalCount + 1 %}
                     {% endfor %}
                 </div>
 
@@ -269,11 +269,11 @@
                     {% if sections['national'].feed.articles[nationalCount] %}
                         {{this.render('partials/_single-article.twig', {
                             article: sections['national'].feed.articles[nationalCount], 
-                            position: (articleCount+1),
+                            position: (nationalCount+1),
                             imageSize: {width: 330, height: 235},
                             containerClass: "card-md-full card-md-full-mobile"
                         }) | raw}}
-                        {# {% set nationalCount = nationalCount + 1 %} #}
+                        {% set nationalCount = (dev) ? nationalCount : nationalCount + 1 %}
                     {% endif %}
                 </div>
 
@@ -287,7 +287,7 @@
                             imageSize: {width: 300, height: 180},
                             containerClass: 'card-sm-short card-sm-mobile'
                         }) | raw}}
-                        {# {% set nationalCount = nationalCount + 1 %} #}
+                        {% set nationalCount = (dev) ? nationalCount : nationalCount + 1 %}
                     {% endfor %}
                 </div>
 
@@ -323,7 +323,7 @@
                             imageSize: {width: 640, height: 420},
                             containerClass: 'card-md-full card-md-full-mobile'
                         }) | raw}}
-                        {# {% set worldCount = worldCount + 1 %} #}
+                        {% set worldCount = (dev) ? worldCount : worldCount + 1 %}
                     {% endif %}
                 </div>
 
@@ -335,7 +335,7 @@
                             containerClass: "card-sm card-sm-mobile"
                         }) | raw}}
 
-                        {# {% set worldCount = worldCount + 1 %} #}
+                        {% set worldCount = (dev) ? worldCount : worldCount + 1 %}
                     {% endif %}
                 </div>
 
@@ -348,7 +348,7 @@
                             containerClass: "card-sm card-sm-mobile"
                         }) | raw}}
 
-                        {# {% set worldCount = worldCount + 1 %} #}
+                        {% set worldCount = (dev) ? worldCount : worldCount + 1 %}
                     {% endif %}
                 </div>
 
@@ -384,7 +384,7 @@
                             article: sections['business'].feed.articles[businessCount], 
                             containerClass: 'card-sm-short card-sm-mobile'
                         }) | raw}}
-                        {# {% set businessCount = businessCount + 1 %} #}
+                        {% set businessCount = (dev) ? businessCount : businessCount + 1 %}
                     {% endfor %}
                 </div>
 
@@ -396,7 +396,7 @@
                             containerClass: "card-rec card-rec-mobile"
                         }) | raw}}
 
-                        {# {% set businessCount = businessCount + 1 %} #}
+                        {% set businessCount = (dev) ? businessCount : businessCount + 1 %}
                     {% endfor %}
                 </div>
 
@@ -437,7 +437,7 @@
                             imageSize: {width: 980, height: 420},
                             containerClass: 'card-lg-full'
                         }) | raw}}
-                        {# {% set communityCount = communityCount + 1 %} #}
+                        {% set communityCount = (dev) ? communityCount : communityCount + 1 %}
                     {% endfor %}
 
                     <div class="inside">
@@ -447,7 +447,7 @@
                                 imageSuppress: true,
                                 containerClass: 'card-xs card-xs-mobile'
                             }) | raw}}
-                            {# {% set communityCount = communityCount + 1 %} #}
+                            {% set communityCount = (dev) ? communityCount : communityCount + 1 %}
                         {% endfor %}
                     </div>
                 </div>
@@ -530,7 +530,7 @@
                             imageSize: {width: 640, height: 420},
                             containerClass: 'card-md-full card-md-full-mobile'
                         }) | raw}}
-                        {# {% set sportCount = sportCount + 1 %} #}
+                        {% set sportCount = (dev) ? sportCount : sportCount + 1 %}
                     {% endif %}
                 </div>
 
@@ -543,7 +543,7 @@
                                 containerClass: "col-md-12 card-rec card-rec-mobile"
                             }) | raw}}
 
-                            {# {% set sportCount = sportCount + 1 %} #}
+                            {% set sportCount = (dev) ? sportCount : sportCount + 1 %}
                         {% endif %}
                     </div>
 
@@ -558,7 +558,7 @@
                                     containerClass: "card-sm-full"
                                 }) | raw}}
                             </div>
-                            {# {% set sportCount = sportCount + 1 %} #}
+                            {% set sportCount = (dev) ? sportCount : sportCount + 1 %}
                         {% endfor %}
                     </div>
                 </div>
