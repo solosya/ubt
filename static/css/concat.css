@@ -6362,17 +6362,16 @@ a.card {
         font-size: 0.625rem;
         color: #97999c;
         text-transform: uppercase;
+        margin: 0;
         padding-right: 5px;
         margin-right: 5px;
-        line-height: 1;
-        vertical-align: top; }
+        line-height: 1; }
       a.card article > .content time {
         font-size: 0.625rem;
         display: inline-block;
         color: #97999c;
         text-transform: uppercase;
-        line-height: 1;
-        vertical-align: top; }
+        line-height: 1; }
       a.card article > .content h2 {
         font-family: "open-sans", Helvetica, Arial, sans-serif;
         font-size: 1.25rem;
@@ -6586,7 +6585,7 @@ a.card {
           .card-xs-mobile a.card > article > .content > p.excerpt {
             display: none; } }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 992px) {
   .card-sm {
     position: relative;
     margin-bottom: 32px; }
@@ -6619,6 +6618,46 @@ a.card {
             margin-bottom: 30px;
             height: 100px; }
       .card-sm a.card.article.without__image > article .content p.excerpt {
+        height: 286px;
+        font-size: 0.9375rem;
+        line-height: 1.73; } }
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .card-sm-tablet {
+    position: relative;
+    margin-bottom: 20px; }
+    .card-sm-tablet a.card {
+      border-bottom: 1px solid #97999c; }
+      .card-sm-tablet a.card > article > figure {
+        width: auto;
+        height: 91px;
+        float: none; }
+      .card-sm-tablet a.card > article > .content {
+        display: block; }
+      .card-sm-tablet a.card > article {
+        position: relative; }
+        .card-sm-tablet a.card > article > .content {
+          position: relative;
+          padding: 0; }
+          .card-sm-tablet a.card > article > .content > div {
+            margin-top: 2px; }
+            .card-sm-tablet a.card > article > .content > div > .category {
+              border-right: 1px solid #97999c; }
+          .card-sm-tablet a.card > article > .content > h2 {
+            font-size: 1rem;
+            margin-top: 2px;
+            margin-bottom: 0;
+            line-height: 1.12;
+            color: #000000;
+            height: 54px; }
+          .card-sm-tablet a.card > article > .content > p.excerpt {
+            font-size: 0.6875rem;
+            color: #000000;
+            line-height: 1.36;
+            margin-top: 5px;
+            margin-bottom: 17px;
+            height: 32px; }
+      .card-sm-tablet a.card.article.without__image > article .content p.excerpt {
         height: 286px;
         font-size: 0.9375rem;
         line-height: 1.73; } }
@@ -6690,7 +6729,7 @@ a.card {
         margin-bottom: 22px;
         height: 100px; } }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 992px) {
   .card-sm-short {
     position: relative;
     margin-bottom: 32px; }
@@ -6750,98 +6789,257 @@ a.card {
         margin-bottom: 30px;
         height: 100px; } }
 
-.card-sm-full {
-  position: relative;
-  margin-bottom: 24px;
-  padding-bottom: 30px;
-  border-bottom: 1px solid; }
-  .card-sm-full a.card {
-    height: 180px; }
-    .card-sm-full a.card > article > figure {
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      height: 100%;
-      width: 100%; }
-    .card-sm-full a.card > article {
-      position: relative; }
-      .card-sm-full a.card > article > figure {
-        margin-bottom: 10px; }
-        .card-sm-full a.card > article > figure:before {
-          content: '';
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .card-sm-short-tablet {
+    position: relative;
+    margin-bottom: 20px; }
+    .card-sm-short-tablet a.card {
+      border-bottom: 1px solid #97999c; }
+      .card-sm-short-tablet a.card > article {
+        position: relative; }
+        .card-sm-short-tablet a.card > article > figure {
+          width: 50px;
+          height: 50px;
           position: absolute;
+          top: 20px; }
+        .card-sm-short-tablet a.card > article > .content {
+          display: block;
+          position: relative;
+          padding: 0; }
+          .card-sm-short-tablet a.card > article > .content > div > .category {
+            border-right: 1px solid #97999c; }
+          .card-sm-short-tablet a.card > article > .content > h2 {
+            font-size: 1rem;
+            margin-top: 2px;
+            height: 54px;
+            margin-left: 60px;
+            margin-bottom: 0;
+            line-height: 1.3;
+            color: #000000; }
+          .card-sm-short-tablet a.card > article > .content > p.excerpt {
+            font-size: 0.6875rem;
+            color: #000000;
+            line-height: 1.36;
+            margin-top: 11px;
+            margin-bottom: 20px;
+            height: 30px; }
+        .card-sm-short-tablet a.card > article.video > figure {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 20px;
+          height: 165px;
+          width: 100%; }
+          .card-sm-short-tablet a.card > article.video > figure:before {
+            top: auto;
+            bottom: 10px;
+            left: 35px;
+            margin-top: 0; }
+        .card-sm-short-tablet a.card > article.video > .content {
+          padding-bottom: 38px; }
+          .card-sm-short-tablet a.card > article.video > .content > h2 {
+            margin-left: 77px;
+            margin-top: 105px;
+            color: #ffffff;
+            height: 52px; }
+          .card-sm-short-tablet a.card > article.video > .content > p.excerpt {
+            display: none; }
+      .card-sm-short-tablet a.card.without__image > article > .content .category {
+        font-size: 0.625rem;
+        margin: 0; }
+      .card-sm-short-tablet a.card.without__image > article > .content > h2 {
+        font-size: 1rem;
+        margin-left: 0;
+        height: 54px;
+        line-height: 1.12; }
+      .card-sm-short-tablet a.card.without__image > article > .content > p.excerpt {
+        font-size: 0.6875rem;
+        line-height: 1.36;
+        margin-top: 5px;
+        margin-bottom: 17px;
+        height: 30px; } }
+
+@media screen and (min-width: 992px) {
+  .card-sm-full {
+    position: relative;
+    margin-bottom: 24px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid; }
+    .card-sm-full a.card {
+      height: 180px; }
+      .card-sm-full a.card > article > figure {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 100%; }
+      .card-sm-full a.card > article {
+        position: relative; }
+        .card-sm-full a.card > article > figure {
+          margin-bottom: 10px; }
+          .card-sm-full a.card > article > figure:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            height: 100%;
+            bottom: 0;
+            width: 100%;
+            z-index: 1;
+            background-image: -webkit-linear-gradient(transparent, #000000);
+            background-image: -o-linear-gradient(transparent, #000000);
+            background-image: linear-gradient(transparent, #000000); }
+        .card-sm-full a.card > article > .content {
+          position: relative;
+          padding: 110px 10px 20px 20px;
+          z-index: 10;
+          color: #fff; }
+          .card-sm-full a.card > article > .content > div > .category {
+            display: none; }
+          .card-sm-full a.card > article > .content > div time {
+            order: 2;
+            display: block;
+            font-size: 0.5625rem;
+            margin-top: 7px; }
+          .card-sm-full a.card > article > .content > h2 {
+            order: 1;
+            font-size: 0.9375rem;
+            font-weight: 400;
+            line-height: 1.33; }
+          .card-sm-full a.card > article > .content > p.excerpt {
+            display: none; }
+        .card-sm-full a.card > article.video > figure:before {
           top: 0;
-          height: 100%;
-          bottom: 0;
-          width: 100%;
-          z-index: 1;
-          background-image: -webkit-linear-gradient(transparent, #000000);
-          background-image: -o-linear-gradient(transparent, #000000);
-          background-image: linear-gradient(transparent, #000000); }
-      .card-sm-full a.card > article > .content {
-        position: relative;
-        padding: 110px 10px 20px 20px;
-        z-index: 10;
-        color: #fff; }
-        .card-sm-full a.card > article > .content > .category {
-          display: none; }
-        .card-sm-full a.card > article > .content time {
+          left: 0;
+          margin: 0; }
+        .card-sm-full a.card > article.video > .content:before {
+          position: absolute;
+          content: '';
+          width: 56px;
+          height: 56px;
+          background-image: url(../icons/play-icon.svg);
+          background-repeat: no-repeat;
+          background-size: cover;
+          top: 50%;
+          left: 50%;
+          margin-left: -28px;
+          margin-top: -28px;
+          z-index: 100;
+          display: block;
+          top: auto;
+          left: 10px;
+          margin-left: 0;
+          margin-top: 0; }
+        .card-sm-full a.card > article.video > .content h2, .card-sm-full a.card > article.video > .content time {
+          margin-left: 60px; }
+      .card-sm-full a.card.article.without__image > article .content {
+        padding: 0; }
+        .card-sm-full a.card.article.without__image > article .content > h2 {
+          color: #000000;
+          order: 1;
+          font-size: 1.125rem;
+          font-weight: 600;
+          line-height: 1.33;
+          margin-bottom: 15px; }
+        .card-sm-full a.card.article.without__image > article .content time {
+          order: 3; }
+        .card-sm-full a.card.article.without__image > article .content > p.excerpt {
           order: 2;
           display: block;
-          font-size: 0.5625rem;
-          margin-top: 7px; }
-        .card-sm-full a.card > article > .content > h2 {
-          order: 1;
-          font-size: 0.9375rem;
-          font-weight: 400;
-          line-height: 1.33; }
-        .card-sm-full a.card > article > .content > p.excerpt {
-          display: none; }
-      .card-sm-full a.card > article.video > figure:before {
-        top: 0;
-        left: 0;
-        margin: 0; }
-      .card-sm-full a.card > article.video > .content:before {
-        position: absolute;
-        content: '';
-        width: 56px;
-        height: 56px;
-        background-image: url(../icons/play-icon.svg);
-        background-repeat: no-repeat;
-        background-size: cover;
-        top: 50%;
-        left: 50%;
-        margin-left: -28px;
-        margin-top: -28px;
-        z-index: 100;
-        display: block;
-        top: auto;
-        left: 10px;
-        margin-left: 0;
-        margin-top: 0; }
-      .card-sm-full a.card > article.video > .content h2, .card-sm-full a.card > article.video > .content time {
-        margin-left: 60px; }
-    .card-sm-full a.card.article.without__image > article .content {
-      padding: 0; }
-      .card-sm-full a.card.article.without__image > article .content > h2 {
-        color: #000000;
-        order: 1;
-        font-size: 1.125rem;
-        font-weight: 600;
-        line-height: 1.33;
-        margin-bottom: 15px; }
-      .card-sm-full a.card.article.without__image > article .content time {
-        order: 3; }
-      .card-sm-full a.card.article.without__image > article .content > p.excerpt {
-        order: 2;
-        display: block;
-        height: 100px;
-        font-size: 0.8125rem;
-        line-height: 1.54;
-        color: #000000; }
+          height: 100px;
+          font-size: 0.8125rem;
+          line-height: 1.54;
+          color: #000000; } }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .card-sm-full-tablet {
+    position: relative;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid; }
+    .card-sm-full-tablet a.card {
+      height: 90px; }
+      .card-sm-full-tablet a.card > article > figure {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 100%; }
+      .card-sm-full-tablet a.card > article {
+        position: relative; }
+        .card-sm-full-tablet a.card > article > figure {
+          margin-bottom: 10px; }
+          .card-sm-full-tablet a.card > article > figure:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            height: 100%;
+            bottom: 0;
+            width: 100%;
+            z-index: 1;
+            background-image: -webkit-linear-gradient(transparent, #000000);
+            background-image: -o-linear-gradient(transparent, #000000);
+            background-image: linear-gradient(transparent, #000000); }
+        .card-sm-full-tablet a.card > article > .content {
+          position: relative;
+          padding: 55px 7px 0 7px;
+          z-index: 10;
+          color: #fff; }
+          .card-sm-full-tablet a.card > article > .content > div.cat-time {
+            display: none; }
+          .card-sm-full-tablet a.card > article > .content > h2 {
+            order: 1;
+            font-size: 0.75rem;
+            font-weight: 400;
+            line-height: 1.12;
+            height: 30px; }
+          .card-sm-full-tablet a.card > article > .content > p.excerpt {
+            display: none; }
+        .card-sm-full-tablet a.card > article.video > figure:before {
+          top: 0;
+          left: 0;
+          margin: 0; }
+        .card-sm-full-tablet a.card > article.video > .content:before {
+          position: absolute;
+          content: '';
+          width: 56px;
+          height: 56px;
+          background-image: url(../icons/play-icon.svg);
+          background-repeat: no-repeat;
+          background-size: cover;
+          top: 50%;
+          left: 50%;
+          margin-left: -28px;
+          margin-top: -28px;
+          z-index: 100;
+          display: block;
+          top: auto;
+          left: 10px;
+          margin-left: 0;
+          margin-top: 0; }
+        .card-sm-full-tablet a.card > article.video > .content h2, .card-sm-full-tablet a.card > article.video > .content time {
+          margin-left: 60px; }
+      .card-sm-full-tablet a.card.article.without__image > article .content {
+        padding: 0; }
+        .card-sm-full-tablet a.card.article.without__image > article .content > h2 {
+          color: #000000;
+          order: 1;
+          font-size: 1.125rem;
+          font-weight: 600;
+          line-height: 1.33;
+          margin-bottom: 15px; }
+        .card-sm-full-tablet a.card.article.without__image > article .content time {
+          order: 3; }
+        .card-sm-full-tablet a.card.article.without__image > article .content > p.excerpt {
+          order: 2;
+          display: block;
+          height: 100px;
+          font-size: 0.8125rem;
+          line-height: 1.54;
+          color: #000000; } }
+
+@media screen and (min-width: 992px) {
   .card-md-full {
     position: relative;
     margin-bottom: 32px;
@@ -6902,6 +7100,70 @@ a.card {
             .card-md-full a.card > article > .content .author > img {
               display: none; }
       .card-md-full a.card.article.without__image {
+        background: #002d56; } }
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .card-md-full-tablet {
+    position: relative;
+    margin-bottom: 20px;
+    height: 222px; }
+    .card-md-full-tablet a.card {
+      height: 100%; }
+      .card-md-full-tablet a.card > article > figure {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 100%; }
+      .card-md-full-tablet a.card:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        opacity: 0.4;
+        background-color: #000;
+        z-index: 1; }
+      .card-md-full-tablet a.card > article {
+        position: relative; }
+        .card-md-full-tablet a.card > article > figure {
+          margin-bottom: 10px; }
+        .card-md-full-tablet a.card > article > .content {
+          position: relative;
+          padding: 12px 0 20px 0;
+          text-align: center;
+          z-index: 10;
+          color: #fff; }
+          .card-md-full-tablet a.card > article > .content > div > .category {
+            padding: 0;
+            display: block;
+            color: white;
+            font-size: 0.625rem;
+            font-weight: 400;
+            margin-bottom: 110px; }
+          .card-md-full-tablet a.card > article > .content > div time {
+            display: none; }
+          .card-md-full-tablet a.card > article > .content > h2 {
+            font-size: 0.75rem;
+            font-weight: 400;
+            margin-top: 2px;
+            margin-bottom: 13px;
+            line-height: 1.25;
+            text-transform: uppercase; }
+          .card-md-full-tablet a.card > article > .content > p.excerpt {
+            display: none; }
+          .card-md-full-tablet a.card > article > .content .author {
+            display: block; }
+            .card-md-full-tablet a.card > article > .content .author > p {
+              font-size: 0.625rem;
+              color: white;
+              font-family: "pt-serif", "Times New Roman", Times, serif; }
+              .card-md-full-tablet a.card > article > .content .author > p:before {
+                content: 'By '; }
+            .card-md-full-tablet a.card > article > .content .author > img {
+              display: none; }
+      .card-md-full-tablet a.card.article.without__image {
         background: #002d56; } }
 
 @media screen and (max-width: 767px) {
@@ -7118,7 +7380,7 @@ a.card {
       .card-lg-full a.card.article.without__image {
         background: #002d56; } }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 992px) {
   .card-main {
     position: relative;
     margin-bottom: 32px; }
@@ -7163,6 +7425,58 @@ a.card {
           font-weight: bold;
           max-height: 80px; }
         .card-main a.card.article.without__image .content > p.excerpt {
+          font-size: 0.9375rem;
+          display: block;
+          line-height: 1.73;
+          height: 185px; } }
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .card-main-tablet {
+    position: relative;
+    margin-bottom: 20px; }
+    .card-main-tablet a.card {
+      border-bottom: 1px solid #97999c; }
+      .card-main-tablet a.card > article > figure {
+        width: auto;
+        height: 162px;
+        float: none; }
+      .card-main-tablet a.card > article > .content {
+        display: block; }
+      .card-main-tablet a.card > article {
+        position: relative; }
+        .card-main-tablet a.card > article > figure {
+          overflow: hidden;
+          margin-bottom: 5px; }
+        .card-main-tablet a.card > article > .content {
+          text-align: center;
+          position: relative;
+          padding: 0; }
+          .card-main-tablet a.card > article > .content > div > .category {
+            border-right: 1px solid #97999c; }
+          .card-main-tablet a.card > article > .content > h2 {
+            font-family: "pt-serif", "Times New Roman", Times, serif;
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-top: 10px;
+            line-height: 1.18;
+            margin-bottom: 0;
+            color: #000000; }
+          .card-main-tablet a.card > article > .content > p.excerpt {
+            font-size: 0.6875rem;
+            color: #000000;
+            line-height: 1.36;
+            margin-top: 4px;
+            height: 30px;
+            margin-bottom: 15px; }
+          .card-main-tablet a.card > article > .content > .author {
+            display: none; }
+      .card-main-tablet a.card.article.without__image .content {
+        padding: 90px 60px 100px 60px; }
+        .card-main-tablet a.card.article.without__image .content h2 {
+          font-size: 2.125rem;
+          font-weight: bold;
+          max-height: 80px; }
+        .card-main-tablet a.card.article.without__image .content > p.excerpt {
           font-size: 0.9375rem;
           display: block;
           line-height: 1.73;
@@ -7220,7 +7534,7 @@ a.card {
           line-height: 1.73;
           height: 185px; } }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 992px) {
   .card-main-2col {
     position: relative;
     margin-bottom: 32px; }
@@ -7300,6 +7614,86 @@ a.card {
           min-height: 286px;
           line-height: 1.73; } }
 
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .card-main-2col-tablet {
+    position: relative;
+    margin-bottom: 32px; }
+    .card-main-2col-tablet a.card {
+      border-bottom: 1px solid #97999c; }
+      .card-main-2col-tablet a.card > article > figure {
+        width: auto;
+        height: 162px;
+        float: none; }
+      .card-main-2col-tablet a.card > article > .content {
+        display: block; }
+      .card-main-2col-tablet a.card > article {
+        position: relative; }
+        .card-main-2col-tablet a.card > article > figure {
+          overflow: hidden;
+          margin-bottom: 22px; }
+        .card-main-2col-tablet a.card > article > .content {
+          position: relative;
+          padding: 0;
+          padding-bottom: 20px;
+          overflow: hidden; }
+          .card-main-2col-tablet a.card > article > .content > .category {
+            border-right: 1px solid #97999c; }
+          .card-main-2col-tablet a.card > article > .content > .category, .card-main-2col-tablet a.card > article > .content time {
+            float: left; }
+          .card-main-2col-tablet a.card > article > .content > h2 {
+            clear: both;
+            float: left;
+            width: 48%;
+            font-family: "pt-serif", "Times New Roman", Times, serif;
+            font-size: 1.5625rem;
+            font-weight: 600;
+            margin-top: 4px;
+            margin-bottom: 0;
+            color: #000000; }
+          .card-main-2col-tablet a.card > article > .content > p.excerpt {
+            float: right;
+            width: 48%;
+            height: 140px;
+            max-height: 140px;
+            color: #000000;
+            line-height: 1.54; }
+          .card-main-2col-tablet a.card > article > .content > .author {
+            display: none; }
+        .card-main-2col-tablet a.card > article.video > figure {
+          overflow: hidden;
+          height: 360px; }
+          .card-main-2col-tablet a.card > article.video > figure:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            z-index: 1;
+            background-image: -webkit-linear-gradient(transparent, #000000);
+            background-image: -o-linear-gradient(transparent, #000000);
+            background-image: linear-gradient(transparent, #000000); }
+        .card-main-2col-tablet a.card > article.video > .content {
+          height: 135px; }
+          .card-main-2col-tablet a.card > article.video > .content h2 {
+            float: none;
+            width: 100%; }
+          .card-main-2col-tablet a.card > article.video > .content p.excerpt {
+            display: none; }
+      .card-main-2col-tablet a.card.article.without__image .content {
+        background: #d8d8d8;
+        padding: 70px 35px 0 35px;
+        margin-bottom: 30px;
+        height: 491px; }
+        .card-main-2col-tablet a.card.article.without__image .content h2 {
+          font-size: 1.5625rem;
+          line-height: 1.2;
+          font-weight: bold; }
+        .card-main-2col-tablet a.card.article.without__image .content > p.excerpt {
+          font-size: 0.9375rem;
+          display: block;
+          min-height: 286px;
+          line-height: 1.73; } }
+
 @media screen and (max-width: 767px) {
   .card-main-2col-mobile {
     position: relative;
@@ -7351,7 +7745,7 @@ a.card {
           line-height: 1.73;
           height: 185px; } }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 992px) {
   .card-rec {
     position: relative;
     margin-bottom: 32px; }
@@ -7395,6 +7789,55 @@ a.card {
             .card-rec a.card > article > .content .author > img {
               display: none; }
       .card-rec a.card.article.without__image .content > p.excerpt {
+        font-size: 0.8125rem;
+        display: block;
+        max-height: 45px;
+        margin-bottom: 11px; } }
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .card-rec-tablet {
+    position: relative;
+    margin-bottom: 20px; }
+    .card-rec-tablet a.card {
+      border-bottom: 1px solid #97999c;
+      height: 95px; }
+      .card-rec-tablet a.card > article > figure {
+        width: 109px;
+        height: 78px;
+        float: left; }
+      .card-rec-tablet a.card > article > .content {
+        display: block;
+        width: auto; }
+      .card-rec-tablet a.card > article {
+        position: relative; }
+        .card-rec-tablet a.card > article > figure {
+          margin-right: 18px; }
+        .card-rec-tablet a.card > article > .content {
+          position: relative;
+          padding: 0; }
+          .card-rec-tablet a.card > article > .content > div > .category {
+            margin-bottom: 0;
+            border-right: 1px solid #97999c; }
+          .card-rec-tablet a.card > article > .content > h2 {
+            font-size: 1rem;
+            line-height: 1.12;
+            font-family: "pt-serif", "Times New Roman", Times, serif;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            color: #000000; }
+          .card-rec-tablet a.card > article > .content > p.excerpt {
+            display: none; }
+          .card-rec-tablet a.card > article > .content .author {
+            display: block; }
+            .card-rec-tablet a.card > article > .content .author > p {
+              font-size: 0.875rem;
+              color: #ae232c;
+              font-family: "pt-serif", "Times New Roman", Times, serif; }
+              .card-rec-tablet a.card > article > .content .author > p:before {
+                content: 'By '; }
+            .card-rec-tablet a.card > article > .content .author > img {
+              display: none; }
+      .card-rec-tablet a.card.article.without__image .content > p.excerpt {
         font-size: 0.8125rem;
         display: block;
         max-height: 45px;

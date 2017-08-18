@@ -1,5 +1,5 @@
 .card-main-2col{
-    @media screen and (min-width: $sm-break){
+    @media screen and (min-width: $mmd-break){
         
         position:relative;
         margin-bottom: 32px;
@@ -112,6 +112,133 @@
         }
     }
 }
+
+
+
+
+
+.card-main-2col-tablet{
+    @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
+        
+        position:relative;
+        margin-bottom: 32px;
+
+        a.card {
+            @include card-image-top(auto, 162px);
+            border-bottom: 1px solid #97999c;
+
+            > article {
+                position:relative;
+
+                > figure{
+                    overflow: hidden;
+                    margin-bottom:22px;
+
+                }
+
+                
+                > .content{
+                    position:relative;
+                    padding: 0;
+                    padding-bottom:20px;
+                    overflow:hidden;
+
+
+                    > .category{
+                        border-right:1px solid color(lightgrey);
+                    }
+
+                    > .category, time {
+                        float:left;
+                    }
+    
+                    > h2{
+                        clear:both;
+                        float:left;
+                        width:48%;
+                        font-family:$font-family-serif;
+                        font-size:rem(25);
+                        font-weight:600;
+                        margin-top:4px;
+                        margin-bottom:0;
+                        color:color(black);
+                    }
+
+                    > p.excerpt {
+                        float:right;
+                        width:48%;
+                        height:140px;
+                        max-height:140px;
+                        color:color(black);
+                        line-height: 1.54;
+                    }
+
+                    > .author{
+                        display:none;
+                    }
+                }
+
+
+                &.video {
+
+                    > figure{
+                        overflow: hidden;
+                        height:360px;
+                        @include gradientafter();
+                    }
+
+
+
+                    > .content { 
+                        height: 135px;
+
+                        h2 {
+                            float:none;
+                            width:100%;
+                        }
+
+                        p.excerpt {
+                            display:none;
+                        }
+
+                    }
+                }
+            }
+
+
+            &.article.without__image {
+                .content {
+                    background: #d8d8d8;
+
+                    padding: 70px 35px 0 35px;
+                    margin-bottom:30px;
+                    height:491px;
+
+                    h2 {
+                        font-size: rem(25);
+                        line-height:1.2;
+                        font-weight:bold;
+                    }
+
+                    > p.excerpt {
+                        font-size: rem(15);
+                        display: block;
+                        min-height:286px;
+                        line-height: 1.73;
+                    }
+                }
+            }   
+        }
+    }
+}
+
+
+
+
+
+
+
+
 
 
 .card-main-2col-mobile{

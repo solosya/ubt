@@ -1,5 +1,5 @@
 .card-main{
-    @media screen and (min-width: $sm-break){
+    @media screen and (min-width: $mmd-break){
         
         position:relative;
         margin-bottom: 32px;
@@ -72,6 +72,99 @@
         }
     }
 }
+
+
+
+
+
+
+
+.card-main-tablet{
+    @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
+        
+        position:relative;
+        margin-bottom: 20px;
+
+        a.card {
+            @include card-image-top(auto, 162px);
+            border-bottom: 1px solid #97999c;
+
+            > article {
+                position:relative;
+
+                > figure{
+                    overflow: hidden;
+                    margin-bottom:5px;
+                }
+
+
+                > .content{
+                    text-align:center;
+                    position:relative;
+                    padding: 0;
+
+
+                    > div {
+                        >.category{
+                            border-right:1px solid color(lightgrey);
+                        }
+                    }
+
+                    > h2{
+                        font-family:$font-family-serif;
+                        font-size:rem(18);
+                        font-weight:600;
+                        margin-top:10px;
+                        line-height:1.18;
+                        margin-bottom:0;
+                        color:color(black);
+                    }
+
+                    > p.excerpt {
+                        font-size:rem(11);
+                        color:color(black);
+                        line-height: 1.36;
+                        margin-top:4px;
+                        height:30px;
+                        margin-bottom: 15px;
+                    }
+
+                    > .author{
+                        display:none;
+                    }
+                }
+            }
+
+
+            &.article.without__image {
+                .content {
+                    padding: 90px 60px 100px 60px;
+
+                    h2 {
+                        font-size: rem(34);
+                        font-weight:bold;
+                        max-height:80px;
+                    }
+
+                    > p.excerpt {
+                        font-size: rem(15);
+                        display: block;
+                        line-height: 1.73;
+                        height:185px;
+                    }
+                }
+            }   
+        }
+    }
+}
+
+
+
+
+
+
+
+
 
 
 .card-main-mobile{

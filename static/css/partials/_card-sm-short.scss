@@ -1,5 +1,5 @@
 .card-sm-short{
-    @media screen and (min-width: $sm-break){
+    @media screen and (min-width: $mmd-break){
         
         position:relative;
         margin-bottom: 32px;
@@ -91,6 +91,128 @@
                         > p.excerpt {
                             margin-bottom: 30px;
                             height:100px;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+
+
+
+
+
+.card-sm-short-tablet{
+    @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
+        
+        position:relative;
+        margin-bottom: 20px;
+
+        a.card {
+            border-bottom: 1px solid #97999c;
+
+            > article {
+                position:relative;
+
+                > figure{
+                    width:50px;
+                    height:50px;
+                    position:absolute;
+                    top:20px;
+                }
+
+                > .content{
+                    display:block;
+                    position:relative;
+                    padding: 0;
+
+                    > div {
+                        > .category{
+                            border-right:1px solid color(lightgrey);
+                        }
+                    }
+
+                    > h2{
+                        font-size: rem(16);
+                        margin-top:2px;
+                        height:54px;
+                        margin-left:60px;
+                        margin-bottom:0;
+                        line-height: 1.3;
+                        color:color(black);
+                    }
+
+                    > p.excerpt {
+                        font-size: rem(11);
+                        color:color(black);
+                        line-height: 1.36;
+                        margin-top:11px;
+                        margin-bottom: 20px;
+                        height:30px;
+                    }
+                }
+
+                &.video {
+                    > figure{
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        top: 20px;
+                        height:165px;
+                        width: 100%;
+
+                        &:before {
+                            top:auto;
+                            bottom: 10px;
+                            left: 35px;
+                            margin-top:0;
+                        }
+                    }
+                    > .content{
+                        padding-bottom: 38px;
+
+                        > h2 {
+                            margin-left: 77px;
+                            margin-top:105px;
+                            color:color(white);
+                            height:52px;
+                        }
+                        >p.excerpt {
+                            display:none;
+                        }
+                    }
+                }
+
+            }
+
+
+            &.without__image {
+                > article {
+
+                    > .content{
+
+                        .category {
+                            font-size:rem(10);
+                            margin:0;
+                        }
+
+                        > h2{
+                            font-size: rem(16);
+                            margin-left:0;
+                            height:54px;
+                            line-height: 1.12;
+
+                        }
+
+                        > p.excerpt {
+                            font-size: rem(11);
+                            line-height: 1.36;
+                            margin-top:5px;
+                            margin-bottom: 17px;
+                            height:30px;
                         }
                     }
                 }

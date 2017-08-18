@@ -16,7 +16,7 @@
 
 <!-- used to index each article as we loop over throughout the template -->
 {% set articleCount = 0 %}
-{% set testCount = 0 %}
+{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
 
 
 
@@ -26,7 +26,7 @@
 
 
         <section class="row">
-            <div class="col-md-12 section-header">
+            <div class="col-sm-12 section-header">
                 <h2>National</h2>
                 <p>
                     Nam porti tasse plat dictmst  blandit accaserio sln hac curabitur hendrerit 
@@ -37,7 +37,7 @@
         
         <section class="row">
 
-            <div class="col-md-8">
+            <div class="col-sm-8">
                 {% if articles[articleCount] %}
                     {{this.render('partials/_single-article.twig', {
                         article: articles[articleCount], 
@@ -45,7 +45,7 @@
                         imageSize: {width: 640, height: 309},
                         containerClass: 'card-main-2col card-main-2col-mobile'
                     }) | raw}}
-                    {% set articleCount = articleCount + 1 %}
+                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 {% endif %}
 
 
@@ -56,7 +56,7 @@
                         imageSize: {width: 200, height: 140},
                         containerClass: 'card-rec card-rec-mobile'
                     }) | raw}}
-                    {% set articleCount = articleCount + 1 %}
+                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 {% endfor %}
 
             </div>
@@ -64,7 +64,7 @@
 
 
 
-            <div class="col-md-4">
+            <div class="col-sm-4">
 
                 <div class="advert">
                 </div>
@@ -82,9 +82,9 @@
                         imageSize: {width: 300, height: 185},
                         containerClass: classes[i]
                     }) | raw}}
-                    {% set articleCount = articleCount + 1 %}
+                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 {% endfor %}
-                {% set articleCount = articleCount + 1 %}
+                {# {% set articleCount = articleCount + 1 %} #}
                 
             </div>
 
@@ -107,7 +107,7 @@
 
         <section class="row">
             {% for i in 0..2 if articles[articleCount] %}
-                <div class="col-md-4">
+                <div class="col-sm-4">
                     {{this.render('partials/_single-article.twig', {
                         article: articles[articleCount], 
                         position: (articleCount+1),
@@ -115,7 +115,7 @@
                         containerClass: "card-sm-full"
                     }) | raw}}
                 </div>
-                {% set articleCount = articleCount + 1 %}
+                {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
             {% endfor %}
         </section>
 

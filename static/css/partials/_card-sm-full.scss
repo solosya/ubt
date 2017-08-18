@@ -1,5 +1,5 @@
 .card-sm-full{
-    // @media screen and (min-width: $sm-break){
+    @media screen and (min-width: $mmd-break){
         
         position:relative;
         margin-bottom: 24px;
@@ -28,15 +28,18 @@
                     color:#fff;
 
                   
-                    > .category{
-                        display:none;
+                    >div {
+                        > .category{
+                            display:none;
+                        }
+                        time {
+                            order:2;
+                            display:block;
+                            font-size: rem(9);
+                            margin-top:7px;
+                        }
                     }
-                    time {
-                        order:2;
-                        display:block;
-                        font-size: rem(9);
-                        margin-top:7px;
-                    }
+
                     > h2{
                         order: 1;
                         font-size: rem(15);
@@ -107,8 +110,121 @@
                 }
             }   
         }
-    // }
+    }
 }
+
+
+
+
+
+.card-sm-full-tablet {
+    @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
+        
+        position:relative;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid color(lightblue);
+
+
+
+        a.card {
+            height:90px;
+            @include card-image-full();
+
+            > article {
+                position:relative;
+
+                > figure{
+                    margin-bottom:10px;
+                    
+                    @include gradientbefore();
+                }
+
+                > .content{
+                    position:relative;
+                    padding: 55px 7px 0 7px;
+                    z-index:10;
+                    color:#fff;
+
+                  
+                    >div.cat-time {
+                        display:none;
+                    }
+
+                    > h2{
+                        order: 1;
+                        font-size: rem(12);
+                        font-weight:400;
+                        line-height: 1.12;
+                        height:30px;
+                    }
+
+                    > p.excerpt {
+                        display:none;
+                    }
+
+                }
+                &.video {
+                    > figure {
+                        &:before{
+                            top:0;
+                            left:0;
+                            margin:0;
+                        }
+                    }
+
+                    > .content {
+
+                        &:before{
+                            @include videoIcon();
+                            display:block;
+                            top: auto;
+                            left:10px;
+                            margin-left: 0;
+                            margin-top: 0;
+                        }
+                        h2, time {
+                            margin-left:60px;
+                        }
+
+                    }
+                }
+            }
+
+
+            &.article.without__image {
+                >article {
+                    .content {
+                        padding:0;
+
+                        > h2{
+                            color:color(black);
+                            order: 1;
+                            font-size: rem(18);
+                            font-weight:600;
+                            line-height: 1.33;
+                            margin-bottom:15px;
+                        }
+                        time {
+                            order:3;
+                        }
+                        > p.excerpt {
+                            order:2;
+                            display:block;
+                            height:100px;
+                            font-size: rem(13);
+                            line-height: 1.54;
+                            color:color(black);
+
+                        }
+
+                    }
+                }
+            }   
+        }
+    }
+}
+
 
 
 
