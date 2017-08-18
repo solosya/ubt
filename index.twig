@@ -484,21 +484,25 @@
 
 
         {% if sections['videos'].feed.articles|length > 0 %}
+            {% set videoCount = 0 %}
+
             <section class="row section national">
 
                 <div class="col-sm-12 section-header">
                     <h2><a href="{{sections['community'].link}}">Videos</a></h2>
-                    <p>{{sections['business'].description}}</p>
+                    <p>{{sections['videos'].description}}</p>
                 </div>
 
 
-                {% for i in 0..3 if articles[i] %}
+                {% for i in 0..3 if sections['videos'].feed.articles[videoCount] %}
                     <div class="col-sm-3">
                         {{this.render('partials/_single-article.twig', {
-                            article: sections['videos'].feed.articles[articleCount], 
+                            article: sections['videos'].feed.articles[videoCount], 
                             imageSize: {width: 300, height: 180},
                             containerClass: 'card-sm-full card-sm-full-tablet'
                         }) | raw}}
+                        {% set videoCount = (dev) ? videoCount : videoCount + 1 %}
+
                     </div>
                 {% endfor %}
 
