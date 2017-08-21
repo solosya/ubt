@@ -2,6 +2,10 @@
 .row > * {
     min-height: 0;
 }
+// div[class*="col-"] {
+//     background:orange;
+// }
+
 html {
     font-size:100%;
 }
@@ -24,6 +28,10 @@ body{
     // @media screen and (max-width: $sm-break){
     //     overflow-x: hidden;
     // }
+}
+
+.container-fluid {
+    max-width: $index-width;
 }
 
 
@@ -199,9 +207,6 @@ h4.modal-title {
     font-family: $font-family-sans-serif;
 }
 
-.container-fluid{
-    max-width: 1600px;
-}
 
 .btn{
     font-size: rem(14);

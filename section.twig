@@ -20,13 +20,13 @@
 
 
 
-    <main id="main" class="channel_container channel-main" role="main">
+    <main id="main" class="index_container channel-main" role="main">
         
 
 
 
         <section class="row">
-            <div class="col-sm-12 section-header">
+            <div class="col-sm-offset-1 col-sm-10 section-header">
                 <h2>National</h2>
                 <p>
                     Nam porti tasse plat dictmst  blandit accaserio sln hac curabitur hendrerit 
@@ -37,13 +37,13 @@
         
         <section class="row">
 
-            <div class="col-sm-8">
+            <div class="col-sm-offset-1 col-sm-6">
                 {% if articles[articleCount] %}
                     {{this.render('partials/_single-article.twig', {
                         article: articles[articleCount], 
                         position: (articleCount+1),
                         imageSize: {width: 640, height: 309},
-                        containerClass: 'card-main-2col card-main-2col-mobile'
+                        containerClass: 'card-main-2col card-main-2col-tablet card-main-2col-mobile'
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 {% endif %}
@@ -54,7 +54,7 @@
                         article: articles[articleCount], 
                         position: (articleCount+1),
                         imageSize: {width: 200, height: 140},
-                        containerClass: 'card-rec card-rec-mobile'
+                        containerClass: 'card-rec card-rec-tablet card-rec-mobile'
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 {% endfor %}
@@ -64,16 +64,15 @@
 
 
 
-            <div class="col-sm-4">
+            <div class="col-sm-offset-1 col-sm-3">
 
-                <div class="advert">
-                </div>
+                <div class="advert visible-md-block visible-lg-block"> </div>
 
 
 
 
                 {% for i in 0..2 if articles[articleCount] %}
-                    {% set classes = ["card-sm card-sm-mobile", "card-sm-full", "card-sm card-sm-mobile"] %}
+                    {% set classes = ["card-sm card-sm-tablet card-sm-mobile", "card-sm-full card-sm-full-tablet", "card-sm card-sm-tablet card-sm-mobile"] %}
                     {% set images = [false, false, true] %}
                     {{this.render('partials/_single-article.twig', {
                         article: articles[articleCount], 
@@ -106,13 +105,17 @@
 
 
         <section class="row">
+            <div class="col-sm-offset-2 col-sm-3">
+
             {% for i in 0..2 if articles[articleCount] %}
-                <div class="col-sm-4">
+                {% if i != 0 %}
+                    <div class="col-sm-3">
+                {% endif %}
                     {{this.render('partials/_single-article.twig', {
                         article: articles[articleCount], 
                         position: (articleCount+1),
                         imageSize: {width: 300, height: 180},
-                        containerClass: "card-sm-full"
+                        containerClass: "card-sm-full card-sm-full-tablet"
                     }) | raw}}
                 </div>
                 {% set articleCount = (dev) ? articleCount : articleCount + 1 %}

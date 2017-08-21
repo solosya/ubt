@@ -1,10 +1,10 @@
 .card-sm-full{
-    @media screen and (min-width: $mmd-break){
+    @media screen and (max-width: $sm-break-down), (min-width: $mmd-break) {
         
         position:relative;
         margin-bottom: 24px;
         padding-bottom: 30px;
-        border-bottom: 1px solid color(lightblue);
+        border-bottom: 1px solid color(lightgrey);
 
 
 
@@ -123,7 +123,7 @@
         position:relative;
         margin-bottom: 15px;
         padding-bottom: 15px;
-        border-bottom: 1px solid color(lightblue);
+        border-bottom: 1px solid color(lightgrey);
 
 
 

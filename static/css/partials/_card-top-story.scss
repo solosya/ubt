@@ -1,44 +1,86 @@
+.top-stories {
+    counter-reset: my-badass-counter;
+}
+.top-stories > div:before {
+    content: counter(my-badass-counter)".";
+    counter-increment: my-badass-counter;
+}
+
 .card-top-story{
-    // @media screen and (min-width: $sm-break){
-        
+    &:before {
+        float:left;
+        font-size:rem(17);
+        color: color(red);
+        margin-right:10px;
+        line-height:1;
+    }
+    a.card {
         position:relative;
-        margin-bottom: 32px;
-        
-        a.card {
 
-            > article {
+        >article {
+            .content {
+                width:auto;
                 position:relative;
+                padding: 0;
 
-
-                > .content{
-                    position:relative;
-                    padding: 0;
-
-                    > .category{
+                div > {
+                    .category{
                         display:none;
                     }
-                
                     time {
                         display:none;
                     }
+                }
+                > p.excerpt {
+                    display:none;
+                }
 
+            }
+        }
+    }
+}
+
+.card-top-story-dt{
+    @media screen and (min-width: $mmd-break) {        
+        position:relative;
+        margin-bottom: 23px;
+        a.card {
+            > article {
+                > .content{
                     > h2{
                         font-size: rem(14);
                         margin-bottom:0;
                         line-height: 1.42;
                         color:color(black);
                     }
+                }
+            }
+        }
+    }
+}
 
-                    > p.excerpt {
-                        display:none;
+
+.card-top-story-tablet{
+    @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
+        margin-bottom: 15px;
+        &:before {
+            font-size:rem(12);
+        }
+        a.card {
+            > article {
+                > .content{
+                    > h2{
+                        font-size: rem(12);
+                        margin-bottom:0;
+                        line-height: 1.17;
+                        color:color(black);
+                        height: 28px;
                     }
                 }
             }
-
-
-            &.article.without__image {
-                margin-top: -7px;
-            }   
         }
-    // }
+    }
 }
+
+
+

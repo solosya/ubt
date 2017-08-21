@@ -25,12 +25,10 @@
                     overflow:hidden;
 
 
-                    > .category{
-                        border-right:1px solid color(lightgrey);
-                    }
-
-                    > .category, time {
-                        float:left;
+                    >div {
+                        > .category{
+                            border-right:1px solid color(lightgrey);
+                        }
                     }
     
                     > h2{
@@ -121,7 +119,7 @@
     @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
         
         position:relative;
-        margin-bottom: 32px;
+        margin-bottom: 10px;
 
         a.card {
             @include card-image-top(auto, 162px);
@@ -131,25 +129,19 @@
                 position:relative;
 
                 > figure{
-                    overflow: hidden;
-                    margin-bottom:22px;
-
+                    margin-bottom:5px;
                 }
 
                 
                 > .content{
                     position:relative;
                     padding: 0;
-                    padding-bottom:20px;
+                    padding-bottom:5px;
                     overflow:hidden;
 
 
-                    > .category{
+                    > div > .category{
                         border-right:1px solid color(lightgrey);
-                    }
-
-                    > .category, time {
-                        float:left;
                     }
     
                     > h2{
@@ -157,20 +149,24 @@
                         float:left;
                         width:48%;
                         font-family:$font-family-serif;
-                        font-size:rem(25);
+                        font-size:rem(15);
                         font-weight:600;
                         margin-top:4px;
                         margin-bottom:0;
                         color:color(black);
+                        line-height: 1.2;
+
                     }
 
                     > p.excerpt {
+                        font-size:rem(11);
                         float:right;
                         width:48%;
-                        height:140px;
-                        max-height:140px;
+                        height:105px;
+                        margin-top:4px;
+                        max-height:105px;
                         color:color(black);
-                        line-height: 1.54;
+                        line-height: 1.36;
                     }
 
                     > .author{
@@ -265,7 +261,7 @@
                     padding: 0;
 
 
-                    > .category{
+                    > div > .category{
                         border-right:1px solid color(lightgrey);
                     }
 

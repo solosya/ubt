@@ -1,5 +1,5 @@
 .card-event{
-    // @media screen and (min-width: $sm-break){
+    @media screen and (min-width: $mmd-break){
         
         position:relative;
         margin-bottom: 12px;
@@ -69,24 +69,85 @@
 
 
             &.article.without__image {
-                // .content {
-                //     padding-top:87px;
-                //     height:100%;
-
-                //     h2 {
-                //         font-size: rem(17);
-                //         font-weight:bold;
-                //         max-height:52px;
-                //     }
-
-                //     > p {
-                //         font-size: rem(13);
-                //         display: block;
-                //         max-height:100px;
-                //         margin-bottom: 18px;
-                //     }
-                // }
             }   
         }
-    // }
+    }
 }
+
+
+
+
+
+.card-event-tablet{
+    @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
+        
+        position:relative;
+        margin-bottom: 12px;
+
+        a.card {
+            border-bottom: 1px solid #97999c;
+            height:auto;
+
+            > article {
+                position:relative;
+
+                > time {
+                    display:block;
+                    // text-align:center;
+                    // padding: 0 18px;
+
+                    > span {
+                        line-height:1;
+                    }
+                    > span.day {
+                        font-size: rem(14);
+                        color:black;
+                    }
+                    > span.month {
+                        font-size: rem(10);
+                        color:color(lightgrey);
+                    }
+
+                }
+
+
+                > figure{
+                    display:none;
+                }
+
+
+                > .content{
+                    position:relative;
+                    padding-bottom: 6px;
+
+
+                    > h2{
+                        font-size: rem(12);
+                        line-height:1;
+                        font-family: $base-font-family;
+                        margin-top:3px;
+                        font-weight:600;
+                        margin-bottom:5px;
+                        color:color(black);
+                    }
+
+                    >time {
+                        text-transform:none;
+                        font-size: rem(12);
+                        color:color(black);
+                    }
+        
+                    > p.excerpt {
+                        display:none;
+                    }
+
+                }
+            }
+
+
+            &.article.without__image {
+            }   
+        }
+    }
+}
+

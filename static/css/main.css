@@ -4788,6 +4788,9 @@ body {
   -webkit-overflow-scrolling: touch;
   background: #fff; }
 
+.container-fluid {
+  max-width: 1360px; }
+
 .index_container {
   margin-right: auto;
   margin-left: auto;
@@ -4946,9 +4949,6 @@ button.bootbox-close-button {
 h4.modal-title {
   margin-top: 10px;
   font-family: "open-sans", Helvetica, Arial, sans-serif; }
-
-.container-fluid {
-  max-width: 1600px; }
 
 .btn {
   font-size: 0.875rem;
@@ -5761,33 +5761,49 @@ ul.sub-menu a:focus {
     margin-bottom: 30px; }
   .site-main .e-edition {
     position: relative;
-    text-align: center;
     height: 100px;
     margin-bottom: 80px; }
-    .site-main .e-edition > a {
-      background-image: url("../images/e-edition-icon.svg");
-      background-repeat: no-repeat;
-      background-size: cover;
-      position: absolute;
-      right: 15px;
-      top: 7px;
-      display: block;
-      width: 42px;
-      height: 42px; }
-    .site-main .e-edition > p.name {
-      margin-top: 7px;
-      margin-bottom: 0;
-      padding-bottom: 2px;
-      font-size: 0.75rem;
-      color: #97999c;
-      border-bottom: 1px solid #97999c; }
+    .site-main .e-edition > div {
+      margin: auto; }
+      @media screen and (max-width: 991px) {
+        .site-main .e-edition > div {
+          width: 250px; } }
+      .site-main .e-edition > div > a {
+        background-image: url("../images/e-edition-icon.svg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin-right: 30px;
+        display: block;
+        float: left;
+        width: 47px;
+        height: 47px; }
+        @media screen and (min-width: 992px) and (max-width: 1350px) {
+          .site-main .e-edition > div > a {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px; } }
+        @media screen and (min-width: 768px) and (max-width: 991px) {
+          .site-main .e-edition > div > a {
+            width: 24px;
+            height: 24px;
+            margin-right: 15px; } }
+      @media screen and (min-width: 992px) and (max-width: 1350px) {
+        .site-main .e-edition > div > img {
+          width: 130px; } }
+      @media screen and (min-width: 768px) and (max-width: 991px) {
+        .site-main .e-edition > div > img {
+          height: 38px;
+          width: 86px; } }
     .site-main .e-edition > p.description {
-      width: 200px;
+      border-top: 1px solid #97999c;
+      font-family: "pt-serif", "Times New Roman", Times, serif;
       font-size: 0.875rem;
       font-style: italic;
       color: #97999c;
       margin: auto;
-      margin-top: 8px; }
+      margin-top: 8px;
+      padding-top: 8px;
+      text-align: center; }
   .site-main .advert {
     background: grey;
     height: 250px; }
@@ -5801,13 +5817,32 @@ ul.sub-menu a:focus {
   .site-main .bottom-cards .top-stories {
     margin: 0;
     height: 317px;
-    border-bottom: 1px solid; }
+    border-bottom: 1px solid #97999c; }
+    @media screen and (min-width: 768px) and (max-width: 991px) {
+      .site-main .bottom-cards .top-stories {
+        height: auto; } }
     .site-main .bottom-cards .top-stories > h2 {
-      color: #002d56;
+      color: #97999c;
       font-size: 1rem;
-      margin-bottom: 37px;
+      margin-bottom: 25px;
       margin-top: 10px;
-      font-weight: 600; }
+      font-weight: normal; }
+      @media screen and (min-width: 768px) and (max-width: 991px) {
+        .site-main .bottom-cards .top-stories > h2 {
+          font-size: 0.75rem;
+          margin-top: 3px;
+          margin-bottom: 15px; } }
+      .site-main .bottom-cards .top-stories > h2:after {
+        content: '';
+        display: block;
+        margin-top: 7px;
+        height: 1px;
+        width: 20px;
+        background: #002d56; }
+        @media screen and (min-width: 768px) and (max-width: 991px) {
+          .site-main .bottom-cards .top-stories > h2:after {
+            margin-top: 3px;
+            width: 15px; } }
   .site-main .bottom-cards .advert-banner-small div.advert {
     background: #d8d8d8;
     width: 728px;
@@ -5822,7 +5857,8 @@ ul.sub-menu a:focus {
         font-weight: 300;
         font-size: 1.875rem;
         letter-spacing: 0.7px;
-        margin-bottom: 15px; }
+        margin-bottom: 15px;
+        color: #ae232c; }
         .site-main .section > div.section-header > h2 > a {
           color: #ae232c; }
         .site-main .section > div.section-header > h2:after {
@@ -5848,18 +5884,28 @@ ul.sub-menu a:focus {
       right: 55px;
       width: 326px;
       z-index: 10; }
+      @media screen and (min-width: 768px) and (max-width: 991px) {
+        .site-main .section.events .inside {
+          width: 180px;
+          top: 10px; } }
       @media screen and (max-width: 767px) {
         .site-main .section.events .inside {
           position: static;
           top: 0;
           right: 0;
           width: auto; } }
-    .site-main .section.events .eventlist > h2 {
-      font-size: 1.3125rem;
-      font-weight: 600;
-      padding-bottom: 4px;
-      margin-bottom: 12px;
-      border-bottom: 1px solid #97999c; }
+    .site-main .section.events .eventlist {
+      height: 231px;
+      overflow: hidden; }
+      .site-main .section.events .eventlist > h2 {
+        font-size: 1.3125rem;
+        font-weight: 600;
+        padding-bottom: 4px;
+        margin-bottom: 12px;
+        border-bottom: 1px solid #97999c; }
+        @media screen and (min-width: 768px) and (max-width: 991px) {
+          .site-main .section.events .eventlist > h2 {
+            font-size: 0.875rem; } }
 
 .searchPage {
   margin-top: 50px; }
@@ -5886,7 +5932,7 @@ ul.sub-menu a:focus {
       height: 90px;
       margin: 0 auto; }
   .channel-main div.section-header {
-    margin-bottom: 80px; }
+    margin-bottom: 41px; }
     @media screen and (max-width: 767px) {
       .channel-main div.section-header {
         margin-bottom: 20px; } }
@@ -6532,22 +6578,16 @@ a.card {
     .card-xs a.card {
       border-bottom: 1px solid white;
       padding-bottom: 30px; }
-      .card-xs a.card > article > figure {
-        width: auto;
-        height: 184px;
-        float: none; }
-      .card-xs a.card > article > .content {
-        display: block; }
       .card-xs a.card > article {
         position: relative; }
         .card-xs a.card > article > .content {
           position: relative;
           padding: 0;
           color: #fff; }
-          .card-xs a.card > article > .content > .category {
+          .card-xs a.card > article > .content > div > .category {
             color: #fff;
             border-right: 1px solid white; }
-          .card-xs a.card > article > .content time {
+          .card-xs a.card > article > .content > div time {
             color: white; }
           .card-xs a.card > article > .content > h2 {
             margin-top: 2px;
@@ -6557,6 +6597,37 @@ a.card {
           .card-xs a.card > article > .content > p.excerpt {
             display: none; } }
 
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .card-xs-tablet {
+    position: relative;
+    margin-bottom: 8px; }
+    .card-xs-tablet:last-child a.card {
+      border-bottom: none; }
+    .card-xs-tablet a.card {
+      border-bottom: 1px solid white;
+      padding-bottom: 10px; }
+      .card-xs-tablet a.card > article {
+        position: relative; }
+        .card-xs-tablet a.card > article > .content {
+          position: relative;
+          padding: 0;
+          color: #fff; }
+          .card-xs-tablet a.card > article > .content > div > .category {
+            font-size: 0.625rem;
+            color: #fff;
+            border-right: 1px solid white; }
+          .card-xs-tablet a.card > article > .content > div time {
+            font-size: 0.625rem;
+            color: white; }
+          .card-xs-tablet a.card > article > .content > h2 {
+            font-size: 0.875rem;
+            margin-top: 2px;
+            margin-bottom: 0;
+            line-height: 1.3;
+            color: #fff; }
+          .card-xs-tablet a.card > article > .content > p.excerpt {
+            display: none; } }
+
 @media screen and (max-width: 767px) {
   .card-xs-mobile {
     position: relative;
@@ -6564,12 +6635,6 @@ a.card {
     .card-xs-mobile a.card {
       border-bottom: 1px solid;
       padding-bottom: 10px; }
-      .card-xs-mobile a.card > article > figure {
-        width: auto;
-        height: 184px;
-        float: none; }
-      .card-xs-mobile a.card > article > .content {
-        display: block; }
       .card-xs-mobile a.card > article {
         position: relative; }
         .card-xs-mobile a.card > article > .content {
@@ -6658,9 +6723,9 @@ a.card {
             margin-bottom: 17px;
             height: 32px; }
       .card-sm-tablet a.card.article.without__image > article .content p.excerpt {
-        height: 286px;
-        font-size: 0.9375rem;
-        line-height: 1.73; } }
+        height: 30px;
+        font-size: 0.6875rem;
+        line-height: 1.363; } }
 
 @media screen and (max-width: 767px) {
   .card-sm-mobile {
@@ -6845,8 +6910,7 @@ a.card {
           .card-sm-short-tablet a.card > article.video > .content > p.excerpt {
             display: none; }
       .card-sm-short-tablet a.card.without__image > article > .content .category {
-        font-size: 0.625rem;
-        margin: 0; }
+        font-size: 0.625rem; }
       .card-sm-short-tablet a.card.without__image > article > .content > h2 {
         font-size: 1rem;
         margin-left: 0;
@@ -6859,12 +6923,12 @@ a.card {
         margin-bottom: 17px;
         height: 30px; } }
 
-@media screen and (min-width: 992px) {
+@media screen and (max-width: 767px), (min-width: 992px) {
   .card-sm-full {
     position: relative;
     margin-bottom: 24px;
     padding-bottom: 30px;
-    border-bottom: 1px solid; }
+    border-bottom: 1px solid #97999c; }
     .card-sm-full a.card {
       height: 180px; }
       .card-sm-full a.card > article > figure {
@@ -6956,7 +7020,7 @@ a.card {
     position: relative;
     margin-bottom: 15px;
     padding-bottom: 15px;
-    border-bottom: 1px solid; }
+    border-bottom: 1px solid #97999c; }
     .card-sm-full-tablet a.card {
       height: 90px; }
       .card-sm-full-tablet a.card > article > figure {
@@ -7229,7 +7293,7 @@ a.card {
       .card-md-full-mobile a.card.article.without__image {
         background: #002d56; } }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 992px) {
   .card-lg-full {
     position: relative;
     margin-bottom: 32px;
@@ -7265,11 +7329,10 @@ a.card {
           padding: 90px 0 20px 0;
           z-index: 10;
           color: #fff; }
-          .card-lg-full a.card > article > .content > .category {
-            display: block;
-            color: white;
-            font-size: 1rem;
-            font-weight: 400; }
+          .card-lg-full a.card > article > .content > div > .category {
+            color: white; }
+          .card-lg-full a.card > article > .content > div time {
+            color: white; }
           .card-lg-full a.card > article > .content > h2 {
             font-family: "pt-serif", "Times New Roman", Times, serif;
             font-size: 1.5625rem;
@@ -7304,6 +7367,82 @@ a.card {
           top: auto;
           bottom: -70px; }
       .card-lg-full a.card.article.without__image {
+        background: #002d56; } }
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .card-lg-full-tablet {
+    position: relative;
+    margin-bottom: 20px;
+    height: 231px; }
+    .card-lg-full-tablet a.card {
+      height: 100%; }
+      .card-lg-full-tablet a.card > article > figure {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 100%; }
+      .card-lg-full-tablet a.card:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        height: 100%;
+        bottom: 0;
+        width: 100%;
+        z-index: 1;
+        background-image: -webkit-linear-gradient(transparent, #000000);
+        background-image: -o-linear-gradient(transparent, #000000);
+        background-image: linear-gradient(transparent, #000000); }
+      .card-lg-full-tablet a.card > article {
+        position: relative;
+        padding-right: 220px; }
+        .card-lg-full-tablet a.card > article > figure.video:before {
+          display: none; }
+        .card-lg-full-tablet a.card > article > .content {
+          position: relative;
+          text-align: center;
+          padding: 50px 0 20px 0;
+          z-index: 10;
+          color: #fff; }
+          .card-lg-full-tablet a.card > article > .content > div > .category {
+            color: white; }
+          .card-lg-full-tablet a.card > article > .content > div time {
+            color: white; }
+          .card-lg-full-tablet a.card > article > .content > h2 {
+            font-family: "pt-serif", "Times New Roman", Times, serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 20px;
+            width: 65%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 15px;
+            line-height: 1.2;
+            text-align: center;
+            color: white; }
+          .card-lg-full-tablet a.card > article > .content > p.excerpt {
+            font-size: 0.6875rem;
+            line-height: 1.36;
+            height: 45px;
+            width: 70%;
+            margin: auto; }
+        .card-lg-full-tablet a.card > article.video .content:before {
+          position: absolute;
+          content: '';
+          width: 56px;
+          height: 56px;
+          background-image: url(../icons/play-icon.svg);
+          background-repeat: no-repeat;
+          background-size: cover;
+          top: 50%;
+          left: 50%;
+          margin-left: -28px;
+          margin-top: -28px;
+          z-index: 100;
+          top: auto;
+          bottom: -70px; }
+      .card-lg-full-tablet a.card.article.without__image {
         background: #002d56; } }
 
 @media screen and (max-width: 767px) {
@@ -7556,10 +7695,8 @@ a.card {
           padding: 0;
           padding-bottom: 20px;
           overflow: hidden; }
-          .card-main-2col a.card > article > .content > .category {
+          .card-main-2col a.card > article > .content > div > .category {
             border-right: 1px solid #97999c; }
-          .card-main-2col a.card > article > .content > .category, .card-main-2col a.card > article > .content time {
-            float: left; }
           .card-main-2col a.card > article > .content > h2 {
             clear: both;
             float: left;
@@ -7617,7 +7754,7 @@ a.card {
 @media screen and (min-width: 768px) and (max-width: 991px) {
   .card-main-2col-tablet {
     position: relative;
-    margin-bottom: 32px; }
+    margin-bottom: 10px; }
     .card-main-2col-tablet a.card {
       border-bottom: 1px solid #97999c; }
       .card-main-2col-tablet a.card > article > figure {
@@ -7629,34 +7766,34 @@ a.card {
       .card-main-2col-tablet a.card > article {
         position: relative; }
         .card-main-2col-tablet a.card > article > figure {
-          overflow: hidden;
-          margin-bottom: 22px; }
+          margin-bottom: 5px; }
         .card-main-2col-tablet a.card > article > .content {
           position: relative;
           padding: 0;
-          padding-bottom: 20px;
+          padding-bottom: 5px;
           overflow: hidden; }
-          .card-main-2col-tablet a.card > article > .content > .category {
+          .card-main-2col-tablet a.card > article > .content > div > .category {
             border-right: 1px solid #97999c; }
-          .card-main-2col-tablet a.card > article > .content > .category, .card-main-2col-tablet a.card > article > .content time {
-            float: left; }
           .card-main-2col-tablet a.card > article > .content > h2 {
             clear: both;
             float: left;
             width: 48%;
             font-family: "pt-serif", "Times New Roman", Times, serif;
-            font-size: 1.5625rem;
+            font-size: 0.9375rem;
             font-weight: 600;
             margin-top: 4px;
             margin-bottom: 0;
-            color: #000000; }
+            color: #000000;
+            line-height: 1.2; }
           .card-main-2col-tablet a.card > article > .content > p.excerpt {
+            font-size: 0.6875rem;
             float: right;
             width: 48%;
-            height: 140px;
-            max-height: 140px;
+            height: 105px;
+            margin-top: 4px;
+            max-height: 105px;
             color: #000000;
-            line-height: 1.54; }
+            line-height: 1.36; }
           .card-main-2col-tablet a.card > article > .content > .author {
             display: none; }
         .card-main-2col-tablet a.card > article.video > figure {
@@ -7714,7 +7851,7 @@ a.card {
         .card-main-2col-mobile a.card > article > .content {
           position: relative;
           padding: 0; }
-          .card-main-2col-mobile a.card > article > .content > .category {
+          .card-main-2col-mobile a.card > article > .content > div > .category {
             border-right: 1px solid #97999c; }
           .card-main-2col-mobile a.card > article > .content > h2 {
             font-family: "pt-serif", "Times New Roman", Times, serif;
@@ -7883,27 +8020,54 @@ a.card {
         max-height: 45px;
         margin-bottom: 11px; } }
 
-.card-top-story {
-  position: relative;
-  margin-bottom: 32px; }
-  .card-top-story a.card > article {
-    position: relative; }
-    .card-top-story a.card > article > .content {
-      position: relative;
-      padding: 0; }
-      .card-top-story a.card > article > .content > .category {
-        display: none; }
-      .card-top-story a.card > article > .content time {
-        display: none; }
-      .card-top-story a.card > article > .content > h2 {
-        font-size: 0.875rem;
-        margin-bottom: 0;
-        line-height: 1.42;
-        color: #000000; }
-      .card-top-story a.card > article > .content > p.excerpt {
-        display: none; }
-  .card-top-story a.card.article.without__image {
-    margin-top: -7px; }
+.top-stories {
+  counter-reset: my-badass-counter; }
+
+.top-stories > div:before {
+  content: counter(my-badass-counter) ".";
+  counter-increment: my-badass-counter; }
+
+.card-top-story:before {
+  float: left;
+  font-size: 1.0625rem;
+  color: #ae232c;
+  margin-right: 10px;
+  line-height: 1; }
+
+.card-top-story a.card {
+  position: relative; }
+  .card-top-story a.card > article .content {
+    width: auto;
+    position: relative;
+    padding: 0; }
+    .card-top-story a.card > article .content div > .category {
+      display: none; }
+    .card-top-story a.card > article .content div > time {
+      display: none; }
+    .card-top-story a.card > article .content > p.excerpt {
+      display: none; }
+
+@media screen and (min-width: 992px) {
+  .card-top-story-dt {
+    position: relative;
+    margin-bottom: 23px; }
+    .card-top-story-dt a.card > article > .content > h2 {
+      font-size: 0.875rem;
+      margin-bottom: 0;
+      line-height: 1.42;
+      color: #000000; } }
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .card-top-story-tablet {
+    margin-bottom: 15px; }
+    .card-top-story-tablet:before {
+      font-size: 0.75rem; }
+    .card-top-story-tablet a.card > article > .content > h2 {
+      font-size: 0.75rem;
+      margin-bottom: 0;
+      line-height: 1.17;
+      color: #000000;
+      height: 28px; } }
 
 .card-article-suggested {
   position: relative;
@@ -7925,10 +8089,10 @@ a.card {
         position: absolute;
         margin-right: 18px;
         margin-top: 20px; }
-      .card-article-suggested a.card > article > div {
+      .card-article-suggested a.card > article > .content {
         line-height: 1;
         margin-bottom: 6px; }
-        .card-article-suggested a.card > article > div > .category {
+        .card-article-suggested a.card > article > .content > div > .category {
           display: inline-block;
           font-size: 0.625rem;
           color: #97999c;
@@ -7938,14 +8102,14 @@ a.card {
           line-height: 1;
           vertical-align: top;
           border-right: 1px solid #97999c; }
-        .card-article-suggested a.card > article > div > time {
+        .card-article-suggested a.card > article > .content > div > time {
           font-size: 0.625rem;
           display: inline-block;
           color: #97999c;
           text-transform: uppercase;
           line-height: 1;
           vertical-align: top; }
-        .card-article-suggested a.card > article > div:after {
+        .card-article-suggested a.card > article > .content:after {
           content: ' ';
           display: block;
           clear: both; }
@@ -7956,62 +8120,104 @@ a.card {
           font-size: 1.125rem;
           margin-bottom: 0;
           line-height: 1;
-          height: 26px;
-          margin-left: 90px; }
+          max-height: 63px;
+          margin-left: 90px;
+          margin-top: 4px; }
         .card-article-suggested a.card > article > .content > p.excerpt {
+          display: none;
           font-size: 0.8125rem;
           line-height: 1.54;
           height: 40px;
           margin-left: 90px; }
 
-.card-event {
-  position: relative;
-  margin-bottom: 12px; }
-  .card-event a.card {
-    border-bottom: 1px solid #97999c;
-    height: 53px; }
-    .card-event a.card > article > figure {
-      width: 60px;
-      height: 37px;
-      float: left; }
-    .card-event a.card > article > .content {
-      display: block;
-      width: auto; }
-    .card-event a.card > article {
-      position: relative; }
-      .card-event a.card > article > time {
-        display: block;
-        float: left;
-        text-align: center;
-        padding: 0 18px; }
-        .card-event a.card > article > time > span {
-          display: block;
-          line-height: 1; }
-        .card-event a.card > article > time > span.day {
-          margin-top: 8px;
-          margin-bottom: 3px;
-          font-size: 0.8125rem;
-          color: black; }
-        .card-event a.card > article > time > span.month {
-          font-size: 0.5625rem;
-          color: #97999c; }
+@media screen and (min-width: 992px) {
+  .card-event {
+    position: relative;
+    margin-bottom: 12px; }
+    .card-event a.card {
+      border-bottom: 1px solid #97999c;
+      height: 53px; }
       .card-event a.card > article > figure {
-        margin-right: 21px; }
+        width: 60px;
+        height: 37px;
+        float: left; }
       .card-event a.card > article > .content {
-        position: relative;
-        padding: 0; }
-        .card-event a.card > article > .content > h2 {
-          font-size: 0.75rem;
-          line-height: 1.2;
-          font-family: "open-sans", Helvetica, Arial, sans-serif;
-          margin-bottom: 5px;
-          color: #000000; }
-        .card-event a.card > article > .content > time {
-          text-transform: none;
-          font-size: 0.75rem;
-          color: #000000; }
-        .card-event a.card > article > .content > p.excerpt {
+        display: block;
+        width: auto; }
+      .card-event a.card > article {
+        position: relative; }
+        .card-event a.card > article > time {
+          display: block;
+          float: left;
+          text-align: center;
+          padding: 0 18px; }
+          .card-event a.card > article > time > span {
+            display: block;
+            line-height: 1; }
+          .card-event a.card > article > time > span.day {
+            margin-top: 8px;
+            margin-bottom: 3px;
+            font-size: 0.8125rem;
+            color: black; }
+          .card-event a.card > article > time > span.month {
+            font-size: 0.5625rem;
+            color: #97999c; }
+        .card-event a.card > article > figure {
+          margin-right: 21px; }
+        .card-event a.card > article > .content {
+          position: relative;
+          padding: 0; }
+          .card-event a.card > article > .content > h2 {
+            font-size: 0.75rem;
+            line-height: 1.2;
+            font-family: "open-sans", Helvetica, Arial, sans-serif;
+            margin-bottom: 5px;
+            color: #000000; }
+          .card-event a.card > article > .content > time {
+            text-transform: none;
+            font-size: 0.75rem;
+            color: #000000; }
+          .card-event a.card > article > .content > p.excerpt {
+            display: none; } }
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .card-event-tablet {
+    position: relative;
+    margin-bottom: 12px; }
+    .card-event-tablet a.card {
+      border-bottom: 1px solid #97999c;
+      height: auto; }
+      .card-event-tablet a.card > article {
+        position: relative; }
+        .card-event-tablet a.card > article > time {
+          display: block; }
+          .card-event-tablet a.card > article > time > span {
+            line-height: 1; }
+          .card-event-tablet a.card > article > time > span.day {
+            font-size: 0.875rem;
+            color: black; }
+          .card-event-tablet a.card > article > time > span.month {
+            font-size: 0.625rem;
+            color: #97999c; }
+        .card-event-tablet a.card > article > figure {
           display: none; }
+        .card-event-tablet a.card > article > .content {
+          position: relative;
+          padding-bottom: 6px; }
+          .card-event-tablet a.card > article > .content > h2 {
+            font-size: 0.75rem;
+            line-height: 1;
+            font-family: "open-sans", Helvetica, Arial, sans-serif;
+            margin-top: 3px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #000000; }
+          .card-event-tablet a.card > article > .content > time {
+            text-transform: none;
+            font-size: 0.75rem;
+            color: #000000; }
+          .card-event-tablet a.card > article > .content > p.excerpt {
+            display: none; } }
 
 @media screen and (min-width: 768px) {
   .card-ubt {

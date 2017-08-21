@@ -13,38 +13,62 @@
 
     .e-edition {
         position:relative;
-        text-align:center;
         height:100px;
         margin-bottom:80px;
-        >a {
-            background-image: url("../images/e-edition-icon.svg");
-            background-repeat:no-repeat;
-            background-size:cover;
-            position:absolute;
-            right:15px;
-            top:7px;
-            display:block;
-            width:42px;
-            height:42px;
-            // background:color(red);
+
+        >div {
+            margin: auto;
+            
+            @media screen and (max-width: $mmd-break-down) {
+                width: 250px;
+            }
+
+            >a {
+                background-image: url("../images/e-edition-icon.svg");
+                background-repeat:no-repeat;
+                background-size:cover;
+                margin-right: 30px;
+                display:block;
+                float:left;
+                width:47px;
+                height:47px;
+                
+                
+                @media screen and (min-width: $mmd-break) and (max-width: $large-break) {
+                    width:40px;
+                    height:40px;
+                    margin-right: 15px;
+
+                }
+                @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
+                    width:24px;
+                    height:24px;
+                    margin-right: 15px;
+                }
+            }
+            >img {
+                @media screen and (min-width: $mmd-break) and (max-width: $large-break) {
+                    width:130px;
+                }
+
+                @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
+                    height:38px;
+                    width:86px;
+                }
+            }
         }
-        >p.name {
-            margin-top: 7px;
-            margin-bottom:0;
-            padding-bottom: 2px;
-            font-size:rem(12);
-            color:color(lightgrey);
-            border-bottom: 1px solid color(lightgrey);
-        }
+
         >p.description {
-            width:200px;
+            border-top: 1px solid color(lightgrey);
+            font-family: $font-family-serif;
             font-size:rem(14);
             font-style:italic;
             color:color(lightgrey);
             margin:auto;
             margin-top: 8px;
+            padding-top:8px;
+            text-align:center;
         }
-
     }
 
     .advert {
@@ -67,24 +91,44 @@
     .bottom-cards {
         
         .top-stories {
-            // background:rgba(200, 0, 150, .4);
             margin: 0;
             height: 317px;
-            border-bottom: 1px solid color(lightblue);
-
-            > h2 {
-                color:color(darkblue);
-                font-size: rem(16);
-                margin-bottom:37px;
-                margin-top:10px;
-                font-weight:600;
+            border-bottom: 1px solid color(lightgrey);
+            @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
+                height:auto;
             }
 
+            > h2 {
+                color:color(lightgrey);
+                font-size: rem(16);
+                margin-bottom:25px;
+                margin-top:10px;
+                font-weight:normal;
+
+                @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
+                    font-size: rem(12);
+                    margin-top:3px;
+                    margin-bottom:15px;
+
+                }
+
+
+                &:after {
+                    content: '';
+                    display:block;
+                    margin-top:7px;
+                    height:1px;
+                    width: 20px;
+                    background:color(darkblue);
+                    @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
+                        margin-top:3px;
+                        width: 15px;
+                    }
+                }
+            }
         }
 
         .advert-banner-small {
-
-            // margin-bottom:58px;
 
             div.advert {
                 background:#d8d8d8;
@@ -93,7 +137,6 @@
                 margin: 0 auto;
             }
         }
-
     }
 
     .section {
@@ -110,6 +153,8 @@
                 font-size:rem(30);
                 letter-spacing: 0.7px;
                 margin-bottom:15px;
+                color:color(red);
+
                 > a {
                     color:color(red);
                 }
@@ -148,7 +193,11 @@
                 right:55px;
                 width:326px;
                 z-index:10;
+                @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
+                    width:180px;
+                    top:10px;
 
+                }
                 @media screen and (max-width: $sm-break-down){
                     position:static;
                     top:0;
@@ -160,12 +209,18 @@
             }
 
             .eventlist {
+                height:231px;
+                overflow:hidden;
                 > h2 {
                     font-size: rem(21);
                     font-weight:600;
                     padding-bottom: 4px;
                     margin-bottom:12px;
                     border-bottom: 1px solid color(lightgrey);
+                    @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
+                        font-size: rem(14);
+
+                    }
                 }
             }
         }

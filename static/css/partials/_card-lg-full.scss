@@ -1,5 +1,5 @@
 .card-lg-full{
-    @media screen and (min-width: $sm-break){
+    @media screen and (min-width: $mmd-break){
         
         position:relative;
         margin-bottom: 32px;
@@ -30,12 +30,15 @@
                     z-index:10;
                     color:#fff;
 
-                    > .category{
-                        display:block;
-                        color:white;
-                        font-size:rem(16);
-                        font-weight:400;
-
+                    > div {
+                        > .category {
+                            color:white;
+                            // font-size:rem(16);
+                            // font-weight:400;
+                        }
+                        time {
+                            color:white;
+                        }
                     }
 
                     > h2{
@@ -81,6 +84,96 @@
         }
     }
 }
+
+
+
+
+.card-lg-full-tablet{
+    @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
+        
+        position:relative;
+        margin-bottom: 20px;
+        height:231px;
+
+        a.card {
+            height:100%;
+            @include card-image-full();
+            @include gradientbefore();
+
+            > article {
+                position:relative;
+                padding-right:220px;
+
+                > figure {
+                    &.video {
+                        &:before{
+                            display:none;
+                        }
+                    }
+                }
+
+
+                > .content{
+                    position:relative;
+                    text-align:center;
+                    padding: 50px 0 20px 0;
+                    z-index:10;
+                    color:#fff;
+
+                    > div {
+                        > .category {
+                            color:white;
+                        }
+                        time {
+                            color:white;
+                        }
+                    }
+
+                    > h2{
+                        font-family: $font-family-serif;
+                        font-size: rem(16);
+                        font-weight:600;
+                        margin-top:20px;
+                        width:65%;
+                        margin-left:auto;
+                        margin-right:auto;
+                        margin-bottom: 15px;
+                        line-height: 1.2;
+                        text-align:center;
+                        color:white;
+                    }
+
+                    > p.excerpt {
+                        font-size: rem(11);
+                        line-height: 1.36;
+                        height:45px;
+                        width: 70%;
+                        margin: auto;
+                    }
+                }
+
+                &.video {
+                    .content {
+                        &:before {
+                            @include videoIcon();
+                            top:auto;
+                            bottom:-70px;
+                        }
+                    }
+                }
+            }
+
+
+            &.article.without__image {
+                background: color(darkblue);
+            }   
+        }
+    }
+}
+
+
+
+
 
 
 .card-lg-full{
