@@ -114,22 +114,22 @@
                 var msgStr = (isSocial == 1) ? "Do you really want to delete this article?" : "Do you really want to hide this article?";
                 var articleGuid = $(elem).data('guid');
                 
-                if (typeof bootbox === 'undefined') {
+                // if (typeof bootbox === 'undefined') {
                     var result = confirm(msgStr);
                     if (result === true) {
                         deleteArticle(articleGuid, isSocial, elem, opts.onSuccess);
                     }
-                } else {
-                    bootbox.confirm({
-                        title: "Confirm",
-                        message: msgStr,
-                        callback: function (result) {
-                            if (result === true) {
-                                deleteArticle(articleGuid, isSocial, elem, opts.onSuccess);
-                            }
-                        }
-                    });
-                }
+                // } else {
+                //     bootbox.confirm({
+                //         title: "Confirm",
+                //         message: msgStr,
+                //         callback: function (result) {
+                //             if (result === true) {
+                //                 deleteArticle(articleGuid, isSocial, elem, opts.onSuccess);
+                //             }
+                //         }
+                //     });
+                // }
 
 
             });
