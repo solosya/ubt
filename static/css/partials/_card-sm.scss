@@ -47,7 +47,7 @@
                 > article {
                     .content {
                         p.excerpt {
-                            height:286px;
+                            max-height:286px;
                             font-size: rem(15);
                             line-height: 1.73;
 

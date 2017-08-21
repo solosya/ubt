@@ -6697,7 +6697,7 @@ a.card {
             margin-bottom: 30px;
             height: 100px; }
       .card-sm a.card.article.without__image > article .content p.excerpt {
-        height: 286px;
+        max-height: 286px;
         font-size: 0.9375rem;
         line-height: 1.73; } }
 
