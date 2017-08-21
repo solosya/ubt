@@ -6415,7 +6415,7 @@ a.card {
       -ms-flex-direction: column;
       flex-direction: column;
       justify-content: flex-start; }
-      a.card article > .content .category {
+      a.card article > .content > div .category {
         display: inline-block;
         font-size: 0.625rem;
         color: #97999c;
@@ -6424,7 +6424,7 @@ a.card {
         padding-right: 5px;
         margin-right: 5px;
         line-height: 1; }
-      a.card article > .content time {
+      a.card article > .content > div time {
         font-size: 0.625rem;
         display: inline-block;
         color: #97999c;
@@ -6440,6 +6440,8 @@ a.card {
         overflow: hidden;
         font-size: 0.8125rem; }
       a.card article > .content .author {
+        display: none; }
+      a.card article > .content time.lowerTime {
         display: none; }
   a.card.social .content > p {
     display: block;
@@ -6838,27 +6840,6 @@ a.card {
             margin-top: 15px;
             margin-bottom: 25px;
             height: 60px; }
-        .card-sm-short a.card > article.video > figure {
-          position: absolute;
-          left: 0;
-          right: 0;
-          top: 20px;
-          height: 165px;
-          width: 100%; }
-          .card-sm-short a.card > article.video > figure:before {
-            top: auto;
-            bottom: 10px;
-            left: 35px;
-            margin-top: 0; }
-        .card-sm-short a.card > article.video > .content {
-          padding-bottom: 38px; }
-          .card-sm-short a.card > article.video > .content > h2 {
-            margin-left: 77px;
-            margin-top: 105px;
-            color: #ffffff;
-            height: 52px; }
-          .card-sm-short a.card > article.video > .content > p.excerpt {
-            display: none; }
       .card-sm-short a.card.without__image > article > .content > h2 {
         height: auto;
         margin-left: 0; }
@@ -7001,6 +6982,9 @@ a.card {
           margin-left: -28px;
           margin-top: -28px;
           z-index: 100;
+          width: 47px;
+          height: 47px;
+          bottom: 15px;
           display: block;
           top: auto;
           left: 10px;
@@ -7089,6 +7073,9 @@ a.card {
           margin-left: -28px;
           margin-top: -28px;
           z-index: 100;
+          width: 47px;
+          height: 47px;
+          bottom: 15px;
           display: block;
           top: auto;
           left: 10px;
@@ -7148,13 +7135,13 @@ a.card {
           text-align: center;
           z-index: 10;
           color: #fff; }
-          .card-md-full a.card > article > .content > .category {
+          .card-md-full a.card > article > .content > div > .category {
             display: block;
             color: white;
             font-size: 1rem;
             font-weight: 400;
             margin-bottom: 260px; }
-          .card-md-full a.card > article > .content time {
+          .card-md-full a.card > article > .content > div time {
             display: none; }
           .card-md-full a.card > article > .content > h2 {
             font-size: 1.125rem;
@@ -7170,7 +7157,7 @@ a.card {
             .card-md-full a.card > article > .content .author > p {
               font-size: 0.875rem;
               color: white;
-              font-family: "pt-serif", "Times New Roman", Times, serif; }
+              font-family: "open-sans", Helvetica, Arial, sans-serif; }
               .card-md-full a.card > article > .content .author > p:before {
                 content: 'By '; }
             .card-md-full a.card > article > .content .author > img {
@@ -7234,7 +7221,7 @@ a.card {
             .card-md-full-tablet a.card > article > .content .author > p {
               font-size: 0.625rem;
               color: white;
-              font-family: "pt-serif", "Times New Roman", Times, serif; }
+              font-family: "open-sans", Helvetica, Arial, sans-serif; }
               .card-md-full-tablet a.card > article > .content .author > p:before {
                 content: 'By '; }
             .card-md-full-tablet a.card > article > .content .author > img {
@@ -8103,30 +8090,30 @@ a.card {
         position: absolute;
         margin-right: 18px;
         margin-top: 25px; }
-      .card-article-suggested a.card > article > .content {
+      .card-article-suggested a.card > article > div > .content {
         line-height: 1;
         margin-bottom: 6px; }
-        .card-article-suggested a.card > article > .content > div > .category {
-          display: inline-block;
-          font-size: 0.625rem;
-          color: #97999c;
-          text-transform: uppercase;
-          padding-right: 5px;
-          margin-right: 5px;
-          line-height: 1;
-          vertical-align: top;
-          border-right: 1px solid #97999c; }
-        .card-article-suggested a.card > article > .content > div > time {
-          font-size: 0.625rem;
-          display: inline-block;
-          color: #97999c;
-          text-transform: uppercase;
-          line-height: 1;
-          vertical-align: top; }
-        .card-article-suggested a.card > article > .content:after {
-          content: ' ';
-          display: block;
-          clear: both; }
+      .card-article-suggested a.card > article > div > div > .category {
+        display: inline-block;
+        font-size: 0.625rem;
+        color: #97999c;
+        text-transform: uppercase;
+        padding-right: 5px;
+        margin-right: 5px;
+        line-height: 1;
+        vertical-align: top;
+        border-right: 1px solid #97999c; }
+      .card-article-suggested a.card > article > div > div > time {
+        font-size: 0.625rem;
+        display: inline-block;
+        color: #97999c;
+        text-transform: uppercase;
+        line-height: 1;
+        vertical-align: top; }
+      .card-article-suggested a.card > article > div:after {
+        content: ' ';
+        display: block;
+        clear: both; }
       .card-article-suggested a.card > article > .content {
         position: relative;
         padding: 0; }
@@ -8233,89 +8220,89 @@ a.card {
           .card-event-tablet a.card > article > .content > p.excerpt {
             display: none; } }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 992px) {
   .card-ubt {
-    position: relative;
-    margin-bottom: 24px;
-    padding-bottom: 30px;
-    border-bottom: 1px solid; }
-    .card-ubt a.card {
-      height: 180px; }
-      .card-ubt a.card > article {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -moz-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-direction: normal;
-        -webkit-box-orient: vertical;
-        -webkit-flex-direction: column;
-        -moz-flex-direction: column;
-        -ms-flex-direction: column;
-        flex-direction: column; }
-        .card-ubt a.card > article > figure {
-          width: 454px;
-          height: 244px;
-          order: 2; }
-        .card-ubt a.card > article > .content {
-          order: 1;
-          display: block; }
-      .card-ubt a.card > article {
-        position: relative; }
-        .card-ubt a.card > article > figure {
-          margin-bottom: 10px; }
-          .card-ubt a.card > article > figure:before {
+    position: relative; }
+    .card-ubt a.card > article {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-direction: normal;
+      -webkit-box-orient: vertical;
+      -webkit-flex-direction: column;
+      -moz-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column; }
+      .card-ubt a.card > article > figure {
+        width: 454px;
+        height: 244px;
+        order: 2; }
+      .card-ubt a.card > article > .content {
+        order: 1;
+        display: block; }
+    .card-ubt a.card > article {
+      position: relative; }
+      .card-ubt a.card > article > figure {
+        margin-bottom: 10px; }
+      .card-ubt a.card > article > .content {
+        position: relative;
+        z-index: 10; }
+        .card-ubt a.card > article > .content > div > .category {
+          display: none; }
+        .card-ubt a.card > article > .content > div time {
+          display: none; }
+        .card-ubt a.card > article > .content > h2 {
+          font-family: "pt-serif", "Times New Roman", Times, serif;
+          font-size: 1.5625rem;
+          font-weight: 600;
+          line-height: 1.2;
+          margin-bottom: 15px;
+          padding-right: 80px;
+          position: relative; }
+          .card-ubt a.card > article > .content > h2:before {
+            content: '';
+            display: block;
+            height: 62px;
+            width: 62px;
+            margin-bottom: 20px;
+            background-image: url("../images/ubt-logo-small.png");
+            background-size: cover;
+            background-repeat: no-repeat; }
+          .card-ubt a.card > article > .content > h2:after {
             content: '';
             position: absolute;
-            top: 0;
-            height: 100%;
+            right: 0;
             bottom: 0;
-            width: 100%;
-            z-index: 1;
-            background-image: -webkit-linear-gradient(transparent, #000000);
-            background-image: -o-linear-gradient(transparent, #000000);
-            background-image: linear-gradient(transparent, #000000); }
-        .card-ubt a.card > article > .content {
-          position: relative;
-          padding: 110px 10px 20px 20px;
-          z-index: 10;
-          color: #fff; }
-          .card-ubt a.card > article > .content > .category {
-            display: none; }
-          .card-ubt a.card > article > .content time {
-            order: 2;
             display: block;
-            font-size: 0.5625rem;
-            margin-top: 7px; }
-          .card-ubt a.card > article > .content > h2 {
-            order: 1;
-            font-size: 0.9375rem;
-            font-weight: 400;
-            line-height: 1.33; }
-          .card-ubt a.card > article > .content > p.excerpt {
-            display: none; }
-        .card-ubt a.card > article.video > .content:before {
-          position: absolute;
-          content: '';
-          width: 56px;
-          height: 56px;
-          background-image: url(../icons/play-icon.svg);
-          background-repeat: no-repeat;
-          background-size: cover;
-          top: 50%;
-          left: 50%;
-          margin-left: -28px;
-          margin-top: -28px;
-          z-index: 100;
-          display: block;
-          top: auto;
-          left: 10px;
-          margin-left: 0;
-          margin-top: 0; }
-        .card-ubt a.card > article.video > .content h2, .card-ubt a.card > article.video > .content time {
-          margin-left: 60px; }
-      .card-ubt a.card.article.without__image {
-        margin-top: -7px; } }
+            height: 25px;
+            width: 74px;
+            background-image: url("../images/ubt-logo.png");
+            background-size: cover;
+            background-repeat: no-repeat; }
+        .card-ubt a.card > article > .content > p.excerpt {
+          display: none; }
+      .card-ubt a.card > article.video > .content:before {
+        position: absolute;
+        content: '';
+        width: 56px;
+        height: 56px;
+        background-image: url(../icons/play-icon.svg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        top: 50%;
+        left: 50%;
+        margin-left: -28px;
+        margin-top: -28px;
+        z-index: 100;
+        display: block;
+        top: auto;
+        left: 10px;
+        margin-left: 0;
+        margin-top: 0; }
+      .card-ubt a.card > article.video > .content h2, .card-ubt a.card > article.video > .content time {
+        margin-left: 60px; } }
 
 .card-blogger {
   position: relative;
@@ -8333,39 +8320,23 @@ a.card {
     .card-blogger a.card > article {
       position: relative; }
       .card-blogger a.card > article > .content {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -moz-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-direction: normal;
-        -webkit-box-orient: vertical;
-        -webkit-flex-direction: column;
-        -moz-flex-direction: column;
-        -ms-flex-direction: column;
-        flex-direction: column;
         position: relative;
         z-index: 10; }
-        .card-blogger a.card > article > .content > .category {
-          order: 1;
+        .card-blogger a.card > article > .content > div > .category {
           font-size: 0.6875rem;
           display: block;
           color: #ae232c; }
-        .card-blogger a.card > article > .content time {
-          order: 5;
-          display: block;
-          font-size: 0.5625rem;
-          margin-top: 7px; }
+        .card-blogger a.card > article > .content > div time {
+          display: none; }
         .card-blogger a.card > article > .content > h2 {
-          order: 2;
+          margin-top: 8px;
           margin-bottom: 40px;
           font-size: 1.125rem;
-          font-weight: 400;
+          font-weight: 600;
           line-height: 1.33; }
         .card-blogger a.card > article > .content > p.excerpt {
           display: none; }
         .card-blogger a.card > article > .content .author {
-          order: 4;
           display: block; }
           .card-blogger a.card > article > .content .author > img {
             display: none; }
@@ -8373,6 +8344,12 @@ a.card {
             margin: 0;
             color: #ae232c;
             font-weight: 600; }
+        .card-blogger a.card > article > .content time.lowerTime {
+          display: block;
+          font-family: "pt-serif", "Times New Roman", Times, serif;
+          font-size: 0.6875rem;
+          margin-top: 7px;
+          color: #97999c; }
       .card-blogger a.card > article.video > .content:before {
         position: absolute;
         content: '';

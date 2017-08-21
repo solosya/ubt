@@ -1,15 +1,12 @@
 .card-ubt{
-    @media screen and (min-width: $sm-break){
+    @media screen and (min-width: $mmd-break){
         
         position:relative;
-        margin-bottom: 24px;
-        padding-bottom: 30px;
-        border-bottom: 1px solid color(lightblue);
 
 
 
         a.card {
-            height:180px;
+            // height:180px;
             @include card-image-bottom(454px, 244px);
 
             > article {
@@ -18,30 +15,60 @@
                 > figure{
                     margin-bottom:10px;
                     
-                    @include gradientbefore();
+                    // @include gradientbefore();
                 }
 
                 > .content{
                     position:relative;
-                    padding: 110px 10px 20px 20px;
+                    // padding: 110px 10px 20px 20px;
                     z-index:10;
-                    color:#fff;
+                    // color:#fff;
 
                   
-                    > .category{
-                        display:none;
-                    }
-                    time {
-                        order:2;
-                        display:block;
-                        font-size: rem(9);
-                        margin-top:7px;
+                    >div {
+                        > .category{
+                            display:none;
+                        }
+                        time {
+                            display:none;
+                            // display:block;
+                            // font-size: rem(9);
+                            // margin-top:7px;
+                        }
+
                     }
                     > h2{
-                        order: 1;
-                        font-size: rem(15);
-                        font-weight:400;
-                        line-height: 1.33;
+                        font-family:$font-family-serif;
+                        font-size: rem(25);
+                        font-weight:600;
+                        line-height: 1.2;
+                        margin-bottom:15px;
+                        padding-right: 80px;
+                        position:relative;
+
+                        &:before{
+                            content: '';
+                            display:block;
+                            height:62px;
+                            width:62px;
+                            margin-bottom:20px;
+                            background-image:url('../images/ubt-logo-small.png');
+                            background-size:cover;
+                            background-repeat: no-repeat;
+                        }
+                        &:after{
+                            content: '';
+                            position:absolute;
+                            right:0;
+                            bottom:0;
+                            display:block;
+                            height:25px;
+                            width:74px;
+                            background-image:url('../images/ubt-logo.png');
+                            background-size:cover;
+                            background-repeat: no-repeat;  
+                        }
+
                     }
 
                     > p.excerpt {
@@ -74,9 +101,6 @@
             }
 
 
-            &.article.without__image {
-                margin-top: -7px;
-            }   
         }
     }
 }

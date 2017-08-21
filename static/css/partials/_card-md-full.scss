@@ -25,15 +25,18 @@
                     z-index:10;
                     color:#fff;
 
-                    > .category{
-                        display:block;
-                        color:white;
-                        font-size:rem(16);
-                        font-weight:400;
-                        margin-bottom:260px;
-                    }
-                    time {
-                        display:none;
+                    > div {
+                        > .category{
+                            display:block;
+                            color:white;
+                            font-size:rem(16);
+                            font-weight:400;
+                            margin-bottom:260px;
+                        }
+                        time {
+                            display:none;
+                        }
+
                     }
                     > h2{
                         font-size: rem(18);
@@ -55,7 +58,7 @@
                         >p {
                             font-size:rem(14);
                             color:white;
-                            font-family: $font-family-serif;
+                            font-family: $base-font-family;
                             &:before {
                                 content:'By ';
                             }
@@ -144,7 +147,7 @@
                         >p {
                             font-size:rem(10);
                             color:white;
-                            font-family: $font-family-serif;
+                            font-family: $base-font-family;
                             &:before {
                                 content:'By ';
                             }

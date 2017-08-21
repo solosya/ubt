@@ -39,7 +39,14 @@
                          {% if article.media[0].media.isSystemVideo == 'TRUE'%}
                              {% set mediaUrl = _Media.getMediaVideoUrl(article.media[0].media, 0, 0,{resource_type: 'video', format: 'mp4'})  %}
                          {% endif %}
-                         <a href="javascript:void(0)" itemprop="video" class="video-overlay video-player" data-source="{{article.media[0].source}}" data-video-id="{{article.media[0].videoId}}" data-url="{{mediaUrl}}" data-poster="{{article.media[0].path}}" data-caption="{{article.title | raw}}">
+                         <a href="javascript:void(0)" 
+                            itemprop="video" 
+                            class="video-overlay video-player" 
+                            data-source="{{article.media[0].source}}" 
+                            data-video-id="{{article.media[0].videoId}}" 
+                            data-url="{{mediaUrl}}" 
+                            data-poster="{{article.media[0].path}}" 
+                            data-caption="{{article.title | raw}}">
                             <div class="icons">
                                 <div class="icon"><i class="fa fa-play"></i></div>
                             </div>
