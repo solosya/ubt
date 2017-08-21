@@ -53,19 +53,19 @@
 
 
                     .author {
-                        display: block;
+                        // display: block;
 
-                        >p {
-                            font-size:rem(14);
-                            color:white;
-                            font-family: $base-font-family;
-                            &:before {
-                                content:'By ';
-                            }
-                        }
-                        >img {
-                            display:none;
-                        }
+                        // >p {
+                        //     font-size:rem(14);
+                        //     color:white;
+                        //     font-family: $base-font-family;
+                        //     &:before {
+                        //         content:'By ';
+                        //     }
+                        // }
+                        // >img {
+                        //     display:none;
+                        // }
                     }
 
 
@@ -142,19 +142,19 @@
 
 
                     .author {
-                        display: block;
+                        // display: block;
 
-                        >p {
-                            font-size:rem(10);
-                            color:white;
-                            font-family: $base-font-family;
-                            &:before {
-                                content:'By ';
-                            }
-                        }
-                        >img {
-                            display:none;
-                        }
+                        // >p {
+                        //     font-size:rem(10);
+                        //     color:white;
+                        //     font-family: $base-font-family;
+                        //     &:before {
+                        //         content:'By ';
+                        //     }
+                        // }
+                        // >img {
+                        //     display:none;
+                        // }
                     }
 
 

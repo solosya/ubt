@@ -40,19 +40,20 @@
                         display:none;
                     }
                     .author {
-                        display: block;
 
-                        >p {
-                            font-size:rem(14);
-                            color:color(red);
-                            font-family: $font-family-serif;
-                            &:before {
-                                content:'By ';
-                            }
-                        }
-                        >img {
-                            display:none;
-                        }
+                        // display: block;
+
+                        // >p {
+                        //     font-size:rem(14);
+                        //     color:color(red);
+                        //     font-family: $font-family-serif;
+                        //     &:before {
+                        //         content:'By ';
+                        //     }
+                        // }
+                        // >img {
+                        //     display:none;
+                        // }
                     }
                 }
             }
@@ -120,19 +121,19 @@
                         display:none;
                     }
                     .author {
-                        display: block;
+                        // display: block;
 
-                        >p {
-                            font-size:rem(14);
-                            color:color(red);
-                            font-family: $font-family-serif;
-                            &:before {
-                                content:'By ';
-                            }
-                        }
-                        >img {
-                            display:none;
-                        }
+                        // >p {
+                        //     font-size:rem(14);
+                        //     color:color(red);
+                        //     font-family: $font-family-serif;
+                        //     &:before {
+                        //         content:'By ';
+                        //     }
+                        // }
+                        // >img {
+                        //     display:none;
+                        // }
                     }
                 }
             }
