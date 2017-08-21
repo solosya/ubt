@@ -8070,11 +8070,13 @@ a.card {
       height: 28px; } }
 
 .card-article-suggested {
+  height: 90px;
   position: relative;
   margin-bottom: 32px; }
   .card-article-suggested a.card {
     padding-bottom: 20px;
-    border-bottom: 1px solid #97999c; }
+    border-bottom: 1px solid #97999c;
+    height: 100%; }
     .card-article-suggested a.card > article > figure {
       width: 75px;
       height: 63px;

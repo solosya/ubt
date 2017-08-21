@@ -1,6 +1,6 @@
 .card-article-suggested{
     // @media screen and (min-width: $sm-break){
-        
+        height:90px;
         position:relative;
         margin-bottom: 32px;
         
@@ -10,6 +10,7 @@
             @include card-image-left(75px, 63px);
             padding-bottom: 20px;
             border-bottom: 1px solid color(lightgrey);
+            height:100%;
 
             > article {
                 position:relative;
