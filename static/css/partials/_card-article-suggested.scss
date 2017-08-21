@@ -1,6 +1,6 @@
 .card-article-suggested{
     // @media screen and (min-width: $sm-break){
-        height:100px;
+        height:122px;
         position:relative;
         margin-bottom: 32px;
         
@@ -20,13 +20,15 @@
                     margin-right:18px;
                     position: absolute;
                     margin-right: 18px;
-                    margin-top: 20px;
+                    margin-top: 25px;
                 }
 
 
-                > .content  {
-                    line-height:1;
-                    margin-bottom:6px;
+                > div {
+                    > .content  {
+                        line-height:1;
+                        margin-bottom:6px;
+                    }
 
                     > div {
                         > .category{
@@ -69,10 +71,10 @@
                     > h2{
                         font-size: rem(18);
                         margin-bottom:0;
-                        line-height: 1;
-                        max-height:63px;
+                        line-height: 1.25;
+                        max-height:70px;
                         margin-left:90px;
-                        margin-top:4px;
+                        margin-top:10px;
                     }
 
                     > p.excerpt {

@@ -67,4 +67,19 @@
             }
         }
     }
+
+    .campus {
+        >img {
+            float: left;
+            border-right: 1px solid color(lightgrey);
+            padding-right: 20px;
+            margin-right: 20px;
+        }
+        >p.campus-description {
+            font-size: rem(25);
+            font-weight:700;
+            font-family: $font-family-serif;
+            line-height:1.04;
+        }
+    }
 }

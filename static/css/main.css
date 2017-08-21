@@ -5868,7 +5868,7 @@ ul.sub-menu a:focus {
           width: 23px;
           margin-top: 15px;
           background: #97999c; }
-      .site-main .section > div.section-header > p {
+      .site-main .section > div.section-header > p.description {
         font-size: 0.8125rem;
         font-family: "pt-serif", "Times New Roman", Times, serif;
         font-style: italic;
@@ -6351,6 +6351,18 @@ body[class*="_overview"] div.main-content ul.section-list {
   margin-bottom: 16px;
   border-bottom: 1px solid #97999c; }
 
+.layout-community .campus > img {
+  float: left;
+  border-right: 1px solid #97999c;
+  padding-right: 20px;
+  margin-right: 20px; }
+
+.layout-community .campus > p.campus-description {
+  font-size: 1.5625rem;
+  font-weight: 700;
+  font-family: "pt-serif", "Times New Roman", Times, serif;
+  line-height: 1.04; }
+
 a.card {
   display: block;
   color: #000000; }
@@ -6669,7 +6681,7 @@ a.card {
         .card-sm a.card > article > .content {
           position: relative;
           padding: 0; }
-          .card-sm a.card > article > .content > .category {
+          .card-sm a.card > article > .content > div > .category {
             border-right: 1px solid #97999c; }
           .card-sm a.card > article > .content > h2 {
             margin-top: 2px;
@@ -6811,7 +6823,7 @@ a.card {
           display: block;
           position: relative;
           padding: 0; }
-          .card-sm-short a.card > article > .content > .category {
+          .card-sm-short a.card > article > .content > div > .category {
             border-right: 1px solid #97999c; }
           .card-sm-short a.card > article > .content > h2 {
             margin-top: 2px;
@@ -8070,7 +8082,7 @@ a.card {
       height: 28px; } }
 
 .card-article-suggested {
-  height: 100px;
+  height: 122px;
   position: relative;
   margin-bottom: 32px; }
   .card-article-suggested a.card {
@@ -8090,7 +8102,7 @@ a.card {
         margin-right: 18px;
         position: absolute;
         margin-right: 18px;
-        margin-top: 20px; }
+        margin-top: 25px; }
       .card-article-suggested a.card > article > .content {
         line-height: 1;
         margin-bottom: 6px; }
@@ -8121,10 +8133,10 @@ a.card {
         .card-article-suggested a.card > article > .content > h2 {
           font-size: 1.125rem;
           margin-bottom: 0;
-          line-height: 1;
-          max-height: 63px;
+          line-height: 1.25;
+          max-height: 70px;
           margin-left: 90px;
-          margin-top: 4px; }
+          margin-top: 10px; }
         .card-article-suggested a.card > article > .content > p.excerpt {
           display: none;
           font-size: 0.8125rem;

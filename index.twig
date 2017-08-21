@@ -15,7 +15,7 @@
 
 
 <!-- used to index each article as we loop over throughout the template -->
-{% set articleCount = 0 %}
+{% set articleCount = 1 %}
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
 
 
@@ -253,7 +253,7 @@
 
                 <div class="col-sm-12 section-header">
                     <h2><a href="{{sections['national'].link}}">National</a></h2>
-                    <p>{{sections['national'].description}}</p>
+                    <p class="description">{{sections['national'].description}}</p>
                 </div>
 
 
@@ -316,7 +316,7 @@
 
                 <div class="col-sm-12 section-header">
                     <h2><a href="{{sections['world'].link}}">World</a></h2>
-                    <p>{{sections['world'].description}}</p>
+                    <p class="description">{{sections['world'].description}}</p>
                 </div>
 
 
@@ -378,7 +378,7 @@
 
                 <div class="col-sm-12 section-header">
                     <h2><a href="{{sections['business'].link}}">Business</a></h2>
-                    <p>{{sections['business'].description}}</p>
+                    <p class="description">{{sections['business'].description}}</p>
                 </div>
 
 
@@ -431,7 +431,7 @@
 
                 <div class="col-sm-12 section-header">
                     <h2><a href="{{sections['community'].link}}">Community</a></h2>
-                    <p>{{sections['business'].description}}</p>
+                    <p class="description">{{sections['business'].description}}</p>
                 </div>
 
 
@@ -493,7 +493,7 @@
 
                 <div class="col-sm-12 section-header">
                     <h2><a href="{{sections['community'].link}}">Videos</a></h2>
-                    <p>{{sections['videos'].description}}</p>
+                    <p class="description">{{sections['videos'].description}}</p>
                 </div>
 
 
@@ -528,7 +528,7 @@
 
                 <div class="col-sm-12 section-header">
                     <h2><a href="{{sections['community'].link}}">Australia</a></h2>
-                    <p>{{sections['business'].description}}</p>
+                    <p class="description">{{sections['business'].description}}</p>
                 </div>
 
 

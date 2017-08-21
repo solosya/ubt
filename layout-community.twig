@@ -29,7 +29,7 @@
 
         <section class="row section">
 
-            <div class="col-sm-offset-1 col-md-10 section-header">
+            <div class="col-sm-offset-1 col-sm-10 section-header">
                 <h2>{{this.title}}</h2>
                 <p>
                     Nanb porti tasse plat dictmst  blandit accaserio sln hac curabitur hendrerit 
@@ -37,11 +37,11 @@
                 </p>
             </div>
 
-            <div class="col-sm-offset-1 col-md-10 section-sub-header">
+            <div class="col-sm-offset-1 col-sm-10 section-sub-header">
                 <h2><span>Horizons</span> – Reports from the regions</h2>
             </div>
 
-            <div class="col-sm-offset-1 col-md-3">
+            <div class="col-sm-offset-1 col-sm-3">
                 {% for i in 0..2 if articles[articleCount] %}
                     {{this.render('partials/_single-article.twig', {
                         article: articles[articleCount], 
@@ -53,7 +53,7 @@
                 {% endfor %}
             </div>
 
-            <div class="col-md-3">
+            <div class="col-sm-3">
                 {% for i in 0..2 if articles[articleCount] %}
                     {{this.render('partials/_single-article.twig', {
                         article: articles[articleCount], 
@@ -67,7 +67,7 @@
             </div>
 
 
-            <div class="col-sm-offset-1 col-md-3">
+            <div class="col-sm-offset-1 col-sm-3">
                 {% if articles[articleCount] %}
                     {{this.render('partials/_single-article.twig', {
                         article: articles[articleCount], 
@@ -93,13 +93,15 @@
 
 
 
-        <section class="row section national">
+        <section class="row section">
 
-            <div class="col-sm-offset-1 col-md-10 section-header">
+            <div class="col-sm-offset-1 col-sm-6 section-header campus">
+                <img src="{{networkData.templatePath}}/static/images/campus-trading-logo.jpg">
+                <p class="campus-description">Fusce vehicula dolor arcu, sit amet blandit dolor…</p>
             </div>
 
 
-            <div class="col-sm-offset-1 col-md-6">
+            <div class="col-sm-offset-1 col-sm-6">
                 {% if articles[articleCount] %}
                     {{this.render('partials/_single-article.twig', {
                         article: articles[articleCount], 
@@ -111,7 +113,7 @@
                 {% endif %}
             </div>
 
-            <div class="col-sm-offset-1 col-md-3 eventlist">
+            <div class="col-sm-offset-1 col-sm-3 eventlist">
                 <h2>EVENTS</h2>
 
                 {% for i in 0..6 if events[articleCount] %}
@@ -142,10 +144,10 @@
 
         <section class="row section">
 
-            <div class="col-sm-offset-1 col-md-10 sevent-cols section-header">
+            <div class="col-sm-offset-1 col-sm-10 sevent-cols section-header">
             
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-sm-3">
                         {% if articles[articleCount] %}
                             {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
@@ -157,7 +159,7 @@
                         {% endif %}
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-sm-2">
                         {% for i in 0..1 if articles[articleCount] %}
                             {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
@@ -168,7 +170,7 @@
                     </div>
 
 
-                    <div class="col-md-2">
+                    <div class="col-sm-2">
                         {% for i in 0..1 if articles[articleCount] %}
                             {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
@@ -186,19 +188,19 @@
 
         <section class="row section">
 
-            <div class="col-sm-offset-1 col-md-10 section-header">
+            <div class="col-sm-offset-1 col-sm-10 section-header">
 
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-sm-4">
                         <div style="height:40px;background:red"></div>
                     </div>
 
-                    <div class="col-md-4" style="padding-left:45px">
+                    <div class="col-sm-4" style="padding-left:45px">
                         <div style="height:40px;background:blue"></div>
                     </div>
 
 
-                    <div class="col-md-4" style="padding-left:45px">
+                    <div class="col-sm-4" style="padding-left:45px">
                         <div style="height:40px;background:green"></div>
                     </div>
                 </div>

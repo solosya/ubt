@@ -14,8 +14,11 @@
 
 {% set publishDate = _AppHelper.getDateTimeBasedOnTimezone(article.publishDate, 'F, Y') %}
 
-{% set articles = _Article.getPopularArticles({ limit: 5, excludeArticleIds : article.id }) %}
-{% set testCount = 0 %}
+{% set articles = _Article.getPopularArticles({ limit: 10, excludeArticleIds : article.id }) %}
+
+{% set articleCount = 0 %}
+{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
+
 
 
 <main id="main" class="article_container" role="main">
@@ -87,22 +90,23 @@
                             <h2>SUGGESTED READINGS</h2>
 
 
-                            {% for i in 0..4 if articles[testCount] %}
+                            {% for i in 0..4 if articles[articleCount] %}
                                 {{this.render('partials/_single-article.twig', {
-                                    article: articles[testCount], 
+                                    article: articles[articleCount], 
                                     imageSize: {width: 75, height: 63},
                                     containerClass: 'card-article-suggested'
                                 }) | raw}}
-
-                                {% set articleCount = articleCount + 1 %}
+                                {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                             {% endfor %}
 
-                            {% if articles[testCount] %}
+                            {% if articles[articleCount] %}
                                 {{this.render('partials/_single-article.twig', {
-                                    article: articles[testCount], 
+                                    article: articles[articleCount], 
                                     imageSize: {width: 300, height: 180},
                                     containerClass: 'card-sm-full'
                                 }) | raw}}
+                                {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+
                             {% endif %}
 
                         </div>
@@ -121,13 +125,15 @@
                     <h1>RELATED ARTICLES</h1>
                 </div>
 
-                {% for i in 0..2 if articles[i] %}
+                {% for i in 0..2 if articles[articleCount] %}
                     <div class="col-md-4">
                         {{this.render('partials/_single-article.twig', {
-                            article: articles[i], 
+                            article: articles[articleCount], 
                             imageSize: {width: 300, height: 180},
                             containerClass: 'card-sm card-sm-mobile'
                         }) | raw}}
+                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+
                     </div>
                 {% endfor %}
 

@@ -19,8 +19,10 @@
                     position:relative;
                     padding: 0;
 
-                    > .category{
-                        border-right:1px solid color(lightgrey);
+                    >div {
+                        > .category{
+                            border-right:1px solid color(lightgrey);
+                        }
                     }
 
                     > h2{
