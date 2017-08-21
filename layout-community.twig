@@ -73,7 +73,7 @@
                         article: articles[articleCount], 
                         position: (articleCount+1),
                         imageSize: {width: 300, height: 180},
-                        containerClass: 'card-sm card-sm-mobile'
+                        containerClass: 'card-sm card-sm-tablet card-sm-mobile'
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 {% endif %}
@@ -107,7 +107,7 @@
                         article: articles[articleCount], 
                         position: (articleCount+1),
                         imageSize: {width: 640, height: 420},
-                        containerClass: 'card-main-2col card-main-2col-mobile'
+                        containerClass: 'card-main-2col card-main-2col-tablet card-main-2col-mobile'
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 {% endif %}
@@ -120,7 +120,7 @@
                     {{this.render('partials/_single-event.twig', {
                         event: events[articleCount], 
                         imageSize: {width: 60, height: 37},
-                        containerClass: "card-event"
+                        containerClass: "card-event card-event-tablet"
                     }) | raw}}
                 {% endfor %}
             </div>
