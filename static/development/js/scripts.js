@@ -116,11 +116,11 @@ $('document').ready(function() {
     }
 
     // 4:32PM WEDNESDAY JULY 4, 2017
-    var date = new Date();
-        datetime = date.toISOString().substring(0, 16),
-        field = document.getElementById('headerTime');
-        field.setAttribute('datetime', datetime);
-        field.innerHTML = formatDate(date);
+    // var date = new Date();
+    //     datetime = date.toISOString().substring(0, 16),
+    //     field = document.getElementById('headerTime');
+    //     field.setAttribute('datetime', datetime);
+    //     field.innerHTML = formatDate(date);
 
 
     // var isMobile = function(){

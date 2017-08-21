@@ -7,7 +7,7 @@
 
 {{this.registerJs("CardController();")}}
 
-{% set limit = 10 %}
+{% set limit = 12 %}
 
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
@@ -121,6 +121,35 @@
                 {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
             {% endfor %}
         </section>
+
+
+
+        <section class="row">
+
+            <div class="col-sm-12">
+                 <section class="" style="">
+                    <div class="row">
+                        <div class="ajaxArticles index clearfix"
+                             data-offset="{{limit}}"
+                             data-articlecount="10"
+                             data-containerclass="col-sm-4 card-sm"
+                             data-existing-nonpinned-count="{{articlesArr.existingNonPinnedCount}}">
+                         </div>
+                        <a class="loadMoreArticles" href="#">Load more articles</a>
+                    </div>
+
+                    {% set noDataCls = 'hide' %}
+                    {% if articles|length == 0 %}
+                        {% set noDataCls = '' %}
+                     {% endif %}
+                    <div class="row text-center has-margin-bottom-20 has-margin-top-20 {{noDataCls}} NoArticlesMsg">
+                        <p class="no-data text-center">No articles found.</p>  
+                    </div>
+                </section>
+            </div>
+        </section>
+
+
 
 
     </main><!-- .site-main -->
