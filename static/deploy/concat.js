@@ -27356,22 +27356,22 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
                 var msgStr = (isSocial == 1) ? "Do you really want to delete this article?" : "Do you really want to hide this article?";
                 var articleGuid = $(elem).data('guid');
                 
-                if (typeof bootbox === 'undefined') {
+                // if (typeof bootbox === 'undefined') {
                     var result = confirm(msgStr);
                     if (result === true) {
                         deleteArticle(articleGuid, isSocial, elem, opts.onSuccess);
                     }
-                } else {
-                    bootbox.confirm({
-                        title: "Confirm",
-                        message: msgStr,
-                        callback: function (result) {
-                            if (result === true) {
-                                deleteArticle(articleGuid, isSocial, elem, opts.onSuccess);
-                            }
-                        }
-                    });
-                }
+                // } else {
+                //     bootbox.confirm({
+                //         title: "Confirm",
+                //         message: msgStr,
+                //         callback: function (result) {
+                //             if (result === true) {
+                //                 deleteArticle(articleGuid, isSocial, elem, opts.onSuccess);
+                //             }
+                //         }
+                //     });
+                // }
 
 
             });
@@ -29111,115 +29111,115 @@ var Card = function() {
     this.events();
 };
 
-Card.prototype.renderScreenCards = function(options, data) 
-{
-    var self = this;
+// Card.prototype.renderScreenCards = function(options, data) 
+// {
+//     var self = this;
 
-    var container = options.container;
+//     var container = options.container;
 
-    container.data('existing-nonpinned-count', data.existingNonPinnedCount);
+//     container.data('existing-nonpinned-count', data.existingNonPinnedCount);
 
-    var html = "";
-    for (var i in data.articles) {
-        html += self.renderCard(data.articles[i], options.containerClass);
-    }
-    container.empty().append(html);
+//     var html = "";
+//     for (var i in data.articles) {
+//         html += self.renderCard(data.articles[i], options.containerClass);
+//     }
+//     container.empty().append(html);
 
-    // $('.two-card-logo').toggle();
+//     // $('.two-card-logo').toggle();
 
-    $(".card p, .card h1").dotdotdot();
+//     $(".card p, .card h1").dotdotdot();
             
-    $('.video-player').videoPlayer();
+//     $('.video-player').videoPlayer();
     
-    //Lazyload implement
-    // $("div.lazyload").lazyload({
-    //     effect: "fadeIn"
-    // });
-    // if (_appJsConfig.isUserLoggedIn === 1 && _appJsConfig.userHasBlogAccess === 1) {
-    //     self.events();
-    // }
-};
+//     //Lazyload implement
+//     // $("div.lazyload").lazyload({
+//     //     effect: "fadeIn"
+//     // });
+//     // if (_appJsConfig.isUserLoggedIn === 1 && _appJsConfig.userHasBlogAccess === 1) {
+//     //     self.events();
+//     // }
+// };
 
-Card.prototype.screen = function() 
-{
-    var self = this;
+// Card.prototype.screen = function() 
+// {
+//     var self = this;
 
-    var btn = $('.loadMoreArticles');
-    var pageRefreshInterval = 60000 * 5;
+//     var btn = $('.loadMoreArticles');
+//     var pageRefreshInterval = 60000 * 5;
 
-    var currentScreen = 0;
-    var articleCount = 0;
+//     var currentScreen = 0;
+//     var articleCount = 0;
 
-    var options = {
-        'screens' : [
-        {
-            style: "screen-card card-lg-screen col-sm-12",
-            limit: 1,
-            logo: "large-logo"
+//     var options = {
+//         'screens' : [
+//         {
+//             style: "screen-card card-lg-screen col-sm-12",
+//             limit: 1,
+//             logo: "large-logo"
 
-        },
+//         },
 
-        {
-            style: "screen-card card-sm-screen col-sm-6",
-            limit: 2,
-            logo: "small-logo"
-        } 
+//         {
+//             style: "screen-card card-sm-screen col-sm-6",
+//             limit: 2,
+//             logo: "small-logo"
+//         } 
 
-        ],
-        'container': $( '#'+btn.data('container') ),
-        'currentScreen': currentScreen,
-        'count': 20
-    };
+//         ],
+//         'container': $( '#'+btn.data('container') ),
+//         'currentScreen': currentScreen,
+//         'count': 20
+//     };
 
-    var run = function() {
-        console.log('running screen');
+//     var run = function() {
+//         console.log('running screen');
 
-                            // 1 minute * amount of minutes
-        var numberOfScreens = options.screens.length;
-        currentScreen++;
-        if (currentScreen > numberOfScreens) {
-            currentScreen = 1;
-        }
-        var screenOption = currentScreen-1;
-        options.currentScreen = currentScreen;
+//                             // 1 minute * amount of minutes
+//         var numberOfScreens = options.screens.length;
+//         currentScreen++;
+//         if (currentScreen > numberOfScreens) {
+//             currentScreen = 1;
+//         }
+//         var screenOption = currentScreen-1;
+//         options.currentScreen = currentScreen;
 
-        // console.log('grigidig');
-        options.limit = options.screens[screenOption].limit;
-        options.containerClass = options.screens[screenOption].style;
+//         // console.log('grigidig');
+//         options.limit = options.screens[screenOption].limit;
+//         options.containerClass = options.screens[screenOption].style;
 
-        // articleCount = articleCount + options.limit;
-        // console.log('Article Count: ', articleCount);
-        if (articleCount >= options.count) {
-            articleCount = 0;
-        }
+//         // articleCount = articleCount + options.limit;
+//         // console.log('Article Count: ', articleCount);
+//         if (articleCount >= options.count) {
+//             articleCount = 0;
+//         }
 
-        options.offset = articleCount;
-        options.nonpinned = articleCount;
+//         options.offset = articleCount;
+//         options.nonpinned = articleCount;
 
-        // console.log(options);
-        $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
-            // console.log(data);
-            if (data.articles.length == 0 ) {
-                // console.log('setting article count to zero');
-                articleCount = 0;
-                return;
-            }
-            articleCount = articleCount + data.articles.length;
+//         // console.log(options);
+//         $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
+//             // console.log(data);
+//             if (data.articles.length == 0 ) {
+//                 // console.log('setting article count to zero');
+//                 articleCount = 0;
+//                 return;
+//             }
+//             articleCount = articleCount + data.articles.length;
 
-            if (data.success == 1) {
-                self.renderScreenCards(options, data);
-            }
-        });
-    }
+//             if (data.success == 1) {
+//                 self.renderScreenCards(options, data);
+//             }
+//         });
+//     }
 
-    run();
+//     run();
 
-    setInterval( run, 10000 ); 
-    setInterval( function() {
-        location.reload(false);
-    } , pageRefreshInterval );
+//     setInterval( run, 10000 ); 
+//     setInterval( function() {
+//         location.reload(false);
+//     } , pageRefreshInterval );
  
-};
+// };
 
 Card.prototype.renderCard = function(card, cardClass)
 {
@@ -29598,7 +29598,7 @@ Card.prototype.events = function()
         console.log(options);
 
         $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
-
+            console.log(data);
             if (data.success == 1) {
 
                 if (data.articles.length < 20) {
@@ -30354,11 +30354,11 @@ $('document').ready(function() {
     }
 
     // 4:32PM WEDNESDAY JULY 4, 2017
-    var date = new Date();
-        datetime = date.toISOString().substring(0, 16),
-        field = document.getElementById('headerTime');
-        field.setAttribute('datetime', datetime);
-        field.innerHTML = formatDate(date);
+    // var date = new Date();
+    //     datetime = date.toISOString().substring(0, 16),
+    //     field = document.getElementById('headerTime');
+    //     field.setAttribute('datetime', datetime);
+    //     field.innerHTML = formatDate(date);
 
 
     // var isMobile = function(){
