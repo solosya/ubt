@@ -1,5 +1,6 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
 {% set networkData = _Network.getNetworkData() %}
+{% set blogData    = _Blog.getBlog() %}
 
 
 
@@ -20,17 +21,16 @@
 
 
 
-    <main id="main" class="index_container channel-main" role="main">
+    <main id="main" class="container-fluid channel-main" role="main">
         
 
 
 
         <section class="row">
             <div class="col-sm-offset-1 col-sm-10 section-header">
-                <h2>National</h2>
+                <h2>{{blogData.title}}</h2>
                 <p>
-                    Nam porti tasse plat dictmst  blandit accaserio sln hac curabitur hendrerit 
-                    quam ac arcu facilisis faucibus. Curabitur tempus, urna sed semperc
+                    {{blogData.shortDescription}}
                 </p>
             </div>
         </section>
@@ -72,7 +72,7 @@
 
 
                 {% for i in 0..2 if articles[articleCount] %}
-                    {% set classes = ["card-sm card-sm-tablet card-sm-mobile", "card-sm-full card-sm-full-tablet", "card-sm card-sm-tablet card-sm-mobile"] %}
+                    {% set classes = ["card-sm card-sm-tablet card-rec-mobile", "card-sm-full card-sm-full-tablet", "card-sm card-rec-tablet card-sm-mobile"] %}
                     {% set images = [false, false, true] %}
                     {{this.render('partials/_single-article.twig', {
                         article: articles[articleCount], 
