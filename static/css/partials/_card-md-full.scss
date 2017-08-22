@@ -32,6 +32,15 @@
                             font-size:rem(16);
                             font-weight:400;
                             margin-bottom:260px;
+                            &:after {
+                                content:'';
+                                display:block;
+                                width:20px;
+                                height:1px;
+                                background:white;
+                                margin: auto;
+                                margin-top: 10px;
+                            }
                         }
                         time {
                             display:none;

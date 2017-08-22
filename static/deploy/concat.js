@@ -28838,13 +28838,16 @@ var systemCardTemplate =
             {{/if}} \
         \
             <div class="content">\
-                    <div class="category">{{label}}</div>\
-                    <h2>{{{ title }}}</h2>\
-                    <p>{{{ excerpt }}}</p>\
-                    <div class="author">\
-                        <img src="{{profileImg}}" class="img-circle">\
-                        <p>{{ createdBy.displayName }}</p>\
-                    </div>\
+                <div class="cat-time">\
+                    <p class="category">{{label}}</p>\
+                    <time datetime="{{publishDate}}">{{publishDate}}</time>\
+                </div>\
+                <h2>{{{ title }}}</h2>\
+                <p class="excerpt">{{{ excerpt }}}</p>\
+                <div class="author">\
+                    <img src="{{profileImg}}" class="img-circle">\
+                    <p>{{ createdBy.displayName }}</p>\
+                </div>\
             </div>\
         </article>'+
         

@@ -7142,6 +7142,12 @@ a.card {
             font-size: 1rem;
             font-weight: 400;
             margin-bottom: 260px; }
+            .card-md-full a.card > article > .content > div > .category:after {
+              content: '';
+              display: block;
+              width: 20px;
+              height: 1px;
+              background: white; }
           .card-md-full a.card > article > .content > div time {
             display: none; }
           .card-md-full a.card > article > .content > h2 {
