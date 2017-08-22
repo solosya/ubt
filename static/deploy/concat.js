@@ -30313,7 +30313,6 @@ $('document').ready(function() {
             location.text(r.location.split('/')[1]);
             description.text(r.description);
             temperature.html(parseInt(r.temperature) + "&deg;");
-            // icon.attr("src", r.icon);
             console.log(location, icon, description, temperature);
 
         });
@@ -30456,23 +30455,32 @@ $('document').ready(function() {
     });
 
 
-    // $("li.menu-item-search").bind("mouseenter focus mouseleave",function () {
-    //     if (window.innerWidth > sbCustomMenuBreakPoint) {
-    //         $("input#header-search").focus();
-    //         return false;
-    //     }
-    // });
+    $("li.menu-item-search").bind("mouseenter focus mouseleave",function () {
+        if (window.innerWidth > sbCustomMenuBreakPoint) {
+            $("input#header-search").focus();
+            return false;
+        }
+    });
 
 
-    $(".sb-custom-menu > .menuContainer > ul > li").hover(function (e) {
-
-    // $(".sb-custom-menu > .menuContainer > ul > li").bind("mouseenter", function (e) {
-        if (pageWindow.width() > sbCustomMenuBreakPoint) {
-            $(this).children("ul").stop(true, false).slideToggle(0);
-            $(this).toggleClass('now-active');
+    $("ul > li.menu-item-search").on("click", function (e) {
+        console.log('clicked search');
+        if (window.innerWidth > sbCustomMenuBreakPoint) {
+            $("#searchpanel").toggleClass('active');
             e.preventDefault();
         }
     });
+
+
+
+    // $(".sb-custom-menu > ul > li").hover(function (e) {
+    // // $(".sb-custom-menu > .menuContainer > ul > li").bind("mouseenter", function (e) {
+    //     if (pageWindow.width() > sbCustomMenuBreakPoint) {
+    //         $('#searchpanel').stop(true, false).slideToggle(0);
+    //         $('#searchpanel').toggleClass('now-active');
+    //         e.preventDefault();
+    //     }
+    // });
 
 
     $(".sb-custom-menu > .menuContainer > ul > li > span").on("click", function(e) {
