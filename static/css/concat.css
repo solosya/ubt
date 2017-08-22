@@ -7147,7 +7147,9 @@ a.card {
               display: block;
               width: 20px;
               height: 1px;
-              background: white; }
+              background: white;
+              margin: auto;
+              margin-top: 10px; }
           .card-md-full a.card > article > .content > div time {
             display: none; }
           .card-md-full a.card > article > .content > h2 {
