@@ -197,9 +197,9 @@
                         <div class="row top-stories">
                             <h2>TOP STORIES</h2>
 
-                            {% for i in 0..3 if articles[articleCount] %}
+                            {% for i in 0..3 if articles[i] %}
                                 {{this.render('partials/_single-article.twig', {
-                                    article: articles[articleCount], 
+                                    article: articles[i], 
                                     imageSuppress: true,
                                     containerClass: "card-top-story card-top-story-dt card-top-story-tablet"
                                 }) | raw}}
