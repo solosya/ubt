@@ -7125,7 +7125,7 @@ a.card {
           margin-bottom: 10px; }
         .card-md-full a.card > article > .content {
           position: relative;
-          padding: 35px 10px 20px 10px;
+          padding: 35px 25px 20px 25px;
           text-align: center;
           z-index: 10;
           color: #fff; }
@@ -7186,7 +7186,7 @@ a.card {
           margin-bottom: 10px; }
         .card-md-full-tablet a.card > article > .content {
           position: relative;
-          padding: 12px 10px 20px 10px;
+          padding: 12px 25px 20px 25px;
           text-align: center;
           z-index: 10;
           color: #fff; }
@@ -7304,6 +7304,15 @@ a.card {
         padding-right: 360px; }
         .card-lg-full a.card > article > figure.video:before {
           display: none; }
+        .card-lg-full a.card > article > figure:after {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(151, 153, 156, 0.4); }
         .card-lg-full a.card > article > .content {
           position: relative;
           text-align: center;
