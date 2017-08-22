@@ -4,10 +4,7 @@
 {{ this.registerLinkTag({rel:'amphtml', href:_AppHelper.getServerUrl(false)~'?amp=1'}) }}
 
 {% set blogInfo = _Blog.getBlog() %}
-{#     <pre>
-        {{dump(blogInfo)}}
-    </pre>
- #}{% set networkData = _Network.getNetworkData() %}
+{% set networkData = _Network.getNetworkData() %}
 
 
 {% set articleImg = false %}
@@ -19,6 +16,7 @@
 
 {% set articles = _Article.getPopularArticles({ limit: 10, excludeArticleIds : article.id }) %}
 {% set popularArticles = _Article.getPopularArticles({ limit: 5, sortBy: 'VIEWS', blogId: blogInfo.id, type: 'article' }) %}
+{% set suggestedArticles = _Article.getPopularArticles({ limit: 6, sortBy: 'VIEWS', scope: 'network' }) %}
 
 {% set articleCount = 0 %}
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
@@ -99,24 +97,24 @@
 
                             <h2>SUGGESTED READINGS</h2>
 
+                            
+                            {% set suggestCount = 0 %}
 
-                            {% for i in 0..4 if articles[articleCount] %}
+                            {% for i in 0..4 if suggestedArticles[suggestCount] %}
                                 {{this.render('partials/_single-article.twig', {
-                                    article: articles[articleCount], 
+                                    article: suggestedArticles[suggestCount], 
                                     imageSize: {width: 75, height: 63},
                                     containerClass: 'card-article-suggested'
                                 }) | raw}}
-                                {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                                {% set suggestCount = (dev) ? suggestCount : suggestCount + 1 %}
                             {% endfor %}
 
-                            {% if articles[articleCount] %}
+                            {% if suggestedArticles[suggestCount] %}
                                 {{this.render('partials/_single-article.twig', {
-                                    article: articles[articleCount], 
+                                    article: suggestedArticles[suggestCount], 
                                     imageSize: {width: 300, height: 180},
                                     containerClass: 'card-sm-full'
                                 }) | raw}}
-                                {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-
                             {% endif %}
 
                         </div>
