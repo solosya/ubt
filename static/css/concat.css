@@ -7112,7 +7112,7 @@ a.card {
           margin-bottom: 10px; }
         .card-md-full a.card > article > .content {
           position: relative;
-          padding: 35px 0 20px 0;
+          padding: 35px 10px 20px 10px;
           text-align: center;
           z-index: 10;
           color: #fff; }
@@ -7173,7 +7173,7 @@ a.card {
           margin-bottom: 10px; }
         .card-md-full-tablet a.card > article > .content {
           position: relative;
-          padding: 12px 0 20px 0;
+          padding: 12px 10px 20px 10px;
           text-align: center;
           z-index: 10;
           color: #fff; }
