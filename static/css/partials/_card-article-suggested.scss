@@ -31,25 +31,9 @@
                     }
 
                     > div {
+                        font-size: rem(14);
                         > .category{
-                            display:inline-block;
-                            font-size: rem(10);
-                            color:color(lightgrey);
-                            text-transform:uppercase; 
-                            padding-right:5px;
-                            margin-right:5px;
-                            line-height:1;
-                            vertical-align:top;
                             border-right:1px solid color(lightgrey);
-                        }
-
-                        > time {
-                            font-size: rem(10);
-                            display:inline-block;
-                            color:color(lightgrey);
-                            text-transform:uppercase; 
-                            line-height:1;
-                            vertical-align:top;
                         }
                     }
 

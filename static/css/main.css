@@ -8055,23 +8055,10 @@ a.card {
       .card-article-suggested a.card > article > div > .content {
         line-height: 1;
         margin-bottom: 6px; }
-      .card-article-suggested a.card > article > div > div > .category {
-        display: inline-block;
-        font-size: 0.625rem;
-        color: #97999c;
-        text-transform: uppercase;
-        padding-right: 5px;
-        margin-right: 5px;
-        line-height: 1;
-        vertical-align: top;
-        border-right: 1px solid #97999c; }
-      .card-article-suggested a.card > article > div > div > time {
-        font-size: 0.625rem;
-        display: inline-block;
-        color: #97999c;
-        text-transform: uppercase;
-        line-height: 1;
-        vertical-align: top; }
+      .card-article-suggested a.card > article > div > div {
+        font-size: 0.875rem; }
+        .card-article-suggested a.card > article > div > div > .category {
+          border-right: 1px solid #97999c; }
       .card-article-suggested a.card > article > div:after {
         content: ' ';
         display: block;
