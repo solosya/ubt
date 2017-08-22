@@ -495,6 +495,40 @@
 
 
 
+        {% if sections['videos'].feed.articles|length > 0 %}
+            {% set videoCount = 0 %}
+
+            <section class="row section national">
+
+                <div class="col-sm-12 section-header">
+                    <h2><a href="{{sections['videos'].link}}">Videos</a></h2>
+                    <p class="description">{{sections['videos'].description}}</p>
+                </div>
+
+
+                {% for i in 0..3 if sections['videos'].feed.articles[i] %}
+                    <div class="col-sm-3">
+                        {{this.render('partials/_single-article.twig', {
+                            article: sections['videos'].feed.articles[videoCount], 
+                            imageSize: {width: 300, height: 180},
+                            containerClass: 'card-sm-full card-sm-full-tablet'
+                        }) | raw}}
+                        {% set videoCount = (dev) ? videoCount : videoCount + 1 %}
+
+                    </div>
+                {% endfor %}
+
+            </section>
+        {% endif %}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -549,40 +583,6 @@
             </section>
         {% endif %}
 
-
-
-
-
-
-
-
-
-
-        {% if sections['videos'].feed.articles|length > 0 %}
-            {% set videoCount = 0 %}
-
-            <section class="row section national">
-
-                <div class="col-sm-12 section-header">
-                    <h2><a href="{{sections['videos'].link}}">Videos</a></h2>
-                    <p class="description">{{sections['videos'].description}}</p>
-                </div>
-
-
-                {% for i in 0..3 if sections['videos'].feed.articles[i] %}
-                    <div class="col-sm-3">
-                        {{this.render('partials/_single-article.twig', {
-                            article: sections['videos'].feed.articles[videoCount], 
-                            imageSize: {width: 300, height: 180},
-                            containerClass: 'card-sm-full card-sm-full-tablet'
-                        }) | raw}}
-                        {% set videoCount = (dev) ? videoCount : videoCount + 1 %}
-
-                    </div>
-                {% endfor %}
-
-            </section>
-        {% endif %}
 
 
 
