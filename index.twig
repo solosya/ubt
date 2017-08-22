@@ -10,6 +10,7 @@
 
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
+{% set popularArticles = _Article.getPopularArticles({ limit: 10, sortBy: 'VIEWS', scope: 'network' }) %}
 
 {% set events = _Event.getEvents() %}
 
@@ -197,9 +198,9 @@
                         <div class="row top-stories">
                             <h2>TOP STORIES</h2>
 
-                            {% for i in 0..3 if articles[i] %}
+                            {% for i in 0..3 if popularArticles|length > 0 %}
                                 {{this.render('partials/_single-article.twig', {
-                                    article: articles[i], 
+                                    article: popularArticles[i], 
                                     imageSuppress: true,
                                     containerClass: "card-top-story card-top-story-dt card-top-story-tablet"
                                 }) | raw}}
