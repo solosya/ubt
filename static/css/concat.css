@@ -5938,10 +5938,22 @@ ul.sub-menu a:focus {
   .article article.article-main > figure {
     width: 100%;
     height: 515px;
-    margin-bottom: 65px; }
+    margin-bottom: 65px;
+    position: relative; }
     @media screen and (max-width: 767px) {
       .article article.article-main > figure {
         height: 190px; } }
+    .article article.article-main > figure > a {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      background-image: url(../icons/play-icon.svg);
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 70px;
+      height: 70px;
+      margin-top: -35px;
+      margin-left: -35px; }
     .article article.article-main > figure img {
       width: 100%;
       height: 100%;
