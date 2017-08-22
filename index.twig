@@ -6,7 +6,7 @@
 
 {{this.registerJs("CardController();")}}
 
-{% set limit = 16 %}
+{% set limit = 15 %}
 
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
@@ -16,7 +16,7 @@
 
 
 <!-- used to index each article as we loop over throughout the template -->
-{% set articleCount = 1 %}
+{% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
 
 
@@ -81,7 +81,6 @@
             <div class="col-sm-6 col-sm-push-3">
                 {% set class = 'card-main card-main-tablet card-main-mobile' %}
                 {% for i in 0..2 if articles[articleCount] %}
-                    <h2>{{articleCount}}</h2>
 
                     {{this.render('partials/_single-article.twig', {
                         article: articles[articleCount], 
@@ -100,7 +99,6 @@
                 {% set suppress = [true, false, true] %}
 
                 {% for i in 0..2 if articles[articleCount]%}
-                    <h2>{{articleCount}}</h2>
 
                     {{this.render('partials/_single-article.twig', {
                         article: articles[articleCount], 
@@ -131,7 +129,6 @@
                 <hr class="divide visible-md-block visible-lg-block">
 
                 {% if articles[articleCount] %}
-                    <h2>{{articleCount}}</h2>
 
                     {{this.render('partials/_single-article.twig', {
                         article: articles[articleCount], 
@@ -174,7 +171,6 @@
                             {% set showimages = [false, true, true] %}
 
                             {% for i in 0..2 if articles[articleCount] %}
-                                <h2>{{articleCount}}</h2>
 
                                 {{this.render('partials/_single-article.twig', {
                                     article: articles[articleCount], 
@@ -193,7 +189,6 @@
 
 
                     <div class="col-sm-4 col-sm-pull-8">
-                        <h2>{{articleCount}}</h2>
                         {% if articles[articleCount] %}
                             {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
@@ -230,7 +225,6 @@
             <div class="col-sm-3">
 
                 {% for i in 0..3 if articles[articleCount] %}
-                    <h2>{{articleCount}}</h2>
 
                     {{this.render('partials/_single-article.twig', {
                         article: articles[articleCount], 
