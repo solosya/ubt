@@ -29,11 +29,13 @@
 
     <fieldset id="searchpanel" class="search-sub-menu">
         <form method="get" id="searchform" action="{{networkData.defaultBlogUrl}}/search">
-            <label for="header-search" class="assistive-text sr-only">Search</label>
-            <input type="text" class="field" name="s" id="header-search" placeholder="Search" required="">
-            <button class="btn btn-default" type="submit" id="searchsubmit">
-                <span class="search-icon"></span>
-            </button>
+            <div class="container-fluid">
+                <label for="header-search" class="assistive-text sr-only">Search</label>
+                <input type="text" class="field" name="s" id="header-search" placeholder="Search" required="">
+                <button class="btn btn-default" type="submit" id="searchsubmit">
+                    <span class="search-icon"></span>
+                </button>
+            </div>
         </form>
     </fieldset>
     
