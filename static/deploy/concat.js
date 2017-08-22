@@ -30462,7 +30462,7 @@ $('document').ready(function() {
         }
     });
 
-
+    console.log('latest script');
     $("ul > li.menu-item-search").on("click", function (e) {
         console.log('clicked search');
         if (window.innerWidth > sbCustomMenuBreakPoint) {
