@@ -5130,12 +5130,12 @@ span.leadsentence {
   flex: 15 0 0;
   -moz-flex: 15 0 0; }
 
-.site-header,
+\.site-header,
 .menu-mobile,
 .show-on-tablet > ul,
 .sb-custom-menu,
-.sb-custom-menu > div > ul > li > ul,
-.sb-custom-menu > div > ul li.now-active > a:after {
+.sb-custom-menu > ul > li > ul,
+.sb-custom-menu > ul li.now-active > a:after {
   -webkit-transition-timing-function: ease-in;
   transition-timing-function: ease-in;
   -webkit-transition-duration: 0.5s;
@@ -5307,7 +5307,7 @@ span.leadsentence {
     line-height: 60px;
     height: 100%; }
 
-.sb-custom-menu > div > ul > li.now-active > a {
+.sb-custom-menu > ul > li.now-active > a {
   color: #ae232c;
   text-decoration: none; }
 
@@ -5389,7 +5389,6 @@ span.leadsentence {
         .sb-custom-menu ul.menu > li span.list-arrow:hover {
           cursor: pointer; }
   .sb-custom-menu ul.sub-menu {
-    display: none;
     position: absolute;
     list-style: none;
     margin: 0;
@@ -5430,9 +5429,9 @@ ul.sub-menu a:focus {
   text-decoration: none; }
 
 @media (max-width: 992px) {
-  .sb-custom-menu > div > ul > li > a:focus:after,
-  .sb-custom-menu > div > ul li.current_page_item > a:after,
-  .sb-custom-menu > div > ul li.now-active > a:after {
+  .sb-custom-menu > ul > li > a:focus:after,
+  .sb-custom-menu > ul li.current_page_item > a:after,
+  .sb-custom-menu > ul li.now-active > a:after {
     display: none; }
   .site-header .site-header-menu-1 {
     position: relative; }
@@ -5447,7 +5446,7 @@ ul.sub-menu a:focus {
     padding: 25px 20px 13px 13px; }
   .open .menu-mobile:after {
     right: 20px; }
-  .sb-custom-menu > div {
+  .sb-custom-menu {
     display: none;
     -webkit-overflow-scrolling: touch;
     overflow: scroll;
@@ -5468,7 +5467,7 @@ ul.sub-menu a:focus {
       background: #ffffff; }
   #menuContainer > ul > li {
     width: auto; }
-  .sb-custom-menu > div > ul > li {
+  .sb-custom-menu > ul > li {
     width: 100%;
     float: none;
     display: block;
@@ -7528,7 +7527,7 @@ a.card {
           text-align: center;
           position: relative;
           padding: 0; }
-          .card-main a.card > article > .content > .category {
+          .card-main a.card > article > .content > div > .category {
             border-right: 1px solid #97999c; }
           .card-main a.card > article > .content > h2 {
             font-family: "pt-serif", "Times New Roman", Times, serif;

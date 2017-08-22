@@ -1,13 +1,13 @@
-.site-header,
+\.site-header,
 .menu-mobile,
 .show-on-tablet > ul,
 .sb-custom-menu,
-.sb-custom-menu > div > ul > li > ul,
-.sb-custom-menu > div > ul li.now-active > a:after{
+.sb-custom-menu > ul > li > ul,
+.sb-custom-menu > ul li.now-active > a:after{
     @extend %transition;
 }
 
-.sb-custom-menu > div > ul > li.now-active {
+.sb-custom-menu > ul > li.now-active {
     background:color(dark);
     
     > a {
@@ -161,7 +161,7 @@
 
 
     ul.sub-menu{
-        display: none;
+        // display: none;
         position: absolute;
         list-style: none;
         margin: 0;
@@ -239,9 +239,9 @@ ul.sub-menu a:focus{
 
 
 @media (max-width: $header-break){
-    .sb-custom-menu > div > ul > li > a:focus:after,
-    .sb-custom-menu > div > ul li.current_page_item > a:after,
-    .sb-custom-menu > div > ul li.now-active > a:after{
+    .sb-custom-menu > ul > li > a:focus:after,
+    .sb-custom-menu > ul li.current_page_item > a:after,
+    .sb-custom-menu > ul li.now-active > a:after{
         display: none;
     }
     .site-header .site-header-menu-1{
@@ -266,7 +266,7 @@ ul.sub-menu a:focus{
     }
 
 
-    .sb-custom-menu > div{
+    .sb-custom-menu{
         display: none;
         -webkit-overflow-scrolling: touch;
         overflow: scroll;
@@ -298,7 +298,7 @@ ul.sub-menu a:focus{
         width:auto;
     }
 
-    .sb-custom-menu > div > ul > li {
+    .sb-custom-menu > ul > li {
         width: 100%;
         float: none;
         display: block;
