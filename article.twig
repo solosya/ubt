@@ -4,7 +4,10 @@
 {{ this.registerLinkTag({rel:'amphtml', href:_AppHelper.getServerUrl(false)~'?amp=1'}) }}
 
 {% set blogInfo = _Blog.getBlog() %}
-{% set networkData = _Network.getNetworkData() %}
+{#     <pre>
+        {{dump(blogInfo)}}
+    </pre>
+ #}{% set networkData = _Network.getNetworkData() %}
 
 
 {% set articleImg = false %}
@@ -15,6 +18,7 @@
 {% set publishDate = _AppHelper.getDateTimeBasedOnTimezone(article.publishDate, 'F, Y') %}
 
 {% set articles = _Article.getPopularArticles({ limit: 10, excludeArticleIds : article.id }) %}
+{% set popularArticles = _Article.getPopularArticles({ limit: 5, sortBy: 'VIEWS', blogId: blogInfo.id, type: 'article' }) %}
 
 {% set articleCount = 0 %}
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
@@ -131,15 +135,13 @@
                     <h1>RELATED ARTICLES</h1>
                 </div>
 
-                {% for i in 0..2 if articles[articleCount] %}
+                {% for i in 0..2 if popularArticles[i] %}
                     <div class="col-md-4">
                         {{this.render('partials/_single-article.twig', {
-                            article: articles[articleCount], 
+                            article: popularArticles[i], 
                             imageSize: {width: 300, height: 180},
                             containerClass: 'card-sm card-sm-mobile'
                         }) | raw}}
-                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-
                     </div>
                 {% endfor %}
 
