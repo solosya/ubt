@@ -6053,6 +6053,7 @@ ul.sub-menu a:focus {
         .article article.article-main .page-content .content-block-top p.author:before {
           content: 'By '; }
   .article article.article-main .related-articles {
+    padding: 0 60px;
     margin-top: 70px; }
     .article article.article-main .related-articles h1 {
       font-size: 1rem;
