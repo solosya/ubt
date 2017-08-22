@@ -116,9 +116,9 @@
             <div class="col-sm-offset-1 col-sm-3 eventlist">
                 <h2>EVENTS</h2>
 
-                {% for i in 0..6 if events[articleCount] %}
+                {% for i in 0..6 if events[i] %}
                     {{this.render('partials/_single-event.twig', {
-                        event: events[articleCount], 
+                        event: events[i], 
                         imageSize: {width: 60, height: 37},
                         containerClass: "card-event card-event-tablet"
                     }) | raw}}
