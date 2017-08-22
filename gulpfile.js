@@ -45,8 +45,9 @@ gulp.task('concat', function () {
         './static/development/js/plugins/jquery.noty-2.3.8/demo/animate.css',
         './static/development/js/sdk/media-player/mediaelementplayer.css'
     ]) // path to your file
+    .pipe(sourcemaps.init())
     .pipe(concat('concat.css'))
-
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('./static/css'));
 });
 
@@ -55,11 +56,9 @@ gulp.task('sass', function() {
     return gulp.src([
             './static/css/main.scss',
         ])
-        .pipe(sourcemaps.init())
         .pipe(sass({includePaths: [
             './static/css/partials', 
         ]}).on('error', sass.logError))
-        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('./static/css'));
 });
 

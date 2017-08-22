@@ -255,15 +255,16 @@
 .search-sub-menu{
     form{
         position: relative;
+        background: color(lightergrey);
     }
 
     input.field {
         width: 80%;
         background-color: transparent;
         color: #1a1818;
-        font-size: 35px;
+        font-size: rem(30);
         border: 0;
-        height: 20px;
+        height: 30px;
         margin-top: 11px;
         outline: none;
 
