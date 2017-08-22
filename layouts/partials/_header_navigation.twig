@@ -19,10 +19,39 @@
                 <li>SUBSCRIBE</li>
                 <li>SIGN IN</li>
                 <li>SEARCH</li>
+                <li>
+                    <a href="#" class="search-icon"><span class="icon-search icon"></span><span class="sr-only">Expand search</span></a>
+
+{#                     <ul class="">
+                        <li class="">
+                            <fieldset>
+                                <form method="get" id="searchform" action="{{networkData.defaultBlogUrl}}/search">
+                                    <label for="header-search" class="assistive-text sr-only">Search</label>
+                                    <input type="text" class="field" name="s" id="header-search" placeholder="Search" required="">
+                                    <button class="btn btn-default" type="submit" id="searchsubmit">
+                                        <span class="icon icon-search-blk"></span>
+                                        <span class="screen-reader-text"></span>
+                                    </button>
+                                </form>
+                            </fieldset>
+                        </li>
+                    </ul>
+ #}                </li>
+
             </ul>   
         </div>         
     </div>
 
+    {#                 <fieldset id="searchpanel" class="col-sm-3 search-sub-menu"  style="position:relative">
+                        <form method="get" id="searchform" action="{{networkData.defaultBlogUrl}}/search">
+                            <label for="header-search" class="assistive-text sr-only">Search</label>
+                            <input type="text" class="field" name="s" id="header-search" placeholder="I'm searching for..." required="">
+                            <button class="btn btn-default" type="submit" id="searchsubmit">
+                                <span class="search-icon"></span>
+                            </button>
+                        </form>
+                    </fieldset>
+     #}
 
 
 
@@ -152,16 +181,6 @@
                     </div>
                 </div>
 
-{#                 <fieldset id="searchpanel" class="col-sm-3 search-sub-menu"  style="position:relative">
-                    <form method="get" id="searchform" action="{{networkData.defaultBlogUrl}}/search">
-                        <label for="header-search" class="assistive-text sr-only">Search</label>
-                        <input type="text" class="field" name="s" id="header-search" placeholder="I'm searching for..." required="">
-                        <button class="btn btn-default" type="submit" id="searchsubmit">
-                            <span class="search-icon"></span>
-                        </button>
-                    </form>
-                </fieldset>
- #}
             </div>  
 
         </div><!-- .container-->  

@@ -4890,11 +4890,11 @@ hr.divide {
 
 .search-icon {
   display: block;
-  background-image: url(../images/search.svg);
+  background-image: url(../icons/search-icon.svg);
   background-repeat: no-repeat;
   background-size: contain;
-  width: 20px;
-  height: 20px; }
+  width: 15px;
+  height: 15px; }
 
 .down-arrow {
   display: inline-block;
@@ -7891,7 +7891,7 @@ a.card {
         .card-rec a.card > article > .content {
           position: relative;
           padding: 0; }
-          .card-rec a.card > article > .content > .category {
+          .card-rec a.card > article > .content > div > .category {
             margin-bottom: 0;
             border-right: 1px solid #97999c; }
           .card-rec a.card > article > .content > h2 {
@@ -7969,7 +7969,7 @@ a.card {
         .card-rec-mobile a.card > article > .content {
           position: relative;
           padding: 0; }
-          .card-rec-mobile a.card > article > .content > .category {
+          .card-rec-mobile a.card > article > .content > div > .category {
             margin-bottom: 0;
             border-right: 1px solid #97999c; }
           .card-rec-mobile a.card > article > .content > h2 {
