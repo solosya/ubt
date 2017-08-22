@@ -64,7 +64,6 @@
         .navbar-brand {
             background-image: url(../images/frank-logo-reverse.svg);
         }
-
     }
 }
 
@@ -90,25 +89,24 @@
         > div {
             position:relative;
             height: 30px;
-            text-align:center;
 
-            > time {
-                margin:0;
-                line-height:30px;
-                vertical-align:middle;
-                font-family:$base-font-family;
-                font-size: rem(10);
-                display: inline-block;
-                color:#fff;
-                letter-spacing: 0.2px;
-            }
+            // > time {
+            //     margin:0;
+            //     line-height:30px;
+            //     vertical-align:middle;
+            //     font-family:$base-font-family;
+            //     font-size: rem(10);
+            //     display: inline-block;
+            //     color:#fff;
+            //     letter-spacing: 0.2px;
+            // }
 
             > ul {
                 position: absolute;
                 height:30px;
                 vertical-align:middle;
                 top: 0;
-                right: 10px;
+                right: 20px;
                 font-family:$base-font-family;
                 font-size: rem(10);
                 margin:0;
@@ -120,7 +118,12 @@
                 display:inline-block;
                 margin:0;
                 padding:0;
-                margin-right:20px;
+                margin-left:40px;
+                vertical-align: middle;
+
+                &.glass {
+                    margin-left:20px;
+                }
             }
         }  
 
@@ -259,29 +262,32 @@
     }
 
     input.field {
-        width: 80%;
+        width: 50%;
         background-color: transparent;
         color: #1a1818;
         font-size: rem(30);
         border: 0;
         height: 30px;
-        margin-top: 11px;
         outline: none;
+        text-align:center;
+        display:block;
+        margin: 11px auto;
 
         @media screen and (max-width: $md-break){
             width:78%;
         }
     }
 
-    input.submit{
+    button {
         position: absolute;
-        right: 0;
-        top:0;
+        right: 20px;
+        top:15px;
         background-image: url(../icons/search-blk.svg);
-        background-size: cover;
+        background-repeat: no-repeat;
+        background-size: contain;
         background-color: transparent;
-        width: 30px;
-        height: 30px;
+        width: 15px;
+        height: 25px;
         border: 0;
         font-size: 30px;
         padding: 0 10px;

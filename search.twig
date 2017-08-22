@@ -35,7 +35,7 @@
                             article: article, 
                             position: (articleCount+1), 
                             imageSize: {width: 360, height: 215},
-                            containerClass: 'col-sm-12 card-search card-search-mob'}) | raw}}
+                            containerClass: 'col-sm-4 card-sm card-sm-tablet'}) | raw}}
                         {% set articleCount = articleCount + 1 %}
                     {% endfor %}
                 </div><!-- .row-->
@@ -46,7 +46,7 @@
                     limit: limit, 
                     non_pinned: articlesArr.existingNonPinnedCount, 
                     articles: articles,
-                    card_style: "col-sm-12 card-search card-search-mob",
+                    card_style: "col-sm-4 card-sm card-sm-tablet",
                     container:"mainAjaxArticles",
                     loadtype: "search"
                 }) | raw }}

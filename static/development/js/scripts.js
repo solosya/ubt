@@ -222,11 +222,21 @@ $('document').ready(function() {
     });
 
 
+    $("ul > li.menu-item-search").on("click", function (e) {
+        console.log('clicked search');
+        if (window.innerWidth > sbCustomMenuBreakPoint) {
+            $("#searchpanel").toggleClass('active');
+            e.preventDefault();
+        }
+    });
+
+
+
     // $(".sb-custom-menu > ul > li").hover(function (e) {
     // // $(".sb-custom-menu > .menuContainer > ul > li").bind("mouseenter", function (e) {
     //     if (pageWindow.width() > sbCustomMenuBreakPoint) {
-    //         $(this).children("ul").stop(true, false).slideToggle(0);
-    //         $(this).toggleClass('now-active');
+    //         $('#searchpanel').stop(true, false).slideToggle(0);
+    //         $('#searchpanel').toggleClass('now-active');
     //         e.preventDefault();
     //     }
     // });

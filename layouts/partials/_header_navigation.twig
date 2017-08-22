@@ -10,35 +10,34 @@
 <header id="masthead" class="site-header">
 
 
-
-
-
-    <div class="top-header">
-        <div class="container-fluid sb-custom-menu">
-            <ul class="top-nav">
-                <li>MY ACCOUNT</li>
-                <li>SIGN IN</li>
-                <li>SEARCH</li>
-                <li>
-                    <a href="#" class="search-icon"><span class="icon-search icon"></span><span class="sr-only">Expand search</span></a>
-                </li>
-
-            </ul>   
-        </div>         
-    </div>
-
     <fieldset id="searchpanel" class="search-sub-menu">
         <form method="get" id="searchform" action="{{networkData.defaultBlogUrl}}/search">
-            <div class="container-fluid">
+            <div class="container-fluid"  style="position:relative;">
                 <label for="header-search" class="assistive-text sr-only">Search</label>
                 <input type="text" class="field" name="s" id="header-search" placeholder="Search" required="">
                 <button class="btn btn-default" type="submit" id="searchsubmit">
-                    <span class="search-icon"></span>
+                    <span class=""></span>
                 </button>
             </div>
         </form>
     </fieldset>
     
+
+
+
+    <div class="top-header" style="position:relative;">
+        <div class="container-fluid sb-custom-menu">
+            <ul class="top-nav">
+                <li>SUBSCRIBE</li>
+                <li>SIGN IN</li>
+                <li class="menu-item-search">SEARCH</li>
+                <li class="menu-item-search glass">
+                    <a href="#" class="search-icon"><span class="icon-search icon"></span><span class="sr-only">Expand search</span></a>
+                </li>
+            </ul>   
+        </div>         
+    </div>
+
 
 
 
