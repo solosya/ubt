@@ -37,9 +37,8 @@
 
 
 .card-sm {
-    @include card-sm-base();
     @media screen and (min-width: $mmd-break){
-        
+        @include card-sm-base();
         margin-bottom: 32px;
 
         a.card {
@@ -88,10 +87,9 @@
 
 
 .card-sm-tablet {
-    @include card-sm-base();
-
     @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
-        
+        @include card-sm-base();
+
         margin-bottom: 20px;
 
         a.card {
@@ -150,15 +148,15 @@
 
 .card-sm-mobile {
     @media screen and (max-width: $sm-break-down){
-        position:relative;
+        @include card-sm-base();
+
         margin-bottom: 20px;
 
         a.card {
-            border-bottom: 1px solid #97999c;
+
             @include card-image-left(80px, 82px);
 
             > article {
-                position:relative;
     
                 > figure {
                     margin-right:12px;
@@ -167,12 +165,6 @@
 
                 > .content{
                     display:block;
-                    position:relative;
-                    padding: 0;
-
-                    > .category{
-                        border-right:1px solid color(lightgrey);
-                    }
 
                     > h2{
                         font-size: rem(18);

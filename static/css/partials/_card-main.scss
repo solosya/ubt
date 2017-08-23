@@ -1,33 +1,50 @@
+@mixin card-main-base() {
+    position:relative;
+
+    a.card {
+        border-bottom: 1px solid #97999c;
+
+        > article {
+            position:relative;
+
+            > figure{
+                margin-bottom:15px;
+            }
+            > .content{
+                text-align:center;
+                position:relative;
+                padding: 0;
+
+                > div {
+                    >.category{
+                        border-right:1px solid color(lightgrey);
+                    }
+                }
+
+                > h2{
+                }
+                > p.excerpt {
+                    color:color(black);
+                }
+            }
+        }
+    }
+}
+
+
+
 .card-main{
     @media screen and (min-width: $mmd-break){
         
-        position:relative;
         margin-bottom: 32px;
 
         a.card {
             @include card-image-top(auto, 310px);
-            border-bottom: 1px solid #97999c;
 
             > article {
-                position:relative;
-
-                > figure{
-                    overflow: hidden;
-                    margin-bottom:15px;
-                }
-
 
                 > .content{
-                    text-align:center;
-                    position:relative;
-                    padding: 0;
 
-
-                    >div {
-                        > .category{
-                            border-right:1px solid color(lightgrey);
-                        }
-                    }
 
                     > h2{
                         font-family:$font-family-serif;
@@ -39,15 +56,10 @@
                     }
 
                     > p.excerpt {
-                        color:color(black);
                         line-height: 1.54;
                         margin-top:15px;
                         height:40px;
                         margin-bottom: 30px;
-                    }
-
-                    > .author{
-                        display:none;
                     }
                 }
             }
@@ -84,33 +96,20 @@
 .card-main-tablet{
     @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
         
-        position:relative;
         margin-bottom: 20px;
 
         a.card {
             @include card-image-top(auto, 162px);
-            border-bottom: 1px solid #97999c;
 
             > article {
-                position:relative;
 
                 > figure{
-                    overflow: hidden;
                     margin-bottom:5px;
                 }
 
 
                 > .content{
-                    text-align:center;
-                    position:relative;
-                    padding: 0;
 
-
-                    > div {
-                        >.category{
-                            border-right:1px solid color(lightgrey);
-                        }
-                    }
 
                     > h2{
                         font-family:$font-family-serif;
@@ -124,16 +123,12 @@
 
                     > p.excerpt {
                         font-size:rem(11);
-                        color:color(black);
                         line-height: 1.36;
                         margin-top:4px;
                         height:30px;
                         margin-bottom: 15px;
                     }
 
-                    > .author{
-                        display:none;
-                    }
                 }
             }
 
@@ -172,31 +167,14 @@
 .card-main-mobile{
     @media screen and (max-width: $sm-break-down){
         
-        position:relative;
         margin-bottom: 20px;
 
         a.card {
             @include card-image-top(auto, 190px);
-            border-bottom: 1px solid #97999c;
 
             > article {
-                position:relative;
-
-                > figure{
-                    overflow: hidden;
-                    margin-bottom:15px;
-                }
-
 
                 > .content{
-                    text-align:center;
-                    position:relative;
-                    padding: 0;
-
-
-                    > .category{
-                        border-right:1px solid color(lightgrey);
-                    }
 
                     > h2{
                         font-family:$font-family-serif;
@@ -210,16 +188,12 @@
                     }
 
                     > p.excerpt {
-                        color:color(black);
                         line-height: 1.54;
                         margin-top:8px;
                         max-height:80px;
                         margin-bottom: 30px;
                     }
 
-                    > .author{
-                        display:none;
-                    }
                 }
             }
 

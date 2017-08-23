@@ -1,37 +1,89 @@
+@mixin card-md-base() {
+    position:relative;
+
+    a.card {
+
+        height:100%;
+        @include card-image-full();
+        @include tintbefore();
+
+
+        > article {
+            position:relative;
+
+            > figure{
+            }
+            > .content{
+                position:relative;
+                text-align:center;
+                z-index:10;
+                color:#fff;
+
+                >div {
+                    > .category{
+                        display:block;
+                        color:white;
+                        font-weight:400;
+
+                        &:after {
+                            content:'';
+                            display:block;
+                            width:20px;
+                            height:1px;
+                            background:white;
+                            margin: auto;
+                            margin-top: 10px;
+                        }
+                    }
+                    time {
+                        display:none;
+                    }
+                }
+
+                > h2{
+                    font-weight:400;
+                    margin-top:2px;
+                    margin-bottom:13px;
+                    text-transform:uppercase;
+                }
+
+                > p.excerpt {
+                    display:none;
+                }
+            }
+        }
+        &.article.without__image {
+            background:color(darkblue);
+        }   
+
+    }
+}
+
+
+
 .card-md-full{
     @media screen and (min-width: $mmd-break){
-        
-        position:relative;
+        @include card-md-base();
+
         margin-bottom: 32px;
         height:422px;
 
         a.card {
-            height:100%;
-            @include card-image-full();
-            @include tintbefore();
 
             > article {
-                position:relative;
 
                 > figure{
                     margin-bottom:10px;
-
                 }
 
                 > .content{
-                    position:relative;
                     padding: 35px 25px 20px 25px;
-                    text-align:center;
-                    z-index:10;
-                    color:#fff;
 
                     > div {
                         > .category{
-                            display:block;
-                            color:white;
                             font-size:rem(16);
-                            font-weight:400;
                             margin-bottom:260px;
+                            
                             &:after {
                                 content:'';
                                 display:block;
@@ -42,50 +94,13 @@
                                 margin-top: 10px;
                             }
                         }
-                        time {
-                            display:none;
-                        }
-
                     }
                     > h2{
                         font-size: rem(18);
-                        font-weight:400;
-                        margin-top:2px;
-                        margin-bottom:13px;
                         line-height: 1.44;
-                        text-transform:uppercase;
                     }
-
-                    > p.excerpt {
-                        display:none;
-                    }
-
-
-                    .author {
-                        // display: block;
-
-                        // >p {
-                        //     font-size:rem(14);
-                        //     color:white;
-                        //     font-family: $base-font-family;
-                        //     &:before {
-                        //         content:'By ';
-                        //     }
-                        // }
-                        // >img {
-                        //     display:none;
-                        // }
-                    }
-
-
-
                 }
             }
-
-
-            &.article.without__image {
-                background:color(darkblue);
-            }   
         }
     }
 }
@@ -96,18 +111,13 @@
 
 .card-md-full-tablet{
     @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
-        
-        position:relative;
+        @include card-md-base();
         margin-bottom: 20px;
         height:222px;
 
         a.card {
-            height:100%;
-            @include card-image-full();
-            @include tintbefore();
 
             > article {
-                position:relative;
 
                 > figure{
                     margin-bottom:10px;
@@ -115,66 +125,22 @@
                 }
 
                 > .content{
-                    position:relative;
                     padding: 12px 25px 20px 25px;
-                    text-align:center;
-                    z-index:10;
-                    color:#fff;
 
                     > div {
                         > .category{
                             padding:0;
-                            display:block;
-                            color:white;
                             font-size:rem(10);
-                            font-weight:400;
                             margin-bottom:110px;
-                        }
-                        time {
-                            display:none;
                         }
                     }
 
                     > h2{
                         font-size: rem(12);
-                        font-weight:400;
-                        margin-top:2px;
-                        margin-bottom:13px;
                         line-height: 1.25;
-                        text-transform:uppercase;
-
                     }
-
-                    > p.excerpt {
-                        display:none;
-                    }
-
-
-                    .author {
-                        // display: block;
-
-                        // >p {
-                        //     font-size:rem(10);
-                        //     color:white;
-                        //     font-family: $base-font-family;
-                        //     &:before {
-                        //         content:'By ';
-                        //     }
-                        // }
-                        // >img {
-                        //     display:none;
-                        // }
-                    }
-
-
-
                 }
             }
-
-
-            &.article.without__image {
-                background:color(darkblue);
-            }   
         }
     }
 }
@@ -188,80 +154,34 @@
 
 .card-md-full-mobile{
     @media screen and (max-width: $sm-break-down){
-        
-        position:relative;
+        @include card-md-base();
         margin-bottom: 20px;
         height:190px;
 
         a.card {
-            height:100%;
-            @include card-image-full();
-            @include tintbefore();
 
             > article {
-                position:relative;
 
                 > figure{
                     margin-bottom:10px;
-
                 }
 
                 > .content{
-                    position:relative;
                     padding: 16px 10px 10px 10px;
-                    text-align:center;
-                    z-index:10;
-                    color:#fff;
 
-                    > .category{
-                        display:block;
-                        color:white;
-                        font-size:rem(15);
-                        font-weight:400;
-                        margin-bottom:70px;
+                    > div {
+                        > .category{
+                            font-size:rem(15);
+                            margin-bottom:70px;
+                        }
                     }
-                    time {
-                        display:none;
-                    }
+
                     > h2{
                         font-size: rem(16);
-                        font-weight:400;
-                        margin-top:2px;
-                        margin-bottom:13px;
                         line-height: 1.44;
-                        text-transform:uppercase;
                     }
-
-                    > p.excerpt {
-                        display:none;
-                    }
-
-
-                    .author {
-                        display: block;
-
-                        >p {
-                            font-size:rem(12);
-                            color:white;
-                            font-family: $font-family-serif;
-                            &:before {
-                                content:'By ';
-                            }
-                        }
-                        >img {
-                            display:none;
-                        }
-                    }
-
-
-
                 }
             }
-
-
-            &.article.without__image {
-                background:color(darkblue);
-            }   
         }
     }
 }

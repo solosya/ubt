@@ -550,7 +550,7 @@
                         {{this.render('partials/_single-article.twig', {
                             article: sections['community'].feed.articles[communityCount] , 
                             imageSize: {width: 980, height: 420},
-                            containerClass: 'card-lg-full card-lg-full-tablet'
+                            containerClass: 'card-lg-full card-lg-full-tablet card-lg-full-mobile'
                         }) | raw}}
                         {% set communityCount = (dev) ? communityCount : communityCount + 1 %}
                     {% endfor %}

@@ -1,77 +1,72 @@
+@mixin card-rec-base() {
+    position:relative;
+    a.card {
+        border-bottom: 1px solid #97999c;
+
+        > article {
+            position:relative;
+            > figure{
+            }
+            > .content{
+                padding: 0;
+                position:relative;
+                > div {
+                    > .category{
+                        margin-bottom:0;
+                        border-right:1px solid color(lightgrey);
+                    }
+                }
+                > h2{
+                    font-family: $font-family-serif;
+                    color:color(black);
+                }
+                > p.excerpt {
+                    display:none;
+                }
+            }
+        }
+        &.article.without__image {
+            .content {
+
+                > p.excerpt {
+                    font-size: rem(13);
+                    display: block;
+                    max-height:45px;
+                    margin-bottom: 11px;
+                }
+            }
+        }   
+    }
+}
+
+
+
 .card-rec{
     @media screen and (min-width: $mmd-break){
-        
-        position:relative;
+        @include card-rec-base();
+
         margin-bottom: 32px;
 
         a.card {
             @include card-image-left(198px, 141px);
-            border-bottom: 1px solid #97999c;
             height:173px;
 
             > article {
-                position:relative;
 
                 > figure{
                     margin-right:18px;
                 }
 
-
                 > .content{
-                    position:relative;
-                    padding: 0;
-
-
-                    >div {
-                        > .category{
-                            margin-bottom:0;
-                            border-right:1px solid color(lightgrey);
-                        }
-                    }
 
                     > h2{
                         font-size: rem(25);
                         line-height:1.2;
-                        font-family: $font-family-serif;
                         margin-top:10px;
                         margin-bottom:10px;
-                        color:color(black);
-                    }
-
-                    > p.excerpt {
-                        display:none;
-                    }
-                    .author {
-
-                        // display: block;
-
-                        // >p {
-                        //     font-size:rem(14);
-                        //     color:color(red);
-                        //     font-family: $font-family-serif;
-                        //     &:before {
-                        //         content:'By ';
-                        //     }
-                        // }
-                        // >img {
-                        //     display:none;
-                        // }
                     }
                 }
             }
-
-
-            &.article.without__image {
-                .content {
-
-                    > p.excerpt {
-                        font-size: rem(13);
-                        display: block;
-                        max-height:45px;
-                        margin-bottom: 11px;
-                    }
-                }
-            }   
         }
     }
 }
@@ -81,77 +76,29 @@
 
 .card-rec-tablet{
     @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
-        
-        position:relative;
+        @include card-rec-base();
+
         margin-bottom: 20px;
 
         a.card {
             @include card-image-left(109px, 78px);
-            border-bottom: 1px solid #97999c;
             height:95px;
 
             > article {
-                position:relative;
 
                 > figure{
                     margin-right:18px;
                 }
 
-
                 > .content{
-                    position:relative;
-                    padding: 0;
-
-
-                    > div {
-                        > .category{
-                            margin-bottom:0;
-                            border-right:1px solid color(lightgrey);
-                        }
-                    }
-
                     > h2{
                         font-size: rem(16);
                         line-height:1.12;
-                        font-family: $font-family-serif;
                         margin-top:5px;
                         margin-bottom:10px;
-                        color:color(black);
-                    }
-
-                    > p.excerpt {
-                        display:none;
-                    }
-                    .author {
-                        // display: block;
-
-                        // >p {
-                        //     font-size:rem(14);
-                        //     color:color(red);
-                        //     font-family: $font-family-serif;
-                        //     &:before {
-                        //         content:'By ';
-                        //     }
-                        // }
-                        // >img {
-                        //     display:none;
-                        // }
                     }
                 }
             }
-
-
-            &.article.without__image {
-                .content {
-
-                    > p.excerpt {
-                        font-size: rem(13);
-                        display: block;
-                        max-height:45px;
-                        margin-bottom: 11px;
-                    }
-                }
-            }   
         }
     }
 }
@@ -166,64 +113,28 @@
 
 .card-rec-mobile{
     @media screen and (max-width: $sm-break-down){
-        
-        position:relative;
+        @include card-rec-base();
+
         margin-bottom: 20px;
 
         a.card {
             @include card-image-left(80px, 82px);
-            border-bottom: 1px solid #97999c;
             height:102px;
 
             > article {
-                position:relative;
 
                 > figure{
                     margin-right:18px;
                 }
 
-
                 > .content{
-                    position:relative;
-                    padding: 0;
-
-
-                    > div {
-                        > .category{
-                            margin-bottom:0;
-                            border-right:1px solid color(lightgrey);
-                        }
-                    }
-
                     > h2{
                         font-size: rem(16);
                         line-height:1.38;
-                        font-family: $font-family-serif;
                         margin-top:0;
-                        color:color(black);
-                    }
-
-                    > p.excerpt {
-                        display:none;
-                    }
-                    .author {
-                        display: none;
                     }
                 }
             }
-
-
-            &.article.without__image {
-                .content {
-
-                    > p.excerpt {
-                        font-size: rem(13);
-                        display: block;
-                        max-height:45px;
-                        margin-bottom: 11px;
-                    }
-                }
-            }   
         }
     }
 }
