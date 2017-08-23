@@ -4976,7 +4976,8 @@ span.leadsentence {
   font-weight: bold; }
 
 .advert {
-  height: 250px; }
+  height: 250px;
+  margin-top: 20px; }
 
 .advert-banner-small {
   margin-bottom: 58px;
