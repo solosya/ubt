@@ -4976,7 +4976,6 @@ span.leadsentence {
   font-weight: bold; }
 
 .advert {
-  background: grey;
   height: 250px; }
 
 .advert-banner-small {
@@ -5792,9 +5791,6 @@ ul.sub-menu a:focus {
       margin-top: 8px;
       padding-top: 8px;
       text-align: center; }
-  .site-main .advert {
-    background: grey;
-    height: 250px; }
   .site-main .bottom-cards .top-stories {
     margin: 0;
     height: 317px;
