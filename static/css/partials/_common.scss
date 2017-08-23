@@ -176,14 +176,17 @@ div.fancybox-title {
 
 .loadMoreArticles {
     text-decoration: none;
-    display: block;
-    margin: 0 auto;
-    border: 1px solid #39bddc;
+    display:block;
+    font-weight:700;
+    // margin: 0 auto;
+    margin: 20px 20px 38px 20px;
+    border: 2px solid black;
     width: 122px;
     height: 35px;
     text-align: center;
     line-height: 35px;
-    color: #39bddc;
+    color: black;
+    text-transform:uppercase;
 
     @media screen and (min-width: $mmd-break){
         position: relative;

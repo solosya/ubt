@@ -59,6 +59,19 @@
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 {% endfor %}
 
+
+
+                {{ this.render('partials/ajaxarticles.twig', {
+                    limit: limit, 
+                    non_pinned: articlesArr.existingNonPinnedCount, 
+                    articles: articles,
+                    card_style: "col-sm-12 card-rec card-rec-tablet card-rec-mobile",
+                    container:"mainAjaxArticles"
+                }) | raw }}
+
+
+
+
             </div>
 
 
@@ -85,8 +98,6 @@
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 {% endfor %}
-                {# {% set articleCount = articleCount + 1 %} #}
-                
             </div>
 
         </section>    
@@ -114,7 +125,7 @@
 
 
         <section class="row">
-            <div class="col-sm-offset-2 col-sm-3">
+            <div class="col-sm-offset-1 col-sm-3">
 
             {% for i in 0..2 if articles[articleCount] %}
                 {% if i != 0 %}
@@ -131,19 +142,6 @@
             {% endfor %}
         </section>
 
-
-        <section class="row">
-            <div class="col-sm-offset-2">
-
-                {{ this.render('partials/ajaxarticles.twig', {
-                    limit: limit, 
-                    non_pinned: articlesArr.existingNonPinnedCount, 
-                    articles: articles,
-                    card_style: "col-sm-4 card-sm-full",
-                    container:"mainAjaxArticles"
-                }) | raw }}
-            </div>
-        </section>
 
 
 

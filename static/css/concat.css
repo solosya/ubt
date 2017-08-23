@@ -4926,13 +4926,15 @@ div.fancybox-title {
 .loadMoreArticles {
   text-decoration: none;
   display: block;
-  margin: 0 auto;
-  border: 1px solid #39bddc;
+  font-weight: 700;
+  margin: 20px 20px 38px 20px;
+  border: 2px solid black;
   width: 122px;
   height: 35px;
   text-align: center;
   line-height: 35px;
-  color: #39bddc; }
+  color: black;
+  text-transform: uppercase; }
   @media screen and (min-width: 992px) {
     .loadMoreArticles {
       position: relative;
