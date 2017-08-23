@@ -7336,6 +7336,15 @@ a.card {
           background-image: linear-gradient(transparent, #000000); }
         .card-lg-full a.card > article > figure.video:before {
           display: none; }
+        .card-lg-full a.card > article > figure:after {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(151, 153, 156, 0.4); }
         .card-lg-full a.card > article > .content {
           position: relative;
           text-align: center;
@@ -7381,15 +7390,6 @@ a.card {
         background: #002d56; }
     .card-lg-full a.card > article {
       padding-right: 360px; }
-      .card-lg-full a.card > article > figure:after {
-        content: '';
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(151, 153, 156, 0.4); }
       .card-lg-full a.card > article > .content {
         padding: 120px 0 20px 0; }
         .card-lg-full a.card > article > .content > h2 {
@@ -7425,6 +7425,15 @@ a.card {
           background-image: linear-gradient(transparent, #000000); }
         .card-lg-full-tablet a.card > article > figure.video:before {
           display: none; }
+        .card-lg-full-tablet a.card > article > figure:after {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(151, 153, 156, 0.4); }
         .card-lg-full-tablet a.card > article > .content {
           position: relative;
           text-align: center;
@@ -7511,6 +7520,15 @@ a.card {
           background-image: linear-gradient(transparent, #000000); }
         .card-lg-full-mobile a.card > article > figure.video:before {
           display: none; }
+        .card-lg-full-mobile a.card > article > figure:after {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(151, 153, 156, 0.4); }
         .card-lg-full-mobile a.card > article > .content {
           position: relative;
           text-align: center;
@@ -7678,7 +7696,8 @@ a.card {
         position: relative; }
         .card-main-2col a.card > article > .content {
           position: relative;
-          padding: 0; }
+          padding: 0;
+          overflow: hidden; }
           .card-main-2col a.card > article > .content > div > .category {
             border-right: 1px solid #97999c; }
           .card-main-2col a.card > article > .content > h2 {
@@ -7754,7 +7773,8 @@ a.card {
         position: relative; }
         .card-main-2col-tablet a.card > article > .content {
           position: relative;
-          padding: 0; }
+          padding: 0;
+          overflow: hidden; }
           .card-main-2col-tablet a.card > article > .content > div > .category {
             border-right: 1px solid #97999c; }
           .card-main-2col-tablet a.card > article > .content > h2 {
@@ -7834,7 +7854,8 @@ a.card {
         position: relative; }
         .card-main-2col-mobile a.card > article > .content {
           position: relative;
-          padding: 0; }
+          padding: 0;
+          overflow: hidden; }
           .card-main-2col-mobile a.card > article > .content > div > .category {
             border-right: 1px solid #97999c; }
           .card-main-2col-mobile a.card > article > .content > h2 {

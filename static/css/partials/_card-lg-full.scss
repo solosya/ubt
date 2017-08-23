@@ -16,6 +16,17 @@
                         display:none;
                     }
                 }
+
+                &:after {
+                    content:'';
+                    display:block;
+                    position:absolute;
+                    top:0;
+                    left:0;
+                    right:0;
+                    bottom:0;
+                    background:rgba(151, 153, 156, .4);
+                }
             }
 
             > .content{
@@ -84,19 +95,6 @@
             > article {
                 padding-right:360px;
 
-                > figure {
-                    &:after {
-                        content:'';
-                        display:block;
-                        position:absolute;
-                        top:0;
-                        left:0;
-                        right:0;
-                        bottom:0;
-                        background:rgba(151, 153, 156, .4);
-                    }
-                }
-
 
                 > .content{
                     padding: 120px 0 20px 0;
@@ -159,6 +157,7 @@
 
         a.card {
             > article {
+
                 > .content {
                     padding: 66px 0 20px 0;
 
