@@ -264,6 +264,32 @@
 				"total_articles": "0",
 				"created_at": "1493861433",
 				"url": "http:\/\/theme.aap.io\/@national"
+			},
+			{
+				"id": "16",
+				"guid": "2e994f7a-3eb1-408e-9740-ece27d85c118",
+				"title": "Listings",
+				"type": "channel",
+				"is_default": null,
+				"network_id": "327",
+				"short_description": "Page to add listings",
+				"featured_color": null,
+				"status": "1",
+				"blogLayoutFileName": "layout-listingform",
+				"thumbCloudinaryPublicId": null,
+				"thumbCloudinaryCloudName": null,
+				"thumbCdnPath": null,
+				"thumbMediaWidth": null,
+				"thumbMediaHeight": null,
+				"cloudinary_public_id": null,
+				"cloudinary_cloud_name": null,
+				"cdn_path": "https://res.cloudinary.com/cognitives/image/upload/v1497851190/fbygkh7klz94jlj5vlsj.jpg",
+				"coverMediaWidth": null,
+				"coverMediaHeight": null,
+				"total_views": "0",
+				"total_articles": "0",
+				"created_at": "1493861433",
+				"url": "http:\/\/theme.aap.io\/@listing"
 			}
 		],
 		"styling": {

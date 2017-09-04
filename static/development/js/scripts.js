@@ -1,5 +1,5 @@
 $('document').ready(function() {
-
+    window.app = {};
     var isMenuBroken, isMobile;
     var sbCustomMenuBreakPoint = 992;
     var mobileView = 620;
@@ -16,7 +16,7 @@ $('document').ready(function() {
     });
 
 
-    var server = {
+    app.server = {
 
         create: function(uri, queryParams) {return this.call(uri, queryParams, 'post');},
         request: function(uri, queryParams, datatype){return this.call(uri, queryParams, 'get', datatype);},
@@ -33,7 +33,7 @@ $('document').ready(function() {
 
             // console.log(type + ': ' + window.location.origin + '/api/' + uri);
             // if (Object.keys(queryParams).length > 0 ) console.log(queryParams);
-            console.log(uri);
+
             return $.ajax({
                 url: uri,
                 data: queryParams,
@@ -60,21 +60,21 @@ $('document').ready(function() {
 
 
 
-    var result = server.request("https://weather.pagemasters.com.au/weather", {'q':'melbourne'})
-        .done(function(r) {
-            console.log(r);
-            var weather = $('#weather');
-            var location = weather.find('.location');
-            var icon = weather.children('.icon');
-            var description = weather.find('.description');
-            var temperature = weather.children('.temp');
+    // var result = server.request("https://weather.pagemasters.com.au/weather", {'q':'melbourne'})
+    //     .done(function(r) {
+    //         console.log(r);
+    //         var weather = $('#weather');
+    //         var location = weather.find('.location');
+    //         var icon = weather.children('.icon');
+    //         var description = weather.find('.description');
+    //         var temperature = weather.children('.temp');
 
-            location.text(r.location.split('/')[1]);
-            description.text(r.description);
-            temperature.html(parseInt(r.temperature) + "&deg;");
-            console.log(location, icon, description, temperature);
+    //         location.text(r.location.split('/')[1]);
+    //         description.text(r.description);
+    //         temperature.html(parseInt(r.temperature) + "&deg;");
+    //         console.log(location, icon, description, temperature);
 
-        });
+    //     });
 
 
 

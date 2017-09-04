@@ -1,0 +1,56 @@
+{{ set(this, 'title', _Blog.getBlogTitle()) }}
+{% set networkData = _Network.getNetworkData() %}
+{% set blogData    = _Blog.getBlog() %}
+
+
+
+
+{{this.registerJs("CardController();")}}
+{{this.registerJs("ListingController();")}}
+
+{% set limit = 10 %}
+
+{% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
+{% set articles = articlesArr.articles %}
+
+{% set events = _Event.getEvents() %}
+
+
+<!-- used to index each article as we loop over throughout the template -->
+{% set articleCount = 0 %}
+{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
+
+
+
+    <main id="main" class="container-fluid site-main listingForm" role="main">
+        <div class="col-md-10">
+            <h1>Real Estate listing form</h1>
+{#                 <p style="margin-bottom:30px;">Quisque in commodo arcu. Phasellus ut urna neque. Donec cursus justo nisi, id rutrum leo varius quis. Nullam egestas fringilla fringilla. </p>
+#}
+            <form class="" method="post" action="#" id="listingForm">
+
+                <select name="propertytype" id="propertytype">
+                  <option value="commercial">Commercial</option>
+                  <option value="private">Private</option>
+                </select>
+
+                <select name="region" id="region">
+                  <option value="melbourne">Melbourne</option>
+                  <option value="mexico">Mexico</option>
+                </select>
+
+                <input type="text" class="" name="address" id="address" value="" placeholder="address">
+                <input type="text" class="" name="pricerange" id="pricerange" value="" placeholder="pricerange">
+                <input type="text" class="" name="landarea" id="landarea" value="" placeholder="landarea">
+                <input type="text" class="" name="floorarea" id="floorarea" value="" placeholder="floorarea">
+                <input type="text" class="" name="contactname" id="contactname" value="" placeholder="contactname">
+                <input type="text" class="" name="contactphone" id="contactphone" value="" placeholder="contactphone">
+                <textarea name="description" id="description"></textarea>
+                
+                <button class="_btn" type="submit" id="listingFormSubmit">Send</button>
+            </form>
+
+
+        </div>
+
+    </main><!-- .site-main -->
