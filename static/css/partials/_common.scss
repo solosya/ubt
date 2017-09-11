@@ -89,12 +89,12 @@ fieldset {
     border: 0;
     min-width: 0;
 
-    label {
-        display: inline-block;
-        max-width: 100%;
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
+    // label {
+    //     display: inline-block;
+    //     max-width: 100%;
+    //     margin-bottom: 5px;
+    //     font-weight: bold;
+    // }
 }
 
 hr.divide {
@@ -108,11 +108,11 @@ hr.divide {
     border:0;
     font-size: rem(10);
     font-weight:700;
-    width:120px;
-    height:35px;
-    border-radius: 10px;
-    -moz-border-radius:10px;
-    -webkit-border-radius:10px;
+    width:170px;
+    height:44px;
+    // border-radius: 10px;
+    // -moz-border-radius:10px;
+    // -webkit-border-radius:10px;
 }
 
 

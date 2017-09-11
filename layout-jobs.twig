@@ -43,25 +43,15 @@
         <section class="row">
 
             <div class="col-sm-offset-1 col-sm-6">
-                {% if articles[articleCount] %}
+
+
+                {% for i in 0..6 if articles[articleCount] %}
                     {{this.render('partials/_single-article.twig', {
                         article: articles[articleCount], 
                         position: (articleCount+1),
-                        template: 'realestate',
-                        imageSize: {width: 640, height: 309},
-                        containerClass: 'card-main-realestate card-main-realestate-tablet card-main-realestate-mobile'
-                    }) | raw}}
-                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                {% endif %}
-
-
-                {% for i in 0..4 if articles[articleCount] %}
-                    {{this.render('partials/_single-article.twig', {
-                        article: articles[articleCount], 
-                        position: (articleCount+1),
-                        template: 'realestate',
+                        template: 'jobs',
                         imageSize: {width: 200, height: 140},
-                        containerClass: 'card-rec-realestate card-rec-realestate-tablet card-rec-realestate-mobile'
+                        containerClass: 'card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile'
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 {% endfor %}
@@ -72,7 +62,7 @@
                     limit: limit, 
                     non_pinned: articlesArr.existingNonPinnedCount, 
                     articles: articles,
-                    card_style: "col-sm-12 card-rec-realestate card-rec-realestate-tablet card-rec-realestate-mobile",
+                    card_style: "col-sm-12 card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile",
                     container:"mainAjaxArticles"
                 }) | raw }}
 

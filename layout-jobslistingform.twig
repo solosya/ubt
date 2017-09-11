@@ -1,0 +1,100 @@
+{{ set(this, 'title', _Blog.getBlogTitle()) }}
+{{this.registerJs("CardController();")}}
+{{this.registerJs("window.app.listing = ListingController();")}}
+
+{# {% set networkData = _Network.getNetworkData() %} #}
+{% set blogData    = _Blog.getBlog() %}
+{% set limit = 10 %}
+
+{% set user = false %}
+
+{% if not _User.isGuest %} 
+    {% set user = _User.getUser() %}
+{% endif %} 
+
+{% set userArticlesArr = [] %}
+{% if user %} 
+    {% set userArticlesArr = _User.getUserArticles(user.guid, 0, limit, [blogData.id]) %}
+{% endif %}
+
+
+{# {% set events = _Event.getEvents() %} #}
+
+
+<!-- used to index each article as we loop over throughout the template -->
+{% set articleCount = 0 %}
+{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
+
+
+
+    <main id="main" class="container-fluid site-main listingForm" role="main">
+        
+        <section class="row section">
+            <div class="col-sm-10 section-header">
+                <h2>{{blogData.title}}</h2>
+                <p class="description">
+                    {{blogData.shortDescription}}
+                </p>
+            </div>
+        </section>
+
+
+        <section class="row">
+
+            <div class="col-md-8">
+
+                <form class="" method="post" action="#" id="listingForm">
+
+                    <input type="text" class="articleExtendedData" name="company" id="company" value="" placeholder="Company name">
+                    <input type="text" class="articleExtendedData" name="website" id="website" value="" placeholder="Website (optional)">
+                    <input type="text" class="articleExtendedData" name="job-title" id="job-title" value="" placeholder="Job Title">
+                    <input type="text" class="articleExtendedData" name="job-location" id="job-location" value="" placeholder="Job location (suburb or postcode)">
+                    
+                    <p class="form-section-label">Salary (optional)<p>
+
+                    <fieldset>
+                        <div class="inline">
+                            <input type="radio" name="salary" id="salary1" class="articleExtendedData" value="1" checked="checked" />
+                            <label for="salary1">Annual salary package</label>
+                        </div>
+                        <div class="inline">
+                            <input type="radio" name="salary" id="salary2" class="articleExtendedData" value="2" />
+                            <label for="salary2">Annual &amp; Commission</label>
+                        </div>
+                        <div class="inline">
+                            <input type="radio" name="salary" id="salary3" class="articleExtendedData" value="3" />
+                            <label for="salary3">Commission only</label>
+                        </div>
+                        <div class="inline">
+                            <input type="radio" name="salary" id="salary4" class="articleExtendedData" value="4" />
+                            <label for="salary4">Hourly rate</label>
+                        </div>
+
+                    </fieldset>
+                    <input type="text" class="articleExtendedData" name="salaryrange" id="salary" value="" placeholder="Salary range">
+                    
+                    <textarea name="description" class="job-description" id="description"  placeholder="Description"></textarea>
+                
+                    <button class="_btn" type="submit" id="listingFormSubmit">SEND</button>
+                </form>
+
+
+            </div>
+            <div class="col-md-4">
+
+                {% for article in userArticlesArr %}
+
+                    {{this.render('partials/_single-article.twig', {
+                        article: article, 
+                        position: loop.index,
+                        imageSize: {width: 330, height: 235},
+                        containerClass: "card-sm-short card-sm-mobile card-sm-short-tablet"
+                    }) | raw}}
+
+                {% endfor %}
+            </div>
+
+
+        </section>
+
+    </main><!-- .site-main -->
