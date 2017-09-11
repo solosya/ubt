@@ -1,4 +1,4 @@
-@mixin card-main-2col-base() {
+@mixin card-main-realestate() {
     position:relative;
 
     a.card {
@@ -13,14 +13,10 @@
                 padding:0;
                 overflow:hidden;
                 
-                >div {
-                    > .category{
-                        border-right:1px solid color(lightgrey);
-                    }
-                }
                 > h2{
+                    font-size: rem(25);
                     font-family:$font-family-serif;
-                    color:color(black);
+                    color:color(darkblue);
                     font-weight:600;
                     margin-top:4px;
                     clear:both;
@@ -36,9 +32,9 @@
 
 
 
-.card-main-2col{
+.card-main-realestate{
     @media screen and (min-width: $mmd-break){
-        @include card-main-2col-base();
+        @include card-main-realestate();
 
         margin-bottom: 32px;
 
@@ -48,23 +44,42 @@
             > article {
 
                 > figure{
-                    margin-bottom:22px;
+                    margin-bottom:15px;
                 }
 
                 > .content{
                     padding-bottom:20px;
 
-                    > h2{
-                        float:left;
-                        width:48%;
-                        font-size:rem(25);
+                    >div {
+                        >time {
+                            margin-bottom:8px;
+                        }
                     }
 
+                    > h2{
+                        font-size:rem(25);
+                        margin-bottom:8px;
+                    }
+                    > h3{
+                        margin:0;
+                        width:216px;
+                        float:left;
+                        color: color(red);
+                        font-size:rem(14);
+                        line-height:1.3;
+                        max-height:90px;
+                    }
+                    > div.listing-type {
+                        position:absolute;
+                        bottom:0;
+                        left:0;
+
+                    }
                     > p.excerpt {
                         float:right;
-                        width:48%;
-                        height:140px;
-                        max-height:140px;
+                        width:65%;
+                        height:100px;
+                        max-height:100px;
                         line-height: 1.54;
                     }
                 }
@@ -123,9 +138,9 @@
 
 
 
-.card-main-2col-tablet{
+.card-main-realestate-tablet{
     @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
-        @include card-main-2col-base();
+        @include card-main-realestate();
         margin-bottom: 10px;
 
         a.card {
@@ -224,9 +239,9 @@
 
 
 
-.card-main-realestate-mobile{
+.card-main-2col-mobile{
     @media screen and (max-width: $sm-break-down){
-        @include card-main-2col-base();
+        @include card-main-realestate();
         margin-bottom: 20px;
 
         a.card {

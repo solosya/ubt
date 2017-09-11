@@ -290,6 +290,32 @@
 				"total_articles": "0",
 				"created_at": "1493861433",
 				"url": "http:\/\/theme.aap.io\/@listing"
+			},
+			{
+				"id": "1666",
+				"guid": "2e994f7a-3eb1-408e-9740-ece27d85c128",
+				"title": "Real Estate Listings",
+				"type": "channel",
+				"is_default": null,
+				"network_id": "327",
+				"short_description": "Page to add listings",
+				"featured_color": null,
+				"status": "1",
+				"blogLayoutFileName": "layout-realestate",
+				"thumbCloudinaryPublicId": null,
+				"thumbCloudinaryCloudName": null,
+				"thumbCdnPath": null,
+				"thumbMediaWidth": null,
+				"thumbMediaHeight": null,
+				"cloudinary_public_id": null,
+				"cloudinary_cloud_name": null,
+				"cdn_path": "https://res.cloudinary.com/cognitives/image/upload/v1497851190/fbygkh7klz94jlj5vlsj.jpg",
+				"coverMediaWidth": null,
+				"coverMediaHeight": null,
+				"total_views": "0",
+				"total_articles": "0",
+				"created_at": "1493861433",
+				"url": "http:\/\/theme.aap.io\/@realestate"
 			}
 		],
 		"styling": {
@@ -1256,6 +1282,11 @@
 				"url": "http:\/\/res.cloudinary.com\/cognitives\/image\/upload\/c_lpad,dpr_auto,f_auto,fl_lossy,h_60,q_auto,w_600\/thwonhdizwdbwl7x6dqx",
 				"height": 60,
 				"width": 600
+			},
+			"additionalInfo": {
+				"price": "275,000",
+				"address": "31/2 ELDRIDGE CRESCENT GARRAN, ACT 2605",
+				"propertyType": "Warehouse"
 			}
 		},
 

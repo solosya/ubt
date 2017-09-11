@@ -142,17 +142,17 @@ hr.divide {
     width: 15px;
     height: 15px;
 }
-.down-arrow{
-    display:inline-block;
-    background-image: url(../images/drop-down-arrow.svg);
-    background-repeat: no-repeat;
-    background-size:contain;
-    position: relative;
-    top: 6px;
-    left: 6px;
-    width: 15px;
-    height: 15px;
-}
+// .down-arrow{
+//     display:inline-block;
+//     background-image: url(../images/drop-down-arrow.svg);
+//     background-repeat: no-repeat;
+//     background-size:contain;
+//     position: relative;
+//     top: 6px;
+//     left: 6px;
+//     width: 15px;
+//     height: 15px;
+// }
 
 
 .link-arrow {
@@ -196,7 +196,11 @@ div.fancybox-title {
     @media screen and (max-width: $mmd-break){
         margin: 0 auto 40px auto;
     }
-
+    
+    &:hover {
+        color:inherit;
+        text-decoration:none;
+    }
 }
 
 

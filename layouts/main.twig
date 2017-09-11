@@ -11,6 +11,7 @@
 {% set blogName      = blogData.title %}
 {% set layout        = blogData.layout %}
 
+
 {{ this.beginPage() }}
 <head>
     <meta charset="UTF-8">
@@ -49,7 +50,7 @@
 
 
     {% if _AppHelper.getApplicationEnv() == 'PROD'%}
-        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=ecc4e49d" type="text/css" media="all">
+        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=363f8ef9" type="text/css" media="all">
 
     {% else %}
 {#             <link type="text/css" rel="stylesheet" href="{{networkData.templatePath}}/static/css/jquery.fancybox.css?ver=2" />
@@ -111,25 +112,7 @@
         </script>
         <!-- End Google Analytics -->
     {% endif %}
-    
-    {# {% set blogList = _Blog.getBlogList() %} #}
 
-{#     {% if blogList | length > 0 %}
-        <style type="text/css">
-            {% for blog in blogList %}
-                {% if blog.featuredColor is not empty %}
-                    {% set blogClass = 'card--blog_'~blog.id %}
-                    .card.{{blogClass | lower}} .title-section span {
-                        color: {{blog.featuredColor}} !important;
-                    }
-                    .card.{{blogClass | lower}} .caption_bottom .author_name {
-                        color: {{blog.featuredColor}} !important;
-                    }
-                {% endif %}
-            {% endfor%}
-        </style>
-    {% endif %}
- #}
     {{ this.head() }}
 
 </head>
@@ -147,7 +130,7 @@
     }) | raw }}
 
 
-    {{ content | raw}}
+    {{ content | raw }}
 
 
 

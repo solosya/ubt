@@ -28,6 +28,12 @@
     <div class="top-header" style="position:relative;">
         <div class="container-fluid sb-custom-menu">
             <ul class="top-nav">
+                {% if not _User.isGuest() %}
+                    {% set user = _User.getUser() %}
+                    <li>{{ (user.firstname ~" "~ user.lastname) | truncate(15) | title}}. Admin: {{_User.isAdminUser()}}</li>
+                {% endif %}
+
+
                 <li>MY ACCOUNT</li>
                 <li>SIGN IN</li>
                 <li class="menu-item-search">SEARCH</li>
@@ -155,7 +161,7 @@
                                                     {{parentItem.pageTitle | upper}}
                                                 {% endif %}
                                                 {% if parentItem.children is defined and parentItem.children | length > 0 %}
-                                                    <span class="down-arrow"></span>
+                                                    <span class=""></span>
                                                 {% endif %}
                                             </a>
                                         </li>

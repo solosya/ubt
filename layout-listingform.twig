@@ -1,19 +1,24 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
-{% set networkData = _Network.getNetworkData() %}
-{% set blogData    = _Blog.getBlog() %}
-
-
-
-
 {{this.registerJs("CardController();")}}
-{{this.registerJs("ListingController();")}}
+{{this.registerJs("window.app.listing = ListingController();")}}
 
+{# {% set networkData = _Network.getNetworkData() %} #}
+{% set blogData    = _Blog.getBlog() %}
 {% set limit = 10 %}
 
-{% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
-{% set articles = articlesArr.articles %}
+{% set user = false %}
 
-{% set events = _Event.getEvents() %}
+{% if not _User.isGuest %} 
+    {% set user = _User.getUser() %}
+{% endif %} 
+
+{% set userArticlesArr = [] %}
+{% if user %} 
+    {% set userArticlesArr = _User.getUserArticles(user.guid, 0, limit, [blogData.id]) %}
+{% endif %}
+
+
+{# {% set events = _Event.getEvents() %} #}
 
 
 <!-- used to index each article as we loop over throughout the template -->
@@ -23,34 +28,47 @@
 
 
     <main id="main" class="container-fluid site-main listingForm" role="main">
-        <div class="col-md-10">
+        <div class="col-md-8">
             <h1>Real Estate listing form</h1>
 {#                 <p style="margin-bottom:30px;">Quisque in commodo arcu. Phasellus ut urna neque. Donec cursus justo nisi, id rutrum leo varius quis. Nullam egestas fringilla fringilla. </p>
 #}
             <form class="" method="post" action="#" id="listingForm">
 
-                <select name="propertytype" id="propertytype">
+                <select class="articleExtendedData" name="propertytype" id="propertytype">
                   <option value="commercial">Commercial</option>
                   <option value="private">Private</option>
                 </select>
 
-                <select name="region" id="region">
+                <select class="articleExtendedData" name="region" id="region">
                   <option value="melbourne">Melbourne</option>
                   <option value="mexico">Mexico</option>
                 </select>
 
-                <input type="text" class="" name="address" id="address" value="" placeholder="address">
-                <input type="text" class="" name="pricerange" id="pricerange" value="" placeholder="pricerange">
-                <input type="text" class="" name="landarea" id="landarea" value="" placeholder="landarea">
-                <input type="text" class="" name="floorarea" id="floorarea" value="" placeholder="floorarea">
-                <input type="text" class="" name="contactname" id="contactname" value="" placeholder="contactname">
-                <input type="text" class="" name="contactphone" id="contactphone" value="" placeholder="contactphone">
+                <input type="text" class="articleExtendedData" name="address" id="address" value="" placeholder="address">
+                <input type="text" class="articleExtendedData" name="pricerange" id="pricerange" value="" placeholder="pricerange">
+                <input type="text" class="articleExtendedData" name="landarea" id="landarea" value="" placeholder="landarea">
+                <input type="text" class="articleExtendedData" name="floorarea" id="floorarea" value="" placeholder="floorarea">
+                <input type="text" class="articleExtendedData" name="contactname" id="contactname" value="" placeholder="contactname">
+                <input type="text" class="articleExtendedData" name="contactphone" id="contactphone" value="" placeholder="contactphone">
                 <textarea name="description" id="description"></textarea>
                 
                 <button class="_btn" type="submit" id="listingFormSubmit">Send</button>
             </form>
 
 
+        </div>
+        <div class="col-md-4">
+
+            {% for article in userArticlesArr %}
+
+                {{this.render('partials/_single-article.twig', {
+                    article: article, 
+                    position: loop.index,
+                    imageSize: {width: 330, height: 235},
+                    containerClass: "card-sm-short card-sm-mobile card-sm-short-tablet"
+                }) | raw}}
+
+            {% endfor %}
         </div>
 
     </main><!-- .site-main -->
