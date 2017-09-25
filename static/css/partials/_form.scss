@@ -14,6 +14,27 @@ main.listingForm {
 
     form {
         
+
+        .propertyListingSelect {
+            .pulldown {
+                height:44px;
+                width:100%;
+                border: 1px solid #E5E5E5;
+                margin-bottom:10px;
+
+                >p {
+                    line-height:44px;
+                }
+
+                >ul {
+                    top:42px;
+                    border: 1px solid #E5E5E5;
+                }
+            }
+        }
+
+
+
         p.form-section-label {
             font-size: rem(15);
             color:color(red);
@@ -112,7 +133,7 @@ main.listingForm {
             // &.other {
             //     width: 750px;
             // }
-
+            
 
         }
         // input[type=text]::placeholder {
@@ -120,10 +141,13 @@ main.listingForm {
         // }
 
         textarea {
-            width:100%;
-            height:75px;
+            width: 541px;
+            height: 174px;
             border: 1px solid color(lightergrey);
             border-radius:6px;
+            float:left;
+            margin-right:12px;
+
             &::placeholder {
                 font-size: rem(14);
                 color:color(lightgrey);
@@ -157,7 +181,34 @@ main.listingForm {
             background: color(red);
             color:white;
         }
-
+        
+        .floatcontainer {
+            overflow:auto;
+        }
+        .uploadFileBtn {
+            float:left;
+            height:174px;
+            width:200px;
+            background:color(buttongrey);
+            cursor:pointer;
+            border-radius:6px;
+        }
+        .imagearray {
+            clear:both;
+            margin-top:20px;
+            overflow:auto;
+            .formimage {
+                float:left;
+                margin-right:15px;
+                height:150px;
+                width:150px;
+                background-size:cover;
+            }
+        }
+        .images {
+            height:200px;
+            width:200px;
+        }
 
         div.inline {
             display:inline-block;

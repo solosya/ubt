@@ -28,13 +28,21 @@
 
     {% set hasArticleMediaClass = ((article.hasMedia == 'TRUE' or article.hasPreviewMedia == 'TRUE') and imageSuppress == 'false') ? 'withImage__content': 'without__image' %}
 
+    {% set articleTitle = quotes.smarten(article.title)  %}
+    {% if article.titlePreview is defined and article.titlePreview != "" %}
+        {% set articleTitle = quotes.smarten(article.titlePreview) %}
+    {% endif %}
+
+
+
+
     {% set params = {
         placeholder:     'https://placeholdit.imgix.net/~text?txtsize=33&txt=Loading&w='~imgWidth~'&h='~imgHeight~'',
         figureClass:     article.featuredMedia['type'] == 'video' ? 'video' : '',
         articleImgSmall: _Media.getMediaUrl(article.featuredMedia,500, 500, {'crop': 'fill', 'gravity': 'faces'} ),
         articleImg:      _Media.getMediaUrl(article.featuredMedia,imgWidth, imgHeight, {'crop': 'fill', 'gravity': 'faces'} ),
-        publishDate:     _AppHelper.getDateTimeBasedOnTimezone(article.publishDate, 'F, Y'),
-        articleTitle:    quotes.smarten(titleTruncateLength is defined ? article.title | truncate(titleTruncateLength) : article.title),
+        publishDate:     _AppHelper.getDefaultTimezoneDateTime(article.publishDateTime, 'F, Y H:i:s'),
+        articleTitle:    articleTitle,
         profileImg:      _Media.getMediaUrl(article.createdBy['media'], 34, 34, {radius: 'max', gravity: 'face', 'crop': 'thumb', type: 'user'}),
         imageSuppress:   imageSuppress
     } %}

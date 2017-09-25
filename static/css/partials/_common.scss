@@ -305,6 +305,18 @@ span.leadsentence{
     }
 }
 
+div.pulldown {font-size:rem(14);font-weight:500;position:relative;cursor:pointer;margin:0 8px 0 0;display:inline-block;height:51px;width:490px;border:1px solid color(lightgrey);border-radius:5px;}
+div.pulldown p {margin:0;font-size:rem(14);font-weight:500;width:120px;color:color(lightgrey);white-space:nowrap;line-height:51px;vertical-align:top;padding-left:10px;}
+div.pulldown span {display:inline-block;position:absolute;width:0;height:0;right:14px;top:20px;vertical-align:middle;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid black;opacity:.4;content:"";}
+div.pulldown ul {display:none;padding:0;position:absolute;top:48px;right:0px;min-width:100%;background:white;z-index:1000;border:1px solid color(lightgrey);overflow:auto;}
+div.pulldown ul li {display:block;cursor:pointer;color:black;padding:5px;white-space:nowrap;}
+div.pulldown ul li:hover{background:rgba(0,0,0,0.2);}
+
+div.pulldown ul  {
+  // -moz-box-shadow:    3px 3px 5px 6px #ccc;
+  // -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  box-shadow:         0 6px 12px rgba(44, 44, 58, 0.176);
+}
 
 // 20px gutter
 .gutter-60.row {

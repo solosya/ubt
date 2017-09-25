@@ -1,6 +1,6 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
 {{this.registerJs("CardController();")}}
-{{this.registerJs("window.app.listing = ListingController();")}}
+{{this.registerJs("window.Acme.listing = ListingController();")}}
 
 {# {% set networkData = _Network.getNetworkData() %} #}
 {% set blogData    = _Blog.getBlog() %}
@@ -28,47 +28,61 @@
 
 
     <main id="main" class="container-fluid site-main listingForm" role="main">
-        <div class="col-md-8">
-            <h1>Real Estate listing form</h1>
-{#                 <p style="margin-bottom:30px;">Quisque in commodo arcu. Phasellus ut urna neque. Donec cursus justo nisi, id rutrum leo varius quis. Nullam egestas fringilla fringilla. </p>
-#}
-            <form class="" method="post" action="#" id="listingForm">
+        
 
-                <select class="articleExtendedData" name="propertytype" id="propertytype">
-                  <option value="commercial">Commercial</option>
-                  <option value="private">Private</option>
-                </select>
-
-                <select class="articleExtendedData" name="region" id="region">
-                  <option value="melbourne">Melbourne</option>
-                  <option value="mexico">Mexico</option>
-                </select>
-
-                <input type="text" class="articleExtendedData" name="address" id="address" value="" placeholder="address">
-                <input type="text" class="articleExtendedData" name="pricerange" id="pricerange" value="" placeholder="pricerange">
-                <input type="text" class="articleExtendedData" name="landarea" id="landarea" value="" placeholder="landarea">
-                <input type="text" class="articleExtendedData" name="floorarea" id="floorarea" value="" placeholder="floorarea">
-                <input type="text" class="articleExtendedData" name="contactname" id="contactname" value="" placeholder="contactname">
-                <input type="text" class="articleExtendedData" name="contactphone" id="contactphone" value="" placeholder="contactphone">
-                <textarea name="description" id="description"></textarea>
-                
-                <button class="_btn" type="submit" id="listingFormSubmit">Send</button>
-            </form>
+        <section class="row section">
+            <div class="col-sm-10 section-header">
+                <h2>{{blogData.title}}</h2>
+                <p class="description">
+                    {{blogData.shortDescription}}
+                </p>
+            </div>
+        </section>
 
 
-        </div>
-        <div class="col-md-4">
 
-            {% for article in userArticlesArr %}
 
-                {{this.render('partials/_single-article.twig', {
-                    article: article, 
-                    position: loop.index,
-                    imageSize: {width: 330, height: 235},
-                    containerClass: "card-sm-short card-sm-mobile card-sm-short-tablet"
-                }) | raw}}
+        <div class="row">
+            <div class="col-md-7">
 
-            {% endfor %}
+
+                <form class="" method="post" action="#" id="listingForm">
+
+                    <div id="propertySelect" class="propertyListingSelect"></div>
+                    <div id="regionSelect" class="propertyListingSelect"></div>
+                    <div id="buySelect" class="propertyListingSelect"></div>
+
+
+                    <input type="text" class="" name="address" id="title" value="" placeholder="Address">
+                    <input type="text" class="articleExtendedData" name="pricerange" id="pricerange" value="" placeholder="Price range">
+                    <input type="text" class="articleExtendedData" name="landarea" id="landarea" value="" placeholder="Land area">
+                    <input type="text" class="articleExtendedData" name="floorarea" id="floorarea" value="" placeholder="Floor area">
+                    <input type="text" class="articleExtendedData" name="contactname" id="contactname" value="" placeholder="Contact name">
+                    <input type="text" class="articleExtendedData" name="contactphone" id="contactphone" value="" placeholder="Contact phone">
+                    <div class="floatcontainer">
+                        <textarea name="description" id="content"></textarea>
+                        <div data-imgcls="images" data-id="imageArray" class="uploadFileBtn">+</div>
+                    </div>
+                    <div id="imageArray" data-media="" class="imagearray"></div>
+
+                    <button class="_btn" type="submit" id="listingFormSubmit">SEND</button>
+                </form>
+
+
+            </div>
+            <div class="col-md-4">
+
+                {% for article in userArticlesArr %}
+
+                    {{this.render('partials/_single-article.twig', {
+                        article: article, 
+                        position: loop.index,
+                        imageSize: {width: 330, height: 235},
+                        containerClass: "card-rec card-rec-mobile"
+                    }) | raw}}
+
+                {% endfor %}
+            </div>
         </div>
 
     </main><!-- .site-main -->

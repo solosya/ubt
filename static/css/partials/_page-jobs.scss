@@ -1,0 +1,45 @@
+body.layout-jobs {
+
+    .site-main {
+
+        .menu-and-link {
+            overflow:auto;
+            margin-bottom: 30px;
+            text-align: right;
+
+            .regionSelect {
+                position:absolute;
+            }
+
+            .pulldown {
+                float:left;
+                text-align: left;
+            }
+            >a {
+
+                margin-left:14px;
+                font-size:rem(14);
+                line-height: 51px;
+                color:color(red);
+                font-style:italic;
+                
+                &:hover {
+                    text-decoration:none;
+                }
+                &:after {
+                    content: '';
+                    display: inline-block;
+                    margin-left:20px;
+                    position: relative;
+                    top: 7px;
+                    height:24px;
+                    width:24px;
+                    background: url('../images/arrow-in-circle-icon.svg');
+                    color:color(red);
+                }
+            }
+        }
+
+    }
+
+}

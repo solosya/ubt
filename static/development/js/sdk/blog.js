@@ -55,7 +55,6 @@
             requestData['blog_guid'] = options.blogid;
         }
 
-        // console.log(requestData);
 
         return $.ajax({
             type: 'post',

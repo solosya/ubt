@@ -1,6 +1,6 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
 {{this.registerJs("CardController();")}}
-{{this.registerJs("window.app.listing = ListingController();")}}
+{{this.registerJs("window.Acme.listing = ListingController();")}}
 
 {# {% set networkData = _Network.getNetworkData() %} #}
 {% set blogData    = _Blog.getBlog() %}
@@ -47,7 +47,7 @@
 
                     <input type="text" class="articleExtendedData" name="company" id="company" value="" placeholder="Company name">
                     <input type="text" class="articleExtendedData" name="website" id="website" value="" placeholder="Website (optional)">
-                    <input type="text" class="articleExtendedData" name="job-title" id="job-title" value="" placeholder="Job Title">
+                    <input type="text" class="" name="job-title" id="title" value="" placeholder="Job Title">
                     <input type="text" class="articleExtendedData" name="job-location" id="job-location" value="" placeholder="Job location (suburb or postcode)">
                     
                     <p class="form-section-label">Salary (optional)<p>
@@ -73,7 +73,7 @@
                     </fieldset>
                     <input type="text" class="articleExtendedData" name="salaryrange" id="salary" value="" placeholder="Salary range">
                     
-                    <textarea name="description" class="job-description" id="description"  placeholder="Description"></textarea>
+                    <textarea name="description" class="job-description" id="content"  placeholder="Description"></textarea>
                 
                     <button class="_btn" type="submit" id="listingFormSubmit">SEND</button>
                 </form>

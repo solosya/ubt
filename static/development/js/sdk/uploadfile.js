@@ -13,6 +13,7 @@
         return this.each(function () {
             var elem = $(this);
             $(elem).click(function (e) {
+                console.log('clicking on image thing');
                 e.preventDefault();
                 e.stopPropagation();
 
@@ -20,7 +21,7 @@
 
                 //initialization code
                 $.loadScript("//api.filepicker.io/v2/filepicker.js", function () {
-                    
+                    console.log('in the callback');
                     var tabs = $.extend([], ['COMPUTER'], opts.tabs);
 
                     //Set file picker api key
@@ -37,7 +38,7 @@
                         }
                     },
                     function (FPError) {
-                        //  $().General_ShowErrorMessage({message: FPError.toString()});
+                         $().General_ShowErrorMessage({message: FPError.toString()});
                     });
                 });
             });
@@ -45,9 +46,16 @@
     };
 
     $.loadScript = function (url, callback) {
+        console.log('loading filestack window');
+        if ( $('#fileuploadscript').length ) {
+            console.log('straight to callback');
+            callback();
+            return;
+        }
 
         var script = document.createElement("script")
         script.type = "text/javascript";
+        script.id = "fileuploadscript";
 
         if (script.readyState) {  //IE
             script.onreadystatechange = function () {

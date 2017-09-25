@@ -6,6 +6,7 @@
 
 
 {{this.registerJs("CardController();")}}
+{{this.registerJs("ListingController();")}}
 
 {% set limit = 10 %}
 
@@ -45,23 +46,31 @@
             <div class="col-sm-offset-1 col-sm-6">
 
 
-                {% for i in 0..6 if articles[articleCount] %}
-                    {{this.render('partials/_single-article.twig', {
-                        article: articles[articleCount], 
-                        position: (articleCount+1),
-                        template: 'jobs',
-                        imageSize: {width: 200, height: 140},
-                        containerClass: 'card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile'
-                    }) | raw}}
-                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                {% endfor %}
+                <div class="menu-and-link">
+                    <div id="regionSelect" class="regionSelect"></div>
+                    <a href="{{networkData.defaultBlogUrl}}@jobs-form">Submit a job</a>
+                </div>
 
+                <div id="job-listings">
+                    {% for i in 0..6 if articles[articleCount] %}
+                        {{this.render('partials/_single-article.twig', {
+                            article: articles[articleCount], 
+                            position: (articleCount+1),
+                            template: 'jobs',
+                            imageSuppress: true,
+                            containerClass: 'card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile'
+                        }) | raw}}
+                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                    {% endfor %}
+                </div>
 
 
                 {{ this.render('partials/ajaxarticles.twig', {
                     limit: limit, 
                     non_pinned: articlesArr.existingNonPinnedCount, 
                     articles: articles,
+                    articleTemplate: "jobsCardTemplate",
+                    rendertype: "write",
                     card_style: "col-sm-12 card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile",
                     container:"mainAjaxArticles"
                 }) | raw }}

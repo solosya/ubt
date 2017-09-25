@@ -1,126 +1,134 @@
 .listingForm {
 
-    margin-bottom:100px;
+    // margin-bottom:100px;
 
-    h1 {
-        font-size:rem(32);
-        margin-top:75px;
-        margin-bottom:25px;
-    }
+    // h1 {
+    //     font-size:rem(32);
+    //     margin-top:75px;
+    //     margin-bottom:25px;
+    // }
 
 
 
 
     form {
         
-        hr {
-            background-color: color(dark);
-            height: 1px;
-            border: 0;
-            margin-bottom: 55px;
-            // border-top: 2px solid color(red);
+        .propertyListingSelect {
+            .pulldown {
+                height:44px;
+                width:100%;
+            }
         }
 
-        hr.light {
-            background-color: #d9d9d6;
-            height: 1px;
-            margin-bottom: 22px;
-        }
+    }
+    //     hr {
+    //         background-color: color(dark);
+    //         height: 1px;
+    //         border: 0;
+    //         margin-bottom: 55px;
+    //         // border-top: 2px solid color(red);
+    //     }
+
+    //     hr.light {
+    //         background-color: #d9d9d6;
+    //         height: 1px;
+    //         margin-bottom: 22px;
+    //     }
 
         
 
-        input[type=text] {
-            display:block;
-            width:100%;
-            margin-bottom:10px;
-            border:none;
-            height: 22px;
-            padding: 7px;
-            padding-left:15px;
-            border-radius:4px;
-            background-color: rgba(0, 0, 0, 0.08);
+    //     input[type=text] {
+    //         display:block;
+    //         width:100%;
+    //         margin-bottom:10px;
+    //         border:none;
+    //         height: 22px;
+    //         padding: 7px;
+    //         padding-left:15px;
+    //         border-radius:4px;
+    //         background-color: rgba(0, 0, 0, 0.08);
 
-            &::-webkit-input-placeholder {
-                font-size: rem(14);
-                color:color(lightblue);
-            }
+    //         &::-webkit-input-placeholder {
+    //             font-size: rem(14);
+    //             color:color(lightblue);
+    //         }
 
-        }
+    //     }
 
-        textarea {
-            background-color: rgba(0, 0, 0, 0.08);
-            width:100%;
-            height:75px;
-            border:none;
-            border-radius:4px;
-        }
+    //     textarea {
+    //         background-color: rgba(0, 0, 0, 0.08);
+    //         width:100%;
+    //         height:75px;
+    //         border:none;
+    //         border-radius:4px;
+    //     }
 
-        h3 {
-            font-size:rem(14);
-        }
-
-
-        button {
-            margin-top:40px;
-            background: color(orange);
-        }
+    //     h3 {
+    //         font-size:rem(14);
+    //     }
 
 
-        div.inline {
-            display:inline-block;
-            margin-right:35px;
-            &:last-of-type {
-                margin-right:0;
-            }
-        }
-
-        label {
-            font-size: rem(14);
-            color:color(dark);
-        }
-    }
+    //     button {
+    //         margin-top:40px;
+    //         background: color(orange);
+    //     }
 
 
+    //     div.inline {
+    //         display:inline-block;
+    //         margin-right:35px;
+    //         &:last-of-type {
+    //             margin-right:0;
+    //         }
+    //     }
 
-    // @media (min-width: 620px){
-    //     .eight-cols .col-md-1,
-    //     .eight-cols .col-sm-1,
-    //     .eight-cols .col-lg-1,
-    //     .eight-cols .col-sm-8  {
+    //     label {
+    //         font-size: rem(14);
+    //         color:color(dark);
+    //     }
+    // }
+
+
+
+    // // @media (min-width: 620px){
+    // //     .eight-cols .col-md-1,
+    // //     .eight-cols .col-sm-1,
+    // //     .eight-cols .col-lg-1,
+    // //     .eight-cols .col-sm-8  {
+    // //         width: 100%;
+    // //         *width: 100%;
+    // //     }
+    // // }
+    // @media (min-width: 620px) {
+
+    //     .eight-cols .col-md-8,
+    //     .eight-cols .col-sm-8,
+    //     .eight-cols .col-lg-8 {
     //         width: 100%;
     //         *width: 100%;
     //     }
+
+
+
+    //     .eight-cols .col-md-4,
+    //     .eight-cols .col-sm-4,
+    //     .eight-cols .col-lg-4 {
+    //         width: 50%;
+    //         *width: 50%;
+    //         float:left;
+
+    //     }
+
+
+    //     .eight-cols .col-md-1,
+    //     .eight-cols .col-sm-1,
+    //     .eight-cols .col-lg-1 {
+    //         width: 12.5%;
+    //         *width: 12.5%;
+    //         float:left;
+
+    //     }
     // }
-    @media (min-width: 620px) {
-
-        .eight-cols .col-md-8,
-        .eight-cols .col-sm-8,
-        .eight-cols .col-lg-8 {
-            width: 100%;
-            *width: 100%;
-        }
-
-
-
-        .eight-cols .col-md-4,
-        .eight-cols .col-sm-4,
-        .eight-cols .col-lg-4 {
-            width: 50%;
-            *width: 50%;
-            float:left;
-
-        }
-
-
-        .eight-cols .col-md-1,
-        .eight-cols .col-sm-1,
-        .eight-cols .col-lg-1 {
-            width: 12.5%;
-            *width: 12.5%;
-            float:left;
-
-        }
-    }
 
 
 

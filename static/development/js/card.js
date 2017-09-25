@@ -8,10 +8,11 @@ var Card = function() {
 };
 
 
-Card.prototype.renderCard = function(card, cardClass)
+Card.prototype.renderCard = function(card, cardClass, template)
 {
     var self = this;
 
+    var template = (template) ? Acme[template] : Acme.systemCardTemplate;
 
     card['containerClass'] = cardClass;
     card['pinTitle'] = (card.isPinned == 1) ? 'Un-Pin Article' : 'Pin Article';
@@ -24,7 +25,7 @@ Card.prototype.renderCard = function(card, cardClass)
        card['blogClass']= 'card--blog_'+card.blog['id'];
     } 
     
-                                
+    console.log(template);                    
     var ImageUrl = $.image({media:card['featuredMedia'], mediaOptions:{width: 500 ,height:350, crop: 'limit'} });
     card['imageUrl'] = ImageUrl;
     var articleId = parseInt(card.articleId);
@@ -36,7 +37,7 @@ Card.prototype.renderCard = function(card, cardClass)
         }
         articleTemplate = Handlebars.compile(socialCardTemplate); 
     } else {
-        articleTemplate = Handlebars.compile(systemCardTemplate);
+        articleTemplate = Handlebars.compile(template);
     }
     return articleTemplate(card);
 }
@@ -375,14 +376,19 @@ Card.prototype.events = function()
             'containerClass': container.data('containerclass'),
             'container': container,
             'nonpinned' : container.data('offset'),
-            'blog_guid' : container.data('blogid')
+            'blog_guid' : container.data('blogid'),
+            'template' : container.data('cardtemplate')
         };
 
         if ( container.data('loadtype')) {
             options.loadtype = container.data('loadtype');
         }
 
-        console.log(options);
+        if ( container.data('rendertype')) {
+            options.rendertype = container.data('loadtype');
+        }
+
+        // console.log(options);
 
         $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
             console.log(data);
@@ -397,8 +403,13 @@ Card.prototype.events = function()
 
                 var html = "";
                 for (var i in data.articles) {
-                    html += self.renderCard(data.articles[i], cardClass);
+                    html += self.renderCard(data.articles[i], cardClass, options.template);
                 }
+
+                if (options.rendertype === "write") {
+                    container.empty();
+                }
+
                 container.append(html);
 
                 $(".card .content > p, .card h2").dotdotdot();

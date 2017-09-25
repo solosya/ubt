@@ -1,16 +1,10 @@
 /**
  * Handlebar Article templates for listing
  */
-var screenArticles_1 = 
-'<div class="row half-height top-row">\
-    {¡{content:1-2}¡}\
-</div>\
-<div class="row half-height bottom-row">\
-    {¡{content:3-5}¡}\
-</div>\
-';
 
-var systemCardTemplate = 
+
+
+var cardTemplateTop = 
 '<div class="{{containerClass}} "> \
     <a  itemprop="url" \
         href="{{url}}" \
@@ -21,26 +15,10 @@ var systemCardTemplate =
         data-article-image="{{{imageUrl}}}" \
         data-article-text="{{title}}"> \
         \
-        <article class="">\
-            {{#if hasMedia}}\
-                <figure>\
-                    <img class="img-responsive lazyload" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url("{{placeholder}}"")>\
-                </figure>\
-            {{/if}} \
-        \
-            <div class="content">\
-                <div class="cat-time">\
-                    <p class="category">{{label}}</p>\
-                    <time datetime="{{publishDate}}">{{publishDate}}</time>\
-                </div>\
-                <h2>{{{ title }}}</h2>\
-                <p class="excerpt">{{{ excerpt }}}</p>\
-                <div class="author">\
-                    <img src="{{profileImg}}" class="img-circle">\
-                    <p>{{ createdBy.displayName }}</p>\
-                </div>\
-            </div>\
-        </article>'+
+        <article class="">';
+
+var cardTemplateBottom = 
+        '</article>'+
         
         '{{#if userHasBlogAccess}}'+
             '<div class="btn_overlay articleMenu">'+
@@ -57,7 +35,60 @@ var systemCardTemplate =
         "{{/if}}"+
     '</a>'+
 '</div>';
-                                                
+
+Acme.jobsCardTemplate = 
+    cardTemplateTop + 
+
+        '{{#if hasMedia}}\
+            <figure>\
+                <img class="img-responsive lazyload" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url("{{placeholder}}"")>\
+            </figure>\
+        {{/if}} \
+    \
+        <div class="content">\
+            <div class="cat-time">\
+                <time datetime="{{publishDate}}">{{publishDate}}</time>\
+            </div>\
+            <h2>{{{ title }}}</h2>\
+            <p class="company">{{{ additionalInfo.company }}}</p>\
+            <p class="excerpt">{{{ excerpt }}}</p>\
+            <div class="author">\
+                <img src="{{profileImg}}" class="img-circle">\
+                <p>{{ createdBy.displayName }}</p>\
+            </div>\
+        </div>' + 
+
+    cardTemplateBottom;
+
+
+Acme.systemCardTemplate = 
+    cardTemplateTop + 
+
+            '{{#if hasMedia}}\
+                <figure>\
+                    <img class="img-responsive lazyload" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url("{{placeholder}}"")>\
+                </figure>\
+            {{/if}} \
+        \
+            <div class="content">\
+                <div class="cat-time">\
+                    <p class="category">{{label}}</p>\
+                    <time datetime="{{publishDate}}">{{publishDate}}</time>\
+                </div>\
+                <h2>{{{ title }}}</h2>\
+                <p class="excerpt">{{{ excerpt }}}</p>\
+                <div class="author">\
+                    <img src="{{profileImg}}" class="img-circle">\
+                    <p>{{ createdBy.displayName }}</p>\
+                </div>\
+            </div>' + 
+
+    cardTemplateBottom;
+                     
+
+
+
+
 var socialCardTemplate =  '<div class="{{containerClass}}">' +
                                 '<a href="{{social.url}}"\
                                     target="_blank"\

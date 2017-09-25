@@ -1,0 +1,165 @@
+@mixin card-rec-jobs-base() {
+    position:relative;
+    a.card {
+        border-bottom: 1px solid #97999c;
+
+        > article {
+            position:relative;
+            > figure{
+            }
+            > .content{
+                padding: 0;
+                position:relative;
+                > div {
+                    > .category{
+                        margin-bottom:0;
+                        border-right:1px solid color(lightgrey);
+                    }
+                }
+                > h2{
+                    font-family: $font-family-serif;
+                    color:color(darkblue);
+                }
+                > h3{
+                    margin:0;
+                    color:color(red);
+                }
+
+                > div.listing-type {
+                    >img {
+                        float:left;
+                    }
+                }
+                // > p.excerpt {
+                //     display:none;
+                // }
+            }
+        }
+        &.article.without__image {
+            .content {
+
+                > p.excerpt {
+                    font-size: rem(13);
+                    display: block;
+                    max-height:45px;
+                    margin-bottom: 11px;
+                }
+            }
+        }   
+    }
+}
+
+
+
+.card-rec-jobs{
+    @media screen and (min-width: $mmd-break){
+        @include card-rec-jobs-base();
+
+        margin-bottom: 32px;
+
+        a.card {
+            @include card-image-left(198px, 141px);
+            height:173px;
+
+            > article {
+
+                > figure{
+                    margin-right:18px;
+                    margin-bottom:10px;
+                }
+
+                > .content{
+
+                    > h2{
+                        font-size: rem(25);
+                        line-height:1.2;
+                        margin-top:12px;
+                        margin-bottom:2px;
+                    }
+                    > p.company{
+                        font-size: rem(13);
+                        font-weight:600;
+                        margin-bottom:11px;
+                    }
+                    > p.excerpt {
+                        max-height:40px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+.card-rec-jobs-tablet{
+    @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
+        @include card-rec-jobs-base();
+
+        margin-bottom: 20px;
+
+        a.card {
+            @include card-image-left(109px, 78px);
+            height:95px;
+
+            > article {
+
+                > figure{
+                    margin-right:18px;
+                }
+
+                > .content{
+                    > h2{
+                        font-size: rem(16);
+                        line-height:1.12;
+                        margin-top:5px;
+                        margin-bottom:10px;
+                    }
+                    > h3{
+                        font-size: rem(14);
+                        margin-bottom:10px;
+                    }
+
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+.card-rec-jobs-mobile{
+    @media screen and (max-width: $sm-break-down){
+        @include card-rec-jobs-base();
+
+        margin-bottom: 20px;
+
+        a.card {
+            @include card-image-left(80px, 82px);
+            height:102px;
+
+            > article {
+
+                > figure{
+                    margin-right:18px;
+                }
+
+                > .content{
+                    > h2{
+                        font-size: rem(16);
+                        line-height:1.38;
+                        margin-top:0;
+                    }
+                }
+            }
+        }
+    }
+}
+

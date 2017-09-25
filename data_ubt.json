@@ -1338,7 +1338,10 @@
 			"additionalInfo": {
 				"price": "275,000",
 				"address": "31/2 ELDRIDGE CRESCENT GARRAN, ACT 2605",
-				"propertyType": "Warehouse"
+				"propertyType": "Warehouse",
+				"salary": "10,000",
+				"location": "Melbourne",
+				"company": "Pagemasters"
 			}
 		},
 
