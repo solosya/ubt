@@ -11,7 +11,7 @@
     Acme.server = {
 
         create: function(uri, queryParams) {return this.call(uri, queryParams, 'post');},
-        request: function(uri, queryParams, datatype){return this.call(uri, queryParams, 'get', datatype);},
+        fetch: function(uri, queryParams, datatype){return this.call(uri, queryParams, 'get', datatype);},
         update: function(uri, queryParams) {return this.call(uri, queryParams, 'put');},
         delete: function(uri, queryParams) {return this.call(uri, queryParams, 'delete');},
         call: function(uri, queryParams, type, datatype) {
@@ -54,6 +54,7 @@
 
     Acme.listen.prototype.listener = function(topic, data)
     {
+        console.log(topic, data);
         var keys = Object.keys(data);
 
         for (var i = 0; i<keys.length; i++) {
@@ -110,7 +111,69 @@
         return obj;
     };
 
+    Acme.View.create = function(config)
+    {
+        function obj() {};
+        obj.prototype = Object.create(Acme.listen.prototype,
+            {
+                'template': {
+                    'value' : config['temp'] || null,
+                    'enumerable': true,
+                },
+                'container' : {
+                    'value' : config['container'] || null,
+                    'writable': true,
+                    'enumerable': true,
+                },
+                'listeners': {
+                    'value' : config['listeners'],
+                    'enumerable':true,
+                }
+            }
+        );
 
+        obj.prototype.clear = function()
+        {
+            $(this.container).empty();
+        };
+        obj.prototype.soften = function()
+        {
+            console.log(typeof this.container);
+            if (typeof this.container == 'string') {
+                this.container.css('opacity', '.4');
+            } else {
+                $(this.container).css('opacity', '.4');
+            }
+        };
+        obj.prototype.brighten = function()
+        {
+            if (typeof this.container == 'string') {
+                this.container.css('opacity', '1');
+            } else {
+                $(this.container).css('opacity', '1');
+            }
+        };
+
+        obj.prototype.updateData = function(data) {
+            var key = Object.keys(data)[0];
+            var keySplit = key.split('.');
+            var scope = this.data;
+            console.log(data);
+            debugger;
+            for(var i=0; i<keySplit.length; i++) {
+                if (!scope[keySplit[i]]) {
+                    scope[keySplit[i]] = {};
+                }
+                if(i == keySplit.length -1 ) {
+                    scope[keySplit[i]] = data[key];
+                }
+                scope = scope[keySplit[i]];
+            }
+            console.log(this.data);
+        }
+
+        return new obj();
+    }
 
     Acme._Collection = function(model) {
         this.model = model || null;
@@ -254,6 +317,7 @@
                 for ( var i = 0, j = subscribers.length; i < j; i++ ){
                     var scope = window;
                     var scopeSplit = subscribers[i].context.split('.');
+                    console.log(scopeSplit);
                     for (var k = 0; k < scopeSplit.length - 1; k++) {
                         scope = scope[scopeSplit[k]];
                         if (scope == undefined) return;
@@ -291,12 +355,15 @@
             var callbacks = Object.keys(subscription);
             var ret_topics = {};
             console.log(subscription);
+            console.log(callbacks);
             for (var i=0;i<callbacks.length; i++) {
                 for(var j=0;j<subscription[callbacks[i]].length;j++) {
                     var topic = subscription[callbacks[i]][j];
-
+                    console.log(topic);
                     var context = callbacks[i].substring(0, callbacks[i].lastIndexOf('.'));
+                    console.log(context);
                     var func = callbacks[i].substring(callbacks[i].lastIndexOf('.') + 1);
+                    console.log(func);
                     if ( !this.topics.hasOwnProperty( topic ) ) {
                         this.topics[topic] = [];
                     }
@@ -400,6 +467,7 @@
         };
         Acme.listMenu.prototype.select = function(item)
         {
+            console.log(item);
             var menuid = '#' + this.name + ' > p';
             $(menuid).text(item);
             return this;
@@ -416,7 +484,7 @@
                 var value = elem.data('value');
                 elem.attr('checked', true);
                 var data = {};
-                data[self.name] = value;
+                data[self.key || self.name] = value;
                 Acme.PubSub.publish('update_state', data);
                 console.log('update_state', data);
                 self.defaultItem.text(elem.text());

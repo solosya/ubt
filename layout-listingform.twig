@@ -46,21 +46,21 @@
             <div class="col-md-7">
 
 
-                <form class="" method="post" action="#" id="listingForm">
+                <form class="" method="post" action="#" id="listingForm" data-articleId="">
 
                     <div id="propertySelect" class="propertyListingSelect"></div>
                     <div id="regionSelect" class="propertyListingSelect"></div>
                     <div id="buySelect" class="propertyListingSelect"></div>
 
 
-                    <input type="text" class="" name="address" id="title" value="" placeholder="Address">
-                    <input type="text" class="articleExtendedData" name="pricerange" id="pricerange" value="" placeholder="Price range">
-                    <input type="text" class="articleExtendedData" name="landarea" id="landarea" value="" placeholder="Land area">
-                    <input type="text" class="articleExtendedData" name="floorarea" id="floorarea" value="" placeholder="Floor area">
-                    <input type="text" class="articleExtendedData" name="contactname" id="contactname" value="" placeholder="Contact name">
-                    <input type="text" class="articleExtendedData" name="contactphone" id="contactphone" value="" placeholder="Contact phone">
+                    <input type="text" class="" name="title" id="title" value="" placeholder="Address">
+                    <input type="text" class="articleExtendedData" name="extendedData.pricerange" id="pricerange" value="" placeholder="Price range">
+                    <input type="text" class="articleExtendedData" name="extendedData.landarea" id="landarea" value="" placeholder="Land area">
+                    <input type="text" class="articleExtendedData" name="extendedData.floorarea" id="floorarea" value="" placeholder="Floor area">
+                    <input type="text" class="articleExtendedData" name="extendedData.contactname" id="contactname" value="" placeholder="Contact name">
+                    <input type="text" class="articleExtendedData" name="extendedData.contactphone" id="contactphone" value="" placeholder="Contact phone">
                     <div class="floatcontainer">
-                        <textarea name="description" id="content"></textarea>
+                        <textarea name="content" id="content"></textarea>
                         <div data-imgcls="images" data-id="imageArray" class="uploadFileBtn">+</div>
                     </div>
                     <div id="imageArray" data-media="" class="imagearray"></div>
@@ -77,8 +77,9 @@
                     {{this.render('partials/_single-article.twig', {
                         article: article, 
                         position: loop.index,
-                        imageSize: {width: 330, height: 235},
-                        containerClass: "card-rec card-rec-mobile"
+                        behaviour: 'noclick',
+                        imageSize: {width: 150, height: 120},
+                        containerClass: "card-rec card-rec-mobile listingCard"
                     }) | raw}}
 
                 {% endfor %}
