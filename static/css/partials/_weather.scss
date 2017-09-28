@@ -1,0 +1,119 @@
+@mixin weather-panel {
+	p {
+		margin: 0;
+		padding: 0;
+		line-height: 1.3;
+	}
+
+    .location {
+		text-transform: uppercase;
+		font-size: rem(13);
+		font-weight: 600;
+    }
+
+    .description {
+		padding-top: 2px;
+		font-size: rem(13);
+		color: color(lightgrey);
+    }
+
+    .temp {
+        margin:0;
+        margin-top:5px;
+        float:left;
+        color:color(red);
+        font-size: rem(16);
+		font-weight: 600;
+		line-height: 0.94;
+    }
+
+    .icon {
+        float:left;
+        vertical-align:top;
+        margin-right:10px;
+    }
+
+    .show-weather {
+       	position: relative;
+    	float: left;
+    	right: 15px;
+    	top: 5px;
+    	&:hover {
+    		cursor: pointer;
+    	}
+    	&.flip {
+			transform: scaleY(-1);
+    	}
+    }
+}
+
+.weather {
+    float:right;
+
+    @include weather-panel;
+
+    >div {
+        float:left;
+        display:inline-block;
+        margin-right:10px;
+    }
+}
+
+.weather-date {
+	padding: 32px 0;
+	> h1 {
+		font-family: $font-family-serif;
+		font-size: rem(22);
+		opacity: 0.7;
+		color: black;
+		font-style: italic;
+		line-height: 1.36;
+	}
+	> p {
+		font-family: $font-family-sans-serif;
+		font-size: rem(14);
+		line-height: 2.14;
+		color: color(red);
+	}
+}
+
+.panel {
+    @include weather-panel;
+
+	font-family: $font-family-sans-serif;
+
+	display: flex;
+	flex-direction: column;
+
+	min-width: 100px;
+	height: 100%;
+
+	margin-left: 28px;
+
+	> div {
+		margin-bottom: 16px;
+		> .temp {
+			float: none;
+		}
+
+	}
+}
+
+.weather-dropdown {
+	display: flex;
+    flex-direction: row;
+    height: 156px;
+    padding: 18px 0;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.hidden {
+	display: none;
+}
+
+#weather-panels {
+	display: flex;
+    border-left: 1px solid rgba(0,0,0,0.15);
+    padding: 22px 0;
+}

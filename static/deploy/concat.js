@@ -27206,7 +27206,6 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
             requestData['blog_guid'] = options.blogid;
         }
 
-        // console.log(requestData);
 
         return $.ajax({
             type: 'post',
@@ -28709,6 +28708,7 @@ jQuery(document).ready(function () {
         return this.each(function () {
             var elem = $(this);
             $(elem).click(function (e) {
+                console.log('clicking on image thing');
                 e.preventDefault();
                 e.stopPropagation();
 
@@ -28716,7 +28716,7 @@ jQuery(document).ready(function () {
 
                 //initialization code
                 $.loadScript("//api.filepicker.io/v2/filepicker.js", function () {
-                    
+                    console.log('in the callback');
                     var tabs = $.extend([], ['COMPUTER'], opts.tabs);
 
                     //Set file picker api key
@@ -28733,7 +28733,7 @@ jQuery(document).ready(function () {
                         }
                     },
                     function (FPError) {
-                        //  $().General_ShowErrorMessage({message: FPError.toString()});
+                         $().General_ShowErrorMessage({message: FPError.toString()});
                     });
                 });
             });
@@ -28741,9 +28741,16 @@ jQuery(document).ready(function () {
     };
 
     $.loadScript = function (url, callback) {
+        console.log('loading filestack window');
+        if ( $('#fileuploadscript').length ) {
+            console.log('straight to callback');
+            callback();
+            return;
+        }
 
         var script = document.createElement("script")
         script.type = "text/javascript";
+        script.id = "fileuploadscript";
 
         if (script.readyState) {  //IE
             script.onreadystatechange = function () {
@@ -28810,16 +28817,10 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
 /**
  * Handlebar Article templates for listing
  */
-var screenArticles_1 = 
-'<div class="row half-height top-row">\
-    {¡{content:1-2}¡}\
-</div>\
-<div class="row half-height bottom-row">\
-    {¡{content:3-5}¡}\
-</div>\
-';
 
-var systemCardTemplate = 
+
+
+var cardTemplateTop = 
 '<div class="{{containerClass}} "> \
     <a  itemprop="url" \
         href="{{url}}" \
@@ -28830,26 +28831,10 @@ var systemCardTemplate =
         data-article-image="{{{imageUrl}}}" \
         data-article-text="{{title}}"> \
         \
-        <article class="">\
-            {{#if hasMedia}}\
-                <figure>\
-                    <img class="img-responsive lazyload" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url("{{placeholder}}"")>\
-                </figure>\
-            {{/if}} \
-        \
-            <div class="content">\
-                <div class="cat-time">\
-                    <p class="category">{{label}}</p>\
-                    <time datetime="{{publishDate}}">{{publishDate}}</time>\
-                </div>\
-                <h2>{{{ title }}}</h2>\
-                <p class="excerpt">{{{ excerpt }}}</p>\
-                <div class="author">\
-                    <img src="{{profileImg}}" class="img-circle">\
-                    <p>{{ createdBy.displayName }}</p>\
-                </div>\
-            </div>\
-        </article>'+
+        <article class="">';
+
+var cardTemplateBottom = 
+        '</article>'+
         
         '{{#if userHasBlogAccess}}'+
             '<div class="btn_overlay articleMenu">'+
@@ -28866,7 +28851,60 @@ var systemCardTemplate =
         "{{/if}}"+
     '</a>'+
 '</div>';
-                                                
+
+Acme.jobsCardTemplate = 
+    cardTemplateTop + 
+
+        '{{#if hasMedia}}\
+            <figure>\
+                <img class="img-responsive lazyload" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url("{{placeholder}}"")>\
+            </figure>\
+        {{/if}} \
+    \
+        <div class="content">\
+            <div class="cat-time">\
+                <time datetime="{{publishDate}}">{{publishDate}}</time>\
+            </div>\
+            <h2>{{{ title }}}</h2>\
+            <p class="company">{{{ additionalInfo.company }}}</p>\
+            <p class="excerpt">{{{ excerpt }}}</p>\
+            <div class="author">\
+                <img src="{{profileImg}}" class="img-circle">\
+                <p>{{ createdBy.displayName }}</p>\
+            </div>\
+        </div>' + 
+
+    cardTemplateBottom;
+
+
+Acme.systemCardTemplate = 
+    cardTemplateTop + 
+
+            '{{#if hasMedia}}\
+                <figure>\
+                    <img class="img-responsive lazyload" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url("{{placeholder}}"")>\
+                </figure>\
+            {{/if}} \
+        \
+            <div class="content">\
+                <div class="cat-time">\
+                    <p class="category">{{label}}</p>\
+                    <time datetime="{{publishDate}}">{{publishDate}}</time>\
+                </div>\
+                <h2>{{{ title }}}</h2>\
+                <p class="excerpt">{{{ excerpt }}}</p>\
+                <div class="author">\
+                    <img src="{{profileImg}}" class="img-circle">\
+                    <p>{{ createdBy.displayName }}</p>\
+                </div>\
+            </div>' + 
+
+    cardTemplateBottom;
+                     
+
+
+
+
 var socialCardTemplate =  '<div class="{{containerClass}}">' +
                                 '<a href="{{social.url}}"\
                                     target="_blank"\
@@ -29111,123 +29149,16 @@ var CardController = function() {
 }
 
 var Card = function() {
+    console.log('running card controller');
     this.events();
 };
 
-// Card.prototype.renderScreenCards = function(options, data) 
-// {
-//     var self = this;
 
-//     var container = options.container;
-
-//     container.data('existing-nonpinned-count', data.existingNonPinnedCount);
-
-//     var html = "";
-//     for (var i in data.articles) {
-//         html += self.renderCard(data.articles[i], options.containerClass);
-//     }
-//     container.empty().append(html);
-
-//     // $('.two-card-logo').toggle();
-
-//     $(".card p, .card h1").dotdotdot();
-            
-//     $('.video-player').videoPlayer();
-    
-//     //Lazyload implement
-//     // $("div.lazyload").lazyload({
-//     //     effect: "fadeIn"
-//     // });
-//     // if (_appJsConfig.isUserLoggedIn === 1 && _appJsConfig.userHasBlogAccess === 1) {
-//     //     self.events();
-//     // }
-// };
-
-// Card.prototype.screen = function() 
-// {
-//     var self = this;
-
-//     var btn = $('.loadMoreArticles');
-//     var pageRefreshInterval = 60000 * 5;
-
-//     var currentScreen = 0;
-//     var articleCount = 0;
-
-//     var options = {
-//         'screens' : [
-//         {
-//             style: "screen-card card-lg-screen col-sm-12",
-//             limit: 1,
-//             logo: "large-logo"
-
-//         },
-
-//         {
-//             style: "screen-card card-sm-screen col-sm-6",
-//             limit: 2,
-//             logo: "small-logo"
-//         } 
-
-//         ],
-//         'container': $( '#'+btn.data('container') ),
-//         'currentScreen': currentScreen,
-//         'count': 20
-//     };
-
-//     var run = function() {
-//         console.log('running screen');
-
-//                             // 1 minute * amount of minutes
-//         var numberOfScreens = options.screens.length;
-//         currentScreen++;
-//         if (currentScreen > numberOfScreens) {
-//             currentScreen = 1;
-//         }
-//         var screenOption = currentScreen-1;
-//         options.currentScreen = currentScreen;
-
-//         // console.log('grigidig');
-//         options.limit = options.screens[screenOption].limit;
-//         options.containerClass = options.screens[screenOption].style;
-
-//         // articleCount = articleCount + options.limit;
-//         // console.log('Article Count: ', articleCount);
-//         if (articleCount >= options.count) {
-//             articleCount = 0;
-//         }
-
-//         options.offset = articleCount;
-//         options.nonpinned = articleCount;
-
-//         // console.log(options);
-//         $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
-//             // console.log(data);
-//             if (data.articles.length == 0 ) {
-//                 // console.log('setting article count to zero');
-//                 articleCount = 0;
-//                 return;
-//             }
-//             articleCount = articleCount + data.articles.length;
-
-//             if (data.success == 1) {
-//                 self.renderScreenCards(options, data);
-//             }
-//         });
-//     }
-
-//     run();
-
-//     setInterval( run, 10000 ); 
-//     setInterval( function() {
-//         location.reload(false);
-//     } , pageRefreshInterval );
- 
-// };
-
-Card.prototype.renderCard = function(card, cardClass)
+Card.prototype.renderCard = function(card, cardClass, template)
 {
     var self = this;
 
+    var template = (template) ? Acme[template] : Acme.systemCardTemplate;
 
     card['containerClass'] = cardClass;
     card['pinTitle'] = (card.isPinned == 1) ? 'Un-Pin Article' : 'Pin Article';
@@ -29240,7 +29171,7 @@ Card.prototype.renderCard = function(card, cardClass)
        card['blogClass']= 'card--blog_'+card.blog['id'];
     } 
     
-                                
+    console.log(template);                    
     var ImageUrl = $.image({media:card['featuredMedia'], mediaOptions:{width: 500 ,height:350, crop: 'limit'} });
     card['imageUrl'] = ImageUrl;
     var articleId = parseInt(card.articleId);
@@ -29252,7 +29183,7 @@ Card.prototype.renderCard = function(card, cardClass)
         }
         articleTemplate = Handlebars.compile(socialCardTemplate); 
     } else {
-        articleTemplate = Handlebars.compile(systemCardTemplate);
+        articleTemplate = Handlebars.compile(template);
     }
     return articleTemplate(card);
 }
@@ -29591,14 +29522,19 @@ Card.prototype.events = function()
             'containerClass': container.data('containerclass'),
             'container': container,
             'nonpinned' : container.data('offset'),
-            'blog_guid' : container.data('blogid')
+            'blog_guid' : container.data('blogid'),
+            'template' : container.data('cardtemplate')
         };
 
         if ( container.data('loadtype')) {
             options.loadtype = container.data('loadtype');
         }
 
-        console.log(options);
+        if ( container.data('rendertype')) {
+            options.rendertype = container.data('loadtype');
+        }
+
+        // console.log(options);
 
         $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
             console.log(data);
@@ -29613,8 +29549,13 @@ Card.prototype.events = function()
 
                 var html = "";
                 for (var i in data.articles) {
-                    html += self.renderCard(data.articles[i], cardClass);
+                    html += self.renderCard(data.articles[i], cardClass, options.template);
                 }
+
+                if (options.rendertype === "write") {
+                    container.empty();
+                }
+
                 container.append(html);
 
                 $(".card .content > p, .card h2").dotdotdot();
@@ -29637,7 +29578,457 @@ Card.prototype.events = function()
     });
 };
 (function ($) {
-    
+    window.Acme = {};
+    Acme.View         = {};
+    Acme.Model        = {};
+    Acme.Collection   = {};
+
+    $('html').on('click', function(e) {
+        $('.pulldown ul').hide();
+    });
+
+    Acme.server = {
+
+        create: function(uri, queryParams) {return this.call(uri, queryParams, 'post');},
+        request: function(uri, queryParams, datatype){return this.call(uri, queryParams, 'get', datatype);},
+        update: function(uri, queryParams) {return this.call(uri, queryParams, 'put');},
+        delete: function(uri, queryParams) {return this.call(uri, queryParams, 'delete');},
+        call: function(uri, queryParams, type, datatype) {
+
+            if (!window.location.origin) {
+                 window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+            }
+            type = (typeof type !== 'undefined') ? type : 'get';
+
+            queryParams = (typeof queryParams !== 'undefined') ? queryParams : {};
+
+            // console.log(type + ': ' + window.location.origin + '/api/' + uri);
+            // if (Object.keys(queryParams).length > 0 ) console.log(queryParams);
+            console.log(_appJsConfig.appHostName + '/api/'+uri);
+            return $.ajax({
+                url: _appJsConfig.appHostName + '/api/'+uri,
+                data: queryParams,
+                dataType: datatype || "json",
+                type: type
+            }).fail(function(r) {
+                console.log(r);
+                if (r.status == 501 || r.status == 404) console.log(r.responseText);
+                if (r.responseJSON) console.log(r.responseJSON);
+                console.log(r.responseText);
+            });
+        },
+        callClient: function(uri, queryParams, type) {
+            type = (typeof type !== 'undefined') ? type : 'get';
+            queryParams = (typeof queryParams !== 'undefined') ? queryParams : '';
+            return $.ajax({
+                url: window.location.origin + uri,
+                data: queryParams,
+                dataType: "json",
+                type: type
+            });
+        }
+    }
+
+    Acme.listen = function() {};
+
+    Acme.listen.prototype.listener = function(topic, data)
+    {
+        var keys = Object.keys(data);
+
+        for (var i = 0; i<keys.length; i++) {
+
+            for (var listener in this.listeners) {
+
+                if ( listener === keys[i] ) {
+
+                    this.listeners[listener].call(this, data);
+
+                    break;
+                }
+            }
+        }
+    };
+
+
+    Acme.Model.create = function(config)
+    {
+        var obj = Object.create(
+        Acme._Model.prototype, {'resource': {
+                                    'value' : config['url'],
+                                    'enumerable': true,
+                                },
+                                'alias' : {
+                                    'value' : config['alias'] || null,
+                                    'enumerable': true,
+                                },
+                                'resource_id': {
+                                    'value' : config['resource_id'],
+                                    'enumerable': true,
+                                },
+                                'query' : {
+                                    'value': [],
+                                    'writable': true,
+                                    'enumerable': true,
+                                }
+                     }
+        );
+        for (var param in config['this']) {
+            obj[param] = config['this'][param];
+        }
+        obj.messages = {
+            'set'   : 'updated',
+            'delete': 'deleted',
+        };
+
+        if (config['messages']) {
+            for (var msg in config['messages']) {
+                obj.messages[msg] = config['messages'][msg];
+            }
+        }
+
+        return obj;
+    };
+
+
+
+    Acme._Collection = function(model) {
+        this.model = model || null;
+    };
+        Acme._Collection.prototype = Object.create(Acme.listen.prototype);
+
+
+    Acme._Model = function() {};
+        Acme._Model.prototype = Object.create(Acme.listen.prototype);
+        Acme._Model.prototype.url = function()
+        {
+            if (this.resource_id) {
+                var scope = this;
+                var scopeSplit = this.resource_id.split('.');
+                for (var k = 0; k < scopeSplit.length; k++) {
+                    scope = scope[scopeSplit[k]];
+                    if (scope == undefined) return;
+                }
+                var resource_id = scope
+            }
+            var id = resource_id || this.data.id;
+            return this.resource + '/' + id + this.buildParams();
+        };
+        Acme._Model.prototype.buildParams = function()
+        {
+            var query = '';
+            for(var i=0;i<this.query.length; i+=2) {
+                if (this.query[i+1] != false ) {
+                    query += (i===0) ? '?' : '&';
+                    query += this.query[i] + '=' + this.query[i+1];
+                }
+            }
+            return query;
+        };
+        Acme._Model.prototype.fetch = function(set)
+        {
+            var self = this;
+            var set = (set === void 0) ? true : set;
+            return Acme.server.request(self.url())
+            .done(function(r) {
+                if (set) self.set(r.data);
+            });
+        };
+        Acme._Model.prototype.update = function(data, msg)
+        {
+            var self = this;
+
+            return Acme.server.update(self.url(), data)
+            .done(function(d, status, xhr) {
+                if (xhr.status === 200) {
+                    self.set(data, msg);
+
+                    var message = self.resource + '/update';
+
+                    console.log(Acme.socket.send(JSON.stringify({action: message, value: self.data.id})));
+
+                }
+            });
+        };
+
+        Acme._Model.prototype.updater = function()
+        {
+            var self = this;
+            var _url = self.url();
+
+            return function(data, msg) {
+                return Acme.server.update(_url, data)
+                .done(function(d, status, xhr) {
+                    if (xhr.status === 200) {
+                        self.set(data, msg);
+                    }
+                });
+            }
+        };
+
+        Acme._Model.prototype.set = function(value, msg)
+        {
+            var suppress = msg || false;
+            for (var v in value) {
+                this.data[v] = value[v];
+            }
+            if (!suppress) {
+                var resource = {};
+                resource[this.resource] = this;
+                // Acme.PubSub.publish('state_changed', resource);
+                // Acme.PubSub.publish('update_state', resource);
+                Acme.PubSub.publish(this.resource + '/' + this.messages.set, this);
+            }
+        };
+        Acme._Model.prototype.delete = function()
+        {
+            var self = this;
+            var name = self.alias || self.resource;
+            var msg = name + '/delete';
+
+            console.log(Acme.socket.send(JSON.stringify({action: msg, value: self.data.id})));
+
+            return Acme.server.delete(self.url())
+            .done(function(response) {
+                if (response.data == true) {
+                    self.data = {};
+                    var data =  {};
+                    data[name] = null;
+                    console.log(data);
+                    Acme.PubSub.publish('update_state', data);
+                }
+            });
+        };
+
+
+
+
+    Acme.PubSub = {
+        topics : {},
+        lastUid : -1,
+    };
+
+        Acme.PubSub.publisher = function(topic, data) {
+            var self = this;
+            var Deferred = function() {
+                return {
+                    done: function(func) {
+                        this.func = func;
+                    },
+                    resolve: function() {
+                        if (this.func) {
+                            this.func();
+                        }
+                    }
+                }
+            };
+
+            if ( !this.topics.hasOwnProperty( topic ) ){
+                return false;
+            }
+
+            var dfd = Deferred();
+
+            var notify = function(){
+                var subscribers = self.topics[topic];
+                for ( var i = 0, j = subscribers.length; i < j; i++ ){
+                    var scope = window;
+                    var scopeSplit = subscribers[i].context.split('.');
+                    for (var k = 0; k < scopeSplit.length - 1; k++) {
+                        scope = scope[scopeSplit[k]];
+                        if (scope == undefined) return;
+                    }
+                    console.log('notifying');
+                    console.log(scope);
+
+                    scope[scopeSplit[scopeSplit.length - 1]][subscribers[i].func]( topic, data );
+                }
+                dfd.resolve();
+            };
+
+            setTimeout( notify , 0 );
+
+            return dfd;
+        };
+
+        Acme.PubSub.publish = function( topic, data ){
+            return this.publisher( topic, data, false );
+        };
+
+        Acme.PubSub.reset = function( ){
+            this.lastUid = -1;
+        };
+
+        Acme.PubSub.print = function(){
+            var subscribers = this.topics;
+            for (var sub in subscribers) {
+                for ( var i = 0; i < subscribers[sub].length; i++ ) {
+                }
+            }
+        };
+
+        Acme.PubSub.subscribe = function( subscription ) {
+            var callbacks = Object.keys(subscription);
+            var ret_topics = {};
+            console.log(subscription);
+            for (var i=0;i<callbacks.length; i++) {
+                for(var j=0;j<subscription[callbacks[i]].length;j++) {
+                    var topic = subscription[callbacks[i]][j];
+
+                    var context = callbacks[i].substring(0, callbacks[i].lastIndexOf('.'));
+                    var func = callbacks[i].substring(callbacks[i].lastIndexOf('.') + 1);
+                    if ( !this.topics.hasOwnProperty( topic ) ) {
+                        this.topics[topic] = [];
+                    }
+
+                   for (var k=0;k<this.topics[topic].length; k++) {
+                        if (this.topics[topic][k].context === context && this.topics[topic][k].func === func) {
+                            return;
+                        }
+                    }
+
+                    var token = (++this.lastUid).toString();
+
+                    this.topics[topic].push( { token : token, func : func, context : context } );
+                    ret_topics[topic] = this.topics[topic];
+                }
+
+            }
+            return ret_topics;
+        };
+
+        Acme.PubSub.unsubscribe = function( token ){
+            for ( var m in this.topics ){
+                if ( this.topics.hasOwnProperty( m ) ){
+                    for ( var i = 0, j = this.topics[m].length; i < j; i++ ){
+                        if ( this.topics[m][i].token === token ){
+                            this.topics[m].splice( i, 1 );
+                            return token;
+                        }
+                    }
+                }
+            }
+            return false;
+        };
+
+
+
+
+
+
+
+
+
+
+    Acme.listMenu = function(config)
+    {
+        this.defaultTemp      = Handlebars.compile('<div id="{{ name }}" class="pulldown"><p></p><span></span><ul data-key="{{ key }}" class="articleExtendedData"></ul></div>');
+        this.defaultItemTemp  = Handlebars.compile('<li data-value="{{value}}">{{label}}</li>');
+        this.menuParent       = config.parent        || {};
+        this.template         = config.template      || this.defaultTemp;
+        this.itemTemp         = config.itemTemp      || this.defaultItemTemp;
+        this.list             = config.list          || [];
+        this.defaultSelection = config.defaultSelect || null;
+        this.name             = config.name          || null;
+        this.key              = config.key           || null;
+        this.listContainer    = null;
+        this.defaultItem      = null;
+        return this;
+    };
+        Acme.listMenu.prototype.init = function(prepend)
+        {
+            var prepend = prepend || 'append';
+            this.menuParent[prepend]( this.template({"name": this.name, "key":this.key}) );
+            this.defaultItem   = $('#' + this.name+' p');
+            this.listContainer = $('#' + this.name+' ul');
+            this.events();
+            if (this.extendedEvents) this.extendedEvents();
+            return this;
+        };
+        Acme.listMenu.prototype.render = function()
+        {
+            this.listContainer.empty();
+            if (this.defaultSelection != null) {
+                this.defaultItem.text(this.defaultSelection.label);
+            }
+            var html = this.createList();
+            this.listContainer.append( html );
+            this.listElements  = this.listContainer.find('li');
+            this.listItemEvents();
+            return this;
+        };
+        Acme.listMenu.prototype.events = function()
+        {
+            var self = this;
+            this.defaultItem.parent().on('click', function(e) {
+                e.stopPropagation();
+                self.listContainer.toggle();
+            });
+        };
+        Acme.listMenu.prototype.createList = function()
+        {
+            var itemTemp = this.itemTemp;
+            var html = '';
+
+            for (var i=0; i<this.list.length; i++) {
+                html += itemTemp({
+                    'label'   :  this.list[i].label,
+                    'value'   :  this.list[i].value
+                });
+            }
+            return html;
+        };
+        Acme.listMenu.prototype.select = function(item)
+        {
+            var menuid = '#' + this.name + ' > p';
+            $(menuid).text(item);
+            return this;
+        };
+        Acme.listMenu.prototype.listItemEvents = function()
+        {
+            var self = this;
+            this.listContainer.on('click', function(e) {
+                $.each(self.listElements, function(i,e) {
+                    $(e).attr('checked', false);
+                });
+
+                var elem = $(e.target);
+                var value = elem.data('value');
+                elem.attr('checked', true);
+                var data = {};
+                data[self.name] = value;
+                Acme.PubSub.publish('update_state', data);
+                console.log('update_state', data);
+                self.defaultItem.text(elem.text());
+                self.defaultSelection.label = elem.text();
+                $(self.listContainer).hide(100);
+            });
+        };
+        Acme.listMenu.prototype.remove = function()
+        {
+            $('#' + this.name).remove();
+            return this;
+        }
+        Acme.listMenu.prototype.clear = function()
+        {
+            $('#' + this.name).html('');
+            return this;
+        }
+        Acme.listMenu.prototype.empty = function()
+        {
+            this.listContainer.empty();
+            return this;
+        }
+        Acme.listMenu.prototype.update = function(list)
+        {
+            this.list = list;
+            this.empty();
+            this.render();
+            return this;
+        }
+
+
+
+
     // $('.video-player').videoPlayer();
     
     // $("img.lazyload").lazyload({
@@ -30239,8 +30630,271 @@ HomeController.Blog = (function ($) {
     };
 
 }(jQuery));
-$('document').ready(function() {
+var ListingController = function() {
+    return new Listing();
+}
 
+Acme.jobsearch = Acme.Model.create({
+    'url' : 'search'
+});
+    // Acme.jobsearch.listeners = {
+    //     "regionSelect" : function(data) {
+    //         console.log(data);
+    //         var self = this;
+    //         this.query = ['s', data.regionSelect]; //, 'migrate', 'true'
+    //         this.fetch().done(
+    //             function(r) {
+    //                 if (r.data) {
+    //                     self.data = r.data;
+    //                     Acme.state.listener('update_state', {'jobsearch': self});
+    //                 }
+    //             }
+    //         );
+    //     }
+    // };
+    // Acme.jobsearch.subscriptions = Acme.PubSub.subscribe({
+    //     'Acme.jobsearch.listener' : [ "state_changed",
+    //                                   "update_state"]
+    // });
+
+
+
+
+Acme.searchArticles = new Acme._Collection(Acme.jobsearch);
+
+    Acme.searchArticles.subscriptions = Acme.PubSub.subscribe({
+        'Acme.searchArticles.listener' : [ "update_state" ]
+    });
+    Acme.searchArticles.listeners = {
+        "regionSelect" : function(data) {
+            console.log('FETCHING!!');
+            return this.fetch('search/search?s='+data.regionSelect);
+        }
+    };
+    Acme.searchArticles.fetch = function(url)
+    {
+        var self = this;
+        console.log('fetching');
+        var url = (url === undefined) ? this.url() : url;
+        var data = Acme.server.request( url );
+        data.done( function(response) {
+            self.articles = [];
+            for (var i=0; i<response.length; i++) {
+                self.articles.push( Object.create(self.model,
+                    {   'data' : {
+                            'value': response[i],
+                            'writable': true
+                        }
+                    }
+                ));
+            }
+            Acme.PubSub.publish('update_state', {'search': self});
+        });
+        return data;
+    };
+
+
+
+
+
+var Listing = function() {
+    this.events();
+};
+
+
+Listing.prototype.events = function() 
+{
+    var self = this;
+    console.log(_appJsConfig);
+    // if(_appJsConfig.isUserLoggedIn === 1) {
+        init();
+    // }
+
+    function init() {
+        console.log('initing form thing');
+        
+        $('.uploadFileBtn').uploadFile({
+               onSuccess: function(data, obj){
+                    console.log(data);
+                    var resultJsonStr = JSON.stringify(data);
+
+                    var postdata = {
+                        'blogs' : ["406b3a91-f4b3-4a97-b52b-82f601a5b93e"],
+                        'imgData' : resultJsonStr
+                    };
+
+                    console.log('calling server for image');
+                    
+                    Acme.server.create('article/save-image', postdata).done(function(r) {
+                        console.log(r);
+
+                        var arrayid = $(obj).data('id');
+                        var imageArray = $('#' + arrayid);
+                        var media = imageArray.attr('data-media');
+                        var mediaids = [];
+                        if (media != "") {
+                            mediaids = media.split(',');
+                        }
+                        var childCount = imageArray.children().length;
+                        var imgContainer = '<div id="formimage'+childCount+'" class="formimage"></div>';
+                        imageArray.append(imgContainer);
+                        var newimageid = '#formimage'+childCount;
+                        var newImage = $(newimageid);
+                        newImage.css('background-image', 'url(' + data.url + ')');
+                        newImage.attr('data-info', resultJsonStr);
+
+                        mediaids.push(r.media.media_id);
+                        imageArray.attr('data-media', mediaids);
+                        $().General_ShowNotification({message: 'Image added successfully' });
+
+                    }).fail(function(r) {
+                        console.log(r);
+                    });
+
+                    
+                }
+        });
+
+        $('#listingForm').submit(function(e) {
+            e.preventDefault();
+            var form = $(this);
+            var address = form.find("#title");
+            var content = form.find("#content");
+            var imageArray = $('#imageArray');
+            var data = {};
+            data['id'] = 0;
+            data['guid'] = "";
+            data['blogs'] = ["406b3a91-f4b3-4a97-b52b-82f601a5b93e"]; 
+            data['status'] = 'published';
+            data['title'] = address.val();
+            data['content'] = content.val();
+            data['media_ids'] = imageArray.attr('data-media');
+            if (data['media_ids'] != '') {
+                data['media_id'] = data['media_ids'].split(',')[0];
+            }
+            var extendedData = [];
+            $.each($('.articleExtendedData'), function (index, formField) {
+                console.log(formField);
+                formField = $(formField);
+                if(formField.is("select")) {
+                  var selectKey = formField.attr('name');
+                  var selectVal =  formField.find("option:selected").val();
+                  extendedData[selectKey] = selectVal;
+                }
+                else if(formField.is(":radio")) {
+                  var radioKey = formField.attr('name');
+                  var radioVal =  $("input[name='"+radioKey+"']:checked").val();
+                  extendedData[radioKey] = radioVal;
+                }
+                else if(formField.is(":checkbox")) {
+                    var checkboxKey =  formField.attr('name').slice(0, formField.attr('name').length - 2);
+                    var checkElement = [];
+                    $.each($("input[name='" + checkboxKey + "[]']:checked"), function (index, checkField) {
+                        var checkboxVal = $(checkField).val();
+                        checkElement.push(checkboxVal);
+                    });
+                  extendedData[checkboxKey] = checkElement;
+                }
+                else if(formField.is("ul")) {
+                    var checkboxKey =  formField.data('key');
+                    console.log(checkboxKey);
+                    var checkElement = [];
+                    var list = formField.find('li');
+                    $.each(list, function (index, checkField) {
+                        if ($(checkField).attr('checked') == 'checked') {
+                            extendedData[checkboxKey] = $(checkField).data('value');
+                            return;
+                        }
+                    });
+                  
+                }
+                else {
+                  var inputKey = formField.attr('name');
+                  var inputVal =  formField.val();
+                  extendedData[inputKey] = inputVal;
+                }
+            });
+
+            data['extendedData'] = extendedData;
+            console.log(data);
+
+            if (data['title'] == "") {
+                $.fn.General_ShowErrorMessage({message: "Article must have a title"});
+            }
+            if (data['content'] == "") {
+                $.fn.General_ShowErrorMessage({message: "Article must contain content"});
+            }
+            Acme.server.create('article/create', data).done(function(r) {
+                console.log('checking r');
+                console.log(r);
+            }).fail(function(r) {
+                console.log(r);
+            });
+            console.log('submitting form');
+        });
+    }  
+
+};
+
+
+
+var regionMenu = new Acme.listMenu({
+            'parent'        : $('#regionSelect'),
+            'list'          : [
+                {
+                    'label': "one",
+                    'value': "one"
+                },
+                {
+                    'label': "two",
+                    'value': "two"
+                },
+                {
+                    'label': "three",
+                    'value': "three"
+                },
+            ],
+            'defaultSelect' : {"label": 'Select region'},
+            'name'          : 'regionSelectMenu',
+            'key'           : 'region'
+}).init().render();
+
+var propertyMenu = new Acme.listMenu({
+            'parent'        : $('#propertySelect'),
+            'list'          : [
+                {
+                    'label': "Warehouse",
+                    'value': "warehouse"
+                },
+                {
+                    'label': "Factory",
+                    'value': "factory"
+                }
+            ],
+            'defaultSelect' : {"label": 'Type of property'},
+            'name'          : 'propertySelectMenu',
+            'key'           : 'type'
+
+}).init().render();
+
+var buyMenu = new Acme.listMenu({
+            'parent'        : $('#buySelect'),
+            'list'          : [
+                {
+                    'label': "Buy",
+                    'value': "buy"
+                },
+                {
+                    'label': "Lease",
+                    'value': "lease"
+                }
+            ],
+            'defaultSelect' : {"label": 'Bye/lease'},
+            'name'          : 'buySelectMenu',
+            'key'           : 'contracttype'
+}).init().render();
+
+$('document').ready(function() {
     var isMenuBroken, isMobile;
     var sbCustomMenuBreakPoint = 992;
     var mobileView = 620;
@@ -30257,65 +30911,24 @@ $('document').ready(function() {
     });
 
 
-    var server = {
-
-        create: function(uri, queryParams) {return this.call(uri, queryParams, 'post');},
-        request: function(uri, queryParams, datatype){return this.call(uri, queryParams, 'get', datatype);},
-        update: function(uri, queryParams) {return this.call(uri, queryParams, 'put');},
-        delete: function(uri, queryParams) {return this.call(uri, queryParams, 'delete');},
-        call: function(uri, queryParams, type, datatype) {
-
-            if (!window.location.origin) {
-                 window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
-            }
-            type = (typeof type !== 'undefined') ? type : 'get';
-
-            queryParams = (typeof queryParams !== 'undefined') ? queryParams : {};
-
-            // console.log(type + ': ' + window.location.origin + '/api/' + uri);
-            // if (Object.keys(queryParams).length > 0 ) console.log(queryParams);
-            console.log(uri);
-            return $.ajax({
-                url: uri,
-                data: queryParams,
-                dataType: datatype || "json",
-                type: type
-            }).fail(function(r) {
-                console.log(r);
-                if (r.status == 501 || r.status == 404) console.log(r.responseText);
-                if (r.responseJSON) console.log(r.responseJSON);
-                console.log(r.responseText);
-            });
-        },
-        callClient: function(uri, queryParams, type) {
-            type = (typeof type !== 'undefined') ? type : 'get';
-            queryParams = (typeof queryParams !== 'undefined') ? queryParams : '';
-            return $.ajax({
-                url: window.location.origin + uri,
-                data: queryParams,
-                dataType: "json",
-                type: type
-            });
-        }
-    }
 
 
 
-    var result = server.request("https://weather.pagemasters.com.au/weather", {'q':'melbourne'})
-        .done(function(r) {
-            console.log(r);
-            var weather = $('#weather');
-            var location = weather.find('.location');
-            var icon = weather.children('.icon');
-            var description = weather.find('.description');
-            var temperature = weather.children('.temp');
+    // var result = server.request("https://weather.pagemasters.com.au/weather", {'q':'melbourne'})
+    //     .done(function(r) {
+    //         console.log(r);
+    //         var weather = $('#weather');
+    //         var location = weather.find('.location');
+    //         var icon = weather.children('.icon');
+    //         var description = weather.find('.description');
+    //         var temperature = weather.children('.temp');
 
-            location.text(r.location.split('/')[1]);
-            description.text(r.description);
-            temperature.html(parseInt(r.temperature) + "&deg;");
-            console.log(location, icon, description, temperature);
+    //         location.text(r.location.split('/')[1]);
+    //         description.text(r.description);
+    //         temperature.html(parseInt(r.temperature) + "&deg;");
+    //         console.log(location, icon, description, temperature);
 
-        });
+    //     });
 
 
 
@@ -30521,33 +31134,6 @@ $('document').ready(function() {
             watch: true
         });
     }), 750);
-
-
-    // $('#submitlivestreamform').on('click', function(e) {
-    //     e.preventDefault();
-    //     var email = $('#submitlivestreamformemail').val();
-    //     var name = $('#submitlivestreamformname').val();
-    //     var lastname = $('#submitlivestreamformlastname').val();
-    //     var wantsmail = $('#submitlivestreamformgetmail').is(":checked");
-
-    //     if (email !== '' && name !== '' && lastname !== ''){
-    //         $.get( 'http://submit.pagemasters.com.au/wobi/submit.php?email='+encodeURI(email)+'&name='+encodeURI(name)+'&lastname='+encodeURI(lastname)+'&wantsemail='+encodeURI(wantsmail) );
-
-    //         $('#streamform').html(
-    //             "<style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style><div class='embed-container'><iframe width='640' height='360' src='https://secure.metacdn.com/r/j/bekzoqlva/wbfs/embed' frameborder='0' allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen </iframe></div>"
-    //         );
-
-    //         $('#streamformfooter').html(
-    //             "<h2>Thanks</h2>"
-    //         );
-           
-
-    //     } else {
-    //         alert ("Please fill out all fields.");
-    //     }
-
-    // });
-
 
 });
 
@@ -30763,7 +31349,6 @@ UserArticlesController.Load = (function ($) {
 
 
 (function ($) {
-    
     /**
      * Follow Unfollow blog on profile page
      */
@@ -30857,3 +31442,92 @@ UserArticlesController.Load = (function ($) {
     
 
 
+
+(function ($) {
+
+
+	var dropdown = function(date) {
+		return '<div class="weather-date">' + 
+					'<h1>Weather</h1>' + 
+					'<p>' + date + '</p>' + 
+				'</div>' + 
+				'<div id="weather-panels"></div>';
+	}
+
+    var localWeather = function(name, icon) {
+        return '<div id="' + name + '-weather" class="weather visible-md-block visible-lg-block">' +
+                    '<img class="show-weather" src="/themes/ubt/static/icons/weather/pointer-arrow-thin.svg">' + 
+                    '<div>' +
+                        '<p class="location" style="text-align:right;"></p>' + 
+                        '<p class="description"></p>' + 
+                    '</div>' + 
+                    '<img class="icon" src="/themes/ubt/static/icons/weather/' + icon + '.svg">' + 
+                    '<p class="temp"></p>' + 
+                '</div>';
+        }
+
+    var weatherPanel = function(name, icon) {
+    	return '<div id="' + name + '-weather" class="panel visible-md-block visible-lg-block">' +
+                    '<div style="display: flex">' + 
+                        '<img class="icon" src="/themes/ubt/static/icons/weather/' + icon + '.svg">' + 
+                        '<p class="temp"></p>' + 
+                    '</div>' +
+                    '<p class="location"></p>' + 
+                    '<p class="description"></p>' +
+                '</div>';
+	    }
+
+    var locations = [
+        'NZ/Auckland',
+        'NZ/Wellington',
+        'NZ/Nelson',
+        'NZ/Christchurch',
+        'NZ/Dunedin',
+        'NZ/Invercargill',
+    ];
+
+
+    $.ajax({
+        url: 'https://weather.pagemasters.com.au/weather?q=Australia/Melbourne',
+        dataType: "json",
+        type: 'GET',
+        success: function(res) {
+            var local = res.data[0];
+            var name = local.location.split('/')[1];
+
+            $('#weather').html(localWeather(name + '-local', local.icon));
+            $('#' + name + '-local-weather > div > p.location').text(name);
+            $('#' + name + '-local-weather > div > p.description').text(local.description);
+            $('#' + name + '-local-weather > p.temp').html(Math.round(local.temperature) + '&#176;');
+
+
+            $('.show-weather').on("click", function () {
+                $('.show-weather').toggleClass('flip');
+
+                $.ajax({
+                    url: 'https://weather.pagemasters.com.au/weather?q=' + locations.join(',') ,
+                    dataType: "json",
+                    type: 'GET',
+                    success: function(res) {
+
+                        $('.weather-dropdown').toggleClass('hidden');
+                        $('.weather-dropdown').html(dropdown('Thursday, 28th September'));
+
+                        res.data.forEach(function(l) {
+                            var name = l.location.split('/')[1];
+
+                            $('#weather-panels').append(weatherPanel(name, l.icon));
+
+                            $('#' + name + '-weather > .location').text(name);
+                            $('#' + name + '-weather > .description').text(l.description);
+                            $('#' + name + '-weather > div > p.temp').html(Math.round(l.temperature) + '&#176;');
+                        })
+                    }
+                })
+            })
+
+
+        }
+    })
+
+}(jQuery));

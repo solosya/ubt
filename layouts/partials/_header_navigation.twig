@@ -63,14 +63,19 @@
                         title="Home">
                     </a>
 
-                    <div id="weather" class="weather visible-md-block visible-lg-block">
+                    <div id="weather" class="weather"></div>
+                    <div class="visible-md-block visible-lg-block">
+                        <div class="weather-dropdown hidden"></div>
+                    </div>
+
+<!--                     <div id="weather" class="weather visible-md-block visible-lg-block">
                         <div>
                             <p class="location">location</p>
                             <p class="description">Partly Cloudy</p>
                         </div>
                         <img class="icon" src="{{networkData.templatePath}}/static/icons/weather_partly_cloudy.svg">
                         <p class="temp">21&deg;</p>
-                    </div>
+                    </div> -->
                     <!--  *********** -->
                     <!--  MOBILE MENU -->
                     <!--  *********** -->
@@ -131,7 +136,6 @@
                 </div>
             </div><!-- .header top-->  
         
-
             <div class="row header-bottom">
                 <div class="col-sm-12" style="padding:0">
                     <div class="row">
