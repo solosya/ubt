@@ -1,0 +1,111 @@
+{{ set(this, 'title', _Blog.getBlogTitle()) }}
+{{this.registerJs("window.Acme.cards = CardController();")}}
+
+
+{# {% set networkData = _Network.getNetworkData() %} #}
+{% set blogData    = _Blog.getBlog() %}
+{% set limit = 10 %}
+
+{% set user = false %}
+
+{% if not _User.isGuest %} 
+    {% set user = _User.getUser() %}
+    {% set userString = "window.Acme.currentUser = '" ~ user.guid ~ "';" %}
+    {{this.registerJs( userString )}}
+{% endif %} 
+
+{% set userArticlesArr = [] %}
+{% if user %} 
+    {% set userArticlesArr = _User.getUserArticles(user.guid, 0, limit, [blogData.id]) %}
+{% endif %}
+
+
+{# {% set events = _Event.getEvents() %} #}
+
+
+<!-- used to index each article as we loop over throughout the template -->
+{% set articleCount = 0 %}
+{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
+
+
+
+    <main id="main" class="container-fluid site-main listingForm" role="main" user="{{user.guid}}">
+        
+
+        <section class="row section">
+            <div class="col-sm-10 section-header">
+                <h2>{{blogData.title}}</h2>
+                <p class="description">
+                    {{blogData.shortDescription}}
+                </p>
+            </div>
+        </section>
+
+
+
+
+        <div class="row">
+            <div class="col-md-7">
+
+
+                <form class="" method="post" action="#" id="listingForm" data-articleId="">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="propertySelect" class="propertyListingSelect"></div>
+                            <div id="regionSelect" class="propertyListingSelect"></div>
+                            <div id="buySelect" class="propertyListingSelect"></div>
+
+
+                            <input type="text" class="" name="title" id="title" value="" placeholder="Address">
+                            <input type="text" class="articleExtendedData" name="extendedData.pricerange" id="pricerange" value="" placeholder="Price range">
+                            <input type="text" class="articleExtendedData" name="extendedData.landarea" id="landarea" value="" placeholder="Land area">
+                            <input type="text" class="articleExtendedData" name="extendedData.floorarea" id="floorarea" value="" placeholder="Floor area">
+                            <input type="text" class="articleExtendedData" name="extendedData.contactname" id="contactname" value="" placeholder="Contact name">
+                            <input type="text" class="articleExtendedData" name="extendedData.contactphone" id="contactphone" value="" placeholder="Contact phone">
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-9">
+                            <textarea name="content" id="content"></textarea>
+                        </div>
+                        <div class="col-md-3">
+                            <div data-imgcls="images" data-id="imageArray" class="uploadFileBtn">Upload logo <br />(optional)</div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div id="imageArray" data-media="" class="imagearray"></div>
+                    
+                            <button class="_btn" type="submit" id="listingFormSubmit">SEND</button>
+                            <button class="_btn" type="reset" id="listingFormClear">CLEAR</button>
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
+
+            <div id="userListings" class="col-sm-offset-1 col-md-4">
+
+                {% for article in userArticlesArr %}
+
+                    {{this.render('partials/_single-article.twig', {
+                        article: article, 
+                        position: loop.index,
+                        behaviour: 'noclick',
+                        imageSize: {width: 150, height: 120},
+                        template: 'listing',
+                        containerClass: "card-article-suggested listingCard"
+                    }) | raw}}
+
+                {% endfor %}
+            </div>
+        </div>
+
+    </main><!-- .site-main -->

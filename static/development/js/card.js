@@ -11,9 +11,9 @@ var Card = function() {
 Card.prototype.renderCard = function(card, cardClass, template)
 {
     var self = this;
-
+    console.log('rendering card');
     var template = (template) ? Acme[template] : Acme.systemCardTemplate;
-
+    console.log(card);
     card['containerClass'] = cardClass;
     card['pinTitle'] = (card.isPinned == 1) ? 'Un-Pin Article' : 'Pin Article';
     card['pinText'] = (card.isPinned == 1) ? 'Un-Pin' : 'Pin';
@@ -25,7 +25,6 @@ Card.prototype.renderCard = function(card, cardClass, template)
        card['blogClass']= 'card--blog_'+card.blog['id'];
     } 
     
-    console.log(template);                    
     var ImageUrl = $.image({media:card['featuredMedia'], mediaOptions:{width: 500 ,height:350, crop: 'limit'} });
     card['imageUrl'] = ImageUrl;
     var articleId = parseInt(card.articleId);
