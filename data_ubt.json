@@ -55,7 +55,8 @@
 				"total_views": "6",
 				"total_articles": "10",
 				"created_at": "1493860104",
-				"url": "http:\/\/themedev.cognitives.io/"
+				"url": "http:\/\/themedev.cognitives.io/",
+				"link": "http:\/\/themedev.cognitives.io/"
 			},
 			{
 				"id": "716",
@@ -81,7 +82,8 @@
 				"total_views": "0",
 				"total_articles": "0",
 				"created_at": "1493861433",
-				"url": "http:\/\/theme.aap.io\/@australia"
+				"url": "http:\/\/theme.aap.io\/@australia",
+				"link": "http:\/\/theme.aap.io\/@australia"
 			},
 			{
 				"id": "718",
@@ -107,7 +109,8 @@
 				"total_views": "0",
 				"total_articles": "0",
 				"created_at": "1493861433",
-				"url": "http:\/\/theme.aap.io\/@new-zealand"
+				"url": "http:\/\/theme.aap.io\/@new-zealand",
+				"link": "http:\/\/theme.aap.io\/@new-zealand"
 			},
 			{
 				"id": "723",
@@ -133,7 +136,8 @@
 				"total_views": "0",
 				"total_articles": "0",
 				"created_at": "1493862086",
-				"url": "http:\/\/theme.aap.io\/@world"
+				"url": "http:\/\/theme.aap.io\/@world",
+				"link": "http:\/\/theme.aap.io\/@world"
 			},
 			{
 				"id": "720",
@@ -159,7 +163,8 @@
 				"total_views": "0",
 				"total_articles": "0",
 				"created_at": "1493861466",
-				"url": "http:\/\/theme.aap.io\/@Business"
+				"url": "http:\/\/theme.aap.io\/@Business",
+				"link": "http:\/\/theme.aap.io\/@Business"
 			},
 
 
@@ -186,7 +191,8 @@
 				"total_views": "0",
 				"total_articles": "0",
 				"created_at": "1493861482",
-				"url": "http:\/\/theme.aap.io\/@sport"
+				"url": "http:\/\/theme.aap.io\/@sport",
+				"link": "http:\/\/theme.aap.io\/@sport"
 			},
 			{
 				"id": "731",
@@ -211,7 +217,8 @@
 				"total_views": "0",
 				"total_articles": "0",
 				"created_at": "1493861446",
-				"url": "http:\/\/theme.aap.io\/@community"
+				"url": "http:\/\/theme.aap.io\/@community",
+				"link": "http:\/\/theme.aap.io\/@community"
 			},
 			{
 				"id": "722",
@@ -237,7 +244,8 @@
 				"total_views": "0",
 				"total_articles": "0",
 				"created_at": "1493861496",
-				"url": "http:\/\/theme.aap.io\/@conference-2014"
+				"url": "http:\/\/theme.aap.io\/@conference-2014",
+				"link": "http:\/\/theme.aap.io\/@conference-2014"
 			},
 			{
 				"id": "116",
@@ -263,7 +271,8 @@
 				"total_views": "0",
 				"total_articles": "0",
 				"created_at": "1493861433",
-				"url": "http:\/\/theme.aap.io\/@national"
+				"url": "http:\/\/theme.aap.io\/@national",
+				"link": "http:\/\/theme.aap.io\/@national"
 			},
 			{
 				"id": "16",
@@ -289,7 +298,8 @@
 				"total_views": "0",
 				"total_articles": "0",
 				"created_at": "1493861433",
-				"url": "http:\/\/theme.aap.io\/@listing"
+				"url": "http:\/\/theme.aap.io\/@listing",
+				"link": "http:\/\/theme.aap.io\/@listing"
 			},
 			{
 				"id": "1666",
@@ -315,7 +325,8 @@
 				"total_views": "0",
 				"total_articles": "0",
 				"created_at": "1493861433",
-				"url": "http:\/\/theme.aap.io\/@realestate"
+				"url": "http:\/\/theme.aap.io\/@realestate",
+				"link": "http:\/\/theme.aap.io\/@realestate"
 			},
 			{
 				"id": "89",
@@ -341,7 +352,8 @@
 				"total_views": "0",
 				"total_articles": "0",
 				"created_at": "1493861433",
-				"url": "http:\/\/theme.aap.io\/@jobs-form"
+				"url": "http:\/\/theme.aap.io\/@jobs-form",
+				"link": "http:\/\/theme.aap.io\/@jobs-form"
 			},
 			{
 				"id": "69",
@@ -367,7 +379,8 @@
 				"total_views": "0",
 				"total_articles": "0",
 				"created_at": "1493861433",
-				"url": "http:\/\/theme.aap.io\/@jobs"
+				"url": "http:\/\/theme.aap.io\/@jobs",
+				"link": "http:\/\/theme.aap.io\/@jobs"
 			}
 		],
 		"styling": {
