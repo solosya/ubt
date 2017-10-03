@@ -31445,6 +31445,7 @@ UserArticlesController.Load = (function ($) {
 
 (function ($) {
 
+    console.log(_appJsConfig);
 
 	var dropdown = function(date) {
 		return '<div class="weather-date">' + 
@@ -31457,7 +31458,7 @@ UserArticlesController.Load = (function ($) {
     var localWeather = function(name, icon) {
         return '<div id="' + name + '-weather" class="weather visible-md-block visible-lg-block">' +
                     '<img class="show-weather" src="/themes/ubt/static/icons/weather/pointer-arrow-thin.svg">' + 
-                    '<div>' +
+                    '<div style="margin-right:15px;">' +
                         '<p class="location" style="text-align:right;"></p>' + 
                         '<p class="description"></p>' + 
                     '</div>' + 
@@ -31477,18 +31478,32 @@ UserArticlesController.Load = (function ($) {
                 '</div>';
 	    }
 
-    var locations = [
-        'NZ/Auckland',
-        'NZ/Wellington',
-        'NZ/Nelson',
-        'NZ/Christchurch',
-        'NZ/Dunedin',
-        'NZ/Invercargill',
-    ];
+    var cities = {
+        'Australia': [
+            'Australia/Sydney',
+            'Australia/Melbourne',
+            'Australia/Brisbane',
+            'Australia/Perth',
+            'Australia/Adelaide',
+            'Australia/Hobart',
+            'Australia/Canberra',
+            'Australia/Darwin',
+        ],
+        'NZ': [
+            'NZ/Auckland',
+            'NZ/Wellington',
+            'NZ/Nelson',
+            'NZ/Christchurch',
+            'NZ/Dunedin',
+            'NZ/Invercargill',
+        ],
+    };
 
+    var country = 'Australia';
+    var locations = cities[country];
 
     $.ajax({
-        url: 'https://weather.pagemasters.com.au/weather?q=Australia/Melbourne',
+        url: 'https://weather.pagemasters.com.au/weather?q=' + locations[0],
         dataType: "json",
         type: 'GET',
         success: function(res) {

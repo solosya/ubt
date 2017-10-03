@@ -1,6 +1,5 @@
 (function ($) {
 
-
 	var dropdown = function(date) {
 		return '<div class="weather-date">' + 
 					'<h1>Weather</h1>' + 
@@ -12,7 +11,7 @@
     var localWeather = function(name, icon) {
         return '<div id="' + name + '-weather" class="weather visible-md-block visible-lg-block">' +
                     '<img class="show-weather" src="/themes/ubt/static/icons/weather/pointer-arrow-thin.svg">' + 
-                    '<div>' +
+                    '<div style="margin-right:15px;">' +
                         '<p class="location" style="text-align:right;"></p>' + 
                         '<p class="description"></p>' + 
                     '</div>' + 
@@ -32,18 +31,37 @@
                 '</div>';
 	    }
 
-    var locations = [
-        'NZ/Auckland',
-        'NZ/Wellington',
-        'NZ/Nelson',
-        'NZ/Christchurch',
-        'NZ/Dunedin',
-        'NZ/Invercargill',
-    ];
+    var getLocations = function(country) {
+        switch (country) {
+            case 'nz':
+                return [
+                    'NZ/Auckland',
+                    'NZ/Wellington',
+                    'NZ/Nelson',
+                    'NZ/Christchurch',
+                    'NZ/Dunedin',
+                    'NZ/Invercargill',
+                ];
+                break;
+            default:
+                return [
+                    'Australia/Sydney',
+                    'Australia/Melbourne',
+                    'Australia/Brisbane',
+                    'Australia/Perth',
+                    'Australia/Adelaide',
+                    'Australia/Hobart',
+                    'Australia/Canberra',
+                    'Australia/Darwin',
+                ];
+        }
+    }
 
+    var country = _appJsConfig.appHostName.split('.').reverse()[0];
+    var locations = getLocations(country)
 
     $.ajax({
-        url: 'https://weather.pagemasters.com.au/weather?q=Australia/Melbourne',
+        url: 'https://weather.pagemasters.com.au/weather?q=' + locations[0],
         dataType: "json",
         type: 'GET',
         success: function(res) {
