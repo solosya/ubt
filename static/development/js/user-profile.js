@@ -1,5 +1,4 @@
 (function ($) {
-    
     /**
      * Follow Unfollow blog on profile page
      */
