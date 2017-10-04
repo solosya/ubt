@@ -29690,6 +29690,7 @@ Card.prototype.events = function()
 
     Acme.View.create = function(config)
     {
+        console.log('ffffff');
         function obj() {};
         obj.prototype = Object.create(Acme.listen.prototype,
             {
