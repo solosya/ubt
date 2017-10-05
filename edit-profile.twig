@@ -8,7 +8,6 @@
 };" %}
 {{this.registerJs( userString )}}
 
-
 <!-- Begin User Profile Page -->
 {% set user = _User.getUser()%}
 <main id="main" class="user_profile listingForm" role="main">
@@ -24,8 +23,7 @@
                         <div class="profile-header">
                             <p>My Details</p>
                             <div class="name-inputs">
-                                <span contenteditable="true">{{user.firstname}}</span>
-                                <span contenteditable="true">{{user.lastname}}</span>
+                                <span>{{user.firstname}} {{user.lastname}}</span>
 
                                 <input type="text" id="firstname" class="form-control hidden" name="firstname" value="{{user.firstname}}" placeholder="First" >
                                 <input type="text" id="lastname" class="form-control hidden" name="lastname" value="{{user.lastname}}" placeholder="Last" >
@@ -35,6 +33,16 @@
                         <form id="profile-form" class="form-horizontal" action="" method="post" enctype="multipart/form-data" autocomplete="off" >
                             <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" />
                             <input type="hidden" name="profileImage" id="userProfileImage" value="" />
+
+                            <div class="inline-inputs">
+                                <label for="firstname">First name</label>
+                                <input type="text" id="firstname" class="form-control" name="firstname" value="{{user.firstname}}" placeholder="firstname" >
+                            </div>
+
+                            <div class="inline-inputs">
+                                <label for="lastname">Last name</label>
+                                <input type="text" id="lastname" class="form-control" name="lastname" value="{{user.lastname}}" placeholder="lastname" >
+                            </div>                            
                            
                             <div class="inline-inputs">
                                 <label for="username">Username</label>

@@ -31,9 +31,6 @@
         font-weight: normal;
         line-height: 1.2;
         color: color(red);
-        &:after {
-            content: '\00a0';
-        }
     }
 
     [contenteditable="true"]:focus {
