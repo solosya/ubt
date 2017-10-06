@@ -499,9 +499,7 @@
         };
         Acme.listMenu.prototype.reset = function()
         {
-            // console.log(this.defaultSelection);
             var menuid = '#' + this.name + ' > p';
-            // console.log(menuid);
             $(menuid).text(this.defaultSelection.label);
             return this;
         };

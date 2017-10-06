@@ -12,7 +12,7 @@
     {% set articleImg = _Media.getMediaUrl(article.media[0],1094, 515, {'crop': 'fill', 'gravity': 'auto'} ) %}
 {% endif %}
 
-{% set publishDate = _AppHelper.getDateTimeBasedOnTimezone(article.publishDate, 'F, Y') %}
+{% set publishDate = _AppHelper.getDefaultTimezoneDateTime(article.publishDate, 'F, Y') %}
 
 {% set articles = _Article.getPopularArticles({ limit: 10, excludeArticleIds : article.id }) %}
 {% set popularArticles = _Article.getPopularArticles({ limit: 5, sortBy: 'VIEWS', blogId: article.blog.id, type: 'article' }) %}
@@ -20,6 +20,7 @@
 
 {% set articleCount = 0 %}
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
+
 
 
 

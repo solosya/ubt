@@ -3,9 +3,77 @@
         "event" : {
            "enabled" : true
         },
-        "blog" : {
-           "endUserAccess" : ["110", "115", "114", "117"]
+        "article" : {
+            "extendedAttributes": [
+                {
+                    "name": "company",
+                    "label": "Company",
+                    "type": "inputbox"
+                },
+                {
+                    "name": "website",
+                    "label": "website",
+                    "type": "inputbox"
+                },
+                {
+                    "name": "location",
+                    "label": "location",
+                    "type": "inputbox"
+                },
+                {
+                    "name": "salary",
+                    "label": "salary",
+                    "type": "inputbox"
+                },
+                {
+                    "name": "salaryrange",
+                    "label": "salaryrange",
+                    "type": "inputbox"
+                },
+                {
+                    "name": "contactname",
+                    "label": "contactname",
+                    "type": "inputbox"
+                },
+                {
+                    "name": "contactphone",
+                    "label": "contactphone",
+                    "type": "inputbox"
+                },
+                {
+                    "name": "contracttype",
+                    "label": "contracttype",
+                    "type": "inputbox"
+                },
+                {
+                    "name": "floorarea",
+                    "label": "floorarea",
+                    "type": "inputbox"
+                },
+                {
+                    "name": "landarea",
+                    "label": "landarea",
+                    "type": "inputbox"
+                },
+                {
+                    "name": "pricerange",
+                    "label": "pricerange",
+                    "type": "inputbox"
+                },
+                {
+                    "name": "region",
+                    "label": "region",
+                    "type": "inputbox"
+                },
+                {
+                    "name": "type",
+                    "label": "type",
+                    "type": "inputbox"
+                }
+            ]
+        },
+        "blog" : {            
+            "endUserAccess" : ["110", "115", "114", "117", "118", "119", "120"]
         }
-
     }
 }

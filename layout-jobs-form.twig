@@ -15,8 +15,8 @@
 {% endif %} 
 
 {% set userArticlesArr = [] %}
-{% if user %} 
-    {% set userArticlesArr = _User.getUserArticles(user.guid, 0, limit, [blogData.id]) %}
+{% if user %}                                                         {# 114 is jobs listings blog id #}
+    {% set userArticlesArr = _User.getUserArticles(user.guid, 0, limit, {'blogs':[114,119], 'status': 'all'}) %}
 {% endif %}
 
 
@@ -32,11 +32,14 @@
     <main id="main" class="container-fluid site-main listingForm" role="main">
         
         <section class="row section">
-            <div class="col-sm-10 section-header">
+            <div class="col-md-7 section-header">
                 <h2>{{blogData.title}}</h2>
                 <p class="description">
                     {{blogData.shortDescription}}
                 </p>
+            </div>
+            <div class="col-sm-offset-1 col-md-4 section-header">
+                <h2 id="userlistingsrefresh">Your listings</h2>
             </div>
         </section>
 
@@ -58,7 +61,7 @@
                     <div class="row">
                         <div class="col-sm-12">
 
-                            <input type="text" class="" name="title" id="title" value="" placeholder="Job Title">
+                            <input type="text" class="" name="title" id="title" value="" placeholder="Job title">
                             <input type="text" class="articleExtendedData" name="extendedData.location" id="location" value="" placeholder="Job location (suburb or postcode)">
                             
                             <p class="form-section-label">Salary (optional)</p>
@@ -87,7 +90,7 @@
                             <textarea name="content" class="job-description" id="content"  placeholder="Description"></textarea>
                             <div id="imageArray" data-media="" class="imagearray"></div>
 
-                            <button class="_btn" type="submit" id="listingFormSubmit">SEND</button>
+                            <button class="_btn" type="submit" id="listingFormSubmit">SUBMIT</button>
                             <button class="_btn" type="reset"  id="listingFormClear">CLEAR</button>
                         </div>
                     </div>
@@ -96,7 +99,7 @@
 
             </div>
             <div  id="userListings" class="col-sm-offset-1 col-md-4">
-
+                
                 {% for article in userArticlesArr %}
 
                     {{this.render('partials/_single-article.twig', {
@@ -105,7 +108,7 @@
                         behaviour: 'noclick',
                         imageSize: {width: 150, height: 120},
                         template: 'listing',
-                        containerClass: "card-article-suggested listingCard"
+                        containerClass: "card-form-listing listingCard"
                     }) | raw}}
 
                 {% endfor %}

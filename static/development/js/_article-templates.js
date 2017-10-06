@@ -8,9 +8,10 @@ var cardTemplateTop =
 '<div class="{{containerClass}} "> \
     <a  itemprop="url" \
         href="{{url}}" \
-        class="card swap" \
+        class="card swap {{articleStatus}}" \
         data-id="{{articleId}}" \
         data-position="{{position}}" \
+        data-status="{{articleStatus}}" \
         data-social="0" \
         data-article-image="{{{imageUrl}}}" \
         data-article-text="{{title}}"> \
@@ -50,7 +51,6 @@ Acme.jobsCardTemplate =
                 <time datetime="{{publishDate}}">{{publishDate}}</time>\
             </div>\
             <h2>{{{ title }}}</h2>\
-            <p class="company">{{{ additionalInfo.company }}}</p>\
             <p class="excerpt">{{{ excerpt }}}</p>\
             <div class="author">\
                 <img src="{{profileImg}}" class="img-circle">\

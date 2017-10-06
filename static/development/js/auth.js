@@ -3,7 +3,7 @@ var AuthController = (function ($) {
         loginOrSignup: function () {
             AuthController.LoginOrSignup.init();
         },
-        socialSingup: function () {
+        socialSignup: function () {
             AuthController.SocialSignup.init();
         },
         forgotPassword: function () {
@@ -41,7 +41,7 @@ AuthController.LoginOrSignup = (function ($) {
 AuthController.SocialSignup = (function ($) {
 
     var attachEvents = function () {
-        $("#signupForm").validateSoicalSignupForm();
+        $("#signupForm").validateSocialSignupForm();
     };
 
     return {
@@ -79,30 +79,23 @@ AuthController.ForgotPassword = (function ($) {
 AuthController.ResetPassword = (function ($) {
 
     var attachEvents = function () {
-        $("#resetPasswordForm").validate({
-            rules: {
-                password: {
-                    required: true,
-                    minlength: 6
-                },
-                verifypassword: {
-                    required: true,
-                    minlength: 5,
-                    equalTo: "#password"
-                }
-            },
-            messages: {
-                password: {
-                    required: "Password cannot be blank.",
-                    minlength: "Password should contain at least 6 characters."
-                },
-                verifypassword: {
-                    required: "Verify password cannot be blank.",
-                    minlength: "Verify Password should contain at least 6 characters.",
-                    equalTo: "Verify Password should exactly match Password"
-                }
+        $('.forgotten-password-modal__container').addClass('active');
+        $('.forgotten-password-modal__content--change-password').addClass('active');
+        
+        function getParameterByName(name, url) {
+            if (!url) {
+              url = window.location.href;
             }
-        });
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        var token = getParameterByName('token');
+        $('#reset-token').val(token);
     };
 
     return {
