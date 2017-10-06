@@ -12,9 +12,16 @@ Card.prototype.renderCard = function(card, cardClass, template)
 {
     var self = this;
     console.log('rendering card');
+    console.log(template);
+
     var template = (template) ? Acme[template] : Acme.systemCardTemplate;
     console.log(card);
     card['containerClass'] = cardClass;
+    if (card.status == "draft") {
+        card['articleStatus'] = "draft";
+        card['containerClass'] += " draft"; 
+    }
+
     card['pinTitle'] = (card.isPinned == 1) ? 'Un-Pin Article' : 'Pin Article';
     card['pinText'] = (card.isPinned == 1) ? 'Un-Pin' : 'Pin';
     card['promotedClass'] = (card.isPromoted == 1)? 'ad_icon' : '';

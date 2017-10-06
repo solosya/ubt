@@ -1,3 +1,11 @@
+@mixin text-md($letter-spacing: -0.0135em, $color: black, $font-weight: 400, $line-height: 1.46, $font-multiplier: 1) {
+	font-size: ($baseFontSize * $font-multiplier);
+	font-weight: $font-weight;
+	line-height: $line-height;
+	letter-spacing: $letter-spacing;
+	color: $color;
+}
+
 @mixin tintbefore($value:0.4) {
 	&:before {
 	  content: '';

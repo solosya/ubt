@@ -23,6 +23,12 @@
     {% set imgHeight = (imageSize.height is defined) ? imageSize.height : 0 %}
 {% endif %}
 
+{% set articleStatus = "" %}
+{% if article.status is defined and article.status == "draft" %}
+    {% set articleStatus = article.status %}
+{% endif %}
+
+
 
 {% if article.articleId > 0 or (isArticle is defined and isArticle == 'true') %}
 
@@ -51,8 +57,9 @@
     <div class="{{containerClass}}" data-title="{{ articleTitle | raw }}">
 
         <a  href="{{article.url}}" 
-            class="{{swap}} card article {{hasArticleMediaClass}}" 
+            class="{{swap}} card article {{hasArticleMediaClass}} {{articleStatus}}" 
             data-id="{{article.articleId}}" 
+            data-status="{{articleStatus}}" 
             data-guid="{{article.guid}}" 
             data-position="{{position}}" 
             data-social="0"
