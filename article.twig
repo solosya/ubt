@@ -15,7 +15,7 @@
 {% set publishDate = _AppHelper.getDateTimeBasedOnTimezone(article.publishDate, 'F, Y') %}
 
 {% set articles = _Article.getPopularArticles({ limit: 10, excludeArticleIds : article.id }) %}
-{% set popularArticles = _Article.getPopularArticles({ limit: 5, sortBy: 'VIEWS', blogId: blogInfo.id, type: 'article' }) %}
+{% set popularArticles = _Article.getPopularArticles({ limit: 5, sortBy: 'VIEWS', blogId: article.blog.id, type: 'article' }) %}
 {% set suggestedArticles = _Article.getPopularArticles({ limit: 6, sortBy: 'VIEWS', scope: 'network' }) %}
 
 {% set articleCount = 0 %}

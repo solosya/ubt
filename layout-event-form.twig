@@ -46,49 +46,41 @@
             <div class="col-md-7">
 
                 <form class="" method="post" action="#" id="listingForm">
-                    <div class="row">
-                        <div class="col-sm-9">
-                            <input type="text" class="articleExtendedData" name="extendedData.company" id="company" value="" placeholder="Company name">
-                            <input type="text" class="articleExtendedData" name="extendedData.website" id="website" value="" placeholder="Website (optional)">
+                    <input type="text" class="articleExtendedData" name="" id="title" value="" placeholder="Name of event">
+                    <input type="text" class="articleExtendedData" name="extendedData.date" id="eventDate" value="" placeholder="Date">
+                    <input type="text" class="articleExtendedData" name="extendedData.time" id="eventTime" value="" placeholder="Time">
+
+                    <p class="form-section-label">Location</p>
+
+                    <fieldset>
+                        <div class="inline">
+                            <input type="radio" name="extendedData.salary" id="map1" class="articleExtendedData" value="1" checked="checked" />
+                            <label for="map1">Show map</label>
                         </div>
-                        <div class="col-sm-3">
-                            <div data-imgcls="images" data-id="imageArray" class="uploadFileBtn jobs">Upload logo <br />(optional)</div>
+                        <div class="inline">
+                            <input type="radio" name="extendedData.salary" id="map2" class="articleExtendedData" value="2" />
+                            <label for="map2">Hide map</label>
+                        </div>
+
+                    </fieldset>
+                    <input type="text" class="articleExtendedData" name="extendedData.address" id="address" value="" placeholder="Address">
+                    
+                    <div class="row">
+                        <div class="col-md-9">
+                            <textarea name="content" id="content"></textarea>
+                        </div>
+                        <div class="col-md-3">
+                            <div data-imgcls="images" data-id="imageArray" class="uploadFileBtn">Upload logo <br />(optional)</div>
                         </div>
                     </div>
+
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-md-12">
 
-                            <input type="text" class="" name="title" id="title" value="" placeholder="Job Title">
-                            <input type="text" class="articleExtendedData" name="extendedData.location" id="job-location" value="" placeholder="Job location (suburb or postcode)">
-                            
-                            <p class="form-section-label">Salary (optional)</p>
-
-                            <fieldset>
-                                <div class="inline">
-                                    <input type="radio" name="extendedData.salary" id="salary1" class="articleExtendedData" value="1" checked="checked" />
-                                    <label for="salary1">Annual salary package</label>
-                                </div>
-                                <div class="inline">
-                                    <input type="radio" name="extendedData.salary" id="salary2" class="articleExtendedData" value="2" />
-                                    <label for="salary2">Annual &amp; Commission</label>
-                                </div>
-                                <div class="inline">
-                                    <input type="radio" name="extendedData.salary" id="salary3" class="articleExtendedData" value="3" />
-                                    <label for="salary3">Commission only</label>
-                                </div>
-                                <div class="inline">
-                                    <input type="radio" name="extendedData.salary" id="salary4" class="articleExtendedData" value="4" />
-                                    <label for="salary4">Hourly rate</label>
-                                </div>
-
-                            </fieldset>
-                            <input type="text" class="articleExtendedData" name="extendedData.salaryrange" id="salary" value="" placeholder="Salary range">
-                            
-                            <textarea name="content" class="job-description" id="content"  placeholder="Description"></textarea>
                             <div id="imageArray" data-media="" class="imagearray"></div>
-
+                    
                             <button class="_btn" type="submit" id="listingFormSubmit">SEND</button>
-                            <button class="_btn" type="reset"  id="listingFormClear">CLEAR</button>
+                            <button class="_btn" type="reset" id="listingFormClear">CLEAR</button>
                         </div>
                     </div>
                 </form>
