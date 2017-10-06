@@ -11,10 +11,10 @@
 {% set blogName      = blogData.title %}
 {% set layout        = blogData.layout %}
 
-{% if _User.isGuest() %}
+{# {% if _User.isGuest() %}
     {% set layout = 'layout-marketing' %}
 {% endif %}
-
+ #}
 
 
 
@@ -137,11 +137,11 @@
 
 
 
-    {% if _User.isGuest() %}
+{#     {% if _User.isGuest() %}
         {{ this.render('../layout-marketing.twig') | raw }}
     {% else %}
-        {{ content | raw }}
-    {% endif %}
+ #}        {{ content | raw }}
+    {# {% endif %} #}
 
 
 
