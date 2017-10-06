@@ -16,25 +16,31 @@
     display: flex;
     flex-direction: row;
     label {
-        flex: 1;
+        flex: 2;
     }
-    input {
-        flex: 4;
+    input, span {
+        flex: 7;
     }
 }
 
-.name-inputs {
-    display: flex;
-    flex-direction: row;
+.change-password {
+    font-style: italic;
+    font-size: rem(12);
+    color: color(lightgrey);
+    position: relative;
+    top: -25px;
+    &:hover {
+        color: color(red);
+        cursor: pointer;
+    }
+}
+
+.name {
     span {
         font-size: rem(25);
         font-weight: normal;
         line-height: 1.2;
         color: color(red);
-    }
-
-    [contenteditable="true"]:focus {
-        outline: none;
     }
 }
 
@@ -42,13 +48,26 @@
 
     font-family: $font-family-sans-serif;
 
-
     label {
         font-size: rem(13);
         height: 44px;
         line-height: 44px;
         color: color(darkblue);
         font-weight: bold;
+    }
+
+    button {
+        background-color: rgba(0,0,0,0.0) !important;
+        color: color(red) !important;
+        border: none;
+        float: right;
+        margin-top: 15px !important; 
+    }
+
+    .button-full {
+        width: 100%;
+        border-top: 1px solid black;
+        margin-top: 15px;
     }
 
     .profile-header {

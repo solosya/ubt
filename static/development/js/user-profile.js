@@ -14,39 +14,17 @@ Acme.UserProfile = Acme.View.create(
         var self = this;
 
         $('input, textarea').on("change", function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            var data = {};
-            var elem = $(e.target);
-            data[elem.attr('name')] = elem.val();
-            self.updateData(data);
-            console.log(self.data);
         });
 
         $('#profile-form').submit(function(e) {
-            e.preventDefault();
-            console.log(self.data);
-
-            if (self.data['first'] === undefined || self.data['first'] == "") {
-                Acme.dialog.show("User must have a first name", "Error");
-                return;
-            }
-            if (self.data['username'] === undefined || self.data['username'] == "") {
-                Acme.dialog.show("User must have a username");
-                return;
-            }
-            if (self.data['first'] === undefined || self.data['first'] == "") {
-                Acme.dialog.show("User must have a first name", "Error");
-                return;
-            }
-
-            Acme.server.create('article/create', self.data).done(function(r) {
-                Acme.PubSub.publish('update_state', {'userArticles': ''});
-                console.log(r);
-            }).fail(function(r) {
-                console.log(r);
-            });
         });
+
+        $('.change-password').on("click", function(e) {
+            $('#password').removeAttr('disabled');
+            $('#password').attr("placeholder", "Enter new password")
+            $('.verifypassword').removeClass('hidden');
+            this.remove();
+        })
 
     },
     "construct": function() 
@@ -58,4 +36,8 @@ Acme.UserProfile = Acme.View.create(
         this.render();
         this.events();
     }
+});
+
+$('[data-dismiss="alert"]').on('click', function(e) {
+    this.closest('div').remove();
 });

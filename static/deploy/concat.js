@@ -29690,7 +29690,6 @@ Card.prototype.events = function()
 
     Acme.View.create = function(config)
     {
-        console.log('ffffff');
         function obj() {};
         obj.prototype = Object.create(Acme.listen.prototype,
             {
@@ -31723,100 +31722,48 @@ UserArticlesController.Load = (function ($) {
 
 
 
-(function ($) {
-    /**
-     * Follow Unfollow blog on profile page
-     */
-    $('.FollowUnfollowBlog').followBlog({
-        onSuccess: function (data, obj) {
-            var status = $(obj).data('status');
-            if($(obj).hasClass('hasStar')) {
-                (status == 'unfollow') ? $(obj).addClass('selected') : $(obj).removeClass('selected');
-            }  
-        },
-        beforeSend: function (obj) {
-            $(obj).find('.fa').addClass('fa-spin fa-spinner');
-        },
-        onError: function (obj, errorMessage) {
-            $().General_ShowErrorMessage({message: errorMessage});
-        },
-        onComplete: function (obj) {
-            $(obj).find('.fa').removeClass('fa-spin fa-spinner');
-        }
-    });
-    
-    
-    /**
-     * Follow Profile User on Profile Page
-     */
-    $('.FollowProfileUser').followUser({
-        onSuccess: function (data, obj) {
-            var status = $(obj).data('status');
-            $(obj).get(0).lastChild.nodeValue = " " + status.substr(0,1).toUpperCase()+status.substr(1);
-            var message = ($(obj).data('status') === 'follow') ? 'Unfollow' : 'Follow';
-            $.fn.General_ShowNotification({message: message + " user successfully."});   
-        },
-        beforeSend: function (obj) {
-            $(obj).find('.fa').addClass('fa-spin fa-spinner');
-        },
-        onError: function (obj, errorMessage) {
-            $().General_ShowErrorMessage({message: errorMessage});
-        },
-        onComplete: function (obj) {
-            $(obj).find('.fa').removeClass('fa-spin fa-spinner');
-        }
-    });
-    
-  
-    /**
-     * Follow Unfollow Writer on profile page
-     */
-    $('.FollowUnfollowWriter').followUser({
-        onSuccess: function (data, obj) {
-            var status = $(obj).data('status');
-            if($(obj).hasClass('hasStar')) {
-                (status == 'unfollow') ? $(obj).addClass('selected') : $(obj).removeClass('selected');
-            }
-        },
-        onError: function (obj, errorMessage) {
-            $().General_ShowErrorMessage({message: errorMessage});
-        },
-        beforeSend: function (obj) {
-            $(obj).find('.fa').addClass('fa-spin fa-spinner');
-        },
-        onComplete: function (obj) {
-            $(obj).find('.fa').removeClass('fa-spin fa-spinner');
-        }
-    });
-    
-    /**
-     * Follow Unfollow User On Profile page
-     */
-    $('.FollowUnfollowUser').followUser({
-        onSuccess: function (data, obj) {
-            var status = $(obj).data('status');
-            if($(obj).hasClass('hasStar')) {
-                (status == 'unfollow') ? $(obj).addClass('selected') : $(obj).removeClass('selected');
-            }
-        },
-        onError: function (obj, errorMessage) {
-            $().General_ShowErrorMessage({message: errorMessage});
-        },
-        beforeSend: function (obj) {
-            $(obj).find('.fa').addClass('fa-spin fa-spinner');
-        },
-        onComplete: function (obj) {
-            $(obj).find('.fa').removeClass('fa-spin fa-spinner');
-        }
-    });
-    
+Acme.UserProfile = Acme.View.create(
+{
+    "container"     : {
+        'main'          : $('#listingForm')
+    },
+    "listeners"     : {
+    },
+    "render": function() {
+        console.log('in the render function');
+        console.log(this.data);
+    },
+    "events": function() 
+    {
+        var self = this;
 
-}(jQuery));
+        $('input, textarea').on("change", function(e) {
+        });
 
+        $('#profile-form').submit(function(e) {
+        });
 
-    
+        $('.change-password').on("click", function(e) {
+            $('#password').removeAttr('disabled');
+            $('.verifypassword').removeClass('hidden');
+            this.remove();
+        })
 
+    },
+    "construct": function() 
+    {
+        this.subscriptions = Acme.PubSub.subscribe({
+            // 'Acme.ListingForm.listener' : ["state_changed", 'update_state']
+        });
 
+        this.render();
+        this.events();
+    }
+});
+
+$('[data-dismiss="alert"]').on('click', function(e) {
+    this.closest('div').remove();
+});
 
 (function ($) {
 

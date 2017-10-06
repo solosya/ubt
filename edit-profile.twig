@@ -1,13 +1,5 @@
 {{ set(this, 'title', 'Edit Profile') }}
 
-{% set user = _User.getUser() %}
-{% set userString = "window.Acme.UserProfile.data = {first: '" ~ user.firstname ~ "',
-    last: '" ~ user.lastname ~ "',
-    username: '" ~ user.username ~ "',
-    email: '" ~ user.email ~ "',
-};" %}
-{{this.registerJs( userString )}}
-
 <!-- Begin User Profile Page -->
 {% set user = _User.getUser()%}
 <main id="main" class="user_profile listingForm" role="main">
@@ -22,11 +14,8 @@
 
                         <div class="profile-header">
                             <p>My Details</p>
-                            <div class="name-inputs">
+                            <div class="name">
                                 <span>{{user.firstname}} {{user.lastname}}</span>
-
-                                <input type="text" id="firstname" class="form-control hidden" name="firstname" value="{{user.firstname}}" placeholder="First" >
-                                <input type="text" id="lastname" class="form-control hidden" name="lastname" value="{{user.lastname}}" placeholder="Last" >
                             </div>
                         </div>
 
@@ -54,8 +43,23 @@
                                 <input type="text" id="email" class="form-control" name="email" value="{{user.email}}" placeholder="email@domain.com" >
                             </div>
 
+                            <div class="inline-inputs">
+                                <label for="password">Password</label>
+                                <input type="password" id="password" class="form-control" name="password" placeholder="**********" disabled>
+                            </div>
+                            
+                            <div class="inline-inputs" style="height:0;">
+                                <label></label>
+                                <span class="change-password">Change password</span>
+                            </div>
+
+                            <div class="inline-inputs verifypassword hidden">
+                                <label for="verifypassword">Verify Password</label>
+                                <input type="password" id="verifypassword" class="form-control" name="verifypassword" placeholder="Repeat new password">
+                            </div>
+
                             <div class="button-full">
-                                <button type="submit" class="button green button-large">Save</button>
+                                <button type="submit" class="button">Done</button>
                             </div>
                         </form>
                     </div>

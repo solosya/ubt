@@ -91,7 +91,7 @@ main.listingForm {
         }
 
 
-        input[type=text] {
+        input[type=text], input[type=password] {
             display:block;
             border:none;
             height: 44px;
@@ -122,6 +122,11 @@ main.listingForm {
             &:-moz-placeholder { /* Firefox 18- */
                 font-size: rem(14);
                 color:color(lightgrey);
+            }
+
+            &:disabled {
+                padding: 0px !important;
+                border: none;
             }
 
         }
