@@ -31745,6 +31745,7 @@ Acme.UserProfile = Acme.View.create(
 
         $('.change-password').on("click", function(e) {
             $('#password').removeAttr('disabled');
+            $('#password').attr("placeholder", "Enter new password")
             $('.verifypassword').removeClass('hidden');
             this.remove();
         })

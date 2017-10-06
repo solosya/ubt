@@ -1,7 +1,19 @@
 {{ set(this, 'title', 'Edit Profile') }}
 
 <!-- Begin User Profile Page -->
-{% set user = _User.getUser()%}
+{% set user = _User.getUser() %}
+
+{% set jobListingsArr = [] %}
+{% set realEstateArr = [] %}
+{% set eventsArr = [] %}
+
+{% if user %} 
+    {% set jobListingsArr = _User.getUserArticles(user.guid, 0, 1, [117]) %}
+    {% set realEstateArr = _User.getUserArticles(user.guid, 0, 1, [117]) %}
+    {% set eventsArr = _User.getUserArticles(user.guid, 0, 1, [117]) %}
+{% endif %}
+
+
 <main id="main" class="user_profile listingForm" role="main">
     <div class="container">
 
@@ -10,60 +22,145 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     {{this.render('layouts/partials/messages.twig') | raw}}
 
-                    <div class="profile-details listingForn">
+                    <div class="profile-section with-border">
+                        <div class="section-heading">
+                            <p>My details</p>
+                        </div>
+                        <div class="profile-details listingForn">
+                            <form id="profile-form" class="form-horizontal" action="" method="post" enctype="multipart/form-data" autocomplete="off" >
+                                <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" />
+                                <input type="hidden" name="profileImage" id="userProfileImage" value="" />
 
-                        <div class="profile-header">
-                            <p>My Details</p>
-                            <div class="name">
-                                <span>{{user.firstname}} {{user.lastname}}</span>
+                                <div class="inline-inputs">
+                                    <label for="firstname">First name</label>
+                                    <input type="text" id="firstname" class="form-control" name="firstname" value="{{user.firstname}}" placeholder="First name" >
+                                </div>
+
+                                <div class="inline-inputs">
+                                    <label for="lastname">Last name</label>
+                                    <input type="text" id="lastname" class="form-control" name="lastname" value="{{user.lastname}}" placeholder="Last name" >
+                                </div>                            
+                               
+                                <div class="inline-inputs">
+                                    <label for="company">Company</label>
+                                    <input type="text" id="company" class="form-control" name="company" value="{{user.company}}" placeholder="Company" >
+                                </div>
+
+                                <div class="inline-inputs">
+                                    <label for="username">Username</label>
+                                    <input type="text" id="username" class="form-control" name="username" value="{{user.username}}" placeholder="Username" >
+                                </div>
+
+                                <div class="inline-inputs">
+                                    <label for="email">Email</label>
+                                    <input type="text" id="email" class="form-control" name="email" value="{{user.email}}" placeholder="email@domain.com" >
+                                </div>
+
+                                <div class="inline-inputs">
+                                    <label for="password">Password</label>
+                                    <input type="password" id="password" class="form-control" name="password" placeholder="**********" disabled>
+                                </div>
+                                
+                                <div class="inline-inputs" style="height:0;">
+                                    <label></label>
+                                    <span class="change-password">Change password</span>
+                                </div>
+
+                                <div class="button-full">
+                                    <button type="submit" class="button">Done</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="profile-section">
+                        <div class="section-heading">
+                            <p>Job Listings</p>
+                            <a>View all</a>
+                        </div>
+                        <div class="row">
+                            <div  id="jobListings" class="col-md-12">
+                                {% if jobListingsArr[0] %}
+                                    {% for article in jobListingsArr %}
+
+                                        {{this.render('partials/_single-article.twig', {
+                                            article: article, 
+                                            position: loop.index,
+                                            behaviour: 'noclick',
+                                            template: 'jobs',
+                                            containerClass: "card-rec-jobs listingCard"
+                                        }) | raw}}
+
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="empty-listing">
+                                        <p>You have no current listings.</p>
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
-
-                        <form id="profile-form" class="form-horizontal" action="" method="post" enctype="multipart/form-data" autocomplete="off" >
-                            <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" />
-                            <input type="hidden" name="profileImage" id="userProfileImage" value="" />
-
-                            <div class="inline-inputs">
-                                <label for="firstname">First name</label>
-                                <input type="text" id="firstname" class="form-control" name="firstname" value="{{user.firstname}}" placeholder="firstname" >
-                            </div>
-
-                            <div class="inline-inputs">
-                                <label for="lastname">Last name</label>
-                                <input type="text" id="lastname" class="form-control" name="lastname" value="{{user.lastname}}" placeholder="lastname" >
-                            </div>                            
-                           
-                            <div class="inline-inputs">
-                                <label for="username">Username</label>
-                                <input type="text" id="username" class="form-control" name="username" value="{{user.username}}" placeholder="Username" >
-                            </div>
-
-                            <div class="inline-inputs">
-                                <label for="email">Email</label>
-                                <input type="text" id="email" class="form-control" name="email" value="{{user.email}}" placeholder="email@domain.com" >
-                            </div>
-
-                            <div class="inline-inputs">
-                                <label for="password">Password</label>
-                                <input type="password" id="password" class="form-control" name="password" placeholder="**********" disabled>
-                            </div>
-                            
-                            <div class="inline-inputs" style="height:0;">
-                                <label></label>
-                                <span class="change-password">Change password</span>
-                            </div>
-
-                            <div class="inline-inputs verifypassword hidden">
-                                <label for="verifypassword">Verify Password</label>
-                                <input type="password" id="verifypassword" class="form-control" name="verifypassword" placeholder="Repeat new password">
-                            </div>
-
-                            <div class="button-full">
-                                <button type="submit" class="button">Done</button>
-                            </div>
-                        </form>
+                        <a class="submit">Submit a listing</a>
                     </div>
-                    
+
+                    <div class="profile-section">
+                        <div class="section-heading">
+                            <p>Realestate Listings</p>
+                            <a>View all</a>
+                        </div>
+                        <div class="row">
+                            <div  id="realEstateListings" class="col-md-12">
+                                {% if realEstateArr[0] %}
+                                    {% for article in realEstateArr %}
+
+                                        {{this.render('partials/_single-article.twig', {
+                                            article: article, 
+                                            position: loop.index,
+                                            behaviour: 'noclick',
+                                            template: 'realestate',
+                                            containerClass: "card-rec-jobs listingCard"
+                                        }) | raw}}
+
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="empty-listing">
+                                        <p>You have no current listings.</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <a class="submit">Submit a listing</a>
+                    </div>
+
+                    <div class="profile-section">
+                        <div class="section-heading">
+                            <p>Events</p>
+                            <a>View all</a>
+                        </div>
+                        <div class="row">
+                            <div  id="userListings" class="col-md-12">
+                                {% if eventsArr[0] %}
+                                    {% for article in eventsArr %}
+
+                                        {{this.render('partials/_single-article.twig', {
+                                            article: article, 
+                                            position: loop.index,
+                                            behaviour: 'noclick',
+                                            template: 'listing',
+                                            containerClass: "card-rec-jobs listingCard"
+                                        }) | raw}}
+
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="empty-listing">
+                                        <p>You have no current events.</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <a class="submit">Submit an event</a>
+                    </div>                   
+
+
                 </div>
             </div>
         </div>
