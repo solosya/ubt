@@ -47,7 +47,7 @@
         figureClass:     article.featuredMedia['type'] == 'video' ? 'video' : '',
         articleImgSmall: _Media.getMediaUrl(article.featuredMedia,500, 500, {'crop': 'fill', 'gravity': 'faces'} ),
         articleImg:      _Media.getMediaUrl(article.featuredMedia,imgWidth, imgHeight, {'crop': 'fill', 'gravity': 'faces'} ),
-        publishDate:     _AppHelper.getDefaultTimezoneDateTime(article.publishDateTime, 'F, Y H:i:s'),
+        publishDate:     _AppHelper.getDefaultTimezoneDateTime(article.publishDateTime, 'j F, Y'),
         articleTitle:    articleTitle,
         profileImg:      _Media.getMediaUrl(article.createdBy['media'], 34, 34, {radius: 'max', gravity: 'face', 'crop': 'thumb', type: 'user'}),
         imageSuppress:   imageSuppress
