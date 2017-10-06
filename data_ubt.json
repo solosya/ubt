@@ -2928,7 +2928,232 @@
 				"height": 60,
 				"width": 600
 			}
-		}	
+		},
+
+		{
+			"guid": "98f1d0d8-0325-46a3-9013-bfa25a92492a",
+			"articleId": "24362",
+			"socialId": null,
+			"templatePath": "https:\/\/d3pbdxdl8c65wb.cloudfront.net\/themes\/M7kOKBL0ZLR5zx",
+			"displayOrder": "10",
+			"isPinned": "0",
+			"pinnedAt": null,
+			"status": "1",
+			"titleOriginal": "Fusce vehicula dolor arcu, sit amet blanditd neior",
+			"title": "Spare Parts Interpreter",
+			"titlePreview": "",
+			"excerpt": "Previous retail experience a must.",
+			"keywords": null,
+			"createdDate": "May 05 2012",
+			"userHasBlogAccess": 1,
+			"isPromoted": "0",
+			"readingTime": "1",
+			"total": {
+				"share": "0"
+			},
+			"blog": {
+				"id": "717",
+				"title": "Get Em on Side",
+				"url": "http:\/\/theme.aap.io/",
+				"owner": {
+					"id": "570",
+					"guid": "b596da97-f460-4278-baf1-a0c4a2523617",
+					"name": "Tim Campbell",
+					"username": "Tcampbell",
+					"email": "Tcampbell@pagemasters.com.au",
+					"bio": null,
+					"display_name": "Tim Campbell",
+					"media": {
+						"id": null,
+						"cloudName": null,
+						"path": null
+					}
+				},
+				"media": {
+					"cover": {
+						"id": null,
+						"cloudName": null,
+						"path": null
+					},
+					"thumb": {
+						"id": null,
+						"cloudName": null,
+						"path": null
+					}
+				}
+			},
+			"channel": {
+				"guid": null,
+				"title": null
+			},
+			"createdBy": {
+				"name": "AAP Newswire",
+				"displayName": "AAP Newswire",
+				"media": {
+					"id": "xjiep8c0ivd0jzgceeqe",
+					"cloudName": "cognitives",
+					"path": "https:\/\/res.cloudinary.com\/cognitives\/image\/upload\/v1487226546\/xjiep8c0ivd0jzgceeqe.png"
+				}
+			},
+			"hasMedia": true,
+			"hasPreviewMedia": false,
+			"featuredMediaOriginal": {
+				"id": "nrnm7hpir5h6ywpdqzip",
+				"cloudName": "cognitives",
+				"path": "https://res.cloudinary.com/cognitives/image/upload/c_fill,dpr_auto,f_auto,fl_lossy,g_faces,q_auto/z5gkr2h62ttqafdwcmnq",
+				"type": "image"
+			},
+			"featuredMedia": {
+				"id": "nrnm7hpir5h6ywpdqzip",
+				"cloudName": "cognitives",
+				"path": "https://res.cloudinary.com/cognitives/image/upload/c_fill,dpr_auto,f_auto,fl_lossy,g_faces,q_auto/z5gkr2h62ttqafdwcmnq",
+				"type": "image",
+				"media": {
+					"url": "https://res.cloudinary.com/cognitives/image/upload/c_fill,dpr_auto,f_auto,fl_lossy,g_faces,q_auto/z5gkr2h62ttqafdwcmnq",
+					"height": "720",
+					"width": "1280"
+				}
+			},
+			"previewMedia": false,
+			"url": "http:\/\/theme.aap.io\/2017\/05\/04\/24362\/lions-skipper-beams-out-for-fortnight",
+			"editUrl": "http:\/\/theme.aap.io\/admin\/article\/edit?guid=98f1d0d8-0325-46a3-9013-bfa25a92492a",
+			"publishDate": "July 05 2017",
+			"metaPublishDate": "2017-07-05",
+			"publishDateTime": "2017-07-05 07:00:42",
+			"metaUpdateDate": "2017-07-05",
+			"label": "Get Em on Side",
+			"publisher": {
+				"name": "Get Em on Side UAT",
+				"url": "http:\/\/res.cloudinary.com\/cognitives\/image\/upload\/c_lpad,dpr_auto,f_auto,fl_lossy,h_60,q_auto,w_600\/thwonhdizwdbwl7x6dqx",
+				"height": 60,
+				"width": 600
+			},
+			"additionalInfo": {
+				"price": "275,000",
+				"address": "31/2 ELDRIDGE CRESCENT GARRAN, ACT 2605",
+				"propertyType": "Warehouse",
+				"salary": "85,000",
+				"location": "Melbourne",
+				"company": "Pagemasters"
+			}
+		},
+
+
+
+		{
+			"guid": "98f1d0d8-0325-46a3-9013-bfa25a92492a",
+			"articleId": "24362",
+			"socialId": null,
+			"templatePath": "https:\/\/d3pbdxdl8c65wb.cloudfront.net\/themes\/M7kOKBL0ZLR5zx",
+			"displayOrder": "10",
+			"isPinned": "0",
+			"pinnedAt": null,
+			"status": "1",
+			"titleOriginal": "Fusce vehicula dolor arcu, sit amet blanditd neior",
+			"title": "Spare Parts Interpreter",
+			"titlePreview": "",
+			"excerpt": "This four-bedroom property is only mildly haunted. Will suit mining magnates and hotel heiresses. ROW, BIR, OSP STCA LOL. Inspections will delight. This opportunity will come around once in a lifetime. This is not your beautiful house. This is not your beautiful wife! And you will ask yourself, well, how did I get here?",
+			"keywords": null,
+			"createdDate": "May 05 2012",
+			"userHasBlogAccess": 1,
+			"isPromoted": "0",
+			"readingTime": "1",
+			"total": {
+				"share": "0"
+			},
+			"blog": {
+				"id": "717",
+				"title": "Get Em on Side",
+				"url": "http:\/\/theme.aap.io/",
+				"owner": {
+					"id": "570",
+					"guid": "b596da97-f460-4278-baf1-a0c4a2523617",
+					"name": "Tim Campbell",
+					"username": "Tcampbell",
+					"email": "Tcampbell@pagemasters.com.au",
+					"bio": null,
+					"display_name": "Tim Campbell",
+					"media": {
+						"id": null,
+						"cloudName": null,
+						"path": null
+					}
+				},
+				"media": {
+					"cover": {
+						"id": null,
+						"cloudName": null,
+						"path": null
+					},
+					"thumb": {
+						"id": null,
+						"cloudName": null,
+						"path": null
+					}
+				}
+			},
+			"channel": {
+				"guid": null,
+				"title": null
+			},
+			"createdBy": {
+				"name": "AAP Newswire",
+				"displayName": "AAP Newswire",
+				"media": {
+					"id": "xjiep8c0ivd0jzgceeqe",
+					"cloudName": "cognitives",
+					"path": "https:\/\/res.cloudinary.com\/cognitives\/image\/upload\/v1487226546\/xjiep8c0ivd0jzgceeqe.png"
+				}
+			},
+			"hasMedia": true,
+			"hasPreviewMedia": false,
+			"featuredMediaOriginal": {
+				"id": "nrnm7hpir5h6ywpdqzip",
+				"cloudName": "cognitives",
+				"path": "https://res.cloudinary.com/cognitives/image/upload/c_fill,dpr_auto,f_auto,fl_lossy,g_faces,q_auto/z5gkr2h62ttqafdwcmnq",
+				"type": "image"
+			},
+			"featuredMedia": {
+				"id": "nrnm7hpir5h6ywpdqzip",
+				"cloudName": "cognitives",
+				"path": "https://res.cloudinary.com/cognitives/image/upload/c_fill,dpr_auto,f_auto,fl_lossy,g_faces,q_auto/z5gkr2h62ttqafdwcmnq",
+				"type": "image",
+				"media": {
+					"url": "https://res.cloudinary.com/cognitives/image/upload/c_fill,dpr_auto,f_auto,fl_lossy,g_faces,q_auto/z5gkr2h62ttqafdwcmnq",
+					"height": "720",
+					"width": "1280"
+				}
+			},
+			"previewMedia": false,
+			"url": "http:\/\/theme.aap.io\/2017\/05\/04\/24362\/lions-skipper-beams-out-for-fortnight",
+			"editUrl": "http:\/\/theme.aap.io\/admin\/article\/edit?guid=98f1d0d8-0325-46a3-9013-bfa25a92492a",
+			"publishDate": "July 05 2017",
+			"metaPublishDate": "2017-07-05",
+			"publishDateTime": "2017-07-05 07:00:42",
+			"metaUpdateDate": "2017-07-05",
+			"label": "Get Em on Side",
+			"publisher": {
+				"name": "Get Em on Side UAT",
+				"url": "http:\/\/res.cloudinary.com\/cognitives\/image\/upload\/c_lpad,dpr_auto,f_auto,fl_lossy,h_60,q_auto,w_600\/thwonhdizwdbwl7x6dqx",
+				"height": 60,
+				"width": 600
+			},
+			"additionalInfo": {
+				"pricerange": "2,275,000",
+				"address": "31/2 ELDRITCH CRESCENT GARRAN, ACT 2605",
+				"propertyType": "Warehouse",
+				"salaryrange": "85,000-100,000",
+				"location": "Inner Northcote, Melbourne",
+				"company": "Sprockets Inc."
+			}
+		}
+
+
+
+
+
+
+
 	],
 	"articles": [
 		{
@@ -6742,7 +6967,7 @@
 		{
 			"eventGuid":"7713fead-dea7-40fd-ae20-ffd87db6e988",
 			"title":"First event",
-			"excerpt":"Big Event to happen on the day of the event!!",
+			"excerpt":"Big Event to happen on the day of the event!! Big Event to happen on the day of the event!! Big Event to happen on the day of the event!!",
 			"venue":"Big Event Factory",
 			"address": {
 				"address1":"1 Event Street",

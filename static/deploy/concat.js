@@ -28824,9 +28824,10 @@ var cardTemplateTop =
 '<div class="{{containerClass}} "> \
     <a  itemprop="url" \
         href="{{url}}" \
-        class="card swap" \
+        class="card swap {{articleStatus}}" \
         data-id="{{articleId}}" \
         data-position="{{position}}" \
+        data-status="{{articleStatus}}" \
         data-social="0" \
         data-article-image="{{{imageUrl}}}" \
         data-article-text="{{title}}"> \
@@ -28866,7 +28867,6 @@ Acme.jobsCardTemplate =
                 <time datetime="{{publishDate}}">{{publishDate}}</time>\
             </div>\
             <h2>{{{ title }}}</h2>\
-            <p class="company">{{{ additionalInfo.company }}}</p>\
             <p class="excerpt">{{{ excerpt }}}</p>\
             <div class="author">\
                 <img src="{{profileImg}}" class="img-circle">\
@@ -29030,12 +29030,771 @@ var socialPostPopupTemplate =
                     '</div>'+
     '</div>'+
  '</div>'   ;   
+(function ($) {
+// Account modal
+    $('.account-modal__navigation_item').on('click', function () {
+        $('.account-modal__navigation_item').removeClass('active');
+        $(this).addClass('active');
+        if ($(this).hasClass('account-modal__navigation_item--following')) {
+            $('.account-modal__content_section').removeClass('active');
+            $('.account-modal__content_section--following').addClass('active');
+        } else if ($(this).hasClass('account-modal__navigation_item--profile')) {
+            $('.account-modal__content_section').removeClass('active');
+            $('.account-modal__content_section--profile').addClass('active');
+        } else if ($(this).hasClass('account-modal__navigation_item--account')) {
+            $('.account-modal__content_section').removeClass('active');
+            $('.account-modal__content_section--account').addClass('active');
+        } else if ($(this).hasClass('account-modal__navigation_item--login')) {
+            $('.account-modal__content_section').removeClass('active');
+            $('.account-modal__content_section--login').addClass('active');
+        } else if ($(this).hasClass('account-modal__navigation_item--signup')) {
+            $('.account-modal__content_section').removeClass('active');
+            $('.account-modal__content_section--signup').addClass('active');
+        }
+    });
+
+    // Account modal select
+    $('.account-modal__select_selected-item-container').each(function () {
+        if (!($(this).html().length === 0)) {
+            $(this).closest('.account-modal__select').addClass('selected');
+        }
+    });
+
+    $('.account-modal__select').on('click', function (e) {
+        if ($(this).hasClass('account-modal__select--multiple')) {
+            if ($(e.target).hasClass('account-modal__select_list-item')) {
+            } else if ($(e.target).hasClass('account-modal__select_selected-item-multi')) {
+                var selectContainer = $(this);
+                var selectedItem = $(e.target).html();
+                var selectItems = $(this).find('.account-modal__select_selected-item-multi');
+                var selectItemsList = [];
+                var selectedItems = [];
+                var selectList = $(this).find('.account-modal__select_list-item');
+
+                selectList.each(function () {
+                    if ($(this).html() == selectedItem) {
+                        $(this).removeClass('active');
+                    }
+                });
+                selectItems.each(function () {
+                    var selectClass = $(this).data('title');
+                    var selectId = $(this).data('id');
+                    if (selectedItem !== selectClass) {
+                        selectItemsList.push(selectClass + "|" + selectId);
+                    }
+                });
+
+
+                var followCls = 'user-follow';
+                selectContainer.find('.account-modal__select_selected-item-container').html(' ');
+                if (selectContainer.find('.account-modal__select_selected-item-container').hasClass('blog-follow')) {
+                    followCls = 'blog-follow';
+                }
+                if (selectItemsList.length) {
+                    $.each(selectItemsList, function (index, value) {
+                        var res = value.split("|");
+                        selectedItems.push(res[1]);
+                        selectContainer.find('.account-modal__select_selected-item-container').append('<div class="account-modal__select_selected-item-multi selectedItem ' + followCls + '" data-id="' + res[1] + '" data-title="' + res[0] + '">' + res[0] + '</div>');
+                    });
+                } else {
+                    $(this).removeClass('selected');
+                }
+                var cls = followCls == 'user-follow' ? 'user-following' : 'blog-following';
+                var inputName = followCls == 'user-follow' ? 'userArr[]' : 'blogArr[]';
+                $('.' + cls).remove();
+                $.each(selectedItems, function (index, value) {
+                    selectContainer.append('<input type="hidden" value="' + value + '" name="' + inputName + '" class="' + cls + '">');
+                });
+
+            } else {
+                $(this).toggleClass('active');
+            }
+        } else {
+            $(this).toggleClass('active');
+        }
+    });
+
+    $('.account-modal__select_list-item').on('click', function () {
+        var selectedItem = $(this).html();
+        var selectedId = $(this).data('id');
+        var selectedItemClass = String(selectedItem);
+        var selectContainer = $(this).closest('.account-modal__select');
+        var selectItems = selectContainer.find('.account-modal__select_selected-item-multi');
+        selectContainer.addClass('selected');
+        selectContainer.addClass('changed');
+
+        var selectItemsList = [];
+        var selectedItems = [];
+        selectItems.each(function () {
+            var selectClass = $(this).data('title');
+            var selectId = $(this).data('id');
+            selectItemsList.push(selectClass + '|' + selectId);
+        });
+
+        if (!(selectItemsList.indexOf(selectedItem + '|' + selectedId) > -1)) {
+            selectItemsList.push(selectedItem + '|' + selectedId);
+        }
+
+        var followCls = 'user-follow';
+        if (selectContainer.find('.account-modal__select_selected-item-container').hasClass('blog-follow')) {
+            followCls = 'blog-follow';
+        }
+        if (selectContainer.hasClass('account-modal__select--multiple')) {
+            selectContainer.find('.account-modal__select_selected-item-container').html(' ');
+            $.each(selectItemsList, function (index, value) {
+                var res = value.split("|");
+                selectedItems.push(res[1]);
+                selectContainer.find('.account-modal__select_selected-item-container').append('<div class="account-modal__select_selected-item-multi selectedItem" data-id="' + res[1] + '" data-title="' + res[0] + '">' + res[0] + '</div>');
+            });
+            $(this).addClass('active');
+        } else {
+            selectContainer.find('.account-modal__select_selected-item-container').html(' ');
+            selectContainer.find('.account-modal__select_selected-item-container').append('<div class="account-modal__select_selected-item" data-title=" ' + selectedItem + '">' + selectedItem + '</div>');
+            selectContainer.find('.account-modal__select_list-item').removeClass('active');
+            $(this).addClass('active');
+			$('#newsletterFrequency').val(selectedId);
+        }
+
+        var cls = followCls == 'user-follow' ? 'user-following' : 'blog-following';
+        var inputName = followCls == 'user-follow' ? 'userArr[]' : 'blogArr[]';
+        $('.' + cls).remove();
+        $.each(selectedItems, function (index, value) {
+            selectContainer.append('<input type="hidden" value="' + value + '" name="' + inputName + '" class="' + cls + '">');
+        });
+    });
+
+    // Account modal input
+    $('.account-modal__input').each(function () {
+        if (!($(this).val().length === 0)) {
+            $(this).closest('.account-modal__input-container').addClass('active');
+            $(this).closest('.account-modal__input-container').addClass('unchanged');
+        }
+    });
+
+    $('.account-modal__input').on('focus', function () {
+        $(this).closest('.account-modal__input-container').addClass('active');
+        $(this).closest('.account-modal__input-container').removeClass('answered');
+        $(this).closest('.account-modal__input-container').removeClass('error');
+        $(this).closest('.account-modal__input-container').removeClass('unchanged');
+    });
+
+    $('.account-modal__input_label').on('click', function () {
+        $(this).closest('.account-modal__input-container').find($('.account-modal__input')).focus();
+    });
+
+    $('.account-modal__input--text, .account-modal__input--captcha').on('blur', function () {
+        if ($(this).val().length == false) {
+            $(this).closest('.account-modal__input-container').removeClass('active');
+        } else if (true) { // Add in conditions for input requrements here.
+            $(this).closest('.account-modal__input-container').removeClass('active');
+            $(this).closest('.account-modal__input-container').addClass('answered');
+        } else {
+            $(this).closest('.account-modal__input-container').removeClass('active');
+            $(this).closest('.account-modal__input-container').removeClass('answered');
+            $(this).closest('.account-modal__input-container').addClass('error');
+        }
+    });
+
+    $('.account-modal__input--email').on('blur', function () {
+        var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+        if ($(this).val().length == false) {
+            $(this).closest('.account-modal__input-container').removeClass('active');
+        } else if (testEmail.test(this.value)) {
+            $(this).closest('.account-modal__input-container').removeClass('active');
+            $(this).closest('.account-modal__input-container').addClass('answered');
+        } else {
+            $(this).closest('.account-modal__input-container').removeClass('active');
+            $(this).closest('.account-modal__input-container').removeClass('answered');
+            $(this).closest('.account-modal__input-container').addClass('error');
+        }
+    });
+
+    $('.account-modal__input--username').on('blur', function () {
+        if ($(this).val().length == false) {
+            $(this).closest('.account-modal__input-container').removeClass('active');
+        } else if ($(this).val().length > 3 && $(this).val().length < 33) { // Add in conditions for input requrements here.
+            $(this).closest('.account-modal__input-container').removeClass('active');
+            $(this).closest('.account-modal__input-container').addClass('answered');
+            $(this).closest('.account-modal__input-container').find('.account-modal__input_requirement--error').html('Incorrect Length.');
+        } else {
+            $(this).closest('.account-modal__input-container').removeClass('active');
+            $(this).closest('.account-modal__input-container').removeClass('answered');
+            $(this).closest('.account-modal__input-container').addClass('error');
+        }
+    });
+
+    $('.account-modal__input--password').on('blur', function () {
+        if ($(this).val().length == false) {
+            $(this).closest('.account-modal__input-container').removeClass('active');
+        } else if ($(this).val().length > 5 && $(this).val().length < 33) { // Add in conditions for input requrements here.
+            $(this).closest('.account-modal__input-container').removeClass('active');
+            $(this).closest('.account-modal__input-container').addClass('answered');
+            $(this).closest('.account-modal__input-container').find('.account-modal__input_requirement--error').html('Incorrect Length.');
+        } else {
+            $(this).closest('.account-modal__input-container').removeClass('active');
+            $(this).closest('.account-modal__input-container').removeClass('answered');
+            $(this).closest('.account-modal__input-container').addClass('error');
+        }
+    });
+
+    $('.account-modal__input--verifypassword').on('blur', function () {
+        if ($(this).val().length == false) {
+            $(this).closest('.account-modal__input-container').removeClass('active');
+        } else if ($(this).closest('.account-modal__content_section').find('.account-modal__input--password').val() == $(this).val()) { // Add in conditions for input requrements here.
+            $(this).closest('.account-modal__input-container').removeClass('active');
+            $(this).closest('.account-modal__input-container').addClass('answered');
+        } else {
+            $(this).closest('.account-modal__input-container').removeClass('active');
+            $(this).closest('.account-modal__input-container').removeClass('answered');
+            $(this).closest('.account-modal__input-container').addClass('error');
+        }
+    });
+
+    $('.account-modal__image_button, .account-modal__image_upload').on('click', function () {
+        $('.account-modal__image_input').click();
+    });
+
+    // Upload image JS
+    if (document.getElementById('account-modal__image_input--profile')) {
+        document.getElementById('account-modal__image_input--profile').addEventListener('change', readURL, true);
+    }
+    function readURL() {
+        console.log('hello');
+        var file = document.getElementById("account-modal__image_input--profile").files[0];
+        var reader = new FileReader();
+        reader.onloadend = function () {
+            document.getElementById('account-modal__image_upload--profile').style.backgroundImage = "url(" + reader.result + ")";
+        }
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+        }
+    }
+
+    $('.account-modal__image_input').on('change', function () {
+        if ($(this).val().length > 0) { // Add in conditions for input requrements here.
+            $(this).closest('.account-modal__image').removeClass('error');
+            $(this).closest('.account-modal__image').addClass('active');
+            $(this).prev().addClass('active');
+            $(this).prev().removeClass('error');
+            $(this).prev().html($(this).val().replace(/.*[\/\\]/, ''));
+        } else {
+            $(this).closest('.account-modal__image').removeClass('active');
+            $(this).closest('.account-modal__image').addClass('error');
+            $(this).prev().removeClass('active');
+            $(this).prev().addClass('error');
+            $(this).prev().html('Browse...');
+        }
+    });
+
+    // Account modal toggle
+    $('.account-modal__container').on('click', function (e) {
+        if ($(e.target).hasClass('account-modal__container') || $(e.target).hasClass('account-modal__content_cross')) {
+            $(this).removeClass('active');
+            $('body').removeClass('active');
+            if($('body').hasClass('signup_landing_page')) {
+                window.location.reload();
+            }
+        }
+    });
+
+    $('.account-modal__content').on('click', function (e) {
+        // If the user clicks on the account modal content but doesnt click on the account modal select it removes the active class.
+        if (!($(e.target).parents('.account-modal__select').length) && !($(e.target).hasClass('account-modal__select_selected-item-multi'))) {
+            $('.account-modal__select').removeClass('active');
+        }
+    });
+
+    // User Dropdown
+    $('.header__heading-link--profile').on('click', function (e) {
+        e.preventDefault();
+        $('.user-dropdown').toggleClass('active');
+    });
+
+    $('.account-modal-link').on('click', function (e) {
+        $('.user-dropdown').removeClass('active');
+        $('.account-modal__container').addClass('active');
+        $('body').addClass('active');
+        $('.account-modal__content_section').removeClass('active');
+        $('.account-modal__navigation_item').removeClass('active');
+        if ($(this).hasClass('link--profile')) {
+          $('.account-modal__content_section--profile').addClass('active');
+          $('.account-modal__navigation_item--profile').addClass('active');
+        } else if ($(this).hasClass('link--following')) {
+          $('.account-modal__content_section--following').addClass('active');
+          $('.account-modal__navigation_item--following').addClass('active');
+        } else if ($(this).hasClass('link--account')) {
+          $('.account-modal__content_section--account').addClass('active');
+          $('.account-modal__navigation_item--account').addClass('active');
+        }
+    });
+
+    $('body').on('click', function (e) {
+        if (!$(e.target).hasClass('user-dropdown') && !$(e.target).closest('.user-dropdown').length && !$(e.target).hasClass('header__heading-link--profile') && !$(e.target).closest('.header__heading-link--profile').length) {
+            $('.user-dropdown').removeClass('active');
+        } else {
+        }
+    });
+    console.log('running auth events');
+    $('.header__login__link, .loginModal').on('click', function (e) {
+        console.log('clicked login!!!');
+        $('.account-modal__input').each(function () {
+            if (!($(this).val().length === 0) && !$(this).closest('.account-modal__input-container').hasClass('error')) {
+                $(this).closest('.account-modal__input-container').addClass('active');
+                $(this).closest('.account-modal__input-container').addClass('unchanged');
+            }
+        });
+
+        $('body').addClass('active');
+        $('.account-modal__container').addClass('active');
+        $('.account-modal__navigation_item').removeClass('active');
+        $('.account-modal__content_section').removeClass('active');
+        if ($(this).hasClass('header__login__link--signup')) {
+            $('.account-modal__navigation_item--signup').addClass('active');
+            $('.account-modal__content_section--signup').addClass('active');
+        } else {
+            $('.account-modal__content_section--login').addClass('active');
+            $('.account-modal__navigation_item--login').addClass('active');
+        }
+    });
+
+    $('.side-navigation__link--login').on('click', function () {
+        $('.account-modal__input').each(function () {
+            if (!($(this).val().length === 0) && !$(this).closest('.account-modal__input-container').hasClass('error')) {
+                $(this).closest('.account-modal__input-container').addClass('active');
+                $(this).closest('.account-modal__input-container').addClass('unchanged');
+            }
+        });
+
+        $('body').addClass('active');
+        $('.account-modal__container').addClass('active');
+        $('.account-modal__navigation_item').removeClass('active');
+        $('.account-modal__content_section').removeClass('active');
+        $('.header__heading-container').click();
+        if ($(this).hasClass('side-navigation__link--signup')) {
+            $('.account-modal__content_section--signup').addClass('active');
+            $('.account-modal__navigation_item--signup').addClass('active');
+        } else {
+            $('.account-modal__content_section--login').addClass('active');
+            $('.account-modal__navigation_item--login').addClass('active');
+        }
+    });
+
+    // Forgotten Password Modal
+    $('.forgotten-password-modal__submit').on('click', function () {
+        if ($('.forgotten-password-modal__content--forgotten').find('.account-modal__input').val().length === 0) {
+            $('.forgotten-password-modal__content--forgotten').find('.account-modal__input-container').addClass('error');
+        } else if (!$('.forgotten-password-modal__content--forgotten').find('.account-modal__input-container').hasClass('error')) {
+            var email = $('.forgotten-password-modal__content--forgotten').find('.account-modal__input').val();
+            $.ajax({
+                type: 'POST',
+                url: _appJsConfig.appHostName + '/api/auth/forgot-password',
+                dataType: 'json',
+                data: {email: email},
+                success: function (data, textStatus, jqXHR) {
+                    if (data.success === 1) {
+                        $('.forgotten-password-modal__content').removeClass('active');
+                        $('.forgotten-password-modal__content--email-sent').addClass('active');
+                        $('.forgotten-password-modal__container').addClass('success');
+                    } else {
+                         $('.error-forgot-pass-msg').html((data.error.email[0] !== 'undefined') ? data.error.email[0] : 'Invalid email address');
+                        $('.forgotten-password-modal__content--forgotten').find('.account-modal__input-container').addClass('error');
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+
+                },
+                beforeSend: function (jqXHR, settings) {
+                    $(this).html('Please wait..');
+                },
+                complete: function (jqXHR, textStatus) {
+                    $(this).html('Save');
+                }
+            });
+
+        }
+    });
+
+    $('.forgotten-password-modal__container').on('click', function (e) {
+        if ($(e.target).hasClass('forgotten-password-modal__container') || $(e.target).hasClass('forgotten-password-modal__cross')) {
+            $(this).removeClass('active');
+            $('body').removeClass('active');
+        }
+    });
+
+    $('.account-modal__forgotten-password-link').on('click', function (e) {
+        $('.forgotten-password-modal__container').addClass('active');
+        $('.forgotten-password-modal__container').removeClass('success');
+        $('.forgotten-password-modal__container').removeClass('delete');
+        $('.account-modal__container').removeClass('active');
+        $('.forgotten-password-modal__content').removeClass('active');
+        $('.forgotten-password-modal__content--forgotten').addClass('active');
+    });
+
+    // Submit Errors
+    $('.account-modal__buttons_login').on('click', function (e) {
+        if (true) { // Add in condition for login
+
+        } else {
+            e.preventDefault();
+            $(this).prev().addClass('active');
+        }
+    });
+
+    $('.account-modal__buttons_signup').on('click', function (e) {
+        e.preventDefault();
+        var elem = $(this);
+        $('.account-modal__content_section--signup').find('.account-modal__input').each(function () {
+            if ($(this).val().length === 0) {
+                $(this).closest('.account-modal__input-container').addClass('error');
+            }
+        });
+        var verifyPass = $('.account-modal__content_section--signup').find('.account-modal__input--password').val() === $('.account-modal__content_section--signup').find('.account-modal__input--verifypassword').val();
+        var verifyInputs = !$('.account-modal__content_section--signup').find('.account-modal__input-container').hasClass('error');
+        if (verifyInputs && verifyPass) { // Add in condition for signup
+            $(this).prev().removeClass('active');
+            var formData = {};
+            $.each($('#signupForm').serializeArray(), function () {
+                formData[this.name] = this.value;
+            });
+            $.ajax({
+                type: 'POST',
+                url: _appJsConfig.appHostName + '/api/auth/signup',
+                dataType: 'json',
+                data: formData,
+                success: function (data, textStatus, jqXHR) {
+                    if (data.success === 1) {
+                        location.reload();
+                    } else {
+                        Object.keys(data.error).forEach(function (key) {
+                            var container = $('.account-modal__input--' + key).closest('.account-modal__input-container');
+                            container.removeClass('active').removeClass('answered').addClass('error');
+                            container.find('.account-modal__input_requirement--error').html(data.error[key]);
+                            if(key === "captcha") {
+                                $('.captchaContainer').addClass('active');
+                                $('.captchaMessage').html(data.error[key]);
+                            }
+                        });
+                        $('.captcha img').trigger('click');
+                        $('.captcha input').val('');
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+
+                },
+                beforeSend: function (jqXHR, settings) {
+                    $('.captchaContainer').removeClass('active');
+                    $(elem).html('Please wait..');
+                },
+                complete: function (jqXHR, textStatus) {
+                    $(elem).html('Signup');
+                }
+            });
+        } else {
+            if (!verifyPass) {
+                $('.account-modal__content_section--signup').find('.account-modal__input--verify-password').closest('.account-modal__input-container').addClass('error').removeClass('answered');
+            }
+            $(this).prev().addClass('active');
+        }
+    });
+
+    $('.accountLogin').on('click', function (e) {
+        e.preventDefault();
+        var elem = $(this);
+        var verify = true;
+        $('.account-modal__content_section--login').find('.account-modal__input').each(function () {
+            if ($(this).val().length === 0) {
+                $(this).closest('.account-modal__input-container').addClass('error');
+                verify = false;
+            }
+        });
+        if (verify) {
+            $(this).prev().removeClass('active');
+            var formData = {};
+            $.each($('#loginForm').serializeArray(), function () {
+                formData[this.name] = this.value;
+            });
+            $.ajax({
+                type: 'POST',
+                url: _appJsConfig.appHostName + '/api/auth/login',
+                dataType: 'json',
+                data: formData,
+                success: function (data, textStatus, jqXHR) {
+                    if (data.success === 1) {
+                        location.reload();
+                    } else {
+                        $('#loginForm').find('.account-modal__error').removeClass('hide').addClass('active');
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $(elem).prop('disabled', false).html('Login');
+                },
+                beforeSend: function (jqXHR, settings) {
+                    $(elem).prop('disabled', true).html('Please wait..');
+                },
+                complete: function (jqXHR, textStatus) {
+                    $(elem).prop('disabled', false).html('Login');
+                }
+            });
+        }
+    });
+
+    $('.account-modal__content_section--account').find('.account-modal__input').on('focus', function () {
+        $('.account-modal__buttons_account').removeClass('active');
+        $('.account-modal__buttons_account').html('Save');
+    });
+
+    $('.account-modal__buttons_account').on('click', function (e) {
+        e.preventDefault();
+        var elem = $(this);
+        if ($('#accountForm').find('input[name="username"]').val().length === 0) {
+            $('#accountForm').find('input[name="username"]').closest('.account-modal__input-container').addClass('error');
+        }
+        var userPass = $('.account-modal__content_section--account').find('.account-modal__input--password').val();
+        var verifyPass = $('.account-modal__content_section--account').find('.account-modal__input--password').val() === $('.account-modal__content_section--account').find('.account-modal__input--verify-password').val();
+        var verifyInputs = !$('.account-modal__content_section--account').find('.account-modal__input-container').hasClass('error');
+
+        if (verifyPass && verifyInputs) { // Add in condition for error
+            var formData = {};
+            $.each($('#accountForm').serializeArray(), function () {
+                formData[this.name] = this.value;
+            });
+            $.ajax({
+                type: 'POST',
+                url: _appJsConfig.appHostName + '/api/user/edit-profile',
+                dataType: 'json',
+                data: formData,
+                success: function (data, textStatus, jqXHR) {
+                    if (data.success === 1) {
+                        elem.html('Saved');
+                        elem.addClass('active');
+                        elem.prev().removeClass('active');
+                        $('.account-modal__content_section--account').find('.account-modal__input-container').removeClass('answered');
+                        $('.account-modal__content_section--account').find('.account-modal__input-container').each(function () {
+                            if ($(this).find('.account-modal__input').val().length > 0) {
+                                $(this).addClass('active');
+                                $(this).addClass('unchanged');
+                            }
+                        });
+                        if(userPass !== '') {
+                            $('.forgotten-password-modal__container').addClass('active').removeClass('success').removeClass('delete');
+                            $('.account-modal__container').removeClass('active');
+                            $('.forgotten-password-modal__content').removeClass('active');
+                            $('.forgotten-password-modal__content--email-sent').addClass('active');
+                            $('.forgotten-password-modal__content--email-sent').find('div').html('Password Chagned Successfully. Please Login again!!');
+                            $('.forgotten-password-modal__container').addClass('success');
+                            setTimeout(function(){
+                                window.location = _appJsConfig.appHostName + '/auth/logoff'; 
+                            }, 3000);  
+                        } else {
+                            location.reload();
+                        }
+                    } else {
+                        elem.prev().addClass('active');
+                        elem.prev().find('div').html(data.error);
+                        elem.removeClass('active');
+                        elem.html('Save');
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    elem.prop('disabled', false).html('Save');
+                },
+                beforeSend: function (jqXHR, settings) {
+                    elem.prop('disabled', true).html('Please wait..');
+                },
+                complete: function (jqXHR, textStatus) {
+                    elem.prop('disabled', false).html('Save');
+                }
+            });
+
+        } else {
+            if (!verifyPass) {
+                $('.account-modal__content_section--account').find('.account-modal__input--verify-password').closest('.account-modal__input-container').addClass('error').removeClass('answered').removeClass('unchanged');
+            }
+            $(elem).prev().addClass('active');
+            elem.prev().find('div').html('Not all fields entered correctly.');
+            $(elem).removeClass('active');
+            $(elem).html('Save');
+        }
+    });
+
+    $('.account-modal__content_section--profile').find('.account-modal__input').on('focus', function () {
+        $('.account-modal__buttons_profile').removeClass('active');
+        $('.account-modal__buttons_profile').html('Save');
+    });
+
+    $('.account-modal__content_section--profile').find('.account-modal__select').on('click', function () {
+        $('.account-modal__buttons_profile').removeClass('active');
+        $('.account-modal__buttons_profile').html('Save');
+    });
+
+    $('.account-modal__buttons_profile').on('click', function (e) {
+        e.preventDefault();
+        var elem = $(this);
+        // Declare variables and check if they have length on submit.
+        var firstName = $('.account-modal__content_section--profile').find('input[name="firstname"]').val().length > 0;
+        var lastName = $('.account-modal__content_section--profile').find('input[name="lastname"]').val().length > 0;
+        var Bio = $('.account-modal__content_section--profile').find('textarea[name="bio"]').val().length > 0;
+        var checkList = {firstname: firstName, lastname: lastName, bio: Bio};
+        var checkText = '';
+        if (!checkList.firstname) {
+            checkText += 'First Name, ';
+            $('.account-modal__content_section--profile').find('input[name="firstname"]').closest('.account-modal__input-container').addClass('error');
+        }
+        if (!checkList.lastname) {
+            checkText += 'Last Name, ';
+            $('.account-modal__content_section--profile').find('input[name="lastname"]').closest('.account-modal__input-container').addClass('error');
+        }
+        if (!checkList.bio) {
+            checkText += 'Bio, ';
+            $('.account-modal__content_section--profile').find('textarea[name="bio"]').closest('.account-modal__input-container').addClass('error');
+        }
+        checkText = checkText.replace(/,\s*$/, "");
+
+        if (firstName && lastName && Bio) {
+            var formData = {};
+            $.each($('#profileForm').serializeArray(), function () {
+                formData[this.name] = this.value;
+            });
+            $.ajax({
+                type: 'POST',
+                url: _appJsConfig.appHostName + '/api/user/edit-profile',
+                dataType: 'json',
+                data: formData,
+                success: function (data, textStatus, jqXHR) {
+                    if (data.success === 1) {
+                        $(elem).html('Saved');
+                        $(elem).addClass('active');
+                        $(elem).prev().removeClass('active');
+                        $('.account-modal__content_section--profile').find('.account-modal__select').removeClass('changed');
+                        $('.account-modal__content_section--profile').find('.account-modal__input-container').removeClass('answered');
+                        $('.account-modal__content_section--profile').find('.account-modal__input-container').each(function () {
+                            if ($(this).find('.account-modal__input').val().length > 0) {
+                                $(this).addClass('active');
+                                $(this).addClass('unchanged');
+                            }
+                        });
+                        location.reload();
+                    } else {
+                        $(elem).prev().addClass('active');
+                        $(elem).prev().html('<div class="account-modal__error_text">Error saving profile.</div>');
+                        $(elem).removeClass('active');
+                        $(elem).html('Save');
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $(elem).prop('disabled', false).html('Save');
+                },
+                beforeSend: function (jqXHR, settings) {
+                    $(elem).prop('disabled', true).html('Please wait...');
+                },
+                complete: function (jqXHR, textStatus) {
+                    $(elem).prop('disabled', false).html('Save');
+                }
+            });
+        } else {
+            $(this).prev().addClass('active');
+            $(this).prev().html('<div class="account-modal__error_text">Error: ' + checkText + ' is required.</div>');
+            $(this).removeClass('active');
+            $(this).html('Save');
+        }
+    });
+
+    $('.account-modal__content_section--following').find('.account-modal__select').on('click', function () {
+        $('.account-modal__buttons_following').removeClass('active');
+        $('.account-modal__buttons_following').html('Save');
+    });
+
+    $('.account-modal__buttons_following').on('click', function (e) {
+        e.preventDefault();
+        var elem = $(this);
+        if (true) { // Add in condition for error
+
+            $.ajax({
+                type: 'POST',
+                url: _appJsConfig.appHostName + '/api/user/follow',
+                dataType: 'json',
+                data: $('#followForm').serializeArray(),
+                success: function (data, textStatus, jqXHR) {
+                    if (data.success === 1) {
+                        $(elem).toggleClass('active');
+                        $('.account-modal__content_section--following').find('.account-modal__select').removeClass('changed');
+                        $(elem).prev().removeClass('active');
+                        $('.followingSuccess').children().html('Your Section(s) & User(s) Saved.');
+                    } else {
+                        $(elem).prev().addClass('active');
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $(elem).prop('disabled', false).html('Save');
+                },
+                beforeSend: function (jqXHR, settings) {
+                    $(elem).prop('disabled', true).html('Please wait..');
+                },
+                complete: function (jqXHR, textStatus) {
+                    $(elem).prop('disabled', false).removeClass('active').html('Save');
+                }
+            });
+
+        } else {
+            $(this).prev().addClass('active');
+        }
+    });
+
+    $('.account-modal__delete-account_checkbox').change(function () {
+        if (this.checked) {
+            $(this).closest('.account-modal__delete-account').addClass('active');
+        } else {
+            $(this).closest('.account-modal__delete-account').removeClass('active');
+        }
+    });
+
+    $('.account-modal__buttons_delete-account').on('click', function (e) {
+        e.preventDefault();
+    });
+
+    $('.reset-password-modal__submit').on('click', function (e) {
+        e.preventDefault();
+        var elem = $(this);
+        if ($('#resetPasswordForm').find('input[name="password"]').val().length < 6) {
+            $('#resetPasswordForm').find('input[name="password"]').closest('.account-modal__input-container').addClass('error');
+        }
+
+        var verifyPass = $('#resetPasswordForm').find('input[name="password"]').val() === $('#resetPasswordForm').find('input[name="verifypassword"]').val();
+        var verifyInputs = !$('.forgotten-password-modal__content--change-password').find('.account-modal__input-container').hasClass('error');
+        if (verifyPass && verifyInputs) {
+            $.ajax({
+                type: 'POST',
+                url: _appJsConfig.appHostName + '/api/auth/reset-password?token=' + $('#reset-token').val(),
+                dataType: 'json',
+                data: $('#resetPasswordForm').serializeArray(),
+                success: function (data, textStatus, jqXHR) {
+                    if (data.success === 1) {
+                        $('.forgotten-password-modal__content').removeClass('active');
+                        $('.forgotten-password-modal__content--email-sent').addClass('active');
+                        $('.forgotten-password-modal__content--email-sent').find('div').html('Password Reset Successfully!!');
+                        $('.forgotten-password-modal__container').addClass('success');
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $(elem).prop('disabled', false).html('Submit');
+                },
+                beforeSend: function (jqXHR, settings) {
+                    $(elem).prop('disabled', true).html('Please wait...');
+                },
+                complete: function (jqXHR, textStatus) {
+                    $(elem).prop('disabled', false).html('Submit');
+                }
+            });
+        }
+    });
+}(jQuery));
 var AuthController = (function ($) {
     return {
         loginOrSignup: function () {
             AuthController.LoginOrSignup.init();
         },
-        socialSingup: function () {
+        socialSignup: function () {
             AuthController.SocialSignup.init();
         },
         forgotPassword: function () {
@@ -29073,7 +29832,7 @@ AuthController.LoginOrSignup = (function ($) {
 AuthController.SocialSignup = (function ($) {
 
     var attachEvents = function () {
-        $("#signupForm").validateSoicalSignupForm();
+        $("#signupForm").validateSocialSignupForm();
     };
 
     return {
@@ -29111,30 +29870,23 @@ AuthController.ForgotPassword = (function ($) {
 AuthController.ResetPassword = (function ($) {
 
     var attachEvents = function () {
-        $("#resetPasswordForm").validate({
-            rules: {
-                password: {
-                    required: true,
-                    minlength: 6
-                },
-                verifypassword: {
-                    required: true,
-                    minlength: 5,
-                    equalTo: "#password"
-                }
-            },
-            messages: {
-                password: {
-                    required: "Password cannot be blank.",
-                    minlength: "Password should contain at least 6 characters."
-                },
-                verifypassword: {
-                    required: "Verify password cannot be blank.",
-                    minlength: "Verify Password should contain at least 6 characters.",
-                    equalTo: "Verify Password should exactly match Password"
-                }
+        $('.forgotten-password-modal__container').addClass('active');
+        $('.forgotten-password-modal__content--change-password').addClass('active');
+        
+        function getParameterByName(name, url) {
+            if (!url) {
+              url = window.location.href;
             }
-        });
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        var token = getParameterByName('token');
+        $('#reset-token').val(token);
     };
 
     return {
@@ -29158,9 +29910,16 @@ Card.prototype.renderCard = function(card, cardClass, template)
 {
     var self = this;
     console.log('rendering card');
+    console.log(template);
+
     var template = (template) ? Acme[template] : Acme.systemCardTemplate;
     console.log(card);
     card['containerClass'] = cardClass;
+    if (card.status == "draft") {
+        card['articleStatus'] = "draft";
+        card['containerClass'] += " draft"; 
+    }
+
     card['pinTitle'] = (card.isPinned == 1) ? 'Un-Pin Article' : 'Pin Article';
     card['pinText'] = (card.isPinned == 1) ? 'Un-Pin' : 'Pin';
     card['promotedClass'] = (card.isPromoted == 1)? 'ad_icon' : '';
@@ -30077,9 +30836,7 @@ Card.prototype.events = function()
         };
         Acme.listMenu.prototype.reset = function()
         {
-            // console.log(this.defaultSelection);
             var menuid = '#' + this.name + ' > p';
-            // console.log(menuid);
             $(menuid).text(this.defaultSelection.label);
             return this;
         };
@@ -30771,14 +31528,22 @@ HomeController.Blog = (function ($) {
     };
 
 }(jQuery));
+(function ($) {
+var blogFormMap = {
+    "115" : [114],
+    "110" : [117],
+    "118" : [119],
+    "121" : [120],
+};
 
 var classList = document.getElementsByTagName('body')[0].className.split(/\s+/);
+
+var blogId = [];
 for (var i = 0; i < classList.length; i++) {
     if (classList[i].indexOf('blog') > -1) {
-        classList = classList[i].split('-')[1];
+        blogId = blogFormMap[ classList[i].split('-')[1] ];
     }
 }
-
 
 Acme.jobsearch = Acme.Model.create({
     'url' : 'search'
@@ -30881,11 +31646,10 @@ Acme.jobRegionFilter = Acme.View.create(
         this.menu.reset();
     },
     construct: function() {
-        this.render();
+        // this.render();
         this.subscriptions = Acme.PubSub.subscribe({
             'Acme.jobRegionFilter.listener' : ["update_state"]
         });
-
     }
 });
 
@@ -30893,6 +31657,21 @@ Acme.jobRegionFilter = Acme.View.create(
 
 Acme.ListingForm = Acme.View.create(
 {
+    "construct": function() 
+    {
+        this.data = {
+            'id': 0,
+            'status': 'draft',
+            'blogs': blogId,
+            'media_ids': ''
+        };
+        this.subscriptions = Acme.PubSub.subscribe({
+            'Acme.ListingForm.listener' : ["state_changed", 'update_state']
+        });
+
+        this.addPulldowns();
+        this.events();
+    },
     "container"     : {
         'main'          : $('#listingForm')
     },
@@ -30987,15 +31766,15 @@ Acme.ListingForm = Acme.View.create(
 
         for (key in this.data.extendedData) {
             if (key === 'region') {
-                this.regionMenu.select(this.data.extendedData[key]);
+                this.menus.regionMenu.select(this.data.extendedData[key]);
                 continue;
             }
             if (key === 'type') {
-                this.propertyMenu.select(this.data.extendedData[key]);
+                this.menus.propertyMenu.select(this.data.extendedData[key]);
                 continue;
             }
             if (key === 'contracttype') {
-                this.buyMenu.select(this.data.extendedData[key]);
+                this.menus.buyMenu.select(this.data.extendedData[key]);
                 continue;
             }
             if (key === 'salary') {
@@ -31004,13 +31783,14 @@ Acme.ListingForm = Acme.View.create(
 
             $('#'+key).val(this.data.extendedData[key]);
         }
-
+        if (this.data.id) {
+            $('#listingFormSubmit').text('UPDATE');
+        }
 
         this.renderImageThumbs(this.data.mediaData);
     },
     "renderImageThumbs": function(images) 
     {
-        console.log(images);
         var imageArray = $('#imageArray');
         var html = "";
         for (var i=0;i<images.length;i++) {
@@ -31021,16 +31801,16 @@ Acme.ListingForm = Acme.View.create(
     },
     "clear": function(images) 
     {
-        if (this.menus.length > 0) {
-            for(var i=0;i<this.menus.length;i++) {
-                this.menus[i].reset();
+        if (this.menus) {
+            var menus = Object.keys(this.menus);
+            for(var i=0;i<menus.length;i++) {
+                this.menus[menus[i]].reset();
             }
         }
         $('#imageArray').empty();
         this.data = {
             'id': 0,
-            'blogs': [114],
-            'status': 'published',
+            'blogs': blogId,
             'media_ids': ''
         };
     },
@@ -31054,7 +31834,7 @@ Acme.ListingForm = Acme.View.create(
                     var resultJsonStr = JSON.stringify(data);
 
                     var postdata = {
-                        'blogs' : [114],
+                        'blogs' : blogId,
                         'imgData' : resultJsonStr
                     };
 
@@ -31076,12 +31856,11 @@ Acme.ListingForm = Acme.View.create(
                     }).fail(function(r) {
                         console.log(r);
                     });
-
-                    
                 }
         });
 
         $('#listingFormClear').on('click', function(e) {
+            $('#listingFormSubmit').text('SUBMIT');
             self.clear();
         });
 
@@ -31105,21 +31884,6 @@ Acme.ListingForm = Acme.View.create(
                 console.log(r);
             });
         });
-    },
-    "construct": function() 
-    {
-        this.data = {
-            'id': 0,
-            'blogs': [114],
-            'status': 'published',
-            'media_ids': ''
-        };
-        this.subscriptions = Acme.PubSub.subscribe({
-            'Acme.ListingForm.listener' : ["state_changed", 'update_state']
-        });
-
-        this.addPulldowns();
-        this.events();
     }
 });
 
@@ -31155,7 +31919,8 @@ Acme.listingCollection = new Acme._Collection(Acme.listing);
     Acme.listingCollection.listeners = {
         "userArticles" : function(data) {
             console.log('getting user listings');
-            return this.fetch('user/user-articles?userguid='+Acme.currentUser+'&blogs='+114);
+            var blogs = blogId.join(',');
+            return this.fetch('user/user-articles?userguid='+Acme.currentUser+'&blogs='+blogs+'&status=all');
         }
     };
     Acme.listingCollection.fetch = function(url)
@@ -31185,42 +31950,42 @@ Acme.listingCollection = new Acme._Collection(Acme.listing);
 
 
 
-Acme.listingView = Acme.View.create({
+Acme.listingView = Acme.View.create(
+{
+    "construct": function() {
+        this.events();
+        this.blogs = blogId;
+        this.subscriptions = Acme.PubSub.subscribe({
+            'Acme.listingView.listener' : ["state_changed", 'update_state']
+        });
+    },
     "container"     : {
         'main'          : $('#userListings')
     },
     "listeners"     : {
         "userlistings" : function(data) {
-            console.log('LISTING VIEW');
-            console.log(data);
             this.data = data.userlistings.data;
             this.render();
         }
     },
-    "init": function() {
-        this.events();
-        this.status = 'published';
-        this.blogs = [114];
-        this.subscriptions = Acme.PubSub.subscribe({
-            'Acme.listingView.listener' : ["state_changed", 'update_state']
-        });
-    },
     "events": function() 
     {
         var self = this;
+        console.log(_appJsConfig.isUserLoggedIn);
         if(_appJsConfig.isUserLoggedIn === 1) {
             init();
         }
 
         function init() {
-            
+            console.log('initing');
             self.container.main.on('click', '.listingCard', function(e) {
                 e.preventDefault();
                 $('#listingFormClear').click();
                 var elem = $(this);
                 var card = elem.find('a').first();
                 var articleId = card.data('id');
-                Acme.server.fetch('article/get-article?articleId='+articleId).done(function(r) {
+                var status = card.data('status');
+                Acme.server.fetch('article/get-article?articleId='+articleId+"&status="+status).done(function(r) {
                     console.log(r);
                     var data = {
                         'id': r.id,
@@ -31248,18 +32013,23 @@ Acme.listingView = Acme.View.create({
                     Acme.PubSub.publish('state_changed', {'user listing': data});
                 });
             });
+
+
+            $("#userlistingsrefresh").on('click',function(e) {
+                console.log('clicked');
+                Acme.PubSub.publish('update_state', {"userArticles":''});
+            });
         }  
     },
     "render": function()
     {
         console.log(this.data);
         var container = this.container.main;
-        var cardClass = "card-rec card-rec-table card-rec-mobile listingCard";
+        var cardClass = "card-form-listing listingCard";
 
         var html = "";
         for (var i=0;i<this.data.length;i++) {
-
-            html += window.Acme.cards.renderCard(this.data[i].data, cardClass);
+            html += window.Acme.cards.renderCard(this.data[i].data, cardClass, 'jobsCardTemplate');
         }
         container.empty().append(html);
 
@@ -31267,7 +32037,7 @@ Acme.listingView = Acme.View.create({
     }
 });
 
-
+}(jQuery));
 $('document').ready(function() {
     var isMenuBroken, isMobile;
     var sbCustomMenuBreakPoint = 992;

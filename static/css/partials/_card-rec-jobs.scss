@@ -18,7 +18,8 @@
                 }
                 > h2{
                     font-family: $font-family-serif;
-                    color:color(darkblue);
+                    color:black;
+                    height: 30px;                    
                 }
                 > h3{
                     margin:0;
@@ -82,7 +83,29 @@
                         margin-bottom:11px;
                     }
                     > p.excerpt {
-                        max-height:40px;
+                        height:40px;
+                        width:500px;
+                        padding-right:20px;
+                        position: absolute;
+                        top:90px;
+                        left:0px;
+                    }
+
+                    > p.salary {
+                        color: color(darkblue);
+                        position: absolute;
+                        top:33px;
+                        right:0px;                        
+                    }
+
+                    > p.location {
+                        font-size: rem(13);
+                        position: absolute;
+                        width: 110px;
+                        height:40px;
+                        top:90px;
+                        right:0px;
+                        font-style: italic;
                     }
                 }
             }
@@ -97,30 +120,52 @@
     @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
         @include card-rec-jobs-base();
 
-        margin-bottom: 20px;
+        margin-bottom: 32px;
 
         a.card {
-            @include card-image-left(109px, 78px);
-            height:95px;
+            height:190px;
 
             > article {
 
                 > figure{
                     margin-right:18px;
+                    margin-bottom:10px;
                 }
 
                 > .content{
+
                     > h2{
-                        font-size: rem(16);
-                        line-height:1.12;
-                        margin-top:5px;
-                        margin-bottom:10px;
+                        font-size: rem(25);
+                        line-height:1.2;
+                        margin-top:12px;
+                        margin-bottom:2px;
                     }
-                    > h3{
-                        font-size: rem(14);
-                        margin-bottom:10px;
+                    > p.company{
+                        font-size: rem(13);
+                        font-weight:600;
+                        margin-bottom:11px;
+                    }
+                    > p.excerpt {
+                        height:60px;
+                        position: absolute;
+                        top: 120px;
                     }
 
+                    > p.salary {
+                        font-size: rem(13);
+                        color: color(darkblue);
+                        position: absolute;
+                        top: 90px;
+                        right:0px;                        
+                    }
+
+                    > p.location {
+                        font-size: rem(13);
+                        position: absolute;
+                        top: 90px;
+                        left:0px;
+                        font-style: italic;
+                    }
                 }
             }
         }

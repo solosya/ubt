@@ -1,75 +1,122 @@
-.card-event{
-    @media screen and (min-width: $mmd-break){
-        
-        position:relative;
-        margin-bottom: 12px;
+@mixin card-event-base() {
+    position:relative;
+    a.card {
+        border-bottom: 1px solid #97999c;
 
-        a.card {
-            @include card-image-left(60px, 37px);
-            border-bottom: 1px solid #97999c;
-            height:53px;
+        > article {
+            > time {
+                display: none;
+            }
 
-            > article {
+            position:relative;
+            > figure{
+            }
+            > .content{
+                padding: 0;
                 position:relative;
+                > .category{
+                    margin-bottom:0;
+                    text-transform: uppercase;
+                    color: color(lightgrey);
+                    font-size: rem(10);
+                    margin-bottom: 12px;
+                }
+                > h2{
+                    font-family: $font-family-serif;
+                    color:black;
+                    height: 30px;
+                    margin-bottom: 18px;                  
+                }
+                > h3{
+                    margin:0;
+                    color:color(red);
+                }
 
                 > time {
-                    display:block;
-                    float:left;
-                    text-align:center;
-                    padding: 0 18px;
-
-                    > span {
-                        display:block;
-                        line-height:1;
-                    }
-                    > span.day {
-                        margin-top:8px;
-                        margin-bottom: 3px;
-                        font-size: rem(13);
-                        color:black;
-                    }
-                    > span.month {
-                        font-size: rem(9);
-                        color:color(lightgrey);
-                    }
-
+                    color: color(darkblue);                    
                 }
 
+                > div.listing-type {
+                    >img {
+                        float:left;
+                    }
+                }
+            }
+        }  
+    }
+}
+
+
+
+.card-event{
+    @media screen and (min-width: $mmd-break){
+        @include card-event-base();
+
+        margin-bottom: 32px;
+
+        a.card {
+            @include card-image-left(173px, 141px);
+            height:173px;
+
+            > article {
 
                 > figure{
-                    margin-right:21px;
+                    margin-right:18px;
+                    margin-bottom:10px;
                 }
 
-
                 > .content{
-                    position:relative;
-                    padding: 0;
-
 
                     > h2{
-                        font-size: rem(12);
+                        font-size: rem(25);
                         line-height:1.2;
-                        font-family: $base-font-family;
-                        margin-bottom:5px;
-                        color:color(black);
+                        margin-top:12px;
                     }
 
-                    >time {
-                        text-transform:none;
-                        font-size: rem(12);
-                        color:color(black);
-                    }
-        
                     > p.excerpt {
-                        display:none;
+                        height: 40px;
+                        margin-top: 10px;
                     }
 
                 }
             }
+        }
+    }
+}
 
 
-            &.article.without__image {
-            }   
+
+
+.card-event-tablet{
+    @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
+        @include card-event-base();
+
+        margin-bottom: 32px;
+
+        a.card {
+            height:173px;
+
+            > article {
+
+                > figure{
+                    display: none;
+                }
+
+                > .content{
+
+                    > h2{
+                        font-size: rem(25);
+                        line-height:1.2;
+                        margin-top:12px;
+                    }
+
+                    > p.excerpt {
+                        height: 40px;
+                        margin-top: 10px;
+                    }
+
+                }
+            }
         }
     }
 }
@@ -78,75 +125,34 @@
 
 
 
-.card-event-tablet{
-    @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
-        
-        position:relative;
-        margin-bottom: 12px;
+
+
+
+
+.card-event-mobile{
+    @media screen and (max-width: $sm-break-down){
+        @include card-event-base();
+
+        margin-bottom: 20px;
 
         a.card {
-            border-bottom: 1px solid #97999c;
-            height:auto;
+            @include card-image-left(80px, 82px);
+            height:102px;
 
             > article {
-                position:relative;
-
-                > time {
-                    display:block;
-                    // text-align:center;
-                    // padding: 0 18px;
-
-                    > span {
-                        line-height:1;
-                    }
-                    > span.day {
-                        font-size: rem(14);
-                        color:black;
-                    }
-                    > span.month {
-                        font-size: rem(10);
-                        color:color(lightgrey);
-                    }
-
-                }
-
 
                 > figure{
-                    display:none;
+                    margin-right:18px;
                 }
-
 
                 > .content{
-                    position:relative;
-                    padding-bottom: 6px;
-
-
                     > h2{
-                        font-size: rem(12);
-                        line-height:1;
-                        font-family: $base-font-family;
-                        margin-top:3px;
-                        font-weight:600;
-                        margin-bottom:5px;
-                        color:color(black);
+                        font-size: rem(16);
+                        line-height:1.38;
+                        margin-top:0;
                     }
-
-                    >time {
-                        text-transform:none;
-                        font-size: rem(12);
-                        color:color(black);
-                    }
-        
-                    > p.excerpt {
-                        display:none;
-                    }
-
                 }
             }
-
-
-            &.article.without__image {
-            }   
         }
     }
 }

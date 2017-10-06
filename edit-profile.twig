@@ -8,11 +8,14 @@
 {% set eventsArr = [] %}
 
 {% if user %} 
-    {% set jobListingsArr = _User.getUserArticles(user.guid, 0, 1, [117]) %}
-    {% set realEstateArr = _User.getUserArticles(user.guid, 0, 1, [117]) %}
-    {% set eventsArr = _User.getUserArticles(user.guid, 0, 1, [117]) %}
+    {% set jobListingsArr = _User.getUserArticles(user.guid, 0, 1000, [117]) %}
+    {% set realEstateArr = _User.getUserArticles(user.guid, 0, 1000, [117]) %}
+    {% set eventsArr = _Event.getEvents() %}
 {% endif %}
 
+{% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 4 : 0 %}
+<!-- 3 is job, 4 is property, 5 is event -->
+{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
 
 <main id="main" class="user_profile listingForm" role="main">
     <div class="container">
@@ -81,15 +84,17 @@
                         <div class="row">
                             <div  id="jobListings" class="col-md-12">
                                 {% if jobListingsArr[0] %}
-                                    {% for article in jobListingsArr %}
+                                    {% set articleCount = (dev) ? articleCount : 0 %}
+                                    {% for i in 0..2 %}
 
                                         {{this.render('partials/_single-article.twig', {
-                                            article: article, 
+                                            article: jobListingsArr[articleCount], 
                                             position: loop.index,
                                             behaviour: 'noclick',
                                             template: 'jobs',
-                                            containerClass: "card-rec-jobs listingCard"
+                                            containerClass: "card-rec-jobs card-rec-jobs-tablet listingCard"
                                         }) | raw}}
+                                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
 
                                     {% endfor %}
                                 {% else %}
@@ -110,15 +115,17 @@
                         <div class="row">
                             <div  id="realEstateListings" class="col-md-12">
                                 {% if realEstateArr[0] %}
-                                    {% for article in realEstateArr %}
+                                    {% set articleCount = (dev) ? articleCount : 0 %}
+                                    {% for i in 0..2 %}
 
                                         {{this.render('partials/_single-article.twig', {
-                                            article: article, 
+                                            article: realEstateArr[articleCount], 
                                             position: loop.index,
                                             behaviour: 'noclick',
-                                            template: 'realestate',
-                                            containerClass: "card-rec-jobs listingCard"
+                                            template: 'property',
+                                            containerClass: "card-rec-realestate card-rec-realestate-tablet listingCard"
                                         }) | raw}}
+                                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
 
                                     {% endfor %}
                                 {% else %}
@@ -139,15 +146,16 @@
                         <div class="row">
                             <div  id="userListings" class="col-md-12">
                                 {% if eventsArr[0] %}
-                                    {% for article in eventsArr %}
+                                    {% set articleCount = (dev) ? 0 : 0 %}
+                                    {% for i in 0..0 %}
 
-                                        {{this.render('partials/_single-article.twig', {
-                                            article: article, 
+                                        {{this.render('partials/_single-event.twig', {
+                                            event: eventsArr[articleCount], 
                                             position: loop.index,
                                             behaviour: 'noclick',
-                                            template: 'listing',
-                                            containerClass: "card-rec-jobs listingCard"
+                                            containerClass: "card-event card-event-tablet listingCard"
                                         }) | raw}}
+                                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
 
                                     {% endfor %}
                                 {% else %}
