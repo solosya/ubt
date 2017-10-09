@@ -1,0 +1,133 @@
+@mixin card-form-listing-base() {
+    position:relative;
+    a.card {
+        border-bottom: 1px solid #97999c;
+
+        > article {
+            position:relative;
+            > figure{
+            }
+            > .content{
+                padding: 0;
+                position:relative;
+                > div {
+                    > .category{
+                        // display:none;
+                    }
+                }
+                > h2{
+                    font-family: $font-family-serif;
+                    color:color(black);
+                }
+                > p.excerpt {
+                    display:none;
+                }
+            }
+        }
+        &.draft {
+            opacity: 0.5;
+            // background:pink;
+        }  
+    }
+}
+
+
+
+.card-form-listing{
+    @media screen and (min-width: $mmd-break){
+        @include card-form-listing-base();
+
+        margin-bottom: 32px;
+
+        a.card {
+            @include card-image-left(80px, 80px);
+            height:80px;
+
+            > article {
+
+                > figure{
+                    margin-right:18px;
+                }
+
+                > .content{
+
+                    > h2{
+                        font-size: rem(25);
+                        line-height:1.2;
+                        margin-top:10px;
+                        margin-bottom:10px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+.card-form-listing-tablet{
+    @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
+        @include card-form-listing-base();
+
+        margin-bottom: 20px;
+
+        a.card {
+            @include card-image-left(109px, 78px);
+            height:95px;
+
+            > article {
+
+                > figure {
+                    margin-right:18px;
+                }
+
+                > .content{
+                    > h2{
+                        font-size: rem(16);
+                        line-height:1.12;
+                        margin-top:5px;
+                        margin-bottom:10px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+.card-form-listing-mobile{
+    @media screen and (max-width: $sm-break-down){
+        @include card-form-listing-base();
+
+        margin-bottom: 20px;
+
+        a.card {
+            @include card-image-left(80px, 82px);
+            height:102px;
+
+            > article {
+
+                > figure{
+                    margin-right:18px;
+                }
+
+                > .content{
+                    > h2{
+                        font-size: rem(16);
+                        line-height:1.38;
+                        margin-top:0;
+                    }
+                }
+            }
+        }
+    }
+}
+

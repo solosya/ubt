@@ -1,16 +1,24 @@
+(function ($) {
+var blogFormMap = {
+    "115" : [114],
+    "110" : [117],
+    "118" : [119],
+    "121" : [120],
+};
 
 var classList = document.getElementsByTagName('body')[0].className.split(/\s+/);
+
+var blogId = [];
 for (var i = 0; i < classList.length; i++) {
     if (classList[i].indexOf('blog') > -1) {
-        classList = classList[i].split('-')[1];
+        blogId = blogFormMap[ classList[i].split('-')[1] ];
     }
 }
 
-
-Acme.jobsearch = Acme.Model.create({
-    'url' : 'search'
-});
-    Acme.jobsearch.listeners = {
+// Acme.jobsearch = Acme.Model.create({
+//     'url' : 'search'
+// });
+    // Acme.jobsearch.listeners = {
         // "regionSelect" : function(data) {
         //     // console.log(data);
         //     var self = this;
@@ -24,107 +32,123 @@ Acme.jobsearch = Acme.Model.create({
         //         }
         //     );
         // }
-    };
-    Acme.jobsearch.subscriptions = Acme.PubSub.subscribe({
-        'Acme.jobsearch.listener' : [ "state_changed",
-                                      "update_state"]
-    });
+    // };
+    // Acme.jobsearch.subscriptions = Acme.PubSub.subscribe({
+    //     'Acme.jobsearch.listener' : [ "state_changed",
+    //                                   "update_state"]
+    // });
 
 
 
 
-Acme.searchArticles = new Acme._Collection(Acme.jobsearch);
+// Acme.searchArticles = new Acme._Collection(Acme.jobsearch);
 
-    Acme.searchArticles.subscriptions = Acme.PubSub.subscribe({
-        'Acme.searchArticles.listener' : [ "update_state" ]
-    });
-    Acme.searchArticles.listeners = {
-        "region" : function(data) {
-            console.log('fetching!!!!', data);
-            return this.fetch('search/search?s='+Object.keys(data)[0] + ":" + data.region);
-        }
-    };
-    Acme.searchArticles.fetch = function(url)
+    // Acme.searchArticles.subscriptions = Acme.PubSub.subscribe({
+    //     'Acme.searchArticles.listener' : [ "update_state" ]
+    // });
+    // Acme.searchArticles.listeners = {
+    //     "region" : function(data) {
+    //         console.log('fetching!!!!', data);
+    //         return this.fetch('search/search?s='+Object.keys(data)[0] + ":" + data.region);
+    //     }
+    // };
+    // Acme.searchArticles.fetch = function(url)
+    // {
+    //     var self = this;
+    //     console.log('fetching');
+    //     var url = (url === undefined) ? this.url() : url;
+    //     var data = Acme.server.fetch( url );
+    //     data.done( function(response) {
+    //         self.data = [];
+    //         for (var i=0; i<response.length; i++) {
+    //             self.data.push( Object.create(self.model,
+    //                 {   'data' : {
+    //                         'value': response[i],
+    //                         'writable': true
+    //                     }
+    //                 }
+    //             ));
+    //         }
+    //         console.log(self.data);
+    //         Acme.PubSub.publish('update_state', {'search': self});
+    //     });
+    //     return data;
+    // };
+
+
+
+
+// Acme.jobRegionFilter = Acme.View.create(
+// {
+//     "container"     : $('#regionSelect'),
+//     "listeners"     : {
+//         regionSelect : function(data) {
+
+//             var data = {
+//                 "region": data.regionSelect
+//             }
+//             Acme.PubSub.publish('update_state', data);
+//         }
+//     },
+//     render: function() {
+//         this.regionMenu = new Acme.listMenu({
+//             'parent'        : this.container,
+//             'list'          : [
+//                 {
+//                     'label': "one",
+//                     'value': "one"
+//                 },
+//                 {
+//                     'label': "two",
+//                     'value': "two"
+//                 },
+//                 {
+//                     'label': "three",
+//                     'value': "three"
+//                 },
+//             ],
+//             'defaultSelect' : {"label": 'Select region'},
+//             'name'          : 'regionSelect',
+//             'key'           : 'regionSelect'
+//         }).init().render();
+//     },
+//     reset: function() {
+//         this.menu.reset();
+//     },
+//     construct: function() {
+//         // this.render();
+//         this.subscriptions = Acme.PubSub.subscribe({
+//             'Acme.jobRegionFilter.listener' : ["update_state"]
+//         });
+//     }
+// });
+
+
+
+
+var ListingForm = function() {};
+ListingForm.prototype = new Acme._View();
+ListingForm.constructor = ListingForm;
+    ListingForm.prototype.init = function(blogId, layout) 
     {
-        var self = this;
-        console.log('fetching');
-        var url = (url === undefined) ? this.url() : url;
-        var data = Acme.server.fetch( url );
-        data.done( function(response) {
-            self.data = [];
-            for (var i=0; i<response.length; i++) {
-                self.data.push( Object.create(self.model,
-                    {   'data' : {
-                            'value': response[i],
-                            'writable': true
-                        }
-                    }
-                ));
-            }
-            console.log(self.data);
-            Acme.PubSub.publish('update_state', {'search': self});
-        });
-        return data;
+        console.log('initing');
+        this.data = {
+            'id': 0,
+            'blogs': blogId,
+            'media_ids': ''
+        };
+        this.layout = layout;
+
+        this.addPulldowns();
+        this.events();
     };
 
-
-
-
-Acme.jobRegionFilter = Acme.View.create(
-{
-    "container"     : $('#regionSelect'),
-    "listeners"     : {
-        regionSelect : function(data) {
-
-            var data = {
-                "region": data.regionSelect
-            }
-            Acme.PubSub.publish('update_state', data);
-        }
-    },
-    render: function() {
-        this.regionMenu = new Acme.listMenu({
-            'parent'        : this.container,
-            'list'          : [
-                {
-                    'label': "one",
-                    'value': "one"
-                },
-                {
-                    'label': "two",
-                    'value': "two"
-                },
-                {
-                    'label': "three",
-                    'value': "three"
-                },
-            ],
-            'defaultSelect' : {"label": 'Select region'},
-            'name'          : 'regionSelect',
-            'key'           : 'regionSelect'
-        }).init().render();
-    },
-    reset: function() {
-        this.menu.reset();
-    },
-    construct: function() {
-        this.render();
-        this.subscriptions = Acme.PubSub.subscribe({
-            'Acme.jobRegionFilter.listener' : ["update_state"]
-        });
-
-    }
-});
-
-
-
-Acme.ListingForm = Acme.View.create(
-{
-    "container"     : {
-        'main'          : $('#listingForm')
-    },
-    "listeners"     : {
-        "user listing" : function(data) {
+    ListingForm.prototype.container = {
+        'main' : $('#listingForm')
+    };
+    ListingForm.prototype.listeners = 
+    {
+        "user listing" : function(data, topic) {
 
             if (data['user listing'] == null) {
                 this.clear();
@@ -133,17 +157,20 @@ Acme.ListingForm = Acme.View.create(
             this.data = data['user listing'];
             this.render();
         },
-        "extendedData.region" : function(data) {
+        "extendedData.region" : function(data, topic) {
+            console.log(this);
             this.updateData(data);
         },
-        "extendedData.contracttype" : function(data) {
+        "extendedData.contracttype" : function(data, topic) {
             this.updateData(data);
         },
-        "extendedData.type" : function(data) {
+        "extendedData.type" : function(data, topic) {
+            console.log(this);
             this.updateData(data);
         }
-    },
-    "addPulldowns": function() {
+    };
+    ListingForm.prototype.addPulldowns = function() 
+    {
         this.menus = {};
 
         this.menus.regionMenu = new Acme.listMenu({
@@ -201,8 +228,9 @@ Acme.ListingForm = Acme.View.create(
                     'name'          : 'contracttype',
                     'key'           : 'extendedData.contracttype'
         }).init().render();
-    },
-    "render": function() {
+    };
+    ListingForm.prototype.render = function() 
+    {
         console.log('in the render function');
         console.log(this.data);
         var form = this.container.main;
@@ -214,15 +242,15 @@ Acme.ListingForm = Acme.View.create(
 
         for (key in this.data.extendedData) {
             if (key === 'region') {
-                this.regionMenu.select(this.data.extendedData[key]);
+                this.menus.regionMenu.select(this.data.extendedData[key]);
                 continue;
             }
             if (key === 'type') {
-                this.propertyMenu.select(this.data.extendedData[key]);
+                this.menus.propertyMenu.select(this.data.extendedData[key]);
                 continue;
             }
             if (key === 'contracttype') {
-                this.buyMenu.select(this.data.extendedData[key]);
+                this.menus.buyMenu.select(this.data.extendedData[key]);
                 continue;
             }
             if (key === 'salary') {
@@ -231,13 +259,14 @@ Acme.ListingForm = Acme.View.create(
 
             $('#'+key).val(this.data.extendedData[key]);
         }
-
+        if (this.data.id) {
+            $('#listingFormSubmit').text('UPDATE');
+        }
 
         this.renderImageThumbs(this.data.mediaData);
-    },
-    "renderImageThumbs": function(images) 
+    };
+    ListingForm.prototype.renderImageThumbs = function(images) 
     {
-        console.log(images);
         var imageArray = $('#imageArray');
         var html = "";
         for (var i=0;i<images.length;i++) {
@@ -246,22 +275,23 @@ Acme.ListingForm = Acme.View.create(
         }
         imageArray.append(html);
     },
-    "clear": function(images) 
+    ListingForm.prototype.clear = function(images) 
     {
-        if (this.menus.length > 0) {
-            for(var i=0;i<this.menus.length;i++) {
-                this.menus[i].reset();
+        if (this.menus) {
+            var menus = Object.keys(this.menus);
+            for(var i=0;i<menus.length;i++) {
+                this.menus[menus[i]].reset();
             }
         }
         $('#imageArray').empty();
+
         this.data = {
             'id': 0,
-            'blogs': [114],
-            'status': 'published',
+            'blogs': blogId,
             'media_ids': ''
         };
     },
-    "events": function() 
+    ListingForm.prototype.events = function() 
     {
         var self = this;
         $('input, textarea').on("change", function(e) {
@@ -281,7 +311,7 @@ Acme.ListingForm = Acme.View.create(
                     var resultJsonStr = JSON.stringify(data);
 
                     var postdata = {
-                        'blogs' : [114],
+                        'blogs' : blogId,
                         'imgData' : resultJsonStr
                     };
 
@@ -303,12 +333,11 @@ Acme.ListingForm = Acme.View.create(
                     }).fail(function(r) {
                         console.log(r);
                     });
-
-                    
                 }
         });
 
         $('#listingFormClear').on('click', function(e) {
+            $('#listingFormSubmit').text('SUBMIT');
             self.clear();
         });
 
@@ -324,6 +353,8 @@ Acme.ListingForm = Acme.View.create(
                 return;
             }
 
+            self.data.theme_layout_name = self.layout;
+
             Acme.server.create('article/create', self.data).done(function(r) {
                 $('#listingFormClear').click();
                 Acme.PubSub.publish('update_state', {'userArticles': ''});
@@ -332,30 +363,28 @@ Acme.ListingForm = Acme.View.create(
                 console.log(r);
             });
         });
-    },
-    "construct": function() 
-    {
-        this.data = {
-            'id': 0,
-            'blogs': [114],
-            'status': 'published',
-            'media_ids': ''
-        };
-        this.subscriptions = Acme.PubSub.subscribe({
-            'Acme.ListingForm.listener' : ["state_changed", 'update_state']
-        });
-
-        this.addPulldowns();
-        this.events();
     }
-});
+    // ListingForm.constructor =  Acme.ListingForm;
 
 
+Acme.JobForm = function(blogId, layout) {
+    this.subscriptions = Acme.PubSub.subscribe({
+        'Acme.jobForm.listener' : ['state_change']
+    });
+    this.init(blogId, layout);
+}
+Acme.JobForm.prototype = new ListingForm();
+Acme.JobForm.prototype.constructor=Acme.JobForm;
 
 
-
-
-
+Acme.PropertyForm = function(blogId, layout) {
+    this.subscriptions = Acme.PubSub.subscribe({
+        'Acme.propertyForm.listener' : ['state_change']
+    });
+    this.init(blogId, layout);
+};
+Acme.PropertyForm.prototype = new ListingForm();
+Acme.PropertyForm.prototype.constructor=Acme.PropertyForm;
 
 
 
@@ -376,78 +405,75 @@ Acme.listing = Acme.Model.create({
 
 Acme.listingCollection = new Acme._Collection(Acme.listing);
 
-    Acme.listingCollection.subscriptions = Acme.PubSub.subscribe({
-        'Acme.listingCollection.listener' : [ "update_state" ]
-    });
-    Acme.listingCollection.listeners = {
-        "userArticles" : function(data) {
-            console.log('getting user listings');
-            return this.fetch('user/user-articles?userguid='+Acme.currentUser+'&blogs='+114);
-        }
+//     Acme.listingCollection.subscriptions = Acme.PubSub.subscribe({
+//         'Acme.listingCollection.listener' : [ "update_state" ]
+//     });
+//     Acme.listingCollection.listeners = {
+//         "userArticles" : function(data) {
+//             console.log('getting user listings');
+//             var blogs = blogId.join(',');
+//             return this.fetch('user/user-articles?userguid='+Acme.currentUser+'&blogs='+blogs+'&status=all');
+//         }
+//     };
+//     Acme.listingCollection.fetch = function(url)
+//     {
+//         var self = this;
+//         var url = (url === undefined) ? this.url() : url;
+//         var data = Acme.server.fetch( url );
+//         data.done( function(response) {
+//             self.data = [];
+//             for (var i=0; i<response.length; i++) {
+//                 self.data.push( Object.create(self.model,
+//                     {   'data' : {
+//                             'value': response[i],
+//                             'writable': true
+//                         }
+//                     }
+//                 ));
+//             }
+//             Acme.PubSub.publish('update_state', {'userlistings': self});
+//         });
+//         return data;
+//     };
+
+
+
+
+
+Acme.listingViewClass = function(){};
+Acme.listingViewClass.prototype = new Acme._View();
+
+    Acme.listingViewClass.prototype.init =  function(blogId) {
+        this.events();
+        this.blogs = blogId;
     };
-    Acme.listingCollection.fetch = function(url)
-    {
-        var self = this;
-        var url = (url === undefined) ? this.url() : url;
-        var data = Acme.server.fetch( url );
-        data.done( function(response) {
-            self.data = [];
-            for (var i=0; i<response.length; i++) {
-                self.data.push( Object.create(self.model,
-                    {   'data' : {
-                            'value': response[i],
-                            'writable': true
-                        }
-                    }
-                ));
-            }
-            Acme.PubSub.publish('update_state', {'userlistings': self});
-        });
-        return data;
+    Acme.listingViewClass.prototype.container = {
+        'main' : $('#userListings')
     };
-
-
-
-
-
-
-
-Acme.listingView = Acme.View.create({
-    "container"     : {
-        'main'          : $('#userListings')
-    },
-    "listeners"     : {
+    Acme.listingViewClass.prototype.listeners = {
         "userlistings" : function(data) {
-            console.log('LISTING VIEW');
-            console.log(data);
             this.data = data.userlistings.data;
             this.render();
         }
-    },
-    "init": function() {
-        this.events();
-        this.status = 'published';
-        this.blogs = [114];
-        this.subscriptions = Acme.PubSub.subscribe({
-            'Acme.listingView.listener' : ["state_changed", 'update_state']
-        });
-    },
-    "events": function() 
+    };
+    Acme.listingViewClass.prototype.events = function() 
     {
         var self = this;
+        console.log(_appJsConfig.isUserLoggedIn);
         if(_appJsConfig.isUserLoggedIn === 1) {
             init();
         }
 
         function init() {
-            
+            console.log('initing');
             self.container.main.on('click', '.listingCard', function(e) {
                 e.preventDefault();
                 $('#listingFormClear').click();
                 var elem = $(this);
                 var card = elem.find('a').first();
                 var articleId = card.data('id');
-                Acme.server.fetch('article/get-article?articleId='+articleId).done(function(r) {
+                var status = card.data('status');
+                Acme.server.fetch('article/get-article?articleId='+articleId+"&status="+status).done(function(r) {
                     console.log(r);
                     var data = {
                         'id': r.id,
@@ -462,6 +488,7 @@ Acme.listingView = Acme.View.create({
                     for (var i=0;i<r.media.length;i++) {
                         mediaids.push(r.media[i].media_id);
                     }
+                    data.media_id = mediaids[0];
                     data.media_ids = mediaids.join(',');
 
                     if (r.additionalInfo) {
@@ -475,22 +502,33 @@ Acme.listingView = Acme.View.create({
                     Acme.PubSub.publish('state_changed', {'user listing': data});
                 });
             });
+
+
+            $("#userlistingsrefresh").on('click',function(e) {
+                console.log('clicked');
+                Acme.PubSub.publish('update_state', {"userArticles":''});
+            });
         }  
     },
-    "render": function()
+    Acme.listingViewClass.prototype.render = function()
     {
         console.log(this.data);
         var container = this.container.main;
-        var cardClass = "card-rec card-rec-table card-rec-mobile listingCard";
+        var cardClass = "card-form-listing listingCard";
 
         var html = "";
         for (var i=0;i<this.data.length;i++) {
-
-            html += window.Acme.cards.renderCard(this.data[i].data, cardClass);
+            html += window.Acme.cards.renderCard(this.data[i].data, cardClass, 'jobsCardTemplate');
         }
         container.empty().append(html);
 
         $(".card .content > p, .card h2").dotdotdot();
-    }
-});
+    };
 
+Acme.listingView = new Acme.listingViewClass();
+    Acme.listingView.subscriptions = Acme.PubSub.subscribe({
+        'Acme.listingView.listener' : ["state_changed", 'update_state']
+    });
+    
+
+}(jQuery));

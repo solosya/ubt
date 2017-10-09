@@ -23,6 +23,7 @@
                     margin-bottom:0;
                 }
                 > p.excerpt {
+                    // background:rgba(150,0,0,.4);
                     color:color(black);
                 }
             }
@@ -64,20 +65,29 @@
                         margin:0;
                         width:216px;
                         float:left;
+                        font-weight:400;
                         color: color(red);
                         font-size:rem(14);
                         line-height:1.3;
                         max-height:90px;
+                        text-transform:uppercase;
                     }
                     > div.listing-type {
                         position:absolute;
-                        bottom:0;
+                        bottom:30px;
                         left:0;
-
+                        >p {
+                            margin:0;
+                            margin-left:10px;
+                            float:right;
+                            font-size:rem(12);
+                            font-style:italic;
+                            color:color(darkblue);
+                        }
                     }
                     > p.excerpt {
                         float:right;
-                        width:65%;
+                        width:60%;
                         height:100px;
                         max-height:100px;
                         line-height: 1.54;

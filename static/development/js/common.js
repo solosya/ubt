@@ -54,6 +54,7 @@
 
     Acme.listen.prototype.listener = function(topic, data)
     {
+        console.log(this);
         var keys = Object.keys(data);
 
         for (var i = 0; i<keys.length; i++) {
@@ -62,7 +63,7 @@
 
                 if ( listener === keys[i] ) {
 
-                    this.listeners[listener].call(this, data);
+                    this.listeners[listener].call(this,data, topic);
 
                     break;
                 }
@@ -74,24 +75,25 @@
     Acme.Model.create = function(config)
     {
         var obj = Object.create(
-        Acme._Model.prototype, {'resource': {
-                                    'value' : config['url'],
-                                    'enumerable': true,
-                                },
-                                'alias' : {
-                                    'value' : config['alias'] || null,
-                                    'enumerable': true,
-                                },
-                                'resource_id': {
-                                    'value' : config['resource_id'],
-                                    'enumerable': true,
-                                },
-                                'query' : {
-                                    'value': [],
-                                    'writable': true,
-                                    'enumerable': true,
-                                }
-                     }
+        Acme._Model.prototype, {
+            'resource': {
+                    'value' : config['url'],
+                    'enumerable': true,
+                },
+                'alias' : {
+                    'value' : config['alias'] || null,
+                    'enumerable': true,
+                },
+                'resource_id': {
+                    'value' : config['resource_id'],
+                    'enumerable': true,
+                },
+                'query' : {
+                    'value': [],
+                    'writable': true,
+                    'enumerable': true,
+                }
+            }
         );
         for (var param in config['this']) {
             obj[param] = config['this'][param];
@@ -110,55 +112,16 @@
         return obj;
     };
 
-    Acme.View.create = function(config)
-    {
-        function obj() {};
-        obj.prototype = Object.create(Acme.listen.prototype,
-            {
-                'template': {
-                    'value' : config['temp'] || null,
-                    'enumerable': true,
-                },
-                'container' : {
-                    'value' : config['container'] || null,
-                    'writable': true,
-                    'enumerable': true,
-                },
-                'listeners': {
-                    'value' : config['listeners'],
-                    'enumerable':true,
-                }
-            }
-        );
-        delete config.template;
-        delete config.container;
-        delete config.listeners;
 
-        obj.prototype.clear = function()
-        {
-            $(this.container).empty();
-        };
-        obj.prototype.soften = function()
-        {
-            if (typeof this.container == 'string') {
-                this.container.css('opacity', '.4');
-            } else {
-                $(this.container).css('opacity', '.4');
-            }
-        };
-        obj.prototype.brighten = function()
-        {
-            if (typeof this.container == 'string') {
-                this.container.css('opacity', '1');
-            } else {
-                $(this.container).css('opacity', '1');
-            }
-        };
-        obj.prototype.updateData = function(data) {
+
+    Acme._View = function() {};
+        Acme._View.prototype = new Acme.listen();
+        Acme._View.prototype.updateData = function(data) {
+            console.log(data);
             var key = Object.keys(data)[0];
             var keySplit = key.split('.');
             var scope = this.data;
-
+            console.log(this);
             for(var i=0; i<keySplit.length; i++) {
                 if (!scope[keySplit[i]]) {
                     scope[keySplit[i]] = {};
@@ -170,17 +133,15 @@
             }
         }
 
+    Acme.View.create = function(config)
+    {
+        var obj = function(){};
+
         for (conf in config) {
             obj.prototype[conf] = config[conf];
         }
 
-        var instance = new obj();
-
-        if (config.hasOwnProperty('construct')) {
-            instance.construct.call(instance);
-        }
-
-        return instance;
+        return obj;
     }
 
     Acme._Collection = function(model) {
@@ -499,9 +460,7 @@
         };
         Acme.listMenu.prototype.reset = function()
         {
-            // console.log(this.defaultSelection);
             var menuid = '#' + this.name + ' > p';
-            // console.log(menuid);
             $(menuid).text(this.defaultSelection.label);
             return this;
         };

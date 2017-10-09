@@ -1,5 +1,9 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
+{% set jobsBlogId = 117 %}
+
 {{this.registerJs("window.Acme.cards = CardController();")}}
+{{this.registerJs("Acme.propertyForm = new Acme.PropertyForm(["~jobsBlogId~"], 'Property Page');")}}
+{{this.registerJs("Acme.listingView.init("~jobsBlogId~");")}}
 
 
 {# {% set networkData = _Network.getNetworkData() %} #}
@@ -15,10 +19,9 @@
 {% endif %} 
 
 {% set userArticlesArr = [] %}
-{% if user %} 
-    {% set userArticlesArr = _User.getUserArticles(user.guid, 0, limit, [blogData.id]) %}
+{% if user %}                                                                  {# 117 is properties listings blog id #}
+    {% set userArticlesArr = _User.getUserArticles(user.guid, 0, limit, {'blogs':[jobsBlogId], 'status': 'all'}) %}
 {% endif %}
-
 
 {# {% set events = _Event.getEvents() %} #}
 
@@ -33,12 +36,16 @@
         
 
         <section class="row section">
-            <div class="col-sm-10 section-header">
+            <div class="col-sm-7 section-header">
                 <h2>{{blogData.title}}</h2>
                 <p class="description">
                     {{blogData.shortDescription}}
                 </p>
             </div>
+            <div class="col-sm-offset-1 col-md-4 section-header">
+                <h2 id="userlistingsrefresh">Your listings</h2>
+            </div>
+
         </section>
 
 
@@ -48,7 +55,7 @@
             <div class="col-md-7">
 
 
-                <form class="" method="post" action="#" id="listingForm" data-articleId="">
+                <form class="" method="post" action="#" id="listingForm" data-articleId="" data-type="property">
 
                     <div class="row">
                         <div class="col-md-12">
@@ -101,7 +108,7 @@
                         behaviour: 'noclick',
                         imageSize: {width: 150, height: 120},
                         template: 'listing',
-                        containerClass: "card-article-suggested listingCard"
+                        containerClass: "card-form-listing listingCard"
                     }) | raw}}
 
                 {% endfor %}
