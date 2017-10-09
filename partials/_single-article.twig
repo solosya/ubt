@@ -68,7 +68,7 @@
 
             <article class="{{lightbox}} {{params.figureClass}}">
 
-                {{ this.render('_article-'~template~'.twig', {article: article, params:params} ) | raw }}
+                {{ this.render('_article-'~template~'.twig', {article: article, params:params, networkData: networkData} ) | raw }}
 
             </article>
 

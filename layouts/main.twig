@@ -9,7 +9,8 @@
 {% set pageClass     = _Page.getBodyClass() %}
 {% set pageTypeClass = blogData.type %}
 {% set blogName      = blogData.title %}
-{% set layout        = blogData.layout %}
+{# {% set layout        = blogData.layout %} #}
+{% set layout        = _Page.getLayoutName() %}
 
 {# {% if _User.isGuest() %}
     {% set layout = 'layout-marketing' %}
@@ -56,7 +57,7 @@
 
 
     {% if _AppHelper.getApplicationEnv() == 'PROD'%}
-        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=2c20570b" type="text/css" media="all">
+        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=224ac008" type="text/css" media="all">
 
     {% else %}
 {#             <link type="text/css" rel="stylesheet" href="{{networkData.templatePath}}/static/css/jquery.fancybox.css?ver=2" />
