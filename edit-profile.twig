@@ -7,11 +7,11 @@
 {% set realEstateArr = [] %}
 {% set eventsArr = [] %}
 
-{% if user %} 
+<!-- {% if user %} 
     {% set jobListingsArr = _User.getUserArticles(user.guid, 0, 1000, [117]) %}
     {% set realEstateArr = _User.getUserArticles(user.guid, 0, 1000, [117]) %}
     {% set eventsArr = _Event.getEvents() %}
-{% endif %}
+{% endif %} -->
 
 {% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 4 : 0 %}
 <!-- 3 is job, 4 is property, 5 is event -->
