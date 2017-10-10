@@ -15,6 +15,54 @@ for (var i = 0; i < classList.length; i++) {
     }
 }
 
+
+
+var listingRegions = {
+    "nz" : [
+        "Auckland",
+        "Bay of Plenty",
+        "Canterbury",
+        "Christchurch",
+        "Coromandel",
+        "Dunedin",
+        "Eastland",
+        "Fiordland",
+        "Hawke's Bay",
+        "Manawatu",
+        "Marlborough",
+        "Mt Cook",
+        "Nelson",
+        "Northland",
+        "Otago",
+        "Queenstown",
+        "Rotorua",
+        "Ruapehu",
+        "Southland",
+        "Taranaki",
+        "Taupo",
+        "Waikato",
+        "Wairarapa",
+        "Wanaka",
+        "Wanganui",
+        "Wellington",
+        "West Coast"
+    ],
+    "au" : [
+        "Australia",
+        "Australian Capital Territory",
+        "New South Wales",
+        "Northern Territory",
+        "Queensland",
+        "South Australia",
+        "Tasmania",
+        "Victoria",
+        "Western Australia"
+    ]
+}
+
+var domain = _appJsConfig.appHostName.split('.').reverse()[0];
+var regionList = listingRegions[domain];
+
 // Acme.jobsearch = Acme.Model.create({
 //     'url' : 'search'
 // });
@@ -138,7 +186,6 @@ ListingForm.constructor = ListingForm;
             'media_ids': ''
         };
         this.layout = layout;
-
         this.addPulldowns();
         this.events();
     };
@@ -149,7 +196,7 @@ ListingForm.constructor = ListingForm;
     ListingForm.prototype.listeners = 
     {
         "user listing" : function(data, topic) {
-
+            console.log('user listing go it!');
             if (data['user listing'] == null) {
                 this.clear();
                 return;
@@ -167,6 +214,15 @@ ListingForm.constructor = ListingForm;
         "extendedData.type" : function(data, topic) {
             console.log(this);
             this.updateData(data);
+        },
+        "after" : function(data, topic) {
+            console.log('running after!!');
+            var validated = this.validate();
+
+            if (!validated) {
+                this.render();
+                return;
+            }
         }
     };
     ListingForm.prototype.addPulldowns = function() 
@@ -175,20 +231,7 @@ ListingForm.constructor = ListingForm;
 
         this.menus.regionMenu = new Acme.listMenu({
                     'parent'        : $('#regionSelect'),
-                    'list'          : [
-                        {
-                            'label': "one",
-                            'value': "one"
-                        },
-                        {
-                            'label': "two",
-                            'value': "two"
-                        },
-                        {
-                            'label': "three",
-                            'value': "three"
-                        },
-                    ],
+                    'list'          : regionList,
                     'defaultSelect' : {"label": 'Select region'},
                     'name'          : 'region',
                     'key'           : 'extendedData.region'
@@ -240,6 +283,9 @@ ListingForm.constructor = ListingForm;
         title.val(this.data.title);
         content.val(this.data.content);
 
+        this.clearErrorHightlights();
+
+        console.log(this.errorFields);
         for (key in this.data.extendedData) {
             if (key === 'region') {
                 this.menus.regionMenu.select(this.data.extendedData[key]);
@@ -259,14 +305,38 @@ ListingForm.constructor = ListingForm;
 
             $('#'+key).val(this.data.extendedData[key]);
         }
+
+
+        this.addErrorHightlights();
+
         if (this.data.id) {
             $('#listingFormSubmit').text('UPDATE');
         }
-
-        this.renderImageThumbs(this.data.mediaData);
+        if (this.data.mediaData){
+            this.renderImageThumbs(this.data.mediaData);
+        }
     };
+    ListingForm.prototype.clearErrorHightlights = function(images)
+    {
+        $("#formerror").removeClass('active');
+        for (var field in this.compulsoryFields) {
+            var fieldname = this.compulsoryFields[field].split('.').reverse()[0];
+            console.log(fieldname);
+            $('#'+fieldname).removeClass('formError');
+        }
+    }
+    ListingForm.prototype.addErrorHightlights = function(images)
+    {
+        if (this.errorFields.length > -1) {
+            $("#formerror").addClass('active');
+        }
+        for (var field in this.errorFields) {
+            $('#'+this.errorFields[field]).addClass('formError');
+        }
+    }
     ListingForm.prototype.renderImageThumbs = function(images) 
     {
+        console.log(images);
         var imageArray = $('#imageArray');
         var html = "";
         for (var i=0;i<images.length;i++) {
@@ -284,7 +354,7 @@ ListingForm.constructor = ListingForm;
             }
         }
         $('#imageArray').empty();
-
+        this.clearErrorHightlights();
         this.data = {
             'id': 0,
             'blogs': blogId,
@@ -299,9 +369,21 @@ ListingForm.constructor = ListingForm;
             e.preventDefault();
             var data = {};
             var elem = $(e.target);
-            data[elem.attr('name')] = elem.val();
+            var elemid = elem.attr('name');
+
+            data[elemid] = elem.val();
             self.updateData(data);
-            console.log(self.data);
+            console.log(elemid);
+            if (self.compulsoryFields.indexOf(elemid) > -1 ) {
+                console.log('compulsory');
+
+                if (elem.val() == '') {
+                    elem.addClass("formError");
+                } else {
+                    elem.removeClass("formError");
+                }
+            } 
+
         });
 
 
@@ -343,13 +425,11 @@ ListingForm.constructor = ListingForm;
 
         $('#listingForm').submit(function(e) {
             e.preventDefault();
+            console.log(self);
+            var validated = self.validate();
 
-            if (self.data['title'] === undefined || self.data['title'] == "") {
-                Acme.dialog.show("Article must have a title");
-                return;
-            }
-            if (self.data['content'] === undefined || self.data['content'] == "") {
-                Acme.dialog.show("Article must contain content", "Error");
+            if (!validated) {
+                self.render();
                 return;
             }
 
@@ -364,12 +444,11 @@ ListingForm.constructor = ListingForm;
             });
         });
     }
-    // ListingForm.constructor =  Acme.ListingForm;
 
 
 Acme.JobForm = function(blogId, layout) {
     this.subscriptions = Acme.PubSub.subscribe({
-        'Acme.jobForm.listener' : ['state_change']
+        'Acme.jobForm.listener' : ['state_changed', 'update_state']
     });
     this.init(blogId, layout);
 }
@@ -379,13 +458,53 @@ Acme.JobForm.prototype.constructor=Acme.JobForm;
 
 Acme.PropertyForm = function(blogId, layout) {
     this.subscriptions = Acme.PubSub.subscribe({
-        'Acme.propertyForm.listener' : ['state_change']
+        'Acme.propertyForm.listener' : ['state_changed', 'update_state']
     });
     this.init(blogId, layout);
 };
 Acme.PropertyForm.prototype = new ListingForm();
+Acme.PropertyForm.prototype.errorFields = [];
+Acme.PropertyForm.prototype.compulsoryFields = [
+    "title", 
+    "content", 
+    "extendedData.pricerange", 
+    "extendedData.region"
+];
 Acme.PropertyForm.prototype.constructor=Acme.PropertyForm;
 
+
+Acme.PropertyForm.prototype.validate = function() {
+
+    var validated = true;
+    var fields = this.compulsoryFields;
+    this.errorFields = [];
+
+    for (var i=0;i<fields.length; i++) {
+        var key = fields[i];
+        var keySplit = key.split('.');
+        var scope = this.data;
+        for(var j=0; j<keySplit.length; j++) {
+
+            if (!scope[keySplit[j]]) {
+                scope = false;
+                break;
+            }
+            if(j == keySplit.length -1 ) {
+                scope = scope[keySplit[j]];
+                break;
+            }
+            scope = scope[keySplit[j]];
+        }
+
+        if (scope === false || scope == "") {
+            var fieldname = fields[i].split('.').reverse()[0];
+            this.errorFields.push(fieldname); 
+            validated = false;
+        }
+    }
+
+    return validated;
+};
 
 
 
@@ -405,36 +524,36 @@ Acme.listing = Acme.Model.create({
 
 Acme.listingCollection = new Acme._Collection(Acme.listing);
 
-//     Acme.listingCollection.subscriptions = Acme.PubSub.subscribe({
-//         'Acme.listingCollection.listener' : [ "update_state" ]
-//     });
-//     Acme.listingCollection.listeners = {
-//         "userArticles" : function(data) {
-//             console.log('getting user listings');
-//             var blogs = blogId.join(',');
-//             return this.fetch('user/user-articles?userguid='+Acme.currentUser+'&blogs='+blogs+'&status=all');
-//         }
-//     };
-//     Acme.listingCollection.fetch = function(url)
-//     {
-//         var self = this;
-//         var url = (url === undefined) ? this.url() : url;
-//         var data = Acme.server.fetch( url );
-//         data.done( function(response) {
-//             self.data = [];
-//             for (var i=0; i<response.length; i++) {
-//                 self.data.push( Object.create(self.model,
-//                     {   'data' : {
-//                             'value': response[i],
-//                             'writable': true
-//                         }
-//                     }
-//                 ));
-//             }
-//             Acme.PubSub.publish('update_state', {'userlistings': self});
-//         });
-//         return data;
-//     };
+    Acme.listingCollection.subscriptions = Acme.PubSub.subscribe({
+        'Acme.listingCollection.listener' : [ "update_state" ]
+    });
+    Acme.listingCollection.listeners = {
+        "userArticles" : function(data) {
+            console.log('getting user listings');
+            var blogs = blogId.join(',');
+            return this.fetch('user/user-articles?userguid='+Acme.currentUser+'&blogs='+blogs+'&status=all');
+        }
+    };
+    Acme.listingCollection.fetch = function(url)
+    {
+        var self = this;
+        var url = (url === undefined) ? this.url() : url;
+        var data = Acme.server.fetch( url );
+        data.done( function(response) {
+            self.data = [];
+            for (var i=0; i<response.length; i++) {
+                self.data.push( Object.create(self.model,
+                    {   'data' : {
+                            'value': response[i],
+                            'writable': true
+                        }
+                    }
+                ));
+            }
+            Acme.PubSub.publish('update_state', {'userlistings': self});
+        });
+        return data;
+    };
 
 
 

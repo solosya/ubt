@@ -1,5 +1,5 @@
 (function ($) {
-    window.Acme = {};
+    window.Acme       = {};
     Acme.View         = {};
     Acme.Model        = {};
     Acme.Collection   = {};
@@ -54,17 +54,19 @@
 
     Acme.listen.prototype.listener = function(topic, data)
     {
-        console.log(this);
+        // console.log(this);
         var keys = Object.keys(data);
-
+        console.log(topic, keys);
         for (var i = 0; i<keys.length; i++) {
 
             for (var listener in this.listeners) {
 
                 if ( listener === keys[i] ) {
 
-                    this.listeners[listener].call(this,data, topic);
-
+                    this.listeners[listener].call(this, data, topic);
+                    if (this.listeners.after) {
+                        this.listeners.after.call(this, data, topic);
+                    }
                     break;
                 }
             }
@@ -117,11 +119,10 @@
     Acme._View = function() {};
         Acme._View.prototype = new Acme.listen();
         Acme._View.prototype.updateData = function(data) {
-            console.log(data);
             var key = Object.keys(data)[0];
             var keySplit = key.split('.');
             var scope = this.data;
-            console.log(this);
+
             for(var i=0; i<keySplit.length; i++) {
                 if (!scope[keySplit[i]]) {
                     scope[keySplit[i]] = {};
@@ -427,9 +428,15 @@
             var html = '';
 
             for (var i=0; i<this.list.length; i++) {
+                if (typeof this.list[i] === 'string') {
+                    var label = value = this.list[i];
+                } else {
+                    var label = this.list[i].label;
+                    var value = this.list[i].value;
+                }
                 html += itemTemp({
-                    'label'   :  this.list[i].label,
-                    'value'   :  this.list[i].value
+                    'label'   :  label,
+                    'value'   :  value
                 });
             }
             return html;

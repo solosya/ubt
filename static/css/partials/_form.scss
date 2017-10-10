@@ -12,8 +12,25 @@ main.listingForm {
         }
     }
 
+
+    .error-message {
+        display:none;
+        padding:3px 10px;
+        background:color(red);
+        color:white;
+        font-size:rem(15);
+        margin-bottom:41px;
+        &.active {
+            display:block;
+        }
+    }
+
+
     form {
-        
+        .formError {
+            border-color:color(red) !important;
+        }
+
         .float-left {
             float:left;
             width:520px;
