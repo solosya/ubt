@@ -4,8 +4,11 @@
 
 
 
+{{this.registerJs("window.Acme.cards = CardController();")}}
+{{this.registerJs("Acme.jobRegionFilter = new Acme.regionFilter();")}}
+{{this.registerJs("Acme.filteredListingView = new Acme.filteredListingViewClass();")}}
 
-{{this.registerJs("CardController();")}}
+
 {# {{this.registerJs("ListingController();")}} #}
 
 {% set limit = 10 %}

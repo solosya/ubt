@@ -148,6 +148,8 @@
         pageClass: blogName,
     }) | raw }}
 
+    {{ this.render('partials/_account_modal.twig', {network: networkData}) | raw }}
+
 
     {{ this.render('partials/_javascript.twig', {
         networkData: networkData
