@@ -11,19 +11,17 @@
     </figure>
 {% endif %}
 
-
 <div class="content">
     <div class="cat-time">
         <time datetime="{{params.publishDate}}">{{params.publishDate}}</time>
     </div>
-
     <h2>${{ article.additionalInfo.pricerange }}</h2>
-    <h3>{{ article.additionalInfo.address }}</h3>
+    <h3>{{ params.articleTitle }}</h3>
     
     <p class="excerpt">{{ quotes.smarten(article.excerpt | raw) }}</p>
                         
     <div class="listing-type">
-        <img src="{{article.propertyTypeIcon}}" class="">
-        <p>{{ article.additionalInfo.propertyType }}</p>
+        <img src="{{networkData.templatePath}}/static/icons/{{ article.additionalInfo.type }}.svg" class="">
+        <p>{{ article.additionalInfo.type }}</p>
     </div>
 </div>

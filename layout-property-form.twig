@@ -1,5 +1,9 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
+{% set jobsBlogId = 117 %}
+
 {{this.registerJs("window.Acme.cards = CardController();")}}
+{{this.registerJs("Acme.propertyForm = new Acme.PropertyForm(["~jobsBlogId~"], 'Property Page');")}}
+{{this.registerJs("Acme.listingView.init("~jobsBlogId~");")}}
 
 
 {# {% set networkData = _Network.getNetworkData() %} #}
@@ -16,7 +20,7 @@
 
 {% set userArticlesArr = [] %}
 {% if user %}                                                                  {# 117 is properties listings blog id #}
-    {% set userArticlesArr = _User.getUserArticles(user.guid, 0, limit, {'blogs':[117,120], 'status': 'all'}) %}
+    {% set userArticlesArr = _User.getUserArticles(user.guid, 0, limit, {'blogs':[jobsBlogId], 'status': 'all'}) %}
 {% endif %}
 
 {# {% set events = _Event.getEvents() %} #}
@@ -50,8 +54,9 @@
         <div class="row">
             <div class="col-md-7">
 
+                <div id="formerror" class="error-message">All fields have not been filled. Please review and <b>submit</b>.</div>
 
-                <form class="" method="post" action="#" id="listingForm" data-articleId="">
+                <form class="" method="post" action="#" id="listingForm" data-articleId="" data-type="property">
 
                     <div class="row">
                         <div class="col-md-12">
@@ -103,7 +108,7 @@
                         position: loop.index,
                         behaviour: 'noclick',
                         imageSize: {width: 150, height: 120},
-                        template: 'property',
+                        template: 'listing',
                         containerClass: "card-form-listing listingCard"
                     }) | raw}}
 

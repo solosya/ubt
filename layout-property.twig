@@ -45,7 +45,8 @@
                     {{this.render('partials/_single-article.twig', {
                         article: articles[articleCount], 
                         position: (articleCount+1),
-                        template: 'realestate',
+                        template: 'property',
+                        networkData: networkData,
                         imageSize: {width: 640, height: 309},
                         containerClass: 'card-main-realestate card-main-realestate-tablet card-main-realestate-mobile'
                     }) | raw}}
@@ -57,7 +58,7 @@
                     {{this.render('partials/_single-article.twig', {
                         article: articles[articleCount], 
                         position: (articleCount+1),
-                        template: 'realestate',
+                        template: 'property',
                         imageSize: {width: 200, height: 140},
                         containerClass: 'card-rec-realestate card-rec-realestate-tablet card-rec-realestate-mobile'
                     }) | raw}}
