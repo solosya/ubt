@@ -1,0 +1,128 @@
+.layout-jobs {
+
+
+    .backlink {
+        margin-bottom:12px;
+        margin-top: 10px;
+        a{
+            font-size:rem(14);
+            font-style:italic;
+            text-decoration:none;
+            color:color(red);
+        }
+    }
+
+    article {
+
+        .article_content {
+            margin-top:20px;
+            p {
+                letter-spacing:normal;
+                &:first-of-type {
+                    font-weight: normal;
+                }
+            }
+        }
+
+        > figure.companylogo {
+            width:265px;
+            height:75px;
+        }
+
+        .page-content {
+
+            h1 {
+                margin-top:23px;
+                font-size: rem(25);
+                font-weight: 600;
+                line-height: 1.2;
+                color:  color(black);
+                font-family: $font-family-serif;
+                
+                // @media screen and (max-width: $sm-break) {
+                //     font-size: rem(24);
+                //     margin-bottom: 15px;
+                // }
+            }
+
+            p.company {
+                margin:0;
+                font-size: rem(13);
+                font-weight:600;
+            }
+            p.salary {
+                font-size: rem(14);
+                margin-top: 14px;
+            }
+
+            .details-padding{
+                padding-left:50px;
+            }
+
+            div.job-details {
+                padding:25px;
+                background:color(marketgrey);
+
+                table {
+                    tr {
+                        height:40px;
+                    }
+                    td {
+                        vertical-align:top;
+                        font-size:rem(13);
+                        &.label {
+                            width:100px;
+                            vertical-align:top;
+                            color:color(darkblue);
+                            font-weight:600;
+
+                        }
+                        &.value {
+                        }
+                    }
+                }
+            }
+            div.job-contact {
+                margin:0;
+                padding:0;
+                margin-top:5px;
+                padding:25px;
+                background:color(marketgrey);
+
+                h3 {
+                    margin:0;
+                    color:color(red);
+                    font-size:rem(13);
+                    margin-bottom:12px;
+                }
+                p{
+                    margin:0;
+                }
+                p.contact-name {
+                    font-weight:700;
+                }
+                p.contact-role {
+                    font-style:italic;
+                }
+
+                p.contact-email {
+                    margin-top:10px;
+                    // font-style:italic;
+                }
+
+            }
+
+
+            .article-vert {
+                background:color(marketgrey);
+                height:400px;
+            }
+
+
+        }
+
+
+
+    }
+  
+}

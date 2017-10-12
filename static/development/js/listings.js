@@ -59,58 +59,67 @@ var listingRegions = {
         "Western Australia"
     ]
 }
+var propertyList = [
+    { 'label': "Warehouse", 'value': "warehouse"},
+    { 'label': "Office", 'value': "office"},
+    { 'label': "Factory", 'value': "factory"}
+];
+
+var contractList = [
+    { 'label': "Buy", 'value': "buy"},
+    { 'label': "Lease", 'value': "lease"}
+];
 
 var domain = _appJsConfig.appHostName.split('.').reverse()[0];
 var regionList = listingRegions[domain];
 
-Acme.jobsearch = Acme.Model.create({
+
+
+
+
+Acme.searchModel = Acme.Model.create({
     'url' : 'search'
 });
-    Acme.jobsearch.listeners = {
+    Acme.searchModel.listeners = {
         "regionSelect" : function(data) {
-            // console.log(data);
             var self = this;
             this.query = ['s', data.regionSelect]; //, 'migrate', 'true'
             this.fetch().done(
                 function(r) {
                     if (r.data) {
                         self.data = r.data;
-                        Acme.state.listener('update_state', {'jobsearch': self});
+                        Acme.state.listener('update_state', {'searchModel': self});
                     }
                 }
             );
         }
     };
-    Acme.jobsearch.subscriptions = Acme.PubSub.subscribe({
-        'Acme.jobsearch.listener' : [ "state_changed"]
+    Acme.searchModel.subscriptions = Acme.PubSub.subscribe({
+        'Acme.searchModel.listener' : [ "state_changed"]
     });
 
 
 
 
-Acme.searchArticles = new Acme._Collection(Acme.jobsearch);
+Acme.searchCollection = new Acme._Collection(Acme.jobsearch);
 
-    Acme.searchArticles.subscriptions = Acme.PubSub.subscribe({
-        'Acme.searchArticles.listener' : [ "update_state" ]
+    Acme.searchCollection.subscriptions = Acme.PubSub.subscribe({
+        'Acme.searchCollection.listener' : [ "update_state" ]
     });
-    Acme.searchArticles.listeners = {
+    Acme.searchCollection.listeners = {
         "region" : function(data) {
             console.log(blogId);
             // return this.fetch('/api/search?meta_info='+Object.keys(data)[0] + ":" + data.region);
             return this.fetch('/home/load-articles', {'limit': 10, 'offset':0, 'blogid': blogId});
         }
     };
-    Acme.searchArticles.fetch = function(url, data)
+    Acme.searchCollection.fetch = function(url, data)
     {
         var self = this;
-
         var url = (url === undefined) ? this.url() : url;
-        console.log(data);
         var server = 'fetch';
-        if (data) {
-            server = 'create';
-        }
-        console.log(server);
+        if (data) { server = 'create'; }
+
         var data = Acme.server[server]( url, data );
         data.done( function(response) {
             self.data = [];
@@ -123,7 +132,6 @@ Acme.searchArticles = new Acme._Collection(Acme.jobsearch);
                     }
                 ));
             }
-            console.log(self.data);
             Acme.PubSub.publish('state_changed', {'search': self});
         });
         return data;
@@ -131,16 +139,16 @@ Acme.searchArticles = new Acme._Collection(Acme.jobsearch);
 
 
 
-Acme.regionFilter = function() {
+Acme.regionSearchView = function() {
     this.container = $('#regionSelect');
     this.subscriptions = Acme.PubSub.subscribe({
-        'Acme.jobRegionFilter.listener' : ["update_state"]
+        'Acme.jobregionSearchView.listener' : ["update_state"]
     });
     this.render();
 };
-    Acme.regionFilter.prototype = new Acme._View();
+    Acme.regionSearchView.prototype = new Acme._View();
 
-    Acme.regionFilter.prototype.listeners =  {
+    Acme.regionSearchView.prototype.listeners =  {
         "regionSelect" : function(data) {
 
             var data = {
@@ -149,7 +157,7 @@ Acme.regionFilter = function() {
             Acme.PubSub.publish('update_state', data);
         }
     };
-    Acme.regionFilter.prototype.render = function() {
+    Acme.regionSearchView.prototype.render = function() {
         this.regionMenu = new Acme.listMenu({
             'parent'        : this.container,
             'list'          : regionList,
@@ -158,14 +166,14 @@ Acme.regionFilter = function() {
             'key'           : 'regionSelect'
         }).init().render();
     };
-    Acme.regionFilter.prototype.reset = function() {
+    Acme.regionSearchView.prototype.reset = function() {
         this.menu.reset();
     };
 
 
 
 
-Acme.filteredListingViewClass = function(){
+Acme.filteredListingViewClass = function() {
     this.container = $('#job-listings');
     this.subscriptions = Acme.PubSub.subscribe({
         'Acme.filteredListingView.listener' : ['state_changed']
@@ -174,15 +182,12 @@ Acme.filteredListingViewClass = function(){
 Acme.filteredListingViewClass.prototype = new Acme._View();
 Acme.filteredListingViewClass.prototype.listeners = {
     "search" : function(data) {
-        console.log(data);
         this.data = data.search.data;
-        console.log(this);
         this.render();
     }
 };
 Acme.filteredListingViewClass.prototype.render = function() {
     console.log('rendering after search');
-    console.log(this.data);
     var container = this.container;
     var cardClass = "card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile";
 
@@ -217,7 +222,6 @@ ListingForm.constructor = ListingForm;
         this.addPulldowns();
         this.events();
     };
-
     ListingForm.prototype.container = {
         'main' : $('#listingForm')
     };
@@ -243,7 +247,8 @@ ListingForm.constructor = ListingForm;
         },
         "after" : function(data, topic) {
             var keys = Object.keys(data);
-            if(keys === 'user listing') return;
+
+            if(keys[0] === 'user listing') return;
             var validated = this.validate(keys);
 
             // if (!validated) {
@@ -259,23 +264,14 @@ ListingForm.constructor = ListingForm;
         this.menus.regionMenu = new Acme.listMenu({
                     'parent'        : $('#regionSelect'),
                     'list'          : regionList,
-                    'defaultSelect' : {"label": 'Select region'},
+                    'defaultSelect' : {"label": 'Select region*'},
                     'name'          : 'region',
                     'key'           : 'extendedData.region'
         }).init().render();
 
         this.menus.propertyMenu = new Acme.listMenu({
                     'parent'        : $('#propertySelect'),
-                    'list'          : [
-                        {
-                            'label': "Warehouse",
-                            'value': "warehouse"
-                        },
-                        {
-                            'label': "Factory",
-                            'value': "factory"
-                        }
-                    ],
+                    'list'          : propertyList,
                     'defaultSelect' : {"label": 'Type of property'},
                     'name'          : 'type',
                     'key'           : 'extendedData.type'
@@ -284,16 +280,7 @@ ListingForm.constructor = ListingForm;
 
         this.menus.buyMenu = new Acme.listMenu({
                     'parent'        : $('#buySelect'),
-                    'list'          : [
-                        {
-                            'label': "Buy",
-                            'value': "buy"
-                        },
-                        {
-                            'label': "Lease",
-                            'value': "lease"
-                        }
-                    ],
+                    'list'          : contractList,
                     'defaultSelect' : {"label": 'Bye/lease'},
                     'name'          : 'contracttype',
                     'key'           : 'extendedData.contracttype'
@@ -301,6 +288,7 @@ ListingForm.constructor = ListingForm;
     };
     ListingForm.prototype.render = function() 
     {
+        console.log('rendering');
         var form = this.container.main;
         var title = form.find("#title");
         var content = form.find("#content");
@@ -350,7 +338,6 @@ ListingForm.constructor = ListingForm;
     }
     ListingForm.prototype.addErrorHightlights = function()
     {
-        console.log(this.errorFields);
         if (this.errorFields.length > 0) {
             $("#formerror").addClass('active');
         }
@@ -360,6 +347,7 @@ ListingForm.constructor = ListingForm;
     }
     ListingForm.prototype.renderImageThumbs = function(images) 
     {
+        console.log(images);
         var imageArray = $('#imageArray');
         var html = "";
         for (var i=0;i<images.length;i++) {
@@ -460,7 +448,6 @@ ListingForm.constructor = ListingForm;
             Acme.server.create('/api/article/create', self.data).done(function(r) {
                 $('#listingFormClear').click();
                 Acme.PubSub.publish('update_state', {'userArticles': ''});
-                console.log(r);
             }).fail(function(r) {
                 console.log(r);
             });
@@ -535,6 +522,8 @@ Acme.JobForm = function(blogId, layout) {
     this.subscriptions = Acme.PubSub.subscribe({
         'Acme.jobForm.listener' : ['state_changed', 'update_state']
     });
+
+    this.errorFields = [];
 
     this.compulsoryFields = [
         "title", 
@@ -651,13 +640,13 @@ Acme.listingViewClass.prototype = new Acme._View();
     Acme.listingViewClass.prototype.events = function() 
     {
         var self = this;
-        console.log(_appJsConfig.isUserLoggedIn);
+
         if(_appJsConfig.isUserLoggedIn === 1) {
             init();
         }
 
         function init() {
-            console.log('initing');
+
             self.container.main.on('click', '.listingCard', function(e) {
                 e.preventDefault();
                 $('#listingFormClear').click();
@@ -666,7 +655,7 @@ Acme.listingViewClass.prototype = new Acme._View();
                 var articleId = card.data('id');
                 var status = card.data('status');
                 Acme.server.fetch('/api/article/get-article?articleId='+articleId+"&status="+status).done(function(r) {
-                    console.log(r);
+                    // console.log(r);
                     var data = {
                         'id': r.id,
                         'guid':r.guid,
@@ -697,14 +686,12 @@ Acme.listingViewClass.prototype = new Acme._View();
 
 
             $("#userlistingsrefresh").on('click',function(e) {
-                console.log('clicked');
                 Acme.PubSub.publish('update_state', {"userArticles":''});
             });
         }  
     },
     Acme.listingViewClass.prototype.render = function()
     {
-        console.log(this.data);
         var container = this.container.main;
         var cardClass = "card-form-listing listingCard";
 

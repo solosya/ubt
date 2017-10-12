@@ -6,7 +6,7 @@
 {{this.registerJs("Acme.listingView.init("~jobsBlogId~");")}}
 
 
-{# {% set networkData = _Network.getNetworkData() %} #}
+{% set networkData = _Network.getNetworkData() %}
 {% set blogData    = _Blog.getBlog() %}
 {% set limit = 10 %}
 
@@ -67,8 +67,12 @@
 
                             <input type="text" class="" name="title" id="title" value="" placeholder="Address">
                             <input type="text" class="articleExtendedData" name="extendedData.pricerange" id="pricerange" value="" placeholder="Price range">
+                            <input type="text" class="articleExtendedData" name="extendedData.propertyid" id="propertyid" value="" placeholder="Property ID">
                             <input type="text" class="articleExtendedData" name="extendedData.landarea" id="landarea" value="" placeholder="Land area">
                             <input type="text" class="articleExtendedData" name="extendedData.floorarea" id="floorarea" value="" placeholder="Floor area">
+                            <input type="text" class="articleExtendedData" name="extendedData.availability" id="availability" value="" placeholder="Availablity">
+                            <input type="text" class="articleExtendedData" name="extendedData.annualreturn" id="annualreturn" value="" placeholder="Annual return">
+                            <input type="text" class="articleExtendedData" name="extendedData.company" id="company" value="" placeholder="Agency or Company name">
                             <input type="text" class="articleExtendedData" name="extendedData.contactname" id="contactname" value="" placeholder="Contact name">
                             <input type="text" class="articleExtendedData" name="extendedData.contactphone" id="contactphone" value="" placeholder="Contact phone">
                         </div>
@@ -80,7 +84,12 @@
                             <textarea name="content" id="content"></textarea>
                         </div>
                         <div class="col-md-3">
-                            <div data-imgcls="images" data-id="imageArray" class="uploadFileBtn">Upload logo <br />(optional)</div>
+                            <div data-imgcls="images" data-id="imageArray" class="uploadFileBtn property">
+                                <div class="innerImgBtn">
+                                    <img src="{{networkData.templatePath}}/static/icons/upload-img.svg">
+                                    <p>Upload images</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

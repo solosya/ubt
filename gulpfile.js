@@ -43,7 +43,10 @@ gulp.task('concat', function () {
         './static/css/main.css',
         './static/development/js/plugins/jquery.fancybox/source/jquery.fancybox.css',
         './static/development/js/plugins/jquery.noty-2.3.8/demo/animate.css',
-        './static/development/js/sdk/media-player/mediaelementplayer.css'
+        './static/development/js/sdk/media-player/mediaelementplayer.css',
+        './static/development/js/plugins/owl.carousel.min.css',
+        './static/development/js/plugins/owl.theme.default.css'
+
     ]) // path to your file
     .pipe(concat('concat.css'))
     .pipe(gulp.dest('./static/css'));

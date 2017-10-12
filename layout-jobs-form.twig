@@ -9,7 +9,7 @@
 
 
 
-{# {% set networkData = _Network.getNetworkData() %} #}
+{% set networkData = _Network.getNetworkData() %}
 {% set blogData = _Blog.getBlog() %}
 {% set limit = 10 %}
 
@@ -60,20 +60,27 @@
                 <form class="" method="post" action="#" id="listingForm" data-type="jobs">
                     <div class="row">
                         <div class="col-sm-9">
-                            <div id="regionSelect" class="propertyListingSelect"></div>
-                            <input type="text" class="articleExtendedData" name="extendedData.company" id="company" value="" placeholder="Company name">
+                            <input type="text" class="articleExtendedData" name="extendedData.company" id="company" value="" placeholder="Company name*">
                             <input type="text" class="articleExtendedData" name="extendedData.website" id="website" value="" placeholder="Website">
                         </div>
                         <div class="col-sm-3">
-                            <div data-imgcls="images" data-id="imageArray" class="uploadFileBtn jobs">Upload logo <br />(optional)</div>
+                            <div data-imgcls="images" data-id="imageArray" class="uploadFileBtn jobs">
+                                <div class="innerImgBtn">
+                                    <p>Upload logo <br />(optional)</p>
+                                    <img src="{{networkData.templatePath}}/static/icons/upload-arrow.svg">
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
 
-                            <input type="text" class="" name="title" id="title" value="" placeholder="Job title">
-                            <input type="text" class="articleExtendedData" name="extendedData.location" id="location" value="" placeholder="Job location (suburb or postcode)">
-                            
+                            <input type="text" class="" name="title" id="title" value="" placeholder="Job title*">
+                            <input type="text" class="articleExtendedData" name="extendedData.location" id="location" value="" placeholder="Job location (suburb or postcode)*">
+                            <div id="regionSelect" class="propertyListingSelect"></div>
+                            <input type="text" class="articleExtendedData" name="extendedData.contactname" id="contactname" value="" placeholder="Contact name">
+                            <input type="email" class="articleExtendedData" name="extendedData.contactemail" id="contactemail" value="" placeholder="Contact email">
+
                             <p class="form-section-label">Salary (optional)</p>
 
                             <fieldset>

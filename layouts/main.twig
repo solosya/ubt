@@ -50,7 +50,7 @@
 
 
     {% if _AppHelper.getApplicationEnv() == 'PROD'%}
-        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=ae89b693" type="text/css" media="all">
+        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=ae58c2d5" type="text/css" media="all">
 
     {% else %}
 {#             <link type="text/css" rel="stylesheet" href="{{networkData.templatePath}}/static/css/jquery.fancybox.css?ver=2" />
@@ -58,6 +58,9 @@
         <link type="text/css" rel="stylesheet" href="{{networkData.templatePath}}/static/css/mediaelementplayer.css?ver=1" /> #}
 
         <link rel='stylesheet' href='{{networkData.templatePath}}/static/css/concat.css' type='text/css' media='all' />
+        <link rel='stylesheet' href='{{networkData.templatePath}}/static/development/js/plugins/owl.carousel.css' type='text/css' media='all' />
+        <link rel='stylesheet' href='{{networkData.templatePath}}/static/development/js/plugins/owl.theme.default.css' type='text/css' media='all' />
+
     {% endif %}
 
     {% if isPage %}

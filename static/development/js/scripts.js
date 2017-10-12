@@ -239,4 +239,20 @@ $('document').ready(function() {
         });
     }), 750);
 
+
+    $("#owl-thumbnails").owlCarousel({
+        items: 1,
+        thumbs: true,
+        thumbsPrerendered: true,
+        URLhashListener:true,
+        startPosition: 'URLHash',
+        pagination: true,
+        dots: false,
+        nav: true,
+        navText: ["",""]
+    });   
+
+
+
+
 });
