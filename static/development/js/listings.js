@@ -4,6 +4,25 @@ var blogFormMap = {
     "110" : [117],
     "118" : [119],
     "121" : [120],
+
+    // LIVE Australia
+    "1154" : [1152], //property
+    "1153" : [1151], //jobs
+
+    // LIVE NZ
+    "1158" : [1157], //property
+    "1156" : [1155], //jobs
+
+
+    // UAT Australia
+    "1xxx" : [], //property
+    "2xxx" : [], //jobs
+
+    // UAT NZ
+    "3xxx" : [], //property
+    "4xxx" : [], //jobs
+
+
     "114" : '652345a3-ec41-4b13-9ec2-684e00875657',
 };
 
