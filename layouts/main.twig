@@ -119,7 +119,7 @@
 
 
 <body class="{{ pageTypeClass }} {{ layout }} {{ pageClass }}">
-{{ this.beginBody() }}
+    {{ this.beginBody() }}
 
       
 
@@ -148,6 +148,7 @@
         pageClass: blogName,
     }) | raw }}
 
+    {{ this.render('partials/account_modal.twig', {network: networkData}) | raw }}
 
     {{ this.render('partials/_javascript.twig', {
         networkData: networkData
