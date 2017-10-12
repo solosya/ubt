@@ -25,9 +25,9 @@
 
             // console.log(type + ': ' + window.location.origin + '/api/' + uri);
             // if (Object.keys(queryParams).length > 0 ) console.log(queryParams);
-            console.log(_appJsConfig.appHostName + '/api/'+uri);
+            console.log(_appJsConfig.appHostName + uri);
             return $.ajax({
-                url: _appJsConfig.appHostName + '/api/'+uri,
+                url: _appJsConfig.appHostName + uri,
                 data: queryParams,
                 dataType: datatype || "json",
                 type: type
@@ -54,9 +54,8 @@
 
     Acme.listen.prototype.listener = function(topic, data)
     {
-        // console.log(this);
         var keys = Object.keys(data);
-        console.log(topic, keys);
+
         for (var i = 0; i<keys.length; i++) {
 
             for (var listener in this.listeners) {
@@ -294,7 +293,7 @@
                     }
                     // console.log('notifying');
                     // console.log(scope);
-
+                    // console.log(scopeSplit);
                     scope[scopeSplit[scopeSplit.length - 1]][subscribers[i].func]( topic, data );
                 }
                 dfd.resolve();

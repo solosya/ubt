@@ -9,10 +9,10 @@
 
 {% set articleImg = false %}
 {% if article.media|length > 0 %}
-    {% set articleImg = _Media.getMediaUrl(article.media[0],1094, 515, {'crop': 'fill', 'gravity': 'auto'} ) %}
+    {% set articleImg = _Media.getMediaUrl(article.media[0],265, 75, {'crop': 'fill', 'gravity': 'auto'} ) %}
 {% endif %}
 
-{% set publishDate = _AppHelper.getDefaultTimezoneDateTime(article.publishDate, 'F, Y') %}
+{% set publishDate = _AppHelper.getDefaultTimezoneDateTime(article.publishedDateTime, 'j M Y') %}
 
 {% set articles = _Article.getPopularArticles({ limit: 10, excludeArticleIds : article.id }) %}
 {% set popularArticles = _Article.getPopularArticles({ limit: 5, sortBy: 'VIEWS', blogId: article.blog.id, type: 'article' }) %}
@@ -24,128 +24,128 @@
 
 
 
-<main id="main" class="article_container" role="main">
+<main id="main" class="container-fluid site-main" role="main">
+
+
+    <section class="row section">
+
+        <div class="col-sm-10 section-header">
+            <h2>{{blogInfo.title}}</h2>
+
+            <p class="description">
+                {{blogInfo.shortDescription}}
+            </p>
+        </div>
+        
+    </section>
+
+
+    <div class="backlink">
+        <a href="">Back to results</a>
+    </div>
+
+
+    <article class="job-listings-main">
 
 
 
-    <article class="article-main">
 
 
-        <h1> THIS IS A JOB LAYOUT!!!</h1>
+        <div class="page-content">
+            <div class="row">
+                <div class="col-md-5">
 
+                    <div class="content-wrapper">
 
-
-            {% if articleImg %} 
-                 <figure class="featured">
-                     <img src="{{articleImg}}" class="img-responsive">
-                     {% if article.media[0].type == 'video' %} 
-                         {% set mediaUrl = "" %}
-                         {% if article.media[0].media.isSystemVideo == 'TRUE'%}
-                             {% set mediaUrl = _Media.getMediaVideoUrl(article.media[0].media, 0, 0,{resource_type: 'video', format: 'mp4'})  %}
+                        {% if articleImg %} 
+                             <figure class="companylogo">
+                                 <img src="{{articleImg}}" class="img-responsive">
+                                 {% if article.media[0].type == 'video' %} 
+                                     {% set mediaUrl = "" %}
+                                     {% if article.media[0].media.isSystemVideo == 'TRUE'%}
+                                         {% set mediaUrl = _Media.getMediaVideoUrl(article.media[0].media, 0, 0,{resource_type: 'video', format: 'mp4'})  %}
+                                     {% endif %}
+                                     <a href="javascript:void(0)" 
+                                        itemprop="video" 
+                                        class="video-overlay video-player" 
+                                        data-source="{{article.media[0].source}}" 
+                                        data-video-id="{{article.media[0].videoId}}" 
+                                        data-url="{{mediaUrl}}" 
+                                        data-poster="{{article.media[0].path}}" 
+                                        data-caption="{{article.title | raw}}">
+                                     </a>
+                                 {% endif %}
+                             </figure>
                          {% endif %}
-                         <a href="javascript:void(0)" 
-                            itemprop="video" 
-                            class="video-overlay video-player" 
-                            data-source="{{article.media[0].source}}" 
-                            data-video-id="{{article.media[0].videoId}}" 
-                            data-url="{{mediaUrl}}" 
-                            data-poster="{{article.media[0].path}}" 
-                            data-caption="{{article.title | raw}}">
-                         </a>
-                     {% endif %}
-                     <figcaption>
-                         <p>{{article.media[0].caption}}</p>
-                     </figcaption>
-                 </figure>
-             {% endif %}
 
 
 
 
 
 
-
-            <div class="page-content">
-                
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="content-wrapper">
-
-
-                            <div class="content-block-top">
-
-                                <p class="category">{{article.label}}</p
-                                ><time datetime="{{publishedDate}}">{{article.publishedDate}}</time>
-                                
-                                <h1>{{ quotes.smarten(article.title) }}</h1>
-                                
-                                <p class="author">{{ article.createdBy['displayName'] }}</p>
-
-                            </div><!--content-block-top-->
-
-                            <div class="article_content">
-                                {{ article.content | _resizeImages({'width': 500}) | raw }}
-                            </div><!-- .content-->
-                        </div><!-- .content-->
-
-                    </div>
-
-
-                    <div class="col-md-4">
-                        <div class="article-sidebar">
-                        <div class="advert">
-                            <img src="{{networkData.templatePath}}/static/images/ads/300x250.jpg">
-                        </div>
-
-                            <h2>SUGGESTED READINGS</h2>
-
+                        <div class="content-block-top">
                             
-                            {% set suggestCount = 0 %}
+                            <h1>{{ quotes.smarten(article.title) }}</h1>
+                            
+                            <p class="company">{{ article.additionalInfo.company }}</p>
+                            <p class="salary">Salary ${{ article.additionalInfo.salaryrange }}</p>
 
-                            {% for i in 0..4 if suggestedArticles[suggestCount] %}
-                                {{this.render('partials/_single-article.twig', {
-                                    article: suggestedArticles[suggestCount], 
-                                    imageSize: {width: 75, height: 63},
-                                    containerClass: 'card-article-suggested'
-                                }) | raw}}
-                                {% set suggestCount = (dev) ? suggestCount : suggestCount + 1 %}
-                            {% endfor %}
+                        </div><!--content-block-top-->
 
-                            {% if suggestedArticles[suggestCount] %}
-                                {{this.render('partials/_single-article.twig', {
-                                    article: suggestedArticles[suggestCount], 
-                                    imageSize: {width: 300, height: 180},
-                                    containerClass: 'card-sm-full'
-                                }) | raw}}
-                            {% endif %}
+                        <div class="article_content">
+                            {{ article.content | _resizeImages({'width': 500}) | raw }}
+                        </div><!-- .content-->
+                    </div><!-- .content-->
 
-                        </div>
+                </div>
+
+
+
+
+                <div class="col-md-3 details-padding">
+                    <div class="job-details">
+                        <table>
+                            <tr>
+                                <td class="label">Listed</td>
+                                <td class="value">{{publishDate}}</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Location</td>
+                                <td class="value">{{article.additionalInfo.location}}</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Work type</td>
+                                <td class="value">{{article.additionalInfo.salary}}</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Category</td>
+                                <td class="value">Administration and Office Support</td>
+                            </tr>
+                        </table>
                     </div>
 
+                    <div class="job-contact">
+                        <h3>To apply for this job email:</h3>
+                        <p class="contact-name">{{ article.additionalInfo.contactname }}</p>
+{#                         <p class="contact-role">Manager</p>
+ #}                        <p class="contact-email">{{ article.additionalInfo.contactemail }}</p>
+
+                    </div>
 
 
                 </div>
 
-            </div><!-- .page-content-->
 
 
 
-            <div class="row related-articles">
-                <div class="col-md-12">
-                    <h1>RELATED ARTICLES</h1>
+                <div class="col-md-3">
+                    <div class="article-vert"></div>
                 </div>
 
-                {% for i in 0..2 if popularArticles[i] %}
-                    <div class="col-md-4">
-                        {{this.render('partials/_single-article.twig', {
-                            article: popularArticles[i], 
-                            imageSize: {width: 300, height: 180},
-                            containerClass: 'card-sm card-sm-mobile'
-                        }) | raw}}
-                    </div>
-                {% endfor %}
 
             </div>
+
+        </div><!-- .page-content-->
 
 
     </article>

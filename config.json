@@ -36,6 +36,11 @@
                     "type": "inputbox"
                 },
                 {
+                    "name": "contactemail",
+                    "label": "contactemail",
+                    "type": "inputbox"
+                },
+                {
                     "name": "contactphone",
                     "label": "contactphone",
                     "type": "inputbox"
@@ -69,7 +74,23 @@
                     "name": "type",
                     "label": "type",
                     "type": "inputbox"
+                },
+                {
+                    "name": "availability",
+                    "label": "availability",
+                    "type": "inputbox"
+                },
+                {
+                    "name": "propertyid",
+                    "label": "propertyid",
+                    "type": "inputbox"
+                },
+                {
+                    "name": "annualreturn",
+                    "label": "anualreturn",
+                    "type": "inputbox"
                 }
+
             ]
         },
         "blog" : {            
