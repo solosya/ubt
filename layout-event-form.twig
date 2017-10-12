@@ -2,7 +2,7 @@
 {{this.registerJs("window.Acme.cards = CardController();")}}
 {# {{this.registerJs("window.Acme.listing = ListingController();")}} #}
 
-{# {% set networkData = _Network.getNetworkData() %} #}
+{% set networkData = _Network.getNetworkData() %}
 {% set blogData    = _Blog.getBlog() %}
 {% set limit = 10 %}
 
@@ -15,10 +15,10 @@
 {% endif %} 
 
 {% set userArticlesArr = [] %}
-{% if user %} 
+{# {% if user %} 
     {% set userArticlesArr = _User.getUserArticles(user.guid, 0, limit, [blogData.id]) %}
 {% endif %}
-
+ #}
 
 {# {% set events = _Event.getEvents() %} #}
 
@@ -45,6 +45,7 @@
 
             <div class="col-md-7">
 
+
                 <form class="" method="post" action="#" id="listingForm">
                     <input type="text" class="articleExtendedData" name="" id="title" value="" placeholder="Name of event">
                     <input type="text" class="articleExtendedData" name="extendedData.date" id="eventDate" value="" placeholder="Date">
@@ -70,7 +71,12 @@
                             <textarea name="content" id="content"></textarea>
                         </div>
                         <div class="col-md-3">
-                            <div data-imgcls="images" data-id="imageArray" class="uploadFileBtn">Upload logo <br />(optional)</div>
+                            <div data-imgcls="images" data-id="imageArray" class="uploadFileBtn property">
+                                <div class="innerImgBtn">
+                                    <img src="{{networkData.templatePath}}/static/icons/upload-img.svg">
+                                    <p>Upload images</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -79,7 +85,7 @@
 
                             <div id="imageArray" data-media="" class="imagearray"></div>
                     
-                            <button class="_btn" type="submit" id="listingFormSubmit">SEND</button>
+                            <button class="_btn" type="submit" id="listingFormSubmit">SUBMIT</button>
                             <button class="_btn" type="reset" id="listingFormClear">CLEAR</button>
                         </div>
                     </div>
@@ -87,7 +93,7 @@
 
 
             </div>
-            <div  id="userListings" class="col-sm-offset-1 col-md-4">
+{#             <div  id="userListings" class="col-sm-offset-1 col-md-4">
 
                 {% for article in userArticlesArr %}
 
@@ -102,7 +108,7 @@
 
                 {% endfor %}
             </div>
-
+ #}
 
         </section>
 
