@@ -1,16 +1,14 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
 
-{% set jobsBlogId = 114 %}
-
+{% set networkData = _Network.getNetworkData() %}
+{% set blogData    = _Blog.getBlog() %}
+{% set jobsBlogId = blogData.additionalInfo['publishto'] %}
 
 {{this.registerJs("window.Acme.cards = CardController();")}}
 {{this.registerJs("Acme.jobForm = new Acme.JobForm(["~jobsBlogId~"], 'Job Page');")}}
 {{this.registerJs("Acme.listingView.init("~jobsBlogId~");")}}
 
 
-
-{% set networkData = _Network.getNetworkData() %}
-{% set blogData = _Blog.getBlog() %}
 {% set limit = 10 %}
 
 {% set user = false %}

@@ -1,33 +1,33 @@
 (function ($) {
-var blogFormMap = {
-    "115" : [114],
-    "110" : [117],
-    "118" : [119],
-    "121" : [120],
+// var blogFormMap = {
+//     "115" : [114],
+//     "110" : [117],
+//     "118" : [119],
+//     "121" : [120],
 
-    // LIVE Australia
-    "1154" : [1152], //property
-    "1153" : [1151], //jobs
+//     // LIVE Australia
+//     "1154" : [1152], //property
+//     "1153" : [1151], //jobs
 
-    // LIVE NZ
-    "1158" : [1157], //property
-    "1156" : [1155], //jobs
+//     // LIVE NZ
+//     "1158" : [1157], //property
+//     "1156" : [1155], //jobs
 
-    // UAT 
-    "606" : [605], //property
-    "604" : [603]  //jobs
+//     // UAT 
+//     "606" : [605], //property
+//     "604" : [603], //jobs
 
-    "114" : '652345a3-ec41-4b13-9ec2-684e00875657',
-};
+//     "114" : '652345a3-ec41-4b13-9ec2-684e00875657',
+// };
 
-var classList = document.getElementsByTagName('body')[0].className.split(/\s+/);
+// var classList = document.getElementsByTagName('body')[0].className.split(/\s+/);
 
-var blogId = [];
-for (var i = 0; i < classList.length; i++) {
-    if (classList[i].indexOf('blog') > -1) {
-        blogId = blogFormMap[ classList[i].split('-')[1] ];
-    }
-}
+// var blogId = [];
+// for (var i = 0; i < classList.length; i++) {
+//     if (classList[i].indexOf('blog') > -1) {
+//         blogId = blogFormMap[ classList[i].split('-')[1] ];
+//     }
+// }
 
 
 
@@ -226,9 +226,11 @@ ListingForm.prototype = new Acme._View();
 ListingForm.constructor = ListingForm;
     ListingForm.prototype.init = function(blogId, layout) 
     {
+        this.blogId = blogId;
+
         this.data = {
             'id': 0,
-            'blogs':blogId,
+            'blogs':this.blogId,
             'media_ids': ''
         };
         this.layout = layout;
@@ -381,7 +383,7 @@ ListingForm.constructor = ListingForm;
         this.clearErrorHightlights();
         this.data = {
             'id': 0,
-            'blogs': blogId,
+            'blogs': this.blogId,
             'media_ids': ''
         };
     },
@@ -416,7 +418,7 @@ ListingForm.constructor = ListingForm;
                     var resultJsonStr = JSON.stringify(data);
 
                     var postdata = {
-                        'blogs' : blogId,
+                        'blogs' : self.blogId,
                         'imgData' : resultJsonStr
                     };
 
@@ -604,7 +606,6 @@ Acme.listingCollection = new Acme._Collection(Acme.listing);
     });
     Acme.listingCollection.listeners = {
         "userArticles" : function(data) {
-            console.log('getting user listings');
             var blogs = blogId.join(',');
             return this.fetch('/api/user/user-articles?userguid='+Acme.currentUser+'&blogs='+blogs+'&status=all');
         }
