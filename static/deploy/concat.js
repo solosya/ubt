@@ -25797,6 +25797,14 @@ var listingRegions = {
         "Tasmania",
         "Victoria",
         "Western Australia"
+    ],
+    "test" : [
+        "New York",
+        "Bangkok",
+        "Healsville",
+        "Paris",
+        "London",
+        "Ballarat"
     ]
 }
 var propertyList = [
@@ -25811,7 +25819,7 @@ var contractList = [
 ];
 
 var domain = _appJsConfig.appHostName.split('.').reverse()[0];
-var regionList = listingRegions[domain];
+var regionList = listingRegions[domain] || listingRegions[test];
 
 
 
