@@ -57,11 +57,9 @@
         var keys = Object.keys(data);
 
         for (var i = 0; i<keys.length; i++) {
-
             for (var listener in this.listeners) {
 
                 if ( listener === keys[i] ) {
-
                     this.listeners[listener].call(this, data, topic);
                     if (this.listeners.after) {
                         this.listeners.after.call(this, data, topic);
@@ -148,7 +146,31 @@
         this.model = model || null;
     };
         Acme._Collection.prototype = Object.create(Acme.listen.prototype);
+        Acme._Collection.prototype.fetch = function(url)
+        {
+            var self = this;
+            var publishToken = self.name;
+            var url = (url === undefined) ? this.url() : url;
+            var data = Acme.server.fetch( url );
+            data.done( function(response) {
 
+                self.data = [];
+                for (var i=0; i<response.length; i++) {
+                    self.data.push( Object.create(self.model,
+                        {   'data' : {
+                                'value': response[i],
+                                'writable': true
+                            }
+                        }
+                    ));
+                }
+
+                var data = {};
+                data[publishToken] = self;
+                Acme.PubSub.publish('state_changed', data);
+            });
+            return data;
+        };
 
     Acme._Model = function() {};
         Acme._Model.prototype = Object.create(Acme.listen.prototype);
@@ -283,18 +305,19 @@
 
             var notify = function(){
                 var subscribers = self.topics[topic];
+
                 for ( var i = 0, j = subscribers.length; i < j; i++ ){
                     var scope = window;
                     var scopeSplit = subscribers[i].context.split('.');
-                    // console.log(scopeSplit);
+
                     for (var k = 0; k < scopeSplit.length - 1; k++) {
                         scope = scope[scopeSplit[k]];
                         if (scope == undefined) return;
                     }
-                    // console.log('notifying');
-                    // console.log(scope);
-                    // console.log(scopeSplit);
+
                     scope[scopeSplit[scopeSplit.length - 1]][subscribers[i].func]( topic, data );
+                    // console.log(scope);
+
                 }
                 dfd.resolve();
             };
@@ -323,16 +346,15 @@
         Acme.PubSub.subscribe = function( subscription ) {
             var callbacks = Object.keys(subscription);
             var ret_topics = {};
-            // console.log(subscription);
-            // console.log(callbacks);
+
             for (var i=0;i<callbacks.length; i++) {
                 for(var j=0;j<subscription[callbacks[i]].length;j++) {
                     var topic = subscription[callbacks[i]][j];
-                    // console.log(topic);
+
                     var context = callbacks[i].substring(0, callbacks[i].lastIndexOf('.'));
-                    // console.log(context);
+
                     var func = callbacks[i].substring(callbacks[i].lastIndexOf('.') + 1);
-                    // console.log(func);
+
                     if ( !this.topics.hasOwnProperty( topic ) ) {
                         this.topics[topic] = [];
                     }
@@ -459,7 +481,6 @@
         };
         Acme.listMenu.prototype.select = function(item)
         {
-            // console.log(item);
             var menuid = '#' + this.name + ' > p';
             $(menuid).text(item);
             return this;

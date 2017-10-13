@@ -23082,11 +23082,9 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
         var keys = Object.keys(data);
 
         for (var i = 0; i<keys.length; i++) {
-
             for (var listener in this.listeners) {
 
                 if ( listener === keys[i] ) {
-
                     this.listeners[listener].call(this, data, topic);
                     if (this.listeners.after) {
                         this.listeners.after.call(this, data, topic);
@@ -23173,7 +23171,31 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
         this.model = model || null;
     };
         Acme._Collection.prototype = Object.create(Acme.listen.prototype);
+        Acme._Collection.prototype.fetch = function(url)
+        {
+            var self = this;
+            var publishToken = self.name;
+            var url = (url === undefined) ? this.url() : url;
+            var data = Acme.server.fetch( url );
+            data.done( function(response) {
 
+                self.data = [];
+                for (var i=0; i<response.length; i++) {
+                    self.data.push( Object.create(self.model,
+                        {   'data' : {
+                                'value': response[i],
+                                'writable': true
+                            }
+                        }
+                    ));
+                }
+
+                var data = {};
+                data[publishToken] = self;
+                Acme.PubSub.publish('state_changed', data);
+            });
+            return data;
+        };
 
     Acme._Model = function() {};
         Acme._Model.prototype = Object.create(Acme.listen.prototype);
@@ -23308,18 +23330,19 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
 
             var notify = function(){
                 var subscribers = self.topics[topic];
+
                 for ( var i = 0, j = subscribers.length; i < j; i++ ){
                     var scope = window;
                     var scopeSplit = subscribers[i].context.split('.');
-                    // console.log(scopeSplit);
+
                     for (var k = 0; k < scopeSplit.length - 1; k++) {
                         scope = scope[scopeSplit[k]];
                         if (scope == undefined) return;
                     }
-                    // console.log('notifying');
-                    // console.log(scope);
-                    // console.log(scopeSplit);
+
                     scope[scopeSplit[scopeSplit.length - 1]][subscribers[i].func]( topic, data );
+                    // console.log(scope);
+
                 }
                 dfd.resolve();
             };
@@ -23348,16 +23371,15 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
         Acme.PubSub.subscribe = function( subscription ) {
             var callbacks = Object.keys(subscription);
             var ret_topics = {};
-            // console.log(subscription);
-            // console.log(callbacks);
+
             for (var i=0;i<callbacks.length; i++) {
                 for(var j=0;j<subscription[callbacks[i]].length;j++) {
                     var topic = subscription[callbacks[i]][j];
-                    // console.log(topic);
+
                     var context = callbacks[i].substring(0, callbacks[i].lastIndexOf('.'));
-                    // console.log(context);
+
                     var func = callbacks[i].substring(callbacks[i].lastIndexOf('.') + 1);
-                    // console.log(func);
+
                     if ( !this.topics.hasOwnProperty( topic ) ) {
                         this.topics[topic] = [];
                     }
@@ -23484,7 +23506,6 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
         };
         Acme.listMenu.prototype.select = function(item)
         {
-            // console.log(item);
             var menuid = '#' + this.name + ' > p';
             $(menuid).text(item);
             return this;
@@ -25705,22 +25726,35 @@ HomeController.Blog = (function ($) {
 
 }(jQuery));
 (function ($) {
-var blogFormMap = {
-    "115" : [114],
-    "110" : [117],
-    "118" : [119],
-    "121" : [120],
-    "114" : '652345a3-ec41-4b13-9ec2-684e00875657',
-};
+// var blogFormMap = {
+//     "115" : [114],
+//     "110" : [117],
+//     "118" : [119],
+//     "121" : [120],
 
-var classList = document.getElementsByTagName('body')[0].className.split(/\s+/);
+//     // LIVE Australia
+//     "1154" : [1152], //property
+//     "1153" : [1151], //jobs
 
-var blogId = [];
-for (var i = 0; i < classList.length; i++) {
-    if (classList[i].indexOf('blog') > -1) {
-        blogId = blogFormMap[ classList[i].split('-')[1] ];
-    }
-}
+//     // LIVE NZ
+//     "1158" : [1157], //property
+//     "1156" : [1155], //jobs
+
+//     // UAT 
+//     "606" : [605], //property
+//     "604" : [603], //jobs
+
+//     "114" : '652345a3-ec41-4b13-9ec2-684e00875657',
+// };
+
+// var classList = document.getElementsByTagName('body')[0].className.split(/\s+/);
+
+// var blogId = [];
+// for (var i = 0; i < classList.length; i++) {
+//     if (classList[i].indexOf('blog') > -1) {
+//         blogId = blogFormMap[ classList[i].split('-')[1] ];
+//     }
+// }
 
 
 
@@ -25919,9 +25953,11 @@ ListingForm.prototype = new Acme._View();
 ListingForm.constructor = ListingForm;
     ListingForm.prototype.init = function(blogId, layout) 
     {
+        this.blogId = blogId;
+
         this.data = {
             'id': 0,
-            'blogs':blogId,
+            'blogs':this.blogId,
             'media_ids': ''
         };
         this.layout = layout;
@@ -26074,7 +26110,7 @@ ListingForm.constructor = ListingForm;
         this.clearErrorHightlights();
         this.data = {
             'id': 0,
-            'blogs': blogId,
+            'blogs': this.blogId,
             'media_ids': ''
         };
     },
@@ -26109,7 +26145,7 @@ ListingForm.constructor = ListingForm;
                     var resultJsonStr = JSON.stringify(data);
 
                     var postdata = {
-                        'blogs' : blogId,
+                        'blogs' : self.blogId,
                         'imgData' : resultJsonStr
                     };
 
@@ -26289,39 +26325,25 @@ Acme.listing = Acme.Model.create({
 
 
 
-
-Acme.listingCollection = new Acme._Collection(Acme.listing);
-
-    Acme.listingCollection.subscriptions = Acme.PubSub.subscribe({
-        'Acme.listingCollection.listener' : [ "update_state" ]
-    });
-    Acme.listingCollection.listeners = {
+Acme.listingCollectionClass = function(name, blogId) {
+    this.blogId = blogId || "";
+    this.name = name || "";
+    this.listeners = {
         "userArticles" : function(data) {
-            console.log('getting user listings');
-            var blogs = blogId.join(',');
-            return this.fetch('/api/user/user-articles?userguid='+Acme.currentUser+'&blogs='+blogs+'&status=all');
+            return this.fetch('/api/user/user-articles?userguid='+Acme.currentUser+'&blogs='+this.blogId+'&status=all');
         }
     };
-    Acme.listingCollection.fetch = function(url)
-    {
-        var self = this;
-        var url = (url === undefined) ? this.url() : url;
-        var data = Acme.server.fetch( url );
-        data.done( function(response) {
-            self.data = [];
-            for (var i=0; i<response.length; i++) {
-                self.data.push( Object.create(self.model,
-                    {   'data' : {
-                            'value': response[i],
-                            'writable': true
-                        }
-                    }
-                ));
-            }
-            Acme.PubSub.publish('update_state', {'userlistings': self});
-        });
-        return data;
-    };
+};
+    Acme.listingCollectionClass.prototype = new Acme._Collection(Acme.listing);
+    Acme.listingCollectionClass.prototype.constructor = Acme.listingCollectionClass;
+    Acme.listingCollectionClass.subscriptions = Acme.PubSub.subscribe({
+        'Acme.listingCollection.listener' : [ "update_state" ]
+    });
+
+
+
+
+
 
 
 
@@ -26338,8 +26360,8 @@ Acme.listingViewClass.prototype = new Acme._View();
         'main' : $('#userListings')
     };
     Acme.listingViewClass.prototype.listeners = {
-        "userlistings" : function(data) {
-            this.data = data.userlistings.data;
+        "listingCollection" : function(data) {
+            this.data = data.listingCollection.data;
             this.render();
         }
     };

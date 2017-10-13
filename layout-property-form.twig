@@ -8,6 +8,9 @@
 {{this.registerJs("window.Acme.cards = CardController();")}}
 {{this.registerJs("Acme.propertyForm = new Acme.PropertyForm(["~jobsBlogId~"], 'Property Page');")}}
 {{this.registerJs("Acme.listingView.init("~jobsBlogId~");")}}
+{{this.registerJs("Acme.listingCollection = new Acme.listingCollectionClass('listingCollection', "~jobsBlogId~");")}}
+
+
 
 
 {% set limit = 10 %}
@@ -25,7 +28,7 @@
     {% set userArticlesArr = _User.getUserArticles(user.guid, 0, limit, {'blogs':[jobsBlogId], 'status': 'all'}) %}
 {% endif %}
 
-{# {% set events = _Event.getEvents() %} #}
+
 
 
 <!-- used to index each article as we loop over throughout the template -->

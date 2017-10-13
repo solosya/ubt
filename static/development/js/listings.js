@@ -598,38 +598,25 @@ Acme.listing = Acme.Model.create({
 
 
 
-
-Acme.listingCollection = new Acme._Collection(Acme.listing);
-
-    Acme.listingCollection.subscriptions = Acme.PubSub.subscribe({
-        'Acme.listingCollection.listener' : [ "update_state" ]
-    });
-    Acme.listingCollection.listeners = {
+Acme.listingCollectionClass = function(name, blogId) {
+    this.blogId = blogId || "";
+    this.name = name || "";
+    this.listeners = {
         "userArticles" : function(data) {
-            var blogs = blogId.join(',');
-            return this.fetch('/api/user/user-articles?userguid='+Acme.currentUser+'&blogs='+blogs+'&status=all');
+            return this.fetch('/api/user/user-articles?userguid='+Acme.currentUser+'&blogs='+this.blogId+'&status=all');
         }
     };
-    Acme.listingCollection.fetch = function(url)
-    {
-        var self = this;
-        var url = (url === undefined) ? this.url() : url;
-        var data = Acme.server.fetch( url );
-        data.done( function(response) {
-            self.data = [];
-            for (var i=0; i<response.length; i++) {
-                self.data.push( Object.create(self.model,
-                    {   'data' : {
-                            'value': response[i],
-                            'writable': true
-                        }
-                    }
-                ));
-            }
-            Acme.PubSub.publish('update_state', {'userlistings': self});
-        });
-        return data;
-    };
+};
+    Acme.listingCollectionClass.prototype = new Acme._Collection(Acme.listing);
+    Acme.listingCollectionClass.prototype.constructor = Acme.listingCollectionClass;
+    Acme.listingCollectionClass.subscriptions = Acme.PubSub.subscribe({
+        'Acme.listingCollection.listener' : [ "update_state" ]
+    });
+
+
+
+
+
 
 
 
@@ -646,8 +633,8 @@ Acme.listingViewClass.prototype = new Acme._View();
         'main' : $('#userListings')
     };
     Acme.listingViewClass.prototype.listeners = {
-        "userlistings" : function(data) {
-            this.data = data.userlistings.data;
+        "listingCollection" : function(data) {
+            this.data = data.listingCollection.data;
             this.render();
         }
     };
