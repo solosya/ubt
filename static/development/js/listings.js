@@ -92,7 +92,7 @@ var contractList = [
 ];
 
 var domain = _appJsConfig.appHostName.split('.').reverse()[0];
-var regionList = listingRegions[domain] || listingRegions[test];
+var regionList = listingRegions[domain] || listingRegions["test"];
 
 
 
