@@ -1,6 +1,8 @@
 {% set networkData = _Network.getNetworkData() %}
 {% set plans = networkData['paywallPlans'] %}
 
+{# {{this.registerJs("var signin = new Acme.Signin('signinForm', '#signin');")}}
+ #}
 
 <main id="main" class="site-main" role="main">
 	<div class="container-fluid">
@@ -28,7 +30,7 @@
 					</div>
 				</div>
 			</div>
-		</section>
+		</div>
 	</section>
 
 	<div class="container-fluid">
@@ -145,14 +147,45 @@
 			</div>
 		</section>
 
-
-
-
-
-
-
-
-
 	</div>
 
 </main>
+
+
+<script id="signinForm" type="text/template">
+	<div id="signin" class="flex_col">
+		<div id="dialog">
+			<div>
+
+			    <div class="head">
+			    	<h2>Sign in</h2>
+					<img class="close" src="{{networkData.templatePath}}/static/icons/cross.svg">
+			    </div>
+
+
+				<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off">
+
+				    <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" />
+
+			        <input id="loginName" class="" type="text" name="username" placehold="Username" value="">
+
+			        <input id="loginPass" class="" type="password" name="password" placeholder="Password">
+				    
+				    <div class="remember">
+				    	<div>
+				            <input type="checkbox" id="remember" class="" name="rememberMe">
+				            <label for="remember" class="">Keep me logged in.</label>
+				        </div>
+				        <p class="">Forgot password</p>
+				    </div>
+				    
+				    <div class="message active hide">
+				        <div class="account-modal__error_text">Invalid Username or Password</div>
+				    </div>
+
+				    <button id="signinBtn" type="submit" class="_btn accountLogin">SIGN IN</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</script>

@@ -537,8 +537,6 @@ Acme.EventForm = function(blogId) {
     Acme.EventForm.prototype = new ListingForm();
     Acme.EventForm.prototype.constructor=Acme.EventForm;
     Acme.EventForm.prototype.events2 = function() {
-        console.log('adding datepicker events');
-
 
 
 

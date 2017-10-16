@@ -31,15 +31,16 @@
                 {% if not _User.isGuest() %}
                     {% set user = _User.getUser() %}
                     <li>{{ (user.firstname ~" "~ user.lastname) | truncate(15) | title}}. Admin: {{_User.isAdminUser()}}</li>
+                    <li>MY ACCOUNT</li>
+                    <li class="menu-item-search">SEARCH</li>
+                    <li class="menu-item-search glass">
+                        <a href="#" class="search-icon"><span class="icon-search icon"></span><span class="sr-only">Expand search</span></a>
+                    </li>
+                {% else %}
+                    <li id="header_login_link" class="header__login__link">SIGN IN</li>
                 {% endif %}
+                
 
-
-                <li>MY ACCOUNT</li>
-                <li class="header__login__link">SIGN IN</li>
-                <li class="menu-item-search">SEARCH</li>
-                <li class="menu-item-search glass">
-                    <a href="#" class="search-icon"><span class="icon-search icon"></span><span class="sr-only">Expand search</span></a>
-                </li>
             </ul>   
         </div>         
     </div>
