@@ -35,6 +35,44 @@
         }
     }
 
+
+
+
+    .site-header-main {
+        display:none;
+    }
+
+    .site-main {
+        margin-top:0;
+    }
+
+    .market-header {
+        height:172px;
+        position:relative;
+
+        > img {
+            position:absolute;
+            left:0;
+            top:55px;
+        }
+
+        > div {
+            text-align:center;
+            width:350px;
+            margin: 0 auto;
+            margin-top:25px;
+           p {
+                border-top:1px solid black;
+                padding-top:10px;
+                font-size: rem(17);
+                margin-top:20px;
+           }
+ 
+        }
+
+    }
+
+
     .plan-type {
         background:color(marketgrey);
         .plan-type-header {
@@ -72,14 +110,13 @@
     }
 
 
-    .site-header-main {
-        display:none;
+    .section-title {
+        >h1 {
+            font-family: $font-family-serif;
+            font-size: rem(50);
+            text-align:center;
+            font-weight:700;
+        }
     }
-
-    .site-main {
-        margin-top:0;
-    }
-
-
 
 }
