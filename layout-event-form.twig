@@ -4,9 +4,16 @@
 
 {% set networkData = _Network.getNetworkData() %}
 {% set blogData    = _Blog.getBlog() %}
+{% set jobsBlogId  = blogData['id'] %}
+
 {% set limit = 10 %}
 
 {% set user = false %}
+
+{{this.registerJs("Acme.eventForm = new Acme.EventForm(["~jobsBlogId~"]);")}}
+{{this.registerJsFile("https://maps.googleapis.com/maps/api/js?key=AIzaSyCRILYoQMiSjf_1Q_DhL199ha5w410AOLU")}}
+
+
 
 {% if not _User.isGuest %} 
     {% set user = _User.getUser() %}
@@ -15,12 +22,6 @@
 {% endif %} 
 
 {% set userArticlesArr = [] %}
-{# {% if user %} 
-    {% set userArticlesArr = _User.getUserArticles(user.guid, 0, limit, [blogData.id]) %}
-{% endif %}
- #}
-
-{# {% set events = _Event.getEvents() %} #}
 
 
 <!-- used to index each article as we loop over throughout the template -->
@@ -47,13 +48,16 @@
 
 
                 <form class="" method="post" action="#" id="listingForm">
-                    <input type="text" class="articleExtendedData" name="" id="title" value="" placeholder="Name of event">
-                    <input type="text" class="articleExtendedData" name="extendedData.date" id="eventDate" value="" placeholder="Date">
-                    <input type="text" class="articleExtendedData" name="extendedData.time" id="eventTime" value="" placeholder="Time">
-
+                    <input type="text" class="articleExtendedData" name="title" id="title" value="" placeholder="Name of event">
+                    <input type="text" class="articleExtendedData" name="start_date" id="eventStart" value="" placeholder="Start date">
+                    <input type="text" class="articleExtendedData" name="end_date" id="eventEnd" value="" placeholder="End date">
+                    <input type="hidden" class="articleExtendedData" name="event_latitude" id="event_latitude" value="" placeholder="">
+                    <input type="hidden" class="articleExtendedData" name="event_longitude" id="event_longitude" value="" placeholder="">
+                    
+                    
                     <p class="form-section-label">Location</p>
 
-                    <fieldset>
+{#                     <fieldset>
                         <div class="inline">
                             <input type="radio" name="extendedData.salary" id="map1" class="articleExtendedData" value="1" checked="checked" />
                             <label for="map1">Show map</label>
@@ -64,7 +68,8 @@
                         </div>
 
                     </fieldset>
-                    <input type="text" class="articleExtendedData" name="extendedData.address" id="address" value="" placeholder="Address">
+ #}                    
+                    <input type="text" class="articleExtendedData" name="address" id="address" value="" placeholder="Address">
                     
                     <div class="row">
                         <div class="col-md-9">
@@ -85,6 +90,10 @@
 
                             <div id="imageArray" data-media="" class="imagearray"></div>
                     
+
+                            <div id="addressMap" data-latitude="" data-longitude="" style="width:100%;min-height:350px;background:rgba(0,0,0,.3)"></div>
+
+
                             <button class="_btn" type="submit" id="listingFormSubmit">SUBMIT</button>
                             <button class="_btn" type="reset" id="listingFormClear">CLEAR</button>
                         </div>

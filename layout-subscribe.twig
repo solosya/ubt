@@ -1,8 +1,21 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
 {% set networkData = _Network.getNetworkData() %}
+{% set plans = networkData['paywallPlans'] %}
 
 
-<main id="main" class="site-main listingForm" role="main">
+{% set plan = false %}
+{% set url = _AppHelper.getParsedUrl() %}
+{% set params = url['query'] %}
+{% for k, p in params %}
+	{% if k == 'plan' %}
+		{% set plan = plans[p-1] %}
+	{% endif %}
+{% endfor %}
+{# <pre>
+	{{dump(plan)}}
+</pre>
+
+ #}<main id="main" class="site-main listingForm" role="main">
 	<div class="container-fluid">
 
 		<section class="row">
@@ -38,54 +51,84 @@
 	<div class="container-fluid">
 
 		<section class="row">
-			<div class="col-md-offset-1 col-md-7" style="background:cyan">
+			<div class="col-md-offset-1 col-md-7">
+				{% if plan != false  %}
+				    <form class="" method="post" action="#" id="listingForm">
+			    		<p class="form-section-label">Your information</p>
 
-			    <form class="" method="post" action="#" id="listingForm">
-		    		<p class="form-section-label">Your information</p>
+		                <input type="text" class="articleExtendedData" name="firstname" id="firstname" value="" placeholder="First name">
+		                <input type="text" class="articleExtendedData" name="lastname" id="lastname" value="" placeholder="Last name">
 
-	                <input type="text" class="articleExtendedData" name="firstname" id="firstname" value="" placeholder="First name">
-	                <input type="text" class="articleExtendedData" name="lastname" id="lastname" value="" placeholder="Last name">
+		                <input type="text" class="" name="email" id="email" value="" placeholder="Email">
+		                <input type="text" class="" name="emailconfirm" id="emailconfirm" value="" placeholder="Email confirm">
+		                <input type="text" class="articleExtendedData" name="mobile" id="mobile" value="" placeholder="Mobile">
+		                <input type="text" class="articleExtendedData" name="address" id="address" value="" placeholder="address">
+		                <input type="text" class="articleExtendedData" name="suburb" id="suburb" value="" placeholder="Suburb">
+		                <input type="text" class="articleExtendedData" name="state" id="state" value="" placeholder="State">
+		                <input type="text" class="articleExtendedData" name="Postcode" id="Postcode" value="" placeholder="Postcode">
+			            
+			            <input type="hidden" class="" name="planid" id="planid" value="{{plan.id}}">
 
-	                <input type="text" class="" name="email" id="email" value="" placeholder="Email">
-	                <input type="text" class="" name="emailconfirm" id="emailconfirm" value="" placeholder="Email confirm">
-	                <input type="text" class="articleExtendedData" name="mobile" id="mobile" value="" placeholder="Mobile">
-	                <input type="text" class="articleExtendedData" name="address" id="address" value="" placeholder="address">
-	                <input type="text" class="articleExtendedData" name="suburb" id="suburb" value="" placeholder="Suburb">
-	                <input type="text" class="articleExtendedData" name="state" id="state" value="" placeholder="State">
-	                <input type="text" class="articleExtendedData" name="Postcode" id="Postcode" value="" placeholder="Postcode">
-		            
-		            <div id="countrySelect" class="countrySelect"></div>
+			            <div id="countrySelect" class="countrySelect"></div>
 
-		            <p class="form-section-label">Payment details</p>
+			            <p class="form-section-label">Payment details</p>
 
-	                <fieldset>
-	                    <div class="inline">
-	                        <input type="radio" name="extendedData.salary" id="paymentType1" class="articleExtendedData" value="1" checked="checked" />
-	                        <label for="paymentType1">Credit card</label>
-	                    </div>
-	                    <div class="inline">
-	                        <input type="radio" name="extendedData.salary" id="paymentType2" class="articleExtendedData" value="2" />
-	                        <label for="paymentType2">Pay Pal</label>
-	                    </div>
-	                    <div class="inline">
-	                        <input type="radio" name="extendedData.salary" id="paymentType3" class="articleExtendedData" value="3" />
-	                        <label for="paymentType3">Bank deposit</label>
-	                    </div>
-	                </fieldset>
-	                <input type="text" class="articleExtendedData" name="cardname" id="cardname" value="" placeholder="Name on card">
-	                <input type="text" class="articleExtendedData" name="cardnumber" id="cardnumber" value="" placeholder="Credit card number">
-	                <input type="text" class="articleExtendedData" name="expiry" id="expiry" value="" placeholder="Expiry date">
-	                <input type="text" class="articleExtendedData" name="ccv" id="ccv" value="" placeholder="ccv">
-	                
+		                <fieldset>
+		                    <div class="inline">
+		                        <input type="radio" name="extendedData.salary" id="paymentType1" class="articleExtendedData" value="1" checked="checked" />
+		                        <label for="paymentType1">Credit card</label>
+		                    </div>
+		                    <div class="inline">
+		                        <input type="radio" name="extendedData.salary" id="paymentType2" class="articleExtendedData" value="2" />
+		                        <label for="paymentType2">Pay Pal</label>
+		                    </div>
+		                    <div class="inline">
+		                        <input type="radio" name="extendedData.salary" id="paymentType3" class="articleExtendedData" value="3" />
+		                        <label for="paymentType3">Bank deposit</label>
+		                    </div>
+		                </fieldset>
+		                <input type="text" class="articleExtendedData" name="cardname" id="cardname" value="" placeholder="Name on card">
+		                <input type="text" class="articleExtendedData" name="cardnumber" id="cardnumber" value="" placeholder="Credit card number">
+		                <input type="text" class="articleExtendedData" name="expiry" id="expiry" value="" placeholder="Expiry date">
+		                <input type="text" class="articleExtendedData" name="ccv" id="ccv" value="" placeholder="ccv">
+		                
 
-		            <button class="_btn" type="submit" id="listingFormSubmit">SUBSCRIBE</button>
-	                <button class="_btn" type="reset"  id="listingFormClear">CLEAR</button>
-			    </form>
+			            <button class="_btn" type="submit" id="listingFormSubmit">SUBSCRIBE</button>
+		                <button class="_btn" type="reset"  id="listingFormClear">CLEAR</button>
+				    </form>
 
+				{% else %}
+					<h1>You need to choose a plan from the subscriptions screen</h1>
+				{% endif %}
 			</div>			
 
+
+
 			<div class="col-md-3">
-				<h2>Order summary</h2>
+				<div class="plan-type">
+
+					{% if plan != false %}
+						<div class="plan-type-header">
+							<h2>Order Summary</h2>
+						</div>
+						<div class="plan-body">
+							<h3>{{plan.name}}</h3>
+
+							<p>{{plan.paywall_total_users}}+ users</p>
+							<p>${{plan.plan_value}}/{{plan.plan_interval}}</p>
+							<img src="{{networkData.templatePath}}/static/images/market-screens.png">
+							<p class="featuresheader">What's included in your subscription</p>
+							<a href="{{networkData.defaultBlogUrl}}/@marketing">Change subscription</a>
+						</div>
+
+
+
+					{# 	{{ this.render('partials/_plan-'~plan~'.twig', {
+						    networkData: networkData, 
+						}) | raw }} #}
+
+					{% endif %}
+				</div>
 			</div>
 
 		</section>

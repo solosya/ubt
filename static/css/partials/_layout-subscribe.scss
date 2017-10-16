@@ -35,7 +35,41 @@
         }
     }
 
+    .plan-type {
+        background:color(marketgrey);
+        .plan-type-header {
+            background:color(darkblue);
+            padding:10px;
+            > h2 {
+                color:white;
+                font-size:rem(16);
+                font-weight:600;
+            }
+        }
+        .plan-body {
+            padding:30px 20px;
+            text-align:center;
 
+            h3 {
+                color:color(red);
+                font-size:rem(18);
+                font-weight:600;
+                letter-spacing: 0.4px;
+                font-family: $font-family-serif;
+            }
+            >img {
+                width:100%;
+            }
+
+            >a {
+                margin-top:15px;
+                float:right;
+                color:color(red);
+                font-style:italic;
+                font-size: rem(14);
+            }
+        }
+    }
 
 
     .site-header-main {
@@ -46,58 +80,6 @@
         margin-top:0;
     }
 
-    .market-header {
-        height:172px;
-        position:relative;
-
-        > img {
-            position:absolute;
-            left:0;
-            top:55px;
-        }
-
-        > div {
-            text-align:center;
-            width:350px;
-            margin: 0 auto;
-            margin-top:25px;
-           p {
-                border-top:1px solid black;
-                padding-top:10px;
-                font-size: rem(17);
-                margin-top:20px;
-           }
- 
-        }
-
-    }
-
-    .section-title {
-        >h1 {
-            font-family: $font-family-serif;
-            font-size: rem(50);
-            text-align:center;
-            font-weight:700;
-        }
-    }
-
-    .three-card {
-        margin-top:55px;
-        text-align:center;
-
-        h2 {
-            margin-top:17px;
-            font-size:rem(18);
-            color: color(darkblue);
-            font-weight:700;
-        }
-
-        p{
-            margin-top:21px;
-            font-size:rem(16);
-            line-height: 1.62;
-        }
-    }
 
 
 }

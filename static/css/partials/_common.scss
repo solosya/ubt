@@ -122,22 +122,6 @@ hr.divide {
 }
 
 
-.breadcrumb {
-    height:60px;
-    width:100%;
-    font-size:rem(13);
-    padding-left: 15px;
-    padding-top: 40px;
-    margin-top: 30px;
-    span {
-        color: color(darkgreen);
-        font-weight:bold;
-    }
-
-    a {
-        color: color(grey);
-    }
-}
 
 
 .search-icon{
@@ -230,7 +214,7 @@ h4.modal-title {
     font-weight: 600;
     border-radius: 0;
     padding: 10px 9px;
-border-bottom: 2px solid $brand-secondary;  
+    border-bottom: 2px solid $brand-secondary;  
 }
 
 
@@ -247,41 +231,21 @@ border-bottom: 2px solid $brand-secondary;
     }
 }
 
-// figcaption{
-//     margin-top: 10px;
-
-//     @media screen and (max-width: $sm-break){
-//         float: left;
-//         margin-bottom: 30px;
-//     }
-    
-//     > p {
-//         font-size: rem(14);
-//         color: color(lightgrey);
-//         font-family: $font-family-serif;
-//         float: left;
-
-//         &.credit{
-//             font-style: normal;
-//             float: right;
-
-//             @media screen and (max-width: $sm-break){
-//                 float: left;
-//             }
-//         }
+// .collapse {
+//     display:none;
+//     visibility:hidden;
+//     &.in {
+//         display: block;
+//         visibility: visible;
 //     }
 // }
-
-
 
 p.lead{
     font-size: rem(20);
     font-weight: bold;
     color: #4a4a4a;
 }
-span.leadsentence{
-    font-weight: bold;
-}
+
 
 .advert {
     // background:grey;
