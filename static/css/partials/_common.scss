@@ -264,16 +264,21 @@ p.lead{
     margin-top:58px;
 
     > div.advert {
-        background:#d8d8d8;
-        width:728px;
+        width:970px;
         height:90px;
         margin: 0 auto;
+        @media screen and (max-width: $mmd-break){
+            width: 728px;
+            height: 90px;
+        }
         @media screen and (max-width: $sm-break-down){
             width: 300px;
-            height: 70px;
+            height: 75px;
         }
+        
     }
 }
+
 
 div.pulldown {font-size:rem(14);font-weight:500;position:relative;cursor:pointer;margin:0 8px 0 0;display:inline-block;height:51px;width:490px;border:1px solid color(lightgrey);border-radius:5px;}
 div.pulldown p {margin:0;font-size:rem(14);font-weight:500;width:120px;color:color(lightgrey);white-space:nowrap;line-height:51px;vertical-align:top;padding-left:10px;}
