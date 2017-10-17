@@ -25,7 +25,7 @@
 
             // console.log(type + ': ' + window.location.origin + '/api/' + uri);
             // if (Object.keys(queryParams).length > 0 ) console.log(queryParams);
-            console.log(_appJsConfig.appHostName + uri);
+            console.log(_appJsConfig.appHostName + uri, queryParams);
             return $.ajax({
                 url: _appJsConfig.appHostName + uri,
                 data: queryParams,
@@ -516,16 +516,25 @@
 
 
 
-        Acme.modal = function(template, parent) {
+        Acme.modal = function(template, parent, layouts) {
             this.parentCont = parent || null;
             this.template = template || null;
+            this.layouts = layouts   || null;
             this.dfd = $.Deferred();
         }
-            Acme.modal.prototype.render = function() {
+            Acme.modal.prototype.render = function(layout) {
                 var tmp = $('#'+this.template).html();
                 $('body').append(tmp);
+                if (layout) {
+                    console.log(layout);
+                    this.renderLayout(layout);
+                }
                 this.events();
                 return this.dfd.promise();
+            };
+            Acme.modal.prototype.renderLayout = function(layout) {
+                var layout = $(this.layouts[layout]).html();
+                $(this.parentCont).find('#dialogContent').empty().append(layout); 
             };
             Acme.modal.prototype.events = function() 
             {

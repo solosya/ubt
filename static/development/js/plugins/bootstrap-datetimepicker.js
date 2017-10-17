@@ -471,6 +471,7 @@
                 }
 
                 widget.css({
+                    display:'block',
                     top: vertical === 'top' ? 'auto' : position.top + element.outerHeight(),
                     bottom: vertical === 'top' ? position.top + element.outerHeight() : 'auto',
                     left: horizontal === 'left' ? (parent === element ? 0 : position.left) : 'auto',
@@ -889,7 +890,7 @@
             },
 
             hide = function () {
-                return;
+                // return;
                 ///<summary>Hides the widget. Possibly will emit dp.hide</summary>
                 var transitioning = false;
                 if (!widget) {

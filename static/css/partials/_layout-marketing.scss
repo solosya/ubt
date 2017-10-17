@@ -317,12 +317,16 @@
                             font-weight:normal;
                         }
                     }
-                    >p {
+                    >p.layout {
                         float:right;
                         font-size:rem(12);
                         color:color(lightgrey);
                         font-style:italic;
+                        &:hover {
+                            cursor:pointer;
+                        }
                     }
+
                 }
                 button {
                     color:white;

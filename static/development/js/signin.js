@@ -1,52 +1,79 @@
 (function ($) {
 
 
-Acme.Signin = function(template, parent){
+Acme.Signin = function(template, parent, layouts){
     this.template = template;
     this.parentCont = parent;
+    this.layouts = layouts;
     this.parent = Acme.modal.prototype;
-    console.log('created new signning');
 };
 Acme.Signin.prototype = new Acme.modal();
 Acme.Signin.constructor = Acme.Signin;
-Acme.Signin.prototype.events = function(e) {
-    this.parent.events.call(this);
-
-    $('#signinBtn').on("click", function(e) {
-        e.preventDefault();
-        var formData = {};
-        var password = 
-        $.each($('#loginForm').serializeArray(), function () {
-            console.log(this);
-            formData[this.name] = this.value;
-        });
-        console.log($("#loginName").val());
-        formData['username'] = $("#loginName").val();
-        formData['password'] = $("#loginPass").val();
-        console.log(formData);
-        // Acme.server.create('/api/auth/login', formData).done(function(r) {
-        //     location.reload();
-        // }).fail(function(r) {
-        //     console.log(r);
-        // });
-
-    });
+Acme.Signin.prototype.errorMsg = function(msg) {
+    $('.message').toggleClass('hide');
 };
+
 Acme.Signin.prototype.handle = function(e) {
+    var self = this;
     var $elem = this.parent.handle.call(this, e);
     if ( $elem.is('img') ) {
         if ($elem.hasClass('close')) {
             this.closeWindow();
         }
     }
+    if ($elem.is('button')) {
+        if ($elem.hasClass('signin')) {
+            e.preventDefault();
+            var formData = {};
+            $.each($('#fogotForm').serializeArray(), function () {
+                formData[this.name] = this.value;
+            });
+            console.log(formData);
+            Acme.server.create('/api/auth/login', formData).done(function(r) {
+                if (r.success === 1) {
+                    location.reload();
+                } else {
+                    self.errorMsg();
+                }
+            }).fail(function(r) { console.log(r);});
+        }
+
+        if ($elem.hasClass('forgot')) {
+            e.preventDefault();
+            var formData = {};
+            $.each($('#forgotForm').serializeArray(), function () {
+                formData[this.name] = this.value;
+            });
+            console.log(formData);
+            Acme.server.create('/api/auth/forgot-password', formData).done(function(r) {
+                console.log(r);
+                if (r.success === 1) {
+                    location.reload();
+                } else {
+                    self.errorMsg();
+                }
+
+            }).fail(function(r) { console.log(r);});
+        }
+
+    }
+    if ($elem.hasClass('layout')) {
+        var layout = $elem.data('layout');
+        console.log(layout);
+        this.renderLayout(layout);
+    }
 };
 
-var signin = new Acme.Signin('signinForm', '#signin');
+var layouts = {
+    "signin": '#signinFormTmpl',
+    "forgot": '#forgotFormTmpl',
+    "expired": '#expiredNotice'
+}
+var signin = new Acme.Signin('authDialog', '#signin', layouts);
 
 $('#header_login_link').on('click', function() {
-    signin.render();
-})
-// loginForm
+    signin.render("signin");
+});
 
 
 

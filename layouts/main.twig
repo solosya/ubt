@@ -56,7 +56,7 @@
 
 
     {% if _AppHelper.getApplicationEnv() == 'PROD'%}
-        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=f70829e1" type="text/css" media="all">
+        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=195821a8" type="text/css" media="all">
 
     {% else %}
 {#             <link type="text/css" rel="stylesheet" href="{{networkData.templatePath}}/static/css/jquery.fancybox.css?ver=2" />
@@ -158,7 +158,7 @@
         pageClass: blogName,
     }) | raw }}
 
-    {{ this.render('partials/account_modal.twig', {network: networkData}) | raw }}
+    {# {{ this.render('partials/account_modal.twig', {network: networkData}) | raw }} #}
 
     {{ this.render('partials/_javascript.twig', {
         networkData: networkData
