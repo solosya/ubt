@@ -82,8 +82,14 @@
             <div class="col-sm-offset-1 col-sm-3">
 
                 <div class="advert visible-md-block visible-lg-block">
-                    <img src="{{networkData.templatePath}}/static/images/ads/300x250.jpg">
+                    <div id='boxad' style='height:250px; width:300px;'>
+                        <script>
+                            document.currentScript.parentNode.id = boxadID;
+                            googletag.cmd.push(function() { googletag.display(boxadID); });
+                        </script>
+                    </div>
                 </div>
+
 
 
 
@@ -109,16 +115,37 @@
 
 
 
-         <section class="row advert-banner-small hidden-xs">
+        <section class="row advert-banner-small hidden-xs hidden-sm hidden-md">
             <div class="advert banner">
-                <img src="{{networkData.templatePath}}/static/images/ads/728x90.jpg">
+                <div id='widebannerID' style='width:970px;margin: 0 auto;'>
+                    <script>
+                        document.currentScript.parentNode.id = widebannerID;
+                        googletag.cmd.push(function() { googletag.display(widebannerID); });
+                    </script>
+                </div>
+            </div>
+        </section>
+        <section class="row advert-banner-small hidden-xs hidden-lg">
+            <div class="advert banner">
+                <div id='smallbannerID' style='width:728px;margin: 0 auto;'>
+                    <script>
+                        document.currentScript.parentNode.id = smallbannerID;
+                        googletag.cmd.push(function() { googletag.display(smallbannerID); });
+                    </script>
+                </div>
             </div>
         </section>
         <section class="row advert-banner-small hidden-sm hidden-md hidden-lg">
             <div class="advert banner">
-                <img src="{{networkData.templatePath}}/static/images/ads/300x75.jpg">
+               <div id='tinybannerAd' style='height:75px; width:300px;margin: 0 auto;'>
+                        <script>
+                            document.currentScript.parentNode.id = tinybannerID;
+                            googletag.cmd.push(function() { googletag.display(tinybannerID); });
+                        </script>
+                    </div>
             </div>
         </section>
+
 
 
 
