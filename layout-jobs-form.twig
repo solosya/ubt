@@ -15,14 +15,10 @@
 {% set user = false %}
 
 {% if not _User.isGuest %} 
-    <h1>g</h1>
     {% set user = _User.getUser() %}
     {% set userString = "window.Acme.currentUser = '" ~ user.guid ~ "';" %}
     {{this.registerJs( userString )}}
 {% endif %} 
-<pre>
-    {{user.id}}
-</pre>
 {% set userArticlesArr = [] %}
 {% if user %}                                                         
     {% set userArticlesArr = _User.getUserArticles(user.guid, 0, limit, {'blogs':[jobsBlogId], 'status': 'all'}) %}
