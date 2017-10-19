@@ -523,7 +523,8 @@
             this.dfd = $.Deferred();
         }
             Acme.modal.prototype.render = function(layout) {
-                var tmp = $('#'+this.template).html();
+                // var tmp = $('#'+this.template).html();
+                var tmp = window.templates[this.template];
                 $('body').append(tmp);
                 if (layout) {
                     console.log(layout);
@@ -533,7 +534,9 @@
                 return this.dfd.promise();
             };
             Acme.modal.prototype.renderLayout = function(layout) {
-                var layout = $(this.layouts[layout]).html();
+                // var layout = $(this.layouts[layout]).html();
+                var layout = window.templates[layout];
+
                 $(this.parentCont).find('#dialogContent').empty().append(layout); 
             };
             Acme.modal.prototype.events = function() 

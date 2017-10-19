@@ -1,7 +1,7 @@
 (function ($) {
 
 
-Acme.Signin = function(template, parent, layouts){
+Acme.Signin = function(template, parent, layouts) {
     this.template = template;
     this.parentCont = parent;
     this.layouts = layouts;
@@ -12,7 +12,6 @@ Acme.Signin.constructor = Acme.Signin;
 Acme.Signin.prototype.errorMsg = function(msg) {
     $('.message').toggleClass('hide');
 };
-
 Acme.Signin.prototype.handle = function(e) {
     var self = this;
     var $elem = this.parent.handle.call(this, e);
@@ -65,11 +64,12 @@ Acme.Signin.prototype.handle = function(e) {
 };
 
 var layouts = {
-    "signin": '#signinFormTmpl',
-    "forgot": '#forgotFormTmpl',
-    "expired": '#expiredNotice'
+    "signin"   : 'signinFormTmpl',
+    "register" : 'registerTmpl',
+    "forgot"   : 'forgotFormTmpl',
+    "expired"  : 'expiredNotice'
 }
-var signin = new Acme.Signin('authDialog', '#signin', layouts);
+var signin = new Acme.Signin('modal', 'signinFormTmpl', layouts);
 
 $('#header_login_link').on('click', function() {
     signin.render("signin");
