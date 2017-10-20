@@ -524,16 +524,14 @@
             this.dfd = $.Deferred();
         }
             Acme.modal.prototype.render = function(layout, title) {
-                // var tmp = $('#'+this.template).html();
+
                 if (title) {
                     this.data['title'] = title;
                 }
                 var tmp = Handlebars.compile(window.templates[this.template]);
                 var tmp = tmp(this.data);
-                // var tmp = window.templates[this.template];
-                $('body').append(tmp);
+                $('body').addClass('active').append(tmp);
                 if (layout) {
-                    console.log(layout);
                     this.renderLayout(layout);
                 }
                 this.events();
@@ -541,15 +539,12 @@
             };
             Acme.modal.prototype.renderLayout = function(layout) {
                 var layout = window.templates[this.layouts[layout]];
-                console.log($(this.parentCont));
                 $(this.parentCont).find('#dialogContent').empty().append(layout); 
             };
             Acme.modal.prototype.events = function() 
             {
-                console.log('running events');
                 var self = this;
                 $(this.parentCont).on("click", function(e) {
-                    console.log('clicked');
                     self.handle(e);
                 });
 
@@ -596,6 +591,7 @@
                 return $elem;
             };
             Acme.modal.prototype.closeWindow = function() {
+                $('body').removeClass('active');
                 $(this.parentCont).remove();
             };
         
