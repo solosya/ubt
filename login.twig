@@ -1,68 +1,154 @@
-{{ set(this, 'title', 'Login / Signup') }}
-{% set network = _Network.getNetworkData()%}
-{{this.registerJs('AuthController.loginOrSignup()')}}
-<div class="login-page">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-11 col-xs-12 col-centered">
-                <div class="tabbable tabbable-custom">
-{#                     <ul class="nav nav-tabs nav_tabs_two">
-                        <li class="loginTab {{ (login is defined and login == 'TRUE') ? 'active' : '' }}"><a href="#Login" data-toggle="tab">Login</a></li>
-                        {% if not _Network.isNetworkClosed(network)%}
-                            <li class="signupTab {{ (signup is defined and signup == 'TRUE') ? 'active' : '' }}"><a href="#SignUp" data-toggle="tab">Sign Up</a></li>
-                        {% endif %}
-                    </ul>
- #}                    <div class="tab-content">
-                        <div class="tab-pane fade in {{ (login is defined and login == 'TRUE') ? 'active' : '' }}" id="Login">
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12 col-xs-12" id="login-social">
-                                    {{this.render('layouts/partials/messages.twig') | raw }}
+{% set networkData = _Network.getNetworkData() %}
+{% set plans = networkData['paywallPlans'] %}
+
+{# {{this.registerJs("var signin = new Acme.Signin('signinForm', '#signin');")}}
+ #}
+
+<main id="main" class="site-main" role="main">
+	<div class="container-fluid">
+
+		<section class="row">
+			<div class="col-sm-12 market-header">
+				<img src="{{networkData.templatePath}}/static/images/ubt-logo.png" width="151" height="54">
+
+				<div>
+					<img src="{{networkData.templatePath}}/static/images/frank-logo.svg" width="216" height="60">
+					<p>TRUSTED SOURCES. GLOBAL STORIES.</p>
+				</div>
+			</div>
+		</section>
+	</div>
+
+	<section class="market-hero">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="content">
+						<h1>News that matters to you</h1>
+						<p>Coming soon from just 65c per day</p>
+						<a id="register" href="#" class="_btn">REGISTER YOUR INTEREST</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="container-fluid">
+
+		<section class="row">
+			<div class="col-sm-12 section-title">
+				<h1>A unique news experience</h1>
+			</div>
+			<div class="col-sm-4 three-card">
+				<img src="{{networkData.templatePath}}/static/images/market-curated.svg">
+				<h2>CURATED</h2>
+				<p>We understand what really matters, without the fluff. Informative news that's safe for all the family to read.   </p>
+			</div>
+			<div class="col-sm-4 three-card">
+				<img src="{{networkData.templatePath}}/static/images/market-professional.svg">
+				<h2>PROFESSIONAL</h2>
+				<p>Curated exclusively for UBT by AAP's dedicated newsroom of professionals to the highest editoiral standards</p>
+			</div>
+			<div class="col-sm-4 three-card">
+				<img src="{{networkData.templatePath}}/static/images/market-world.svg">
+				<h2>ALL THE WORLDS NEWS</h2>
+				<p>Stay well-informed with our premium network of news and video from Australia, New Zealand and every corner of the globe, with specific focus on community locations.</p>
+		</section>
+	</div>
 
 
-                                    <p class="email-login"><span class="seperation">Login with email</span></p>
-                                    <div class="WriteAnArticleForm">
-                                        <form name="loginForm" id="loginForm" class="form-horizontal" action="{{_AppHelper.getLoginUrl()}}" method="post" autocomplete="off">
-                                            <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" />
-                                            {% if errors | length > 0 %}
-                                                <div class="alert alert-danger alert-dismissible" role="alert">
-                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                    <ul>
-                                                        {% for errorArr in errors %}
-                                                            {% for error in errorArr %}
-                                                                <li>{{error}}</li>
-                                                                {% endfor %}
-                                                            {% endfor %}
-                                                    </ul>
-                                                </div>
-                                            {% endif %}
-                                            <div class="controls-full">
-                                                {{_AppForm.input({type:'text', name: 'username', value: form.username, class: 'form-control', placeholder: 'Username or email'}) | raw }}
-                                            </div>
-                                            <div class="controls-full">
-                                                {{_AppForm.input({type:'password', name: 'password', value: form.password, class: 'form-control', placeholder: 'Password'}) | raw }}
-                                            </div>
-                                            <div class="button-set">
-                                                <label>
-                                                    {% set isRememberMeChecked = (form.rememberMe == 1) ? 'checked' : '' %}
-                                                    {{_AppForm.input({type:'checkbox', name: 'rememberMe', value: form.rememberMe, 'checked': isRememberMeChecked}) | raw }}
-                                                    <span><!-- fake checkbox --></span>Remember Me</label>
-                                                <div class="right-section">
-                                                    <a href="{{_AppHelper.getForgotPasswordUrl()}}" class="forget"><span class="green">Forgot Password?</span></a>
-                                                    {{_AppForm.button({type:'submit', name: 'submitLoginForm', class: 'button green button-large'}) | raw }}
-                                                </div>
-                                            </div>
-                                        </form>  
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+	<section class="row essential-news">
+		<div class="container-fluid">
+			<div class="col-sm-12 section-title">
+				<h1>Essential news delivered daily</h1>
+				<p>Quality journalism, the way you want it. Enjoy unlimited access to stories that matter.</p>
+			</div>
+			<div class="col-sm-12 col-md-5 col-md-offset-1 centerContent">
+				<img class="screenImage" src="{{networkData.templatePath}}/static/images/market-screens.png"></img>
+			</div>
+			<div class="col-sm-12 col-md-offset-1 col-md-5">
+				<h3>What's included in your subscription</h3>
+				<ul>
+					<li>Unlimited access to the Frank website on desktop, mobile and tablet</li>
+					<li>Frank Analysis, an exclusive printable newsletter of the day's best news</li>
+					<li>Access to weekly crosswords and quizzes created for the UBT community</li>
+					<li>Post and view real estate and job listings from the UBT community</li>
+					<li>Digital screens available for business pack subscribers</li>
+				</ul>
+			</div>
+		</div>
+	</section>
 
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- //End Sign Up -->
-</div>
+	<div class="container-fluid">
+		<section class="row cost">
+			<div class="col-sm-12">
+				<h2>From just 65c per day</h2>
+				<a href="#" class="_btn">REGISTER YOUR INTEREST</a>
+				<p>Monthly rolling contract</p>
+			</div>
+		</section>
+
+
+
+
+{# 		<section class="row subscription">
+			<div class="container-fluid">
+				<div class="col-sm-12 section-title">
+					<h1>Trusted sources. Global stories</h1>
+					<p>Choose the subscription that's right for you</p>
+				</div>
+
+
+				<div class="col-sm-3 subscriptionCard">
+					<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan=1">
+						<div class="card">
+							<h3>Household</h3>
+							<p class="usercount">2 Users</p>
+							<p class="price">$19.90/month</p>
+							<p class="subnow">SUBSCRIBE NOW</p>
+						</div>
+					</a>
+				</div>
+				<div class="col-sm-3 subscriptionCard">
+					<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan=2">
+						<div class="card">
+							<h3>Small Business</h3>
+							<p class="usercount">9 Users</p>
+							<p class="price">$99.90/month</p>
+							<p class="subnow">SUBSCRIBE NOW</p>
+						</div>
+					</a>
+				</div>
+				<div class="col-sm-3 subscriptionCard">
+					<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan=3">
+						<div class="card">
+							<h3>Medium Business</h3>
+							<p class="usercount">10+ Users</p>
+							<p class="price">$199.90/month</p>
+							<p class="subnow">SUBSCRIBE NOW</p>
+						</div>
+					</a>
+				</div>
+				<div class="col-sm-3 subscriptionCard">
+					<a href="{{networkData.defaultBlogUrl}}/subscription?plan=4">
+						<div class="card">
+							<h3>Large Business</h3>
+							<p class="usercount">20+ users <br />
+								Live news screens</p>
+							<p class="price">$399.90/month</p>
+							<p class="subnow">SUBSCRIBE NOW</p>
+						</div>
+					</a>
+				</div>
+
+
+			</div>
+		</section> #}
+
+	</div>
+
+</main>
+
 

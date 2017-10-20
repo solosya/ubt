@@ -8,8 +8,8 @@ window.templates.modal =
     <div id="dialog"> \
         <div> \
             <div class="head"> \
-                <h2>Sign in</h2> \
-                <img class="close" src="{{networkData.templatePath}}/static/icons/cross.svg"> \
+                <h2>{{title}}</h2> \
+                <a class="close" href="#"></a> \
             </div> \
             <div id="dialogContent"></div> \
         </div> \
@@ -43,18 +43,34 @@ window.templates.registerTmpl =
 '<form name="registerForm" id="registerForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
     \
     <input id="name" class="" type="text" name="name" placeholder="Name"> \
-        <input id="email" class="" type="email" name="email" placehold="Email"> \
+    <input id="email" class="" type="email" name="email" placeholder="Email"> \
     \
     <div class="message active hide"> \
         <div class="account-modal__error_text">Done!</div> \
     </div> \
     \
-    <button id="signinBtn" type="submit" class="_btn signin">Register</button> \
+    <button id="signinBtn" type="submit" class="_btn register">Register</button> \
 </form>';
 
 
-// var forgotFormTmpl = 
-// var expiredNotice = 
+window.templates.forgotFormTmpl = 
+'<form name="forgotForm" id="forgotForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
+        <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> \
+        <p>Forgot your password? Enter your email below and we will send you a link to reset.</p> \
+        <input id="email" class="" type="text" name="email" placehold="Email" value=""> \
+        \
+        <div class="remember"> \
+            <p class="layout" data-layout="signin" class="">Remember password?</p> \
+        </div> \
+        \
+        <div class="message active hide"> \
+            <div class="account-modal__error_text">No user with that email found.</div> \
+        </div> \
+        \
+        <button id="forgotBtn" type="submit" class="_btn forgot">SEND EMAIL</button> \
+    </form>';
+
+
 
 var cardTemplateTop = 
 '<div class="{{containerClass}} "> \

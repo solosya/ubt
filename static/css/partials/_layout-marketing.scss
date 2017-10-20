@@ -1,4 +1,4 @@
-.layout-marketing {
+.layout-marketing, body.auth.login {
 
     .site-header-main {
         display:none;
@@ -257,11 +257,14 @@
                     font-size: rem(15);
                     font-weight:600;
                 }
-                >img {
+                >a {
+                    display:block;
                     float:right;
-                    &:hover {
-                        cursor:pointer;
-                    }
+                    height:30px;
+                    width:30px;
+                    background:url("../icons/cross.svg");
+                    background-repeat:no-repeat;
+
                 }
             }
 

@@ -516,15 +516,21 @@
 
 
 
-        Acme.modal = function(template, parent, layouts) {
+        Acme.modal = function(template, parent, layouts, data) {
             this.parentCont = parent || null;
             this.template = template || null;
             this.layouts = layouts   || null;
+            this.data = data         || {};
             this.dfd = $.Deferred();
         }
-            Acme.modal.prototype.render = function(layout) {
+            Acme.modal.prototype.render = function(layout, title) {
                 // var tmp = $('#'+this.template).html();
-                var tmp = window.templates[this.template];
+                if (title) {
+                    this.data['title'] = title;
+                }
+                var tmp = Handlebars.compile(window.templates[this.template]);
+                var tmp = tmp(this.data);
+                // var tmp = window.templates[this.template];
                 $('body').append(tmp);
                 if (layout) {
                     console.log(layout);
@@ -534,9 +540,8 @@
                 return this.dfd.promise();
             };
             Acme.modal.prototype.renderLayout = function(layout) {
-                // var layout = $(this.layouts[layout]).html();
-                var layout = window.templates[layout];
-
+                var layout = window.templates[this.layouts[layout]];
+                console.log($(this.parentCont));
                 $(this.parentCont).find('#dialogContent').empty().append(layout); 
             };
             Acme.modal.prototype.events = function() 

@@ -1,0 +1,68 @@
+{{ set(this, 'title', 'Login / Signup') }}
+{% set network = _Network.getNetworkData()%}
+{{this.registerJs('AuthController.loginOrSignup()')}}
+<div class="login-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-11 col-xs-12 col-centered">
+                <div class="tabbable tabbable-custom">
+{#                     <ul class="nav nav-tabs nav_tabs_two">
+                        <li class="loginTab {{ (login is defined and login == 'TRUE') ? 'active' : '' }}"><a href="#Login" data-toggle="tab">Login</a></li>
+                        {% if not _Network.isNetworkClosed(network)%}
+                            <li class="signupTab {{ (signup is defined and signup == 'TRUE') ? 'active' : '' }}"><a href="#SignUp" data-toggle="tab">Sign Up</a></li>
+                        {% endif %}
+                    </ul>
+ #}                    <div class="tab-content">
+                        <div class="tab-pane fade in {{ (login is defined and login == 'TRUE') ? 'active' : '' }}" id="Login">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12" id="login-social">
+                                    {{this.render('layouts/partials/messages.twig') | raw }}
+
+
+                                    <p class="email-login"><span class="seperation">Login with email</span></p>
+                                    <div class="WriteAnArticleForm">
+                                        <form name="loginForm" id="loginForm" class="form-horizontal" action="{{_AppHelper.getLoginUrl()}}" method="post" autocomplete="off">
+                                            <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" />
+                                            {% if errors | length > 0 %}
+                                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <ul>
+                                                        {% for errorArr in errors %}
+                                                            {% for error in errorArr %}
+                                                                <li>{{error}}</li>
+                                                                {% endfor %}
+                                                            {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            {% endif %}
+                                            <div class="controls-full">
+                                                {{_AppForm.input({type:'text', name: 'username', value: form.username, class: 'form-control', placeholder: 'Username or email'}) | raw }}
+                                            </div>
+                                            <div class="controls-full">
+                                                {{_AppForm.input({type:'password', name: 'password', value: form.password, class: 'form-control', placeholder: 'Password'}) | raw }}
+                                            </div>
+                                            <div class="button-set">
+                                                <label>
+                                                    {% set isRememberMeChecked = (form.rememberMe == 1) ? 'checked' : '' %}
+                                                    {{_AppForm.input({type:'checkbox', name: 'rememberMe', value: form.rememberMe, 'checked': isRememberMeChecked}) | raw }}
+                                                    <span><!-- fake checkbox --></span>Remember Me</label>
+                                                <div class="right-section">
+                                                    <a href="{{_AppHelper.getForgotPasswordUrl()}}" class="forget"><span class="green">Forgot Password?</span></a>
+                                                    {{_AppForm.button({type:'submit', name: 'submitLoginForm', class: 'button green button-large'}) | raw }}
+                                                </div>
+                                            </div>
+                                        </form>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //End Sign Up -->
+</div>
+

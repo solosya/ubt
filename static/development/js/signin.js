@@ -15,7 +15,7 @@ Acme.Signin.prototype.errorMsg = function(msg) {
 Acme.Signin.prototype.handle = function(e) {
     var self = this;
     var $elem = this.parent.handle.call(this, e);
-    if ( $elem.is('img') ) {
+    if ( $elem.is('a') ) {
         if ($elem.hasClass('close')) {
             this.closeWindow();
         }
@@ -24,18 +24,44 @@ Acme.Signin.prototype.handle = function(e) {
         if ($elem.hasClass('signin')) {
             e.preventDefault();
             var formData = {};
-            $.each($('#fogotForm').serializeArray(), function () {
+            console.log($elem);
+            $.each($('#loginForm').serializeArray(), function () {
                 formData[this.name] = this.value;
             });
             console.log(formData);
             Acme.server.create('/api/auth/login', formData).done(function(r) {
+                console.log(r);
                 if (r.success === 1) {
-                    location.reload();
+                    console.log(location);
+                    window.location.href = location.origin;
+                    // location.reload();
                 } else {
                     self.errorMsg();
                 }
             }).fail(function(r) { console.log(r);});
         }
+
+
+        if ($elem.hasClass('register')) {
+            e.preventDefault();
+            var formData = {};
+            $.each($('#registerForm').serializeArray(), function () {
+                formData[this.name] = this.value;
+            });
+
+            if (formData['email'] !== '' && formData['name'] !== ''){
+                $.get( 'https://submit.pagemasters.com.au/ubt/submit.php?email='+encodeURI(formData['email'])+'&name='+encodeURI(formData['name']) );
+                $elem.addClass('spinner');
+                function close() {
+                    self.closeWindow();
+                };
+                setTimeout(close, 2000);
+
+            } else {
+                alert ("Please fill out all fields.");
+            }
+        }
+
 
         if ($elem.hasClass('forgot')) {
             e.preventDefault();
@@ -43,7 +69,7 @@ Acme.Signin.prototype.handle = function(e) {
             $.each($('#forgotForm').serializeArray(), function () {
                 formData[this.name] = this.value;
             });
-            console.log(formData);
+
             Acme.server.create('/api/auth/forgot-password', formData).done(function(r) {
                 console.log(r);
                 if (r.success === 1) {
@@ -58,7 +84,6 @@ Acme.Signin.prototype.handle = function(e) {
     }
     if ($elem.hasClass('layout')) {
         var layout = $elem.data('layout');
-        console.log(layout);
         this.renderLayout(layout);
     }
 };
@@ -69,10 +94,15 @@ var layouts = {
     "forgot"   : 'forgotFormTmpl',
     "expired"  : 'expiredNotice'
 }
-var signin = new Acme.Signin('modal', 'signinFormTmpl', layouts);
+var signin = new Acme.Signin('modal', '#signin', layouts);
 
 $('#header_login_link').on('click', function() {
-    signin.render("signin");
+    signin.render("signin", "Sign in");
+});
+
+$('#register').on('click', function(e) {
+    e.preventDefault();
+    signin.render("register", "Regester your interest");
 });
 
 

@@ -22221,6 +22221,7 @@ return hooks;
                 }
 
                 widget.css({
+                    display:'block',
                     top: vertical === 'top' ? 'auto' : position.top + element.outerHeight(),
                     bottom: vertical === 'top' ? position.top + element.outerHeight() : 'auto',
                     left: horizontal === 'left' ? (parent === element ? 0 : position.left) : 'auto',
@@ -22639,7 +22640,7 @@ return hooks;
             },
 
             hide = function () {
-                return;
+                // return;
                 ///<summary>Hides the widget. Possibly will emit dp.hide</summary>
                 var transitioning = false;
                 if (!widget) {
@@ -30118,7 +30119,7 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
 
             // console.log(type + ': ' + window.location.origin + '/api/' + uri);
             // if (Object.keys(queryParams).length > 0 ) console.log(queryParams);
-            console.log(_appJsConfig.appHostName + uri);
+            console.log(_appJsConfig.appHostName + uri, queryParams);
             return $.ajax({
                 url: _appJsConfig.appHostName + uri,
                 data: queryParams,
@@ -30609,16 +30610,33 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
 
 
 
-        Acme.modal = function(template, parent) {
+        Acme.modal = function(template, parent, layouts, data) {
             this.parentCont = parent || null;
             this.template = template || null;
+            this.layouts = layouts   || null;
+            this.data = data         || {};
             this.dfd = $.Deferred();
         }
-            Acme.modal.prototype.render = function() {
-                var tmp = $('#'+this.template).html();
+            Acme.modal.prototype.render = function(layout, title) {
+                // var tmp = $('#'+this.template).html();
+                if (title) {
+                    this.data['title'] = title;
+                }
+                var tmp = Handlebars.compile(window.templates[this.template]);
+                var tmp = tmp(this.data);
+                // var tmp = window.templates[this.template];
                 $('body').append(tmp);
+                if (layout) {
+                    console.log(layout);
+                    this.renderLayout(layout);
+                }
                 this.events();
                 return this.dfd.promise();
+            };
+            Acme.modal.prototype.renderLayout = function(layout) {
+                var layout = window.templates[this.layouts[layout]];
+                console.log($(this.parentCont));
+                $(this.parentCont).find('#dialogContent').empty().append(layout); 
             };
             Acme.modal.prototype.events = function() 
             {
@@ -30903,6 +30921,74 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
 /**
  * Handlebar Article templates for listing
  */
+window.templates = {};
+
+window.templates.modal = 
+'<div id="signin" class="flex_col"> \
+    <div id="dialog"> \
+        <div> \
+            <div class="head"> \
+                <h2>{{title}}</h2> \
+                <a class="close" href="#"></a> \
+            </div> \
+            <div id="dialogContent"></div> \
+        </div> \
+    </div> \
+</div>';
+
+window.templates.signinFormTmpl = 
+'<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
+    <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> \
+    \
+    <input id="loginName" class="" type="text" name="username" placehold="Username" value=""> \
+    <input id="loginPass" class="" type="password" name="password" placeholder="Password"> \
+    \
+    <div class="remember"> \
+        <div> \
+            <input type="checkbox" id="remember" class="" name="rememberMe"> \
+            <label for="remember" class="">Keep me logged in.</label> \
+        </div> \
+        <p class="layout" data-layout="forgot" class="">Forgot password</p> \
+    </div> \
+    \
+    <div class="message active hide"> \
+        <div class="account-modal__error_text">Invalid Username or Password</div> \
+    </div> \
+    \
+    <button id="signinBtn" type="submit" class="_btn signin">SIGN IN</button> \
+</form>';
+
+
+window.templates.registerTmpl = 
+'<form name="registerForm" id="registerForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
+    \
+    <input id="name" class="" type="text" name="name" placeholder="Name"> \
+    <input id="email" class="" type="email" name="email" placeholder="Email"> \
+    \
+    <div class="message active hide"> \
+        <div class="account-modal__error_text">Done!</div> \
+    </div> \
+    \
+    <button id="signinBtn" type="submit" class="_btn register">Register</button> \
+</form>';
+
+
+window.templates.forgotFormTmpl = 
+'<form name="forgotForm" id="forgotForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
+        <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> \
+        <p>Forgot your password? Enter your email below and we will send you a link to reset.</p> \
+        <input id="email" class="" type="text" name="email" placehold="Email" value=""> \
+        \
+        <div class="remember"> \
+            <p class="layout" data-layout="signin" class="">Remember password?</p> \
+        </div> \
+        \
+        <div class="message active hide"> \
+            <div class="account-modal__error_text">No user with that email found.</div> \
+        </div> \
+        \
+        <button id="forgotBtn" type="submit" class="_btn forgot">SEND EMAIL</button> \
+    </form>';
 
 
 
@@ -33926,6 +34012,27 @@ $('document').ready(function() {
 
 
 
+
+    $('#submitlivestreamform').on('click', function(e) {
+        e.preventDefault();
+        var email = $('#submitlivestreamformemail').val();
+        var name = $('#submitlivestreamformname').val();
+
+        if (email !== '' && name !== '' && lastname !== ''){
+            $.get( 'https://submit.pagemasters.com.au/ubt/submit.php?email='+encodeURI(email)+'&name='+encodeURI(name) );
+
+        } else {
+            alert ("Please fill out all fields.");
+        }
+
+    });
+
+
+
+
+
+
+
     var cardHolder = '';
     clearTimeout(cardHolder);
     cardHolder = setTimeout((function() {
@@ -34043,52 +34150,109 @@ SearchController.Listing = (function ($) {
 (function ($) {
 
 
-Acme.Signin = function(template, parent){
+Acme.Signin = function(template, parent, layouts) {
     this.template = template;
     this.parentCont = parent;
+    this.layouts = layouts;
     this.parent = Acme.modal.prototype;
-    console.log('created new signning');
 };
 Acme.Signin.prototype = new Acme.modal();
 Acme.Signin.constructor = Acme.Signin;
-Acme.Signin.prototype.events = function(e) {
-    this.parent.events.call(this);
-
-    $('#signinBtn').on("click", function(e) {
-        e.preventDefault();
-        var formData = {};
-        var password = 
-        $.each($('#loginForm').serializeArray(), function () {
-            console.log(this);
-            formData[this.name] = this.value;
-        });
-        console.log($("#loginName").val());
-        formData['username'] = $("#loginName").val();
-        formData['password'] = $("#loginPass").val();
-        console.log(formData);
-        // Acme.server.create('/api/auth/login', formData).done(function(r) {
-        //     location.reload();
-        // }).fail(function(r) {
-        //     console.log(r);
-        // });
-
-    });
+Acme.Signin.prototype.errorMsg = function(msg) {
+    $('.message').toggleClass('hide');
 };
 Acme.Signin.prototype.handle = function(e) {
+    var self = this;
     var $elem = this.parent.handle.call(this, e);
-    if ( $elem.is('img') ) {
+    if ( $elem.is('a') ) {
         if ($elem.hasClass('close')) {
             this.closeWindow();
         }
     }
+    if ($elem.is('button')) {
+        if ($elem.hasClass('signin')) {
+            e.preventDefault();
+            var formData = {};
+            console.log($elem);
+            $.each($('#loginForm').serializeArray(), function () {
+                formData[this.name] = this.value;
+            });
+            console.log(formData);
+            Acme.server.create('/api/auth/login', formData).done(function(r) {
+                console.log(r);
+                if (r.success === 1) {
+                    console.log(location);
+                    window.location.href = location.origin;
+                    // location.reload();
+                } else {
+                    self.errorMsg();
+                }
+            }).fail(function(r) { console.log(r);});
+        }
+
+
+        if ($elem.hasClass('register')) {
+            e.preventDefault();
+            var formData = {};
+            $.each($('#registerForm').serializeArray(), function () {
+                formData[this.name] = this.value;
+            });
+
+            if (formData['email'] !== '' && formData['name'] !== ''){
+                $.get( 'https://submit.pagemasters.com.au/ubt/submit.php?email='+encodeURI(formData['email'])+'&name='+encodeURI(formData['name']) );
+                $elem.addClass('spinner');
+                function close() {
+                    self.closeWindow();
+                };
+                setTimeout(close, 2000);
+
+            } else {
+                alert ("Please fill out all fields.");
+            }
+        }
+
+
+        if ($elem.hasClass('forgot')) {
+            e.preventDefault();
+            var formData = {};
+            $.each($('#forgotForm').serializeArray(), function () {
+                formData[this.name] = this.value;
+            });
+
+            Acme.server.create('/api/auth/forgot-password', formData).done(function(r) {
+                console.log(r);
+                if (r.success === 1) {
+                    location.reload();
+                } else {
+                    self.errorMsg();
+                }
+
+            }).fail(function(r) { console.log(r);});
+        }
+
+    }
+    if ($elem.hasClass('layout')) {
+        var layout = $elem.data('layout');
+        this.renderLayout(layout);
+    }
 };
 
-var signin = new Acme.Signin('signinForm', '#signin');
+var layouts = {
+    "signin"   : 'signinFormTmpl',
+    "register" : 'registerTmpl',
+    "forgot"   : 'forgotFormTmpl',
+    "expired"  : 'expiredNotice'
+}
+var signin = new Acme.Signin('modal', '#signin', layouts);
 
 $('#header_login_link').on('click', function() {
-    signin.render();
-})
-// loginForm
+    signin.render("signin", "Sign in");
+});
+
+$('#register').on('click', function(e) {
+    e.preventDefault();
+    signin.render("register", "Regester your interest");
+});
 
 
 
