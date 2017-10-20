@@ -232,24 +232,6 @@ $('document').ready(function() {
 
 
 
-    $('#submitlivestreamform').on('click', function(e) {
-        e.preventDefault();
-        var email = $('#submitlivestreamformemail').val();
-        var name = $('#submitlivestreamformname').val();
-
-        if (email !== '' && name !== '' && lastname !== ''){
-            $.get( 'https://submit.pagemasters.com.au/ubt/submit.php?email='+encodeURI(email)+'&name='+encodeURI(name) );
-
-        } else {
-            alert ("Please fill out all fields.");
-        }
-
-    });
-
-
-
-
-
 
 
     var cardHolder = '';

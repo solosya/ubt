@@ -100,11 +100,13 @@ var signin = new Acme.Signin('modal', '#signin', layouts);
 
 
 $('#header_login_link').on('click', function() {
+    $('body').addClass('active');
     signin.render("signin", "Sign in");
 });
 
 $('a.register').on('click', function(e) {
     e.preventDefault();
+    $('body').addClass('active');
     signin.render("register", "Register your interest");
 });
 
