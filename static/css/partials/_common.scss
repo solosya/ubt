@@ -122,22 +122,6 @@ hr.divide {
 }
 
 
-.breadcrumb {
-    height:60px;
-    width:100%;
-    font-size:rem(13);
-    padding-left: 15px;
-    padding-top: 40px;
-    margin-top: 30px;
-    span {
-        color: color(darkgreen);
-        font-weight:bold;
-    }
-
-    a {
-        color: color(grey);
-    }
-}
 
 
 .search-icon{
@@ -230,7 +214,7 @@ h4.modal-title {
     font-weight: 600;
     border-radius: 0;
     padding: 10px 9px;
-border-bottom: 2px solid $brand-secondary;  
+    border-bottom: 2px solid $brand-secondary;  
 }
 
 
@@ -247,41 +231,42 @@ border-bottom: 2px solid $brand-secondary;
     }
 }
 
-// figcaption{
-//     margin-top: 10px;
 
-//     @media screen and (max-width: $sm-break){
-//         float: left;
-//         margin-bottom: 30px;
-//     }
-    
-//     > p {
-//         font-size: rem(14);
-//         color: color(lightgrey);
-//         font-family: $font-family-serif;
-//         float: left;
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+ 
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  margin-top: -15px;
+  margin-left: -15px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  border-top-color: #07d;
+  animation: spinner .6s linear infinite;
+}
 
-//         &.credit{
-//             font-style: normal;
-//             float: right;
-
-//             @media screen and (max-width: $sm-break){
-//                 float: left;
-//             }
-//         }
+// .collapse {
+//     display:none;
+//     visibility:hidden;
+//     &.in {
+//         display: block;
+//         visibility: visible;
 //     }
 // }
-
-
 
 p.lead{
     font-size: rem(20);
     font-weight: bold;
     color: #4a4a4a;
 }
-span.leadsentence{
-    font-weight: bold;
-}
+
 
 .advert {
     // background:grey;
@@ -300,16 +285,21 @@ span.leadsentence{
     margin-top:58px;
 
     > div.advert {
-        background:#d8d8d8;
-        width:728px;
+        width:970px;
         height:90px;
         margin: 0 auto;
+        @media screen and (max-width: $mmd-break){
+            width: 728px;
+            height: 90px;
+        }
         @media screen and (max-width: $sm-break-down){
             width: 300px;
-            height: 70px;
+            height: 75px;
         }
+        
     }
 }
+
 
 div.pulldown {font-size:rem(14);font-weight:500;position:relative;cursor:pointer;margin:0 8px 0 0;display:inline-block;height:51px;width:490px;border:1px solid color(lightgrey);border-radius:5px;}
 div.pulldown p {margin:0;font-size:rem(14);font-weight:500;width:120px;color:color(lightgrey);white-space:nowrap;line-height:51px;vertical-align:top;padding-left:10px;}
@@ -408,38 +398,42 @@ div.pulldown ul  {
 
 
 
-#wrapper    {position:absolute;top:0;width:100%;height:100%;z-index:1001;background: rgba(0,0,0,0.5);}
-#dialog     {margin: auto auto;min-width:450px;min-height:100px;text-align:center;vertical-align: middle;background:rgba(0,0,0,0.9);padding-bottom:30px;border-radius:15px;}
-#dialog > div {position:relative;top:10%;margin:auto;}
-#dialogTitle {color:white;text-align: center;width:95%;font-size:3em;margin:20px auto;padding:5px;font-weight:100;}
-#dialogMessage {color:white;text-align: center;font-size:15px;margin:10px 0;padding:5px;font-weight: 300 !important;}
-#details    {text-align:center;}
-#details li {color:white;text-align: center;}
-#dialogButtons {padding:0;text-align:center;margin-top:20px;}
-#dialogButtons li {display:inline-block;height:25px;width:70px;margin:0 6px;color:white;cursor:pointer;border:1px solid white;line-height:25px;vertical-align:middle;}
-#dialogButtons li:hover {background:white;color:#049cdb;}
+#wrapper    {
+  position:absolute;top:0;width:100%;height:100%;z-index:1001;background: rgba(0,0,0,0.5);
+  
+  #dialog     {margin: auto auto;min-width:450px;min-height:100px;text-align:center;vertical-align: middle;background:rgba(0,0,0,0.9);padding-bottom:30px;border-radius:15px;}
+  #dialog > div {position:relative;top:10%;margin:auto;}
+  #dialogTitle {color:white;text-align: center;width:95%;font-size:3em;margin:20px auto;padding:5px;font-weight:100;}
+  #dialogMessage {color:white;text-align: center;font-size:15px;margin:10px 0;padding:5px;font-weight: 300 !important;}
+  #details    {text-align:center;}
+  #details li {color:white;text-align: center;}
+  #dialogButtons {padding:0;text-align:center;margin-top:20px;}
+  #dialogButtons li {display:inline-block;height:25px;width:70px;margin:0 6px;color:white;cursor:pointer;border:1px solid white;line-height:25px;vertical-align:middle;}
+  #dialogButtons li:hover {background:white;color:#049cdb;}
 
-#dialogButtons button{  font-size: 1.1em;
-        border:0;
-      min-width: 70px;
-      color: rgba(255,255,255,0.95);
-      background-color: rgba(255,255,255,0.1);
-      /* border: 2px solid !important; */
-      border-radius: 20px;
-      cursor: pointer;
-      padding: 3px 16px;
-      font-weight: 500 !important;
-      letter-spacing: 0.035em;
-    }
-    #dialogButtons button:disabled{cursor:default !important;color: rgba(0,0,0,1) !important;}
-    #dialogButtons button:first-letter{text-transform: uppercase;}
+  #dialogButtons button{  font-size: 1.1em;
+          border:0;
+        min-width: 70px;
+        color: rgba(255,255,255,0.95);
+        background-color: rgba(255,255,255,0.1);
+        /* border: 2px solid !important; */
+        border-radius: 20px;
+        cursor: pointer;
+        padding: 3px 16px;
+        font-weight: 500 !important;
+        letter-spacing: 0.035em;
+      }
+      #dialogButtons button:disabled{cursor:default !important;color: rgba(0,0,0,1) !important;}
+      #dialogButtons button:first-letter{text-transform: uppercase;}
 
-    #dialogButtons button:not([disabled]):hover{background-color:#3F84A0 !important;}
-    #dialogButtons button:disabled:hover{;}
+      #dialogButtons button:not([disabled]):hover{background-color:#3F84A0 !important;}
+      #dialogButtons button:disabled:hover{;}
 
-    #dialogButtons button + button { margin-left: 8px; }
+      #dialogButtons button + button { margin-left: 8px; }
 
-#message {margin:auto auto;width:100%;padding:15px;color:white;font-size:48px;line-height:50px;background: #5BBFD7;text-align:center;z-index:100000;}
-#message p { font-weight:700 !important; text-transform: uppercase;letter-spacing: 0.025em;}
-#servermessage {margin:auto auto;width:100%;padding:15px;color:white;font-size:13px;line-height:15px;background: #5BBFD7;text-align:center;z-index:100000;overflow:auto;}
+  #message {margin:auto auto;width:100%;padding:15px;color:white;font-size:48px;line-height:50px;background: #5BBFD7;text-align:center;z-index:100000;}
+  #message p { font-weight:700 !important; text-transform: uppercase;letter-spacing: 0.025em;}
+  #servermessage {margin:auto auto;width:100%;padding:15px;color:white;font-size:13px;line-height:15px;background: #5BBFD7;text-align:center;z-index:100000;overflow:auto;}
+}
+
 

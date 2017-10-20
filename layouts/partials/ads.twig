@@ -1,0 +1,49 @@
+{% set tinybannerID = 'div-gpt-ad-1508124877840-0' %}
+{% set tinybannerSlot = '/21651851619/H_300x75' %}
+
+{% set smallbannerID = 'div-gpt-ad-1508124877840-5' %}
+{% set smallbannerSlot = '/21651851619/H_728x90' %}
+
+{% set widebannerID = 'div-gpt-ad-1508124877840-6' %}
+{% set widebannerSlot = '/21651851619/H_970x90' %}
+
+{% set boxadID = 'div-gpt-ad-1508124877840-1' %}
+{% set boxadSlot = '/21651851619/H_300x250' %}
+
+{% set tinybanner2ID = 'div-gpt-ad-1508124877840-2' %}
+{% set tinybanner2Slot = '/21651851619/H_300x75_2' %}
+
+{% set smallbanner2ID = 'div-gpt-ad-1508124877840-3' %}
+{% set smallbanner2Slot = '/21651851619/H_728x90_2' %}
+
+{% set widebanner2ID = 'div-gpt-ad-1508124877840-4' %}
+{% set widebanner2Slot = '/21651851619/H_970x90_2' %}
+
+<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+
+<script>
+
+    boxadID = '{{boxadID}}';
+    smallbannerID = '{{smallbannerID}}';
+    tinybannerID = '{{tinybannerID}}' ;
+    widebannerID = '{{widebannerID}}';
+    smallbanner2ID = '{{smallbanner2ID}}';
+    tinybanner2ID = '{{tinybanner2ID}}' ;
+    widebanner2ID = '{{widebanner2ID}}';
+  googletag.cmd.push(function() {
+    googletag.defineSlot('{{boxadSlot}}', [300, 250], '{{boxadID}}').addService(googletag.pubads());
+        googletag.defineSlot('{{smallbannerSlot}}', [728, 90], '{{smallbannerID}}').addService(googletag.pubads());
+        googletag.defineSlot('{{tinybannerSlot}}', [300, 75], '{{tinybannerID}}').addService(googletag.pubads());
+        googletag.defineSlot('{{widebannerSlot}}', [970, 90], '{{widebannerID}}').addService(googletag.pubads());
+        googletag.defineSlot('{{smallbanner2Slot}}', [728, 90], '{{smallbanner2ID}}').addService(googletag.pubads());
+        googletag.defineSlot('{{tinybanner2Slot}}', [300, 75], '{{tinybanner2ID}}').addService(googletag.pubads());
+        googletag.defineSlot('{{widebanner2Slot}}', [970, 90], '{{widebanner2ID}}').addService(googletag.pubads());
+    googletag.pubads().enableSingleRequest();
+    googletag.pubads().collapseEmptyDivs();
+    googletag.enableServices();
+  });
+</script>

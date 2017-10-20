@@ -1,4 +1,4 @@
-.layout-marketing {
+.layout-marketing, body.auth.login {
 
     .site-header-main {
         display:none;
@@ -238,3 +238,109 @@
 
     }
 }
+
+
+#signin {
+    position:fixed;top:0;width:100%;height:100%;z-index:1001;background: rgba(0,0,0,0.5);
+    #dialog {
+        margin: auto auto;min-width:468px;min-height:338px;background:white;padding:30px;border-radius:3px;
+        > div {
+            position:relative;top:10%;margin:auto;
+        
+            .head {
+                overflow:auto;
+                padding-bottom:11px;
+                border-bottom:1px solid color(lightgrey);
+                margin-bottom: 20px;
+                h2 {
+                    float: left;
+                    font-size: rem(15);
+                    font-weight:600;
+                }
+                >a {
+                    display:block;
+                    float:right;
+                    height:30px;
+                    width:30px;
+                    background:url("../icons/cross.svg");
+                    background-repeat:no-repeat;
+
+                }
+            }
+
+
+            form {
+                input[type=text], input[type=password], input[type=email] {
+                    display:block;
+                    border:none;
+                    height: 44px;
+                    padding: 7px;
+                    width:100%;
+                    margin-bottom:12px;
+                    padding-left:15px;
+                    border-radius:6px;
+                    border: 1px solid color(lightergrey);
+                    background:white;
+
+
+                    &::placeholder {
+                        font-size: rem(14);
+                        color:color(lightgrey);
+                    }
+                    &::-webkit-input-placeholder {
+                        font-size: rem(14);
+                        color:color(lightgrey);
+                    }
+                    &::-moz-placeholder { /* Firefox 19+ */
+                        font-size: rem(14);
+                        color:color(lightgrey);
+                    }
+                    &:-ms-input-placeholder { /* IE 10+ */
+                        font-size: rem(14);
+                        color:color(lightgrey);
+                    }
+                    &:-moz-placeholder { /* Firefox 18- */
+                        font-size: rem(14);
+                        color:color(lightgrey);
+                    }
+
+                    &:disabled {
+                        padding: 0px !important;
+                        border: none;
+                    }
+                }
+
+                .remember {
+                    overflow:auto;
+                    >div {
+                        float:left;
+                        label {
+                            font-size:rem(12);
+                            color:color(lightgrey);
+                            font-weight:normal;
+                        }
+                    }
+                    >p.layout {
+                        float:right;
+                        font-size:rem(12);
+                        color:color(lightgrey);
+                        font-style:italic;
+                        &:hover {
+                            cursor:pointer;
+                        }
+                    }
+
+                }
+                button {
+                    color:white;
+                    background:color(red);
+                    display:block;
+                    margin:auto;
+                    margin-top:25px;
+                    font-size:rem(14);
+                }
+            }
+        }
+    }
+}
+

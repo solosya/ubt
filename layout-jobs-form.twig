@@ -19,7 +19,6 @@
     {% set userString = "window.Acme.currentUser = '" ~ user.guid ~ "';" %}
     {{this.registerJs( userString )}}
 {% endif %} 
-
 {% set userArticlesArr = [] %}
 {% if user %}                                                         
     {% set userArticlesArr = _User.getUserArticles(user.guid, 0, limit, {'blogs':[jobsBlogId], 'status': 'all'}) %}
