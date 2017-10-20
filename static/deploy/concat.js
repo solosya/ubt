@@ -34220,7 +34220,6 @@ Acme.Signin.prototype.handle = function(e) {
             });
 
             Acme.server.create('/api/auth/forgot-password', formData).done(function(r) {
-                console.log(r);
                 if (r.success === 1) {
                     location.reload();
                 } else {
@@ -34245,13 +34244,15 @@ var layouts = {
 }
 var signin = new Acme.Signin('modal', '#signin', layouts);
 
+
+
 $('#header_login_link').on('click', function() {
     signin.render("signin", "Sign in");
 });
 
 $('a.register').on('click', function(e) {
     e.preventDefault();
-    signin.render("register", "Regester your interest");
+    signin.render("register", "Register your interest");
 });
 
 
