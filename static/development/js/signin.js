@@ -18,6 +18,7 @@ Acme.Signin.prototype.handle = function(e) {
     if ( $elem.is('a') ) {
         if ($elem.hasClass('close')) {
             $('body').removeClass("active");
+            console.log('removing active');
             this.closeWindow();
         }
     }
