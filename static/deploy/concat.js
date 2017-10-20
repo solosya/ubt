@@ -34249,7 +34249,7 @@ $('#header_login_link').on('click', function() {
     signin.render("signin", "Sign in");
 });
 
-$('#register').on('click', function(e) {
+$('a.register').on('click', function(e) {
     e.preventDefault();
     signin.render("register", "Regester your interest");
 });
