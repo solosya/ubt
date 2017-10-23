@@ -125,6 +125,12 @@
             padding-left:20px;
             padding-right:20px;
 
+            div.trusted {
+                @media screen and (max-width: $mmd-break-down) {
+                    margin-bottom:20px;
+                }
+            }
+
             > div {
                 border-top:2px solid color(black) ;
             }

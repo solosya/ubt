@@ -1,5 +1,8 @@
 (function ($) {
 
+    // console.log(window.Acme.templatePath);
+    // console.log(_appJsConfig);
+
 	var dropdown = function(date) {
 		return '<div class="weather-date">' + 
 					'<h1>Weather</h1>' + 
@@ -10,20 +13,20 @@
 
     var localWeather = function(name, icon) {
         return '<div id="' + name + '-weather" class="weather visible-sm-block visible-md-block visible-lg-block">' +
-                    '<img class="show-weather" src="' + window.Acme.templatePath + '/static/icons/weather/pointer-arrow-thin.svg">' + 
+                    '<img class="show-weather" src="' + _appJsConfig.templatePath + '/static/icons/weather/pointer-arrow-thin.svg">' + 
                     '<div style="margin-right:15px;">' +
                         '<p class="location" style="text-align:right;"></p>' + 
                         '<p class="description"></p>' + 
                     '</div>' + 
-                    '<img class="icon" src="' + window.Acme.templatePath + '/static/icons/weather/' + icon + '.svg">' + 
+                    '<img class="icon" src="' + _appJsConfig.templatePath + '/static/icons/weather/' + icon + '.svg">' + 
                     '<p class="temp"></p>' + 
                 '</div>';
         }
 
     var weatherPanel = function(name, icon) {
-    	return '<div id="' + name + '-weather" class="panel visible-md-block visible-lg-block">' +
+    	return '<div id="' + name + '-weather" class="panel visible-sm-block visible-md-block visible-lg-block">' +
                     '<div style="display: flex">' + 
-                        '<img class="icon" src="' + window.Acme.templatePath + '/static/icons/weather/' + icon + '.svg">' + 
+                        '<img class="icon" src="' + _appJsConfig.templatePath + '/static/icons/weather/' + icon + '.svg">' + 
                         '<p class="temp"></p>' + 
                     '</div>' +
                     '<p class="location"></p>' + 
