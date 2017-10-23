@@ -100,6 +100,7 @@ var signin = new Acme.Signin('modal', '#signin', layouts);
 
 
 $('#header_login_link').on('click', function() {
+    console.log('clicked signing');
     signin.render("signin", "Sign in");
 });
 

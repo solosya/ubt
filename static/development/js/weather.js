@@ -9,7 +9,7 @@
 	}
 
     var localWeather = function(name, icon) {
-        return '<div id="' + name + '-weather" class="weather visible-md-block visible-lg-block">' +
+        return '<div id="' + name + '-weather" class="weather visible-sm-block visible-md-block visible-lg-block">' +
                     '<img class="show-weather" src="' + window.Acme.templatePath + '/static/icons/weather/pointer-arrow-thin.svg">' + 
                     '<div style="margin-right:15px;">' +
                         '<p class="location" style="text-align:right;"></p>' + 
@@ -67,7 +67,7 @@
         success: function(res) {
             var local = res.data[0];
             var name = local.location.split('/')[1];
-
+            console.log('success');
             $('#weather').html(localWeather(name + '-local', local.icon));
             $('#' + name + '-local-weather > div > p.location').text(name);
             $('#' + name + '-local-weather > div > p.description').text(local.description);

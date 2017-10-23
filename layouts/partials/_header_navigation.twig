@@ -26,7 +26,7 @@
 
 
     <div class="top-header" style="position:relative;">
-        <div class="container-fluid sb-custom-menu">
+        <div class="container-fluid">
             <ul class="top-nav">
                 {% if not _User.isGuest() %}
                     {% set user = _User.getUser() %}
@@ -39,8 +39,6 @@
                 {% else %}
                     <li id="header_login_link" class="header__login__link">SIGN IN</li>
                 {% endif %}
-                
-
             </ul>   
         </div>         
     </div>
@@ -58,14 +56,90 @@
             
             <div class="row header-top">
                 <div class="col-xs-12">
-                    <a  class="navbar-brand" 
-                        href="{{networkData.defaultBlogUrl}}" 
-                        rel="Home" tabindex="-1" 
-                        title="Home">
-                    </a>
+                    <div style="overflow:auto">
+                        <a  class="navbar-brand" 
+                            href="{{networkData.defaultBlogUrl}}" 
+                            rel="Home" tabindex="-1" 
+                            title="Home">
+                        </a>
 
-                    <div id="weather" class="weather"></div>
-                    <div class="visible-md-block visible-lg-block">
+
+
+                        <nav id="sb-custom-menu" class="sb-custom-menu">
+
+                            <a href="#" id="menu-mobile" class="menu-mobile"></a>
+
+                            <div class="menuContainer">
+                                {% if not _User.isGuest() %}
+                                    <div id="menu-search" class="secondary-menu menu-search">
+                                        <form method="get" id="searchformmob" action="{{networkData.defaultBlogUrl}}/search">
+                                            <div>
+                                                <input type="text" class="field" name="s" id="header-search" placeholder="Search" required="">
+                                            </div>
+                                            <button class="btn btn-default" type="submit" id="searchsubmit">
+                                                <span class="icon-search icon"></span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                {% endif %}
+
+
+                                <ul id="menu-primary-menu" class="menu mobile">
+
+                                    {% if not _User.isGuest() %}
+                                        {% set menuItems = blog.blogHeaderMenu %}
+                                        {% for parentItem in menuItems  %}
+
+                                            {% set activeClass = (parentItem.link == _AppHelper.getServerUrl()) ? 'active' : ''%}
+                                            {% set externalClass = (parentItem.isExternal) ? 'external-link' : '' %}
+
+                                            <li>
+                                                <a href="{{parentItem.link |raw}}" class="{{activeClass}} {{externalClass}}" {% if parentItem.target != "" %}target="{{parentItem.target}}"{% endif %}>
+                                                    {% if parentItem.label != "" %}
+                                                        {{parentItem.label}}
+                                                    {% elseif parentItem.blogTitle != "" %}
+                                                        {{parentItem.blogTitle}}
+                                                    {% elseif parentItem.pageTitle != "" %}
+                                                        {{parentItem.pageTitle}}
+                                                    {% endif %}
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    {% else %}
+                                        <li>
+                                            <a id="header_login_link" href="#" class="{{activeClass}} {{externalClass}}">Sign in</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </nav>
+
+
+
+
+
+
+
+
+
+
+                        <div id="weather" class="weather"></div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="visible-sm-block visible-md-block visible-lg-block">
                         <div class="weather-dropdown hidden"></div>
                     </div>
 
@@ -81,46 +155,7 @@
                     <!--  MOBILE MENU -->
                     <!--  *********** -->
 
-                    <nav id="sb-custom-menu" class="sb-custom-menu">
 
-                        <a href="#" id="menu-mobile" class="menu-mobile"></a>
-
-                        <div class="menuContainer">
-
-                            <div id="menu-search" class="secondary-menu menu-search">
-                                <form method="get" id="searchformmob" action="{{networkData.defaultBlogUrl}}/search">
-                                    <div>
-                                        <input type="text" class="field" name="s" id="header-search" placeholder="Search" required="">
-                                    </div>
-                                    <button class="btn btn-default" type="submit" id="searchsubmit">
-                                        <span class="icon-search icon"></span>
-                                    </button>
-                                </form>
-                            </div>
-
-
-                            <ul id="menu-primary-menu" class="menu mobile">
-                                {% set menuItems = blog.blogHeaderMenu %}
-                                {% for parentItem in menuItems  %}
-
-                                    {% set activeClass = (parentItem.link == _AppHelper.getServerUrl()) ? 'active' : ''%}
-                                    {% set externalClass = (parentItem.isExternal) ? 'external-link' : '' %}
-
-                                    <li>
-                                        <a href="{{parentItem.link |raw}}" class="{{activeClass}} {{externalClass}}" {% if parentItem.target != "" %}target="{{parentItem.target}}"{% endif %}>
-                                            {% if parentItem.label != "" %}
-                                                {{parentItem.label}}
-                                            {% elseif parentItem.blogTitle != "" %}
-                                                {{parentItem.blogTitle}}
-                                            {% elseif parentItem.pageTitle != "" %}
-                                                {{parentItem.pageTitle}}
-                                            {% endif %}
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </nav>
 
 
 
