@@ -5,10 +5,10 @@
 
 	var dropdown = function(date) {
 		return '<div class="weather-date">' + 
-					'<h1>Weather</h1>' + 
-					'<p>' + date + '</p>' + 
-				'</div>' + 
-				'<div id="weather-panels"></div>';
+    					'<h1>Weather</h1>' + 
+    					'<p>' + date + '</p>' + 
+    				'</div>' + 
+    				'<div id="weather-panels"><div id="panel-containter"></div></div>';
 	}
 
     var localWeather = function(name, icon) {
@@ -92,7 +92,7 @@
                         res.data.forEach(function(l) {
                             var name = l.location.split('/')[1];
 
-                            $('#weather-panels').append(weatherPanel(name, l.icon));
+                            $('#panel-containter').append(weatherPanel(name, l.icon));
 
                             $('#' + name + '-weather > .location').text(name);
                             $('#' + name + '-weather > .description').text(l.description);

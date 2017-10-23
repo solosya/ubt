@@ -33468,6 +33468,7 @@ var signin = new Acme.Signin('modal', '#signin', layouts);
 
 
 $('#header_login_link').on('click', function() {
+    console.log('clicked signing');
     signin.render("signin", "Sign in");
 });
 
@@ -33651,30 +33652,33 @@ $('[data-dismiss="alert"]').on('click', function(e) {
 
 (function ($) {
 
+    // console.log(window.Acme.templatePath);
+    // console.log(_appJsConfig);
+
 	var dropdown = function(date) {
 		return '<div class="weather-date">' + 
-					'<h1>Weather</h1>' + 
-					'<p>' + date + '</p>' + 
-				'</div>' + 
-				'<div id="weather-panels"></div>';
+    					'<h1>Weather</h1>' + 
+    					'<p>' + date + '</p>' + 
+    				'</div>' + 
+    				'<div id="weather-panels"><div id="panel-containter"></div></div>';
 	}
 
     var localWeather = function(name, icon) {
-        return '<div id="' + name + '-weather" class="weather visible-md-block visible-lg-block">' +
-                    '<img class="show-weather" src="' + window.Acme.templatePath + '/static/icons/weather/pointer-arrow-thin.svg">' + 
+        return '<div id="' + name + '-weather" class="weather visible-sm-block visible-md-block visible-lg-block">' +
+                    '<img class="show-weather" src="' + _appJsConfig.templatePath + '/static/icons/weather/pointer-arrow-thin.svg">' + 
                     '<div style="margin-right:15px;">' +
                         '<p class="location" style="text-align:right;"></p>' + 
                         '<p class="description"></p>' + 
                     '</div>' + 
-                    '<img class="icon" src="' + window.Acme.templatePath + '/static/icons/weather/' + icon + '.svg">' + 
+                    '<img class="icon" src="' + _appJsConfig.templatePath + '/static/icons/weather/' + icon + '.svg">' + 
                     '<p class="temp"></p>' + 
                 '</div>';
         }
 
     var weatherPanel = function(name, icon) {
-    	return '<div id="' + name + '-weather" class="panel visible-md-block visible-lg-block">' +
+    	return '<div id="' + name + '-weather" class="panel visible-sm-block visible-md-block visible-lg-block">' +
                     '<div style="display: flex">' + 
-                        '<img class="icon" src="' + window.Acme.templatePath + '/static/icons/weather/' + icon + '.svg">' + 
+                        '<img class="icon" src="' + _appJsConfig.templatePath + '/static/icons/weather/' + icon + '.svg">' + 
                         '<p class="temp"></p>' + 
                     '</div>' +
                     '<p class="location"></p>' + 
@@ -33718,7 +33722,7 @@ $('[data-dismiss="alert"]').on('click', function(e) {
         success: function(res) {
             var local = res.data[0];
             var name = local.location.split('/')[1];
-
+            console.log('success');
             $('#weather').html(localWeather(name + '-local', local.icon));
             $('#' + name + '-local-weather > div > p.location').text(name);
             $('#' + name + '-local-weather > div > p.description').text(local.description);
@@ -33740,7 +33744,7 @@ $('[data-dismiss="alert"]').on('click', function(e) {
                         res.data.forEach(function(l) {
                             var name = l.location.split('/')[1];
 
-                            $('#weather-panels').append(weatherPanel(name, l.icon));
+                            $('#panel-containter').append(weatherPanel(name, l.icon));
 
                             $('#' + name + '-weather > .location').text(name);
                             $('#' + name + '-weather > .description').text(l.description);

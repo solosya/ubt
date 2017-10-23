@@ -65,6 +65,7 @@
 .weather-date {
     min-width:200px;
 	padding: 32px 0;
+    float:left;
 	> h1 {
 		font-family: $font-family-serif;
 		font-size: rem(22);
@@ -83,12 +84,13 @@
 .panel {
     @include weather-panel;
 
-	display: flex;
-	flex-direction: column;
+	// display: flex;
+	// flex-direction: column;
+    float:left;
 
 	height: 100%;
-
 	margin-left: 40px;
+    margin-bottom:20px;
 
 	> div {
 		margin-bottom: 16px;
@@ -99,11 +101,12 @@
 }
 
 .weather-dropdown {
-	display: flex;
-    flex-direction: row;
+	// display: flex;
+    // flex-direction: row;
     // height: 156px;
     padding: 18px 0;
-    justify-content: space-between;
+    overflow:auto;
+    // justify-content: space-between;
     margin-top: 20px;
 }
 
@@ -112,7 +115,11 @@
 }
 
 #weather-panels {
-	display: flex;
-    border-left: 1px solid rgba(0,0,0,0.15);
+	// display: flex;
+    // float:left;
     padding: 22px 0;
+    > div {
+        overflow:auto;
+        border-left: 1px solid rgba(0,0,0,0.15);
+    }
 }
