@@ -22,12 +22,11 @@
             type = (typeof type !== 'undefined') ? type : 'get';
 
             queryParams = (typeof queryParams !== 'undefined') ? queryParams : {};
+            
+            var url = (uri.indexOf("http") === 0) ? uri : _appJsConfig.appHostName + uri;
 
-            // console.log(type + ': ' + window.location.origin + '/api/' + uri);
-            // if (Object.keys(queryParams).length > 0 ) console.log(queryParams);
-            console.log(_appJsConfig.appHostName + uri, queryParams);
             return $.ajax({
-                url: _appJsConfig.appHostName + uri,
+                url: url,
                 data: queryParams,
                 dataType: datatype || "json",
                 type: type

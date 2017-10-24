@@ -63,11 +63,8 @@
     var country = _appJsConfig.appHostName.split('.').reverse()[0];
     var locations = getLocations(country)
 
-    $.ajax({
-        url: 'https://weather.pagemasters.com.au/weather?q=' + locations[0],
-        dataType: "json",
-        type: 'GET',
-        success: function(res) {
+    Acme.server.fetch('https://weather.pagemasters.com.au/weather?q=' + locations[0])
+        .done(function(res) {
             var local = res.data[0];
             var name = local.location.split('/')[1];
             console.log('success');
@@ -78,13 +75,10 @@
 
 
             $('.show-weather').on("click", function () {
-                $('.show-weather').toggleClass('flip');
-
-                $.ajax({
-                    url: 'https://weather.pagemasters.com.au/weather?q=' + locations.join(',') ,
-                    dataType: "json",
-                    type: 'GET',
-                    success: function(res) {
+                
+                Acme.server.fetch('https://weather.pagemasters.com.au/weather?q=' + locations.join(','))
+                    .done(function(res) {
+                        $('.show-weather').toggleClass('flip');
 
                         $('.weather-dropdown').toggleClass('hidden');
                         $('.weather-dropdown').html(dropdown('Thursday, 28th September'));
@@ -97,13 +91,8 @@
                             $('#' + name + '-weather > .location').text(name);
                             $('#' + name + '-weather > .description').text(l.description);
                             $('#' + name + '-weather > div > p.temp').html(Math.round(l.temperature) + '&#176;');
-                        })
-                    }
-                })
-            })
-
-
-        }
-    })
-
+                        });
+                });
+            });
+    });
 }(jQuery));

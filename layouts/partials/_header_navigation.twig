@@ -71,6 +71,8 @@
 
                             <div class="menuContainer">
                                 {% if not _User.isGuest() %}
+                                    <div id="weatherMobile" class="weather"></div>
+
                                     <div id="menu-search" class="secondary-menu menu-search">
                                         <form method="get" id="searchformmob" action="{{networkData.defaultBlogUrl}}/search">
                                             <div>
@@ -113,9 +115,6 @@
                                 </ul>
                             </div>
                         </nav>
-
-
-
 
                         <div id="weather" class="weather"></div>
                     </div>
