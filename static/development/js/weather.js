@@ -18,7 +18,7 @@
                         '<p class="location" style="text-align:right;"></p>' + 
                         '<p class="description"></p>' + 
                     '</div>' + 
-                    '<img class="icon" src="' + _appJsConfig.templatePath + '/static/icons/weather/' + icon + '.svg">' + 
+                    '<div class="icon weather-' + icon + '"></div>' + 
                     '<p class="temp"></p>' + 
                 '</div>';
         }
@@ -26,7 +26,7 @@
     var weatherPanel = function(name, icon) {
     	return '<div id="' + name + '-weather" class="panel visible-sm-block visible-md-block visible-lg-block">' +
                     '<div style="display: flex">' + 
-                        '<img class="icon" src="' + _appJsConfig.templatePath + '/static/icons/weather/' + icon + '.svg">' + 
+                        '<div class="icon weather-' + icon + '"></div>' + 
                         '<p class="temp"></p>' + 
                     '</div>' +
                     '<p class="location"></p>' + 
@@ -87,7 +87,7 @@
                     success: function(res) {
 
                         $('.weather-dropdown').toggleClass('hidden');
-                        $('.weather-dropdown').html(dropdown('Thursday, 28th September'));
+                        $('.weather-dropdown').html(dropdown(local.date));
 
                         res.data.forEach(function(l) {
                             var name = l.location.split('/')[1];
