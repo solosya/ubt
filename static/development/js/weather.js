@@ -67,7 +67,7 @@
         .done(function(res) {
             var local = res.data[0];
             var name = local.location.split('/')[1];
-            console.log('success');
+
             $('#weather').html(localWeather(name + '-local', local.icon));
             $('#' + name + '-local-weather > div > p.location').text(name);
             $('#' + name + '-local-weather > div > p.description').text(local.description);
@@ -80,8 +80,8 @@
                     .done(function(res) {
                         $('.show-weather').toggleClass('flip');
 
-                        $('.weather-dropdown').toggleClass('hidden');
-                        $('.weather-dropdown').html(dropdown(local.date));
+                        $('.weather-dropdown').toggleClass('hidden')
+                                              .html(dropdown(local.date));
 
                         res.data.forEach(function(l) {
                             var name = l.location.split('/')[1];

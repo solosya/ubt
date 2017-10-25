@@ -26,10 +26,10 @@
 {% set placeholder   = 'https://placeholdit.imgix.net/~text?txtsize=33&txt=Loading&w='~imgWidth~'&h='~imgHeight~'' %}
 {% set promotedClass = (event.isPromoted) ? 'ad_icon' : '' %}
 {% set hasMedia      = (event.media | length > 0 and imageSuppress == 'false') ? 'withImage__content': 'without__image' %}
-{% set startDay      = _AppHelper.getDateTimeBasedOnTimezone(event.startDate, 'd') %}
-{% set startMonth    = _AppHelper.getDateTimeBasedOnTimezone(event.startDate, 'M') %}
-{% set startDate     = _AppHelper.getDateTimeBasedOnTimezone(event.startDate, 'j F Y') %}
-{% set startTime     = _AppHelper.getDateTimeBasedOnTimezone(event.startDate, 'g:ia') %}
+{% set startDay      = _AppHelper.getDefaultTimezoneDateTime(event.startDate, 'd') %}
+{% set startMonth    = _AppHelper.getDefaultTimezoneDateTime(event.startDate, 'M') %}
+{% set startDate     = _AppHelper.getDefaultTimezoneDateTime(event.startDate, 'j F Y') %}
+{% set startTime     = _AppHelper.getDefaultTimezoneDateTime(event.startDate, 'g:ia') %}
 {% set eventTitle    = quotes.smarten(titleTruncateLength is defined ? event.title | truncate(titleTruncateLength) : event.title)  %}
 {% set figureClass   = event.media['type'] == 'video' ? 'video' : '' %}
 

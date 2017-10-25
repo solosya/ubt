@@ -8,11 +8,100 @@ var Card = function() {
 };
 
 
+Card.prototype.renderScreenCards = function(options, data) 
+{
+    var self = this;
+
+    var container = options.container;
+
+    container.data('existing-nonpinned-count', data.existingNonPinnedCount);
+
+    var html = "";
+    for (var i in data.articles) {
+        data.articles[i]['imageOptions'] = {width:1400, height:800 };
+        html += self.renderCard(data.articles[i], options.containerClass);
+    }
+    container.empty().append(html);
+
+    $(".card p, .card h1").dotdotdot();
+            
+    $('.video-player').videoPlayer();
+    
+};
+
+Card.prototype.screen = function() 
+{
+    var self = this;
+
+    var btn = $('.loadMoreArticles');
+    var pageRefreshInterval = 60000 * 5;
+
+    var currentScreen = 0;
+    var articleCount = 0;
+
+    var options = {
+        'screens' : [
+        {
+            style: "screen-card card-lg-screen",
+            limit: 1,
+            logo: "large-logo"
+
+        }
+        ],
+        'container': $( '#'+btn.data('container') ),
+        'currentScreen': currentScreen,
+        'count': 20
+    };
+
+    var run = function() {
+
+                            // 1 minute * amount of minutes
+        var numberOfScreens = options.screens.length;
+        currentScreen++;
+        if (currentScreen > numberOfScreens) {
+            currentScreen = 1;
+        }
+        var screenOption = currentScreen-1;
+        options.currentScreen = currentScreen;
+
+        options.limit = options.screens[screenOption].limit;
+        options.containerClass = options.screens[screenOption].style;
+
+        // articleCount = articleCount + options.limit;
+        // console.log('Article Count: ', articleCount);
+        if (articleCount >= options.count) {
+            articleCount = 0;
+        }
+
+        options.offset = articleCount;
+        options.nonpinned = articleCount;
+
+        $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
+            if (data.articles.length == 0 ) {
+                articleCount = 0;
+                return;
+            }
+            articleCount = articleCount + data.articles.length;
+
+            if (data.success == 1) {
+                self.renderScreenCards(options, data);
+            }
+        });
+    }
+
+    run();
+
+    // setInterval( run, 10000 ); 
+    // setInterval( function() {
+    //     location.reload(false);
+    // } , pageRefreshInterval );
+ 
+};
+
+
 Card.prototype.renderCard = function(card, cardClass, template)
 {
     var self = this;
-    console.log('rendering card');
-    console.log(template);
 
     var template = (template) ? Acme[template] : Acme.systemCardTemplate;
     console.log(card);
@@ -32,7 +121,15 @@ Card.prototype.renderCard = function(card, cardClass, template)
        card['blogClass']= 'card--blog_'+card.blog['id'];
     } 
     
-    var ImageUrl = $.image({media:card['featuredMedia'], mediaOptions:{width: 500 ,height:350, crop: 'limit'} });
+    var width = 500;
+    var height = 350;
+
+    if (card.imageOptions) {
+        width = card.imageOptions.width || width;
+        height = card.imageOptions.height || height;
+    }
+
+    var ImageUrl = $.image({media:card['featuredMedia'], mediaOptions:{width: width ,height:height, crop: 'limit'} });
     card['imageUrl'] = ImageUrl;
     var articleId = parseInt(card.articleId);
     var articleTemplate;

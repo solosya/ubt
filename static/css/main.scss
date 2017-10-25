@@ -48,6 +48,10 @@
 
 @import "event";
 
+// Screens
+@import "card-sm-screen";
+@import "card-lg-screen";
+
 
 
 // layouts
@@ -56,6 +60,7 @@
 @import "layout-subscribe";
 @import "layout-article-jobs";
 @import "layout-article-property";
+@import "layout-screen";
 
 
 //Cards

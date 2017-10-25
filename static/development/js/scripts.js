@@ -46,7 +46,7 @@ $('document').ready(function() {
       hours = hours % 12;
       hours = hours ? hours : 12;
       minutes = minutes < 10 ? '0'+minutes : minutes;
-      return hours + ':' + minutes + ampm;
+      return hours + '.' + minutes + ampm;
     }
 
 
@@ -63,21 +63,21 @@ $('document').ready(function() {
             "Thursday", "Friday", "Saturday", "Sunday"
         ];
 
-        var day = date.getDate() + ',';
+        var day = date.getDate();
         var daystring = dayNames[date.getDay()];
         var monthIndex = date.getMonth();
         var year = date.getFullYear();
         var time = formatTo12hrTime(date);
-        var output = [time, daystring, monthNames[monthIndex], day, year];
-        return output.join(' ').toUpperCase();
+        var output = [day, monthNames[monthIndex], year, time];
+        return output.join(' ');
     }
 
     // 4:32PM WEDNESDAY JULY 4, 2017
-    // var date = new Date();
-    //     datetime = date.toISOString().substring(0, 16),
-    //     field = document.getElementById('headerTime');
-    //     field.setAttribute('datetime', datetime);
-    //     field.innerHTML = formatDate(date);
+    var date = new Date();
+        datetime = date.toISOString().substring(0, 16),
+        field = document.getElementById('screentime');
+        field.setAttribute('datetime', datetime);
+        field.innerHTML = formatDate(date);
 
 
     // var isMobile = function(){
