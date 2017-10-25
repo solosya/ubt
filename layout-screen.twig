@@ -1,0 +1,75 @@
+{% set networkData = _Network.getNetworkData() %}
+
+{% set blogInfo = _Blog.getBlog() %}
+{{ set(this, 'title', blogInfo.title) }}
+
+
+{{this.registerJs("CardController().screen();")}}
+
+{% set limit = 20 %}
+
+{% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
+{% set articles = articlesArr.articles %}
+
+
+
+
+
+<!-- used to index each article as we loop over throughout the template -->
+{% set articleCount = 0 %}
+
+    <!--placeholder temp -->
+
+<main id="main" class="full-height" role="main">
+    
+    <div class="main-screen full-height flex_col">
+
+        <div class="flex1">
+
+            <div id="ajaxArticles" 
+                 data-offset="0"
+                 data-blogid="{{blogid}}"
+                 data-articlecount="1"
+                 data-containerclass="screen-card card-sm-screen"
+                 data-existing-nonpinned-count=""
+                 class="full-height">
+
+
+
+
+                {# {{this.render('partials/_single-article.twig', {article: articles[0], containerClass: 'screen-card card-lg-screen col-sm-12', network:networkData}) | raw}} #}
+{#                 {{this.render('partials/_single-article.twig', {article: articles[0], containerClass: 'screen-card card-sm-screen col-sm-6', network:networkData}) | raw}}
+                {{this.render('partials/_single-article.twig', {article: articles[1], containerClass: 'screen-card card-sm-screen col-sm-6', network:networkData}) | raw}}
+ #}                
+            </div>
+
+            <a  class="loadMoreArticles" 
+                style="display:none;"
+                data-container="ajaxArticles"
+                data-limit="2"
+                href="#">Load more articles</a>
+
+
+        </div>
+    </div>
+
+    <div class="screen-header">
+        <img id="frank-logo" class="frank-logo" height="60px" class="" src="{{networkData.templatePath}}/static/images/frank-logo-reverse.svg">
+        
+        <time id="screentime" class="screentime">16 September 2017 12.30pm</time>
+        
+        <div id="screenweather" class="screenweather">
+            <div id="location" class="location">
+                <p id="city" class="city">Auckland</p>
+                <p id="country" class="country">New Zealand</p>
+            </div>
+            <div id="temp" class="temp">23&deg;</div>
+        </div>
+    </div>
+
+
+
+
+</main>
+<script>
+</script>

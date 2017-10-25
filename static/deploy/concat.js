@@ -30116,12 +30116,11 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
             type = (typeof type !== 'undefined') ? type : 'get';
 
             queryParams = (typeof queryParams !== 'undefined') ? queryParams : {};
+            
+            var url = (uri.indexOf("http") === 0) ? uri : _appJsConfig.appHostName + uri;
 
-            // console.log(type + ': ' + window.location.origin + '/api/' + uri);
-            // if (Object.keys(queryParams).length > 0 ) console.log(queryParams);
-            console.log(_appJsConfig.appHostName + uri, queryParams);
             return $.ajax({
-                url: _appJsConfig.appHostName + uri,
+                url: url,
                 data: queryParams,
                 dataType: datatype || "json",
                 type: type
@@ -31315,11 +31314,100 @@ var Card = function() {
 };
 
 
+Card.prototype.renderScreenCards = function(options, data) 
+{
+    var self = this;
+
+    var container = options.container;
+
+    container.data('existing-nonpinned-count', data.existingNonPinnedCount);
+
+    var html = "";
+    for (var i in data.articles) {
+        data.articles[i]['imageOptions'] = {width:1400, height:800 };
+        html += self.renderCard(data.articles[i], options.containerClass);
+    }
+    container.empty().append(html);
+
+    $(".card p, .card h1").dotdotdot();
+            
+    $('.video-player').videoPlayer();
+    
+};
+
+Card.prototype.screen = function() 
+{
+    var self = this;
+
+    var btn = $('.loadMoreArticles');
+    var pageRefreshInterval = 60000 * 5;
+
+    var currentScreen = 0;
+    var articleCount = 0;
+
+    var options = {
+        'screens' : [
+        {
+            style: "screen-card card-lg-screen",
+            limit: 1,
+            logo: "large-logo"
+
+        }
+        ],
+        'container': $( '#'+btn.data('container') ),
+        'currentScreen': currentScreen,
+        'count': 20
+    };
+
+    var run = function() {
+
+                            // 1 minute * amount of minutes
+        var numberOfScreens = options.screens.length;
+        currentScreen++;
+        if (currentScreen > numberOfScreens) {
+            currentScreen = 1;
+        }
+        var screenOption = currentScreen-1;
+        options.currentScreen = currentScreen;
+
+        options.limit = options.screens[screenOption].limit;
+        options.containerClass = options.screens[screenOption].style;
+
+        // articleCount = articleCount + options.limit;
+        // console.log('Article Count: ', articleCount);
+        if (articleCount >= options.count) {
+            articleCount = 0;
+        }
+
+        options.offset = articleCount;
+        options.nonpinned = articleCount;
+
+        $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
+            if (data.articles.length == 0 ) {
+                articleCount = 0;
+                return;
+            }
+            articleCount = articleCount + data.articles.length;
+
+            if (data.success == 1) {
+                self.renderScreenCards(options, data);
+            }
+        });
+    }
+
+    run();
+
+    // setInterval( run, 10000 ); 
+    // setInterval( function() {
+    //     location.reload(false);
+    // } , pageRefreshInterval );
+ 
+};
+
+
 Card.prototype.renderCard = function(card, cardClass, template)
 {
     var self = this;
-    console.log('rendering card');
-    console.log(template);
 
     var template = (template) ? Acme[template] : Acme.systemCardTemplate;
     console.log(card);
@@ -31339,7 +31427,15 @@ Card.prototype.renderCard = function(card, cardClass, template)
        card['blogClass']= 'card--blog_'+card.blog['id'];
     } 
     
-    var ImageUrl = $.image({media:card['featuredMedia'], mediaOptions:{width: 500 ,height:350, crop: 'limit'} });
+    var width = 500;
+    var height = 350;
+
+    if (card.imageOptions) {
+        width = card.imageOptions.width || width;
+        height = card.imageOptions.height || height;
+    }
+
+    var ImageUrl = $.image({media:card['featuredMedia'], mediaOptions:{width: width ,height:height, crop: 'limit'} });
     card['imageUrl'] = ImageUrl;
     var articleId = parseInt(card.articleId);
     var articleTemplate;
@@ -33064,7 +33160,7 @@ $('document').ready(function() {
       hours = hours % 12;
       hours = hours ? hours : 12;
       minutes = minutes < 10 ? '0'+minutes : minutes;
-      return hours + ':' + minutes + ampm;
+      return hours + '.' + minutes + ampm;
     }
 
 
@@ -33081,21 +33177,21 @@ $('document').ready(function() {
             "Thursday", "Friday", "Saturday", "Sunday"
         ];
 
-        var day = date.getDate() + ',';
+        var day = date.getDate();
         var daystring = dayNames[date.getDay()];
         var monthIndex = date.getMonth();
         var year = date.getFullYear();
         var time = formatTo12hrTime(date);
-        var output = [time, daystring, monthNames[monthIndex], day, year];
-        return output.join(' ').toUpperCase();
+        var output = [day, monthNames[monthIndex], year, time];
+        return output.join(' ');
     }
 
     // 4:32PM WEDNESDAY JULY 4, 2017
-    // var date = new Date();
-    //     datetime = date.toISOString().substring(0, 16),
-    //     field = document.getElementById('headerTime');
-    //     field.setAttribute('datetime', datetime);
-    //     field.innerHTML = formatDate(date);
+    var date = new Date();
+        datetime = date.toISOString().substring(0, 16),
+        field = document.getElementById('screentime');
+        field.setAttribute('datetime', datetime);
+        field.innerHTML = formatDate(date);
 
 
     // var isMobile = function(){
@@ -33715,14 +33811,11 @@ $('[data-dismiss="alert"]').on('click', function(e) {
     var country = _appJsConfig.appHostName.split('.').reverse()[0];
     var locations = getLocations(country)
 
-    $.ajax({
-        url: 'https://weather.pagemasters.com.au/weather?q=' + locations[0],
-        dataType: "json",
-        type: 'GET',
-        success: function(res) {
+    Acme.server.fetch('https://weather.pagemasters.com.au/weather?q=' + locations[0])
+        .done(function(res) {
             var local = res.data[0];
             var name = local.location.split('/')[1];
-            console.log('success');
+
             $('#weather').html(localWeather(name + '-local', local.icon));
             $('#' + name + '-local-weather > div > p.location').text(name);
             $('#' + name + '-local-weather > div > p.description').text(local.description);
@@ -33730,16 +33823,13 @@ $('[data-dismiss="alert"]').on('click', function(e) {
 
 
             $('.show-weather').on("click", function () {
-                $('.show-weather').toggleClass('flip');
+                
+                Acme.server.fetch('https://weather.pagemasters.com.au/weather?q=' + locations.join(','))
+                    .done(function(res) {
+                        $('.show-weather').toggleClass('flip');
 
-                $.ajax({
-                    url: 'https://weather.pagemasters.com.au/weather?q=' + locations.join(',') ,
-                    dataType: "json",
-                    type: 'GET',
-                    success: function(res) {
-
-                        $('.weather-dropdown').toggleClass('hidden');
-                        $('.weather-dropdown').html(dropdown(local.date));
+                        $('.weather-dropdown').toggleClass('hidden')
+                                              .html(dropdown(local.date));
 
                         res.data.forEach(function(l) {
                             var name = l.location.split('/')[1];
@@ -33749,13 +33839,8 @@ $('[data-dismiss="alert"]').on('click', function(e) {
                             $('#' + name + '-weather > .location').text(name);
                             $('#' + name + '-weather > .description').text(l.description);
                             $('#' + name + '-weather > div > p.temp').html(Math.round(l.temperature) + '&#176;');
-                        })
-                    }
-                })
-            })
-
-
-        }
-    })
-
+                        });
+                });
+            });
+    });
 }(jQuery));

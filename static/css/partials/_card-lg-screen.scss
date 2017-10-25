@@ -1,0 +1,186 @@
+.card-lg-screen{
+    margin-bottom: 45px;
+
+    a.card{
+        height:100%;
+        position: relative;
+        overflow:hidden;
+
+
+        > article {
+
+            // padding-left:80px;
+
+            > figure{
+                // position: absolute;
+                // left: 0;
+                // top: 0;
+                height:100%;
+                width: 100%;
+
+                > img{
+                    max-width: 100%;
+                }
+            }
+
+
+            > .content{
+                position:absolute;
+                bottom:0;
+                background:rgba(0, 45, 86, .9);
+                // height:100%;
+                padding: 24px;
+                // margin-bottom: 10px;
+                z-index: 100;
+                // position: relative;
+                color: #FFF;
+
+                p.category {
+                    display:none;
+                    // font-size: rem(11);
+                    // font-weight: normal;
+                    // color: white;
+                    // display: block;
+                    // line-height: 1;
+                    // margin-bottom:4px;
+
+                }
+                >h2 {
+                    font-family:$font-family-serif;
+                    font-size: 3.5vw;
+                    padding-bottom:5px;
+
+                }
+                > p.excerpt {
+                    white-space:nowrap;
+                    display:block;
+                    font-size: 1.3vw;
+                    line-height: 1.27;
+                    width:90%;
+                    height:25px;
+
+                }
+
+
+                > .author{
+                    display:none;                    
+                }
+
+                time{
+                    display:none;
+                }
+            }
+        }
+
+        &.social.withImage__content {
+            .content {
+                >p {
+                    display:none;
+                }
+            }
+        }
+
+
+        &.social.without__image {
+            .content {
+                // position: absolute;
+                // left: 80px;
+                // top: 0;
+                height:100%;
+                width:57%;
+                background: #ec8235;
+                // background:rgba(200,0,0,.3);
+
+                // padding-top:87px;
+                @media screen and (max-width: $mobile-break){
+                    padding-top:10px;
+                }
+
+                > p {
+                    // font-size: rem(70);
+                    font-size: 7.5vh;
+                    color:#fff;
+                    display: block;
+                    width: 100%;
+                    margin-bottom: 18px;
+                }
+
+
+            }
+        }
+
+        &.facebook{
+            .category {
+                order:2;
+                visibility:hidden;
+
+                &:before {
+                    visibility: visible;
+                    position: absolute;
+                    left: 0px;
+                    top:0;
+                    order:1;
+                    content: '';
+                    width:25px;
+                    height:25px;
+                    background-image: url('../images/facebook.svg');
+                    background-position:center;
+                    background-size: contain;
+                    background-repeat:no-repeat;
+                    display:block;
+                    margin-bottom:18px;
+                }
+            }
+        }
+        &.twitter{
+            .category {
+                visibility:hidden;
+
+                &:before {
+                    visibility: visible;
+                    position: absolute;
+                    left: 0px;
+                    top:0;
+                    content: '';
+                    width:36px;
+                    height:36px;
+                    background-image: url('../images/twitter.svg');
+                    background-position:center;
+                    background-size: contain;
+                    background-repeat:no-repeat;
+                    display:block;
+                    margin-bottom:18px;
+                }
+            }
+        }
+
+        &.instagram{
+
+            >p {
+                display:none;
+            }
+
+            .category {
+                visibility:hidden;
+
+                &:before {
+                    visibility: visible;
+                    position: absolute;
+                    left: 0px;
+                    top:0;
+
+                    content: '';
+                    width:25px;
+                    height:25px;
+                    background-image: url('../images/instagram.svg');
+                    background-position:center;
+                    background-size: contain;
+                    background-repeat:no-repeat;
+                    display:block;
+                    margin-bottom:18px;
+                }
+            }
+        }      
+
+    }
+}
