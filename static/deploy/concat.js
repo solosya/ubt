@@ -30148,10 +30148,11 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
     Acme.listen.prototype.listener = function(topic, data)
     {
         var keys = Object.keys(data);
-
+        // console.log(this);
+        // console.log(topic, data);
         for (var i = 0; i<keys.length; i++) {
             for (var listener in this.listeners) {
-
+                // console.log(keys[i], listener);
                 if ( listener === keys[i] ) {
                     this.listeners[listener].call(this, data, topic);
                     if (this.listeners.after) {
@@ -30408,9 +30409,12 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
                         if (scope == undefined) return;
                     }
 
-                    scope[scopeSplit[scopeSplit.length - 1]][subscribers[i].func]( topic, data );
-                    // console.log(scope);
-
+                    var caller = scope[scopeSplit[scopeSplit.length - 1]];
+                    var func   = subscribers[i].func;
+                    console.log(data);
+                    if (caller) {
+                        caller[func]( topic, data );
+                    }
                 }
                 dfd.resolve();
             };
@@ -31840,6 +31844,60 @@ Card.prototype.events = function()
         });
     });
 };
+(function ($) {
+
+    Acme.Clock = function() {
+        this.date = new Date();
+        this.datetime = this.date.toISOString().substring(0, 16);
+        this.monthNames = [
+            "January", "February", "March",
+            "April", "May", "June", "July",
+            "August", "September", "October",
+            "November", "December"
+        ];
+        this.dayNames = [
+            "Monday", "Tuesday", "Wednesday",
+            "Thursday", "Friday", "Saturday", "Sunday"
+        ];
+    };
+    // Acme.Signin.prototype = {};
+    // Acme.Signin.constructor = Acme.Signin;
+    Acme.Clock.prototype.formatTo12hrTime = function() 
+    {
+      var hours = this.date.getHours();
+      var minutes = this.date.getMinutes();
+      var ampm = hours >= 12 ? 'pm' : 'am';
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      minutes = minutes < 10 ? '0'+minutes : minutes;
+      return hours + '.' + minutes + ampm;
+    };
+
+
+    Acme.Clock.prototype.formatDate = function() 
+    {
+        var day = this.date.getDate();
+        var daystring = this.dayNames[this.date.getDay()];
+        var monthIndex = this.date.getMonth();
+        var year = this.date.getFullYear();
+        var time = this.formatTo12hrTime(this.date);
+        var output = [day, this.monthNames[monthIndex], year, time];
+                    // 4   JULY                    2017  4:32PM 
+        return output.join(' ');
+    }
+
+    
+    Acme.Clock.prototype.render = function()
+    {
+        var field = document.getElementById('screentime');
+        if (field) {
+            field.setAttribute('datetime', this.datetime);
+            field.innerHTML = this.formatDate();
+        }
+    }
+
+
+}(jQuery));
 var HomeController = (function ($) {
     return {
         listing: function () {
@@ -32381,7 +32439,6 @@ Acme.searchCollection = new Acme._Collection(Acme.jobsearch);
     });
     Acme.searchCollection.listeners = {
         "region" : function(data) {
-            console.log(blogId);
             // return this.fetch('/api/search?meta_info='+Object.keys(data)[0] + ":" + data.region);
             return this.fetch('/home/load-articles', {'limit': 10, 'offset':0, 'blogid': blogId});
         }
@@ -32622,7 +32679,6 @@ ListingForm.constructor = ListingForm;
     }
     ListingForm.prototype.renderImageThumbs = function(images) 
     {
-        console.log(images);
         var imageArray = $('#imageArray');
         var html = "";
         for (var i=0;i<images.length;i++) {
@@ -32731,8 +32787,7 @@ ListingForm.constructor = ListingForm;
         });
     }
     ListingForm.prototype.validate = function(checkFields) {
-        console.log('validating');
-        console.log(this.data);
+
         // checkFields is used to validate a single field, 
         // otherwise itereate through all compulsory fields
 
@@ -32785,7 +32840,7 @@ ListingForm.constructor = ListingForm;
                 validated = false;
             }
         }
-        console.log(this.errorFields);
+
         return validated;
     };
 
@@ -32793,7 +32848,7 @@ ListingForm.constructor = ListingForm;
 
 
 Acme.EventForm = function(blogId) {
-        console.log(blogId);
+
         this.subscriptions = Acme.PubSub.subscribe({
             'Acme.eventForm.listener' : ['state_changed', 'update_state']
         });
@@ -32943,8 +32998,8 @@ Acme.JobForm = function(blogId, layout) {
         "title", 
         "content", 
         "extendedData.company", 
-        "extendedData.location",
-        "extendedData.region"
+        "extendedData.location"
+        // "extendedData.region"
     ];
 
     this.init(blogId, layout);
@@ -33132,68 +33187,6 @@ $('document').ready(function() {
 
 
 
-    // var result = server.request("https://weather.pagemasters.com.au/weather", {'q':'melbourne'})
-    //     .done(function(r) {
-    //         console.log(r);
-    //         var weather = $('#weather');
-    //         var location = weather.find('.location');
-    //         var icon = weather.children('.icon');
-    //         var description = weather.find('.description');
-    //         var temperature = weather.children('.temp');
-
-    //         location.text(r.location.split('/')[1]);
-    //         description.text(r.description);
-    //         temperature.html(parseInt(r.temperature) + "&deg;");
-    //         console.log(location, icon, description, temperature);
-
-    //     });
-
-
-
-
-
-
-    function formatTo12hrTime(date) {
-      var hours = date.getHours();
-      var minutes = date.getMinutes();
-      var ampm = hours >= 12 ? 'pm' : 'am';
-      hours = hours % 12;
-      hours = hours ? hours : 12;
-      minutes = minutes < 10 ? '0'+minutes : minutes;
-      return hours + '.' + minutes + ampm;
-    }
-
-
-    function formatDate(date) {
-        var monthNames = [
-            "January", "February", "March",
-            "April", "May", "June", "July",
-            "August", "September", "October",
-            "November", "December"
-        ];
-
-        var dayNames = [
-            "Monday", "Tuesday", "Wednesday",
-            "Thursday", "Friday", "Saturday", "Sunday"
-        ];
-
-        var day = date.getDate();
-        var daystring = dayNames[date.getDay()];
-        var monthIndex = date.getMonth();
-        var year = date.getFullYear();
-        var time = formatTo12hrTime(date);
-        var output = [day, monthNames[monthIndex], year, time];
-        return output.join(' ');
-    }
-
-    // 4:32PM WEDNESDAY JULY 4, 2017
-    var date = new Date();
-        datetime = date.toISOString().substring(0, 16),
-        field = document.getElementById('screentime');
-        if (field) {
-            field.setAttribute('datetime', datetime);
-            field.innerHTML = formatDate(date);
-        }
 
 
     // var isMobile = function(){
@@ -33750,41 +33743,13 @@ $('[data-dismiss="alert"]').on('click', function(e) {
 
 (function ($) {
 
-    // console.log(window.Acme.templatePath);
-    // console.log(_appJsConfig);
 
-	var dropdown = function(date) {
-		return '<div class="weather-date">' + 
-    					'<h1>Weather</h1>' + 
-    					'<p>' + date + '</p>' + 
-    				'</div>' + 
-    				'<div id="weather-panels"><div id="panel-containter"></div></div>';
-	}
-
-    var localWeather = function(name, icon) {
-        return '<div id="' + name + '-weather" class="weather visible-sm-block visible-md-block visible-lg-block">' +
-                    '<img class="show-weather" src="' + _appJsConfig.templatePath + '/static/icons/weather/pointer-arrow-thin.svg">' + 
-                    '<div style="margin-right:15px;">' +
-                        '<p class="location" style="text-align:right;"></p>' + 
-                        '<p class="description"></p>' + 
-                    '</div>' + 
-                    '<div class="icon weather-' + icon + '"></div>' + 
-                    '<p class="temp"></p>' + 
-                '</div>';
-        }
-
-    var weatherPanel = function(name, icon) {
-    	return '<div id="' + name + '-weather" class="panel visible-sm-block visible-md-block visible-lg-block">' +
-                    '<div style="display: flex">' + 
-                        '<div class="icon weather-' + icon + '"></div>' + 
-                        '<p class="temp"></p>' + 
-                    '</div>' +
-                    '<p class="location"></p>' + 
-                    '<p class="description"></p>' +
-                '</div>';
-	    }
-
-    var getLocations = function(country) {
+    Acme.Locations = function(){
+        this.country = _appJsConfig.appHostName.split('.').reverse()[0];
+        this.data = this.getLocations(this.country);
+    };
+    Acme.Locations.prototype.getLocations = function(country) 
+    {
         switch (country) {
             case 'nz':
                 return [
@@ -33808,41 +33773,157 @@ $('[data-dismiss="alert"]').on('click', function(e) {
                     'Australia/Darwin',
                 ];
         }
-    }
+    };
 
-    var country = _appJsConfig.appHostName.split('.').reverse()[0];
-    var locations = getLocations(country)
-
-    Acme.server.fetch('https://weather.pagemasters.com.au/weather?q=' + locations[0])
-        .done(function(res) {
-            var local = res.data[0];
-            var name = local.location.split('/')[1];
-
-            $('#weather').html(localWeather(name + '-local', local.icon));
-            $('#' + name + '-local-weather > div > p.location').text(name);
-            $('#' + name + '-local-weather > div > p.description').text(local.description);
-            $('#' + name + '-local-weather > p.temp').html(Math.round(local.temperature) + '&#176;');
+    
 
 
-            $('.show-weather').on("click", function () {
-                
-                Acme.server.fetch('https://weather.pagemasters.com.au/weather?q=' + locations.join(','))
-                    .done(function(res) {
-                        $('.show-weather').toggleClass('flip');
 
-                        $('.weather-dropdown').toggleClass('hidden')
-                                              .html(dropdown(local.date));
+    Acme.Weather = function()
+    {
+        this.subscriptions = Acme.PubSub.subscribe({
+            'Acme.weather_model.listener' : ["update_state"]
+        });
+        this.listeners = {
+            "localweather" : function(data) {
+                return this.fetch(data['weather'], 'localweather');
+            },
+            "nationalweather" : function(data) {
+                return this.fetch(data['nationalweather'], 'nationalweather');
+            }
+        };
+    };
+    Acme.Weather.prototype = new Acme._Model();
+    Acme.Weather.constructor = Acme.Weather;
+    Acme.Weather.prototype.fetch = function(location, view)
+    {
+        console.log('fetching', 'https://weather.pagemasters.com.au/weather?q=' + location);
+        var self = this;
 
-                        res.data.forEach(function(l) {
-                            var name = l.location.split('/')[1];
-
-                            $('#panel-containter').append(weatherPanel(name, l.icon));
-
-                            $('#' + name + '-weather > .location').text(name);
-                            $('#' + name + '-weather > .description').text(l.description);
-                            $('#' + name + '-weather > div > p.temp').html(Math.round(l.temperature) + '&#176;');
-                        });
-                });
+        Acme.server.fetch('https://weather.pagemasters.com.au/weather?q=' + location)
+            .done(function(r) {
+                console.log(r);
+                self.data = r.data;
+                var publishData = {};
+                publishData[view] = self;
+                Acme.PubSub.publish("state_changed", publishData);
+            }).fail(function(r) {
+                console.log(r);
             });
-    });
+    };
+
+
+
+
+
+
+
+    Acme.WeatherHeader_View_Class = function()
+    {
+        this.subscriptions = Acme.PubSub.subscribe({
+            'Acme.weather_view.listener' : ["state_changed"]
+        });
+        this.listeners = {
+            "localweather" : function(data) {
+                this.localdata = data.localweather.data;
+                return this.renderLocal();
+            },
+            "nationalweather" : function(data) {
+                console.log(data, 'nationalweather');
+                this.nationaldata = data.nationalweather.data;
+                return this.renderNational();
+            }
+
+        };
+    };
+    Acme.WeatherHeader_View_Class.prototype = new Acme._View();
+    Acme.WeatherHeader_View_Class.constructor = Acme.WeatherHeader_View;
+
+
+    Acme.WeatherHeader_View = function(config)
+    {
+        this.container = config.container || null;
+        this.locations = config.locations || null;
+        this.templates = {
+            "dropdown" : 
+                '<div class="weather-date">' + 
+                    '<h1>Weather</h1>' + 
+                    '<p>{{date}}</p>' + 
+                '</div>' + 
+                '<div id="weather-panels"><div id="panel-containter"></div></div>'
+            ,
+            "localWeather" : 
+                '<div id="{{name}}-weather" class="weather visible-sm-block visible-md-block visible-lg-block">' +
+                    '<img class="show-weather" src="' + _appJsConfig.templatePath + '/static/icons/weather/pointer-arrow-thin.svg">' + 
+                    '<div style="margin-right:15px;">' +
+                        '<p class="location" style="text-align:right;">{{location}}</p>' + 
+                        '<p class="description">{{description}}</p>' + 
+                    '</div>' + 
+                    '<div class="icon weather-{{icon}}"></div>' + 
+                    '<p class="temp">{{temp}}&#176;</p>' + 
+                '</div>'
+            ,
+            "weatherPanel" : 
+                '<div id="{{name}}-weather" class="panel visible-sm-block visible-md-block visible-lg-block">' +
+                    '<div style="display: flex">' + 
+                        '<div class="icon weather-{{icon}}"></div>' + 
+                        '<p class="temp">{{temp}}&#176;</p>' + 
+                    '</div>' +
+                    '<p class="location">{{location}}</p>' + 
+                    '<p class="description">{{description}}</p>' +
+                '</div>'
+        };
+
+        this.events();
+    };
+    Acme.WeatherHeader_View.prototype = new Acme.WeatherHeader_View_Class();
+    Acme.WeatherHeader_View.constructor = Acme.WeatherHeader_View;
+
+    Acme.WeatherHeader_View.prototype.renderLocal = function()
+    {
+        var local = this.localdata[0];
+        var name = local.location.split('/')[1];
+        var weatherTmp = Handlebars.compile(this.templates.localWeather); 
+        this.container.html(
+            weatherTmp( {
+                "name": name + '-local', 
+                "icon": local.icon,
+                "location": name,
+                "description" : local.description,
+                "temp" : Math.round(local.temperature)
+            }
+        ));
+    };
+    Acme.WeatherHeader_View.prototype.renderNational = function()
+    {
+        var local = this.localdata[0];
+        var national = this.nationaldata;
+        var dropdown = Handlebars.compile(this.templates.dropdown); 
+        var weatherPanel = Handlebars.compile(this.templates.weatherPanel); 
+
+        $('.show-weather').toggleClass('flip');
+        $('.weather-dropdown').toggleClass('hidden')
+                              .html(dropdown({'date': local.date}));
+        
+        national.forEach(function(l) {
+            var name = l.location.split('/')[1];
+            $('#panel-containter').append(
+                weatherPanel({
+                    "name" : name,
+                    "icon": l.icon,
+                    "location": name,
+                    "description" : l.description,
+                    "temp" : Math.round(l.temperature)
+                }
+            ));
+        });
+    };
+    Acme.WeatherHeader_View.prototype.events = function()
+    {
+        var self = this;
+        this.container.on("click", function (e) {
+            Acme.PubSub.publish("update_state", {"nationalweather": self.locations.data.join(',')})
+        });
+    };
+
 }(jQuery));

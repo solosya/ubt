@@ -99,7 +99,6 @@ Acme.searchCollection = new Acme._Collection(Acme.jobsearch);
     });
     Acme.searchCollection.listeners = {
         "region" : function(data) {
-            console.log(blogId);
             // return this.fetch('/api/search?meta_info='+Object.keys(data)[0] + ":" + data.region);
             return this.fetch('/home/load-articles', {'limit': 10, 'offset':0, 'blogid': blogId});
         }
@@ -340,7 +339,6 @@ ListingForm.constructor = ListingForm;
     }
     ListingForm.prototype.renderImageThumbs = function(images) 
     {
-        console.log(images);
         var imageArray = $('#imageArray');
         var html = "";
         for (var i=0;i<images.length;i++) {
@@ -449,8 +447,7 @@ ListingForm.constructor = ListingForm;
         });
     }
     ListingForm.prototype.validate = function(checkFields) {
-        console.log('validating');
-        console.log(this.data);
+
         // checkFields is used to validate a single field, 
         // otherwise itereate through all compulsory fields
 
@@ -503,7 +500,7 @@ ListingForm.constructor = ListingForm;
                 validated = false;
             }
         }
-        console.log(this.errorFields);
+
         return validated;
     };
 
@@ -511,7 +508,7 @@ ListingForm.constructor = ListingForm;
 
 
 Acme.EventForm = function(blogId) {
-        console.log(blogId);
+
         this.subscriptions = Acme.PubSub.subscribe({
             'Acme.eventForm.listener' : ['state_changed', 'update_state']
         });
@@ -661,8 +658,8 @@ Acme.JobForm = function(blogId, layout) {
         "title", 
         "content", 
         "extendedData.company", 
-        "extendedData.location",
-        "extendedData.region"
+        "extendedData.location"
+        // "extendedData.region"
     ];
 
     this.init(blogId, layout);

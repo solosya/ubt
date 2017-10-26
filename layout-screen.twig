@@ -5,6 +5,7 @@
 
 
 {{this.registerJs("CardController().screen();")}}
+{{this.registerJs("var clock = new Acme.Clock(); clock.render();")}}
 
 {% set limit = 20 %}
 
@@ -56,7 +57,7 @@
     <div class="screen-header">
         <img id="frank-logo" class="frank-logo" height="60px" class="" src="{{networkData.templatePath}}/static/images/frank-logo-reverse.svg">
         
-        <time id="screentime" class="screentime">16 September 2017 12.30pm</time>
+        <time id="screentime" class="screentime"></time>
         
         <div id="screenweather" class="screenweather">
             <div id="location" class="location">
