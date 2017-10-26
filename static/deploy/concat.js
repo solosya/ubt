@@ -31398,10 +31398,10 @@ Card.prototype.screen = function()
 
     run();
 
-    // setInterval( run, 10000 ); 
-    // setInterval( function() {
-    //     location.reload(false);
-    // } , pageRefreshInterval );
+    setInterval( run, 10000 ); 
+    setInterval( function() {
+        location.reload(false);
+    } , pageRefreshInterval );
  
 };
 
