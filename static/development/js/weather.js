@@ -54,12 +54,9 @@
     Acme.Weather.constructor = Acme.Weather;
     Acme.Weather.prototype.fetch = function(location, view)
     {
-        console.log('fetching', 'https://weather.pagemasters.com.au/weather?q=' + location);
         var self = this;
-
         Acme.server.fetch('https://weather.pagemasters.com.au/weather?q=' + location)
             .done(function(r) {
-                console.log(r);
                 self.data = r.data;
                 var publishData = {};
                 publishData[view] = self;
@@ -86,7 +83,6 @@
                 return this.renderLocal();
             },
             "nationalweather" : function(data) {
-                console.log(data, 'nationalweather');
                 this.nationaldata = data.nationalweather.data;
                 return this.renderNational();
             }
@@ -97,6 +93,7 @@
     Acme.WeatherHeader_View_Class.constructor = Acme.WeatherHeader_View;
 
 
+    // inherit from WeatherHeader_View_Class
     Acme.WeatherHeader_View = function(config)
     {
         this.container = config.container || null;
@@ -182,5 +179,47 @@
             Acme.PubSub.publish("update_state", {"nationalweather": self.locations.data.join(',')})
         });
     };
+
+
+
+
+    Acme.WeatherScreen_View = function(config)
+    {
+        this.container = config.container || null;
+        this.locations = config.locations || null;
+
+        this.subscriptions = Acme.PubSub.subscribe({
+            'Acme.weather_view.listener' : ["state_changed"]
+        });
+        this.listeners = {
+            "localweather" : function(data) {
+                this.localdata = data.localweather.data;
+                return this.render();
+            }
+        };
+        this.template = '<div id="location" class="location"> \
+                            <p id="city" class="city">{{city}}</p> \
+                            <p id="country" class="country">{{country}}</p> \
+                        </div> \
+                        <div id="temp" class="temp">{{temp}}&deg;</div>';
+    };
+
+    Acme.WeatherScreen_View.prototype = new Acme._View();
+    Acme.WeatherScreen_View.constructor = Acme.WeatherScreen_View_Class;
+
+    Acme.WeatherScreen_View.prototype.render = function()
+    {
+        var local = this.localdata[0];
+        var name = local.location.split('/')[1];
+        var weatherTmp = Handlebars.compile(this.template); 
+        this.container.html(
+            weatherTmp( {
+                "city": name,
+                "country" : local.description,
+                "temp" : Math.round(local.temperature)
+            }
+        ));
+    };
+
 
 }(jQuery));

@@ -7,6 +7,17 @@
 {{this.registerJs("CardController().screen();")}}
 {{this.registerJs("var clock = new Acme.Clock(); clock.render();")}}
 
+{% set weatherJs = 
+    " var locations = new Acme.Locations();
+      Acme.weather_model = new Acme.Weather();
+      Acme.weather_model.fetch(locations.data[0], 'localweather');
+      Acme.weather_view = new Acme.WeatherScreen_View({'container': $('#screenweather'), locations: locations});" %}
+
+{{this.registerJs( weatherJs )}}
+
+
+
+
 {% set limit = 20 %}
 
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
@@ -59,13 +70,7 @@
         
         <time id="screentime" class="screentime"></time>
         
-        <div id="screenweather" class="screenweather">
-            <div id="location" class="location">
-                <p id="city" class="city">Auckland</p>
-                <p id="country" class="country">New Zealand</p>
-            </div>
-            <div id="temp" class="temp">23&deg;</div>
-        </div>
+        <div id="screenweather" class="screenweather"></div>
     </div>
 
 
