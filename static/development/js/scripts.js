@@ -76,8 +76,10 @@ $('document').ready(function() {
     var date = new Date();
         datetime = date.toISOString().substring(0, 16),
         field = document.getElementById('screentime');
-        field.setAttribute('datetime', datetime);
-        field.innerHTML = formatDate(date);
+        if (field) {
+            field.setAttribute('datetime', datetime);
+            field.innerHTML = formatDate(date);
+        }
 
 
     // var isMobile = function(){
