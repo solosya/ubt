@@ -41,12 +41,12 @@ Card.prototype.screen = function()
 
     var options = {
         'screens' : [
-        {
-            style: "screen-card card-lg-screen",
-            limit: 1,
-            logo: "large-logo"
+            {
+                style: "screen-card card-lg-screen",
+                limit: 1,
+                logo: "large-logo"
 
-        }
+            }
         ],
         'container': $( '#'+btn.data('container') ),
         'currentScreen': currentScreen,
@@ -66,9 +66,6 @@ Card.prototype.screen = function()
 
         options.limit = options.screens[screenOption].limit;
         options.containerClass = options.screens[screenOption].style;
-
-        // articleCount = articleCount + options.limit;
-        // console.log('Article Count: ', articleCount);
         if (articleCount >= options.count) {
             articleCount = 0;
         }
@@ -91,10 +88,10 @@ Card.prototype.screen = function()
 
     run();
 
-    setInterval( run, 10000 ); 
-    setInterval( function() {
-        location.reload(false);
-    } , pageRefreshInterval );
+    // setInterval( run, 10000 ); 
+    // setInterval( function() {
+    //     location.reload(false);
+    // } , pageRefreshInterval );
  
 };
 
