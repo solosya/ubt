@@ -1,0 +1,98 @@
+@mixin card-rec-sport-base() {
+    position:relative;
+    a.card {
+        border-bottom: 1px solid #97999c;
+
+        > article {
+            position:relative;
+
+            > figure{
+                display: none;
+            }
+
+            > .content{
+                padding: 0;
+                position:relative;
+
+                > div {
+                    > .category{
+                        margin-bottom:0;
+                        border-right:1px solid color(lightgrey);
+                    }
+                }
+
+                > h2{
+                    font-family: $font-family-serif;
+                    font-size: rem(25);
+                    line-height:1.2;
+                    margin-top:12px;
+                    margin-bottom:2px;
+                    height: 70px;
+                }
+
+                > p {
+                    display: none;
+                }
+            }
+        }  
+    }
+}
+
+
+
+.card-rec-sport{
+    @media screen and (min-width: $mmd-break){
+        @include card-rec-sport-base();
+
+        margin-bottom: 43px;
+
+        a.card {
+            height:130px;
+
+            > article {
+
+                > .content{
+
+                    > h2{
+                        width: 410px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+.card-rec-sport-tablet{
+    @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
+        @include card-rec-sport-base();
+
+        margin-bottom: 43px;
+
+        a.card {
+            height:130px;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+.card-rec-sport-mobile{
+    @media screen and (max-width: $sm-break-down){
+        @include card-rec-sport-base();
+
+        margin-bottom: 43px;
+
+        a.card {
+            height:130px;
+        }
+    }
+}

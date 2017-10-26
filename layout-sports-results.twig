@@ -22,7 +22,7 @@
  #}
 <!-- used to index each article as we loop over throughout the template -->
 {% set articleCount = 0 %}
-{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
+{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
 
 
 
@@ -48,19 +48,14 @@
 
             <div class="col-sm-offset-1 col-sm-6">
 
-
-                <div class="menu-and-link">
-                    <div id="regionSelect" class="regionSelect"></div>
-                    <a href="{{networkData.defaultBlogUrl}}@jobs-form">Submit a job</a>
-                </div>
-
-                <div id="job-listings">
-                    {% for i in 0..7 if articles[articleCount] %}
+                <div id="sports-results">
+                    {% for i in 0..6 if articles[articleCount] %}
                         {{this.render('partials/_single-article.twig', {
                             article: articles[articleCount], 
                             position: (articleCount+1),
+                            imageSuppress: true,
                             imageSize: {width: 173, height: 144},
-                            containerClass: 'card-rec card-rec-tablet card-rec-mobile'
+                            containerClass: 'card-rec-sport card-rec-sport-tablet card-rec-sport-mobile'
                         }) | raw}}
                         {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                     {% endfor %}
@@ -72,15 +67,12 @@
                     non_pinned: articlesArr.existingNonPinnedCount, 
                     articles: articles,
                     rendertype: "write",
-                    card_style: "col-sm-12 card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile",
+                    card_style: "col-sm-12 card-rec-sport card-rec-sport-tablet card-rec-sport-mobile",
                     container:"mainAjaxArticles"
                 }) | raw }}
 
 
             </div>
-
-
-
 
             <div class="col-sm-offset-1 col-sm-3">
                 <div class="visible-md-block visible-lg-block">
