@@ -3,7 +3,7 @@
 
 {% set networkData = _Network.getNetworkData() %}
 {% set blogData    = _Blog.getBlog() %}
-{% set jobsBlogId  = blogData['id'] %}
+{% set jobsBlogId = blogData.additionalInfo['publishto'] %}
 
 {% set limit = 10 %}
 
