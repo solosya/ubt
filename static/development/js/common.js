@@ -54,11 +54,11 @@
     Acme.listen.prototype.listener = function(topic, data)
     {
         var keys = Object.keys(data);
-        // console.log(this);
-        // console.log(topic, data);
+        console.log(this);
+        console.log(topic, data);
         for (var i = 0; i<keys.length; i++) {
             for (var listener in this.listeners) {
-                // console.log(keys[i], listener);
+                console.log(keys[i], listener);
                 if ( listener === keys[i] ) {
                     this.listeners[listener].call(this, data, topic);
                     if (this.listeners.after) {
@@ -317,7 +317,7 @@
 
                     var caller = scope[scopeSplit[scopeSplit.length - 1]];
                     var func   = subscribers[i].func;
-                    console.log(data);
+                    console.log(topic, data);
                     if (caller) {
                         caller[func]( topic, data );
                     }

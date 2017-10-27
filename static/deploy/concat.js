@@ -30148,11 +30148,11 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
     Acme.listen.prototype.listener = function(topic, data)
     {
         var keys = Object.keys(data);
-        // console.log(this);
-        // console.log(topic, data);
+        console.log(this);
+        console.log(topic, data);
         for (var i = 0; i<keys.length; i++) {
             for (var listener in this.listeners) {
-                // console.log(keys[i], listener);
+                console.log(keys[i], listener);
                 if ( listener === keys[i] ) {
                     this.listeners[listener].call(this, data, topic);
                     if (this.listeners.after) {
@@ -30411,7 +30411,7 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
 
                     var caller = scope[scopeSplit[scopeSplit.length - 1]];
                     var func   = subscribers[i].func;
-                    console.log(data);
+                    console.log(topic, data);
                     if (caller) {
                         caller[func]( topic, data );
                     }
@@ -32838,145 +32838,6 @@ ListingForm.constructor = ListingForm;
 
 
 
-Acme.EventForm = function(blogId) {
-
-        this.subscriptions = Acme.PubSub.subscribe({
-            'Acme.eventForm.listener' : ['state_changed', 'update_state']
-        });
-
-        this.errorFields = [];
-
-        this.compulsoryFields = [
-            "title", 
-            "content" 
-        ];
-
-        this.data = {
-            'id': 0,
-            'blogs': blogId,
-            'media_ids': '',
-            'type': 'event'
-        };
-
-        this.events();
-        this.events2();
-        // this.init(blogId, layout);
-    }
-    Acme.EventForm.prototype = new ListingForm();
-    Acme.EventForm.prototype.constructor=Acme.EventForm;
-    Acme.EventForm.prototype.events2 = function() {
-
-
-
-        $('#eventStart, #eventEnd').datetimepicker({
-            format: "DD-MM-YYYY h:mm A",
-            useCurrent: false,
-            icons: {
-                time: "fa fa-clock-o",
-                date: "fa fa-calendar",
-                up: "fa fa-angle-up",
-                down: "fa fa-angle-down"
-            },
-            tooltips: {selectTime: ''}
-        }).on('dp.change', function (e) {
-            if(e.target.id === 'eventStart') {
-                $('#eventEnd').data("DateTimePicker").minDate(e.date);
-            }
-        });
-
-        var EventPostGoogleMap = function () {
-            var marker, geocoder;
-            var elem = $('#addressMap');
-            var latitude = elem.data('latitude');
-            var longitude = elem.data('longitude');
-            var map;
-            
-            //google.maps.event.addDomListener(window, 'load', initMap);
-            function initMap() {
-                var mapLat;
-                var mapLong;
-                if (latitude !== '' && longitude !== '') {
-                    mapLat = latitude;
-                    mapLong = longitude;
-
-                    geocoder = new google.maps.Geocoder();
-                    map = new google.maps.Map(document.getElementById('addressMap'), {
-                        zoom: 10,
-                        center: {lat: mapLat, lng: mapLong}
-                    });
-
-                    //set current marker
-                    if (latitude != '' && longitude != '') {
-                        updateMarker = new google.maps.Marker({
-                            position: new google.maps.LatLng(latitude, longitude),
-                            map: map
-                        });
-                    }
-                } 
-                else {
-                    //navigator.geolocation.getCurrentPosition(function (position) {});
-                    geocoder = new google.maps.Geocoder();
-                    map = new google.maps.Map(document.getElementById('addressMap'), {
-                        zoom: 1,
-                        center: {lat: 43.197167, lng: 56.425781}
-                    });
-                    
-                }
-                
-                pointLocation(geocoder, map, marker);
-            }
-            
-            initMap();
-        };
-
-        var pointLocation = function (geocoder, map, marker) {
-            $('#address').on('change', function(e){
-                mapLocation();
-            });
-            
-            function mapLocation() {
-                var address = $('#address').val();
-
-                geocoder.geocode({address: address}, function (results, status) {
-                    
-                    if (status === google.maps.GeocoderStatus.OK) {
-                        map.setCenter(results[0].geometry.location);
-                        map.setZoom(10);
-
-                        //clear the previous marker
-                        if (marker) {
-                            marker.setMap(null);
-                        }
-                        marker = new google.maps.Marker({
-                            map: map,
-                            position: results[0].geometry.location
-                        });
-                        
-                        // Set Lat and Long
-                        var latitude = results[0].geometry.location.lat();
-                        var longitude = results[0].geometry.location.lng();
-                        $('#event_latitude').val(latitude);
-                        $('#event_longitude').val(longitude);
-                    } 
-                });
-            } 
-        };
-
-
-        EventPostGoogleMap();
-
-    }
-
-
-
-
-
-
-
-
-
-
-
 
 Acme.JobForm = function(blogId, layout) {
     this.subscriptions = Acme.PubSub.subscribe({
@@ -33061,9 +32922,10 @@ Acme.EventForm = function(blogId) {
     }
     Acme.EventForm.prototype = new ListingForm();
     Acme.EventForm.prototype.constructor=Acme.EventForm;
-    Acme.EventForm.listeners = 
+    Acme.EventForm.prototype.listeners = 
     {
         "start_date" : function(data, topic) {
+            console.log('stateter dateer');
             this.data.start_date = data['start_date'];
         },
         "end_date" : function(data, topic) {
@@ -33094,85 +32956,85 @@ Acme.EventForm = function(blogId) {
             }
         });
 
-        var EventPostGoogleMap = function () {
-            var marker, geocoder;
-            var elem = $('#addressMap');
-            var latitude = elem.data('latitude');
-            var longitude = elem.data('longitude');
-            var map;
+        // var EventPostGoogleMap = function () {
+        //     var marker, geocoder;
+        //     var elem = $('#addressMap');
+        //     var latitude = elem.data('latitude');
+        //     var longitude = elem.data('longitude');
+        //     var map;
             
-            //google.maps.event.addDomListener(window, 'load', initMap);
-            function initMap() {
-                var mapLat;
-                var mapLong;
-                if (latitude !== '' && longitude !== '') {
-                    mapLat = latitude;
-                    mapLong = longitude;
+        //     //google.maps.event.addDomListener(window, 'load', initMap);
+        //     function initMap() {
+        //         var mapLat;
+        //         var mapLong;
+        //         if (latitude !== '' && longitude !== '') {
+        //             mapLat = latitude;
+        //             mapLong = longitude;
 
-                    geocoder = new google.maps.Geocoder();
-                    map = new google.maps.Map(document.getElementById('addressMap'), {
-                        zoom: 10,
-                        center: {lat: mapLat, lng: mapLong}
-                    });
+        //             geocoder = new google.maps.Geocoder();
+        //             map = new google.maps.Map(document.getElementById('addressMap'), {
+        //                 zoom: 10,
+        //                 center: {lat: mapLat, lng: mapLong}
+        //             });
 
-                    //set current marker
-                    if (latitude != '' && longitude != '') {
-                        updateMarker = new google.maps.Marker({
-                            position: new google.maps.LatLng(latitude, longitude),
-                            map: map
-                        });
-                    }
-                } 
-                else {
-                    //navigator.geolocation.getCurrentPosition(function (position) {});
-                    geocoder = new google.maps.Geocoder();
-                    map = new google.maps.Map(document.getElementById('addressMap'), {
-                        zoom: 1,
-                        center: {lat: 43.197167, lng: 56.425781}
-                    });
+        //             //set current marker
+        //             if (latitude != '' && longitude != '') {
+        //                 updateMarker = new google.maps.Marker({
+        //                     position: new google.maps.LatLng(latitude, longitude),
+        //                     map: map
+        //                 });
+        //             }
+        //         } 
+        //         else {
+        //             //navigator.geolocation.getCurrentPosition(function (position) {});
+        //             geocoder = new google.maps.Geocoder();
+        //             map = new google.maps.Map(document.getElementById('addressMap'), {
+        //                 zoom: 1,
+        //                 center: {lat: 43.197167, lng: 56.425781}
+        //             });
                     
-                }
+        //         }
                 
-                pointLocation(geocoder, map, marker);
-            }
+        //         pointLocation(geocoder, map, marker);
+        //     }
             
-            initMap();
-        };
+        //     initMap();
+        // };
 
-        var pointLocation = function (geocoder, map, marker) {
-            $('#address').on('change', function(e){
-                mapLocation();
-            });
+        // var pointLocation = function (geocoder, map, marker) {
+        //     $('#address').on('change', function(e){
+        //         mapLocation();
+        //     });
             
-            function mapLocation() {
-                var address = $('#address').val();
+        //     function mapLocation() {
+        //         var address = $('#address').val();
 
-                geocoder.geocode({address: address}, function (results, status) {
+        //         geocoder.geocode({address: address}, function (results, status) {
                     
-                    if (status === google.maps.GeocoderStatus.OK) {
-                        map.setCenter(results[0].geometry.location);
-                        map.setZoom(10);
+        //             if (status === google.maps.GeocoderStatus.OK) {
+        //                 map.setCenter(results[0].geometry.location);
+        //                 map.setZoom(10);
 
-                        //clear the previous marker
-                        if (marker) {
-                            marker.setMap(null);
-                        }
-                        marker = new google.maps.Marker({
-                            map: map,
-                            position: results[0].geometry.location
-                        });
+        //                 //clear the previous marker
+        //                 if (marker) {
+        //                     marker.setMap(null);
+        //                 }
+        //                 marker = new google.maps.Marker({
+        //                     map: map,
+        //                     position: results[0].geometry.location
+        //                 });
                         
-                        // Set Lat and Long
-                        var latitude = results[0].geometry.location.lat();
-                        var longitude = results[0].geometry.location.lng();
-                        $('#event_latitude').val(latitude);
-                        $('#event_longitude').val(longitude);
-                    } 
-                });
-            } 
-        };
+        //                 // Set Lat and Long
+        //                 var latitude = results[0].geometry.location.lat();
+        //                 var longitude = results[0].geometry.location.lng();
+        //                 $('#event_latitude').val(latitude);
+        //                 $('#event_longitude').val(longitude);
+        //             } 
+        //         });
+        //     } 
+        // };
 
-        EventPostGoogleMap();
+        // EventPostGoogleMap();
 
     }
 
