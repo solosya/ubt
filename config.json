@@ -96,11 +96,12 @@
         "blog" : {            
             "endUserAccess" : [
 
-                "114",  "117",  "118",    
-                "1152", "1151", "1274",   
-                "1157", "1155", "1276",    
-                "1270", "1272", "1285",   
-                "605",  "603"
+                            "jobs",     "prop",     "events",
+                "local",    "114",      "117",      "118",    
+            "Frank AUS",    "1151",     "1152",     "1274",   
+             "Frank NZ",    "1155",     "1157",     "1276",    
+             "UBT TEST",    "1270",     "1272",     "1285",   
+                  "UAT",    "605",      "603"
             
             ],
             "extendedAttributes": [
@@ -113,33 +114,3 @@
         }
     }
 }
-
-
-// "endUserAccess" : [
-
-//     //local lee
-//      "114", jobs
-//      "117", property
-//      "118", events
-
-
-//     // live Aus
-//      "1152", property   frank AUS
-//      "1151", jobs       frank AUS
-//      "1274", events     frank AUS
-
-//     // live NZ
-//      "1157",  property   frank NZ
-//      "1155",  jobs       frank NZ 
-//      "1276",  events     frank NZ
-
-        // UBT TEST
-//      "1270"   jobs       ubttest
-//      "1272"   property   ubttest
-//      "1285",  events     ubttest
-
-
-//     // UAT 
-//      "605", 
-//      "603"
-// ],
