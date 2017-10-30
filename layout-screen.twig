@@ -5,6 +5,18 @@
 
 
 {{this.registerJs("CardController().screen();")}}
+{{this.registerJs("var clock = new Acme.Clock(); clock.render();")}}
+
+{% set weatherJs = 
+    " var locations = new Acme.Locations();
+      Acme.weather_model = new Acme.Weather();
+      Acme.weather_model.fetch(locations.data[0], 'localweather');
+      Acme.weather_view = new Acme.WeatherScreen_View({'container': $('#screenweather'), locations: locations});" %}
+
+{{this.registerJs( weatherJs )}}
+
+
+
 
 {% set limit = 20 %}
 
@@ -24,7 +36,7 @@
     
     <div class="main-screen full-height flex_col">
 
-        <div class="flex1">
+        <div class="flex1" style="max-height:100%">
 
             <div id="ajaxArticles" 
                  data-offset="0"
@@ -56,15 +68,9 @@
     <div class="screen-header">
         <img id="frank-logo" class="frank-logo" height="60px" class="" src="{{networkData.templatePath}}/static/images/frank-logo-reverse.svg">
         
-        <time id="screentime" class="screentime">16 September 2017 12.30pm</time>
+        <time id="screentime" class="screentime"></time>
         
-        <div id="screenweather" class="screenweather">
-            <div id="location" class="location">
-                <p id="city" class="city">Auckland</p>
-                <p id="country" class="country">New Zealand</p>
-            </div>
-            <div id="temp" class="temp">23&deg;</div>
-        </div>
+        <div id="screenweather" class="screenweather"></div>
     </div>
 
 

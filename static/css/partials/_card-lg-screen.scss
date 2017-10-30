@@ -9,12 +9,7 @@
 
         > article {
 
-            // padding-left:80px;
-
             > figure{
-                // position: absolute;
-                // left: 0;
-                // top: 0;
                 height:100%;
                 width: 100%;
 
@@ -28,28 +23,26 @@
                 position:absolute;
                 bottom:0;
                 background:rgba(0, 45, 86, .9);
-                // height:100%;
                 padding: 24px;
-                // margin-bottom: 10px;
                 z-index: 100;
-                // position: relative;
                 color: #FFF;
 
                 p.category {
                     display:none;
-                    // font-size: rem(11);
-                    // font-weight: normal;
-                    // color: white;
-                    // display: block;
-                    // line-height: 1;
-                    // margin-bottom:4px;
-
                 }
                 >h2 {
                     font-family:$font-family-serif;
                     font-size: 3.5vw;
                     padding-bottom:5px;
-
+                    &:before {
+                        display:block;
+                        content: "";
+                        background: url('../images/aap-white-logo.png');
+                        background-size:contain;
+                        background-repeat: no-repeat;
+                        height:32px;
+                        width:55px;
+                    }
                 }
                 > p.excerpt {
                     white-space:nowrap;
@@ -83,21 +76,15 @@
 
         &.social.without__image {
             .content {
-                // position: absolute;
-                // left: 80px;
-                // top: 0;
                 height:100%;
                 width:57%;
                 background: #ec8235;
-                // background:rgba(200,0,0,.3);
-
-                // padding-top:87px;
                 @media screen and (max-width: $mobile-break){
                     padding-top:10px;
                 }
 
                 > p {
-                    // font-size: rem(70);
+
                     font-size: 7.5vh;
                     color:#fff;
                     display: block;

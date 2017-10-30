@@ -30148,10 +30148,11 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
     Acme.listen.prototype.listener = function(topic, data)
     {
         var keys = Object.keys(data);
-
+        console.log(this);
+        console.log(topic, data);
         for (var i = 0; i<keys.length; i++) {
             for (var listener in this.listeners) {
-
+                console.log(keys[i], listener);
                 if ( listener === keys[i] ) {
                     this.listeners[listener].call(this, data, topic);
                     if (this.listeners.after) {
@@ -30408,9 +30409,12 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
                         if (scope == undefined) return;
                     }
 
-                    scope[scopeSplit[scopeSplit.length - 1]][subscribers[i].func]( topic, data );
-                    // console.log(scope);
-
+                    var caller = scope[scopeSplit[scopeSplit.length - 1]];
+                    var func   = subscribers[i].func;
+                    console.log(topic, data);
+                    if (caller) {
+                        caller[func]( topic, data );
+                    }
                 }
                 dfd.resolve();
             };
@@ -31347,12 +31351,12 @@ Card.prototype.screen = function()
 
     var options = {
         'screens' : [
-        {
-            style: "screen-card card-lg-screen",
-            limit: 1,
-            logo: "large-logo"
+            {
+                style: "screen-card card-lg-screen",
+                limit: 1,
+                logo: "large-logo"
 
-        }
+            }
         ],
         'container': $( '#'+btn.data('container') ),
         'currentScreen': currentScreen,
@@ -31372,9 +31376,6 @@ Card.prototype.screen = function()
 
         options.limit = options.screens[screenOption].limit;
         options.containerClass = options.screens[screenOption].style;
-
-        // articleCount = articleCount + options.limit;
-        // console.log('Article Count: ', articleCount);
         if (articleCount >= options.count) {
             articleCount = 0;
         }
@@ -31840,6 +31841,60 @@ Card.prototype.events = function()
         });
     });
 };
+(function ($) {
+
+    Acme.Clock = function() {
+        this.date = new Date();
+        this.datetime = this.date.toISOString().substring(0, 16);
+        this.monthNames = [
+            "January", "February", "March",
+            "April", "May", "June", "July",
+            "August", "September", "October",
+            "November", "December"
+        ];
+        this.dayNames = [
+            "Monday", "Tuesday", "Wednesday",
+            "Thursday", "Friday", "Saturday", "Sunday"
+        ];
+    };
+    // Acme.Signin.prototype = {};
+    // Acme.Signin.constructor = Acme.Signin;
+    Acme.Clock.prototype.formatTo12hrTime = function() 
+    {
+      var hours = this.date.getHours();
+      var minutes = this.date.getMinutes();
+      var ampm = hours >= 12 ? 'pm' : 'am';
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      minutes = minutes < 10 ? '0'+minutes : minutes;
+      return hours + '.' + minutes + ampm;
+    };
+
+
+    Acme.Clock.prototype.formatDate = function() 
+    {
+        var day = this.date.getDate();
+        var daystring = this.dayNames[this.date.getDay()];
+        var monthIndex = this.date.getMonth();
+        var year = this.date.getFullYear();
+        var time = this.formatTo12hrTime(this.date);
+        var output = [day, this.monthNames[monthIndex], year, time];
+                    // 4   JULY                    2017  4:32PM 
+        return output.join(' ');
+    }
+
+    
+    Acme.Clock.prototype.render = function()
+    {
+        var field = document.getElementById('screentime');
+        if (field) {
+            field.setAttribute('datetime', this.datetime);
+            field.innerHTML = this.formatDate();
+        }
+    }
+
+
+}(jQuery));
 var HomeController = (function ($) {
     return {
         listing: function () {
@@ -32381,7 +32436,6 @@ Acme.searchCollection = new Acme._Collection(Acme.jobsearch);
     });
     Acme.searchCollection.listeners = {
         "region" : function(data) {
-            console.log(blogId);
             // return this.fetch('/api/search?meta_info='+Object.keys(data)[0] + ":" + data.region);
             return this.fetch('/home/load-articles', {'limit': 10, 'offset':0, 'blogid': blogId});
         }
@@ -32460,7 +32514,6 @@ Acme.filteredListingViewClass.prototype.listeners = {
     }
 };
 Acme.filteredListingViewClass.prototype.render = function() {
-    console.log('rendering after search');
     var container = this.container;
     var cardClass = "card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile";
 
@@ -32556,14 +32609,13 @@ ListingForm.constructor = ListingForm;
         this.menus.buyMenu = new Acme.listMenu({
                     'parent'        : $('#buySelect'),
                     'list'          : contractList,
-                    'defaultSelect' : {"label": 'Bye/lease'},
+                    'defaultSelect' : {"label": 'Buy/lease'},
                     'name'          : 'contracttype',
                     'key'           : 'extendedData.contracttype'
         }).init().render();
     };
     ListingForm.prototype.render = function() 
     {
-        console.log('rendering');
         var form = this.container.main;
         var title = form.find("#title");
         var content = form.find("#content");
@@ -32622,7 +32674,6 @@ ListingForm.constructor = ListingForm;
     }
     ListingForm.prototype.renderImageThumbs = function(images) 
     {
-        console.log(images);
         var imageArray = $('#imageArray');
         var html = "";
         for (var i=0;i<images.length;i++) {
@@ -32649,7 +32700,6 @@ ListingForm.constructor = ListingForm;
     },
     ListingForm.prototype.events = function() 
     {
-        console.log('calling events!!');
         var self = this;
         $('input, textarea').on("change", function(e) {
             e.stopPropagation();
@@ -32713,15 +32763,12 @@ ListingForm.constructor = ListingForm;
             e.preventDefault();
 
             var validated = self.validate();
-            console.log(validated);
             if (!validated) {
                 self.render();
-                console.log('rendering and returning');
                 return;
             }
 
             self.data.theme_layout_name = self.layout;
-            console.log('article.create!!!', self.data);
             Acme.server.create('/api/article/create', self.data).done(function(r) {
                 $('#listingFormClear').click();
                 Acme.PubSub.publish('update_state', {'userArticles': ''});
@@ -32731,8 +32778,7 @@ ListingForm.constructor = ListingForm;
         });
     }
     ListingForm.prototype.validate = function(checkFields) {
-        console.log('validating');
-        console.log(this.data);
+
         // checkFields is used to validate a single field, 
         // otherwise itereate through all compulsory fields
 
@@ -32785,148 +32831,9 @@ ListingForm.constructor = ListingForm;
                 validated = false;
             }
         }
-        console.log(this.errorFields);
+
         return validated;
     };
-
-
-
-
-Acme.EventForm = function(blogId) {
-        console.log(blogId);
-        this.subscriptions = Acme.PubSub.subscribe({
-            'Acme.eventForm.listener' : ['state_changed', 'update_state']
-        });
-
-        this.errorFields = [];
-
-        this.compulsoryFields = [
-            "title", 
-            "content" 
-        ];
-
-        this.data = {
-            'id': 0,
-            'blogs': blogId,
-            'media_ids': '',
-            'type': 'event'
-        };
-
-        this.events();
-        this.events2();
-        // this.init(blogId, layout);
-    }
-    Acme.EventForm.prototype = new ListingForm();
-    Acme.EventForm.prototype.constructor=Acme.EventForm;
-    Acme.EventForm.prototype.events2 = function() {
-
-
-
-        $('#eventStart, #eventEnd').datetimepicker({
-            format: "DD-MM-YYYY h:mm A",
-            useCurrent: false,
-            icons: {
-                time: "fa fa-clock-o",
-                date: "fa fa-calendar",
-                up: "fa fa-angle-up",
-                down: "fa fa-angle-down"
-            },
-            tooltips: {selectTime: ''}
-        }).on('dp.change', function (e) {
-            if(e.target.id === 'eventStart') {
-                $('#eventEnd').data("DateTimePicker").minDate(e.date);
-            }
-        });
-
-        var EventPostGoogleMap = function () {
-            var marker, geocoder;
-            var elem = $('#addressMap');
-            var latitude = elem.data('latitude');
-            var longitude = elem.data('longitude');
-            var map;
-            
-            //google.maps.event.addDomListener(window, 'load', initMap);
-            function initMap() {
-                var mapLat;
-                var mapLong;
-                if (latitude !== '' && longitude !== '') {
-                    mapLat = latitude;
-                    mapLong = longitude;
-
-                    geocoder = new google.maps.Geocoder();
-                    map = new google.maps.Map(document.getElementById('addressMap'), {
-                        zoom: 10,
-                        center: {lat: mapLat, lng: mapLong}
-                    });
-
-                    //set current marker
-                    if (latitude != '' && longitude != '') {
-                        updateMarker = new google.maps.Marker({
-                            position: new google.maps.LatLng(latitude, longitude),
-                            map: map
-                        });
-                    }
-                } 
-                else {
-                    //navigator.geolocation.getCurrentPosition(function (position) {});
-                    geocoder = new google.maps.Geocoder();
-                    map = new google.maps.Map(document.getElementById('addressMap'), {
-                        zoom: 1,
-                        center: {lat: 43.197167, lng: 56.425781}
-                    });
-                    
-                }
-                
-                pointLocation(geocoder, map, marker);
-            }
-            
-            initMap();
-        };
-
-        var pointLocation = function (geocoder, map, marker) {
-            $('#address').on('change', function(e){
-                mapLocation();
-            });
-            
-            function mapLocation() {
-                var address = $('#address').val();
-
-                geocoder.geocode({address: address}, function (results, status) {
-                    
-                    if (status === google.maps.GeocoderStatus.OK) {
-                        map.setCenter(results[0].geometry.location);
-                        map.setZoom(10);
-
-                        //clear the previous marker
-                        if (marker) {
-                            marker.setMap(null);
-                        }
-                        marker = new google.maps.Marker({
-                            map: map,
-                            position: results[0].geometry.location
-                        });
-                        
-                        // Set Lat and Long
-                        var latitude = results[0].geometry.location.lat();
-                        var longitude = results[0].geometry.location.lng();
-                        $('#event_latitude').val(latitude);
-                        $('#event_longitude').val(longitude);
-                    } 
-                });
-            } 
-        };
-
-
-        EventPostGoogleMap();
-
-    }
-
-
-
-
-
-
-
 
 
 
@@ -32943,8 +32850,8 @@ Acme.JobForm = function(blogId, layout) {
         "title", 
         "content", 
         "extendedData.company", 
-        "extendedData.location",
-        "extendedData.region"
+        "extendedData.location"
+        // "extendedData.region"
     ];
 
     this.init(blogId, layout);
@@ -32979,6 +32886,168 @@ Acme.PropertyForm = function(blogId, layout) {
 };
 Acme.PropertyForm.prototype = new ListingForm();
 Acme.PropertyForm.prototype.constructor=Acme.PropertyForm;
+
+
+
+
+
+
+
+
+
+
+Acme.EventForm = function(blogId) {
+        this.subscriptions = Acme.PubSub.subscribe({
+            'Acme.eventForm.listener' : ['state_changed', 'update_state']
+        });
+
+        this.errorFields = [];
+
+        this.compulsoryFields = [
+            "title", 
+            "content" 
+        ];
+
+        this.blogId = blogId;
+
+        this.data = {
+            'id': 0,
+            'blogs': this.blogId,
+            'media_ids': '',
+            'type': 'event'
+        };
+
+        this.events();
+        this.events2();
+    }
+    Acme.EventForm.prototype = new ListingForm();
+    Acme.EventForm.prototype.constructor=Acme.EventForm;
+    Acme.EventForm.prototype.listeners = 
+    {
+        "start_date" : function(data, topic) {
+            console.log('stateter dateer');
+            this.data.start_date = data['start_date'];
+        },
+        "end_date" : function(data, topic) {
+            this.data.end_date = data['end_date'];
+        },
+        "after" : function(data, topic) {
+            console.log(this.data);
+        }
+    };
+    Acme.EventForm.prototype.events2 = function() {
+
+        $('#start_date, #end_date').datetimepicker({
+            format: "DD-MM-YYYY h:mm A",
+            useCurrent: false,
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-angle-up",
+                down: "fa fa-angle-down"
+            },
+            tooltips: {selectTime: ''}
+        }).on('dp.change', function (e) {
+            var data = {};
+            data[e.target.id] = e.date.format('YYYY-MM-DD HH:mm');
+            if(data['start_date'] || data['end_date']) {
+                $('#end_date').data("DateTimePicker").minDate(e.date);
+                Acme.PubSub.publish("update_state", data);
+            }
+        });
+
+        // var EventPostGoogleMap = function () {
+        //     var marker, geocoder;
+        //     var elem = $('#addressMap');
+        //     var latitude = elem.data('latitude');
+        //     var longitude = elem.data('longitude');
+        //     var map;
+            
+        //     //google.maps.event.addDomListener(window, 'load', initMap);
+        //     function initMap() {
+        //         var mapLat;
+        //         var mapLong;
+        //         if (latitude !== '' && longitude !== '') {
+        //             mapLat = latitude;
+        //             mapLong = longitude;
+
+        //             geocoder = new google.maps.Geocoder();
+        //             map = new google.maps.Map(document.getElementById('addressMap'), {
+        //                 zoom: 10,
+        //                 center: {lat: mapLat, lng: mapLong}
+        //             });
+
+        //             //set current marker
+        //             if (latitude != '' && longitude != '') {
+        //                 updateMarker = new google.maps.Marker({
+        //                     position: new google.maps.LatLng(latitude, longitude),
+        //                     map: map
+        //                 });
+        //             }
+        //         } 
+        //         else {
+        //             //navigator.geolocation.getCurrentPosition(function (position) {});
+        //             geocoder = new google.maps.Geocoder();
+        //             map = new google.maps.Map(document.getElementById('addressMap'), {
+        //                 zoom: 1,
+        //                 center: {lat: 43.197167, lng: 56.425781}
+        //             });
+                    
+        //         }
+                
+        //         pointLocation(geocoder, map, marker);
+        //     }
+            
+        //     initMap();
+        // };
+
+        // var pointLocation = function (geocoder, map, marker) {
+        //     $('#address').on('change', function(e){
+        //         mapLocation();
+        //     });
+            
+        //     function mapLocation() {
+        //         var address = $('#address').val();
+
+        //         geocoder.geocode({address: address}, function (results, status) {
+                    
+        //             if (status === google.maps.GeocoderStatus.OK) {
+        //                 map.setCenter(results[0].geometry.location);
+        //                 map.setZoom(10);
+
+        //                 //clear the previous marker
+        //                 if (marker) {
+        //                     marker.setMap(null);
+        //                 }
+        //                 marker = new google.maps.Marker({
+        //                     map: map,
+        //                     position: results[0].geometry.location
+        //                 });
+                        
+        //                 // Set Lat and Long
+        //                 var latitude = results[0].geometry.location.lat();
+        //                 var longitude = results[0].geometry.location.lng();
+        //                 $('#event_latitude').val(latitude);
+        //                 $('#event_longitude').val(longitude);
+        //             } 
+        //         });
+        //     } 
+        // };
+
+        // EventPostGoogleMap();
+
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -33132,68 +33201,6 @@ $('document').ready(function() {
 
 
 
-    // var result = server.request("https://weather.pagemasters.com.au/weather", {'q':'melbourne'})
-    //     .done(function(r) {
-    //         console.log(r);
-    //         var weather = $('#weather');
-    //         var location = weather.find('.location');
-    //         var icon = weather.children('.icon');
-    //         var description = weather.find('.description');
-    //         var temperature = weather.children('.temp');
-
-    //         location.text(r.location.split('/')[1]);
-    //         description.text(r.description);
-    //         temperature.html(parseInt(r.temperature) + "&deg;");
-    //         console.log(location, icon, description, temperature);
-
-    //     });
-
-
-
-
-
-
-    function formatTo12hrTime(date) {
-      var hours = date.getHours();
-      var minutes = date.getMinutes();
-      var ampm = hours >= 12 ? 'pm' : 'am';
-      hours = hours % 12;
-      hours = hours ? hours : 12;
-      minutes = minutes < 10 ? '0'+minutes : minutes;
-      return hours + '.' + minutes + ampm;
-    }
-
-
-    function formatDate(date) {
-        var monthNames = [
-            "January", "February", "March",
-            "April", "May", "June", "July",
-            "August", "September", "October",
-            "November", "December"
-        ];
-
-        var dayNames = [
-            "Monday", "Tuesday", "Wednesday",
-            "Thursday", "Friday", "Saturday", "Sunday"
-        ];
-
-        var day = date.getDate();
-        var daystring = dayNames[date.getDay()];
-        var monthIndex = date.getMonth();
-        var year = date.getFullYear();
-        var time = formatTo12hrTime(date);
-        var output = [day, monthNames[monthIndex], year, time];
-        return output.join(' ');
-    }
-
-    // 4:32PM WEDNESDAY JULY 4, 2017
-    var date = new Date();
-        datetime = date.toISOString().substring(0, 16),
-        field = document.getElementById('screentime');
-        if (field) {
-            field.setAttribute('datetime', datetime);
-            field.innerHTML = formatDate(date);
-        }
 
 
     // var isMobile = function(){
@@ -33750,41 +33757,13 @@ $('[data-dismiss="alert"]').on('click', function(e) {
 
 (function ($) {
 
-    // console.log(window.Acme.templatePath);
-    // console.log(_appJsConfig);
 
-	var dropdown = function(date) {
-		return '<div class="weather-date">' + 
-    					'<h1>Weather</h1>' + 
-    					'<p>' + date + '</p>' + 
-    				'</div>' + 
-    				'<div id="weather-panels"><div id="panel-containter"></div></div>';
-	}
-
-    var localWeather = function(name, icon) {
-        return '<div id="' + name + '-weather" class="weather visible-sm-block visible-md-block visible-lg-block">' +
-                    '<img class="show-weather" src="' + _appJsConfig.templatePath + '/static/icons/weather/pointer-arrow-thin.svg">' + 
-                    '<div style="margin-right:15px;">' +
-                        '<p class="location" style="text-align:right;"></p>' + 
-                        '<p class="description"></p>' + 
-                    '</div>' + 
-                    '<div class="icon weather-' + icon + '"></div>' + 
-                    '<p class="temp"></p>' + 
-                '</div>';
-        }
-
-    var weatherPanel = function(name, icon) {
-    	return '<div id="' + name + '-weather" class="panel visible-sm-block visible-md-block visible-lg-block">' +
-                    '<div style="display: flex">' + 
-                        '<div class="icon weather-' + icon + '"></div>' + 
-                        '<p class="temp"></p>' + 
-                    '</div>' +
-                    '<p class="location"></p>' + 
-                    '<p class="description"></p>' +
-                '</div>';
-	    }
-
-    var getLocations = function(country) {
+    Acme.Locations = function(){
+        this.country = _appJsConfig.appHostName.split('.').reverse()[0];
+        this.data = this.getLocations(this.country);
+    };
+    Acme.Locations.prototype.getLocations = function(country) 
+    {
         switch (country) {
             case 'nz':
                 return [
@@ -33808,41 +33787,196 @@ $('[data-dismiss="alert"]').on('click', function(e) {
                     'Australia/Darwin',
                 ];
         }
-    }
+    };
 
-    var country = _appJsConfig.appHostName.split('.').reverse()[0];
-    var locations = getLocations(country)
-
-    Acme.server.fetch('https://weather.pagemasters.com.au/weather?q=' + locations[0])
-        .done(function(res) {
-            var local = res.data[0];
-            var name = local.location.split('/')[1];
-
-            $('#weather').html(localWeather(name + '-local', local.icon));
-            $('#' + name + '-local-weather > div > p.location').text(name);
-            $('#' + name + '-local-weather > div > p.description').text(local.description);
-            $('#' + name + '-local-weather > p.temp').html(Math.round(local.temperature) + '&#176;');
+    
 
 
-            $('.show-weather').on("click", function () {
-                
-                Acme.server.fetch('https://weather.pagemasters.com.au/weather?q=' + locations.join(','))
-                    .done(function(res) {
-                        $('.show-weather').toggleClass('flip');
 
-                        $('.weather-dropdown').toggleClass('hidden')
-                                              .html(dropdown(local.date));
-
-                        res.data.forEach(function(l) {
-                            var name = l.location.split('/')[1];
-
-                            $('#panel-containter').append(weatherPanel(name, l.icon));
-
-                            $('#' + name + '-weather > .location').text(name);
-                            $('#' + name + '-weather > .description').text(l.description);
-                            $('#' + name + '-weather > div > p.temp').html(Math.round(l.temperature) + '&#176;');
-                        });
-                });
+    Acme.Weather = function()
+    {
+        this.subscriptions = Acme.PubSub.subscribe({
+            'Acme.weather_model.listener' : ["update_state"]
+        });
+        this.listeners = {
+            "localweather" : function(data) {
+                return this.fetch(data['weather'], 'localweather');
+            },
+            "nationalweather" : function(data) {
+                return this.fetch(data['nationalweather'], 'nationalweather');
+            }
+        };
+    };
+    Acme.Weather.prototype = new Acme._Model();
+    Acme.Weather.constructor = Acme.Weather;
+    Acme.Weather.prototype.fetch = function(location, view)
+    {
+        var self = this;
+        Acme.server.fetch('https://weather.pagemasters.com.au/weather?q=' + location)
+            .done(function(r) {
+                self.data = r.data;
+                var publishData = {};
+                publishData[view] = self;
+                Acme.PubSub.publish("state_changed", publishData);
+            }).fail(function(r) {
+                console.log(r);
             });
-    });
+    };
+
+
+
+
+
+
+
+    Acme.WeatherHeader_View_Class = function()
+    {
+        this.subscriptions = Acme.PubSub.subscribe({
+            'Acme.weather_view.listener' : ["state_changed"]
+        });
+        this.listeners = {
+            "localweather" : function(data) {
+                this.localdata = data.localweather.data;
+                return this.renderLocal();
+            },
+            "nationalweather" : function(data) {
+                this.nationaldata = data.nationalweather.data;
+                return this.renderNational();
+            }
+
+        };
+    };
+    Acme.WeatherHeader_View_Class.prototype = new Acme._View();
+    Acme.WeatherHeader_View_Class.constructor = Acme.WeatherHeader_View;
+
+
+    // inherit from WeatherHeader_View_Class
+    Acme.WeatherHeader_View = function(config)
+    {
+        this.container = config.container || null;
+        this.locations = config.locations || null;
+        this.templates = {
+            "dropdown" : 
+                '<div class="weather-date">' + 
+                    '<h1>Weather</h1>' + 
+                    '<p>{{date}}</p>' + 
+                '</div>' + 
+                '<div id="weather-panels"><div id="panel-containter"></div></div>'
+            ,
+            "localWeather" : 
+                '<div id="{{name}}-weather" class="weather visible-sm-block visible-md-block visible-lg-block">' +
+                    '<img class="show-weather" src="' + _appJsConfig.templatePath + '/static/icons/weather/pointer-arrow-thin.svg">' + 
+                    '<div style="margin-right:15px;">' +
+                        '<p class="location" style="text-align:right;">{{location}}</p>' + 
+                        '<p class="description">{{description}}</p>' + 
+                    '</div>' + 
+                    '<div class="icon weather-{{icon}}"></div>' + 
+                    '<p class="temp">{{temp}}&#176;</p>' + 
+                '</div>'
+            ,
+            "weatherPanel" : 
+                '<div id="{{name}}-weather" class="panel visible-sm-block visible-md-block visible-lg-block">' +
+                    '<div style="display: flex">' + 
+                        '<div class="icon weather-{{icon}}"></div>' + 
+                        '<p class="temp">{{temp}}&#176;</p>' + 
+                    '</div>' +
+                    '<p class="location">{{location}}</p>' + 
+                    '<p class="description">{{description}}</p>' +
+                '</div>'
+        };
+
+        this.events();
+    };
+    Acme.WeatherHeader_View.prototype = new Acme.WeatherHeader_View_Class();
+    Acme.WeatherHeader_View.constructor = Acme.WeatherHeader_View;
+
+    Acme.WeatherHeader_View.prototype.renderLocal = function()
+    {
+        var local = this.localdata[0];
+        var name = local.location.split('/')[1];
+        var weatherTmp = Handlebars.compile(this.templates.localWeather); 
+        this.container.html(
+            weatherTmp( {
+                "name": name + '-local', 
+                "icon": local.icon,
+                "location": name,
+                "description" : local.description,
+                "temp" : Math.round(local.temperature)
+            }
+        ));
+    };
+    Acme.WeatherHeader_View.prototype.renderNational = function()
+    {
+        var local = this.localdata[0];
+        var national = this.nationaldata;
+        var dropdown = Handlebars.compile(this.templates.dropdown); 
+        var weatherPanel = Handlebars.compile(this.templates.weatherPanel); 
+
+        $('.show-weather').toggleClass('flip');
+        $('.weather-dropdown').toggleClass('hidden')
+                              .html(dropdown({'date': local.date}));
+        
+        national.forEach(function(l) {
+            var name = l.location.split('/')[1];
+            $('#panel-containter').append(
+                weatherPanel({
+                    "name" : name,
+                    "icon": l.icon,
+                    "location": name,
+                    "description" : l.description,
+                    "temp" : Math.round(l.temperature)
+                }
+            ));
+        });
+    };
+    Acme.WeatherHeader_View.prototype.events = function()
+    {
+        var self = this;
+        this.container.on("click", function (e) {
+            Acme.PubSub.publish("update_state", {"nationalweather": self.locations.data.join(',')})
+        });
+    };
+
+
+
+
+    Acme.WeatherScreen_View = function(config)
+    {
+        this.container = config.container || null;
+        this.locations = config.locations || null;
+
+        this.subscriptions = Acme.PubSub.subscribe({
+            'Acme.weather_view.listener' : ["state_changed"]
+        });
+        this.listeners = {
+            "localweather" : function(data) {
+                this.localdata = data.localweather.data;
+                return this.render();
+            }
+        };
+        this.template = '<div id="location" class="location"> \
+                            <p id="city" class="city">{{city}}</p> \
+                            <p id="country" class="country">{{country}}</p> \
+                        </div> \
+                        <div id="temp" class="temp">{{temp}}&deg;</div>';
+    };
+
+    Acme.WeatherScreen_View.prototype = new Acme._View();
+    Acme.WeatherScreen_View.constructor = Acme.WeatherScreen_View_Class;
+
+    Acme.WeatherScreen_View.prototype.render = function()
+    {
+        var local = this.localdata[0];
+        var name = local.location.split('/')[1];
+        var weatherTmp = Handlebars.compile(this.template); 
+        this.container.html(
+            weatherTmp( {
+                "city": name,
+                "country" : local.description,
+                "temp" : Math.round(local.temperature)
+            }
+        ));
+    };
+
+
 }(jQuery));

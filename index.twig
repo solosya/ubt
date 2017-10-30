@@ -2,12 +2,19 @@
 {% set networkData = _Network.getNetworkData() %}
 
 
-
-
 {{this.registerJs("CardController();")}}
 
 {% set templatePath = "window.Acme.templatePath = '" ~ networkData.templatePath ~ "';" %}
 {{this.registerJs( templatePath )}}
+
+{% set weatherJs = 
+    " var locations = new Acme.Locations();
+      Acme.weather_model = new Acme.Weather();
+      Acme.weather_model.fetch(locations.data[0], 'localweather');
+      Acme.weather_view = new Acme.WeatherHeader_View({'container': $('#weather'), locations: locations});" %}
+
+{{this.registerJs( weatherJs )}}
+
 
 {% set limit = 15 %}
 
