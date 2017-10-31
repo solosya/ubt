@@ -12,12 +12,12 @@
 {% set layout        = blogData.layout %}
 
 {% set showPaywall = false %}
-{#  {% if blogName != "Subscribe" and blogData['showPaywall'] == "Yes" %}
+ {% if blogName != "Subscribe" and blogData['showPaywall'] == "Yes" %}
     {% set showPaywall = true %}
     {% set layout = "layout-marketing" %}
  {% endif %}
 
- #}
+
 {{ this.beginPage() }}
 <head>
     <meta charset="UTF-8">
@@ -74,6 +74,7 @@
             {# <link rel="stylesheet" href="{{networkData.templatePath}}/static/css/contentbox-breakup.css?rel=1495603036977" type="text/css" media="all" /> #}
     {% endif %}
 
+    <script src="https://js.stripe.com/v3/"></script>
 
 
     <script src="https://use.typekit.net/kfi3xyc.js"></script>

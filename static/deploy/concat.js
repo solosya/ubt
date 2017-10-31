@@ -33468,6 +33468,7 @@ var signin = new Acme.Signin('modal', '#signin', layouts);
 
 
 $('#header_login_link').on('click', function() {
+    console.log('clicked signing');
     signin.render("signin", "Sign in");
 });
 
@@ -33482,6 +33483,68 @@ $('a.register').on('click', function(e) {
 
 
 }(jQuery));
+// Create a Stripe client
+var stripe = Stripe('pk_test_PQ8vHp9l2CoamIVgHPjxhISM');
+
+// Create an instance of Elements
+var elements = stripe.elements();
+
+// Custom styling can be passed to options when creating an Element.
+// (Note that this demo uses a wider set of styles than the guide below.)
+var style = {
+  base: {
+    color: '#32325d',
+    lineHeight: '24px',
+    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+    fontSmoothing: 'antialiased',
+    fontSize: '16px',
+    '::placeholder': {
+      color: '#aab7c4'
+    }
+  },
+  invalid: {
+    color: '#fa755a',
+    iconColor: '#fa755a'
+  }
+};
+
+// Create an instance of the card Element
+var card = elements.create('card', {style: style});
+
+// Add an instance of the card Element into the `card-element` <div>
+card.mount('#card-element');
+
+// Handle real-time validation errors from the card Element.
+card.addEventListener('change', function(event) {
+  var displayError = document.getElementById('card-errors');
+  if (event.error) {
+    displayError.textContent = event.error.message;
+  } else {
+    displayError.textContent = '';
+  }
+});
+
+// Handle form submission
+var form = document.getElementById('payment-form');
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+  console.log("hrere?");
+  stripe.createToken(card).then(function(result) {
+    if (result.error) {
+      // Inform the user if there was an error
+      var errorElement = document.getElementById('card-errors');
+      errorElement.textContent = result.error.message;
+    } else {
+      // Send the token to your server
+      stripeTokenHandler(result.token);
+    }
+  });
+});
+
+
+var stripeTokenHandler = function(token) {
+  console.log(token)
+}
 var UserArticlesController = (function ($) {
     return {
         load: function () {
@@ -33651,6 +33714,9 @@ $('[data-dismiss="alert"]').on('click', function(e) {
 
 (function ($) {
 
+    // console.log(window.Acme.templatePath);
+    // console.log(_appJsConfig);
+
 	var dropdown = function(date) {
 		return '<div class="weather-date">' + 
 					'<h1>Weather</h1>' + 
@@ -33660,21 +33726,21 @@ $('[data-dismiss="alert"]').on('click', function(e) {
 	}
 
     var localWeather = function(name, icon) {
-        return '<div id="' + name + '-weather" class="weather visible-md-block visible-lg-block">' +
-                    '<img class="show-weather" src="' + window.Acme.templatePath + '/static/icons/weather/pointer-arrow-thin.svg">' + 
+        return '<div id="' + name + '-weather" class="weather visible-sm-block visible-md-block visible-lg-block">' +
+                    '<img class="show-weather" src="' + _appJsConfig.templatePath + '/static/icons/weather/pointer-arrow-thin.svg">' + 
                     '<div style="margin-right:15px;">' +
                         '<p class="location" style="text-align:right;"></p>' + 
                         '<p class="description"></p>' + 
                     '</div>' + 
-                    '<img class="icon" src="' + window.Acme.templatePath + '/static/icons/weather/' + icon + '.svg">' + 
+                    '<img class="icon" src="' + _appJsConfig.templatePath + '/static/icons/weather/' + icon + '.svg">' + 
                     '<p class="temp"></p>' + 
                 '</div>';
         }
 
     var weatherPanel = function(name, icon) {
-    	return '<div id="' + name + '-weather" class="panel visible-md-block visible-lg-block">' +
+    	return '<div id="' + name + '-weather" class="panel visible-sm-block visible-md-block visible-lg-block">' +
                     '<div style="display: flex">' + 
-                        '<img class="icon" src="' + window.Acme.templatePath + '/static/icons/weather/' + icon + '.svg">' + 
+                        '<img class="icon" src="' + _appJsConfig.templatePath + '/static/icons/weather/' + icon + '.svg">' + 
                         '<p class="temp"></p>' + 
                     '</div>' +
                     '<p class="location"></p>' + 
@@ -33718,7 +33784,7 @@ $('[data-dismiss="alert"]').on('click', function(e) {
         success: function(res) {
             var local = res.data[0];
             var name = local.location.split('/')[1];
-
+            console.log('success');
             $('#weather').html(localWeather(name + '-local', local.icon));
             $('#' + name + '-local-weather > div > p.location').text(name);
             $('#' + name + '-local-weather > div > p.description').text(local.description);
