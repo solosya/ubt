@@ -22,12 +22,11 @@
             type = (typeof type !== 'undefined') ? type : 'get';
 
             queryParams = (typeof queryParams !== 'undefined') ? queryParams : {};
+            
+            var url = (uri.indexOf("http") === 0) ? uri : _appJsConfig.appHostName + uri;
 
-            // console.log(type + ': ' + window.location.origin + '/api/' + uri);
-            // if (Object.keys(queryParams).length > 0 ) console.log(queryParams);
-            console.log(_appJsConfig.appHostName + uri, queryParams);
             return $.ajax({
-                url: _appJsConfig.appHostName + uri,
+                url: url,
                 data: queryParams,
                 dataType: datatype || "json",
                 type: type
@@ -55,10 +54,11 @@
     Acme.listen.prototype.listener = function(topic, data)
     {
         var keys = Object.keys(data);
-
+        console.log(this);
+        console.log(topic, data);
         for (var i = 0; i<keys.length; i++) {
             for (var listener in this.listeners) {
-
+                console.log(keys[i], listener);
                 if ( listener === keys[i] ) {
                     this.listeners[listener].call(this, data, topic);
                     if (this.listeners.after) {
@@ -315,9 +315,12 @@
                         if (scope == undefined) return;
                     }
 
-                    scope[scopeSplit[scopeSplit.length - 1]][subscribers[i].func]( topic, data );
-                    // console.log(scope);
-
+                    var caller = scope[scopeSplit[scopeSplit.length - 1]];
+                    var func   = subscribers[i].func;
+                    console.log(topic, data);
+                    if (caller) {
+                        caller[func]( topic, data );
+                    }
                 }
                 dfd.resolve();
             };

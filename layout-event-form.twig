@@ -1,17 +1,16 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
 {{this.registerJs("window.Acme.cards = CardController();")}}
-{# {{this.registerJs("window.Acme.listing = ListingController();")}} #}
 
 {% set networkData = _Network.getNetworkData() %}
 {% set blogData    = _Blog.getBlog() %}
-{% set jobsBlogId  = blogData['id'] %}
+{% set jobsBlogId = blogData.additionalInfo['publishto'] %}
 
 {% set limit = 10 %}
 
 {% set user = false %}
 
 {{this.registerJs("Acme.eventForm = new Acme.EventForm(["~jobsBlogId~"]);")}}
-{{this.registerJsFile("https://maps.googleapis.com/maps/api/js?key=AIzaSyCRILYoQMiSjf_1Q_DhL199ha5w410AOLU")}}
+{# {{this.registerJsFile("https://maps.googleapis.com/maps/api/js?key=AIzaSyCRILYoQMiSjf_1Q_DhL199ha5w410AOLU")}} #}
 
 
 
@@ -30,11 +29,11 @@
 
 
 
-    <main id="main" class="container-fluid site-main listingForm" role="main">
+    <main id="main" class="container site-main eventForm" role="main">
         
         <section class="row section">
-            <div class="col-sm-10 section-header">
-                <h2>{{blogData.title}}</h2>
+            <div class="col-md-7 section-header">
+                <h2>{{this.title}}</h2>
                 <p class="description">
                     {{blogData.shortDescription}}
                 </p>
@@ -44,80 +43,75 @@
 
         <section class="row">
 
-            <div class="col-md-7">
+            <div class="col-sm-9 col-md-8">
 
 
                 <form class="" method="post" action="#" id="listingForm">
                     <input type="text" class="articleExtendedData" name="title" id="title" value="" placeholder="Name of event">
-                    <input type="text" class="articleExtendedData" name="start_date" id="eventStart" value="" placeholder="Start date">
-                    <input type="text" class="articleExtendedData" name="end_date" id="eventEnd" value="" placeholder="End date">
-                    <input type="hidden" class="articleExtendedData" name="event_latitude" id="event_latitude" value="" placeholder="">
-                    <input type="hidden" class="articleExtendedData" name="event_longitude" id="event_longitude" value="" placeholder="">
-                    
-                    
-                    <p class="form-section-label">Location</p>
-
-{#                     <fieldset>
-                        <div class="inline">
-                            <input type="radio" name="extendedData.salary" id="map1" class="articleExtendedData" value="1" checked="checked" />
-                            <label for="map1">Show map</label>
-                        </div>
-                        <div class="inline">
-                            <input type="radio" name="extendedData.salary" id="map2" class="articleExtendedData" value="2" />
-                            <label for="map2">Hide map</label>
-                        </div>
-
-                    </fieldset>
- #}                    
-                    <input type="text" class="articleExtendedData" name="address" id="address" value="" placeholder="Address">
                     
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-sm-3 large-split">
+                            <input type="text" class="articleExtendedData  eventStart" name="start_date" id="start_date" value="" placeholder="Start date">
+                        </div>
+                        <div class="col-sm-3 large-split">
+                            <input type="text" class="articleExtendedData  eventEnd" name="end_date" id="end_date" value="" placeholder="End date">
+                        </div>
+                    </div>
+                   
+                    <input type="text" class="articleExtendedData" name="address1" id="address1" value="" placeholder="Address line 1">
+                    
+                    <div class="row">
+                        <div class="col-sm-3 large-split">
+                            <input type="text" class="articleExtendedData" name="suburb" id="suburb" value="" placeholder="Suburb">
+                        </div>
+                        <div class="col-sm-3 large-split">
+                            <input type="text" class="articleExtendedData" name="state" id="state" value="" placeholder="State">
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-3 large-split">
+                            <input type="text" class="articleExtendedData" name="contact_name" id="contact_name" value="" placeholder="Contact name">
+                        </div>
+                        <div class="col-sm-3 large-split">
+                            <input type="text" class="articleExtendedData" name="contact_number" id="contact_number" value="" placeholder="Contact number">
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-8">
                             <textarea name="content" id="content"></textarea>
                         </div>
-                        <div class="col-md-3">
-                            <div data-imgcls="images" data-id="imageArray" class="uploadFileBtn property">
+
+
+                        <div class="col-sm-4">
+                            <div id="uploadFileBtn" data-imgcls="images" data-id="imageArray" class="uploadFileBtn">
                                 <div class="innerImgBtn">
-                                    <img src="{{networkData.templatePath}}/static/icons/upload-img.svg">
-                                    <p>Upload images</p>
+                                    <div id="InnerUploadFileBtn" class="vertical">
+                                        <img src="{{networkData.templatePath}}/static/icons/upload-img.svg">
+                                        <p>Upload images</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-sm-9">
 
                             <div id="imageArray" data-media="" class="imagearray"></div>
                     
 
-                            <div id="addressMap" data-latitude="" data-longitude="" style="width:100%;min-height:350px;background:rgba(0,0,0,.3)"></div>
-
-
-                            <button class="_btn" type="submit" id="listingFormSubmit">SUBMIT</button>
-                            <button class="_btn" type="reset" id="listingFormClear">CLEAR</button>
+                            <button class="_btn submit" type="submit" id="listingFormSubmit">SUBMIT</button>
+                            <button class="_btn submit" type="reset" id="listingFormClear">CLEAR</button>
                         </div>
                     </div>
                 </form>
 
 
             </div>
-{#             <div  id="userListings" class="col-sm-offset-1 col-md-4">
-
-                {% for article in userArticlesArr %}
-
-                    {{this.render('partials/_single-article.twig', {
-                        article: article, 
-                        position: loop.index,
-                        behaviour: 'noclick',
-                        imageSize: {width: 150, height: 120},
-                        template: 'listing',
-                        containerClass: "card-article-suggested listingCard"
-                    }) | raw}}
-
-                {% endfor %}
-            </div>
- #}
 
         </section>
 

@@ -5,7 +5,7 @@
 {% set jobsBlogId = blogData.additionalInfo['publishto'] %}
 
 {{this.registerJs("window.Acme.cards = CardController();")}}
-{{this.registerJs("Acme.jobForm = new Acme.JobForm(["~jobsBlogId~"], 'Job Page');")}}
+{{this.registerJs("Acme.jobForm = new Acme.JobForm(["~jobsBlogId~"], 'Single Job Listing');")}}
 {{this.registerJs("Acme.listingView.init("~jobsBlogId~");")}}
 {{this.registerJs("Acme.listingCollection = new Acme.listingCollectionClass('listingCollection', "~jobsBlogId~");")}}
 
@@ -100,7 +100,7 @@
                             </fieldset>
                             <input type="text" class="articleExtendedData" name="extendedData.salaryrange" id="salaryrange" value="" placeholder="Salary range">
                             
-                            <textarea name="content" class="job-description" id="content"  placeholder="Description"></textarea>
+                            <textarea name="content" class="job-description" id="content" placeholder="Description*"></textarea>
                             <div id="imageArray" data-media="" class="imagearray"></div>
 
                             <button class="_btn" type="submit" id="listingFormSubmit">SUBMIT</button>

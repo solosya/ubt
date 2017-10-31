@@ -1,0 +1,87 @@
+{{ set(this, 'title', _Blog.getBlogTitle()) }}
+{% set networkData = _Network.getNetworkData() %}
+{% set blogData    = _Blog.getBlog() %}
+
+
+
+{{this.registerJs("window.Acme.cards = CardController();")}}
+
+
+
+{# {{this.registerJs("ListingController();")}} #}
+
+{% set limit = 10 %}
+
+{% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
+{% set articles = articlesArr.articles %}
+
+{# {% set articles = _Event.getEvents() %} #}
+{# <pre>
+    {{dump(articles)}}
+</pre>
+ #}
+<!-- used to index each article as we loop over throughout the template -->
+{% set articleCount = 0 %}
+{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
+
+
+
+    <main id="main" class="container-fluid site-main" role="main">
+        
+
+
+
+        <section class="row section">
+
+            <div class="col-sm-offset-1 col-sm-10 section-header">
+                <h2>{{this.title}}</h2>
+
+                <p class="description">
+                    {{blogData.shortDescription}}
+                </p>
+            </div>
+            
+        </section>
+
+
+        <section class="row">
+
+            <div class="col-sm-offset-1 col-sm-6">
+
+                <div id="sports-results">
+                    {% for i in 0..6 if articles[articleCount] %}
+                        {{this.render('partials/_single-article.twig', {
+                            article: articles[articleCount], 
+                            position: (articleCount+1),
+                            imageSuppress: true,
+                            imageSize: {width: 173, height: 144},
+                            containerClass: 'card-rec-sport card-rec-sport-tablet card-rec-sport-mobile'
+                        }) | raw}}
+                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                    {% endfor %}
+                </div>
+
+
+                {{ this.render('partials/ajaxarticles.twig', {
+                    limit: limit, 
+                    non_pinned: articlesArr.existingNonPinnedCount, 
+                    articles: articles,
+                    rendertype: "write",
+                    card_style: "col-sm-12 card-rec-sport card-rec-sport-tablet card-rec-sport-mobile",
+                    container:"mainAjaxArticles"
+                }) | raw }}
+
+
+            </div>
+
+            <div class="col-sm-offset-1 col-sm-3">
+                <div class="visible-md-block visible-lg-block">
+                    <img src="{{networkData.templatePath}}/static/images/ads/300x600.jpg">
+                </div>
+            </div>
+        </section>
+
+
+
+
+    </main><!-- .site-main -->

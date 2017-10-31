@@ -231,6 +231,30 @@ h4.modal-title {
     }
 }
 
+div[class*="col-sm"] {
+    @media screen and (min-width: 500px) and (max-width: 767px) {
+        &.split {
+            width:50%;
+            float:left;
+        }
+        &.clearfixed {
+            clear:both;
+        }
+    }
+}
+
+div[class*="col-sm"] {
+    @media screen and (min-width: 500px) {
+
+        &.large-split {
+            width:50%;
+            float:left;
+        }
+        &.clearfixed {
+            clear:both;
+        }
+    }
+}
 
 @keyframes spinner {
   to {transform: rotate(360deg);}

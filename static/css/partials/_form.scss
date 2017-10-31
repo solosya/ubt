@@ -1,4 +1,4 @@
-main.listingForm {
+main.listingForm, main.eventForm {
     div.center {
         height:100%;
         
@@ -148,7 +148,7 @@ main.listingForm {
         }
 
         textarea {
-            width: 541px;
+            width: 100%;
             height: 174px;
             border: 1px solid color(lightergrey);
             border-radius:6px;
