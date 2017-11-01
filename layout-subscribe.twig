@@ -11,12 +11,12 @@
 		{% set plan = plans[p-1] %}
 	{% endif %}
 {% endfor %}
-<pre>
+{# <pre>
 	{{dump(plan)}}
 </pre>
-
+ #}
 <main id="main" class="site-main listingForm" role="main">
-	<div id="stripekey" >{{networkData['stripe_publishable_key']}}</div>
+	<div id="stripekey" class="hidden" >{{networkData['stripe_publishable_key']}}</div>
 	<div class="container-fluid">
 
 		<section class="row">
@@ -99,10 +99,6 @@
 		                <input type="text" class="articleExtendedData" name="expiry" id="expiry" value="" placeholder="Expiry date">
 		                <input type="text" class="articleExtendedData" name="ccv" id="ccv" value="" placeholder="ccv">
  #}		                
-
-
-
-
 {# 			            <button class="_btn" type="submit" id="listingFormSubmit">SUBSCRIBE</button>
 		                <button class="_btn" type="reset"  id="listingFormClear">CLEAR</button>
  #}				    

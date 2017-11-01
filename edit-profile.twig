@@ -6,6 +6,7 @@
 {% set jobListingsArr = [] %}
 {% set realEstateArr = [] %}
 {% set eventsArr = [] %}
+{% set pwstats = _User.getPaywallStats() %}
 
 {# {% if user %} 
     {% set jobListingsArr = _User.getUserArticles(user.guid, 0, 1000, [117]) %}
@@ -81,6 +82,16 @@
                             </form>
                         </div>
                     </div>
+
+                    <div class="profile-section with-border">
+                        <div class="section-heading">
+                            <p>Subscription Details</p>
+                        </div>
+    {{dump(pwstats)}}
+
+
+                    </div>
+
 
                     <div class="profile-section">
                         <div class="section-heading">
