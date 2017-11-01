@@ -76,6 +76,10 @@
                 margin-left:40px;
                 vertical-align: middle;
 
+                &:hover {
+                    cursor: pointer;
+                }
+
                 &.glass {
                     margin-left:20px;
                 }

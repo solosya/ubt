@@ -89,7 +89,7 @@
     .section-title {
         >h1 {
             font-family: $font-family-serif;
-            font-size: rem(50);
+            font-size: rem(40);
             text-align:center;
             font-weight:700;
             @media screen and (max-width: $mmd-break) {
@@ -179,7 +179,7 @@
             h1 {
                 line-height: 0.88;
                 font-family: $font-family-serif;
-                font-size: rem(82);
+                font-size: rem(64);
                 font-weight:700;
                 color:white;
                 margin-bottom:25px;
