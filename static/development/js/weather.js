@@ -9,6 +9,7 @@
     {
         switch (country) {
             case 'nz':
+                Acme.State.Country = 'NZ';
                 return [
                     'NZ/Auckland',
                     'NZ/Wellington',
@@ -19,6 +20,7 @@
                 ];
                 break;
             default:
+                Acme.State.Country = 'Australia';
                 return [
                     'Australia/Sydney',
                     'Australia/Melbourne',
@@ -47,6 +49,9 @@
             },
             "nationalweather" : function(data) {
                 return this.fetch(data['nationalweather'], 'nationalweather');
+            },
+            "city": function(data) {
+                Acme.State.City = data.city;
             }
         };
     };
@@ -55,6 +60,7 @@
     Acme.Weather.prototype.fetch = function(location, view)
     {
         var self = this;
+        console.log(location);
         Acme.server.fetch('https://weather.pagemasters.com.au/weather?q=' + location)
             .done(function(r) {
                 self.data = r.data;
@@ -85,8 +91,7 @@
             "nationalweather" : function(data) {
                 this.nationaldata = data.nationalweather.data;
                 return this.renderNational();
-            }
-
+            },
         };
     };
     Acme.WeatherHeader_View_Class.prototype = new Acme._View();
@@ -103,6 +108,7 @@
                 '<div class="weather-date">' + 
                     '<h1>Weather</h1>' + 
                     '<p>{{date}}</p>' + 
+                    '<i id="default_weather">Set default city</i>' +
                 '</div>' + 
                 '<div id="weather-panels"><div id="panel-containter"></div></div>'
             ,
@@ -150,6 +156,7 @@
     };
     Acme.WeatherHeader_View.prototype.renderNational = function()
     {
+        var self = this;
         var local = this.localdata[0];
         var national = this.nationaldata;
         var dropdown = Handlebars.compile(this.templates.dropdown); 
@@ -171,6 +178,21 @@
                 }
             ));
         });
+
+        $('#default_weather').on('click', function(e) {
+
+            Acme.SigninView.render("default_weather", "Set default city");
+
+            Acme.WeatherSelector = new Acme.listMenu({
+                        'parent'        : $('#weather-dropdown'),
+                        'list'          : self.locations.data.map(function(l) {
+                            return l.split('/')[1];
+                        }),
+                        'defaultSelect' : {"label": 'Select default city'},
+                        'name'          : 'city',
+                        'key'           : 'city'
+            }).init().render();            
+        });           
     };
     Acme.WeatherHeader_View.prototype.events = function()
     {

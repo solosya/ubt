@@ -82,6 +82,14 @@ Acme.Signin.prototype.handle = function(e) {
             }).fail(function(r) { console.log(r);});
         }
 
+        if ($elem.hasClass('default-weather')) {
+            localStorage.setItem('city', Acme.State.City);
+            function close() {
+                self.closeWindow();
+            };
+            setTimeout(close, 2000);            
+        }        
+
     }
     if ($elem.hasClass('layout')) {
         var layout = $elem.data('layout');
@@ -93,23 +101,21 @@ var layouts = {
     "signin"   : 'signinFormTmpl',
     "register" : 'registerTmpl',
     "forgot"   : 'forgotFormTmpl',
-    "expired"  : 'expiredNotice'
+    "expired"  : 'expiredNotice',
+    "default_weather" : 'defaultWeatherTmpl',
 }
-var signin = new Acme.Signin('modal', '#signin', layouts);
-
+Acme.SigninView = new Acme.Signin('modal', '#signin', layouts);
 
 
 $('#header_login_link').on('click', function() {
     console.log('clicked signing');
-    signin.render("signin", "Sign in");
+    Acme.SigninView.render("signin", "Sign in");
 });
 
 $('a.register').on('click', function(e) {
     e.preventDefault();
-    signin.render("register", "Register your interest");
+    Acme.SigninView.render("register", "Register your interest");
 });
-
-
 
 
 
