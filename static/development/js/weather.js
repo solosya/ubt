@@ -45,7 +45,7 @@
         });
         this.listeners = {
             "localweather" : function(data) {
-                return this.fetch(data['weather'], 'localweather');
+                return this.fetch(data['localweather'], 'localweather');
             },
             "nationalweather" : function(data) {
                 return this.fetch(data['nationalweather'], 'nationalweather');
@@ -60,7 +60,6 @@
     Acme.Weather.prototype.fetch = function(location, view)
     {
         var self = this;
-        console.log(location);
         Acme.server.fetch('https://weather.pagemasters.com.au/weather?q=' + location)
             .done(function(r) {
                 self.data = r.data;

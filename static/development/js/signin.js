@@ -83,11 +83,16 @@ Acme.Signin.prototype.handle = function(e) {
         }
 
         if ($elem.hasClass('default-weather')) {
-            localStorage.setItem('city', Acme.State.City);
+            var newDefault = Acme.State.Country + '/' + Acme.State.City;
+
+            localStorage.setItem('city', newDefault);
             function close() {
+
+                Acme.PubSub.publish("update_state", {'localweather': newDefault });                
+
                 self.closeWindow();
             };
-            setTimeout(close, 2000);            
+            setTimeout(close, 500);            
         }        
 
     }

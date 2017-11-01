@@ -33567,11 +33567,16 @@ Acme.Signin.prototype.handle = function(e) {
         }
 
         if ($elem.hasClass('default-weather')) {
-            localStorage.setItem('city', Acme.State.City);
+            var newDefault = Acme.State.Country + '/' + Acme.State.City;
+
+            localStorage.setItem('city', newDefault);
             function close() {
+
+                Acme.PubSub.publish("update_state", {'localweather': newDefault });                
+
                 self.closeWindow();
             };
-            setTimeout(close, 2000);            
+            setTimeout(close, 500);            
         }        
 
     }
@@ -33819,7 +33824,7 @@ $('[data-dismiss="alert"]').on('click', function(e) {
         });
         this.listeners = {
             "localweather" : function(data) {
-                return this.fetch(data['weather'], 'localweather');
+                return this.fetch(data['localweather'], 'localweather');
             },
             "nationalweather" : function(data) {
                 return this.fetch(data['nationalweather'], 'nationalweather');
@@ -33834,10 +33839,6 @@ $('[data-dismiss="alert"]').on('click', function(e) {
     Acme.Weather.prototype.fetch = function(location, view)
     {
         var self = this;
-        console.log('######################################################################');
-        console.log(location);
-        console.log(this);
-        console.log('######################################################################');
         Acme.server.fetch('https://weather.pagemasters.com.au/weather?q=' + location)
             .done(function(r) {
                 self.data = r.data;
