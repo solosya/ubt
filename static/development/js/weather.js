@@ -45,7 +45,9 @@
         });
         this.listeners = {
             "localweather" : function(data) {
-                return this.fetch(data['localweather'], 'localweather');
+                if (data['localweather']) {
+                    return this.fetch(data['localweather'], 'localweather');
+                }
             },
             "nationalweather" : function(data) {
                 return this.fetch(data['nationalweather'], 'nationalweather');
