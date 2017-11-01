@@ -70,7 +70,17 @@ window.templates.forgotFormTmpl =
         <button id="forgotBtn" type="submit" class="_btn forgot">SEND EMAIL</button> \
     </form>';
 
-
+window.templates.defaultWeatherTmpl = 
+'<form name="registerForm" id="registerForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
+    \
+    <div id="weather-dropdown"></div>\
+    \
+    <div class="message active hide"> \
+        <div class="account-modal__error_text">Done!</div> \
+    </div> \
+    \
+    <button id="signinBtn" type="submit" class="_btn default-weather">Set as Default</button> \
+</form>';
 
 var cardTemplateTop = 
 '<div class="{{containerClass}} "> \

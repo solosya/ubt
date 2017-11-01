@@ -3,6 +3,7 @@
     Acme.View         = {};
     Acme.Model        = {};
     Acme.Collection   = {};
+    Acme.State        = {};
 
     $('html').on('click', function(e) {
         $('.pulldown ul').hide();

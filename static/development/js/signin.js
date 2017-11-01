@@ -82,6 +82,19 @@ Acme.Signin.prototype.handle = function(e) {
             }).fail(function(r) { console.log(r);});
         }
 
+        if ($elem.hasClass('default-weather')) {
+            var newDefault = Acme.State.Country + '/' + Acme.State.City;
+
+            localStorage.setItem('city', newDefault);
+            function close() {
+
+                Acme.PubSub.publish("update_state", {'localweather': newDefault });                
+
+                self.closeWindow();
+            };
+            setTimeout(close, 500);            
+        }        
+
     }
     if ($elem.hasClass('layout')) {
         var layout = $elem.data('layout');
@@ -93,23 +106,21 @@ var layouts = {
     "signin"   : 'signinFormTmpl',
     "register" : 'registerTmpl',
     "forgot"   : 'forgotFormTmpl',
-    "expired"  : 'expiredNotice'
+    "expired"  : 'expiredNotice',
+    "default_weather" : 'defaultWeatherTmpl',
 }
-var signin = new Acme.Signin('modal', '#signin', layouts);
-
+Acme.SigninView = new Acme.Signin('modal', '#signin', layouts);
 
 
 $('#header_login_link').on('click', function() {
     console.log('clicked signing');
-    signin.render("signin", "Sign in");
+    Acme.SigninView.render("signin", "Sign in");
 });
 
 $('a.register').on('click', function(e) {
     e.preventDefault();
-    signin.render("register", "Register your interest");
+    Acme.SigninView.render("register", "Register your interest");
 });
-
-
 
 
 

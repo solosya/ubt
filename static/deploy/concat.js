@@ -30097,6 +30097,7 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
     Acme.View         = {};
     Acme.Model        = {};
     Acme.Collection   = {};
+    Acme.State        = {};
 
     $('html').on('click', function(e) {
         $('.pulldown ul').hide();
@@ -30989,7 +30990,17 @@ window.templates.forgotFormTmpl =
         <button id="forgotBtn" type="submit" class="_btn forgot">SEND EMAIL</button> \
     </form>';
 
-
+window.templates.defaultWeatherTmpl = 
+'<form name="registerForm" id="registerForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
+    \
+    <div id="weather-dropdown"></div>\
+    \
+    <div class="message active hide"> \
+        <div class="account-modal__error_text">Done!</div> \
+    </div> \
+    \
+    <button id="signinBtn" type="submit" class="_btn default-weather">Set as Default</button> \
+</form>';
 
 var cardTemplateTop = 
 '<div class="{{containerClass}} "> \
@@ -33555,6 +33566,19 @@ Acme.Signin.prototype.handle = function(e) {
             }).fail(function(r) { console.log(r);});
         }
 
+        if ($elem.hasClass('default-weather')) {
+            var newDefault = Acme.State.Country + '/' + Acme.State.City;
+
+            localStorage.setItem('city', newDefault);
+            function close() {
+
+                Acme.PubSub.publish("update_state", {'localweather': newDefault });                
+
+                self.closeWindow();
+            };
+            setTimeout(close, 500);            
+        }        
+
     }
     if ($elem.hasClass('layout')) {
         var layout = $elem.data('layout');
@@ -33566,23 +33590,21 @@ var layouts = {
     "signin"   : 'signinFormTmpl',
     "register" : 'registerTmpl',
     "forgot"   : 'forgotFormTmpl',
-    "expired"  : 'expiredNotice'
+    "expired"  : 'expiredNotice',
+    "default_weather" : 'defaultWeatherTmpl',
 }
-var signin = new Acme.Signin('modal', '#signin', layouts);
-
+Acme.SigninView = new Acme.Signin('modal', '#signin', layouts);
 
 
 $('#header_login_link').on('click', function() {
     console.log('clicked signing');
-    signin.render("signin", "Sign in");
+    Acme.SigninView.render("signin", "Sign in");
 });
 
 $('a.register').on('click', function(e) {
     e.preventDefault();
-    signin.render("register", "Register your interest");
+    Acme.SigninView.render("register", "Register your interest");
 });
-
-
 
 
 
@@ -33881,6 +33903,7 @@ $('[data-dismiss="alert"]').on('click', function(e) {
     {
         switch (country) {
             case 'nz':
+                Acme.State.Country = 'NZ';
                 return [
                     'NZ/Auckland',
                     'NZ/Wellington',
@@ -33891,6 +33914,7 @@ $('[data-dismiss="alert"]').on('click', function(e) {
                 ];
                 break;
             default:
+                Acme.State.Country = 'Australia';
                 return [
                     'Australia/Sydney',
                     'Australia/Melbourne',
@@ -33915,10 +33939,13 @@ $('[data-dismiss="alert"]').on('click', function(e) {
         });
         this.listeners = {
             "localweather" : function(data) {
-                return this.fetch(data['weather'], 'localweather');
+                return this.fetch(data['localweather'], 'localweather');
             },
             "nationalweather" : function(data) {
                 return this.fetch(data['nationalweather'], 'nationalweather');
+            },
+            "city": function(data) {
+                Acme.State.City = data.city;
             }
         };
     };
@@ -33957,8 +33984,7 @@ $('[data-dismiss="alert"]').on('click', function(e) {
             "nationalweather" : function(data) {
                 this.nationaldata = data.nationalweather.data;
                 return this.renderNational();
-            }
-
+            },
         };
     };
     Acme.WeatherHeader_View_Class.prototype = new Acme._View();
@@ -33975,6 +34001,7 @@ $('[data-dismiss="alert"]').on('click', function(e) {
                 '<div class="weather-date">' + 
                     '<h1>Weather</h1>' + 
                     '<p>{{date}}</p>' + 
+                    '<i id="default_weather">Set default city</i>' +
                 '</div>' + 
                 '<div id="weather-panels"><div id="panel-containter"></div></div>'
             ,
@@ -34022,6 +34049,7 @@ $('[data-dismiss="alert"]').on('click', function(e) {
     };
     Acme.WeatherHeader_View.prototype.renderNational = function()
     {
+        var self = this;
         var local = this.localdata[0];
         var national = this.nationaldata;
         var dropdown = Handlebars.compile(this.templates.dropdown); 
@@ -34043,6 +34071,21 @@ $('[data-dismiss="alert"]').on('click', function(e) {
                 }
             ));
         });
+
+        $('#default_weather').on('click', function(e) {
+
+            Acme.SigninView.render("default_weather", "Set default city");
+
+            Acme.WeatherSelector = new Acme.listMenu({
+                        'parent'        : $('#weather-dropdown'),
+                        'list'          : self.locations.data.map(function(l) {
+                            return l.split('/')[1];
+                        }),
+                        'defaultSelect' : {"label": 'Select default city'},
+                        'name'          : 'city',
+                        'key'           : 'city'
+            }).init().render();            
+        });           
     };
     Acme.WeatherHeader_View.prototype.events = function()
     {
