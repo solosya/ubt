@@ -9,6 +9,19 @@
             font-style:italic;
             text-decoration:none;
             color:color(red);
+            &:before {
+                content:'';
+                display:block;
+                width:7px;
+                height:15px;
+                background: url('../icons/red-arrow-left.svg');
+                background-repeat: no-repeat;
+                background-size:contain;
+                margin-right: 8px;
+                margin-top: 4px;
+                float:left;
+
+            }
         }
     }
 

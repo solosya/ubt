@@ -34,10 +34,14 @@
 
             <div class="col-sm-offset-1 col-sm-10 section-header">
                 <h2>{{this.title}}</h2>
-
+            </div>
+            <div class="col-sm-offset-1 col-sm-7 section-header" >
                 <p class="description">
                     {{blogData.shortDescription}}
                 </p>
+            </div>
+            <div class="col-sm-3" >
+                <a class="listing-link" href="{{networkData.defaultBlogUrl}}/@job-form">Submit a job</a>
             </div>
             
         </section>
@@ -48,9 +52,8 @@
             <div class="col-sm-offset-1 col-sm-6">
 
 
-                <div class="menu-and-link">
+                <div class="menu">
                     <div id="regionSelect" class="regionSelect"></div>
-                    <a href="{{networkData.defaultBlogUrl}}@jobs-form">Submit a job</a>
                 </div>
 
                 <div id="job-listings">

@@ -41,7 +41,7 @@
 
 
     <div class="backlink">
-        <a href="">Back to results</a>
+        <a href="{{networkData.defaultBlogUrl}}/@property-listings">Back to results</a>
     </div>
 
 
@@ -103,7 +103,7 @@
 
                                 <h1>{{ quotes.smarten(article.title) }}</h1>
                                 
-                                <p class="company">{{ article.additionalInfo.company }}</p>
+                                <p class="contracttype">{{ article.additionalInfo.contracttype }}</p>
                                 {# <p class="type">Salary ${{ article.additionalInfo.type }}</p> #}
 
                             </div><!--content-block-top-->
@@ -121,10 +121,12 @@
                     <div class="col-md-4 details-padding">
                         <div class="job-details">
                             <table>
-                                <tr>
-                                    <td class="label">Floor area</td>
-                                    <td class="value">{{publishDate}}</td>
-                                </tr>
+                                {% if article.additionalInfo.floorarea %}
+                                    <tr>
+                                        <td class="label">Floor area</td>
+                                        <td class="value">{{article.additionalInfo.floorarea}}</td>
+                                    </tr>
+                                {% endif %}
                                 <tr>
                                     <td class="label">Category</td>
                                     <td class="value">{{article.additionalInfo.type}}</td>
