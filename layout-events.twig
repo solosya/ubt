@@ -18,8 +18,8 @@
 {% set articles = _Event.getEvents() %}
 {# <pre>
     {{dump(articles)}}
-</pre>
- #}
+</pre> #}
+
 <!-- used to index each article as we loop over throughout the template -->
 {% set articleCount = 0 %}
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
@@ -35,10 +35,14 @@
 
             <div class="col-sm-offset-1 col-sm-10 section-header">
                 <h2>{{this.title}}</h2>
-
+            </div>
+            <div class="col-sm-offset-1 col-sm-7 section-header" >
                 <p class="description">
                     {{blogData.shortDescription}}
                 </p>
+            </div>
+            <div class="col-sm-3" >
+                <a class="listing-link" href="{{networkData.defaultBlogUrl}}/@event-form">Submit an event</a>
             </div>
             
         </section>
@@ -48,11 +52,6 @@
 
             <div class="col-sm-offset-1 col-sm-6">
 
-
-                <div class="menu-and-link">
-                    <div id="regionSelect" class="regionSelect"></div>
-                    <a href="{{networkData.defaultBlogUrl}}@jobs-form">Submit a job</a>
-                </div>
 
                 <div id="job-listings">
                     {% for i in 0..7 if articles[articleCount] %}
