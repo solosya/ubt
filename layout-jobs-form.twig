@@ -21,7 +21,7 @@
 {% endif %} 
 {% set userArticlesArr = [] %}
 {% if user %}                                                         
-    {% set userArticlesArr = _User.getUserArticles(user.guid, 0, limit, {'blogs':[jobsBlogId], 'status': 'all'}) %}
+    {% set userArticlesArr = _User.getUserArticles(user.guid, 0, limit, {'blogs':[jobsBlogId], 'status': '-1'}) %}
 {% endif %}
 
 

@@ -7,8 +7,11 @@
 
     <h2>{{ params.articleTitle }}</h2>
     <p class="company">{{ article.additionalInfo.company }}</p>
-    <p class="salary">Salary ${{ article.additionalInfo.salaryrange }}</p>
     
+    {% if article.additionalInfo.salaryrange %}
+        <p class="salary">Salary ${{ article.additionalInfo.salaryrange }}</p>
+    {% endif %}
+
     <p class="excerpt">{{ quotes.smarten(article.excerpt | raw) }}</p>
     <p class="location">{{ article.additionalInfo.location }}</p>
                         

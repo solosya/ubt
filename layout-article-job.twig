@@ -20,6 +20,7 @@
 
 {% set articleCount = 0 %}
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
+{% set workType = ["Annual salary package", "Annual & Commission", "Commission only", "Hourly rate"] %}
 
 
 
@@ -41,7 +42,7 @@
 
 
     <div class="backlink">
-        <a href="">Back to results</a>
+        <a href="{{networkData.defaultBlogUrl}}/@job-listings">Back to results</a>
     </div>
 
 
@@ -102,6 +103,8 @@
 
 
 
+
+
                 <div class="col-md-3 details-padding">
                     <div class="job-details">
                         <table>
@@ -115,13 +118,13 @@
                             </tr>
                             <tr>
                                 <td class="label">Work type</td>
-                                <td class="value">{{article.additionalInfo.salary}}</td>
+                                <td class="value">{{workType[article.additionalInfo.salary]}}</td>
                             </tr>
-                            <tr>
+{#                             <tr>
                                 <td class="label">Category</td>
                                 <td class="value">Administration and Office Support</td>
                             </tr>
-                        </table>
+ #}                        </table>
                     </div>
 
                     <div class="job-contact">
