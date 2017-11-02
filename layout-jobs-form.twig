@@ -35,99 +35,110 @@
     <main id="main" class="container-fluid site-main listingForm" role="main">
         
         <section class="row section">
-            <div class="col-md-7 section-header">
-                <h2>{{blogData.title}}</h2>
-                <p class="description">
-                    {{blogData.shortDescription}}
-                </p>
-            </div>
-            <div class="col-sm-offset-1 col-md-4 section-header">
-                <h2 id="userlistingsrefresh">Your listings</h2>
-            </div>
-        </section>
-
-
-        <section class="row">
-
             <div class="col-md-7">
+                <div class="row">
+                    <div class="col-md-12 section-header">
+                        <h2>{{blogData.title}}</h2>
+                        <p class="description">
+                            {{blogData.shortDescription}}
+                        </p>
+                    </div>
+                </div>
 
-                <div id="formerror" class="error-message">All fields have not been filled. Please review and <b>submit</b>.</div>
+                <section class="row">
 
-                <form class="" method="post" action="#" id="listingForm" data-type="jobs">
-                    <div class="row">
-                        <div class="col-sm-9">
-                            <input type="text" class="articleExtendedData" name="extendedData.company" id="company" value="" placeholder="Company name*">
-                            <input type="text" class="articleExtendedData" name="extendedData.website" id="website" value="" placeholder="Website">
-                        </div>
-                        <div class="col-sm-3">
-                            <div data-imgcls="images" data-id="imageArray" class="uploadFileBtn jobs">
-                                <div class="innerImgBtn">
-                                    <p>Upload logo <br />(optional)</p>
-                                    <img src="{{networkData.templatePath}}/static/icons/upload-arrow.svg">
+                    <div class="col-md-12">
+
+                        <div id="formerror" class="error-message">All fields have not been filled. Please review and <b>submit</b>.</div>
+
+                        <form class="" method="post" action="#" id="listingForm" data-type="jobs">
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <input type="text" class="articleExtendedData" name="extendedData.company" id="company" value="" placeholder="Company name*">
+                                    <input type="text" class="articleExtendedData" name="extendedData.website" id="website" value="" placeholder="Website">
+                                </div>
+                                <div class="col-sm-3">
+                                    <div data-imgcls="images" data-id="imageArray" class="uploadFileBtn jobs">
+                                        <div class="innerImgBtn">
+                                            <p>Upload logo <br />(optional)</p>
+                                            <img src="{{networkData.templatePath}}/static/icons/upload-arrow.svg">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+
+                                    <input type="text" class="" name="title" id="title" value="" placeholder="Job title*">
+                                    <input type="text" class="articleExtendedData" name="extendedData.location" id="location" value="" placeholder="Job location (suburb or postcode)*">
+                                    <div id="regionSelect" class="propertyListingSelect"></div>
+                                    <input type="text" class="articleExtendedData" name="extendedData.contactname" id="contactname" value="" placeholder="Contact name">
+                                    <input type="email" class="articleExtendedData" name="extendedData.contactemail" id="contactemail" value="" placeholder="Contact email">
+
+                                    <p class="form-section-label">Salary (optional)</p>
+
+                                    <fieldset>
+                                        <div class="inline">
+                                            <input type="radio" name="extendedData.salary" id="salary1" class="articleExtendedData" value="1" checked="checked" />
+                                            <label for="salary1">Annual salary package</label>
+                                        </div>
+                                        <div class="inline">
+                                            <input type="radio" name="extendedData.salary" id="salary2" class="articleExtendedData" value="2" />
+                                            <label for="salary2">Annual &amp; Commission</label>
+                                        </div>
+                                        <div class="inline">
+                                            <input type="radio" name="extendedData.salary" id="salary3" class="articleExtendedData" value="3" />
+                                            <label for="salary3">Commission only</label>
+                                        </div>
+                                        <div class="inline">
+                                            <input type="radio" name="extendedData.salary" id="salary4" class="articleExtendedData" value="4" />
+                                            <label for="salary4">Hourly rate</label>
+                                        </div>
+
+                                    </fieldset>
+                                    <input type="text" class="articleExtendedData" name="extendedData.salaryrange" id="salaryrange" value="" placeholder="Salary range">
+                                    
+                                    <textarea name="content" class="job-description" id="content" placeholder="Description*"></textarea>
+                                    <div id="imageArray" data-media="" class="imagearray"></div>
+
+                                    <button class="_btn" type="submit" id="listingFormSubmit">SUBMIT</button>
+                                    <button class="_btn" type="reset"  id="listingFormClear">CLEAR</button>
+                                </div>
+                            </div>
+                        </form>
+
+
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-
-                            <input type="text" class="" name="title" id="title" value="" placeholder="Job title*">
-                            <input type="text" class="articleExtendedData" name="extendedData.location" id="location" value="" placeholder="Job location (suburb or postcode)*">
-                            <div id="regionSelect" class="propertyListingSelect"></div>
-                            <input type="text" class="articleExtendedData" name="extendedData.contactname" id="contactname" value="" placeholder="Contact name">
-                            <input type="email" class="articleExtendedData" name="extendedData.contactemail" id="contactemail" value="" placeholder="Contact email">
-
-                            <p class="form-section-label">Salary (optional)</p>
-
-                            <fieldset>
-                                <div class="inline">
-                                    <input type="radio" name="extendedData.salary" id="salary1" class="articleExtendedData" value="1" checked="checked" />
-                                    <label for="salary1">Annual salary package</label>
-                                </div>
-                                <div class="inline">
-                                    <input type="radio" name="extendedData.salary" id="salary2" class="articleExtendedData" value="2" />
-                                    <label for="salary2">Annual &amp; Commission</label>
-                                </div>
-                                <div class="inline">
-                                    <input type="radio" name="extendedData.salary" id="salary3" class="articleExtendedData" value="3" />
-                                    <label for="salary3">Commission only</label>
-                                </div>
-                                <div class="inline">
-                                    <input type="radio" name="extendedData.salary" id="salary4" class="articleExtendedData" value="4" />
-                                    <label for="salary4">Hourly rate</label>
-                                </div>
-
-                            </fieldset>
-                            <input type="text" class="articleExtendedData" name="extendedData.salaryrange" id="salaryrange" value="" placeholder="Salary range">
-                            
-                            <textarea name="content" class="job-description" id="content" placeholder="Description*"></textarea>
-                            <div id="imageArray" data-media="" class="imagearray"></div>
-
-                            <button class="_btn" type="submit" id="listingFormSubmit">SUBMIT</button>
-                            <button class="_btn" type="reset"  id="listingFormClear">CLEAR</button>
-                        </div>
-                    </div>
-                </form>
-
-
-            </div>
-            <div  id="userListings" class="col-sm-offset-1 col-md-4">
-                
-                {% for article in userArticlesArr %}
-
-                    {{this.render('partials/_single-article.twig', {
-                        article: article, 
-                        position: loop.index,
-                        behaviour: 'noclick',
-                        imageSize: {width: 150, height: 120},
-                        template: 'listing',
-                        containerClass: "card-form-listing listingCard"
-                    }) | raw}}
-
-                {% endfor %}
+                </section>
             </div>
 
+
+
+            <div class="col-sm-offset-1 col-md-4 section-header">
+                <h2 id="userlistingsrefresh">Your listings</h2>
+
+                <div  id="userListings" class="">
+                    
+                    {% for article in userArticlesArr %}
+
+                        {{this.render('partials/_single-article.twig', {
+                            article: article, 
+                            position: loop.index,
+                            behaviour: 'noclick',
+                            imageSize: {width: 150, height: 120},
+                            template: 'listing',
+                            containerClass: "card-form-listing listingCard"
+                        }) | raw}}
+
+                    {% endfor %}
+                </div>
+            </div>
 
         </section>
+
+
+
+
+
 
     </main><!-- .site-main -->

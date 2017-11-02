@@ -41,93 +41,100 @@
         
 
         <section class="row section">
-            <div class="col-sm-7 section-header">
-                <h2>{{blogData.title}}</h2>
-                <p class="description">
-                    {{blogData.shortDescription}}
-                </p>
-            </div>
-            <div class="col-sm-offset-1 col-md-4 section-header">
-                <h2 id="userlistingsrefresh">Your listings</h2>
-            </div>
-
-        </section>
-
-
-
-
-        <div class="row">
             <div class="col-md-7">
-
-                <div id="formerror" class="error-message">All fields have not been filled. Please review and <b>submit</b>.</div>
-
-                <form class="" method="post" action="#" id="listingForm" data-articleId="" data-type="property">
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="propertySelect" class="propertyListingSelect"></div>
-                            <div id="regionSelect" class="propertyListingSelect"></div>
-                            <div id="buySelect" class="propertyListingSelect"></div>
-
-
-                            <input type="text" class="" name="title" id="title" value="" placeholder="Address*">
-                            <input type="text" class="articleExtendedData" name="extendedData.pricerange" id="pricerange" value="" placeholder="Price range*">
-                            <input type="text" class="articleExtendedData" name="extendedData.propertyid" id="propertyid" value="" placeholder="Property ID">
-                            <input type="text" class="articleExtendedData" name="extendedData.landarea" id="landarea" value="" placeholder="Land area">
-                            <input type="text" class="articleExtendedData" name="extendedData.floorarea" id="floorarea" value="" placeholder="Floor area">
-                            <input type="text" class="articleExtendedData" name="extendedData.availability" id="availability" value="" placeholder="Availablity">
-                            <input type="text" class="articleExtendedData" name="extendedData.annualreturn" id="annualreturn" value="" placeholder="Annual return">
-                            <input type="text" class="articleExtendedData" name="extendedData.company" id="company" value="" placeholder="Agency or Company name">
-                            <input type="text" class="articleExtendedData" name="extendedData.contactname" id="contactname" value="" placeholder="Contact name*">
-                            <input type="text" class="articleExtendedData" name="extendedData.contactphone" id="contactphone" value="" placeholder="Contact phone*">
-                        </div>
+                <div class="row">
+                    <div class="col-md-12 section-header">
+                        <h2>{{blogData.title}}</h2>
+                        <p class="description">
+                            {{blogData.shortDescription}}
+                        </p>
                     </div>
+                </div>
+
+                <section class="row">
+
+                    <div class="col-md-12">
+
+                        <div id="formerror" class="error-message">All fields have not been filled. Please review and <b>submit</b>.</div>
+
+                        <form class="" method="post" action="#" id="listingForm" data-articleId="" data-type="property">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="propertySelect" class="propertyListingSelect"></div>
+                                    <div id="regionSelect" class="propertyListingSelect"></div>
+                                    <div id="buySelect" class="propertyListingSelect"></div>
 
 
-                    <div class="row">
-                        <div class="col-md-9">
-                            <textarea name="content" id="content" placeholder="Description*"></textarea>
-                        </div>
-                        <div class="col-md-3">
-                            <div data-imgcls="images" data-id="imageArray" class="uploadFileBtn property">
-                                <div class="innerImgBtn">
-                                    <img src="{{networkData.templatePath}}/static/icons/upload-img.svg">
-                                    <p>Upload images</p>
+                                    <input type="text" class="" name="title" id="title" value="" placeholder="Address*">
+                                    <input type="text" class="articleExtendedData" name="extendedData.pricerange" id="pricerange" value="" placeholder="Price range*">
+                                    <input type="text" class="articleExtendedData" name="extendedData.propertyid" id="propertyid" value="" placeholder="Property ID">
+                                    <input type="text" class="articleExtendedData" name="extendedData.landarea" id="landarea" value="" placeholder="Land area">
+                                    <input type="text" class="articleExtendedData" name="extendedData.floorarea" id="floorarea" value="" placeholder="Floor area">
+                                    <input type="text" class="articleExtendedData" name="extendedData.availability" id="availability" value="" placeholder="Availablity">
+                                    <input type="text" class="articleExtendedData" name="extendedData.annualreturn" id="annualreturn" value="" placeholder="Annual return">
+                                    <input type="text" class="articleExtendedData" name="extendedData.company" id="company" value="" placeholder="Agency or Company name">
+                                    <input type="text" class="articleExtendedData" name="extendedData.contactname" id="contactname" value="" placeholder="Contact name*">
+                                    <input type="text" class="articleExtendedData" name="extendedData.contactphone" id="contactphone" value="" placeholder="Contact phone*">
                                 </div>
                             </div>
-                        </div>
+
+
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <textarea name="content" id="content" placeholder="Description*"></textarea>
+                                </div>
+                                <div class="col-md-3">
+                                    <div data-imgcls="images" data-id="imageArray" class="uploadFileBtn property">
+                                        <div class="innerImgBtn">
+                                            <img src="{{networkData.templatePath}}/static/icons/upload-img.svg">
+                                            <p>Upload images</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div id="imageArray" data-media="" class="imagearray"></div>
+                            
+                                    <button class="_btn" type="submit" id="listingFormSubmit">SEND</button>
+                                    <button class="_btn" type="reset" id="listingFormClear">CLEAR</button>
+                                </div>
+                            </div>
+                        </form>
+
                     </div>
 
+                </section>
 
-                    <div class="row">
-                        <div class="col-md-12">
+            </div>
 
-                            <div id="imageArray" data-media="" class="imagearray"></div>
+
+
+            <div class="col-sm-offset-1 col-md-4 section-header">
+                <h2 id="userlistingsrefresh">Your listings</h2>
+
+                <div  id="userListings" class="">
                     
-                            <button class="_btn" type="submit" id="listingFormSubmit">SEND</button>
-                            <button class="_btn" type="reset" id="listingFormClear">CLEAR</button>
-                        </div>
-                    </div>
-                </form>
+                    {% for article in userArticlesArr %}
 
+                        {{this.render('partials/_single-article.twig', {
+                            article: article, 
+                            position: loop.index,
+                            behaviour: 'noclick',
+                            imageSize: {width: 150, height: 120},
+                            template: 'listing',
+                            containerClass: "card-form-listing listingCard"
+                        }) | raw}}
 
+                    {% endfor %}
+                </div>
             </div>
 
-            <div id="userListings" class="col-sm-offset-1 col-md-4">
 
-                {% for article in userArticlesArr %}
-
-                    {{this.render('partials/_single-article.twig', {
-                        article: article, 
-                        position: loop.index,
-                        behaviour: 'noclick',
-                        imageSize: {width: 150, height: 120},
-                        template: 'listing',
-                        containerClass: "card-form-listing listingCard"
-                    }) | raw}}
-
-                {% endfor %}
-            </div>
         </div>
 
     </main><!-- .site-main -->
