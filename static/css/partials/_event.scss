@@ -51,14 +51,16 @@
 		margin-bottom:96px;
 		
 		.event-content, .event-details {
-
+			p.content {
+				opacity:0.7;
+			}
 			p {
-				font-size: rem(16);
+				font-size: rem(15);
 				font-weight: 300;
 				font-family: $font-family-sans-serif;
 				font-style: normal;
 				font-stretch: normal;
-				line-height: 1.8;
+				line-height: 1.6;
 				letter-spacing: normal;
 				color: color(darkgrey);
 				padding-right: 10px;
@@ -91,8 +93,7 @@
 			}
 
 			p.category {
-				font-size:rem(13);
-				color:color(red);
+				font-size:rem(10);
 				float:left;
 				text-transform:uppercase;
 				margin-right:8px;
@@ -122,15 +123,14 @@
 
 
 			h1 {
-
-				font-size: rem(46);
+				font-size: rem(34);
 				font-weight: bold;
 				line-height: 1.23;
 				letter-spacing: 0.5px;
 				margin-top: 0;
 				margin-bottom: 0;
 				color:	#1c2a38;
-				font-family: $font-family-sans-serif;
+				font-family: $font-family-serif;
 				
 				@media screen and (max-width: $sm-break) {
 					margin-top: 40px;
@@ -142,19 +142,13 @@
 			}
 			
 			p.author {
-				font-family: $base-font-family;
-				font-size: rem(16);
-				color: color(darkgrey);
-				text-transform:uppercase;
+				font-family: $font-family-serif;
+				font-size: rem(14);
+				color: color(red);
 				margin-top:8px;
-				margin-bottom:20px;
+				margin-bottom:40px;
 				line-height: 1.18;				
 
-				>span {
-					font-family:$font-family-serif;
-					font-style:italic;
-					text-transform:lowercase;
-				}
 				@media screen and (max-width: $mobile-break) {
 					font-size: rem(11);
 				}
@@ -164,15 +158,14 @@
 
 			p.date {
 				font-family:$font-family-sans-serif;
-				margin-top: 45px;
 				font-size: rem(22);
 				font-weight: bold;
-				color: color(red);
+				color: color(darkblue);
 				line-height:1.18;
 				letter-spacing: 1px;
 				text-transform: uppercase;
 				margin-bottom: 0px;
-
+				margin-top:0;
 				@media screen and (max-width: $mobile-break) {
 					font-size: rem(14);
 				}
@@ -199,15 +192,27 @@
 				margin-bottom: 0px;		
 			}
 
+			p.contactinfo {
+				font-size: rem(16);
+				font-style:italic;
+				font-family: $font-family-serif;
+				line-height:1.25;
+			}
+			p.contactname, p.contactnumber {
+				font-size: rem(14);
+				color: color(darkblue);
+				font-weight:600;
+				margin:0;
+
+			}
+			p.contactnumber {
+
+			}
 
 		}
 
-		.event-map {
-			margin-top: 90px;
-		}
-
-		.sidebar {
-			padding-left:115px;
+		.side-border {
+			border-right: 1px solid color(border);
 		}
 
 		figure.featured {
