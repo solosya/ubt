@@ -5,27 +5,34 @@
 
         > article {
             > time {
-                display: none;
+                float:left;
+                margin-right:10px;
+                >span {
+                    display:block;
+                }
+                // display: none;
             }
 
             position:relative;
             > figure{
+                float:left;
             }
             > .content{
                 padding: 0;
                 position:relative;
                 > .category{
-                    margin-bottom:0;
-                    text-transform: uppercase;
-                    color: color(lightgrey);
-                    font-size: rem(10);
-                    margin-bottom: 12px;
+                    display:none;
+                    // margin-bottom:0;
+                    // text-transform: uppercase;
+                    // color: color(lightgrey);
+                    // font-size: rem(10);
+                    // margin-bottom: 12px;
                 }
                 > h2{
                     font-family: $font-family-serif;
                     color:black;
-                    height: 30px;
-                    margin-bottom: 18px;                  
+                    height: 15px;
+                    margin-bottom: 0;                  
                 }
                 > h3{
                     margin:0;
@@ -33,7 +40,8 @@
                 }
 
                 > time {
-                    color: color(darkblue);                    
+                    display:none;
+                    // color: color(darkblue);                    
                 }
 
                 > div.listing-type {
@@ -55,11 +63,22 @@
         margin-bottom: 32px;
 
         a.card {
-            @include card-image-left(173px, 141px);
-            height:173px;
+            @include card-image-left(60px, 37px);
+            // height:173px;
 
             > article {
 
+                > time {
+                    margin-top:5px;
+                    span.day {
+
+                        font-size: rem(13);
+                    }
+                    span.month {
+                        font-size: rem(8);
+                        color: color(lightgrey);
+                    }
+                }
                 > figure{
                     margin-right:18px;
                     margin-bottom:10px;
@@ -68,14 +87,15 @@
                 > .content{
 
                     > h2{
-                        font-size: rem(25);
+                        font-size: rem(12);
                         line-height:1.2;
-                        margin-top:12px;
+                        // margin-top:12px;
                     }
 
                     > p.excerpt {
-                        height: 40px;
-                        margin-top: 10px;
+                        font-size: rem(12);
+                        height: 30px;
+                        margin-top: 0;
                     }
 
                 }
@@ -94,24 +114,36 @@
         margin-bottom: 32px;
 
         a.card {
-            height:173px;
+            // height:173px;
 
             > article {
+
+                > time {
+                    margin-top:5px;
+                    span.day {
+
+                        font-size: rem(13);
+                    }
+                    span.month {
+                        font-size: rem(8);
+                        color: color(lightgrey);
+                    }
+                }
 
                 > figure{
                     display: none;
                 }
 
                 > .content{
-
+                    display:block;
                     > h2{
-                        font-size: rem(25);
+                        font-size: rem(12);
                         line-height:1.2;
                         margin-top:12px;
                     }
 
                     > p.excerpt {
-                        height: 40px;
+                        height: 30px;
                         margin-top: 10px;
                     }
 

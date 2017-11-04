@@ -17,7 +17,7 @@
 
 <!-- used to index each article as we loop over throughout the template -->
 {% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
-{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
+{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : true %}
 
 
 
@@ -118,9 +118,9 @@
             <div class="col-sm-offset-1 col-sm-3 eventlist">
                 <h2>EVENTS</h2>
 
-                {% for i in 0..6 if events[i] %}
+                {% for i in 0..6 if events[0] %}
                     {{this.render('partials/_single-event.twig', {
-                        event: events[i], 
+                        event: events[0], 
                         imageSize: {width: 60, height: 37},
                         containerClass: "card-event card-event-tablet"
                     }) | raw}}

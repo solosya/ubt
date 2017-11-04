@@ -21,7 +21,7 @@
                     color:color(black);
                 }
                 > p.excerpt {
-                    display:none;
+                    // display:none;
                 }
             }
         }
@@ -64,6 +64,10 @@
                         line-height:1.2;
                         margin-top:10px;
                         margin-bottom:10px;
+                    }
+                    p.excerpt {
+                        font-size:rem(13);
+                        
                     }
                 }
             }
