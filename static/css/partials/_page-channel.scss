@@ -1,12 +1,16 @@
 .channel-main {
-    margin-top:48px;
+    margin-top:64px;
     margin-bottom:100px;
 
     @media screen and (max-width: $sm-break-down){
         margin-top:0;
     }
    
-
+    .row.padded-row {
+        @media screen and (min-width: $sm-break){
+            padding-left:60px;
+        }
+    }
 
 
     .advert {
@@ -27,7 +31,7 @@
 
         >h2 {
             font-family:$font-family-serif;
-            font-weight:600;
+            font-weight:300;
             color:color(red);
             font-size:rem(30);
             letter-spacing: 0.7px;

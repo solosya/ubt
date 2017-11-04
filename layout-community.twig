@@ -16,8 +16,8 @@
 
 
 <!-- used to index each article as we loop over throughout the template -->
-{% set articleCount = 0 %}
-{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
+{% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
+{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
 
 
 
@@ -168,6 +168,7 @@
                                 imageSuppress: true,
                                 containerClass: "card-blogger"
                             }) | raw}}
+                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                         {% endfor %}
                     </div>
 
@@ -179,6 +180,7 @@
                                 imageSuppress: true,
                                 containerClass: "card-blogger"
                             }) | raw}}
+                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                         {% endfor %}
                     </div>
                 </div>

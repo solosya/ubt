@@ -16,8 +16,8 @@
 
 
 <!-- used to index each article as we loop over throughout the template -->
-{% set articleCount = 0 %}
-{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
+{% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
+{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : true %}
 
 
 
@@ -153,7 +153,7 @@
 
 
 
-        <section class="row">
+        <section class="row padded-row">
             <div class="col-sm-offset-1 col-sm-3">
 
             {% for i in 0..2 if articles[articleCount] %}

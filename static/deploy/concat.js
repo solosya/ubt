@@ -33083,7 +33083,7 @@ Acme.listingCollectionClass = function(name, blogId) {
     this.listeners = {
         "userArticles" : function(data) {
             console.log('updating user articles');
-            return this.fetch('/api/user/user-articles?userguid='+Acme.currentUser+'&blogs='+this.blogId+'&status=all');
+            return this.fetch('/api/user/user-articles?userguid='+Acme.currentUser+'&blogs='+this.blogId+'&status=-1');
         }
     };
 };
