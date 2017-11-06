@@ -319,6 +319,7 @@
                     var caller = scope[scopeSplit[scopeSplit.length - 1]];
                     var func   = subscribers[i].func;
                     console.log(topic, data);
+                    console.log(caller, func);
                     if (caller) {
                         caller[func]( topic, data );
                     }
@@ -520,85 +521,88 @@
 
 
 
-        Acme.modal = function(template, parent, layouts, data) {
-            this.parentCont = parent || null;
-            this.template = template || null;
-            this.layouts = layouts   || null;
-            this.data = data         || {};
-            this.dfd = $.Deferred();
-        }
-            Acme.modal.prototype.render = function(layout, title) {
+    Acme.modal = function(template, parent, layouts, data) {
+        this.parentCont = parent || null;
+        this.template = template || null;
+        this.layouts = layouts   || null;
+        this.data = data         || {};
+        this.dfd = $.Deferred();
+        console.log(this);
+    }
+        Acme.modal.prototype = new Acme.listen();
 
-                if (title) {
-                    this.data['title'] = title;
+        Acme.modal.prototype.render = function(layout, title) {
+            if (title) {
+                this.data['title'] = title;
+            }
+            var tmp = Handlebars.compile(window.templates[this.template]);
+            var tmp = tmp(this.data);
+            $('body').addClass('active').append(tmp);
+            if (layout) {
+                this.renderLayout(layout);
+            }
+            this.events();
+            return this.dfd.promise();
+        };
+        Acme.modal.prototype.renderLayout = function(layout) {
+            // var layout = Handlebars.compile(window.templates[this.layouts[layout]]);
+            var layout = window.templates[this.layouts[layout]];
+            $(this.parentCont).find('#dialogContent').empty().append(layout); 
+        };
+        Acme.modal.prototype.events = function() 
+        {
+            var self = this;
+            $(this.parentCont).on("click", function(e) {
+                self.handle(e);
+            });
+
+        };
+        Acme.modal.prototype.handle = function(e) {
+            console.log('handling from parent');
+            var $elem = $(e.target);
+
+            if (!$elem.is('input')) {
+                e.preventDefault();
+            }
+
+            if ( $elem.is('button') ) {
+                if ($elem.text() === "Cancel") {
+                    this.closeWindow();
+                } else if ($elem.text() === "Okay") {
+                    this.closeWindow();
+
+                    // State can be provided by client external to 'show' call
+                    // if (data === undefined && that.state) {
+                    //     data = that.state;
+                    // // If data is also provided we merge the two
+                    // } else if (that.state) {
+                    //     var keys = Object.keys(that.state)
+                    //     for (var k=0; k<keys.length;k++) {
+                    //         data[keys[k]] = that.state[keys[k]];
+                    //     }
+                    // }
+
+                    // if (self != undefined) {
+                    //     if (data != undefined) {
+                    //         var result = callback.call(self, data);
+                    //         this.dfd.resolve(result);
+                    //     } else {
+                    //         var result = callback.call(self);
+                    //         this.dfd.resolve(result);
+                    //     }
+                    // } else {
+                    //     var result = callback();
+                    //     this.dfd.resolve(result);
+                    // }
                 }
-                var tmp = Handlebars.compile(window.templates[this.template]);
-                var tmp = tmp(this.data);
-                $('body').addClass('active').append(tmp);
-                if (layout) {
-                    this.renderLayout(layout);
-                }
-                this.events();
-                return this.dfd.promise();
-            };
-            Acme.modal.prototype.renderLayout = function(layout) {
-                var layout = window.templates[this.layouts[layout]];
-                $(this.parentCont).find('#dialogContent').empty().append(layout); 
-            };
-            Acme.modal.prototype.events = function() 
-            {
-                var self = this;
-                $(this.parentCont).on("click", function(e) {
-                    self.handle(e);
-                });
-
-            };
-            Acme.modal.prototype.handle = function(e) {
-                console.log('handling from parent');
-                var $elem = $(e.target);
-
-                if (!$elem.is('input')) {
-                    e.preventDefault();
-                }
-
-                if ( $elem.is('button') ) {
-                    if ($elem.text() === "Cancel") {
-                        Acme.dialog.closeWindow();
-                    } else if ($elem.text() === "Okay") {
-                        Acme.dialog.closeWindow();
-
-                        // State can be provided by client external to 'show' call
-                        if (data === undefined && that.state) {
-                            data = that.state;
-                        // If data is also provided we merge the two
-                        } else if (that.state) {
-                            var keys = Object.keys(that.state)
-                            for (var k=0; k<keys.length;k++) {
-                                data[keys[k]] = that.state[keys[k]];
-                            }
-                        }
-
-                        if (self != undefined) {
-                            if (data != undefined) {
-                                var result = callback.call(self, data);
-                                this.dfd.resolve(result);
-                            } else {
-                                var result = callback.call(self);
-                                this.dfd.resolve(result);
-                            }
-                        } else {
-                            var result = callback();
-                            this.dfd.resolve(result);
-                        }
-                    }
-                }
-                return $elem;
-            };
-            Acme.modal.prototype.closeWindow = function() {
-                $('body').removeClass('active');
-                $(this.parentCont).remove();
-            };
-        
+            }
+            return $elem;
+        };
+        Acme.modal.prototype.closeWindow = function() {
+            $('body').removeClass('active');
+            $(this.parentCont).remove();
+        };
+    
 
 
 

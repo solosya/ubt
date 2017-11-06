@@ -55,27 +55,33 @@
                             <div class="row">
                                 <div class="col-sm-9">
                                     <input type="text" class="articleExtendedData" name="extendedData.company" id="company" value="" placeholder="Company name*">
-                                    <input type="text" class="articleExtendedData" name="extendedData.website" id="website" value="" placeholder="Website">
+                                    <input type="text" class="articleExtendedData" name="extendedData.website" id="website" value="" placeholder="Company website">
                                 </div>
                                 <div class="col-sm-3">
-                                    <div data-imgcls="images" data-id="imageArray" class="uploadFileBtn jobs">
+
+                                    <div id="uploadFileBtn" data-imgcls="images" data-id="imageArray" class="uploadFileBtn jobs">
                                         <div class="innerImgBtn">
-                                            <p>Upload logo <br />(optional)</p>
-                                            <img src="{{networkData.templatePath}}/static/icons/upload-arrow.svg">
+                                            <div id="InnerUploadFileBtn" class="vertical">
+                                                <p>Upload logo <br />(optional)</p>
+                                                <img src="{{networkData.templatePath}}/static/icons/upload-arrow.svg">
+                                            </div>
                                         </div>
                                     </div>
+
+
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
+                                    <input type="text" class="articleExtendedData" name="extendedData.contactname" id="contactname" value="" placeholder="Contact name*">
+                                    <input type="email" class="articleExtendedData" name="extendedData.contactemail" id="contactemail" value="" placeholder="Contact email*">
 
                                     <input type="text" class="" name="title" id="title" value="" placeholder="Job title*">
+                                    <div id="worktypeSelect" class="propertyListingSelect"></div>
                                     <input type="text" class="articleExtendedData" name="extendedData.location" id="location" value="" placeholder="Job location (suburb or postcode)*">
                                     <div id="regionSelect" class="propertyListingSelect"></div>
-                                    <input type="text" class="articleExtendedData" name="extendedData.contactname" id="contactname" value="" placeholder="Contact name">
-                                    <input type="email" class="articleExtendedData" name="extendedData.contactemail" id="contactemail" value="" placeholder="Contact email">
 
-                                    <p class="form-section-label">Salary (optional)</p>
+                                    <p class="form-section-label">Salary</p>
 
                                     <fieldset>
                                         <div class="inline">
@@ -94,7 +100,7 @@
 
 
                                         <div class="inline">
-                                            <input type="radio" name="extendedData.salary" id="salary4" class="articleExtendedData" value="4" />
+                                            <input type="radio" name="extendedData.salary" id="salary2" class="articleExtendedData" value="2" />
                                             <label for="salary4">Hourly rate</label>
                                             <input type="text" class="articleExtendedData" name="extendedData.hourlyrate" id="hourlyrate" value="" placeholder="$ per hour">
                                         </div>
@@ -105,9 +111,14 @@
                                         </div>
 
                                     </fieldset>
-                                    <input type="text" class="articleExtendedData" name="extendedData.salaryrange" id="salaryrange" value="" placeholder="Salary range">
                                     
                                     <textarea name="content" class="job-description" id="content" placeholder="Description*"></textarea>
+                                    
+                                    <div style="position:relative"> <!-- this div anchors datepicker to top of input if at bottom of screen -->
+                                        <input type="text" class="articleExtendedData  listtingClose" name="extendedData.listingclose" id="listingclose" value="" placeholder="Applications close">
+                                    </div>
+
+
                                     <div id="imageArray" data-media="" class="imagearray"></div>
 
                                     <button class="_btn" type="submit" id="listingFormSubmit">SUBMIT</button>
@@ -123,8 +134,8 @@
 
 
 
-            <div class="col-sm-offset-1 col-md-4 section-header">
-                <h2 id="userlistingsrefresh">Your listings</h2>
+            <div class="col-sm-offset-1 col-md-4">
+                <h2 id="userlistingsrefresh" class="userListingsHeader">YOUR JOB LISTINGS</h2>
 
                 <div  id="userListings" class="">
                     
@@ -134,9 +145,9 @@
                             article: article, 
                             position: loop.index,
                             behaviour: 'noclick',
-                            imageSize: {width: 150, height: 120},
-                            template: 'listing',
-                            containerClass: "card-form-listing listingCard"
+                            imageSuppress: true,
+                            template: 'user-jobs',
+                            containerClass: "card-form-job-listing listingCard"
                         }) | raw}}
 
                     {% endfor %}

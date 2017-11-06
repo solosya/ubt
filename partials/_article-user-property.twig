@@ -1,5 +1,9 @@
 {% import "quotes.twig" as quotes %}
 
+{% set status = "Posted " ~ params.publishDate %}
+{% if article.status | lower == 'draft' %}
+    {% set status = "Pending Approval" %}
+{% endif %}
 
 
 {% if (article.hasMedia == 'TRUE' or article.hasPreviewMedia == 'TRUE') and params.imageSuppress == 'false' %}
@@ -13,15 +17,10 @@
 
 <div class="content">
     <div class="cat-time">
-        <time datetime="{{params.publishDate}}">{{params.publishDate}}</time>
+        <time datetime="{{params.publishDate}}">{{status}}</time>
     </div>
-    <h2>${{ article.additionalInfo.pricerange }}</h2>
-    <h3>{{ params.articleTitle }}</h3>
+    <h2>{{ params.articleTitle }}</h2>
     
     <p class="excerpt">{{ quotes.smarten(article.excerpt | raw) }}</p>
                         
-    <div class="listing-type">
-        <img src="{{networkData.templatePath}}/static/icons/{{ article.additionalInfo.type }}.svg" class="">
-        <p>{{ article.additionalInfo.type }}</p>
-    </div>
 </div>

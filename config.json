@@ -26,8 +26,28 @@
                     "type": "inputbox"
                 },
                 {
-                    "name": "salaryrange",
-                    "label": "salaryrange",
+                    "name": "salaryfrom",
+                    "label": "salaryfrom",
+                    "type": "inputbox"
+                },
+                {
+                    "name": "salaryto",
+                    "label": "salaryto",
+                    "type": "inputbox"
+                },
+                {
+                    "name": "hourlyrate",
+                    "label": "Hourly Rate",
+                    "type": "inputbox"
+                },
+                {
+                    "name": "worktype",
+                    "label": "Work type",
+                    "type": "inputbox"
+                },
+                {
+                    "name": "listingclose",
+                    "label": "Listing close",
                     "type": "inputbox"
                 },
                 {

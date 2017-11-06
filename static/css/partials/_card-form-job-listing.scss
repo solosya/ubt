@@ -1,4 +1,4 @@
-@mixin card-form-listing-base() {
+@mixin card-form-job-listing-base() {
     position:relative;
     a.card {
         border-bottom: 1px solid #97999c;
@@ -16,11 +16,17 @@
                     }
                 }
                 > h2{
-                    font-family: $font-family-serif;
+                    font-family: $base-font-family;
                     color:color(black);
                 }
+                > p.company {
+
+                    font-size:rem(13);
+                    font-weight:600;
+                }
+
                 > p.excerpt {
-                    display:none;
+                    height:40px;
                 }
             }
         }
@@ -33,15 +39,15 @@
 
 
 
-.card-form-listing{
+.card-form-job-listing{
     @media screen and (min-width: $mmd-break){
-        @include card-form-listing-base();
+        @include card-form-job-listing-base();
 
         margin-bottom: 32px;
 
         a.card {
             @include card-image-left(80px, 80px);
-            height:80px;
+            height:141px;
 
             > article {
 
@@ -52,10 +58,11 @@
                 > .content{
 
                     > h2{
-                        font-size: rem(25);
-                        line-height:1.2;
+                        font-size: rem(18);
+                        line-height:1.44;
                         margin-top:10px;
-                        margin-bottom:10px;
+                        margin-bottom:5px;
+                        height:28px;
                     }
                 }
             }
@@ -66,9 +73,9 @@
 
 
 
-.card-form-listing-tablet{
+.card-form-job-listing-tablet{
     @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
-        @include card-form-listing-base();
+        @include card-form-job-listing-base();
 
         margin-bottom: 20px;
 
@@ -103,9 +110,9 @@
 
 
 
-.card-form-listing-mobile{
+.card-form-job-listing-mobile{
     @media screen and (max-width: $sm-break-down){
-        @include card-form-listing-base();
+        @include card-form-job-listing-base();
 
         margin-bottom: 20px;
 

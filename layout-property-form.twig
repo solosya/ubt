@@ -25,7 +25,7 @@
 
 {% set userArticlesArr = [] %}
 {% if user %}                                                                  {# 117 is properties listings blog id #}
-    {% set userArticlesArr = _User.getUserArticles(user.guid, 0, limit, {'blogs':[jobsBlogId], 'status': 'all'}) %}
+    {% set userArticlesArr = _User.getUserArticles(user.guid, 0, limit, {'blogs':[jobsBlogId], 'status': '-1'}) %}
 {% endif %}
 
 
@@ -71,7 +71,9 @@
                                     <input type="text" class="articleExtendedData" name="extendedData.propertyid" id="propertyid" value="" placeholder="Property ID">
                                     <input type="text" class="articleExtendedData" name="extendedData.landarea" id="landarea" value="" placeholder="Land area">
                                     <input type="text" class="articleExtendedData" name="extendedData.floorarea" id="floorarea" value="" placeholder="Floor area">
-                                    <input type="text" class="articleExtendedData" name="extendedData.availability" id="availability" value="" placeholder="Availablity">
+                                    <div style="position:relative"> <!-- this div anchors datepicker to top of input if at bottom of screen -->
+                                        <input type="text" class="articleExtendedData" name="extendedData.availability" id="availability" value="" placeholder="Availablity">
+                                    </div>
                                     <input type="text" class="articleExtendedData" name="extendedData.annualreturn" id="annualreturn" value="" placeholder="Annual return">
                                     <input type="text" class="articleExtendedData" name="extendedData.company" id="company" value="" placeholder="Agency or Company name">
                                     <input type="text" class="articleExtendedData" name="extendedData.contactname" id="contactname" value="" placeholder="Contact name*">
@@ -85,12 +87,19 @@
                                     <textarea name="content" id="content" placeholder="Description*"></textarea>
                                 </div>
                                 <div class="col-md-3">
-                                    <div data-imgcls="images" data-id="imageArray" class="uploadFileBtn property">
+
+
+                                    <div id="uploadFileBtn" data-imgcls="images" data-id="imageArray" class="uploadFileBtn property">
                                         <div class="innerImgBtn">
-                                            <img src="{{networkData.templatePath}}/static/icons/upload-img.svg">
-                                            <p>Upload images</p>
+                                            <div id="InnerUploadFileBtn" class="vertical">
+                                                <img src="{{networkData.templatePath}}/static/icons/upload-img.svg">
+                                                <p>Upload images</p>
+                                            </div>
                                         </div>
                                     </div>
+
+
+
                                 </div>
                             </div>
 
@@ -114,8 +123,8 @@
 
 
 
-            <div class="col-sm-offset-1 col-md-4 section-header">
-                <h2 id="userlistingsrefresh">Your listings</h2>
+            <div class="col-sm-offset-1 col-md-4">
+                <h2 id="userlistingsrefresh" class="userListingsHeader">YOUR LISTINGS</h2>
 
                 <div  id="userListings" class="">
                     
@@ -125,9 +134,9 @@
                             article: article, 
                             position: loop.index,
                             behaviour: 'noclick',
-                            imageSize: {width: 150, height: 120},
-                            template: 'listing',
-                            containerClass: "card-form-listing listingCard"
+                            imageSize: {width: 75, height: 63},
+                            template: 'user-property',
+                            containerClass: "card-form-property-listing listingCard"
                         }) | raw}}
 
                     {% endfor %}

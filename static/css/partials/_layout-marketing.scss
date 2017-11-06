@@ -439,6 +439,11 @@
                     overflow:auto;
                     >div {
                         float:left;
+                        @media screen and (max-width: $sm-break-down) {
+                            float:none
+                        }
+
+
                         label {
                             font-size:rem(12);
                             color:color(lightgrey);
@@ -450,6 +455,11 @@
                         font-size:rem(12);
                         color:color(lightgrey);
                         font-style:italic;
+                        
+                        @media screen and (max-width: $sm-break-down) {
+                            float:none
+                        }
+
                         &:hover {
                             cursor:pointer;
                         }

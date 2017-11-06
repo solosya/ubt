@@ -16,6 +16,10 @@ window.templates.modal =
     </div> \
 </div>';
 
+
+window.templates.listingSavedTmpl =  '<p>Listing has been saved</p><div><form><button class="dialogButton">Okay</button></form></div>';
+
+
 window.templates.signinFormTmpl = 
 '<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
     <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> \
@@ -117,25 +121,18 @@ var cardTemplateBottom =
 
 Acme.jobsCardTemplate = 
     cardTemplateTop + 
-
-        '{{#if hasMedia}}\
-            <figure>\
-                <img class="img-responsive lazyload" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url("{{placeholder}}"")>\
-            </figure>\
-        {{/if}} \
-    \
-        <div class="content">\
+        '<div class="content">\
             <div class="cat-time">\
                 <time datetime="{{publishDate}}">{{publishDate}}</time>\
             </div>\
             <h2>{{{ title }}}</h2>\
+            <p class="company">{{{ additionalInfo.company }}}</p>\
             <p class="excerpt">{{{ excerpt }}}</p>\
             <div class="author">\
                 <img src="{{profileImg}}" class="img-circle">\
                 <p>{{ createdBy.displayName }}</p>\
             </div>\
         </div>' + 
-
     cardTemplateBottom;
 
 

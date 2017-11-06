@@ -12,6 +12,20 @@ main.listingForm, main.eventForm {
         }
     }
 
+    .userListingsHeader {
+        font-size: rem(16);
+        font-weight:600;
+        color:color(darkblue);
+        margin-bottom: 27px;
+        &:after{
+            content: '';
+            display: block;
+            height: 1px;
+            width: 23px;
+            margin-top: 15px;
+            background: color(darkblue);
+        }
+    }
 
     .error-message {
         display:none;
@@ -154,6 +168,7 @@ main.listingForm, main.eventForm {
             border-radius:6px;
             float:left;
             margin-right:12px;
+            margin-bottom:12px;
 
             &::placeholder {
                 font-size: rem(14);
@@ -206,7 +221,7 @@ main.listingForm, main.eventForm {
                 height:100%;
                 border: 1px dashed black;
                 border-radius:3px;
-                >p {
+                > div >p {
                     font-size:rem(10);
                     padding:0;
                     margin:0;
@@ -216,7 +231,7 @@ main.listingForm, main.eventForm {
             &.jobs {
                 height:100px;
                 > div {
-                    > p {
+                    > div > p {
                         padding-top: 15px;
                     }
                 }
@@ -224,7 +239,7 @@ main.listingForm, main.eventForm {
             &.property {
                 > div {
                     padding-top: 30%;
-                     > p {
+                     > div > p {
                         padding-top: 5px;
                     }
 

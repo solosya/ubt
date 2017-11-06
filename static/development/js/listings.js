@@ -50,7 +50,9 @@ var listingRegions = {
         "Ballarat"
     ]
 }
-var listingSalary = ["30,000", "40,000", "50,000", "60,000", "70,000", "80,000", "90,000", "100,000"];
+var listingSalary = ["30k", "40k", "50k", "60k", "70k", "80k", "100k", "120k", "150k", "200k"];
+
+var workType = ["Casual", "Part time", "Full time"];
 
 var propertyList = [
     { 'label': "Warehouse", 'value': "warehouse"},
@@ -235,7 +237,21 @@ ListingForm.constructor = ListingForm;
             this.updateData(data);
         },
         "extendedData.type" : function(data, topic) {
-            console.log(this);
+            this.updateData(data);
+        },
+        "extendedData.salaryfrom" : function(data, topic) {
+            this.updateData(data);
+        },
+        "extendedData.salaryto" : function(data, topic) {
+            this.updateData(data);
+        },
+        "extendedData.worktype" : function(data, topic) {
+            this.updateData(data);
+        },
+        "extendedData.listingclose" : function(data, topic) {
+            this.updateData(data);
+        },
+        "extendedData.availability" : function(data, topic) {
             this.updateData(data);
         },
         "after" : function(data, topic) {
@@ -257,7 +273,7 @@ ListingForm.constructor = ListingForm;
         this.menus.regionMenu = new Acme.listMenu({
                     'parent'        : $('#regionSelect'),
                     'list'          : regionList,
-                    'defaultSelect' : {"label": 'Select region*'},
+                    'defaultSelect' : {"label": 'Region*'},
                     'name'          : 'region',
                     'key'           : 'extendedData.region'
         }).init().render();
@@ -290,10 +306,20 @@ ListingForm.constructor = ListingForm;
         this.menus.SalaryToMenu = new Acme.listMenu({
                     'parent'        : $('#salarySelectTo'),
                     'list'          : listingSalary,
-                    'defaultSelect' : {"label": 'To $'},
+                    'defaultSelect' : {"label": 'to $'},
                     'name'          : 'salaryto',
                     'key'           : 'extendedData.salaryto'
         }).init().render();
+
+        this.menus.workType = new Acme.listMenu({
+                    'parent'        : $('#worktypeSelect'),
+                    'list'          : workType,
+                    'defaultSelect' : {"label": 'Work type*'},
+                    'name'          : 'worktype',
+                    'key'           : 'extendedData.worktype'
+        }).init().render();
+
+
 
     };
     ListingForm.prototype.render = function() 
@@ -322,6 +348,18 @@ ListingForm.constructor = ListingForm;
             }
             if (key === 'salary') {
                 $('#'+key+this.data.extendedData[key]).prop("checked", true);
+            }
+            if (key === 'salaryfrom') {
+                this.menus.SalaryFromMenu.select(this.data.extendedData[key]);
+                continue;
+            }
+            if (key === 'salaryto') {
+                this.menus.SalaryToMenu.select(this.data.extendedData[key]);
+                continue;
+            }
+            if (key === 'worktype') {
+                this.menus.workType.select(this.data.extendedData[key]);
+                continue;
             }
 
             $('#'+key).val(this.data.extendedData[key]);
@@ -415,6 +453,11 @@ ListingForm.constructor = ListingForm;
                         'imgData' : resultJsonStr
                     };
 
+                    var outer = $("#uploadFileBtn");
+                    var inner = $("#InnerUploadFileBtn");
+                    inner.hide();
+                    outer.addClass("spinner");
+
                     Acme.server.create('/api/article/save-image', postdata).done(function(r) {
 
                         var newImageId = r.media.media_id;
@@ -429,6 +472,8 @@ ListingForm.constructor = ListingForm;
 
                         self.renderImageThumbs([data]);
                         $().General_ShowNotification({message: 'Image added successfully' });
+                        outer.removeClass("spinner");
+                        inner.show();
 
                     }).fail(function(r) {
                         console.log(r);
@@ -451,10 +496,13 @@ ListingForm.constructor = ListingForm;
             }
 
             self.data.theme_layout_name = self.layout;
+
             Acme.server.create('/api/article/create', self.data).done(function(r) {
                 $('#listingFormClear').click();
+                Acme.PubSub.publish('update_state', {'confirm': r});
                 Acme.PubSub.publish('update_state', {'userArticles': ''});
             }).fail(function(r) {
+                Acme.PubSub.publish('update_state', {'confirm': r});
                 console.log(r);
             });
         });
@@ -475,8 +523,6 @@ ListingForm.constructor = ListingForm;
         }
 
         var validated = true, fields = [];
-        console.log(this.compulsoryFields);
-
         if (checkFields) {
             var fields = intersect(this.compulsoryFields, checkFields);
             for (var j=0; j<fields.length;j++) {
@@ -488,7 +534,6 @@ ListingForm.constructor = ListingForm;
             var fields = this.compulsoryFields;
             this.errorFields = []; // reset and re-calcuate all fields
         }
-
 
         for (var i=0;i<fields.length; i++) {
             var key = fields[i];
@@ -513,7 +558,6 @@ ListingForm.constructor = ListingForm;
                 validated = false;
             }
         }
-
         return validated;
     };
 
@@ -526,21 +570,46 @@ Acme.JobForm = function(blogId, layout) {
         'Acme.jobForm.listener' : ['state_changed', 'update_state']
     });
 
+    this.parent = ListingForm.prototype;
+
     this.errorFields = [];
 
     this.compulsoryFields = [
         "title", 
         "content", 
         "extendedData.company", 
-        "extendedData.location"
-        // "extendedData.region"
+        "extendedData.location",
+        "extendedData.region",
+        "extendedData.worktype",
+        "extendedData.contactname",
+        "extendedData.contactemail"
     ];
 
     this.init(blogId, layout);
 }
 Acme.JobForm.prototype = new ListingForm();
 Acme.JobForm.prototype.constructor=Acme.JobForm;
+    Acme.JobForm.prototype.events = function() 
+    {
+        var self = this;
+        this.parent.events.call(this);
 
+        $('#listingclose').datetimepicker({
+            format: "DD-MM-YYYY h:mm A",
+            useCurrent: false,
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-angle-up",
+                down: "fa fa-angle-down"
+            },
+            tooltips: {selectTime: ''}
+        }).on('dp.change', function (e) {
+            var data = {};
+            data[e.target.name] = e.date.format('YYYY-MM-DD HH:mm');
+            Acme.PubSub.publish("update_state", data);
+        });
+    };
 
 
 
@@ -550,6 +619,8 @@ Acme.PropertyForm = function(blogId, layout) {
     this.subscriptions = Acme.PubSub.subscribe({
         'Acme.propertyForm.listener' : ['state_changed', 'update_state']
     });
+
+    this.parent = ListingForm.prototype;
 
     this.errorFields = [];
 
@@ -568,6 +639,27 @@ Acme.PropertyForm = function(blogId, layout) {
 };
 Acme.PropertyForm.prototype = new ListingForm();
 Acme.PropertyForm.prototype.constructor=Acme.PropertyForm;
+    Acme.PropertyForm.prototype.events = function() 
+    {
+        var self = this;
+        this.parent.events.call(this);
+
+        $('#availability').datetimepicker({
+            format: "DD-MM-YYYY h:mm A",
+            useCurrent: false,
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-angle-up",
+                down: "fa fa-angle-down"
+            },
+            tooltips: {selectTime: ''}
+        }).on('dp.change', function (e) {
+            var data = {};
+            data[e.target.name] = e.date.format('YYYY-MM-DD HH:mm');
+            Acme.PubSub.publish("update_state", data);
+        });
+    };
 
 
 
@@ -638,86 +730,6 @@ Acme.EventForm = function(blogId) {
             }
         });
 
-        // var EventPostGoogleMap = function () {
-        //     var marker, geocoder;
-        //     var elem = $('#addressMap');
-        //     var latitude = elem.data('latitude');
-        //     var longitude = elem.data('longitude');
-        //     var map;
-            
-        //     //google.maps.event.addDomListener(window, 'load', initMap);
-        //     function initMap() {
-        //         var mapLat;
-        //         var mapLong;
-        //         if (latitude !== '' && longitude !== '') {
-        //             mapLat = latitude;
-        //             mapLong = longitude;
-
-        //             geocoder = new google.maps.Geocoder();
-        //             map = new google.maps.Map(document.getElementById('addressMap'), {
-        //                 zoom: 10,
-        //                 center: {lat: mapLat, lng: mapLong}
-        //             });
-
-        //             //set current marker
-        //             if (latitude != '' && longitude != '') {
-        //                 updateMarker = new google.maps.Marker({
-        //                     position: new google.maps.LatLng(latitude, longitude),
-        //                     map: map
-        //                 });
-        //             }
-        //         } 
-        //         else {
-        //             //navigator.geolocation.getCurrentPosition(function (position) {});
-        //             geocoder = new google.maps.Geocoder();
-        //             map = new google.maps.Map(document.getElementById('addressMap'), {
-        //                 zoom: 1,
-        //                 center: {lat: 43.197167, lng: 56.425781}
-        //             });
-                    
-        //         }
-                
-        //         pointLocation(geocoder, map, marker);
-        //     }
-            
-        //     initMap();
-        // };
-
-        // var pointLocation = function (geocoder, map, marker) {
-        //     $('#address').on('change', function(e){
-        //         mapLocation();
-        //     });
-            
-        //     function mapLocation() {
-        //         var address = $('#address').val();
-
-        //         geocoder.geocode({address: address}, function (results, status) {
-                    
-        //             if (status === google.maps.GeocoderStatus.OK) {
-        //                 map.setCenter(results[0].geometry.location);
-        //                 map.setZoom(10);
-
-        //                 //clear the previous marker
-        //                 if (marker) {
-        //                     marker.setMap(null);
-        //                 }
-        //                 marker = new google.maps.Marker({
-        //                     map: map,
-        //                     position: results[0].geometry.location
-        //                 });
-                        
-        //                 // Set Lat and Long
-        //                 var latitude = results[0].geometry.location.lat();
-        //                 var longitude = results[0].geometry.location.lng();
-        //                 $('#event_latitude').val(latitude);
-        //                 $('#event_longitude').val(longitude);
-        //             } 
-        //         });
-        //     } 
-        // };
-
-        // EventPostGoogleMap();
-
     }
 
 
@@ -753,7 +765,6 @@ Acme.listingCollectionClass = function(name, blogId) {
     this.name = name || "";
     this.listeners = {
         "userArticles" : function(data) {
-            console.log('updating user articles');
             return this.fetch('/api/user/user-articles?userguid='+Acme.currentUser+'&blogs='+this.blogId+'&status=-1');
         }
     };
@@ -786,6 +797,7 @@ Acme.listingViewClass.prototype = new Acme._View();
     Acme.listingViewClass.prototype.listeners = {
         "listingCollection" : function(data) {
             this.data = data.listingCollection.data;
+            console.log(this.data);
             this.render();
         }
     };
@@ -845,7 +857,7 @@ Acme.listingViewClass.prototype = new Acme._View();
     Acme.listingViewClass.prototype.render = function()
     {
         var container = this.container.main;
-        var cardClass = "card-form-listing listingCard";
+        var cardClass = "card-form-job-listing listingCard";
 
         var html = "";
         for (var i=0;i<this.data.length;i++) {
@@ -860,6 +872,133 @@ Acme.listingView = new Acme.listingViewClass();
     Acme.listingView.subscriptions = Acme.PubSub.subscribe({
         'Acme.listingView.listener' : ["state_changed", 'update_state']
     });
-    
+
+
+
+
+
+
+
+
+
+Acme.Confirm = function(template, parent, layouts) {
+
+    this.template = template;
+    this.parentCont = parent;
+    this.layouts = layouts;
+    this.parent = Acme.modal.prototype;
+    this.data = {};
+};
+Acme.Confirm.prototype = new Acme.modal();
+Acme.Confirm.constructor = Acme.Confirm;
+Acme.Confirm.prototype.errorMsg = function(msg) {
+    $('.message').toggleClass('hide');
+};
+Acme.Confirm.prototype.handle = function(e) {
+    var self = this;
+    var $elem = this.parent.handle.call(this, e);
+    if ( $elem.is('a') ) {
+        if ($elem.hasClass('close')) {
+            $('body').removeClass("active");
+            console.log('removing active');
+            this.closeWindow();
+        }
+    }
+    if ($elem.is('button')) {
+        if ($elem.hasClass('signin')) {
+            e.preventDefault();
+            var formData = {};
+            console.log($elem);
+            $.each($('#loginForm').serializeArray(), function () {
+                formData[this.name] = this.value;
+            });
+            console.log(formData);
+            Acme.server.create('/api/auth/login', formData).done(function(r) {
+                console.log(r);
+                if (r.success === 1) {
+                    console.log(location);
+                    window.location.href = location.origin;
+                    // location.reload();
+                } else {
+                    self.errorMsg();
+                }
+            }).fail(function(r) { console.log(r);});
+        }
+
+
+        if ($elem.hasClass('register')) {
+            e.preventDefault();
+            var formData = {};
+            $.each($('#registerForm').serializeArray(), function () {
+                formData[this.name] = this.value;
+            });
+
+            if (formData['email'] !== '' && formData['name'] !== ''){
+                $.get( 'https://submit.pagemasters.com.au/ubt/submit.php?email='+encodeURI(formData['email'])+'&name='+encodeURI(formData['name']) );
+                $elem.addClass('spinner');
+                function close() {
+                    self.closeWindow();
+                };
+                setTimeout(close, 2000);
+
+            } else {
+                alert ("Please fill out all fields.");
+            }
+        }
+
+
+        if ($elem.hasClass('forgot')) {
+            e.preventDefault();
+            var formData = {};
+            $.each($('#forgotForm').serializeArray(), function () {
+                formData[this.name] = this.value;
+            });
+
+            Acme.server.create('/api/auth/forgot-password', formData).done(function(r) {
+                if (r.success === 1) {
+                    location.reload();
+                } else {
+                    self.errorMsg();
+                }
+
+            }).fail(function(r) { console.log(r);});
+        }
+
+        if ($elem.hasClass('default-weather')) {
+            var newDefault = Acme.State.Country + '/' + Acme.State.City;
+
+            localStorage.setItem('city', newDefault);
+            function close() {
+
+                Acme.PubSub.publish("update_state", {'localweather': newDefault });                
+
+                self.closeWindow();
+            };
+            setTimeout(close, 500);            
+        }        
+
+    }
+    if ($elem.hasClass('layout')) {
+        var layout = $elem.data('layout');
+        this.renderLayout(layout);
+    }
+};
+
+var layouts = {
+    "listing"   : 'listingSavedTmpl',
+};
+
+Acme.confirmView = new Acme.Confirm('modal', '#signin', layouts);
+    Acme.confirmView.subscriptions = Acme.PubSub.subscribe({
+        'Acme.confirmView.listener' : ['update_state']
+    });
+
+    Acme.confirmView.listeners = 
+    {
+        "confirm" : function(data, topic) {
+            this.render("listing", "Listing saved");
+        }
+    };
+
 
 }(jQuery));

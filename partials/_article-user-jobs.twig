@@ -1,0 +1,18 @@
+{% import "quotes.twig" as quotes %}
+
+{% set status = "Posted " ~ params.publishDate %}
+{% if article.status | lower == 'draft' %}
+    {% set status = "Pending Approval" %}
+{% endif %}
+
+
+<div class="content">
+    <div class="cat-time">
+        <time datetime="{{params.publishDate}}">{{status}}</time>
+    </div>
+
+    <h2>{{ params.articleTitle }}</h2>
+    <p class="company">{{ article.additionalInfo.company }}</p>
+
+    <p class="excerpt">{{ quotes.smarten(article.excerpt | raw) }}</p>
+</div>
