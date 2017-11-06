@@ -50,6 +50,8 @@ var listingRegions = {
         "Ballarat"
     ]
 }
+var listingSalary = ["30,000", "40,000", "50,000", "60,000", "70,000", "80,000", "90,000", "100,000"];
+
 var propertyList = [
     { 'label': "Warehouse", 'value': "warehouse"},
     { 'label': "Office", 'value': "office"},
@@ -276,6 +278,23 @@ ListingForm.constructor = ListingForm;
                     'name'          : 'contracttype',
                     'key'           : 'extendedData.contracttype'
         }).init().render();
+
+        this.menus.SalaryFromMenu = new Acme.listMenu({
+                    'parent'        : $('#salarySelectFrom'),
+                    'list'          : listingSalary,
+                    'defaultSelect' : {"label": 'Salary range from $'},
+                    'name'          : 'salaryfrom',
+                    'key'           : 'extendedData.salaryfrom'
+        }).init().render();
+
+        this.menus.SalaryToMenu = new Acme.listMenu({
+                    'parent'        : $('#salarySelectTo'),
+                    'list'          : listingSalary,
+                    'defaultSelect' : {"label": 'To $'},
+                    'name'          : 'salaryto',
+                    'key'           : 'extendedData.salaryto'
+        }).init().render();
+
     };
     ListingForm.prototype.render = function() 
     {

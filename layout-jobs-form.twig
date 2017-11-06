@@ -80,19 +80,28 @@
                                     <fieldset>
                                         <div class="inline">
                                             <input type="radio" name="extendedData.salary" id="salary1" class="articleExtendedData" value="1" checked="checked" />
-                                            <label for="salary1">Annual salary package</label>
+                                            <label for="salary1">Annual salary</label>
                                         </div>
-                                        <div class="inline">
-                                            <input type="radio" name="extendedData.salary" id="salary2" class="articleExtendedData" value="2" />
-                                            <label for="salary2">Annual &amp; Commission</label>
-                                        </div>
-                                        <div class="inline">
-                                            <input type="radio" name="extendedData.salary" id="salary3" class="articleExtendedData" value="3" />
-                                            <label for="salary3">Commission only</label>
-                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-3 large-split">
+                                                <div id="salarySelectFrom" class="propertyListingSelect"></div>
+                                            </div>
+                                            <div class="col-sm-3 large-split">
+                                                <div id="salarySelectTo" class="propertyListingSelect"></div>
+                                            </div>
+                                        </div>                    
+
+
                                         <div class="inline">
                                             <input type="radio" name="extendedData.salary" id="salary4" class="articleExtendedData" value="4" />
                                             <label for="salary4">Hourly rate</label>
+                                            <input type="text" class="articleExtendedData" name="extendedData.hourlyrate" id="hourlyrate" value="" placeholder="$ per hour">
+                                        </div>
+
+                                        <div class="inline">
+                                            <input type="radio" name="extendedData.salary" id="salary3" class="articleExtendedData" value="3" />
+                                            <label for="salary3">Commission</label>
                                         </div>
 
                                     </fieldset>
