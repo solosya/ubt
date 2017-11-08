@@ -79,7 +79,7 @@ gulp.task('scripts', function(){
         // './static/development/js/plugins/bootstrap-modalmanager.js',
         // './static/development/js/plugins/bootstrap-modal.js',
         './static/development/js/plugins/jquery.noty-2.3.8/js/noty/packaged/jquery.noty.packaged.min.js',
-        // './static/development/js/plugins/jquery.fancybox/source/jquery.fancybox.js',
+        './static/development/js/plugins/jquery.fancybox/source/jquery.fancybox.js',
         // './static/development/js/plugins/bootbox.min.js',
         // './static/development/js/plugins/jquery.validate/jquery.validate.min.js',
         // './static/development/js/plugins/waypoint/lib/jquery.waypoints.min.js',
