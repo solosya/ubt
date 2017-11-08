@@ -43,12 +43,12 @@
 .card-rec-sport{
     @media screen and (min-width: $mmd-break){
         @include card-rec-sport-base();
-            height:250px;
 
         margin-bottom: 43px;
 
         a.card {
             @include card-image-left(217px, 231px);
+            height:250px;
 
             // height:130px;
 
