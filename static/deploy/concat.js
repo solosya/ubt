@@ -30097,7 +30097,6 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
     Acme.View         = {};
     Acme.Model        = {};
     Acme.Collection   = {};
-    Acme.State        = {};
 
     $('html').on('click', function(e) {
         $('.pulldown ul').hide();
@@ -30229,7 +30228,7 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
     Acme.View.create = function(config)
     {
         var obj = function(){};
-
+        console.log(config);
         for (conf in config) {
             obj.prototype[conf] = config[conf];
         }
@@ -33848,49 +33847,96 @@ UserArticlesController.Load = (function ($) {
 
 
 
-Acme.UserProfile = Acme.View.create(
-{
-    "container"     : {
-        'main'          : $('#listingForm')
-    },
-    "listeners"     : {
-    },
-    "render": function() {
-        console.log('in the render function');
-        console.log(this.data);
-    },
-    "events": function() 
-    {
-        var self = this;
+// (function ($) {
 
-        $('input, textarea').on("change", function(e) {
+// Acme.UserProfile = Acme.View.create(
+// {
+//     "container"     : {
+//         'main'          : $('#listingForm')
+//     },
+//     "listeners"     : {
+//     },
+//     "render": function() {
+//         console.log('in the render function');
+//         console.log(this.data);
+//     },
+//     "events": function() 
+//     {
+//         var self = this;
+//     console.log("events");
+
+//         $('input, textarea').on("change", function(e) {
+//         });
+
+//         $('#profile-form').submit(function(e) {
+//         });
+
+//         $('.change-password').on("click", function(e) {
+//             console.log('passewrd')
+//             $('#password').removeAttr('disabled');
+//             $('#password').attr("placeholder", "Enter new password")
+//             $('.verifypassword').removeClass('hidden');
+//             this.remove();
+//         })
+
+
+
+//     },
+//     "construct": function() 
+//     {
+//         this.subscriptions = Acme.PubSub.subscribe({
+//             // 'Acme.ListingForm.listener' : ["state_changed", 'update_state']
+//         });
+//         console.log('construct');
+//         this.render();
+//         this.events();
+//     }
+// });
+
+// $('[data-dismiss="alert"]').on('click', function(e) {
+//     this.closest('div').remove();
+// });
+
+// }(jQuery));
+
+
+var UserProfielController = (function ($) {
+    return {
+        load: function () {
+            UserProfielController.Load.init();
+        }
+    };
+}(jQuery));
+
+UserProfielController.Load = (function ($) {
+    var attachEvents = function () {
+          console.log('events!');
+
+        $('#addManagedUser').on('click', function(e) {
+            console.log('add user');
+            e.preventDefault()
+            var user = '<li>\
+                <div class="userdetails" >\
+                    <p><a contenteditable="true" class="displayname">{{user.firstname}}</a> <a contenteditable="true" class="displayname">{{user.lastname}}</a></p>\
+                    <p><a contenteditable="true" class="username">{{user.username}}</a></p>\
+                </div>\
+                <div class="useremailbuttons">\
+                <div><p><a contenteditable="true" class="uesremail">{{user.email}}</a> <a class="edituser">edit</a><a class="deleteuser">delete</a></p></div>\
+                </div>\
+            </li>';
+            $('#mangedUsers').append($(user));
         });
+        
+    };
+    return {
+        init: function () {
+            attachEvents();
+        }
+    };
 
-        $('#profile-form').submit(function(e) {
-        });
+}(jQuery));
 
-        $('.change-password').on("click", function(e) {
-            $('#password').removeAttr('disabled');
-            $('#password').attr("placeholder", "Enter new password")
-            $('.verifypassword').removeClass('hidden');
-            this.remove();
-        })
 
-    },
-    "construct": function() 
-    {
-        this.subscriptions = Acme.PubSub.subscribe({
-            // 'Acme.ListingForm.listener' : ["state_changed", 'update_state']
-        });
-
-        this.render();
-        this.events();
-    }
-});
-
-$('[data-dismiss="alert"]').on('click', function(e) {
-    this.closest('div').remove();
-});
 
 (function ($) {
 

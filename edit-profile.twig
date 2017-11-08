@@ -1,4 +1,5 @@
 {{ set(this, 'title', 'Edit Profile') }}
+{{this.registerJs("UserProfielController.load()")}}
 
 <!-- Begin User Profile Page -->
 {% set user = _User.getUser() %}
@@ -28,7 +29,9 @@
 
                     <div class="profile-section with-border">
                         <div class="section-heading">
-                            <p>My details</p>
+                            <p>My details</p>                                    
+                            <a class="button" href="/auth/logoff">Log Out</a> 
+
                         </div>
                         <div class="profile-details listingForn">
                             <form id="profile-form" class="form-horizontal" action="" method="post" enctype="multipart/form-data" autocomplete="off" >
@@ -82,16 +85,55 @@
                             </form>
                         </div>
                     </div>
-
-                    <div class="profile-section with-border">
-                        <div class="section-heading">
-                            <p>Subscription Details</p>
+                    {% if pwstats.userManager == true %}
+                        {% set managedUers = _User.getPaywallManagedUsers() %}
+                        <div class="profile-section">
+                            <div class="section-heading">
+                                <p>Subscription Details </p>
+                            </div>
+                            <div  id="userListing" class="col-md-12">
+                                <div class="empty-listing">
+                                    {# {{dump(pwstats)}} #}
+                                </div>
+                            </div>
                         </div>
-    {{dump(pwstats)}}
 
 
-                    </div>
 
+                        <div class="profile-section">
+                            <div class="section-heading">
+                                <p>My Users </p><a> {{managedUers|length}} of {{pwstats['paywall_total_users']}} used </a>
+                            </div>
+                            <div class="row">
+                                <div  id="user_profile" class="col-md-12">
+                                    {% if managedUers|length == 0 %} 
+                                    <div class="empty-listing">
+                                        <p>You have no current users.</p>
+                                    </div>
+                                    {% else %}
+                                    <ul id="mangedUsers" class="managed-user" >
+                                        {% for user in managedUers %}
+                                        <li>
+                                            <div class="userdetails" >
+                                                <p><a contenteditable="true" class="displayname">{{user.firstname}}</a> <a contenteditable="true" class="displayname">{{user.lastname}}</a></p>
+                                                <p><a contenteditable="true" class="username">{{user.username}}</a></p>
+                                            </div>
+                                            <div class="useremailbuttons">
+                                            <div><p><a contenteditable="true" class="uesremail">{{user.email}}</a> <a class="edituser">edit</a><a class="deleteuser">delete</a></p></div>   
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                </div>
+                                {% if managedUers|length < pwstats['paywall_total_users'] %}
+                                    <a id="addManagedUser" style="z-index:1000;" class="addUser">+ Add users</a>
+                                {% endif %}
+                            </div>
+
+                                </div>
+                        </div>
+                    {% endif %}
 
                     <div class="profile-section">
                         <div class="section-heading">
