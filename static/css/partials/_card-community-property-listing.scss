@@ -1,0 +1,131 @@
+@mixin card-community-property-listing-base() {
+    position:relative;
+    a.card {
+        border-bottom: 1px solid #97999c;
+
+        > article {
+            position:relative;
+            > figure{
+            }
+            > .content{
+                padding: 0;
+                position:relative;
+                > h2{
+                    font-family: $base-font-family;
+                    color:color(red);
+                }
+
+                > p.excerpt {
+                    display:none;
+                }
+            }
+        }
+    }
+}
+
+
+
+.card-community-property-listing{
+    @media screen and (min-width: $mmd-break){
+        @include card-community-property-listing-base();
+
+        margin-bottom: 32px;
+
+        a.card {
+            @include card-image-left(100px, 82px);
+            height:141px;
+
+            > article {
+
+                > figure{
+                    margin-right:18px;
+                }
+
+                > .content{
+                    > h1.price {
+                        font-size: rem(14);
+                        font-weight:600;
+                    }
+                    > h2{
+                        font-weight:400;
+                        font-size: rem(11);
+                        margin-top:10px;
+                        margin-bottom:5px;
+                        height:40px;
+                        color:color(lightgrey);
+                    }
+
+                }
+            }
+        }
+    }
+}
+
+
+
+
+.card-community-property-listing-tablet{
+    @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
+        @include card-community-property-listing-base();
+
+        margin-bottom: 20px;
+
+        a.card {
+            @include card-image-left(109px, 78px);
+            height:95px;
+
+            > article {
+
+                > figure {
+                    margin-right:18px;
+                }
+
+                > .content{
+                    > h2{
+                        font-size: rem(16);
+                        line-height:1.12;
+                        margin-top:5px;
+                        margin-bottom:10px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+.card-community-property-listing-mobile{
+    @media screen and (max-width: $sm-break-down){
+        @include card-community-property-listing-base();
+
+        margin-bottom: 20px;
+
+        a.card {
+            @include card-image-left(80px, 82px);
+            height:102px;
+
+            > article {
+
+                > figure{
+                    margin-right:18px;
+                }
+
+                > .content{
+                    > h2{
+                        font-size: rem(16);
+                        line-height:1.38;
+                        margin-top:0;
+                    }
+                }
+            }
+        }
+    }
+}
+
