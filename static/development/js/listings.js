@@ -50,7 +50,7 @@ var listingRegions = {
         "Ballarat"
     ]
 }
-var listingSalary = ["30k", "40k", "50k", "60k", "70k", "80k", "100k", "120k", "150k", "200k"];
+var listingSalary = ["30k", "40k", "50k", "60k", "70k", "80k", "100k", "120k", "150k", "200k", "200k+"];
 
 var workType = ["Casual", "Part time", "Full time"];
 
