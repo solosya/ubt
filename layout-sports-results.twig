@@ -22,7 +22,7 @@
  #}
 <!-- used to index each article as we loop over throughout the template -->
 {% set articleCount = 0 %}
-{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
+{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
 
 
 
@@ -49,12 +49,11 @@
             <div class="col-sm-offset-1 col-sm-6">
 
                 <div id="sports-results">
-                    {% for i in 0..6 if articles[articleCount] %}
+                    {% for i in 0..10 if articles[articleCount] %}
                         {{this.render('partials/_single-article.twig', {
                             article: articles[articleCount], 
                             position: (articleCount+1),
-                            imageSuppress: true,
-                            imageSize: {width: 173, height: 144},
+                            imageSize: {width: 217, height: 231},
                             containerClass: 'card-rec-sport card-rec-sport-tablet card-rec-sport-mobile'
                         }) | raw}}
                         {% set articleCount = (dev) ? articleCount : articleCount + 1 %}

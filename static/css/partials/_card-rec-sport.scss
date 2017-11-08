@@ -7,7 +7,7 @@
             position:relative;
 
             > figure{
-                display: none;
+                // display: none;
             }
 
             > .content{
@@ -30,8 +30,8 @@
                     height: 70px;
                 }
 
-                > p {
-                    display: none;
+                > p.excerpt {
+                    // display: none;
                 }
             }
         }  
@@ -47,14 +47,19 @@
         margin-bottom: 43px;
 
         a.card {
-            height:130px;
+            @include card-image-left(217px, 231px);
+
+            // height:130px;
 
             > article {
-
+                padding-bottom:20px;
+                > figure {
+                    margin-right:24px;
+                }
                 > .content{
 
                     > h2{
-                        width: 410px;
+                        // width: 410px;
                     }
                 }
             }
@@ -72,7 +77,16 @@
         margin-bottom: 43px;
 
         a.card {
-            height:130px;
+            @include card-image-left(150px, 170px);
+            > article {
+                >figure {
+                    margin-right:24px;
+                }
+                > .content {
+
+                }
+            }
+            // height:130px;
         }
     }
 }
@@ -92,7 +106,7 @@
         margin-bottom: 43px;
 
         a.card {
-            height:130px;
+            // height:130px;
         }
     }
 }
