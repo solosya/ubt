@@ -38,7 +38,7 @@
                 </p>
             </div>
             <div class="col-sm-3" >
-                <a class="listing-link" href="{{networkData.defaultBlogUrl}}/@property-form">Submit a job</a>
+                <a class="listing-link" href="{{networkData.defaultBlogUrl}}/@property-form">Submit a listing</a>
             </div>
         
             
@@ -66,6 +66,7 @@
                         article: articles[articleCount], 
                         position: (articleCount+1),
                         template: 'property',
+                        networkData: networkData,
                         imageSize: {width: 200, height: 140},
                         containerClass: 'card-rec-realestate card-rec-realestate-tablet card-rec-realestate-mobile'
                     }) | raw}}

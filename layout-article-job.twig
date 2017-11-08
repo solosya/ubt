@@ -9,20 +9,49 @@
 
 {% set articleImg = false %}
 {% if article.media|length > 0 %}
-    {% set articleImg = _Media.getMediaUrl(article.media[0],265, 75, {'crop': 'fill', 'gravity': 'auto'} ) %}
+    {% set articleImg = _Media.getMediaUrl(article.media[0],218, 140, {'crop': 'fill', 'gravity': 'auto'} ) %}
 {% endif %}
 
 {% set publishDate = _AppHelper.getDefaultTimezoneDateTime(article.publishedDateTime, 'j M Y') %}
+{% set listingClose = _AppHelper.getDefaultTimezoneDateTime(article.additionalInfo.listingclose, 'j M Y') %}
 
 {% set articles = _Article.getPopularArticles({ limit: 10, excludeArticleIds : article.id }) %}
-{% set popularArticles = _Article.getPopularArticles({ limit: 5, sortBy: 'VIEWS', blogId: article.blog.id, type: 'article' }) %}
-{% set suggestedArticles = _Article.getPopularArticles({ limit: 6, sortBy: 'VIEWS', scope: 'network' }) %}
+
 
 {% set articleCount = 0 %}
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
-{% set workType = ["Annual salary package", "Annual & Commission", "Commission only", "Hourly rate"] %}
 
 
+
+
+{% set salaryType = article.additionalInfo.salary %}
+{% set salaryPrefix = "" %}
+{% set salary = "" %}
+
+{% if salaryType == 1 %}
+    {% set salaryPrefix = "Anual salary " %}
+    {% set salary = "$" ~ article.additionalInfo.salaryfrom %}
+    {% if article.additionalInfo.salaryto %}
+        {% set salaryPrefix = salaryPrefix ~ "range " %}
+        {% set salary = salary ~ " - " ~ article.additionalInfo.salaryto %}
+    {% endif %}
+
+{% elseif salaryType == 2 %}
+    {% set salaryPrefix = "Hourly rate " %}
+    {% set salary = "$" ~ article.additionalInfo.hourlyrate %}
+
+{% elseif salaryType == 3 %}
+    {% set salaryPrefix = "Commission" %}
+{% endif %}
+
+{% set salary = salaryPrefix ~ salary %}
+
+
+
+{% set company = article.additionalInfo.company %}
+{% if article.additionalInfo.website %}
+    {% set company = company ~ " | " ~ article.additionalInfo.website %}
+{% endif %}
 
 
 <main id="main" class="container-fluid site-main" role="main">
@@ -88,8 +117,8 @@
                             
                             <h1>{{ quotes.smarten(article.title) }}</h1>
                             
-                            <p class="company">{{ article.additionalInfo.company }}</p>
-                            <p class="salary">Salary ${{ article.additionalInfo.salaryrange }}</p>
+                            <p class="company">{{ company }}</p>
+                            <p class="salary">{{salary}}</p>
 
                         </div><!--content-block-top-->
 
@@ -109,29 +138,32 @@
                     <div class="job-details">
                         <table>
                             <tr>
-                                <td class="label">Listed</td>
-                                <td class="value">{{publishDate}}</td>
+                                <td class="label">Work type</td>
+                                <td class="value">{{article.additionalInfo.worktype}}</td>
                             </tr>
                             <tr>
                                 <td class="label">Location</td>
                                 <td class="value">{{article.additionalInfo.location}}</td>
                             </tr>
                             <tr>
-                                <td class="label">Work type</td>
-                                <td class="value">{{workType[article.additionalInfo.salary]}}</td>
+                                <td class="label">Region</td>
+                                <td class="value">{{article.additionalInfo.region}}</td>
                             </tr>
-{#                             <tr>
-                                <td class="label">Category</td>
-                                <td class="value">Administration and Office Support</td>
+                            <tr>
+                                <td class="label">Listed</td>
+                                <td class="value">{{publishDate}}</td>
                             </tr>
- #}                        </table>
+                            <tr>
+                                <td class="label">Applications close</td>
+                                <td class="value">{{listingClose}}</td>
+                            </tr>
+                        </table>
                     </div>
 
                     <div class="job-contact">
-                        <h3>To apply for this job email:</h3>
+                        <h3>To apply, please contact:</h3>
                         <p class="contact-name">{{ article.additionalInfo.contactname }}</p>
-{#                         <p class="contact-role">Manager</p>
- #}                        <p class="contact-email">{{ article.additionalInfo.contactemail }}</p>
+                        <p class="contact-email">{{ article.additionalInfo.contactemail }}</p>
 
                     </div>
 

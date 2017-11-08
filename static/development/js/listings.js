@@ -55,9 +55,17 @@ var listingSalary = ["30k", "40k", "50k", "60k", "70k", "80k", "100k", "120k", "
 var workType = ["Casual", "Part time", "Full time"];
 
 var propertyList = [
-    { 'label': "Warehouse", 'value': "warehouse"},
-    { 'label': "Office", 'value': "office"},
-    { 'label': "Factory", 'value': "factory"}
+    { 'label': "Industrial / Warehouse", 'value': "Industrial / Warehouse"},
+    { 'label': "Offices", 'value': "Offices"},
+    { 'label': "Development / Land", 'value': "Development / Land"},
+    { 'label': "Hotel / Leisure", 'value': "Hotel / Leisure"},
+    { 'label': "Medical / Consulting", 'value': "Medical / Consulting"},
+    { 'label': "Serviced Offices", 'value': "Serviced Offices"},
+    { 'label': "Parking / Car Space", 'value': "Parking / Car Space"},
+    { 'label': "Rural / Farming", 'value': "Rural / Farming"},
+    { 'label': "Showrooms / Bulky Goods", 'value': "Showrooms / Bulky Goods"},
+    { 'label': "Retail", 'value': "Retail"},
+    { 'label': "Other", 'value': "Other"}
 ];
 
 var contractList = [

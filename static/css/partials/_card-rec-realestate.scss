@@ -17,25 +17,66 @@
                         border-right:1px solid color(lightgrey);
                     }
                 }
-                > h2{
+                > h1{
                     font-family: $font-family-serif;
                     color:color(darkblue);
                     height: 30px;
                 }
-                > h3{
+                > h2{
                     margin:0;
                     color:color(red);
+                    font-weight:normal;
                     line-height: 1.33;
                 }
 
                 > div.listing-type {
-                    >img {
+                    position:relative;
+                    height: 16px;
+                    width: 100%;
+
+                    background-repeat:no-repeat;
+                    background-size:contain;
+                    > img {
                         float:left;
+                        margin-right:10px;
                     }
-                    p {
-                        font-size: rem(12);
-                        font-family: $font-family-sans-serif;
-                        font-style: italic;
+                    // &.industrial {
+                    //     background-image:url('../icons/property/warehouse.svg');
+                    // }
+                    // &.offices {
+                    //     background-image:url('../icons/property/office.svg');
+                    // }
+                    // &.showrooms {
+                    //     background-image:url('../icons/property/showrooms.svg');
+                    // }
+                    // &.serviced {
+                    //     background-image:url('../icons/property/serviced-offices.svg');
+                    // }
+                    // &.retail {
+                    //     background-image:url('../icons/property/retail.svg');
+                    // }
+                    // &.parking {
+                    //     background-image:url('../icons/property/parking.svg');
+                    // }
+                    // &.medical {
+                    //     background-image:url('../icons/property/consulting.svg');
+                    // }
+                    // &.development {
+                    //     background-image:url('../icons/property/land.svg');
+                    // }
+                    // &.Rural {
+                    //     background-image:url('../icons/property/Rural.svg');
+                    // }
+
+                    >p {
+                        margin:0;
+                        margin-left:10px;
+                        font-size:rem(12);
+                        font-style:italic;
+                        color:color(darkblue);
+                        line-height:1;
+                        position: relative;
+                        top: 4px;
                     }
                 }
                 > p.excerpt {
@@ -73,13 +114,14 @@
 
                 > .content{
 
-                    > h2{
+                    > h1{
                         font-size: rem(25);
+                        font-weight:600;
                         line-height:1.2;
                         margin-top:0px;
                         margin-bottom:6px;
                     }
-                    > h3{
+                    > h2{
                         font-size: rem(14);
                         margin-bottom:8px;
                     }
@@ -117,13 +159,13 @@
                         text-align: center;
                     }
 
-                    > h2{
+                    > h1{
                         font-size: rem(25);
                         line-height:1.12;
                         margin-top:5px;
                         margin-bottom:0px;
                     }
-                    > h3{
+                    > h2{
                         font-size: rem(14);
                         margin-bottom:10px;
                     }

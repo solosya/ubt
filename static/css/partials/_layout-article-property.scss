@@ -75,14 +75,14 @@
 
 
             div.job-details {
-                padding:25px;
+                padding: 0 15px;
                 background:color(marketgrey);
 
                 table {
                         border-collapse:separate; 
                         border-spacing: 0 1em;
                     tr {
-                        height:40px;
+                        height:20px;
                         border-bottom:1px solid color(border);
                     }
                     td {
@@ -107,9 +107,11 @@
             div.property-contact {
                 margin:0;
                 padding:0;
-                margin-top:5px;
-                padding:25px;
-                background:color(marketgrey);
+                margin-top:15px;
+                padding-bottom:15px;
+                // background:color(marketgrey);
+                border-bottom: 1px solid color(border);
+
 
                 h3 {
                     margin:0;
@@ -120,8 +122,17 @@
                 p{
                     margin:0;
                 }
+                p.contact-details {
+                    color:black;
+                    font-weight:600;
+                    margin-bottom:7px;
+                }
+
                 p.contact-name {
-                    font-weight:700;
+                    font-weight:600;
+                    color:color(darkblue);
+                    margin-bottom:5px;
+
                 }
                 p.contact-role {
                     font-style:italic;

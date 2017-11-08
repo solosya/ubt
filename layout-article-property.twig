@@ -123,21 +123,21 @@
                             <table>
                                 {% if article.additionalInfo.floorarea %}
                                     <tr>
-                                        <td class="label">Floor area</td>
-                                        <td class="value">{{article.additionalInfo.floorarea}}</td>
+                                        <td class="label">Property type</td>
+                                        <td class="value">{{article.additionalInfo.type}}</td>
                                     </tr>
                                 {% endif %}
                                 <tr>
-                                    <td class="label">Category</td>
-                                    <td class="value">{{article.additionalInfo.type}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="label">Annual return</td>
-                                    <td class="value">{{article.additionalInfo.annualreturn}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="label">Availability</td>
+                                    <td class="label">Available</td>
                                     <td class="value">{{article.additionalInfo.availability}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="label">Land area m&sup2;</td>
+                                    <td class="value">{{article.additionalInfo.landarea}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="label">Floor area m&sup2;</td>
+                                    <td class="value">{{article.additionalInfo.floorarea}}</td>
                                 </tr>
                                 <tr>
                                     <td class="label">Property Id</td>
@@ -147,6 +147,7 @@
                         </div>
 
                         <div class="property-contact">
+                            <p class="contact-details">For more information, please contact</p>
                             <p class="contact-name">{{article.additionalInfo.contactname}}</p>
                             <p class="contact-role">{{article.additionalInfo.company}}</p>
                             <p class="contact-email">{{article.additionalInfo.contactphone}}</p>

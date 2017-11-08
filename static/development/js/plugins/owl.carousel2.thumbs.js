@@ -196,7 +196,7 @@
         var thumbContainer = options.thumbsPrerendered ? $('.' + options.thumbContainerClass + '[data-slider-id="' + this._identifier + '"]') : this._thumbcontent._thumbcontainer;
         thumbContainer.children().filter('.active').removeClass('active');
         thumbContainer.children().eq(this.owl_currentitem).addClass('active');
-        Acme.scrollThumbs(thumbContainer.children().eq(this.owl_currentitem));
+        // Acme.scrollThumbs(thumbContainer.children().eq(this.owl_currentitem));
     };
 
 
