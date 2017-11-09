@@ -89,6 +89,7 @@ gulp.task('scripts', function(){
         './static/development/js/plugins/owl.carousel.min.js',
         './static/development/js/plugins/moment.js',
         './static/development/js/plugins/bootstrap-datetimepicker.js',
+        './static/development/js/plugins/ticker.js',
 
         
 

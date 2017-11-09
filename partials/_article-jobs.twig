@@ -1,5 +1,31 @@
 {% import "quotes.twig" as quotes %}
 
+{% set salaryType = article.additionalInfo.salary %}
+{% set salaryPrefix = "" %}
+{% set salary = "" %}
+
+{% if salaryType == 1 %}
+    {% set salaryPrefix = "Salary " %}
+    {% set salary = "$" ~ article.additionalInfo.salaryfrom %}
+    {% if article.additionalInfo.salaryto %}
+        {% set salaryPrefix = salaryPrefix ~ "range <br />" %}
+        {% set salary = salary ~ " - " ~ article.additionalInfo.salaryto %}
+    {% endif %}
+
+{% elseif salaryType == 2 %}
+    {% set salaryPrefix = "Hourly rate " %}
+    {% set salary = "$" ~ article.additionalInfo.hourlyrate %}
+
+{% elseif salaryType == 3 %}
+    {% set salaryPrefix = "Commission" %}
+{% endif %}
+
+{% set salary = salaryPrefix ~ salary %}
+
+
+
+
+
 <div class="content">
     <div class="cat-time">
         <time datetime="{{params.publishDate}}">{{params.publishDate}}</time>
@@ -8,16 +34,14 @@
     <h2>{{ params.articleTitle }}</h2>
     <p class="company">{{ article.additionalInfo.company }}</p>
     
-    {% if article.additionalInfo.salaryrange %}
-        <p class="salary">Salary ${{ article.additionalInfo.salaryrange }}</p>
-    {% endif %}
+    <p class="salary">{{salary | raw}}</p>
 
     <p class="excerpt">{{ quotes.smarten(article.excerpt | raw) }}</p>
-    <p class="location">{{ article.additionalInfo.location }}</p>
+    <p class="location">Region {{ article.additionalInfo.region }}</p>
                         
-    <div class="author">
+{#     <div class="author">
         <img src="{{params.profileImg}}" class="img-circle">
         <p>{{ article.createdBy['displayName'] }}</p>
     </div>
     <time class="lowerTime" datetime="{{params.publishDate}}">{{params.publishDate}}</time>
-</div>
+ #}</div>

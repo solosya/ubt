@@ -121,19 +121,56 @@ var cardTemplateBottom =
 
 Acme.jobsCardTemplate = 
     cardTemplateTop + 
-        '<div class="content">\
-            <div class="cat-time">\
-                <time datetime="{{publishDate}}">{{publishDate}}</time>\
-            </div>\
+        '<div class="content"> \
+            <div class="cat-time"> \
+                <time datetime="{{publishDate}}">{{publishDate}}</time> \
+            </div> \
             <h2>{{{ title }}}</h2>\
-            <p class="company">{{{ additionalInfo.company }}}</p>\
-            <p class="excerpt">{{{ excerpt }}}</p>\
-            <div class="author">\
-                <img src="{{profileImg}}" class="img-circle">\
-                <p>{{ createdBy.displayName }}</p>\
-            </div>\
+            <p class="company">{{{ additionalInfo.company }}}</p> \
+            <p class="salary">{{{salary}}}</p> \
+            \
+            <p class="excerpt">{{{ excerpt }}}</p> \
+            <p class="location">Region {{ additionalInfo.region }}</p> \
+            \
         </div>' + 
     cardTemplateBottom;
+
+
+
+Handlebars.registerHelper('splitShift', function(text) {
+  return text.split(" ")[0];
+  // return t[1] + " <br/> " + t[0];
+});
+
+Acme.propertyCardTemplate = 
+    cardTemplateTop +  
+        '{{#if hasMedia}} \
+            <figure class="{{figureClass}}"> \
+                <picture> \
+                    <source media="(max-width: 620px)" srcset="{{imageUrl}}"> \
+                    <img class="img-responsive" src="{{imageUrl}}" data-original="{{imageUrl}}"  style="background-image:url("{{placeholder}}")"> \
+                </picture> \
+            </figure> \
+        {{/if}} \
+        \
+        <div class="content"> \
+            <div class="cat-time"> \
+                <time datetime="{{publishDate}}">{{publishDate}}</time> \
+            </div> \
+            \
+            <h1 class="price">${{ additionalInfo.pricerange }}</h1> \
+            \
+            <h2>{{ title }}</h2> \
+            \
+            <p class="excerpt">{{ excerpt }}</p> \
+            <div class="listing-type"> \
+                <img src="'+ _appJsConfig.templatePath + '/static/icons/property/{{ splitShift additionalInfo.type }}.svg"> \
+                <p>{{ additionalInfo.type }}</p> \
+            </div> \
+        </div>';
+
+
+console.log(Acme.propertyCardTemplate);
 
 
 Acme.systemCardTemplate = 
@@ -141,7 +178,7 @@ Acme.systemCardTemplate =
 
             '{{#if hasMedia}}\
                 <figure>\
-                    <img class="img-responsive lazyload" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url("{{placeholder}}"")>\
+                    <img class="img-responsive lazyload" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url("{{placeholder}}")">\
                 </figure>\
             {{/if}} \
         \

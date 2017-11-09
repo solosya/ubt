@@ -5,7 +5,15 @@
 
 
 
-{{this.registerJs("CardController();")}}
+{{this.registerJs("window.Acme.cards = CardController();")}}
+{{this.registerJs("Acme.searchCollection = new Acme.searchCollectionClass(["~blogData['id']~"]);")}}
+{{this.registerJs("Acme.jobRegionFilter = new Acme.regionSearchView();")}}
+{{this.registerJs("Acme.propertyTypeFilter = new Acme.propertyTypeSearchView();")}}
+{{this.registerJs("Acme.saleTypeFilter = new Acme.saleTypeSearchView();")}}
+{{this.registerJs("Acme.propertySearchResults = new Acme.propertySearchResultsClass('property-listings', 'propertyCardTemplate');")}}
+
+
+
 
 {% set limit = 10 %}
 
@@ -48,31 +56,44 @@
         <section class="row">
 
             <div class="col-sm-offset-1 col-sm-6">
-                {% if articles[articleCount] %}
-                    {{this.render('partials/_single-article.twig', {
-                        article: articles[articleCount], 
-                        position: (articleCount+1),
-                        template: 'property',
-                        networkData: networkData,
-                        imageSize: {width: 640, height: 309},
-                        containerClass: 'card-main-realestate card-main-realestate-tablet card-main-realestate-mobile'
-                    }) | raw}}
-                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                {% endif %}
+
+                <div class="menu row">
+                    <div id="regionSelect" class="col-md-4 regionSelect"></div>
+                    <div id="typeSelect" class="col-md-4 typeSelect"></div>
+                    <div id="saleSelect" class="col-md-3 saleSelect"></div>
+                    <a id="searchButton" href="#">Search</a>
+                </div>
 
 
-                {% for i in 0..4 if articles[articleCount] %}
-                    {{this.render('partials/_single-article.twig', {
-                        article: articles[articleCount], 
-                        position: (articleCount+1),
-                        template: 'property',
-                        networkData: networkData,
-                        imageSize: {width: 200, height: 140},
-                        containerClass: 'card-rec-realestate card-rec-realestate-tablet card-rec-realestate-mobile'
-                    }) | raw}}
-                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                {% endfor %}
 
+
+                <div id="property-listings">
+                    {% if articles[articleCount] %}
+                        {{this.render('partials/_single-article.twig', {
+                            article: articles[articleCount], 
+                            position: (articleCount+1),
+                            template: 'property',
+                            networkData: networkData,
+                            imageSize: {width: 640, height: 309},
+                            containerClass: 'card-main-realestate card-main-realestate-tablet card-main-realestate-mobile'
+                        }) | raw}}
+                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                    {% endif %}
+
+
+                    {% for i in 0..4 if articles[articleCount] %}
+                        {{this.render('partials/_single-article.twig', {
+                            article: articles[articleCount], 
+                            position: (articleCount+1),
+                            template: 'property',
+                            networkData: networkData,
+                            imageSize: {width: 200, height: 140},
+                            containerClass: 'card-rec-realestate card-rec-realestate-tablet card-rec-realestate-mobile'
+                        }) | raw}}
+                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                    {% endfor %}
+
+                </div>
 
 
                 {{ this.render('partials/ajaxarticles.twig', {

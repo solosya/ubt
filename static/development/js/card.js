@@ -99,14 +99,39 @@ Card.prototype.screen = function()
 Card.prototype.renderCard = function(card, cardClass, template)
 {
     var self = this;
-
+    console.log(template);
     var template = (template) ? Acme[template] : Acme.systemCardTemplate;
-    console.log(card);
+    console.log(Acme.propertyCardTemplate);
     card['containerClass'] = cardClass;
     if (card.status == "draft") {
         card['articleStatus'] = "draft";
         card['containerClass'] += " draft"; 
     }
+
+
+    var salaryType = card.additionalInfo.salary;
+    var salaryPrefix = "";
+    var salary = "";
+
+    if (salaryType === "1") {
+
+        salaryPrefix = "Salary ";
+        salary = "$" + card.additionalInfo.salaryfrom;
+        if (card.additionalInfo.salaryto) {
+            salaryPrefix = salaryPrefix + "range <br />";
+            salary = salary + " - " + card.additionalInfo.salaryto;
+        }
+    } else if (salaryType == 2) {
+        salaryPrefix = "Hourly rate ";
+        salary = "$" + card.additionalInfo.hourlyrate;
+    } else if (salaryType == 3) {
+        salaryPrefix = "Commission";
+    }
+
+    card['salary'] = salaryPrefix + salary
+
+    console.log(card);
+
 
     card['pinTitle'] = (card.isPinned == 1) ? 'Un-Pin Article' : 'Pin Article';
     card['pinText'] = (card.isPinned == 1) ? 'Un-Pin' : 'Pin';
@@ -137,6 +162,7 @@ Card.prototype.renderCard = function(card, cardClass, template)
         }
         articleTemplate = Handlebars.compile(socialCardTemplate); 
     } else {
+        console.log(template);
         articleTemplate = Handlebars.compile(template);
     }
     return articleTemplate(card);

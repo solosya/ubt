@@ -5,8 +5,9 @@
 
 
 {{this.registerJs("window.Acme.cards = CardController();")}}
+{{this.registerJs("Acme.searchCollection = new Acme.searchCollectionClass(["~blogData['id']~"]);")}}
 {{this.registerJs("Acme.jobRegionFilter = new Acme.regionSearchView();")}}
-{{this.registerJs("Acme.filteredListingView = new Acme.filteredListingViewClass();")}}
+{{this.registerJs("Acme.jobsSearchResults = new Acme.jobsSearchResultsClass('job-listings', 'jobsCardTemplate');")}}
 
 
 {# {{this.registerJs("ListingController();")}} #}
@@ -54,6 +55,8 @@
 
                 <div class="menu">
                     <div id="regionSelect" class="regionSelect"></div>
+                    <a id="searchButton" href="#">Search</a>
+
                 </div>
 
                 <div id="job-listings">
@@ -75,7 +78,7 @@
                     non_pinned: articlesArr.existingNonPinnedCount, 
                     articles: articles,
                     articleTemplate: "jobsCardTemplate",
-                    rendertype: "write",
+                    rendertype: "write", 
                     card_style: "col-sm-12 card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile",
                     container:"mainAjaxArticles"
                 }) | raw }}

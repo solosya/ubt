@@ -479,6 +479,7 @@
                 elem.attr('checked', true);
                 var data = {};
                 data[self.key || self.name] = value;
+                console.log(data);
                 Acme.PubSub.publish('update_state', data);
                 self.defaultItem.text(elem.text());
                 $(self.listContainer).hide(100);
