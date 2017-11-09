@@ -167,7 +167,9 @@ Acme.propertyCardTemplate =
                 <img src="'+ _appJsConfig.templatePath + '/static/icons/property/{{ splitShift additionalInfo.type }}.svg"> \
                 <p>{{ additionalInfo.type }}</p> \
             </div> \
-        </div>';
+        </div>' + 
+    cardTemplateBottom;
+
 
 
 console.log(Acme.propertyCardTemplate);

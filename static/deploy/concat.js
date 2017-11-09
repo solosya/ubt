@@ -26323,6 +26323,53 @@ return hooks;
     };
 }));
 
+/*!
+ * liScroll 1.0
+ * Examples and documentation at: 
+ * http://www.gcmingati.net/wordpress/wp-content/lab/jquery/newsticker/jq-liscroll/scrollanimate.html
+ * 2007-2010 Gian Carlo Mingati
+ * Version: 1.0.2.1 (22-APRIL-2011)
+ * Dual licensed under the MIT and GPL licenses:
+ * http://www.opensource.org/licenses/mit-license.php
+ * http://www.gnu.org/licenses/gpl.html
+ * Requires:
+ * jQuery v1.2.x or later
+ * 
+ */
+
+
+jQuery.fn.liScroll = function(settings) {
+		settings = jQuery.extend({
+		travelocity: 0.07
+		}, settings);		
+		return this.each(function(){
+				var $strip = jQuery(this);
+				$strip.addClass("newsticker")
+				var stripWidth = 1;
+				$strip.find("li").each(function(i){
+				stripWidth += jQuery(this, i).outerWidth(true); // thanks to Michael Haszprunar and Fabien Volpi
+				});
+				var $mask = $strip.wrap("<div class='mask'></div>");
+				var $tickercontainer = $strip.parent().wrap("<div class='tickercontainer'></div>");								
+				var containerWidth = $strip.parent().parent().width();	//a.k.a. 'mask' width 	
+				$strip.width(stripWidth);			
+				var totalTravel = stripWidth+containerWidth;
+				var defTiming = totalTravel/settings.travelocity;	// thanks to Scott Waye		
+				function scrollnews(spazio, tempo){
+				$strip.animate({left: '-='+ spazio}, tempo, "linear", function(){$strip.css("left", containerWidth); scrollnews(totalTravel, defTiming);});
+				}
+				scrollnews(totalTravel, defTiming);				
+				$strip.hover(function(){
+				jQuery(this).stop();
+				},
+				function(){
+				var offset = jQuery(this).offset();
+				var residualSpace = offset.left + stripWidth;
+				var residualTime = residualSpace/settings.travelocity;
+				scrollnews(residualSpace, residualTime);
+				});			
+		});	
+};
 
 /**
  * Cloudinary's JavaScript library - Version 2.1.3
@@ -30504,7 +30551,6 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
             requestData['blog_guid'] = options.blogid;
         }
 
-
         return $.ajax({
             type: 'post',
             url: _appJsConfig.baseHttpPath + '/'+loadtype+'/load-articles',
@@ -32169,11 +32215,11 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
     Acme.listen.prototype.listener = function(topic, data)
     {
         var keys = Object.keys(data);
-        console.log(this);
-        console.log(topic, data);
+        // console.log(this);
+        // console.log(topic, data);
         for (var i = 0; i<keys.length; i++) {
             for (var listener in this.listeners) {
-                console.log(keys[i], listener);
+                // console.log(keys[i], listener);
                 if ( listener === keys[i] ) {
                     this.listeners[listener].call(this, data, topic);
                     if (this.listeners.after) {
@@ -32432,8 +32478,8 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
 
                     var caller = scope[scopeSplit[scopeSplit.length - 1]];
                     var func   = subscribers[i].func;
-                    console.log(topic, data);
-                    console.log(caller, func);
+                    // console.log(topic, data);
+                    // console.log(caller, func);
                     if (caller) {
                         caller[func]( topic, data );
                     }
@@ -32593,6 +32639,7 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
                 elem.attr('checked', true);
                 var data = {};
                 data[self.key || self.name] = value;
+                console.log(data);
                 Acme.PubSub.publish('update_state', data);
                 self.defaultItem.text(elem.text());
                 $(self.listContainer).hide(100);
@@ -32641,7 +32688,6 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
         this.layouts = layouts   || null;
         this.data = data         || {};
         this.dfd = $.Deferred();
-        console.log(this);
     }
         Acme.modal.prototype = new Acme.listen();
 
@@ -32672,7 +32718,6 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
 
         };
         Acme.modal.prototype.handle = function(e) {
-            console.log('handling from parent');
             var $elem = $(e.target);
 
             if (!$elem.is('input')) {
@@ -33065,19 +33110,58 @@ var cardTemplateBottom =
 
 Acme.jobsCardTemplate = 
     cardTemplateTop + 
-        '<div class="content">\
-            <div class="cat-time">\
-                <time datetime="{{publishDate}}">{{publishDate}}</time>\
-            </div>\
+        '<div class="content"> \
+            <div class="cat-time"> \
+                <time datetime="{{publishDate}}">{{publishDate}}</time> \
+            </div> \
             <h2>{{{ title }}}</h2>\
-            <p class="company">{{{ additionalInfo.company }}}</p>\
-            <p class="excerpt">{{{ excerpt }}}</p>\
-            <div class="author">\
-                <img src="{{profileImg}}" class="img-circle">\
-                <p>{{ createdBy.displayName }}</p>\
-            </div>\
+            <p class="company">{{{ additionalInfo.company }}}</p> \
+            <p class="salary">{{{salary}}}</p> \
+            \
+            <p class="excerpt">{{{ excerpt }}}</p> \
+            <p class="location">Region {{ additionalInfo.region }}</p> \
+            \
         </div>' + 
     cardTemplateBottom;
+
+
+
+Handlebars.registerHelper('splitShift', function(text) {
+  return text.split(" ")[0];
+  // return t[1] + " <br/> " + t[0];
+});
+
+Acme.propertyCardTemplate = 
+    cardTemplateTop +  
+        '{{#if hasMedia}} \
+            <figure class="{{figureClass}}"> \
+                <picture> \
+                    <source media="(max-width: 620px)" srcset="{{imageUrl}}"> \
+                    <img class="img-responsive" src="{{imageUrl}}" data-original="{{imageUrl}}"  style="background-image:url("{{placeholder}}")"> \
+                </picture> \
+            </figure> \
+        {{/if}} \
+        \
+        <div class="content"> \
+            <div class="cat-time"> \
+                <time datetime="{{publishDate}}">{{publishDate}}</time> \
+            </div> \
+            \
+            <h1 class="price">${{ additionalInfo.pricerange }}</h1> \
+            \
+            <h2>{{ title }}</h2> \
+            \
+            <p class="excerpt">{{ excerpt }}</p> \
+            <div class="listing-type"> \
+                <img src="'+ _appJsConfig.templatePath + '/static/icons/property/{{ splitShift additionalInfo.type }}.svg"> \
+                <p>{{ additionalInfo.type }}</p> \
+            </div> \
+        </div>' + 
+    cardTemplateBottom;
+
+
+
+console.log(Acme.propertyCardTemplate);
 
 
 Acme.systemCardTemplate = 
@@ -33085,7 +33169,7 @@ Acme.systemCardTemplate =
 
             '{{#if hasMedia}}\
                 <figure>\
-                    <img class="img-responsive lazyload" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url("{{placeholder}}"")>\
+                    <img class="img-responsive lazyload" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url("{{placeholder}}")">\
                 </figure>\
             {{/if}} \
         \
@@ -33441,14 +33525,39 @@ Card.prototype.screen = function()
 Card.prototype.renderCard = function(card, cardClass, template)
 {
     var self = this;
-
+    // console.log(template);
     var template = (template) ? Acme[template] : Acme.systemCardTemplate;
-    console.log(card);
+    // console.log(Acme.propertyCardTemplate);
     card['containerClass'] = cardClass;
     if (card.status == "draft") {
         card['articleStatus'] = "draft";
         card['containerClass'] += " draft"; 
     }
+
+
+    var salaryType = card.additionalInfo.salary;
+    var salaryPrefix = "";
+    var salary = "";
+
+    if (salaryType === "1") {
+
+        salaryPrefix = "Salary ";
+        salary = "$" + card.additionalInfo.salaryfrom;
+        if (card.additionalInfo.salaryto) {
+            salaryPrefix = salaryPrefix + "range <br />";
+            salary = salary + " - " + card.additionalInfo.salaryto;
+        }
+    } else if (salaryType == 2) {
+        salaryPrefix = "Hourly rate ";
+        salary = "$" + card.additionalInfo.hourlyrate;
+    } else if (salaryType == 3) {
+        salaryPrefix = "Commission";
+    }
+
+    card['salary'] = salaryPrefix + salary
+
+    // console.log(card);
+
 
     card['pinTitle'] = (card.isPinned == 1) ? 'Un-Pin Article' : 'Pin Article';
     card['pinText'] = (card.isPinned == 1) ? 'Un-Pin' : 'Pin';
@@ -34472,27 +34581,52 @@ Acme.searchModel = Acme.Model.create({
 
 
 
+Acme.searchCollectionClass = function(blogId)
+{
+    this.blogId = blogId;
+    this.searchTerms = {};
+};
+    Acme.searchCollectionClass.prototype = new Acme._Collection(Acme.jobsearch);
+    Acme.searchCollectionClass.prototype.constructor=Acme.searchCollectionClass;
 
-Acme.searchCollection = new Acme._Collection(Acme.jobsearch);
-
-    Acme.searchCollection.subscriptions = Acme.PubSub.subscribe({
+    Acme.searchCollectionClass.prototype.subscriptions = Acme.PubSub.subscribe({
         'Acme.searchCollection.listener' : [ "update_state" ]
     });
-    Acme.searchCollection.listeners = {
+    Acme.searchCollectionClass.prototype.listeners = {
         "region" : function(data) {
-            // return this.fetch('/api/search?meta_info='+Object.keys(data)[0] + ":" + data.region);
-            return this.fetch('/home/load-articles', {'limit': 10, 'offset':0, 'blogid': blogId});
+            this.searchTerms['region'] = data.region;
+        },
+        "type" : function(data) {
+            console.log(data);
+            this.searchTerms['type'] = data.type;
+        },
+        "fetch" :  function() {
+            var searchTerms = [];
+            for (search in this.searchTerms) {
+                searchTerms.push( search + ":" + this.searchTerms[search]);
+            }
+            var searchString = searchTerms.join(",");
+            // console.log('/api/search?meta_info='+searchString + '&blogId=' + this.blogId);
+            return this.fetch('/api/search?meta_info='+searchString + '&blogId=' + this.blogId);
+        },
+        "clear" :  function() {
+            return this.fetch(_appJsConfig.baseHttpPath + '/home/load-articles', {'limit': 10, 'offset':0});
         }
     };
-    Acme.searchCollection.fetch = function(url, data)
+    Acme.searchCollectionClass.prototype.fetch = function(url, data)
     {
         var self = this;
         var url = (url === undefined) ? this.url() : url;
         var server = 'fetch';
         if (data) { server = 'create'; }
 
+        console.log(server, url, data);
         var data = Acme.server[server]( url, data );
         data.done( function(response) {
+            // console.log(response);
+            if ( typeof response.articles != 'undefined') {
+                response = response.articles;
+            }
             self.data = [];
             for (var i=0; i<response.length; i++) {
                 self.data.push( Object.create(self.model,
@@ -34510,10 +34644,24 @@ Acme.searchCollection = new Acme._Collection(Acme.jobsearch);
 
 
 
+
+
+$('#searchButton').on('click', function(e) {
+    e.preventDefault();
+    Acme.PubSub.publish('update_state', {'fetch': self});
+});
+
+
+
+
+
+
+
+
 Acme.regionSearchView = function() {
     this.container = $('#regionSelect');
     this.subscriptions = Acme.PubSub.subscribe({
-        'Acme.jobregionSearchView.listener' : ["update_state"]
+        'Acme.jobRegionFilter.listener' : ["update_state"]
     });
     this.render();
 };
@@ -34521,7 +34669,6 @@ Acme.regionSearchView = function() {
 
     Acme.regionSearchView.prototype.listeners =  {
         "regionSelect" : function(data) {
-
             var data = {
                 "region": data.regionSelect
             }
@@ -34543,33 +34690,146 @@ Acme.regionSearchView = function() {
 
 
 
+Acme.propertyTypeSearchView = function() {
+    this.container = $('#typeSelect');
+    this.subscriptions = Acme.PubSub.subscribe({
+        'Acme.propertyTypeFilter.listener' : ["update_state"]
+    });
+    this.render();
+};
+    Acme.propertyTypeSearchView.prototype = new Acme._View();
+
+    Acme.propertyTypeSearchView.prototype.listeners =  {
+        "typeSelect" : function(data) {
+            console.log('in the type select listener');
+            var data = {
+                "type": data.typeSelect
+            }
+            console.log(data);
+            Acme.PubSub.publish('update_state', data);
+        }
+    };
+    Acme.propertyTypeSearchView.prototype.render = function() {
+        this.regionMenu = new Acme.listMenu({
+            'parent'        : this.container,
+            'list'          : propertyList,
+            'defaultSelect' : {"label": 'Type of property'},
+            'name'          : 'typeSelect',
+            'key'           : 'typeSelect'
+        }).init().render();
+    };
+    Acme.propertyTypeSearchView.prototype.reset = function() {
+        this.menu.reset();
+    };
+
+
+Acme.saleTypeSearchView = function() {
+    this.container = $('#saleSelect');
+    this.subscriptions = Acme.PubSub.subscribe({
+        'Acme.saleFilter.listener' : ["update_state"]
+    });
+    this.render();
+};
+    Acme.saleTypeSearchView.prototype = new Acme._View();
+
+    Acme.saleTypeSearchView.prototype.listeners =  {
+        "saleSelect" : function(data) {
+            var data = {
+                "region": data.typeSelect
+            }
+            Acme.PubSub.publish('update_state', data);
+        }
+    };
+    Acme.saleTypeSearchView.prototype.render = function() {
+        this.regionMenu = new Acme.listMenu({
+            'parent'        : this.container,
+            'list'          : contractList,
+            'defaultSelect' : {"label": 'Buy/Lease'},
+            'name'          : 'saleSelect',
+            'key'           : 'saleSelect'
+        }).init().render();
+    };
+    Acme.saleTypeSearchView.prototype.reset = function() {
+        this.menu.reset();
+    };
+
+
 
 Acme.filteredListingViewClass = function() {
-    this.container = $('#job-listings');
-    this.subscriptions = Acme.PubSub.subscribe({
-        'Acme.filteredListingView.listener' : ['state_changed']
+};
+    Acme.filteredListingViewClass.prototype = new Acme._View();
+    Acme.filteredListingViewClass.prototype.listeners = {
+        "search" : function(data) {
+            this.data = data.search.data;
+            this.render();
+        }
+    };
+    Acme.filteredListingViewClass.prototype.init = function(container, template)
+    {
+        this.container = (container) ?  $('#'+container) : $('#job-listings');
+        this.template = template || 'jobsCardTemplate';
+    };
+
+Acme.jobsSearchResultsClass = function(container, template)
+{
+    this.parent = Acme.filteredListingViewClass.prototype;
+    this.parent.init(container, template);
+};
+    Acme.jobsSearchResultsClass.prototype = new Acme.filteredListingViewClass();
+    Acme.jobsSearchResultsClass.prototype.subscriptions = Acme.PubSub.subscribe({
+        'Acme.jobsSearchResults.listener' : ['state_changed']
     });
+
+    Acme.jobsSearchResultsClass.prototype.render = function() {
+        var container = this.container;
+        var cardClasses = ["card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile"];
+
+        var html = '<h2>Search results</h2><a id="searchClear" href="#">Clear</a>', n = 0;
+        for (var i=0;i<this.data.length;i++) {
+            html += window.Acme.cards.renderCard(this.data[i].data, cardClasses[n], this.template);
+        }
+        container.empty().append(html);
+        $('#searchClear').on('click', function(e) {
+            e.preventDefault();
+            Acme.PubSub.publish('update_state', {'clear': self});
+        });
+
+        $(".card .content > p, .card h2").dotdotdot();
+
+    };
+
+Acme.propertySearchResultsClass = function(container, template)
+{
+    this.parent = Acme.filteredListingViewClass.prototype;
+    this.parent.init(container, template);
 };
-Acme.filteredListingViewClass.prototype = new Acme._View();
-Acme.filteredListingViewClass.prototype.listeners = {
-    "search" : function(data) {
-        this.data = data.search.data;
-        this.render();
+    Acme.propertySearchResultsClass.prototype = new Acme.filteredListingViewClass();
+    Acme.propertySearchResultsClass.prototype.subscriptions = Acme.PubSub.subscribe({
+        'Acme.propertySearchResults.listener' : ['state_changed']
+    });
+
+    Acme.propertySearchResultsClass.prototype.render = function() {
+        var container = this.container;
+        var cardClasses = [ "card-main-realestate card-main-realestate-tablet card-main-realestate-mobile",
+                            "card-rec-realestate card-rec-realestate-tablet card-rec-realestate-mobile"];
+
+        var html = '<h2>Search results</h2><a id="searchClear" href="#">Clear</a>', n = 0;
+        console.log(this.data);
+        for (var i=0;i<this.data.length;i++) {
+            html += window.Acme.cards.renderCard(this.data[i].data, cardClasses[n], this.template);
+            n = 1;
+        }
+        container.empty().append(html);
+
+        $('#searchClear').on('click', function(e) {
+            e.preventDefault();
+            Acme.PubSub.publish('update_state', {'clear': self});
+        });
+        $(".card .content > p, .card h2").dotdotdot();
+
     }
-};
-Acme.filteredListingViewClass.prototype.render = function() {
-    var container = this.container;
-    var cardClass = "card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile";
 
-    var html = "";
-    for (var i=0;i<this.data.length;i++) {
-        html += window.Acme.cards.renderCard(this.data[i].data, cardClass, 'jobsCardTemplate');
-    }
-    container.empty().append(html);
 
-    $(".card .content > p, .card h2").dotdotdot();
-
-}
 
 
 
@@ -34779,7 +35039,7 @@ ListingForm.constructor = ListingForm;
         }
         imageArray.append(html);
     },
-    ListingForm.prototype.clear = function(images) 
+    ListingForm.prototype.clear = function() 
     {
         if (this.menus) {
             var menus = Object.keys(this.menus);
@@ -34789,12 +35049,16 @@ ListingForm.constructor = ListingForm;
         }
         $('#imageArray').empty();
         this.clearErrorHightlights();
+        this.resetData();
+    },
+    ListingForm.prototype.resetData = function() 
+    {
         this.data = {
             'id': 0,
             'blogs': this.blogId,
             'media_ids': ''
         };
-    },
+    };
     ListingForm.prototype.events = function() 
     {
         var self = this;
@@ -34875,6 +35139,7 @@ ListingForm.constructor = ListingForm;
             self.data.theme_layout_name = self.layout;
 
             Acme.server.create('/api/article/create', self.data).done(function(r) {
+                console.log(r);
                 $('#listingFormClear').click();
                 Acme.PubSub.publish('update_state', {'confirm': r});
                 Acme.PubSub.publish('update_state', {'userArticles': ''});
@@ -34964,29 +35229,29 @@ Acme.JobForm = function(blogId, layout) {
 
     this.init(blogId, layout);
 }
-Acme.JobForm.prototype = new ListingForm();
-Acme.JobForm.prototype.constructor=Acme.JobForm;
-    Acme.JobForm.prototype.events = function() 
-    {
-        var self = this;
-        this.parent.events.call(this);
+    Acme.JobForm.prototype = new ListingForm();
+    Acme.JobForm.prototype.constructor=Acme.JobForm;
+        Acme.JobForm.prototype.events = function() 
+        {
+            var self = this;
+            this.parent.events.call(this);
 
-        $('#listingclose').datetimepicker({
-            format: "DD-MM-YYYY h:mm A",
-            useCurrent: false,
-            icons: {
-                time: "fa fa-clock-o",
-                date: "fa fa-calendar",
-                up: "fa fa-angle-up",
-                down: "fa fa-angle-down"
-            },
-            tooltips: {selectTime: ''}
-        }).on('dp.change', function (e) {
-            var data = {};
-            data[e.target.name] = e.date.format('YYYY-MM-DD HH:mm');
-            Acme.PubSub.publish("update_state", data);
-        });
-    };
+            $('#listingclose').datetimepicker({
+                format: "DD-MM-YYYY h:mm A",
+                useCurrent: false,
+                icons: {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-angle-up",
+                    down: "fa fa-angle-down"
+                },
+                tooltips: {selectTime: ''}
+            }).on('dp.change', function (e) {
+                var data = {};
+                data[e.target.name] = e.date.format('YYYY-MM-DD HH:mm');
+                Acme.PubSub.publish("update_state", data);
+            });
+        };
 
 
 
@@ -35014,69 +35279,69 @@ Acme.PropertyForm = function(blogId, layout) {
 
     this.init(blogId, layout);
 };
-Acme.PropertyForm.prototype = new ListingForm();
-Acme.PropertyForm.prototype.constructor=Acme.PropertyForm;
-    Acme.PropertyForm.prototype.events = function() 
-    {
-        var self = this;
-        this.parent.events.call(this);
+    Acme.PropertyForm.prototype = new ListingForm();
+    Acme.PropertyForm.prototype.constructor=Acme.PropertyForm;
+        Acme.PropertyForm.prototype.events = function() 
+        {
+            var self = this;
+            this.parent.events.call(this);
 
-        $('#availability').datetimepicker({
-            format: "DD-MM-YYYY h:mm A",
-            useCurrent: false,
-            icons: {
-                time: "fa fa-clock-o",
-                date: "fa fa-calendar",
-                up: "fa fa-angle-up",
-                down: "fa fa-angle-down"
-            },
-            tooltips: {selectTime: ''}
-        }).on('dp.change', function (e) {
-            var data = {};
-            data[e.target.name] = e.date.format('YYYY-MM-DD HH:mm');
-            Acme.PubSub.publish("update_state", data);
-        });
-    };
-
-
-
-
-
-
-
-
-
-
-Acme.EventForm = function(blogId) {
-        this.subscriptions = Acme.PubSub.subscribe({
-            'Acme.eventForm.listener' : ['state_changed', 'update_state']
-        });
-
-        this.errorFields = [];
-
-        this.compulsoryFields = [
-            "title", 
-            "content" 
-        ];
-
-        this.blogId = blogId;
-
-        this.data = {
-            'id': 0,
-            'blogs': this.blogId,
-            'media_ids': '',
-            'type': 'event'
+            $('#availability').datetimepicker({
+                format: "DD-MM-YYYY h:mm A",
+                useCurrent: false,
+                icons: {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-angle-up",
+                    down: "fa fa-angle-down"
+                },
+                tooltips: {selectTime: ''}
+            }).on('dp.change', function (e) {
+                var data = {};
+                data[e.target.name] = e.date.format('YYYY-MM-DD HH:mm');
+                Acme.PubSub.publish("update_state", data);
+            });
         };
 
-        this.events();
-        this.events2();
-    }
+
+
+
+
+
+
+
+
+
+Acme.EventForm = function(blogId) 
+{
+    this.subscriptions = Acme.PubSub.subscribe({
+        'Acme.eventForm.listener' : ['state_changed', 'update_state']
+    });
+
+    this.errorFields = [];
+
+    this.compulsoryFields = [
+        "title", 
+        "content" 
+    ];
+
+    this.blogId = blogId;
+
+    this.data = {
+        'id': 0,
+        'blogs': this.blogId,
+        'media_ids': '',
+        'type': 'event'
+    };
+
+    this.events();
+    this.events2();
+};
     Acme.EventForm.prototype = new ListingForm();
     Acme.EventForm.prototype.constructor=Acme.EventForm;
     Acme.EventForm.prototype.listeners = 
     {
         "start_date" : function(data, topic) {
-            console.log('stateter dateer');
             this.data.start_date = data['start_date'];
         },
         "end_date" : function(data, topic) {
@@ -35085,6 +35350,15 @@ Acme.EventForm = function(blogId) {
         "after" : function(data, topic) {
             console.log(this.data);
         }
+    };
+    Acme.EventForm.prototype.resetData = function() 
+    {
+        this.data = {
+            'id': 0,
+            'blogs': this.blogId,
+            'media_ids': '',
+            'type': 'event'
+        };
     };
     Acme.EventForm.prototype.events2 = function() {
 
@@ -35266,100 +35540,100 @@ Acme.Confirm = function(template, parent, layouts) {
     this.parent = Acme.modal.prototype;
     this.data = {};
 };
-Acme.Confirm.prototype = new Acme.modal();
-Acme.Confirm.constructor = Acme.Confirm;
-Acme.Confirm.prototype.errorMsg = function(msg) {
-    $('.message').toggleClass('hide');
-};
-Acme.Confirm.prototype.handle = function(e) {
-    var self = this;
-    var $elem = this.parent.handle.call(this, e);
-    if ( $elem.is('a') ) {
-        if ($elem.hasClass('close')) {
-            $('body').removeClass("active");
-            console.log('removing active');
-            this.closeWindow();
-        }
-    }
-    if ($elem.is('button')) {
-        if ($elem.hasClass('signin')) {
-            e.preventDefault();
-            var formData = {};
-            console.log($elem);
-            $.each($('#loginForm').serializeArray(), function () {
-                formData[this.name] = this.value;
-            });
-            console.log(formData);
-            Acme.server.create('/api/auth/login', formData).done(function(r) {
-                console.log(r);
-                if (r.success === 1) {
-                    console.log(location);
-                    window.location.href = location.origin;
-                    // location.reload();
-                } else {
-                    self.errorMsg();
-                }
-            }).fail(function(r) { console.log(r);});
-        }
-
-
-        if ($elem.hasClass('register')) {
-            e.preventDefault();
-            var formData = {};
-            $.each($('#registerForm').serializeArray(), function () {
-                formData[this.name] = this.value;
-            });
-
-            if (formData['email'] !== '' && formData['name'] !== ''){
-                $.get( 'https://submit.pagemasters.com.au/ubt/submit.php?email='+encodeURI(formData['email'])+'&name='+encodeURI(formData['name']) );
-                $elem.addClass('spinner');
-                function close() {
-                    self.closeWindow();
-                };
-                setTimeout(close, 2000);
-
-            } else {
-                alert ("Please fill out all fields.");
+    Acme.Confirm.prototype = new Acme.modal();
+    Acme.Confirm.constructor = Acme.Confirm;
+    Acme.Confirm.prototype.errorMsg = function(msg) {
+        $('.message').toggleClass('hide');
+    };
+    Acme.Confirm.prototype.handle = function(e) {
+        var self = this;
+        var $elem = this.parent.handle.call(this, e);
+        if ( $elem.is('a') ) {
+            if ($elem.hasClass('close')) {
+                $('body').removeClass("active");
+                console.log('removing active');
+                this.closeWindow();
             }
         }
+        if ($elem.is('button')) {
+            if ($elem.hasClass('signin')) {
+                e.preventDefault();
+                var formData = {};
+                console.log($elem);
+                $.each($('#loginForm').serializeArray(), function () {
+                    formData[this.name] = this.value;
+                });
+                console.log(formData);
+                Acme.server.create('/api/auth/login', formData).done(function(r) {
+                    console.log(r);
+                    if (r.success === 1) {
+                        console.log(location);
+                        window.location.href = location.origin;
+                        // location.reload();
+                    } else {
+                        self.errorMsg();
+                    }
+                }).fail(function(r) { console.log(r);});
+            }
 
 
-        if ($elem.hasClass('forgot')) {
-            e.preventDefault();
-            var formData = {};
-            $.each($('#forgotForm').serializeArray(), function () {
-                formData[this.name] = this.value;
-            });
+            if ($elem.hasClass('register')) {
+                e.preventDefault();
+                var formData = {};
+                $.each($('#registerForm').serializeArray(), function () {
+                    formData[this.name] = this.value;
+                });
 
-            Acme.server.create('/api/auth/forgot-password', formData).done(function(r) {
-                if (r.success === 1) {
-                    location.reload();
+                if (formData['email'] !== '' && formData['name'] !== ''){
+                    $.get( 'https://submit.pagemasters.com.au/ubt/submit.php?email='+encodeURI(formData['email'])+'&name='+encodeURI(formData['name']) );
+                    $elem.addClass('spinner');
+                    function close() {
+                        self.closeWindow();
+                    };
+                    setTimeout(close, 2000);
+
                 } else {
-                    self.errorMsg();
+                    alert ("Please fill out all fields.");
                 }
+            }
 
-            }).fail(function(r) { console.log(r);});
+
+            if ($elem.hasClass('forgot')) {
+                e.preventDefault();
+                var formData = {};
+                $.each($('#forgotForm').serializeArray(), function () {
+                    formData[this.name] = this.value;
+                });
+
+                Acme.server.create('/api/auth/forgot-password', formData).done(function(r) {
+                    if (r.success === 1) {
+                        location.reload();
+                    } else {
+                        self.errorMsg();
+                    }
+
+                }).fail(function(r) { console.log(r);});
+            }
+
+            if ($elem.hasClass('default-weather')) {
+                var newDefault = Acme.State.Country + '/' + Acme.State.City;
+
+                localStorage.setItem('city', newDefault);
+                function close() {
+
+                    Acme.PubSub.publish("update_state", {'localweather': newDefault });                
+
+                    self.closeWindow();
+                };
+                setTimeout(close, 500);            
+            }        
+
         }
-
-        if ($elem.hasClass('default-weather')) {
-            var newDefault = Acme.State.Country + '/' + Acme.State.City;
-
-            localStorage.setItem('city', newDefault);
-            function close() {
-
-                Acme.PubSub.publish("update_state", {'localweather': newDefault });                
-
-                self.closeWindow();
-            };
-            setTimeout(close, 500);            
-        }        
-
-    }
-    if ($elem.hasClass('layout')) {
-        var layout = $elem.data('layout');
-        this.renderLayout(layout);
-    }
-};
+        if ($elem.hasClass('layout')) {
+            var layout = $elem.data('layout');
+            this.renderLayout(layout);
+        }
+    };
 
 var layouts = {
     "listing"   : 'listingSavedTmpl',

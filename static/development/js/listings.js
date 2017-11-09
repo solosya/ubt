@@ -130,6 +130,9 @@ Acme.searchCollectionClass = function(blogId)
             var searchString = searchTerms.join(",");
             // console.log('/api/search?meta_info='+searchString + '&blogId=' + this.blogId);
             return this.fetch('/api/search?meta_info='+searchString + '&blogId=' + this.blogId);
+        },
+        "clear" :  function() {
+            return this.fetch(_appJsConfig.baseHttpPath + '/home/load-articles', {'limit': 10, 'offset':0});
         }
     };
     Acme.searchCollectionClass.prototype.fetch = function(url, data)
@@ -139,9 +142,13 @@ Acme.searchCollectionClass = function(blogId)
         var server = 'fetch';
         if (data) { server = 'create'; }
 
+        console.log(server, url, data);
         var data = Acme.server[server]( url, data );
         data.done( function(response) {
-            console.log(response);
+            // console.log(response);
+            if ( typeof response.articles != 'undefined') {
+                response = response.articles;
+            }
             self.data = [];
             for (var i=0; i<response.length; i++) {
                 self.data.push( Object.create(self.model,
@@ -162,6 +169,7 @@ Acme.searchCollectionClass = function(blogId)
 
 
 $('#searchButton').on('click', function(e) {
+    e.preventDefault();
     Acme.PubSub.publish('update_state', {'fetch': self});
 });
 
@@ -298,11 +306,15 @@ Acme.jobsSearchResultsClass = function(container, template)
         var container = this.container;
         var cardClasses = ["card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile"];
 
-        var html = "<h2>Search results</h2>", n = 0;
+        var html = '<h2>Search results</h2><a id="searchClear" href="#">Clear</a>', n = 0;
         for (var i=0;i<this.data.length;i++) {
             html += window.Acme.cards.renderCard(this.data[i].data, cardClasses[n], this.template);
         }
         container.empty().append(html);
+        $('#searchClear').on('click', function(e) {
+            e.preventDefault();
+            Acme.PubSub.publish('update_state', {'clear': self});
+        });
 
         $(".card .content > p, .card h2").dotdotdot();
 
@@ -321,9 +333,10 @@ Acme.propertySearchResultsClass = function(container, template)
     Acme.propertySearchResultsClass.prototype.render = function() {
         var container = this.container;
         var cardClasses = [ "card-main-realestate card-main-realestate-tablet card-main-realestate-mobile",
-                            "card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile"];
+                            "card-rec-realestate card-rec-realestate-tablet card-rec-realestate-mobile"];
 
         var html = '<h2>Search results</h2><a id="searchClear" href="#">Clear</a>', n = 0;
+        console.log(this.data);
         for (var i=0;i<this.data.length;i++) {
             html += window.Acme.cards.renderCard(this.data[i].data, cardClasses[n], this.template);
             n = 1;
@@ -331,7 +344,8 @@ Acme.propertySearchResultsClass = function(container, template)
         container.empty().append(html);
 
         $('#searchClear').on('click', function(e) {
-            console.log('clearing the search!!');
+            e.preventDefault();
+            Acme.PubSub.publish('update_state', {'clear': self});
         });
         $(".card .content > p, .card h2").dotdotdot();
 

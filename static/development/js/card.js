@@ -99,9 +99,9 @@ Card.prototype.screen = function()
 Card.prototype.renderCard = function(card, cardClass, template)
 {
     var self = this;
-    console.log(template);
+    // console.log(template);
     var template = (template) ? Acme[template] : Acme.systemCardTemplate;
-    console.log(Acme.propertyCardTemplate);
+    // console.log(Acme.propertyCardTemplate);
     card['containerClass'] = cardClass;
     if (card.status == "draft") {
         card['articleStatus'] = "draft";
@@ -130,7 +130,7 @@ Card.prototype.renderCard = function(card, cardClass, template)
 
     card['salary'] = salaryPrefix + salary
 
-    console.log(card);
+    // console.log(card);
 
 
     card['pinTitle'] = (card.isPinned == 1) ? 'Un-Pin Article' : 'Pin Article';
@@ -162,7 +162,6 @@ Card.prototype.renderCard = function(card, cardClass, template)
         }
         articleTemplate = Handlebars.compile(socialCardTemplate); 
     } else {
-        console.log(template);
         articleTemplate = Handlebars.compile(template);
     }
     return articleTemplate(card);

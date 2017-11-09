@@ -55,7 +55,6 @@
             requestData['blog_guid'] = options.blogid;
         }
 
-
         return $.ajax({
             type: 'post',
             url: _appJsConfig.baseHttpPath + '/'+loadtype+'/load-articles',
