@@ -29,10 +29,6 @@
                     margin-bottom:2px;
                     height: 70px;
                 }
-
-                > p.excerpt {
-                    // display: none;
-                }
             }
         }  
     }
@@ -49,8 +45,6 @@
         a.card {
             @include card-image-left(217px, 231px);
             height:250px;
-
-            // height:130px;
 
             > article {
                 padding-bottom:20px;
