@@ -25,6 +25,9 @@
                     // display:none;
                 }
             }
+            > time {
+                display:none;
+            }
         }
         &.article.without__image {
             .content {

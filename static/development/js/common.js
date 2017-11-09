@@ -55,11 +55,11 @@
     Acme.listen.prototype.listener = function(topic, data)
     {
         var keys = Object.keys(data);
-        console.log(this);
-        console.log(topic, data);
+        // console.log(this);
+        // console.log(topic, data);
         for (var i = 0; i<keys.length; i++) {
             for (var listener in this.listeners) {
-                console.log(keys[i], listener);
+                // console.log(keys[i], listener);
                 if ( listener === keys[i] ) {
                     this.listeners[listener].call(this, data, topic);
                     if (this.listeners.after) {
@@ -318,8 +318,8 @@
 
                     var caller = scope[scopeSplit[scopeSplit.length - 1]];
                     var func   = subscribers[i].func;
-                    console.log(topic, data);
-                    console.log(caller, func);
+                    // console.log(topic, data);
+                    // console.log(caller, func);
                     if (caller) {
                         caller[func]( topic, data );
                     }
@@ -527,7 +527,6 @@
         this.layouts = layouts   || null;
         this.data = data         || {};
         this.dfd = $.Deferred();
-        console.log(this);
     }
         Acme.modal.prototype = new Acme.listen();
 
@@ -558,7 +557,6 @@
 
         };
         Acme.modal.prototype.handle = function(e) {
-            console.log('handling from parent');
             var $elem = $(e.target);
 
             if (!$elem.is('input')) {

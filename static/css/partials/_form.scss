@@ -166,7 +166,7 @@ main.listingForm, main.eventForm {
             height: 174px;
             border: 1px solid color(lightergrey);
             border-radius:6px;
-            float:left;
+            // float:left;
             margin-right:12px;
             margin-bottom:12px;
 
@@ -239,6 +239,15 @@ main.listingForm, main.eventForm {
             &.property {
                 > div {
                     padding-top: 30%;
+                     > div > p {
+                        padding-top: 5px;
+                    }
+
+                }
+            }
+            &.events {
+                > div {
+                    padding-top: 20%;
                      > div > p {
                         padding-top: 5px;
                     }

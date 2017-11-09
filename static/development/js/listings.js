@@ -410,7 +410,7 @@ ListingForm.constructor = ListingForm;
         }
         imageArray.append(html);
     },
-    ListingForm.prototype.clear = function(images) 
+    ListingForm.prototype.clear = function() 
     {
         if (this.menus) {
             var menus = Object.keys(this.menus);
@@ -420,12 +420,16 @@ ListingForm.constructor = ListingForm;
         }
         $('#imageArray').empty();
         this.clearErrorHightlights();
+        this.resetData();
+    },
+    ListingForm.prototype.resetData = function() 
+    {
         this.data = {
             'id': 0,
             'blogs': this.blogId,
             'media_ids': ''
         };
-    },
+    };
     ListingForm.prototype.events = function() 
     {
         var self = this;
@@ -506,6 +510,7 @@ ListingForm.constructor = ListingForm;
             self.data.theme_layout_name = self.layout;
 
             Acme.server.create('/api/article/create', self.data).done(function(r) {
+                console.log(r);
                 $('#listingFormClear').click();
                 Acme.PubSub.publish('update_state', {'confirm': r});
                 Acme.PubSub.publish('update_state', {'userArticles': ''});
@@ -707,7 +712,6 @@ Acme.EventForm = function(blogId) {
     Acme.EventForm.prototype.listeners = 
     {
         "start_date" : function(data, topic) {
-            console.log('stateter dateer');
             this.data.start_date = data['start_date'];
         },
         "end_date" : function(data, topic) {
@@ -716,6 +720,15 @@ Acme.EventForm = function(blogId) {
         "after" : function(data, topic) {
             console.log(this.data);
         }
+    };
+    Acme.EventForm.prototype.resetData = function() 
+    {
+        this.data = {
+            'id': 0,
+            'blogs': this.blogId,
+            'media_ids': '',
+            'type': 'event'
+        };
     };
     Acme.EventForm.prototype.events2 = function() {
 

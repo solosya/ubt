@@ -60,7 +60,7 @@
     @media screen and (min-width: $mmd-break){
         @include card-event-base();
 
-        margin-bottom: 32px;
+        margin-bottom: 10px;
 
         a.card {
             @include card-image-left(60px, 37px);
@@ -111,7 +111,7 @@
     @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
         @include card-event-base();
 
-        margin-bottom: 32px;
+        margin-bottom: 10px;
 
         a.card {
             // height:173px;
