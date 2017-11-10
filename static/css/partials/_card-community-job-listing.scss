@@ -52,15 +52,18 @@
             > article {
 
                 > figure{
+                    position:absolute;
                     margin-right:18px;
+                    margin-top:25px;
                 }
 
                 > .content{
-
+                    >h2, >p {
+                        margin-left:80px;
+                    }
                     > h2{
                         font-size: rem(18);
                         line-height:1.44;
-                        margin-top:10px;
                         margin-bottom:5px;
                         height:28px;
                     }
