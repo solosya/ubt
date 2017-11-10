@@ -12,6 +12,13 @@
     {% set articleImg = _Media.getMediaUrl(article.media[0],1094, 515, {'crop': 'fill', 'gravity': 'auto'} ) %}
 {% endif %}
 
+{% set profileImg = false %}
+{% if article.createdBy['media'] is defined and article.createdBy['media'] | length > 0 %}
+    {% set profileImg = _Media.getMediaUrl(article.createdBy['media'], 54, 54, {radius: 'max', gravity: 'face', 'crop': 'thumb', type: 'user'}) %}
+{% endif %}
+
+
+
 {% set publishDate = _AppHelper.getDefaultTimezoneDateTime(article.publishDate, 'F, Y') %}
 
 {% set articles = _Article.getPopularArticles({ limit: 10, excludeArticleIds : article.id }) %}
@@ -77,7 +84,9 @@
                                 ><time datetime="{{publishedDate}}">{{article.publishedDate}}</time>
                                 
                                 <h1>{{ quotes.smarten(article.title) }}</h1>
-                                
+                                {% if profileImg %}
+                                    <img class="author-photo" src="{{ profileImg }}" alt="Author photo">
+                                {% endif %}
                                 <p class="author">{{ article.createdBy['displayName'] }}</p>
 
                             </div><!--content-block-top-->
