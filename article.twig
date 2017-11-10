@@ -13,7 +13,7 @@
 {% endif %}
 
 {% set profileImg = false %}
-{% if article.createdBy['media'] is defined and article.createdBy['media'] | length > 0 %}
+{% if article.createdBy['media'] is defined and article.createdBy['media'] | length > 0 and article.createdBy['displayName'] != "AAP Newswire" %}
     {% set profileImg = _Media.getMediaUrl(article.createdBy['media'], 54, 54, {radius: 'max', gravity: 'face', 'crop': 'thumb', type: 'user'}) %}
 {% endif %}
 

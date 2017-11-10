@@ -66,6 +66,9 @@
     <div class="{{containerClass}}" data-title="{{ articleTitle | raw }}">
 
         <a  href="{{article.url}}" 
+            {% if article.externalUrl %}
+                target="_blank"
+            {% endif %}
             class="{{swap}} card article {{hasArticleMediaClass}} {{articleStatus}}" 
             data-id="{{article.articleId}}" 
             data-status="{{articleStatus}}" 
