@@ -34533,6 +34533,7 @@ var workType = ["Casual", "Part time", "Full time"];
 
 var propertyList = [
     { 'label': "Industrial / Warehouse", 'value': "Industrial / Warehouse"},
+    { 'label': "Residential", 'value': "Residential"},
     { 'label': "Offices", 'value': "Offices"},
     { 'label': "Development / Land", 'value': "Development / Land"},
     { 'label': "Hotel / Leisure", 'value': "Hotel / Leisure"},
