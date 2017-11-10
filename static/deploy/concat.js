@@ -32163,7 +32163,6 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
     Acme.View         = {};
     Acme.Model        = {};
     Acme.Collection   = {};
-    Acme.State        = {};
 
     $('html').on('click', function(e) {
         $('.pulldown ul').hide();
@@ -32295,7 +32294,7 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
     Acme.View.create = function(config)
     {
         var obj = function(){};
-
+        console.log(config);
         for (conf in config) {
             obj.prototype[conf] = config[conf];
         }
@@ -36070,6 +36069,126 @@ $('a.register').on('click', function(e) {
 
 
 }(jQuery));
+// Create a Stripe client
+if ($('#stripekey').length) {
+var stripekey = $('#stripekey').html();
+console.log(stripekey)
+
+var stripe = Stripe(stripekey);
+
+// Create an instance of Elements
+var elements = stripe.elements();
+
+// Custom styling can be passed to options when creating an Element.
+// (Note that this demo uses a wider set of styles than the guide below.)
+var style = {
+    base: {
+        color: '#32325d',
+        lineHeight: '24px',
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSmoothing: 'antialiased',
+        fontSize: '16px',
+        '::placeholder': {
+            color: '#aab7c4'
+        }
+    },
+    invalid: {
+        color: '#fa755a',
+        iconColor: '#fa755a'
+    }
+};
+
+// Create an instance of the card Element
+var card = elements.create('card', {style: style});
+
+// Add an instance of the card Element into the `card-element` <div>
+card.mount('#card-element');
+
+// Handle real-time validation errors from the card Element.
+card.addEventListener('change', function(event) {
+    var displayError = document.getElementById('card-errors');
+    if (event.error) {
+        displayError.textContent = event.error.message;
+    } else {
+        displayError.textContent = '';
+    }
+}); 
+
+// Handle form submission
+var form = document.getElementById('payment-form');
+form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    var userdata = $('#listingForm').serializeArray();
+    console.log(userdata);
+    $.each(userdata, function(i, val) {
+        //userdata.append(val.name, val.value);
+        if (val.value == '') {
+            $('#card-errors').text('Please fill out the '+ val.name + ' field.');
+        }
+    });
+    if ( $('#password').val() !== $('#verifypassword').val() ) {
+        $('#card-errors').text('Password fields do not match.');
+    }
+
+
+    stripe.createToken(card).then(function(result) {
+        if (result.error) {
+            // Inform the user if there was an error
+            var errorElement = document.getElementById('card-errors');
+            errorElement.textContent = result.error.message;
+        } else {
+            // Send the token to your server
+            console.log(result);
+            formhandler(result.token, userdata);
+        }
+    });
+});
+
+
+var formhandler = function(stripeToken, formdata) {
+    var csrfToken = $('meta[name="csrf-token"]').attr("content");
+    console.log(formdata);
+    console.log(csrfToken);
+    console.log(_appJsConfig.baseHttpPath);
+    console.log(_appJsConfig);
+    console.log(stripeToken);
+    var token = new Object();
+    token['name'] = 'stripetoken';
+    token['value'] = stripeToken.id;
+    formdata.push(token);
+    console.log(formdata);
+    $.ajax({
+        url: _appJsConfig.appHostName + '/auth/paywall-signup',
+        type: 'post',
+        data: formdata,
+        dataType: 'json',
+        success: function(data){
+
+            if(data.success) {
+                console.log('success')
+            } else {
+
+                console.log(data)
+                console.log(data.error)
+                var text = ''
+                for (var key in data.error) {
+                    text = text + data.error[key] + " ";
+                } 
+                $('#card-errors').text(text);
+            }   
+        },
+        error: function(data){
+            console.log('fail'); 
+            console.log(data);   
+        }
+    });
+
+}
+
+
+
+
+} 
 var UserArticlesController = (function ($) {
     return {
         load: function () {
@@ -36193,49 +36312,280 @@ UserArticlesController.Load = (function ($) {
 
 
 
-Acme.UserProfile = Acme.View.create(
-{
-    "container"     : {
-        'main'          : $('#listingForm')
-    },
-    "listeners"     : {
-    },
-    "render": function() {
-        console.log('in the render function');
-        console.log(this.data);
-    },
-    "events": function() 
-    {
-        var self = this;
+// (function ($) {
 
-        $('input, textarea').on("change", function(e) {
+// Acme.UserProfile = Acme.View.create(
+// {
+//     "container"     : {
+//         'main'          : $('#listingForm')
+//     },
+//     "listeners"     : {
+//     },
+//     "render": function() {
+//         console.log('in the render function');
+//         console.log(this.data);
+//     },
+//     "events": function() 
+//     {
+//         var self = this;
+//     console.log("events");
+
+//         $('input, textarea').on("change", function(e) {
+//         });
+
+//         $('#profile-form').submit(function(e) {
+//         });
+
+//         $('.change-password').on("click", function(e) {
+//             console.log('passewrd')
+//             $('#password').removeAttr('disabled');
+//             $('#password').attr("placeholder", "Enter new password")
+//             $('.verifypassword').removeClass('hidden');
+//             this.remove();
+//         })
+
+
+
+//     },
+//     "construct": function() 
+//     {
+//         this.subscriptions = Acme.PubSub.subscribe({
+//             // 'Acme.ListingForm.listener' : ["state_changed", 'update_state']
+//         });
+//         console.log('construct');
+//         this.render();
+//         this.events();
+//     }
+// });
+
+// $('[data-dismiss="alert"]').on('click', function(e) {
+//     this.closest('div').remove();
+// });
+
+// }(jQuery));
+
+
+var UserProfielController = (function ($) {
+    return {
+        load: function () {
+            UserProfielController.Load.init();
+        }
+    };
+}(jQuery));
+
+UserProfielController.Load = (function ($) {
+    var csrfToken = $('meta[name="csrf-token"]').attr("content");
+
+    var attachEvents = function () {
+          console.log('events!');
+
+        $('#addManagedUser').on('click', function(e) {
+            console.log('add user');
+            e.preventDefault()
+            var user = '<li id = "newUser">\
+                <div class="userdetails" >\
+                    <p><a contenteditable="true" id="newuserfirstname" class="displayname">FIRSTANAME</a> <a contenteditable="true" id="newuserlastname" class="displayname">LASTNAME</a></p>\
+                    <p><a contenteditable="true" id="newuserusername" class="username">USERNAME</a></p>\
+                </div>\
+                <div class="useremailbuttons">\
+                <div><p><a contenteditable="true" id="newuseruseremail" class="uesremail">EMAIL</a> <a id="createUser" class="edituser">create user</a><a id="cancelUserCreate" class="deleteuser">cancel</a></p></div>\
+                </div>\
+            </li>';
+
+            $('#mangedUsers').append($(user));
+            $('#addManagedUser').addClass('hidden');
+            $('#createUser').on('click', function(e) {
+
+                
+            
+                var requestData = { 
+                    firstname: $('#newuserfirstname').text(), 
+                    lastname: $('#newuserlastname').text(), 
+                    username: $('#newuserusername').text(), 
+                    _csrf: csrfToken, 
+                    useremail: $('#newuseruseremail').text()
+                };
+
+                console.log(requestData);
+
+                $.ajax({
+                    type: 'post',
+                    url: _appJsConfig.baseHttpPath + '/user/create-paywall-managed-user',
+                    dataType: 'json',
+                    data: requestData,
+                    success: function (data, textStatus, jqXHR) {
+                        console.log(data);
+                        if (data.success == 1) {
+                            location.reload(false);             
+                        } else {
+                            var text = '';
+                            for (var key in data.error) {
+                                text = text + data.error[key] + " ";
+                            } 
+                            $('#createUserErrorMessage').text(text);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus);
+                        console.log(jqXHR.responseText);
+                         $('#createUserErrorMessage').text(textStatus);
+                    },
+                });        
+            });
+
+            $('#cancelUserCreate').on('click', function(e) {
+                $('#newUser').remove();
+                $('#addManagedUser').removeClass('hidden');
+                $('#createUserErrorMessage').text('');
+            });
+
         });
 
-        $('#profile-form').submit(function(e) {
+        $('.edituser').on('click', function(e) {
+            var listelem = $(e.target).closest('li');
+            listelem.find('.edituser').addClass('hidden');
+            listelem.find('.deleteuser').addClass('hidden');
+            listelem.find('.saveedit').removeClass('hidden');
+            listelem.find('.canceledit').removeClass('hidden');
+
+            listelem.find('#muFirstname').addClass('edituserfield');
+            listelem.find('#muLastname').addClass('edituserfield');
+            listelem.find('#muUsername').addClass('edituserfield');
+            listelem.find('#muEmail').addClass('edituserfield');
+        });        
+
+        $('.canceledit').on('click', function(e) {
+            var listelem = $(e.target).closest('li');
+            listelem.find('.edituser').removeClass('hidden');
+            listelem.find('.deleteuser').removeClass('hidden');
+            listelem.find('.saveedit').addClass('hidden');
+            listelem.find('.canceledit').addClass('hidden');
+            listelem.find('.reallydelete').addClass('hidden');
+
+
+            listelem.find('#muFirstname').removeClass('edituserfield');
+            listelem.find('#muLastname').removeClass('edituserfield');
+            listelem.find('#muUsername').removeClass('edituserfield');
+            listelem.find('#muEmail').removeClass('edituserfield');
+
+            $('#createUserErrorMessage').text('');   
+        });        
+
+
+        $('.deleteuser').on('click', function(e) {
+            var listelem = $(e.target).closest('li');
+            listelem.find('.edituser').addClass('hidden');
+            listelem.find('.deleteuser').addClass('hidden');
+            listelem.find('.reallydelete').removeClass('hidden');
+            listelem.find('.canceledit').removeClass('hidden');
+            $('#createUserErrorMessage').text('');   
+        });        
+
+        $('.reallydelete').on('click', function(e) {
+            var listelem = $(e.target).closest('li');
+            var userid = listelem.attr("id");
+            var requestData = { 
+                id: listelem.attr("id"), 
+                _csrf: csrfToken, 
+            };
+
+            $.ajax({
+                type: 'post',
+                url: _appJsConfig.baseHttpPath + '/user/delete-managed-user',
+                dataType: 'json',
+                data: requestData,
+                success: function (data, textStatus, jqXHR) {
+                    console.log(data);
+                    if (data.success == 1) {
+                        console.log('success');
+                        location.reload(false);             
+                    } else {
+                        var text = '';
+                        for (var key in data.error) {
+                            text = text + data.error[key] + " ";
+                        } 
+                        $('#createUserErrorMessage').text(text);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                    console.log(jqXHR.responseText);
+                     $('#createUserErrorMessage').text(textStatus);
+                },
+            });        
+
+
+        });        
+
+
+
+        $('.saveedit').on('click', function(e) {
+            console.log('clicks')
+            var listelem = $(e.target).closest('li');
+            var userid = listelem.attr("id");
+            var firstname = listelem.find('#muFirstname').text();
+            var lastname = listelem.find('#muLastname').text();
+            var username = listelem.find('#muUsername').text();
+            var email = listelem.find('#muEmail').text();
+
+            var requestData = { 
+                id: listelem.attr("id"), 
+                firstname: listelem.find('#muFirstname').text(), 
+                lastname: listelem.find('#muLastname').text(), 
+                username: listelem.find('#muUsername').text(), 
+                _csrf: csrfToken, 
+                useremail: listelem.find('#muEmail').text()
+            };
+
+            $.ajax({
+                type: 'post',
+                url: _appJsConfig.baseHttpPath + '/user/edit-managed-profile',
+                dataType: 'json',
+                data: requestData,
+                success: function (data, textStatus, jqXHR) {
+                    console.log(data);
+                    if (data.success == 1) {
+                        console.log('success');
+                        $('#createUserErrorMessage').text('');   
+                        listelem.find('.edituser').removeClass('hidden');
+                        listelem.find('.deleteuser').removeClass('hidden');
+                        listelem.find('.saveedit').addClass('hidden');
+                        listelem.find('.canceledit').addClass('hidden');
+
+                        listelem.find('#muFirstname').removeClass('edituserfield');
+                        listelem.find('#muLastname').removeClass('edituserfield');
+                        listelem.find('#muUsername').removeClass('edituserfield');
+                        listelem.find('#muEmail').removeClass('edituserfield');
+
+                        $('#createUserErrorMessage').text('User updated successfully.'); 
+                    } else {
+                        var text = '';
+                        for (var key in data.error) {
+                            text = text + data.error[key] + " ";
+                        } 
+                        $('#createUserErrorMessage').text(text);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                    console.log(jqXHR.responseText);
+                     $('#createUserErrorMessage').text(textStatus);
+                },
+            });        
+
         });
 
-        $('.change-password').on("click", function(e) {
-            $('#password').removeAttr('disabled');
-            $('#password').attr("placeholder", "Enter new password")
-            $('.verifypassword').removeClass('hidden');
-            this.remove();
-        })
+        
+    };
+    return {
+        init: function () {
+            attachEvents();
+        }
+    };
 
-    },
-    "construct": function() 
-    {
-        this.subscriptions = Acme.PubSub.subscribe({
-            // 'Acme.ListingForm.listener' : ["state_changed", 'update_state']
-        });
+}(jQuery));
 
-        this.render();
-        this.events();
-    }
-});
 
-$('[data-dismiss="alert"]').on('click', function(e) {
-    this.closest('div').remove();
-});
 
 (function ($) {
 

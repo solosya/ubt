@@ -1,4 +1,5 @@
 {{ set(this, 'title', 'Edit Profile') }}
+{{this.registerJs("UserProfielController.load()")}}
 
 <!-- Begin User Profile Page -->
 {% set user = _User.getUser() %}
@@ -6,6 +7,7 @@
 {% set jobListingsArr = [] %}
 {% set realEstateArr = [] %}
 {% set eventsArr = [] %}
+{% set pwstats = _User.getPaywallStats() %}
 
 {# {% if user %} 
     {% set jobListingsArr = _User.getUserArticles(user.guid, 0, 1000, [117]) %}
@@ -27,7 +29,9 @@
 
                     <div class="profile-section with-border">
                         <div class="section-heading">
-                            <p>My details</p>
+                            <p>My details</p>                                    
+                            <a class="button" href="/auth/logoff">Log Out</a> 
+
                         </div>
                         <div class="profile-details listingForn">
                             <form id="profile-form" class="form-horizontal" action="" method="post" enctype="multipart/form-data" autocomplete="off" >
@@ -61,20 +65,75 @@
 
                                 <div class="inline-inputs">
                                     <label for="password">Password</label>
-                                    <input type="password" id="password" class="form-control" name="password" placeholder="**********" disabled>
+                                    <input type="password" id="password" class="form-control" name="password" placeholder="new password" >
+                                </div>
+
+
+                                <div class="inline-inputs">
+                                    <label for="password">Verify Password</label>
+                                    <input type="password" id="verifypassword" class="form-control" name="verifypassword" placeholder="verify password" >
                                 </div>
                                 
-                                <div class="inline-inputs" style="height:0;">
+{#                                 <div class="inline-inputs" style="height:0;">
                                     <label></label>
                                     <span class="change-password">Change password</span>
                                 </div>
-
+ #}
                                 <div class="button-full">
                                     <button type="submit" class="button">Done</button>
                                 </div>
                             </form>
                         </div>
                     </div>
+                    {% if pwstats.userManager == true %}
+                        {% set managedUers = _User.getPaywallManagedUsers() %}
+                        <div class="profile-section">
+                            <div class="section-heading">
+                                <p>Subscription Details </p>
+                            </div>
+                            <div  id="userListing" class="col-md-12">
+                                <div class="empty-listing">
+                                    {# {{dump(pwstats)}} #}
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="profile-section">
+                            <div class="section-heading">
+                                <p>My Users </p><a> {{managedUers|length}} of {{pwstats['paywall_total_users']}} used </a>
+                            </div>
+                            <div class="row">
+                                <div  id="user_profile" class="col-md-12">
+                                    {% if managedUers|length == 0 %} 
+                                    <div class="empty-listing">
+                                        <p>You have no current users.</p>
+                                    </div>
+                                    {% else %}
+                                    <ul id="mangedUsers" class="managed-user" >
+                                        {% for user in managedUers %}
+                                        <li id="{{user.id}}">
+                                            <div class="userdetails" >
+                                                <p><a contenteditable="true" id='muFirstname' class="displayname">{{user.firstname}}</a> <a contenteditable="true" id='muLastname' class="displayname">{{user.lastname}}</a></p>
+                                                <p><a contenteditable="true" id='muUsername' class="username">{{user.username}}</a></p>
+                                            </div>
+                                            <div class="useremailbuttons">
+                                                <div><p><a contenteditable="true" id='muEmail' class="uesremail">{{user.email}}</a> <a class="saveedit hidden">save</a> <a class="canceledit hidden">cancel</a><a class="edituser">edit</a><a class="reallydelete hidden">really delete</a><a class="deleteuser">delete</a></p></div>   
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                </div>
+                                {% if managedUers|length < pwstats['paywall_total_users'] %}
+                                    <a id="createUserErrorMessage"></a><a id="addManagedUser" style="z-index:1000;" class="addUser">+ Add users</a>
+                                {% endif %}
+                            </div>
+
+                                </div>
+                        </div>
+                    {% endif %}
 
                     <div class="profile-section">
                         <div class="section-heading">
