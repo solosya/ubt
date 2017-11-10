@@ -95,6 +95,8 @@ gulp.task('scripts', function(){
 
         './static/development/js/sdk/cloudinary/jquery.cloudinary.js',
         './static/development/js/sdk/common.js',
+        './static/development/js/sdk/weather.js',
+        './static/development/js/sdk/stripe.js',
         './static/development/js/sdk/blog.js',
         './static/development/js/sdk/article.js',
         './static/development/js/sdk/search.js',

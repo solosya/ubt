@@ -73,6 +73,8 @@
 
 .user_profile {
 
+    
+
     font-family: $font-family-sans-serif;
     background-color: #f3f3f3;
 
@@ -95,6 +97,7 @@
     a.submit {
         font-style: italic;
         margin-top: -20px !important; 
+
     }
 
 	.user_profile_section {
@@ -108,6 +111,92 @@
           @include padding(40px);
         }
 	}
+    .managed-user {
+        .displayname{
+            color: #ae232c;
+            font-size: 18px;
+            text-align: left;
+        }
+        .username {
+            display: inline;
+            font-size: 11.7px;
+            font-weight: bold;
+            line-height: 1.33;
+            color: black;
+            padding-bottom: 11px;
+        }
+        .userdetails{
+            flex-grow: 1;
+        }
+        .useremailbuttons{
+            flex-grow: 0;
+            div {
+                position: relative;    
+                top: 50%;    
+                transform: translateY(-50%);
+            }
+            .uesremail {
+                margin-right:30px;
+                color:black;
+            }
+            .edituser {
+                margin-right:10px;
+                color: #717171;
+                &:hover {
+                    color: color(red);
+                    cursor: pointer;
+                }
+
+            }
+            .deleteuser {
+                color: #717171;
+                &:hover {
+                    color: color(red);
+                    cursor: pointer;
+                }
+            }
+            .saveedit {
+                color: #ae232c;
+                &:hover {
+                    color: color(#717171);
+                    cursor: pointer;
+                }
+            }
+            .canceledit {
+                color: #ae232c;
+                &:hover {
+                    color: color(#717171);
+                    cursor: pointer;
+                }
+            }
+
+        }
+
+        .edituserfield {
+            border-radius: 6px;
+            border: 1px solid #E5E5E5;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+
+        li {
+            display:flex;     
+            border-bottom: 1px solid #97999c;   
+            margin-bottom: 15px;
+        }
+    }
+
+    .addUser {
+        font-style: italic;
+        background-color: transparent !important;
+        color: #ae232c !important;
+        border: none;
+        float: right;
+        margin-top: 25px !important;
+        cursor: pointer;
+
+    }
 
     .empty-listing {
         display: block;
