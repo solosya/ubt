@@ -39,11 +39,14 @@
         {% set articleTitle = quotes.smarten(article.titlePreview) %}
     {% endif %}
 
-    {% set publishDate = _AppHelper.getDefaultTimezoneDateTime(article.publishDateTime,'d M Y') %}
-    {% set publishedAgo = _AppHelper.getSecondsSincePublished(article.publishDateTime) %}
+
+    {% set publishedDateTime =  (article.publishedDateTime is defined) ? article.publishedDateTime : article.publishDateTime %}
+
+    {% set publishDate = _AppHelper.getDefaultTimezoneDateTime(publishedDateTime,'d M Y') %}
+    {% set publishedAgo = _AppHelper.getSecondsSincePublished(publishedDateTime) %}
     
     {% if publishedAgo < 86400 %}
-        {% set publishDate = _AppHelper.getRelativeTime(article.publishDateTime) ~ " ago" %}
+        {% set publishDate = _AppHelper.getRelativeTime(publishedDateTime) ~ " ago" %}
     {% endif %}
 
 
