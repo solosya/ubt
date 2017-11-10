@@ -301,9 +301,9 @@
                             {% for i in 0..1 if sections['job listings'].feed.articles[propertyCount] %}
                                 {{this.render('partials/_single-article.twig', {
                                     article: sections['job listings'].feed.articles[propertyCount], 
-                                    imageSize: {width: 80, height: 80},
+                                    imageSize: {width: 60, height: 60},
                                     template: 'user-jobs',
-                                    containerClass: "card-form-job-listing"
+                                    containerClass: "card-community-job-listing"
                                 }) | raw}}
                                 {% set propertyCount = (dev) ? propertyCount : propertyCount + 1 %}
                             {% endfor %}
@@ -312,9 +312,9 @@
                             {% for i in 0..1 if sections['job listings'].feed.articles[propertyCount] %}
                                 {{this.render('partials/_single-article.twig', {
                                     article: sections['job listings'].feed.articles[propertyCount], 
-                                    imageSize: {width: 80, height: 80},
+                                    imageSize: {width: 60, height: 60},
                                     template: 'user-jobs',
-                                    containerClass: "card-form-job-listing"
+                                    containerClass: "card-community-job-listing"
                                 }) | raw}}
                                 {% set propertyCount = (dev) ? propertyCount : propertyCount + 1 %}
                             {% endfor %}
@@ -323,9 +323,9 @@
                             {% for i in 0..1 if sections['job listings'].feed.articles[propertyCount] %}
                                 {{this.render('partials/_single-article.twig', {
                                     article: sections['job listings'].feed.articles[propertyCount], 
-                                    imageSize: {width: 80, height: 80},
+                                    imageSize: {width: 60, height: 60},
                                     template: 'user-jobs',
-                                    containerClass: "card-form-job-listing"
+                                    containerClass: "card-community-job-listing"
                                 }) | raw}}
                                 {% set propertyCount = (dev) ? propertyCount : propertyCount + 1 %}
                             {% endfor %}
