@@ -99,18 +99,7 @@
                     "name": "availability",
                     "label": "availability",
                     "type": "inputbox"
-                },
-                {
-                    "name": "propertyid",
-                    "label": "propertyid",
-                    "type": "inputbox"
-                },
-                {
-                    "name": "annualreturn",
-                    "label": "anualreturn",
-                    "type": "inputbox"
                 }
-
             ]
         },
         "blog" : {            
