@@ -10,6 +10,11 @@
             > .content{
                 padding: 0;
                 position:relative;
+                p {
+                    margin:0;
+                    padding:0;
+                }
+
                 > div {
                     > .category{
                         // display:none;
@@ -61,9 +66,17 @@
                         height:40px;
                     }
 
-                    > p.excerpt {
-                        font-size: rem(16);
+                    >p.propertyType {
+                        font-size: rem(13);
                         font-weight:600;
+                    }
+                    >div >p.contracttype {
+                        font-size: rem(13);
+                        float:left;
+                    }
+                    >div >p.price {
+                        font-size: rem(13);
+                        float:right;
                     }
 
                 }

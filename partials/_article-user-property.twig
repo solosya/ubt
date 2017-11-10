@@ -20,7 +20,9 @@
         <time datetime="{{params.publishDate}}">{{status}}</time>
     </div>
     <h2>{{ params.articleTitle }}</h2>
-    
-    <p class="excerpt">{{ quotes.smarten(article.excerpt | raw) }}</p>
-                        
+    <p class="propertyType">{{ article.additionalInfo.type }}</p>
+    <div>
+        <p class="contracttype">{{ article.additionalInfo.contracttype }}</p>
+        <p class="price">{{ article.additionalInfo.pricerange }}</p>
+    </div>
 </div>
