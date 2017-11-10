@@ -113,13 +113,13 @@
                                     {% else %}
                                     <ul id="mangedUsers" class="managed-user" >
                                         {% for user in managedUers %}
-                                        <li>
+                                        <li id="{{user.id}}">
                                             <div class="userdetails" >
-                                                <p><a contenteditable="true" class="displayname">{{user.firstname}}</a> <a contenteditable="true" class="displayname">{{user.lastname}}</a></p>
-                                                <p><a contenteditable="true" class="username">{{user.username}}</a></p>
+                                                <p><a contenteditable="true" id='muFirstname' class="displayname">{{user.firstname}}</a> <a contenteditable="true" id='muLastname' class="displayname">{{user.lastname}}</a></p>
+                                                <p><a contenteditable="true" id='muUsername' class="username">{{user.username}}</a></p>
                                             </div>
                                             <div class="useremailbuttons">
-                                            <div><p><a contenteditable="true" class="uesremail">{{user.email}}</a> <a class="edituser">edit</a><a class="deleteuser">delete</a></p></div>   
+                                                <div><p><a contenteditable="true" id='muEmail' class="uesremail">{{user.email}}</a> <a class="saveedit hidden">save</a> <a class="canceledit hidden">cancel</a><a class="edituser">edit</a><a class="reallydelete hidden">really delete</a><a class="deleteuser">delete</a></p></div>   
                                             </div>
                                         </li>
                                         {% endfor %}
@@ -127,7 +127,7 @@
                                     {% endif %}
                                 </div>
                                 {% if managedUers|length < pwstats['paywall_total_users'] %}
-                                    <a id="addManagedUser" style="z-index:1000;" class="addUser">+ Add users</a>
+                                    <a id="createUserErrorMessage"></a><a id="addManagedUser" style="z-index:1000;" class="addUser">+ Add users</a>
                                 {% endif %}
                             </div>
 

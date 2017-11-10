@@ -60,6 +60,8 @@ var UserProfielController = (function ($) {
 }(jQuery));
 
 UserProfielController.Load = (function ($) {
+    var csrfToken = $('meta[name="csrf-token"]').attr("content");
+
     var attachEvents = function () {
           console.log('events!');
 
@@ -80,60 +82,185 @@ UserProfielController.Load = (function ($) {
             $('#addManagedUser').addClass('hidden');
             $('#createUser').on('click', function(e) {
 
-            var csrfToken = $('meta[name="csrf-token"]').attr("content");
+                
             
-        
-            var requestData = { 
-                firstname: $('#newuserfirstname').text(), 
-                lastname: $('#newuserlastname').text(), 
-                username: $('#newuserusername').text(), 
-                _csrf: csrfToken, 
-                useremail: $('#newuseruseremail').text()
-            };
+                var requestData = { 
+                    firstname: $('#newuserfirstname').text(), 
+                    lastname: $('#newuserlastname').text(), 
+                    username: $('#newuserusername').text(), 
+                    _csrf: csrfToken, 
+                    useremail: $('#newuseruseremail').text()
+                };
 
-            console.log(requestData);
+                console.log(requestData);
+
+                $.ajax({
+                    type: 'post',
+                    url: _appJsConfig.baseHttpPath + '/user/create-paywall-managed-user',
+                    dataType: 'json',
+                    data: requestData,
+                    success: function (data, textStatus, jqXHR) {
+                        console.log(data);
+                        if (data.success == 1) {
+                            location.reload(false);             
+                        } else {
+                            var text = '';
+                            for (var key in data.error) {
+                                text = text + data.error[key] + " ";
+                            } 
+                            $('#createUserErrorMessage').text(text);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus);
+                        console.log(jqXHR.responseText);
+                         $('#createUserErrorMessage').text(textStatus);
+                    },
+                });        
+            });
+
+            $('#cancelUserCreate').on('click', function(e) {
+                $('#newUser').remove();
+                $('#addManagedUser').removeClass('hidden');
+                $('#createUserErrorMessage').text('');
+            });
+
+        });
+
+        $('.edituser').on('click', function(e) {
+            var listelem = $(e.target).closest('li');
+            listelem.find('.edituser').addClass('hidden');
+            listelem.find('.deleteuser').addClass('hidden');
+            listelem.find('.saveedit').removeClass('hidden');
+            listelem.find('.canceledit').removeClass('hidden');
+
+            listelem.find('#muFirstname').addClass('edituserfield');
+            listelem.find('#muLastname').addClass('edituserfield');
+            listelem.find('#muUsername').addClass('edituserfield');
+            listelem.find('#muEmail').addClass('edituserfield');
+        });        
+
+        $('.canceledit').on('click', function(e) {
+            var listelem = $(e.target).closest('li');
+            listelem.find('.edituser').removeClass('hidden');
+            listelem.find('.deleteuser').removeClass('hidden');
+            listelem.find('.saveedit').addClass('hidden');
+            listelem.find('.canceledit').addClass('hidden');
+            listelem.find('.reallydelete').addClass('hidden');
+
+
+            listelem.find('#muFirstname').removeClass('edituserfield');
+            listelem.find('#muLastname').removeClass('edituserfield');
+            listelem.find('#muUsername').removeClass('edituserfield');
+            listelem.find('#muEmail').removeClass('edituserfield');
+
+            $('#createUserErrorMessage').text('');   
+        });        
+
+
+        $('.deleteuser').on('click', function(e) {
+            var listelem = $(e.target).closest('li');
+            listelem.find('.edituser').addClass('hidden');
+            listelem.find('.deleteuser').addClass('hidden');
+            listelem.find('.reallydelete').removeClass('hidden');
+            listelem.find('.canceledit').removeClass('hidden');
+            $('#createUserErrorMessage').text('');   
+        });        
+
+        $('.reallydelete').on('click', function(e) {
+            var listelem = $(e.target).closest('li');
+            var userid = listelem.attr("id");
+            var requestData = { 
+                id: listelem.attr("id"), 
+                _csrf: csrfToken, 
+            };
 
             $.ajax({
                 type: 'post',
-                url: _appJsConfig.baseHttpPath + '/user/create-paywall-managed-user',
+                url: _appJsConfig.baseHttpPath + '/user/delete-managed-user',
                 dataType: 'json',
                 data: requestData,
                 success: function (data, textStatus, jqXHR) {
                     console.log(data);
-                    // if (opts.onSuccess && typeof opts.onSuccess === 'function') {
-                    //     opts.onSuccess(data, textStatus, jqXHR);
-                    // }                
+                    if (data.success == 1) {
+                        console.log('success');
+                        location.reload(false);             
+                    } else {
+                        var text = '';
+                        for (var key in data.error) {
+                            text = text + data.error[key] + " ";
+                        } 
+                        $('#createUserErrorMessage').text(text);
+                    }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log(textStatus);
                     console.log(jqXHR.responseText);
-                    // if (opts.onError && typeof opts.onError === 'function') {
-                    //     opts.onError(jqXHR, textStatus, errorThrown);
-                    // }
+                     $('#createUserErrorMessage').text(textStatus);
                 },
-                // beforeSend: function (jqXHR, settings) {
-                //     if (opts.beforeSend && typeof opts.beforeSend === 'function') {
-                //         opts.beforeSend(jqXHR, settings);
-                //     }
-                // },
-                // complete: function (jqXHR, textStatus) {
-                //     if (opts.onComplete && typeof opts.onComplete === 'function') {
-                //         opts.onComplete(jqXHR, textStatus);
-                //     }
-                // }
             });        
 
 
+        });        
 
 
 
-            });
-            $('#cancelUserCreate').on('click', function(e) {
-                $('#newUser').remove();
-                $('#addManagedUser').removeClass('hidden');
-            });
+        $('.saveedit').on('click', function(e) {
+            console.log('clicks')
+            var listelem = $(e.target).closest('li');
+            var userid = listelem.attr("id");
+            var firstname = listelem.find('#muFirstname').text();
+            var lastname = listelem.find('#muLastname').text();
+            var username = listelem.find('#muUsername').text();
+            var email = listelem.find('#muEmail').text();
+
+            var requestData = { 
+                id: listelem.attr("id"), 
+                firstname: listelem.find('#muFirstname').text(), 
+                lastname: listelem.find('#muLastname').text(), 
+                username: listelem.find('#muUsername').text(), 
+                _csrf: csrfToken, 
+                useremail: listelem.find('#muEmail').text()
+            };
+
+            $.ajax({
+                type: 'post',
+                url: _appJsConfig.baseHttpPath + '/user/edit-managed-profile',
+                dataType: 'json',
+                data: requestData,
+                success: function (data, textStatus, jqXHR) {
+                    console.log(data);
+                    if (data.success == 1) {
+                        console.log('success');
+                        $('#createUserErrorMessage').text('');   
+                        listelem.find('.edituser').removeClass('hidden');
+                        listelem.find('.deleteuser').removeClass('hidden');
+                        listelem.find('.saveedit').addClass('hidden');
+                        listelem.find('.canceledit').addClass('hidden');
+
+                        listelem.find('#muFirstname').removeClass('edituserfield');
+                        listelem.find('#muLastname').removeClass('edituserfield');
+                        listelem.find('#muUsername').removeClass('edituserfield');
+                        listelem.find('#muEmail').removeClass('edituserfield');
+
+                        $('#createUserErrorMessage').text('User updated successfully.'); 
+                    } else {
+                        var text = '';
+                        for (var key in data.error) {
+                            text = text + data.error[key] + " ";
+                        } 
+                        $('#createUserErrorMessage').text(text);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                    console.log(jqXHR.responseText);
+                     $('#createUserErrorMessage').text(textStatus);
+                },
+            });        
 
         });
+
         
     };
     return {

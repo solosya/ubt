@@ -67,6 +67,7 @@ form.addEventListener('submit', function(event) {
             errorElement.textContent = result.error.message;
         } else {
             // Send the token to your server
+            console.log(result);
             formhandler(result.token, userdata);
         }
     });
@@ -80,7 +81,11 @@ var formhandler = function(stripeToken, formdata) {
     console.log(_appJsConfig.baseHttpPath);
     console.log(_appJsConfig);
     console.log(stripeToken);
-    formdata.push(stripeToken);
+    var token = new Object();
+    token['name'] = 'stripetoken';
+    token['value'] = stripeToken.id;
+    formdata.push(token);
+    console.log(formdata);
     $.ajax({
         url: _appJsConfig.appHostName + '/auth/paywall-signup',
         type: 'post',
@@ -89,7 +94,7 @@ var formhandler = function(stripeToken, formdata) {
         success: function(data){
 
             if(data.success) {
-                console.log('moo')
+                console.log('success')
             } else {
 
                 console.log(data)

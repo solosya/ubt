@@ -33909,23 +33909,157 @@ var UserProfielController = (function ($) {
 }(jQuery));
 
 UserProfielController.Load = (function ($) {
+    var csrfToken = $('meta[name="csrf-token"]').attr("content");
+
     var attachEvents = function () {
           console.log('events!');
 
         $('#addManagedUser').on('click', function(e) {
             console.log('add user');
             e.preventDefault()
-            var user = '<li>\
+            var user = '<li id = "newUser">\
                 <div class="userdetails" >\
-                    <p><a contenteditable="true" class="displayname">{{user.firstname}}</a> <a contenteditable="true" class="displayname">{{user.lastname}}</a></p>\
-                    <p><a contenteditable="true" class="username">{{user.username}}</a></p>\
+                    <p><a contenteditable="true" id="newuserfirstname" class="displayname">FIRSTANAME</a> <a contenteditable="true" id="newuserlastname" class="displayname">LASTNAME</a></p>\
+                    <p><a contenteditable="true" id="newuserusername" class="username">USERNAME</a></p>\
                 </div>\
                 <div class="useremailbuttons">\
-                <div><p><a contenteditable="true" class="uesremail">{{user.email}}</a> <a class="edituser">edit</a><a class="deleteuser">delete</a></p></div>\
+                <div><p><a contenteditable="true" id="newuseruseremail" class="uesremail">EMAIL</a> <a id="createUser" class="edituser">create user</a><a id="cancelUserCreate" class="deleteuser">cancel</a></p></div>\
                 </div>\
             </li>';
+
             $('#mangedUsers').append($(user));
+            $('#addManagedUser').addClass('hidden');
+            $('#createUser').on('click', function(e) {
+
+                
+            
+                var requestData = { 
+                    firstname: $('#newuserfirstname').text(), 
+                    lastname: $('#newuserlastname').text(), 
+                    username: $('#newuserusername').text(), 
+                    _csrf: csrfToken, 
+                    useremail: $('#newuseruseremail').text()
+                };
+
+                console.log(requestData);
+
+                $.ajax({
+                    type: 'post',
+                    url: _appJsConfig.baseHttpPath + '/user/create-paywall-managed-user',
+                    dataType: 'json',
+                    data: requestData,
+                    success: function (data, textStatus, jqXHR) {
+                        console.log(data);
+                        if (data.success == 1) {
+                            location.reload(false);             
+                        } else {
+                            var text = '';
+                            for (var key in data.error) {
+                                text = text + data.error[key] + " ";
+                            } 
+                            $('#createUserErrorMessage').text(text);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus);
+                        console.log(jqXHR.responseText);
+                         $('#createUserErrorMessage').text(textStatus);
+                    },
+                });        
+            });
+
+            $('#cancelUserCreate').on('click', function(e) {
+                $('#newUser').remove();
+                $('#addManagedUser').removeClass('hidden');
+                $('#createUserErrorMessage').text('');
+            });
+
         });
+
+        $('.edituser').on('click', function(e) {
+            var listelem = $(e.target).closest('li');
+            listelem.find('.edituser').addClass('hidden');
+            listelem.find('.deleteuser').addClass('hidden');
+            listelem.find('.saveedit').removeClass('hidden');
+            listelem.find('.canceledit').removeClass('hidden');
+
+            listelem.find('#muFirstname').addClass('edituserfield');
+            listelem.find('#muLastname').addClass('edituserfield');
+            listelem.find('#muUsername').addClass('edituserfield');
+            listelem.find('#muEmail').addClass('edituserfield');
+        });        
+
+        $('.canceledit').on('click', function(e) {
+            var listelem = $(e.target).closest('li');
+            listelem.find('.edituser').removeClass('hidden');
+            listelem.find('.deleteuser').removeClass('hidden');
+            listelem.find('.saveedit').addClass('hidden');
+            listelem.find('.canceledit').addClass('hidden');
+
+            listelem.find('#muFirstname').removeClass('edituserfield');
+            listelem.find('#muLastname').removeClass('edituserfield');
+            listelem.find('#muUsername').removeClass('edituserfield');
+            listelem.find('#muEmail').removeClass('edituserfield');
+
+            $('#createUserErrorMessage').text('');   
+        });        
+
+
+        $('.saveedit').on('click', function(e) {
+            console.log('clicks')
+            var listelem = $(e.target).closest('li');
+            var userid = listelem.attr("id");
+            var firstname = listelem.find('#muFirstname').text();
+            var lastname = listelem.find('#muLastname').text();
+            var username = listelem.find('#muUsername').text();
+            var email = listelem.find('#muEmail').text();
+
+            var requestData = { 
+                id: listelem.attr("id"), 
+                firstname: listelem.find('#muFirstname').text(), 
+                lastname: listelem.find('#muLastname').text(), 
+                username: listelem.find('#muUsername').text(), 
+                _csrf: csrfToken, 
+                useremail: listelem.find('#muEmail').text()
+            };
+
+            $.ajax({
+                type: 'post',
+                url: _appJsConfig.baseHttpPath + '/user/edit-managed-profile',
+                dataType: 'json',
+                data: requestData,
+                success: function (data, textStatus, jqXHR) {
+                    console.log(data);
+                    if (data.success == 1) {
+                        console.log('success');
+                        $('#createUserErrorMessage').text('');   
+                        listelem.find('.edituser').removeClass('hidden');
+                        listelem.find('.deleteuser').removeClass('hidden');
+                        listelem.find('.saveedit').addClass('hidden');
+                        listelem.find('.canceledit').addClass('hidden');
+
+                        firstname = listelem.find('#muFirstname').addClass('edituserfield');
+                        lastname = listelem.find('#muLastname').addClass('edituserfield');
+                        username = listelem.find('#muUsername').addClass('edituserfield');
+                        email = listelem.find('#muEmail').addClass('edituserfield');
+
+                    } else {
+                        var text = '';
+                        for (var key in data.error) {
+                            text = text + data.error[key] + " ";
+                        } 
+                        $('#createUserErrorMessage').text(text);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                    console.log(jqXHR.responseText);
+                     $('#createUserErrorMessage').text(textStatus);
+                },
+            });        
+
+        });
+
         
     };
     return {

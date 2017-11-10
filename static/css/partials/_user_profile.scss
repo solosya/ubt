@@ -154,9 +154,32 @@
                     color: color(red);
                     cursor: pointer;
                 }
-
             }
+            .saveedit {
+                color: #ae232c;
+                &:hover {
+                    color: color(#717171);
+                    cursor: pointer;
+                }
+            }
+            .canceledit {
+                color: #ae232c;
+                &:hover {
+                    color: color(#717171);
+                    cursor: pointer;
+                }
+            }
+
         }
+
+        .edituserfield {
+            border-radius: 6px;
+            border: 1px solid #E5E5E5;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+
         li {
             display:flex;     
             border-bottom: 1px solid #97999c;   
