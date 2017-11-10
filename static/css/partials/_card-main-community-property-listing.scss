@@ -37,7 +37,7 @@
         margin-bottom: 32px;
 
         a.card {
-            @include card-image-top(341px, 207px);
+            @include card-image-top(auto, 207px);
 
             > article {
 

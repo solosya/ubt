@@ -5,6 +5,13 @@
     {% set status = "Pending Approval" %}
 {% endif %}
 
+{% if (article.hasMedia == 'TRUE' or article.hasPreviewMedia == 'TRUE') and params.imageSuppress == 'false' %}
+    <figure class="{{params.figureClass}}">
+        <picture>
+            <img class="img-responsive" src="{{params.articleImg}}" data-original="{{params.articleImg}}"  {% if articleImg is not empty %} style="background-image:url('{{params.placeholder}}');" {%endif%}>
+        </picture>
+    </figure>
+{% endif %}
 
 <div class="content">
     <div class="cat-time">

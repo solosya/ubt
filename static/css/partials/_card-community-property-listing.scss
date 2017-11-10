@@ -34,7 +34,7 @@
     @media screen and (min-width: $mmd-break){
         @include card-community-property-listing-base();
 
-        margin-bottom: 32px;
+        margin-bottom: 15px;
 
         a.card {
             @include card-image-left(100px, 82px);
@@ -56,7 +56,7 @@
                         font-size: rem(11);
                         margin-top:10px;
                         margin-bottom:5px;
-                        height:40px;
+                        height:37px;
                         color:color(lightgrey);
                     }
 

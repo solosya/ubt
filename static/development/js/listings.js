@@ -450,7 +450,7 @@ ListingForm.constructor = ListingForm;
         this.menus.buyMenu = new Acme.listMenu({
                     'parent'        : $('#buySelect'),
                     'list'          : contractList,
-                    'defaultSelect' : {"label": 'Buy/lease'},
+                    'defaultSelect' : {"label": 'For sale/lease'},
                     'name'          : 'contracttype',
                     'key'           : 'extendedData.contracttype'
         }).init().render();
