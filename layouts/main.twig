@@ -89,7 +89,11 @@
       });
     </script>
     
-{{ this.render('partials/ads.twig') | raw }}
+{{ this.render('partials/ads.twig', {
+        networkData: networkData,
+        blogData: blogData
+    }) | raw }}
+
 
 <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
