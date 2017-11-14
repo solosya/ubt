@@ -17,33 +17,35 @@
                         border-right:1px solid color(lightgrey);
                     }
                 }
-                > h1{
+                > h1 {
                     font-family: $font-family-serif;
                     color:color(darkblue);
                     height: 30px;
                 }
-                > h2{
+                > h2 {
                     margin:0;
                     color:color(red);
                     font-weight:normal;
                     line-height: 1.33;
                 }
 
-                > .listing-type {
+                .listing-type {
                     position:relative;
                     height: 16px;
                     width: 100%;
 
-                    background-repeat:no-repeat;
-                    background-size:contain;
+                    // background-repeat:no-repeat;
+                    // background-size:contain;
                     .listing-type__img {
                         float:left;
-                        margin-right:10px;
+                        position: relative;
+                        top: -5px;
+
                     }
                    
                     .listing-type__attribute {
                         margin:0;
-                        margin-left:10px;
+                        margin-right:10px;
                         font-size:rem(12);
                         font-style:italic;
                         color:color(darkblue);
@@ -58,14 +60,13 @@
                         }
 
                     }
-
                 }
-                > p.excerpt {
+                .excerpt {
                     font-size: rem(13);
                     line-height:1.54;
                 }
 
-                > .cat-time {
+                .cat-time {
                     line-height: 0;
                     padding-bottom: 8px;
                 }

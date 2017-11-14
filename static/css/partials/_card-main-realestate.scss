@@ -31,42 +31,38 @@
                     // background:rgba(150,0,0,.4);
                     color:color(black);
                 }
-                > div.listing-type {
-                    background-repeat:no-repeat;
-                    background-size:contain;
-                    > img {
-                        float:left;
-                    }
+                
+                .listing-type {
+                    position:absolute;
+                    bottom:30px;
+                    left:0;
+                    height: 16px;
+                    width: 100%;
 
-                    // &.industrial {
-                    //     background-image:url('../icons/property/warehouse.svg');
-                    // }
-                    // &.offices {
-                    //     background-image:url('../icons/property/office.svg');
-                    // }
-                    // &.showrooms {
-                    //     background-image:url('../icons/property/showrooms.svg');
-                    // }
-                    // &.serviced {
-                    //     background-image:url('../icons/property/serviced-offices.svg');
-                    // }
-                    // &.retail {
-                    //     background-image:url('../icons/property/retail.svg');
-                    // }
-                    // &.parking {
-                    //     background-image:url('../icons/property/parking.svg');
-                    // }
-                    // &.medical {
-                    //     background-image:url('../icons/property/consulting.svg');
-                    // }
-                    // &.development {
-                    //     background-image:url('../icons/property/land.svg');
-                    // }
-                    // &.Rural {
-                    //     background-image:url('../icons/property/Rural.svg');
-                    // }
-                    > p {
-                        padding-left: 25px;
+                    // background-repeat:no-repeat;
+                    // background-size:contain;
+                    .listing-type__img {
+                        float:left;
+                        position: relative;
+                        top: -5px;
+                    }
+                   
+                    .listing-type__attribute {
+                        margin:0;
+                        margin-right:10px;
+                        font-size:rem(12);
+                        font-style:italic;
+                        color:color(darkblue);
+                        line-height:1;
+                        position: relative;
+                        top: 4px;
+                        float:left;
+                        
+                        &--contract {
+                            border-left:1px solid color(darkblue);
+                            padding-left:10px;
+                        }
+
                     }
                 }
             }
@@ -115,23 +111,25 @@
                         max-height:90px;
                         text-transform:uppercase;
                     }
-                    > div.listing-type {
-                        position:absolute;
-                        bottom:30px;
-                        left:0;
-                        height: 16px;
-                        width: 100%;
-                        >p {
-                            margin:0;
-                            margin-left:10px;
-                            font-size:rem(12);
-                            font-style:italic;
-                            color:color(darkblue);
-                            line-height:1;
-                            position:absolute;
-                            bottom:0;
-                        }
-                    }
+                    // .listing-type {
+                    //     position:absolute;
+                    //     bottom:30px;
+                    //     left:0;
+                    //     height: 16px;
+                    //     width: 100%;
+                    //     .listing-type__attribute {
+                    //         margin:0;
+                    //         margin-left:10px;
+                    //         font-size:rem(12);
+                    //         font-style:italic;
+                    //         color:color(darkblue);
+                    //         line-height:1;
+                    //         // position:absolute;
+                    //         bottom:0;
+                    //     }
+                    // }
+
+
                     > p.excerpt {
                         float:right;
                         width:60%;
