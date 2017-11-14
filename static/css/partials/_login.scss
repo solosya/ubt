@@ -156,6 +156,38 @@ body.login {
         }
     }
 
+    .cost {
+
+        text-align:center;
+        overflow:auto;
+        padding-bottom: 90px;
+        border-bottom:1px solid color(border);
+        h2 {
+            font-family:$font-family-serif;
+            font-size: rem(40);
+            font-weight:700;
+            color:color(darkblue);
+            margin-bottom:41px;
+        }
+        a {
+            background: color(red);
+            color:white;
+            font-size:rem(14);
+            padding:15px 10px;
+        }
+        p {
+            margin-top:25px;
+            font-size:rem(12);
+            color:color(lightgrey);
+        }
+
+        a.register-interest {
+            font-size: rem(23);
+            width: 427px;
+            height: 94px;
+        }
+    }    
+
     /* Forms */
     .WriteAnArticleForm {
         width:100%;
