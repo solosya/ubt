@@ -3,6 +3,16 @@
  */
 window.templates = {};
 
+
+
+window.templates.pulldown = 
+'<div id="{{ name }}" class="Acme-pulldown"> \
+    <p class="Acme-pulldown__selected-item Acme-pulldown__selected-item"></p> \
+    <span></span> \
+    <ul data-key="{{ key }}" class="articleExtendedData"></ul> \
+</div>';
+
+
 window.templates.modal = 
 '<div id="signin" class="flex_col"> \
     <div id="dialog"> \

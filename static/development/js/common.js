@@ -404,7 +404,7 @@
 
     Acme.listMenu = function(config)
     {
-        this.defaultTemp      = Handlebars.compile('<div id="{{ name }}" class="pulldown"><p></p><span></span><ul data-key="{{ key }}" class="articleExtendedData"></ul></div>');
+        this.defaultTemp      = Handlebars.compile(window.templates.pulldown);
         this.defaultItemTemp  = Handlebars.compile('<li data-value="{{value}}">{{label}}</li>');
         this.menuParent       = config.parent        || {};
         this.template         = config.template      || this.defaultTemp;
@@ -492,8 +492,9 @@
         };
         Acme.listMenu.prototype.reset = function()
         {
-            var menuid = '#' + this.name + ' > p';
-            $(menuid).text(this.defaultSelection.label);
+            var menuid = $('#' + this.name + ' > p');
+            menuid.text(this.defaultSelection.label);
+
             return this;
         };
         Acme.listMenu.prototype.remove = function()
