@@ -30,9 +30,9 @@
     <section class="row section">
 
         <div class="col-sm-10 section-header">
-            <h2>{{blogInfo.title}}</h2>
+            <h2 class="section-header__title">{{blogInfo.title}}</h2>
 
-            <p class="description">
+            <p  class="section-header__description">
                 {{blogInfo.shortDescription}}
             </p>
         </div>
@@ -99,7 +99,7 @@
                             <div class="content-block-top">
                                 
                                 <time datetime="{{publishedDate}}">{{article.publishedDate}}</time>
-                                <p class="pricerange">${{ article.additionalInfo.pricerange }}</p>
+                                <p class="pricerange">${{ article.additionalInfo.pricerange | preg_replace("/\\$/", '')}}</p>
 
                                 <h1>{{ quotes.smarten(article.title) }}</h1>
                                 
@@ -138,10 +138,6 @@
                                 <tr>
                                     <td class="label">Floor area m&sup2;</td>
                                     <td class="value">{{article.additionalInfo.floorarea}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="label">Property Id</td>
-                                    <td class="value">{{article.additionalInfo.propertyid}}</td>
                                 </tr>
                             </table>
                         </div>
