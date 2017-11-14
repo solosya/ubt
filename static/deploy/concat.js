@@ -32638,9 +32638,10 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
                 elem.attr('checked', true);
                 var data = {};
                 data[self.key || self.name] = value;
-                console.log(data);
+
                 Acme.PubSub.publish('update_state', data);
-                self.defaultItem.text(elem.text());
+                self.defaultItem.text(elem.text())
+                                .addClass('Acme-pulldown__selected-item--is-active');
                 $(self.listContainer).hide(100);
             });
         };
@@ -32996,9 +32997,9 @@ window.templates = {};
 
 window.templates.pulldown = 
 '<div id="{{ name }}" class="Acme-pulldown"> \
-    <p class="Acme-pulldown__selected-item Acme-pulldown__selected-item"></p> \
-    <span></span> \
-    <ul data-key="{{ key }}" class="articleExtendedData"></ul> \
+    <p class="Acme-pulldown__selected-item"></p> \
+    <span class="Acme-pulldown__span"></span> \
+    <ul class="Acme-pulldown__list" data-key="{{ key }}" class="articleExtendedData"></ul> \
 </div>';
 
 

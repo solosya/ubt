@@ -7,9 +7,9 @@ window.templates = {};
 
 window.templates.pulldown = 
 '<div id="{{ name }}" class="Acme-pulldown"> \
-    <p class="Acme-pulldown__selected-item Acme-pulldown__selected-item"></p> \
-    <span></span> \
-    <ul data-key="{{ key }}" class="articleExtendedData"></ul> \
+    <p class="Acme-pulldown__selected-item"></p> \
+    <span class="Acme-pulldown__span"></span> \
+    <ul class="Acme-pulldown__list" data-key="{{ key }}" class="articleExtendedData"></ul> \
 </div>';
 
 
@@ -181,8 +181,6 @@ Acme.propertyCardTemplate =
     cardTemplateBottom;
 
 
-
-console.log(Acme.propertyCardTemplate);
 
 
 Acme.systemCardTemplate = 

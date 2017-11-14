@@ -404,17 +404,21 @@
 
     Acme.listMenu = function(config)
     {
+        console.log(config);
         this.defaultTemp      = Handlebars.compile(window.templates.pulldown);
-        this.defaultItemTemp  = Handlebars.compile('<li data-value="{{value}}">{{label}}</li>');
+        this.defaultItemTemp  = Handlebars.compile('<li data-clear="{{clear}}" data-value="{{value}}">{{label}}</li>');
+        this.divider          = "<hr>";
         this.menuParent       = config.parent        || {};
         this.template         = config.template      || this.defaultTemp;
         this.itemTemp         = config.itemTemp      || this.defaultItemTemp;
         this.list             = config.list          || [];
+        this.allowClear       = config.allowClear    || null;
         this.defaultSelection = config.defaultSelect || null;
         this.name             = config.name          || null;
         this.key              = config.key           || null;
         this.listContainer    = null;
         this.defaultItem      = null;
+        console.log(this);
         return this;
     };
         Acme.listMenu.prototype.init = function(prepend)
@@ -464,6 +468,15 @@
                     'value'   :  value
                 });
             }
+            console.log(this.allowClear);
+            if (this.allowClear) {
+                html += this.divider;
+                html += itemTemp({
+                    'label'   :  'Clear',
+                    'value'   :  '',
+                    'clear'   : true
+                });      
+            }
             return html;
         };
         Acme.listMenu.prototype.listItemEvents = function()
@@ -475,12 +488,20 @@
                 });
                 var elem = $(e.target);
                 var value = elem.data('value');
+                var clear = elem.data('clear');
                 elem.attr('checked', true);
                 var data = {};
                 data[self.key || self.name] = value;
                 console.log(data);
                 Acme.PubSub.publish('update_state', data);
-                self.defaultItem.text(elem.text());
+                
+                if (clear) {
+                    self.reset();
+                } else {
+                    self.defaultItem.text(elem.text())
+                                    .addClass('Acme-pulldown__selected-item--is-active');
+                }
+
                 $(self.listContainer).hide(100);
             });
         };
@@ -492,33 +513,36 @@
         };
         Acme.listMenu.prototype.reset = function()
         {
-            var menuid = $('#' + this.name + ' > p');
-            menuid.text(this.defaultSelection.label);
 
+            // var menuid = $('#' + this.name + ' > p');
+            console.log(this.defaultSelection.label);
+            console.log(this.defaultItem);
+            this.defaultItem.text(this.defaultSelection.label)
+                  .removeClass('Acme-pulldown__selected-item--is-active');
             return this;
         };
         Acme.listMenu.prototype.remove = function()
         {
             $('#' + this.name).remove();
             return this;
-        }
+        };
         Acme.listMenu.prototype.clear = function()
         {
             $('#' + this.name).html('');
             return this;
-        }
+        };
         Acme.listMenu.prototype.empty = function()
         {
             this.listContainer.empty();
             return this;
-        }
+        };
         Acme.listMenu.prototype.update = function(list)
         {
             this.list = list;
             this.empty();
             this.render();
             return this;
-        }
+        };
 
 
 
