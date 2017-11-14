@@ -22,7 +22,7 @@
     
     <p class="excerpt">{{ quotes.smarten(article.excerpt | raw) }}</p>
     <div class="listing-type">
-        <img class="listing-type__img" src="{{networkData.templatePath}}/static/icons/property/{{ article.additionalInfo.type | split(" ")[0] | lower }}.svg">
+        <img class="listing-type__img" src="{{networkData.templatePath}}/static/icons/property/{{ article.additionalInfo.type | split(" ")[0] | lower }}.svg?ver=update">
         <p class="listing-type__attribute listing-type__attribute--type">{{ article.additionalInfo.type }}</p>
         <p class="listing-type__attribute listing-type__attribute--contract">{{ article.additionalInfo.contracttype }}</p>
     </div>
