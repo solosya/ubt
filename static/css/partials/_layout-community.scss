@@ -139,8 +139,9 @@
     }
 
 
-    section.listings {
-        h3 {
+    .listings {
+        .listings__link {
+            color:black;
             font-size: rem(18);
             font-weight:600;
             margin-bottom:14px;
