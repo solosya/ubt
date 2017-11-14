@@ -32564,7 +32564,7 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
 
     Acme.listMenu = function(config)
     {
-        this.defaultTemp      = Handlebars.compile('<div id="{{ name }}" class="pulldown"><p></p><span></span><ul data-key="{{ key }}" class="articleExtendedData"></ul></div>');
+        this.defaultTemp      = Handlebars.compile(window.templates.pulldown);
         this.defaultItemTemp  = Handlebars.compile('<li data-value="{{value}}">{{label}}</li>');
         this.menuParent       = config.parent        || {};
         this.template         = config.template      || this.defaultTemp;
@@ -32652,8 +32652,9 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
         };
         Acme.listMenu.prototype.reset = function()
         {
-            var menuid = '#' + this.name + ' > p';
-            $(menuid).text(this.defaultSelection.label);
+            var menuid = $('#' + this.name + ' > p');
+            menuid.text(this.defaultSelection.label);
+
             return this;
         };
         Acme.listMenu.prototype.remove = function()
@@ -32991,6 +32992,16 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
  */
 window.templates = {};
 
+
+
+window.templates.pulldown = 
+'<div id="{{ name }}" class="Acme-pulldown"> \
+    <p class="Acme-pulldown__selected-item Acme-pulldown__selected-item"></p> \
+    <span></span> \
+    <ul data-key="{{ key }}" class="articleExtendedData"></ul> \
+</div>';
+
+
 window.templates.modal = 
 '<div id="signin" class="flex_col"> \
     <div id="dialog"> \
@@ -33005,7 +33016,7 @@ window.templates.modal =
 </div>';
 
 
-window.templates.listingSavedTmpl =  '<p>Listing has been saved</p><div><form><button class="dialogButton">Okay</button></form></div>';
+window.templates.listingSavedTmpl =  '<p>Thank you, your listing will be published in the next 24 hours</p><div><form><button class="dialogButton">Okay</button></form></div>';
 
 
 window.templates.signinFormTmpl = 
@@ -33534,28 +33545,29 @@ Card.prototype.renderCard = function(card, cardClass, template)
     }
 
 
-    var salaryType = card.additionalInfo.salary;
-    var salaryPrefix = "";
-    var salary = "";
+    if (card.additionalInfo && card.additionalInfo.salary) {
+        var salaryType = card.additionalInfo.salary;
+        var salaryPrefix = "";
+        var salary = "";
 
-    if (salaryType === "1") {
+        if (salaryType === "1") {
 
-        salaryPrefix = "Salary ";
-        salary = "$" + card.additionalInfo.salaryfrom;
-        if (card.additionalInfo.salaryto) {
-            salaryPrefix = salaryPrefix + "range <br />";
-            salary = salary + " - " + card.additionalInfo.salaryto;
+            salaryPrefix = "Salary ";
+            salary = "$" + card.additionalInfo.salaryfrom;
+            if (card.additionalInfo.salaryto) {
+                salaryPrefix = salaryPrefix + "range <br />";
+                salary = salary + " - " + card.additionalInfo.salaryto;
+            }
+        } else if (salaryType == 2) {
+            salaryPrefix = "Hourly rate ";
+            salary = "$" + card.additionalInfo.hourlyrate;
+        } else if (salaryType == 3) {
+            salaryPrefix = "Commission";
         }
-    } else if (salaryType == 2) {
-        salaryPrefix = "Hourly rate ";
-        salary = "$" + card.additionalInfo.hourlyrate;
-    } else if (salaryType == 3) {
-        salaryPrefix = "Commission";
+
+        card['salary'] = salaryPrefix + salary
     }
 
-    card['salary'] = salaryPrefix + salary
-
-    // console.log(card);
 
 
     card['pinTitle'] = (card.isPinned == 1) ? 'Un-Pin Article' : 'Pin Article';
@@ -33938,7 +33950,7 @@ Card.prototype.events = function()
             options.rendertype = container.data('loadtype');
         }
 
-        // console.log(options);
+        console.log(options);
 
         $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
             console.log(data);
