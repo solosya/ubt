@@ -12,7 +12,7 @@
 
 {# {{this.registerJs("ListingController();")}} #}
 
-{% set limit = 10 %}
+{% set limit = 7 %}
 
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
@@ -31,13 +31,15 @@
 
 
 
+section-header__description
+
         <section class="row section">
 
             <div class="col-sm-offset-1 col-sm-10 section-header">
-                <h2>{{this.title}}</h2>
+                <h2 class="section-header__title">{{this.title}}</h2>
             </div>
             <div class="col-sm-offset-1 col-sm-7 section-header" >
-                <p class="description">
+                <p class="section-header__description">
                     {{blogData.shortDescription}}
                 </p>
             </div>

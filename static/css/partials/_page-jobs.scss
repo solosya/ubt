@@ -2,11 +2,16 @@ body.layout-jobs, body.layout-property, body.layout-events {
 
     .site-main {
 
+        .subsection-header {
+            margin-bottom:43px;
+        }
+
+
+
         a.listing-link {
 
             margin-left:14px;
             font-size:rem(14);
-            // line-height: 51px;
             float: right;
             color:color(red);
             font-style:italic;
@@ -30,13 +35,9 @@ body.layout-jobs, body.layout-property, body.layout-events {
 
 
         .menu {
-            // overflow:auto;
             margin-bottom: 30px;
             text-align: right;
 
-            .regionSelect {
-                // position:absolute;
-            }
 
             .pulldown {
                 display:block;

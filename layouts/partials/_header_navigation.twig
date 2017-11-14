@@ -30,7 +30,7 @@
             <ul class="top-nav">
                 {% if not _User.isGuest() %}
                     {% set user = _User.getUser() %}
-                    <li>{{ (user.firstname ~" "~ user.lastname) | truncate(15) | title}}. </li>
+                    <li>{{ (user.firstname ~" "~ user.lastname) | truncate(15) | title}} </li>
                     <li class="menu-item"><a href="{{_AppHelper.getEditProfileUrl()}}">MY ACCOUNT</a></li>
                     <li class="menu-item"><a href="{{_AppHelper.getLogoffUrl()}}">SIGN OUT</a></li>
                     <li class="menu-item-search">SEARCH</li>

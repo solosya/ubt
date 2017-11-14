@@ -15,7 +15,7 @@
 
 
 
-{% set limit = 10 %}
+{% set limit = 6 %}
 
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
@@ -38,10 +38,10 @@
 
 
             <div class="col-sm-offset-1 col-sm-10 section-header">
-                <h2>{{this.title}}</h2>
+                <h2 class="section-header__title">{{this.title}}</h2>
             </div>
-            <div class="col-sm-offset-1 col-sm-7 section-header" >
-                <p class="description">
+            <div class="col-sm-offset-1 col-sm-7 subsection-header" >
+                <p class="section-header__description">
                     {{blogData.shortDescription}}
                 </p>
             </div>

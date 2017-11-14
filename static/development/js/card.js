@@ -109,28 +109,29 @@ Card.prototype.renderCard = function(card, cardClass, template)
     }
 
 
-    var salaryType = card.additionalInfo.salary;
-    var salaryPrefix = "";
-    var salary = "";
+    if (card.additionalInfo && card.additionalInfo.salary) {
+        var salaryType = card.additionalInfo.salary;
+        var salaryPrefix = "";
+        var salary = "";
 
-    if (salaryType === "1") {
+        if (salaryType === "1") {
 
-        salaryPrefix = "Salary ";
-        salary = "$" + card.additionalInfo.salaryfrom;
-        if (card.additionalInfo.salaryto) {
-            salaryPrefix = salaryPrefix + "range <br />";
-            salary = salary + " - " + card.additionalInfo.salaryto;
+            salaryPrefix = "Salary ";
+            salary = "$" + card.additionalInfo.salaryfrom;
+            if (card.additionalInfo.salaryto) {
+                salaryPrefix = salaryPrefix + "range <br />";
+                salary = salary + " - " + card.additionalInfo.salaryto;
+            }
+        } else if (salaryType == 2) {
+            salaryPrefix = "Hourly rate ";
+            salary = "$" + card.additionalInfo.hourlyrate;
+        } else if (salaryType == 3) {
+            salaryPrefix = "Commission";
         }
-    } else if (salaryType == 2) {
-        salaryPrefix = "Hourly rate ";
-        salary = "$" + card.additionalInfo.hourlyrate;
-    } else if (salaryType == 3) {
-        salaryPrefix = "Commission";
+
+        card['salary'] = salaryPrefix + salary
     }
 
-    card['salary'] = salaryPrefix + salary
-
-    // console.log(card);
 
 
     card['pinTitle'] = (card.isPinned == 1) ? 'Un-Pin Article' : 'Pin Article';
@@ -513,7 +514,7 @@ Card.prototype.events = function()
             options.rendertype = container.data('loadtype');
         }
 
-        // console.log(options);
+        console.log(options);
 
         $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
             console.log(data);

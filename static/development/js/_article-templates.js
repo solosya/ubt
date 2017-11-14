@@ -17,7 +17,7 @@ window.templates.modal =
 </div>';
 
 
-window.templates.listingSavedTmpl =  '<p>Listing has been saved</p><div><form><button class="dialogButton">Okay</button></form></div>';
+window.templates.listingSavedTmpl =  '<p>Thank you, your listing will be published in the next 24 hours</p><div><form><button class="dialogButton">Okay</button></form></div>';
 
 
 window.templates.signinFormTmpl = 
