@@ -32564,17 +32564,21 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
 
     Acme.listMenu = function(config)
     {
+        console.log(config);
         this.defaultTemp      = Handlebars.compile(window.templates.pulldown);
-        this.defaultItemTemp  = Handlebars.compile('<li data-value="{{value}}">{{label}}</li>');
+        this.defaultItemTemp  = Handlebars.compile('<li data-clear="{{clear}}" data-value="{{value}}">{{label}}</li>');
+        this.divider          = "<hr>";
         this.menuParent       = config.parent        || {};
         this.template         = config.template      || this.defaultTemp;
         this.itemTemp         = config.itemTemp      || this.defaultItemTemp;
         this.list             = config.list          || [];
+        this.allowClear       = config.allowClear    || null;
         this.defaultSelection = config.defaultSelect || null;
         this.name             = config.name          || null;
         this.key              = config.key           || null;
         this.listContainer    = null;
         this.defaultItem      = null;
+        console.log(this);
         return this;
     };
         Acme.listMenu.prototype.init = function(prepend)
@@ -32624,6 +32628,15 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
                     'value'   :  value
                 });
             }
+            console.log(this.allowClear);
+            if (this.allowClear) {
+                html += this.divider;
+                html += itemTemp({
+                    'label'   :  'Clear',
+                    'value'   :  '',
+                    'clear'   : true
+                });      
+            }
             return html;
         };
         Acme.listMenu.prototype.listItemEvents = function()
@@ -32635,13 +32648,20 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
                 });
                 var elem = $(e.target);
                 var value = elem.data('value');
+                var clear = elem.data('clear');
                 elem.attr('checked', true);
                 var data = {};
                 data[self.key || self.name] = value;
-
+                console.log(data);
                 Acme.PubSub.publish('update_state', data);
-                self.defaultItem.text(elem.text())
-                                .addClass('Acme-pulldown__selected-item--is-active');
+                
+                if (clear) {
+                    self.reset();
+                } else {
+                    self.defaultItem.text(elem.text())
+                                    .addClass('Acme-pulldown__selected-item--is-active');
+                }
+
                 $(self.listContainer).hide(100);
             });
         };
@@ -32653,33 +32673,36 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
         };
         Acme.listMenu.prototype.reset = function()
         {
-            var menuid = $('#' + this.name + ' > p');
-            menuid.text(this.defaultSelection.label);
 
+            // var menuid = $('#' + this.name + ' > p');
+            console.log(this.defaultSelection.label);
+            console.log(this.defaultItem);
+            this.defaultItem.text(this.defaultSelection.label)
+                  .removeClass('Acme-pulldown__selected-item--is-active');
             return this;
         };
         Acme.listMenu.prototype.remove = function()
         {
             $('#' + this.name).remove();
             return this;
-        }
+        };
         Acme.listMenu.prototype.clear = function()
         {
             $('#' + this.name).html('');
             return this;
-        }
+        };
         Acme.listMenu.prototype.empty = function()
         {
             this.listContainer.empty();
             return this;
-        }
+        };
         Acme.listMenu.prototype.update = function(list)
         {
             this.list = list;
             this.empty();
             this.render();
             return this;
-        }
+        };
 
 
 
@@ -33171,8 +33194,6 @@ Acme.propertyCardTemplate =
     cardTemplateBottom;
 
 
-
-console.log(Acme.propertyCardTemplate);
 
 
 Acme.systemCardTemplate = 
@@ -34607,11 +34628,25 @@ Acme.searchCollectionClass = function(blogId)
     });
     Acme.searchCollectionClass.prototype.listeners = {
         "region" : function(data) {
+            if (data.region === "") {
+                delete this.searchTerms['region'];
+                return;
+            }
             this.searchTerms['region'] = data.region;
         },
         "type" : function(data) {
-            console.log(data);
+            if (data.type === "") {
+                delete this.searchTerms['type'];
+                return;
+            }
             this.searchTerms['type'] = data.type;
+        },
+        "sale" : function(data) {
+            if (data.sale === "") {
+                delete this.searchTerms['sale'];
+                return;
+            }
+            this.searchTerms['sale'] = data.sale;
         },
         "fetch" :  function() {
             var searchTerms = [];
@@ -34619,8 +34654,10 @@ Acme.searchCollectionClass = function(blogId)
                 searchTerms.push( search + ":" + this.searchTerms[search]);
             }
             var searchString = searchTerms.join(",");
-            // console.log('/api/search?meta_info='+searchString + '&blogId=' + this.blogId);
-            return this.fetch('/api/search?meta_info='+searchString + '&blogId=' + this.blogId);
+            if (searchString) {
+                return this.fetch('/api/search?meta_info='+searchString + '&blogId=' + this.blogId);
+            }
+            return this.fetch(_appJsConfig.baseHttpPath + '/home/load-articles', {'limit': 10, 'offset':0});
         },
         "clear" :  function() {
             return this.fetch(_appJsConfig.baseHttpPath + '/home/load-articles', {'limit': 10, 'offset':0});
@@ -34694,7 +34731,8 @@ Acme.regionSearchView = function() {
             'list'          : regionList,
             'defaultSelect' : {"label": 'Select region'},
             'name'          : 'regionSelect',
-            'key'           : 'regionSelect'
+            'key'           : 'regionSelect',
+            'allowClear'    : true
         }).init().render();
     };
     Acme.regionSearchView.prototype.reset = function() {
@@ -34728,7 +34766,8 @@ Acme.propertyTypeSearchView = function() {
             'list'          : propertyList,
             'defaultSelect' : {"label": 'Type of property'},
             'name'          : 'typeSelect',
-            'key'           : 'typeSelect'
+            'key'           : 'typeSelect',
+            'allowClear'    : true
         }).init().render();
     };
     Acme.propertyTypeSearchView.prototype.reset = function() {
@@ -34739,7 +34778,7 @@ Acme.propertyTypeSearchView = function() {
 Acme.saleTypeSearchView = function() {
     this.container = $('#saleSelect');
     this.subscriptions = Acme.PubSub.subscribe({
-        'Acme.saleFilter.listener' : ["update_state"]
+        'Acme.saleTypeFilter.listener' : ["update_state"]
     });
     this.render();
 };
@@ -34748,8 +34787,9 @@ Acme.saleTypeSearchView = function() {
     Acme.saleTypeSearchView.prototype.listeners =  {
         "saleSelect" : function(data) {
             var data = {
-                "region": data.typeSelect
+                "sale": data.saleSelect
             }
+            console.log("publishing", data);
             Acme.PubSub.publish('update_state', data);
         }
     };
@@ -34759,7 +34799,8 @@ Acme.saleTypeSearchView = function() {
             'list'          : contractList,
             'defaultSelect' : {"label": 'Buy/Lease'},
             'name'          : 'saleSelect',
-            'key'           : 'saleSelect'
+            'key'           : 'saleSelect',
+            'allowClear'    : true
         }).init().render();
     };
     Acme.saleTypeSearchView.prototype.reset = function() {
@@ -34774,6 +34815,7 @@ Acme.filteredListingViewClass = function() {
     Acme.filteredListingViewClass.prototype.listeners = {
         "search" : function(data) {
             this.data = data.search.data;
+            console.log(data);
             this.render();
         }
     };
@@ -34782,6 +34824,9 @@ Acme.filteredListingViewClass = function() {
         this.container = (container) ?  $('#'+container) : $('#job-listings');
         this.template = template || 'jobsCardTemplate';
     };
+
+
+
 
 Acme.jobsSearchResultsClass = function(container, template)
 {
@@ -34793,17 +34838,18 @@ Acme.jobsSearchResultsClass = function(container, template)
         'Acme.jobsSearchResults.listener' : ['state_changed']
     });
 
-    Acme.jobsSearchResultsClass.prototype.render = function() {
+    Acme.jobsSearchResultsClass.prototype.render = function(search) {
         var container = this.container;
         var cardClasses = ["card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile"];
 
-        var html = '<h2>Search results</h2><a id="searchClear" href="#">Clear</a>', n = 0;
+        var html = '<div id="searchResults"><h2>Search results</h2><a id="searchClear" href="#">Clear</a></div>', n = 0;
         for (var i=0;i<this.data.length;i++) {
             html += window.Acme.cards.renderCard(this.data[i].data, cardClasses[n], this.template);
         }
         container.empty().append(html);
         $('#searchClear').on('click', function(e) {
             e.preventDefault();
+            $("#searchResults").remove();
             Acme.PubSub.publish('update_state', {'clear': self});
         });
 
