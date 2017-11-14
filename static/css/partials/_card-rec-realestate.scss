@@ -29,46 +29,19 @@
                     line-height: 1.33;
                 }
 
-                > div.listing-type {
+                > .listing-type {
                     position:relative;
                     height: 16px;
                     width: 100%;
 
                     background-repeat:no-repeat;
                     background-size:contain;
-                    > img {
+                    .listing-type__img {
                         float:left;
                         margin-right:10px;
                     }
-                    // &.industrial {
-                    //     background-image:url('../icons/property/warehouse.svg');
-                    // }
-                    // &.offices {
-                    //     background-image:url('../icons/property/office.svg');
-                    // }
-                    // &.showrooms {
-                    //     background-image:url('../icons/property/showrooms.svg');
-                    // }
-                    // &.serviced {
-                    //     background-image:url('../icons/property/serviced-offices.svg');
-                    // }
-                    // &.retail {
-                    //     background-image:url('../icons/property/retail.svg');
-                    // }
-                    // &.parking {
-                    //     background-image:url('../icons/property/parking.svg');
-                    // }
-                    // &.medical {
-                    //     background-image:url('../icons/property/consulting.svg');
-                    // }
-                    // &.development {
-                    //     background-image:url('../icons/property/land.svg');
-                    // }
-                    // &.Rural {
-                    //     background-image:url('../icons/property/Rural.svg');
-                    // }
-
-                    >p {
+                   
+                    .listing-type__attribute {
                         margin:0;
                         margin-left:10px;
                         font-size:rem(12);
@@ -77,7 +50,15 @@
                         line-height:1;
                         position: relative;
                         top: 4px;
+                        float:left;
+                        
+                        &--contract {
+                            border-left:1px solid color(darkblue);
+                            padding-left:10px;
+                        }
+
                     }
+
                 }
                 > p.excerpt {
                     font-size: rem(13);
