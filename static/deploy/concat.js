@@ -34547,8 +34547,8 @@ var propertyList = [
 ];
 
 var contractList = [
-    { 'label': "Buy", 'value': "buy"},
-    { 'label': "Lease", 'value': "lease"}
+    { 'label': "For Sale", 'value': "For Sale"},
+    { 'label': "For Lease", 'value': "For Lease"}
 ];
 
 var domain = _appJsConfig.appHostName.split('.').reverse()[0];

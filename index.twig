@@ -625,7 +625,7 @@
                 <div class="col-sm-3 eventlist">
                     <h2>EVENTS</h2>
 
-                    {% for i in 0..5 if events[i] %}
+                    {% for i in 0..3 if events[i] %}
                         {{this.render('partials/_single-event.twig', {
                             event: events[i], 
                             imageSize: {width: 60, height: 37},
