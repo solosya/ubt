@@ -52,12 +52,17 @@
 
             <div class="col-sm-offset-1 col-sm-6">
 
-
-                <div class="menu">
-                    <div id="regionSelect" class="regionSelect"></div>
-                    <a id="searchButton" href="#">Search</a>
-
+                <div class="row">
+                    <div class="col-sm-10">
+                        <div class="listing-filter-menu">
+                            <div id="regionSelect" class="regionSelect"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <a class="listing-filter-menu__link" id="searchButton" href="#">Search</a>
+                    </div>
                 </div>
+
 
                 <div id="job-listings">
                     {% for i in 0..6 if articles[articleCount] %}

@@ -34,16 +34,22 @@ body.layout-jobs, body.layout-property, body.layout-events {
 
 
 
-        .menu {
+        .listing-filter-menu {
             margin-bottom: 30px;
             text-align: right;
-
 
             .Acme-pulldown {
                 display:block;
                 text-align: left;
                 width:100%
             }
+        }
+        .listing-filter-menu__link {
+            display:block;
+            color:color(red);
+            font-style:italic;
+            margin-top:15px;
+
         }
 
     }
