@@ -96,7 +96,7 @@ Card.prototype.screen = function()
 };
 
 
-Card.prototype.renderCard = function(card, cardClass, template)
+Card.prototype.renderCard = function(card, cardClass, template, type)
 {
     var self = this;
     // console.log(template);
@@ -108,6 +108,12 @@ Card.prototype.renderCard = function(card, cardClass, template)
         card['containerClass'] += " draft"; 
     }
 
+
+    if (type === 'property') {
+        var attr = card.additionalInfo;
+        attr.pricerange = attr.pricerange.replace(/\$/g, "");
+        console.log(card);
+    }
 
     if (card.additionalInfo && card.additionalInfo.salary) {
         var salaryType = card.additionalInfo.salary;

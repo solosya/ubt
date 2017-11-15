@@ -33187,8 +33187,9 @@ Acme.propertyCardTemplate =
             \
             <p class="excerpt">{{ excerpt }}</p> \
             <div class="listing-type"> \
-                <img src="'+ _appJsConfig.templatePath + '/static/icons/property/{{ splitShift additionalInfo.type }}.svg"> \
-                <p>{{ additionalInfo.type }}</p> \
+                <img class="listing-type__img" src="'+ _appJsConfig.templatePath + '/static/icons/property/{{ splitShift additionalInfo.type }}.svg"> \
+                <p class="listing-type__attribute listing-type__attribute--type">{{ additionalInfo.type }}</p> \
+                <p class="listing-type__attribute listing-type__attribute--contract">{{ additionalInfo.contracttype }}</p> \
             </div> \
         </div>' + 
     cardTemplateBottom;
@@ -33554,7 +33555,7 @@ Card.prototype.screen = function()
 };
 
 
-Card.prototype.renderCard = function(card, cardClass, template)
+Card.prototype.renderCard = function(card, cardClass, template, type)
 {
     var self = this;
     // console.log(template);
@@ -33566,6 +33567,12 @@ Card.prototype.renderCard = function(card, cardClass, template)
         card['containerClass'] += " draft"; 
     }
 
+
+    if (type === 'property') {
+        var attr = card.additionalInfo;
+        attr.pricerange = attr.pricerange.replace(/\$/g, "");
+        console.log(card);
+    }
 
     if (card.additionalInfo && card.additionalInfo.salary) {
         var salaryType = card.additionalInfo.salary;
@@ -34875,7 +34882,7 @@ Acme.propertySearchResultsClass = function(container, template)
         var html = '<h2>Search results</h2><a id="searchClear" href="#">Clear</a>', n = 0;
         console.log(this.data);
         for (var i=0;i<this.data.length;i++) {
-            html += window.Acme.cards.renderCard(this.data[i].data, cardClasses[n], this.template);
+            html += window.Acme.cards.renderCard(this.data[i].data, cardClasses[n], this.template, 'property');
             n = 1;
         }
         container.empty().append(html);

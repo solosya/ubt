@@ -364,7 +364,7 @@ Acme.propertySearchResultsClass = function(container, template)
         var html = '<h2>Search results</h2><a id="searchClear" href="#">Clear</a>', n = 0;
         console.log(this.data);
         for (var i=0;i<this.data.length;i++) {
-            html += window.Acme.cards.renderCard(this.data[i].data, cardClasses[n], this.template);
+            html += window.Acme.cards.renderCard(this.data[i].data, cardClasses[n], this.template, 'property');
             n = 1;
         }
         container.empty().append(html);

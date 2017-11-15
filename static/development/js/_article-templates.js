@@ -174,8 +174,9 @@ Acme.propertyCardTemplate =
             \
             <p class="excerpt">{{ excerpt }}</p> \
             <div class="listing-type"> \
-                <img src="'+ _appJsConfig.templatePath + '/static/icons/property/{{ splitShift additionalInfo.type }}.svg"> \
-                <p>{{ additionalInfo.type }}</p> \
+                <img class="listing-type__img" src="'+ _appJsConfig.templatePath + '/static/icons/property/{{ splitShift additionalInfo.type }}.svg"> \
+                <p class="listing-type__attribute listing-type__attribute--type">{{ additionalInfo.type }}</p> \
+                <p class="listing-type__attribute listing-type__attribute--contract">{{ additionalInfo.contracttype }}</p> \
             </div> \
         </div>' + 
     cardTemplateBottom;
