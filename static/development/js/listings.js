@@ -849,7 +849,7 @@ Acme.PropertyForm = function(blogId, layout) {
             this.parent.events.call(this);
 
             $('#availability').datetimepicker({
-                format: "DD-MM-YYYY h:mm A",
+                format: "DD-MM-YYYY",
                 useCurrent: false,
                 icons: {
                     time: "fa fa-clock-o",
@@ -860,7 +860,7 @@ Acme.PropertyForm = function(blogId, layout) {
                 tooltips: {selectTime: ''}
             }).on('dp.change', function (e) {
                 var data = {};
-                data[e.target.name] = e.date.format('YYYY-MM-DD HH:mm');
+                data[e.target.name] = e.date.format('YYYY-MM-DD');
                 Acme.PubSub.publish("update_state", data);
             });
         };
