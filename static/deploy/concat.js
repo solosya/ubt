@@ -35317,10 +35317,15 @@ Acme.JobForm = function(blogId, layout) {
 
             $('#salary1').on('click', function(e) {
                 $("#salaryRangeMenus").toggle();
+                $("#hourlyRateInputs").hide();
             });
-
             $('#salary2').on('click', function(e) {
                 $("#hourlyRateInputs").toggle();
+                $("#salaryRangeMenus").hide();
+            });
+            $('#salary3').on('click', function(e) {
+                $("#hourlyRateInputs").hide();
+                $("#salaryRangeMenus").hide();
             });
 
 
