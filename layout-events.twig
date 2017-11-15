@@ -54,7 +54,7 @@
 
 
                 <div id="job-listings">
-{#                     {% for i in 0..7 if articles[articleCount] %}
+                    {% for i in 0..7 if articles[articleCount] %}
                         {{this.render('partials/_single-event.twig', {
                             event: articles[articleCount], 
                             position: (articleCount+1),
@@ -63,10 +63,10 @@
                         }) | raw}}
                         {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                     {% endfor %}
- #}                </div>
+                </div>
 
 
-{#                 {{ this.render('partials/ajaxarticles.twig', {
+                {{ this.render('partials/ajaxarticles.twig', {
                     limit: limit, 
                     non_pinned: articlesArr.existingNonPinnedCount, 
                     articles: articles,
@@ -74,7 +74,7 @@
                     card_style: "col-sm-12 card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile",
                     container:"mainAjaxArticles"
                 }) | raw }}
- #}
+
 
             </div>
 
