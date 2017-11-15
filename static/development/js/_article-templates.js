@@ -140,7 +140,7 @@ Acme.jobsCardTemplate =
             <p class="salary">{{{salary}}}</p> \
             \
             <p class="excerpt">{{{ excerpt }}}</p> \
-            <p class="location">Region {{ additionalInfo.region }}</p> \
+            <p class="location">{{ additionalInfo.region }}</p> \
             \
         </div>' + 
     cardTemplateBottom;

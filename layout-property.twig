@@ -95,14 +95,15 @@
 
                 </div>
 
-
-                {{ this.render('partials/ajaxarticles.twig', {
-                    limit: limit, 
-                    non_pinned: articlesArr.existingNonPinnedCount, 
-                    articles: articles,
-                    card_style: "col-sm-12 card-rec-realestate card-rec-realestate-tablet card-rec-realestate-mobile",
-                    container:"mainAjaxArticles"
-                }) | raw }}
+                {% if articles|length > limit %}
+                    {{ this.render('partials/ajaxarticles.twig', {
+                        limit: limit, 
+                        non_pinned: articlesArr.existingNonPinnedCount, 
+                        articles: articles,
+                        card_style: "col-sm-12 card-rec-realestate card-rec-realestate-tablet card-rec-realestate-mobile",
+                        container:"mainAjaxArticles"
+                    }) | raw }}
+                {% endif %}
 
 
             </div>
