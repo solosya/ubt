@@ -62,11 +62,11 @@
                             containerClass: 'card-rec card-rec-tablet card-rec-mobile'
                         }) | raw}}
                         {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
- #}                    {% endfor %}
-                </div>
+                    {% endfor %}
+ #}                </div>
 
 
-                {{ this.render('partials/ajaxarticles.twig', {
+{#                 {{ this.render('partials/ajaxarticles.twig', {
                     limit: limit, 
                     non_pinned: articlesArr.existingNonPinnedCount, 
                     articles: articles,
@@ -74,7 +74,7 @@
                     card_style: "col-sm-12 card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile",
                     container:"mainAjaxArticles"
                 }) | raw }}
-
+ #}
 
             </div>
 
