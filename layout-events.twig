@@ -54,7 +54,7 @@
 
 
                 <div id="job-listings">
-                    {% for i in 0..7 if articles[articleCount] %}
+{#                     {% for i in 0..7 if articles[articleCount] %}
                         {{this.render('partials/_single-event.twig', {
                             event: articles[articleCount], 
                             position: (articleCount+1),
@@ -62,7 +62,7 @@
                             containerClass: 'card-rec card-rec-tablet card-rec-mobile'
                         }) | raw}}
                         {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                    {% endfor %}
+ #}                    {% endfor %}
                 </div>
 
 
