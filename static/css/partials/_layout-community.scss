@@ -113,7 +113,8 @@
         }
 
         .eventlist {
-            > h2 {
+            .eventlist__link {
+                color:black;
                 font-size: rem(21);
                 font-weight:600;
                 padding-bottom: 4px;
