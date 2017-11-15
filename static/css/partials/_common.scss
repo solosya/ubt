@@ -379,7 +379,9 @@ ul.newsticker span {
 .Acme-pulldown__list {display:none;padding:0;position:absolute;top:48px;right:0px;min-width:100%;background:white;z-index:1000;border:1px solid color(lightgrey);overflow:auto;box-shadow: 0 6px 12px rgba(44, 44, 58, 0.176);}
 .Acme-pulldown__list li {display:block;cursor:pointer;color:black;padding:5px;white-space:nowrap;}
 .Acme-pulldown__list li:hover{background:rgba(0,0,0,0.2);}
-
+.Acme-pulldown.formPulldowns {
+    .Acme-pulldown__selected-item--is-active {font-weight:normal;color:rgb(51,51,51);}
+}
 
 // 20px gutter
 .gutter-60.row {

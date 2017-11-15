@@ -32165,7 +32165,7 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
     Acme.Collection   = {};
 
     $('html').on('click', function(e) {
-        $('.pulldown ul').hide();
+        $('Acme-pulldown ul').hide();
     });
 
     Acme.server = {
@@ -32569,6 +32569,7 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
         this.defaultItemTemp  = Handlebars.compile('<li data-clear="{{clear}}" data-value="{{value}}">{{label}}</li>');
         this.divider          = "<hr>";
         this.menuParent       = config.parent        || {};
+        this.class            = config.class         || "";
         this.template         = config.template      || this.defaultTemp;
         this.itemTemp         = config.itemTemp      || this.defaultItemTemp;
         this.list             = config.list          || [];
@@ -32584,7 +32585,7 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
         Acme.listMenu.prototype.init = function(prepend)
         {
             var prepend = prepend || 'append';
-            this.menuParent[prepend]( this.template({"name": this.name, "key":this.key}) );
+            this.menuParent[prepend]( this.template({"name": this.name, "key":this.key, "class":this.class}) );
             this.defaultItem   = $('#' + this.name+' p');
             this.listContainer = $('#' + this.name+' ul');
             this.events();
@@ -33019,7 +33020,7 @@ window.templates = {};
 
 
 window.templates.pulldown = 
-'<div id="{{ name }}" class="Acme-pulldown"> \
+'<div id="{{ name }}" class="Acme-pulldown {{class}}"> \
     <p class="Acme-pulldown__selected-item"></p> \
     <span class="Acme-pulldown__span"></span> \
     <ul class="Acme-pulldown__list" data-key="{{ key }}" class="articleExtendedData"></ul> \
@@ -34978,7 +34979,8 @@ ListingForm.constructor = ListingForm;
                     'list'          : regionList,
                     'defaultSelect' : {"label": 'Region*'},
                     'name'          : 'region',
-                    'key'           : 'extendedData.region'
+                    'key'           : 'extendedData.region',
+                    'class'         : 'formPulldowns'
         }).init().render();
 
         this.menus.propertyMenu = new Acme.listMenu({
@@ -34986,7 +34988,8 @@ ListingForm.constructor = ListingForm;
                     'list'          : propertyList,
                     'defaultSelect' : {"label": 'Type of property'},
                     'name'          : 'type',
-                    'key'           : 'extendedData.type'
+                    'key'           : 'extendedData.type',
+                    'class'         : 'formPulldowns'
 
         }).init().render();
 
@@ -34995,7 +34998,8 @@ ListingForm.constructor = ListingForm;
                     'list'          : contractList,
                     'defaultSelect' : {"label": 'For sale/lease'},
                     'name'          : 'contracttype',
-                    'key'           : 'extendedData.contracttype'
+                    'key'           : 'extendedData.contracttype',
+                    'class'         : 'formPulldowns'
         }).init().render();
 
         this.menus.SalaryFromMenu = new Acme.listMenu({
@@ -35003,7 +35007,8 @@ ListingForm.constructor = ListingForm;
                     'list'          : listingSalary,
                     'defaultSelect' : {"label": 'Salary range from $'},
                     'name'          : 'salaryfrom',
-                    'key'           : 'extendedData.salaryfrom'
+                    'key'           : 'extendedData.salaryfrom',
+                    'class'         : 'formPulldowns'
         }).init().render();
 
         this.menus.SalaryToMenu = new Acme.listMenu({
@@ -35011,7 +35016,8 @@ ListingForm.constructor = ListingForm;
                     'list'          : listingSalary,
                     'defaultSelect' : {"label": 'to $'},
                     'name'          : 'salaryto',
-                    'key'           : 'extendedData.salaryto'
+                    'key'           : 'extendedData.salaryto',
+                    'class'         : 'formPulldowns'
         }).init().render();
 
         this.menus.workType = new Acme.listMenu({
@@ -35019,7 +35025,8 @@ ListingForm.constructor = ListingForm;
                     'list'          : workType,
                     'defaultSelect' : {"label": 'Work type*'},
                     'name'          : 'worktype',
-                    'key'           : 'extendedData.worktype'
+                    'key'           : 'extendedData.worktype',
+                    'class'         : 'formPulldowns'
         }).init().render();
     };
     ListingForm.prototype.render = function() 

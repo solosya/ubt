@@ -5,7 +5,7 @@
     Acme.Collection   = {};
 
     $('html').on('click', function(e) {
-        $('.pulldown ul').hide();
+        $('Acme-pulldown ul').hide();
     });
 
     Acme.server = {
@@ -409,6 +409,7 @@
         this.defaultItemTemp  = Handlebars.compile('<li data-clear="{{clear}}" data-value="{{value}}">{{label}}</li>');
         this.divider          = "<hr>";
         this.menuParent       = config.parent        || {};
+        this.class            = config.class         || "";
         this.template         = config.template      || this.defaultTemp;
         this.itemTemp         = config.itemTemp      || this.defaultItemTemp;
         this.list             = config.list          || [];
@@ -424,7 +425,7 @@
         Acme.listMenu.prototype.init = function(prepend)
         {
             var prepend = prepend || 'append';
-            this.menuParent[prepend]( this.template({"name": this.name, "key":this.key}) );
+            this.menuParent[prepend]( this.template({"name": this.name, "key":this.key, "class":this.class}) );
             this.defaultItem   = $('#' + this.name+' p');
             this.listContainer = $('#' + this.name+' ul');
             this.events();

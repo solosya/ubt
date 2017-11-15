@@ -460,7 +460,8 @@ ListingForm.constructor = ListingForm;
                     'list'          : regionList,
                     'defaultSelect' : {"label": 'Region*'},
                     'name'          : 'region',
-                    'key'           : 'extendedData.region'
+                    'key'           : 'extendedData.region',
+                    'class'         : 'formPulldowns'
         }).init().render();
 
         this.menus.propertyMenu = new Acme.listMenu({
@@ -468,7 +469,8 @@ ListingForm.constructor = ListingForm;
                     'list'          : propertyList,
                     'defaultSelect' : {"label": 'Type of property'},
                     'name'          : 'type',
-                    'key'           : 'extendedData.type'
+                    'key'           : 'extendedData.type',
+                    'class'         : 'formPulldowns'
 
         }).init().render();
 
@@ -477,7 +479,8 @@ ListingForm.constructor = ListingForm;
                     'list'          : contractList,
                     'defaultSelect' : {"label": 'For sale/lease'},
                     'name'          : 'contracttype',
-                    'key'           : 'extendedData.contracttype'
+                    'key'           : 'extendedData.contracttype',
+                    'class'         : 'formPulldowns'
         }).init().render();
 
         this.menus.SalaryFromMenu = new Acme.listMenu({
@@ -485,7 +488,8 @@ ListingForm.constructor = ListingForm;
                     'list'          : listingSalary,
                     'defaultSelect' : {"label": 'Salary range from $'},
                     'name'          : 'salaryfrom',
-                    'key'           : 'extendedData.salaryfrom'
+                    'key'           : 'extendedData.salaryfrom',
+                    'class'         : 'formPulldowns'
         }).init().render();
 
         this.menus.SalaryToMenu = new Acme.listMenu({
@@ -493,7 +497,8 @@ ListingForm.constructor = ListingForm;
                     'list'          : listingSalary,
                     'defaultSelect' : {"label": 'to $'},
                     'name'          : 'salaryto',
-                    'key'           : 'extendedData.salaryto'
+                    'key'           : 'extendedData.salaryto',
+                    'class'         : 'formPulldowns'
         }).init().render();
 
         this.menus.workType = new Acme.listMenu({
@@ -501,7 +506,8 @@ ListingForm.constructor = ListingForm;
                     'list'          : workType,
                     'defaultSelect' : {"label": 'Work type*'},
                     'name'          : 'worktype',
-                    'key'           : 'extendedData.worktype'
+                    'key'           : 'extendedData.worktype',
+                    'class'         : 'formPulldowns'
         }).init().render();
     };
     ListingForm.prototype.render = function() 
