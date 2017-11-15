@@ -503,9 +503,6 @@ ListingForm.constructor = ListingForm;
                     'name'          : 'worktype',
                     'key'           : 'extendedData.worktype'
         }).init().render();
-
-
-
     };
     ListingForm.prototype.render = function() 
     {
@@ -799,6 +796,18 @@ Acme.JobForm = function(blogId, layout) {
                 data[e.target.name] = e.date.format('YYYY-MM-DD HH:mm');
                 Acme.PubSub.publish("update_state", data);
             });
+
+            $('#salary1').on('click', function(e) {
+                $("#salaryRangeMenus").toggle();
+            });
+
+            $('#salary2').on('click', function(e) {
+                $("#hourlyRateInputs").toggle();
+            });
+
+
+
+
         };
 
 

@@ -85,11 +85,11 @@
 
                                     <fieldset>
                                         <div class="inline">
-                                            <input type="radio" name="extendedData.salary" id="salary1" class="articleExtendedData" value="1" checked="checked" />
+                                            <input type="radio" name="extendedData.salary" id="salary1" class="articleExtendedData" value="1" />
                                             <label for="salary1">Annual salary</label>
                                         </div>
 
-                                        <div class="row">
+                                        <div id="salaryRangeMenus" class="row" style="display:none;">
                                             <div class="col-sm-3 large-split">
                                                 <div id="salarySelectFrom" class="propertyListingSelect"></div>
                                             </div>
@@ -102,8 +102,15 @@
                                         <div class="inline">
                                             <input type="radio" name="extendedData.salary" id="salary2" class="articleExtendedData" value="2" />
                                             <label for="salary4">Hourly rate</label>
-                                            <input type="text" class="articleExtendedData" name="extendedData.hourlyrate" id="hourlyrate" value="" placeholder="$ per hour">
                                         </div>
+
+                                        <div id="hourlyRateInputs" class="row" style="display:none;">
+                                            <div class="col-sm-3">
+                                                <input type="text" class="articleExtendedData" name="extendedData.hourlyrate" id="hourlyrate" value="" placeholder="$ per hour">
+                                            </div>
+                                        </div>                    
+
+
 
                                         <div class="inline">
                                             <input type="radio" name="extendedData.salary" id="salary3" class="articleExtendedData" value="3" />
