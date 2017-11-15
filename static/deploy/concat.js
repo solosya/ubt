@@ -35409,7 +35409,10 @@ Acme.EventForm = function(blogId)
 
     this.compulsoryFields = [
         "title", 
-        "content" 
+        "content",
+        "start_date",
+        "state",
+        "contact_number"
     ];
 
     this.blogId = blogId;
