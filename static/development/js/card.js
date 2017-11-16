@@ -467,6 +467,76 @@ Card.prototype.initDroppable = function()
     }); 
 }
 
+Card.prototype.loadMore = function(elem, waypoint)
+{
+    var self = this;
+    elem.html("Please wait...");
+    
+    var container = $('#'+elem.data('container'));
+
+    var options = {
+        'offset': container.data('offset'),
+        'limit': container.data('limit'),
+        'containerClass': container.data('containerclass'),
+        'container': container,
+        'nonpinned' : container.data('offset'),
+        'blog_guid' : container.data('blogid'),
+        'ads_on' : container.data('ads')
+    };
+
+    if ( container.data('loadtype')) {
+        options.loadtype = container.data('loadtype');
+    }
+
+
+    $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
+        if (data.success == 1) {
+
+            if (data.articles.length < options.limit) {
+                elem.css('display', 'none');
+            }
+            var container = options.container;
+            container.data('existing-nonpinned-count', data.existingNonPinnedCount);
+            var cardClass = container.data('containerclass');
+
+            // if (options.ads_on == "yes") {
+                var html = "<div class='row'><div id='newAdSlot'></div><script>loadNextAd()</script>";
+            // } else {
+            //     var html = "<div class='row'>";
+            // }
+            for (var i in data.articles) {
+                html += self.renderCard(data.articles[i], cardClass);
+            }  html += "</div>";
+
+            container.append(html);
+
+            if (waypoint) {
+                if (data.articles.length < options.limit) {
+                    waypoint.destroy();
+                } else {
+                    waypoint.enable();
+                }
+            }
+
+            $(".card .content > p, .card h2").dotdotdot();
+            
+            self.bindSocialShareArticle();
+            
+            $('.video-player').videoPlayer();
+            
+            //Lazyload implement
+            $("div.lazyload").lazyload({
+                effect: "fadeIn"
+            });
+            if (_appJsConfig.isUserLoggedIn === 1 && _appJsConfig.userHasBlogAccess === 1) {
+                self.events();
+            }
+
+            elem.html("Load more");
+        }
+    });
+}
+
 Card.prototype.events = function() 
 {
     console.log('events');

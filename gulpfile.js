@@ -82,7 +82,7 @@ gulp.task('scripts', function(){
         './static/development/js/plugins/jquery.fancybox/source/jquery.fancybox.js',
         // './static/development/js/plugins/bootbox.min.js',
         // './static/development/js/plugins/jquery.validate/jquery.validate.min.js',
-        // './static/development/js/plugins/waypoint/lib/jquery.waypoints.min.js',
+        './static/development/js/plugins/waypoint/lib/jquery.waypoints.min.js',
         './static/development/js/plugins/handlebars-v4.0.5.js',
         './static/development/js/plugins/jquery.lazyload.min.js',
         './static/development/js/plugins/jquery.dotdotdot.min.js',
