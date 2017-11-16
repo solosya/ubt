@@ -16,15 +16,21 @@
         <time datetime="{{params.publishDate}}">{{params.publishDate}}</time>
     </div>
 
-    <h1 class="price">${{ article.additionalInfo.pricerange | preg_replace("/\\$/", '')}}</h1>
-    
-    <h2>{{ params.articleTitle }}</h2>
-    
-    <p class="excerpt">{{ quotes.smarten(article.excerpt | raw) }}</p>
+    <div class="property__left">
+        <h1 class="price">${{ article.additionalInfo.pricerange | preg_replace("/\\$/", '')}}</h1>
+        <h2>{{ params.articleTitle }}</h2>
+    </div>
+
+
+    <div class="property__right">
+        <p class="region">{{ article.additionalInfo.region }}</p>
+        <p class="excerpt">{{ quotes.smarten(article.excerpt | raw) }}</p>
+    </div>
     <div class="listing-type">
         <img class="listing-type__img" src="{{networkData.templatePath}}/static/icons/property/{{ article.additionalInfo.type | split(" ")[0] | lower }}.svg?ver=update">
         <p class="listing-type__attribute listing-type__attribute--type">{{ article.additionalInfo.type }}</p>
         <p class="listing-type__attribute listing-type__attribute--contract">{{ article.additionalInfo.contracttype }}</p>
+        <p class="region__below">{{ article.additionalInfo.region }}</p>
     </div>
-            
+
 </div>

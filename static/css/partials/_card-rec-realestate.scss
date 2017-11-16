@@ -17,16 +17,28 @@
                         border-right:1px solid color(lightgrey);
                     }
                 }
-                > h1 {
+                h1 {
                     font-family: $font-family-serif;
                     color:color(darkblue);
                     height: 30px;
                 }
-                > h2 {
+                h2 {
                     margin:0;
                     color:color(red);
                     font-weight:normal;
                     line-height: 1.33;
+                }
+
+
+                .region {
+                    display:none;
+                }
+
+                .region__below {
+                    font-size: rem(10);
+                    color:color(lightgrey);
+                    float: right;
+                    margin-top: 3px;
                 }
 
                 .listing-type {
@@ -34,8 +46,6 @@
                     height: 16px;
                     width: 100%;
 
-                    // background-repeat:no-repeat;
-                    // background-size:contain;
                     .listing-type__img {
                         float:left;
                         position: relative;
@@ -64,6 +74,7 @@
                 .excerpt {
                     font-size: rem(13);
                     line-height:1.54;
+                    overflow:hidden;
                 }
 
                 .cat-time {
@@ -72,6 +83,13 @@
                 }
             }
         }
+        // &.article.without__image {
+        //     .content {
+                // background:pink;
+
+            // }
+        // }   
+
     }
 }
 
@@ -96,18 +114,18 @@
 
                 > .content{
 
-                    > h1{
+                    h1{
                         font-size: rem(25);
                         font-weight:600;
                         line-height:1.2;
                         margin-top:0px;
                         margin-bottom:6px;
                     }
-                    > h2{
+                    h2{
                         font-size: rem(14);
                         margin-bottom:8px;
                     }
-                    > p.excerpt {
+                    p.excerpt {
                         height:40px;
                     }
                 }
