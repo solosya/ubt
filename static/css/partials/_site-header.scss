@@ -147,7 +147,6 @@
                 @media screen and (max-width: $sm-break-down) {
                     font-size:rem(10);
                     margin-top:7px;
-                    margin-left:20px;
                 }
             }
 
@@ -171,7 +170,6 @@
             background-size:cover;
 
             @media screen and (max-width: $mobile-break) {
-                margin-left:20px;
                 margin-top: 0;
                 width: 122px;
                 height:34px;

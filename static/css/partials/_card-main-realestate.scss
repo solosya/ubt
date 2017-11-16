@@ -253,7 +253,7 @@
 
 
 
-.card-main-2col-mobile{
+.card-main-realestate-mobile{
     @media screen and (max-width: $sm-break-down){
         @include card-main-realestate();
         margin-bottom: 20px;
@@ -303,3 +303,4 @@
         }
     }
 }
+

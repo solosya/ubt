@@ -237,7 +237,7 @@
 
                 </div>
 
-                <section class="row advert-banner-small hidden-xs">
+                <section class="row">
                     <div class="advert banner">
                        <div id='bannerAd3'></div>
                         <script>loadNextAd(invSpace,'bannerAd3','bannerad',sBannerSize,sBannerMap);</script>
@@ -387,9 +387,10 @@
                         {% set nzCount = (dev) ? nzCount : nzCount + 1 %}
                     {% endfor %}
                 </div>
-                {# <div class="advert visible-md-block visible-lg-block mini" style="height:130px;">
-                    <img src="{{networkData.templatePath}}/static/images/ads/300x130.jpg" style="margin-top:-50px;">
-                </div> #}
+                    <div class="advert sRec">
+                       <div id='sRecAd4'></div>
+                        <script>loadNextAd(invSpace,'sRecAd4','srec',sRecSize,sRecMap);</script>
+                    </div>
             </section>
 
 
@@ -607,9 +608,10 @@
                         }) | raw}}
                     {% endfor %}
                 </div>
-                {# <div class="advert visible-md-block visible-lg-block mini" style="height:130px;">
-                    <img src="{{networkData.templatePath}}/static/images/ads/300x130.jpg" style="margin-top:60px;">
-                </div> #}
+                <div class="advert sRec">
+                       <div id='sRecAd5'></div>
+                        <script>loadNextAd(invSpace,'sRecAd5','srec',sRecSize,sRecMap);</script>
+                    </div>
 
             </section>
         {% endif %}

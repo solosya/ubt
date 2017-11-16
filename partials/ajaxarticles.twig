@@ -1,20 +1,19 @@
-<div class="row ajaxArticles">
+<div class="ajaxArticles">
      <section class="col-sm-12">
         <div class="row">
             <div id="{{container}}" 
                  class="clearfix"
-                 data-offset="{{limit}}"
+                 data-offset="{{offset}}"
+                 data-limit="{{limit}}"
                  data-blogid="{{blogid}}"
-                 data-articlecount="10"
                  data-containerclass="{{card_style}}"
                  data-loadtype="{{loadtype}}"
-                 data-rendertype="{{rendertype}}"
                  data-cardTemplate="{{articleTemplate}}"
                  data-existing-nonpinned-count="{{non_pinned}}">
              </div>
-            <a class="loadMoreArticles" 
+            <a class="loadMoreArticles {{buttonClass}}" 
                 data-container="{{container}}"
-                href="#">Load more</a>
+                href="#">Load mfore</a>
         </div>
 
         {% set noDataCls = 'hide' %}

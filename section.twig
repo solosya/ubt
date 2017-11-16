@@ -5,7 +5,8 @@
 
 
 
-{{this.registerJs("CardController();")}}
+{{this.registerJs("Acme.cardController = CardController();")}}
+{{this.registerJs("Acme.SectionController();")}}
 
 {% set limit = 12 %}
 
@@ -21,7 +22,7 @@
 
 
 
-    <main id="main" class="container-fluid channel-main" role="main">
+    <main id="main" class="container-fluid channel-main" role="main" data-article-limit="{{limit}}" data-article-count="{{articles | length}}">
         
 
 
@@ -64,11 +65,13 @@
 
 
                 {{ this.render('partials/ajaxarticles.twig', {
-                    limit: limit, 
+                    offset: limit, 
+                    limit: 10,
                     non_pinned: articlesArr.existingNonPinnedCount, 
                     articles: articles,
                     card_style: "col-sm-12 card-rec card-rec-tablet card-rec-mobile",
-                    container:"mainAjaxArticles"
+                    container:"mainAjaxArticles",
+                    buttonClass: "infinite",                
                 }) | raw }}
 
 
