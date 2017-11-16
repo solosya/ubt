@@ -101,12 +101,9 @@
 
                     <div class="col-md-4">
                         <div class="article-sidebar">
-                            <div class="advert visible-md-block visible-lg-block">
-                                <div id='div-gpt-ad-mrec-1' style='height:250px; width:300px;'>
-                                    <script>
-                                        googletag.cmd.push(function() { googletag.display('div-gpt-ad-mrec-1'); });
-                                    </script>
-                                </div>
+                            <div class="advert">
+                                <div id='blockAd1'></div>
+                                <script>loadNextAd(invSpace,'blockAd1','mRec',mRecSize,mRecMap)</script>
                             </div>
 
 
@@ -141,7 +138,12 @@
 
             </div><!-- .page-content-->
 
-
+            <section class="row">
+                <div class="advert banner">
+                    <div id='banerAd2'></div>
+                    <script>loadNextAd(invSpace,'banerAd2','bannerad',bannerSize,bannerMap)</script>
+                </div>
+            </section>
 
             <div class="row related-articles">
                 <div class="col-md-12">

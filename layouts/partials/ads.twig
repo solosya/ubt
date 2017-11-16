@@ -12,28 +12,53 @@
     {% set adPlace = 'Frank_AU' %}
 {% endif %}
 
+{% set dfpAcct = '21651851619' %}
+
 <script>
  
-    blogName = '{{blogNetworkName}}'
+  blogName = '{{blogNetworkName}}'
+
+  googletag.cmd.push(function() {         
+                googletag.pubads().enableSingleRequest();
+                googletag.pubads().collapseEmptyDivs();
+                googletag.pubads().setCentering(true);
+                googletag.enableServices();
+                
+            });
+
+  var invSpace = '{{adPlace}}'
+  var bannerSize = [[970,90],[728,90],[320,50],[300,50]];
+  var bannerMap = [[[1025,0],[970,90]],[[768,0],[728,90]],[[360,0],[320,50]],[[0,0],[300,50]]];
+  var sBannerSize = [[728,90],[320,50],[300,50]];
+  var sBannerMap = [[[1025,0],[728,90]],[[768,0],[320,50]],[[0,0],[300,50]]];
+  var mRecSize = [[300,250],[300, 100]];
+  var mRecMap = [[[768,0],[300,250]],[[0,0],[300,100]]];
     
-   googletag.cmd.push(function() {
-     googletag.defineSlot('/21651851619/{{adPlace}}', [[320, 50], [300, 50]], 'div-gpt-ad-moBanner-1').addService(googletag.pubads());
-    googletag.defineSlot('/21651851619/{{adPlace}}', [[320, 50], [300, 50]], 'div-gpt-ad-moBanner-2').addService(googletag.pubads());
-    googletag.defineSlot('/21651851619/{{adPlace}}', [300, 100], 'div-gpt-ad-moBoard-1').addService(googletag.pubads());
-    googletag.defineSlot('/21651851619/{{adPlace}}', [300, 100], 'div-gpt-ad-moBoard-2').addService(googletag.pubads());
-    googletag.defineSlot('/21651851619/{{adPlace}}', [728, 90], 'div-gpt-ad-taBanner-1').addService(googletag.pubads());
-    googletag.defineSlot('/21651851619/{{adPlace}}', [728, 90], 'div-gpt-ad-taBanner-2').addService(googletag.pubads());
-    googletag.defineSlot('/21651851619/{{adPlace}}', [970, 90], 'div-gpt-ad-deBanner-1').addService(googletag.pubads());
-    googletag.defineSlot('/21651851619/{{adPlace}}', [970, 90], 'div-gpt-ad-deBanner-2').addService(googletag.pubads());
-    googletag.defineSlot('/21651851619/{{adPlace}}', [300, 250], 'div-gpt-ad-mrec-1').addService(googletag.pubads());
-    googletag.defineSlot('/21651851619/{{adPlace}}', [300, 250], 'div-gpt-ad-mrec-2').addService(googletag.pubads());
-    googletag.defineSlot('/21651851619/{{adPlace}}', [300, 250], 'div-gpt-ad-mrec-3').addService(googletag.pubads());
-    googletag.defineSlot('/21651851619/{{adPlace}}', [300, 600], 'div-gpt-ad-halfp-1').addService(googletag.pubads());
-    googletag.defineSlot('/21651851619/{{adPlace}}', [300, 600], 'div-gpt-ad-halfp-2').addService(googletag.pubads());
-    googletag.pubads().enableSingleRequest();
-    googletag.pubads().collapseEmptyDivs();
-    googletag.enableServices();
-      });
+  var nextAdId = 1;
+  function generateNextAdName() {
+     var id = nextAdId++;
+     return 'adSlot' + id;
+  }
+
+  function loadNextAd(blogAd,adDivId,adClass,sizes,mapping) {
+    console.log(sizes);
+    console.log(mapping);
+    var adSlot = document.getElementById(adDivId);
+    var slotName = generateNextAdName();
+    var slotDiv = document.createElement('div');
+    adSlot.appendChild(slotDiv);
+    slotDiv.id = slotName;
+    slotDiv.setAttribute( 'class', 'google_ad' );
+    adSlot.id = "";
+    adSlot.setAttribute( 'class', adClass );
+    
+    googletag.cmd.push(function() {
+      var slot = googletag.defineSlot('/{{dfpAcct}}/'+blogAd, sizes, slotName).setTargeting().defineSizeMapping(mapping).addService(googletag.pubads());
+      console.log(slot);
+      googletag.display(slotName);
+      googletag.pubads().refresh([slot]);
+    });
+  }
 
 
 </script>

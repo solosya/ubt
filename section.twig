@@ -81,12 +81,9 @@
 
             <div class="col-sm-offset-1 col-sm-3">
 
-                <div class="advert visible-md-block visible-lg-block">
-                    <div id='div-gpt-ad-mrec-1' style='height:250px; width:300px;'>
-                        <script>
-                            googletag.cmd.push(function() { googletag.display('div-gpt-ad-mrec-1'); });
-                        </script>
-                    </div>
+                <div class="advert">
+                    <div id='blockAd1'></div>
+                    <script>loadNextAd(invSpace,'blockAd1','mRec',mRecSize,mRecMap)</script>
                 </div>
 
 
@@ -114,31 +111,10 @@
 
 
 
-        <section class="row advert-banner-small hidden-xs hidden-sm hidden-md">
+        <section class="row">
             <div class="advert banner">
-                <div id='div-gpt-ad-deBanner-1' style='width:970px;margin: 0 auto;'>
-                    <script>
-                        googletag.cmd.push(function() { googletag.display('div-gpt-ad-deBanner-1'); });
-                    </script>
-                </div>
-            </div>
-        </section>
-        <section class="row advert-banner-small hidden-xs hidden-lg">
-            <div class="advert banner">
-                <div id='div-gpt-ad-taBanner-1' style='width:728px;margin: 0 auto;'>
-                    <script>
-                        googletag.cmd.push(function() { googletag.display('div-gpt-ad-taBanner-1'); });
-                    </script>
-                </div>
-            </div>
-        </section>
-        <section class="row advert-banner-small hidden-sm hidden-md hidden-lg">
-            <div class="advert banner">
-               <div id='div-gpt-ad-moBanner-1' style='width:300px;margin: 0 auto;'>
-                        <script>
-                            googletag.cmd.push(function() { googletag.display('div-gpt-ad-moBanner-1'); });
-                        </script>
-                    </div>
+                <div id='bannerAd2'></div>
+                <script>loadNextAd(invSpace,'bannerAd2','bannerad',bannerSize,bannerMap)</script>
             </div>
         </section>
 
