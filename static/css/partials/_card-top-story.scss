@@ -82,5 +82,26 @@
     }
 }
 
+.card-top-story-mobile{
+    @media screen and (max-width: $sm-break-down) {
+        margin-bottom: 15px;
+        &:before {
+            font-size:rem(14);
+        }
+        a.card {
+            > article {
+                > .content{
+                    > h2{
+                        font-size: rem(14);
+                        margin-bottom:0;
+                        line-height: 1.17;
+                        color:color(black);
+                        height: 34px;
+                    }
+                }
+            }
+        }
+    }
+}
 
 
