@@ -47,6 +47,7 @@ card.addEventListener('change', function(event) {
 var form = document.getElementById('payment-form');
 form.addEventListener('submit', function(event) {
     event.preventDefault();
+     $('#card-errors').text('');
     var userdata = $('#listingForm').serializeArray();
     console.log(userdata);
     $.each(userdata, function(i, val) {
