@@ -5,6 +5,12 @@
     {% set status = "Pending Approval" %}
 {% endif %}
 
+
+<div class="cat-time">
+    <time datetime="{{params.publishDate}}">{{status}}</time>
+</div>
+
+
 {% if (article.hasMedia == 'TRUE' or article.hasPreviewMedia == 'TRUE') and params.imageSuppress == 'false' %}
     <figure class="{{params.figureClass}}">
         <picture>
@@ -14,9 +20,6 @@
 {% endif %}
 
 <div class="content">
-    <div class="cat-time">
-        <time datetime="{{params.publishDate}}">{{status}}</time>
-    </div>
 
     <h2>{{ params.articleTitle }}</h2>
     <p class="company">{{ article.additionalInfo.company }}</p>

@@ -6,7 +6,6 @@
 {% set blogInfo = _Blog.getBlog() %}
 {% set networkData = _Network.getNetworkData() %}
 
-
 {% set articleImg = false %}
 {% if article.media|length > 0 %}
     {% set articleImg = _Media.getMediaUrl(article.media[0],1094, 515, {'crop': 'fill', 'gravity': 'auto'} ) %}

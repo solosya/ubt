@@ -51,15 +51,27 @@
 
             > article {
 
-                > figure{
-                    position:absolute;
-                    margin-right:18px;
-                    margin-top:25px;
+                .cat-time {
+                    font-size: rem(10);
+                    margin-bottom:13px;
+                    // display:inline-block;
+                    color:color(lightgrey);
+                    text-transform:uppercase; 
+                    line-height:1;
+
                 }
 
-                > .content{
+
+                > figure{
+                    // position:absolute;
+                    margin-right:18px;
+                    // margin-top:25px;
+                }
+
+                > .content {
+                    overflow:hidden; _overflow:visible; zoom:1;
                     >h2, >p {
-                        margin-left:80px;
+                        // margin-left:80px;
                     }
                     > h2{
                         font-size: rem(18);
