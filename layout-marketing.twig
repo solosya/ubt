@@ -102,17 +102,22 @@
 				</div>
 
 
-				<div class="col-sm-3 subscriptionCard">
-					<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan=1">
-						<div class="card">
-							<h3>Household</h3>
-							<p class="usercount">2 Users</p>
-							<p class="price">$19.90/month</p>
-							<p class="subnow">SUBSCRIBE NOW</p>
-						</div>
-					</a>
-				</div>
-				<div class="col-sm-3 subscriptionCard">
+			    {% for plan in plans %}
+
+					<div class="col-sm-3 subscriptionCard">
+						<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan={{plan.guid}}">
+							<div class="card">
+								<h3>{{plan.name}}</h3>
+								<p class="usercount">{{plan.user_count}} Users</p>
+								<p class="price">${{plan.plan_value/100}}/{{plan.period}}</p>
+								<p class="subnow">SUBSCRIBE NOW</p>
+							</div>
+						</a>
+					</div>
+					
+			    {% endfor %}
+
+{# 				<div class="col-sm-3 subscriptionCard">
 					<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan=2">
 						<div class="card">
 							<h3>Small Business</h3>
@@ -143,6 +148,7 @@
 						</div>
 					</a>
 				</div>
+ #}
 
 
 			</div>
