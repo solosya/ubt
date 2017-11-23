@@ -107,5 +107,12 @@ $media-iPhoneMedium: "screen and (min-width : 481px) and (max-width : 667px)";
 $media-iPhoneLarge: "screen and (min-width : 668px) and (max-width : 767px)";
 $media-iPad: "screen and (min-width : 768px) and (max-width : 992px)";
 
+$media-desktop: "screen and (min-width : 992px)";
+$media-ipadLandscape: "screen and (min-width : 992px) and (max-width : 1024px)";
+$media-iPad-to-desktop: "screen and (min-width : 768px)";
+$media-iPad: "screen and (min-width : 768px) and (max-width : 991px)";
+$media-up-to-desktop: "screen and (max-width: 991px)";
+$media-mobile: "screen and (max-width : 767px)";
+
 // Standard transition speed
 $transition: 0.4s;

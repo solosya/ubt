@@ -1,4 +1,4 @@
-<div class="ajaxArticles">
+<div class="ajaxArticles clearfix">
      <section class="col-sm-12">
         <div class="row">
             <div id="{{container}}" 
@@ -9,11 +9,12 @@
                  data-containerclass="{{card_style}}"
                  data-loadtype="{{loadtype}}"
                  data-cardTemplate="{{articleTemplate}}"
+                 data-imageSuppress="{{imageSupress}}"
                  data-existing-nonpinned-count="{{non_pinned}}">
              </div>
             <a class="loadMoreArticles {{buttonClass}}" 
                 data-container="{{container}}"
-                href="#">Load more</a>
+                href="#">Show more</a>
         </div>
 
         {% set noDataCls = 'hide' %}

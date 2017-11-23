@@ -7,6 +7,15 @@
     width:100%;
 }
 
+.search-icon{
+    display:block;
+    background-image: url(../icons/search-icon.svg);
+    background-repeat: no-repeat;
+    background-size:contain;
+    width: 15px;
+    height: 15px;
+}
+
 .site-header.mobile-menu-active {
     .site-header-main {
 

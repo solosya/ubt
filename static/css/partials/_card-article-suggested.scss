@@ -54,11 +54,9 @@
 
                     > h2{
                         font-size: rem(18);
-                        margin-bottom:0;
                         line-height: 1.25;
                         max-height:50px;
-                        margin-left:90px;
-                        margin-top:15px;
+                        margin:15px 0 5px 90px;
                     }
 
                     > p.excerpt {
@@ -67,6 +65,21 @@
                         line-height: 1.54;
                         height:40px;
                         margin-left:90px;
+                    }
+                    .author {
+                        margin-left:90px;
+                        font-size:rem(14);
+                        display:block;
+                        color:color(red);
+                        &:before {
+                            content: 'By ';
+                            color:color(red);
+                            float: left;
+                            margin-right: 3px;
+                        }
+                        > img {
+                            display:none;
+                        }
                     }
                 }
             }

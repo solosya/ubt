@@ -10,15 +10,15 @@
 
 {# {{this.registerJs("ListingController();")}} #}
 
-{% set limit = 10 %}
+{% set limit = 8 %}
 
 {# {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
  #}
-{% set articles = _Event.getEvents() %}
-{# <pre>
+{% set articles = _Event.getEvents({'limit': limit, 'offset': 0}) %}
+<pre>
     {{dump(articles)}}
-</pre> #}
+</pre>
 
 <!-- used to index each article as we loop over throughout the template -->
 {% set articleCount = 0 %}
@@ -65,16 +65,16 @@
                     {% endfor %}
                 </div>
 
-
-                {{ this.render('partials/ajaxarticles.twig', {
-                    limit: limit, 
-                    non_pinned: articlesArr.existingNonPinnedCount, 
-                    articles: articles,
-                    rendertype: "write",
-                    card_style: "col-sm-12 card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile",
-                    container:"mainAjaxArticles"
-                }) | raw }}
-
+                {% if articles | length > 0 %}
+                    {{ this.render('partials/ajaxarticles.twig', {
+                        limit: limit, 
+                        non_pinned: articlesArr.existingNonPinnedCount, 
+                        articles: articles,
+                        rendertype: "write",
+                        card_style: "col-sm-12 card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile",
+                        container:"mainAjaxArticles"
+                    }) | raw }}
+                {% endif %}
 
             </div>
 

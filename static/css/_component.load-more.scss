@@ -1,0 +1,33 @@
+.loadMoreArticles {
+    text-decoration: none;
+    display:block;
+    font-size: rem(12);
+    font-weight:500;
+    margin: 20px 20px 38px 20px;
+    border: 1px solid black;
+    width: 174px;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    color: color(darkblue);
+    text-transform:uppercase;
+    letter-spacing:1px;
+
+    @media screen and (min-width: $mmd-break){
+        position: relative;
+        top: -20px;
+    }
+
+    @media screen and (max-width: $mmd-break){
+        margin: 0 auto 40px auto;
+    }
+    
+    &:hover {
+        color:inherit;
+        text-decoration:none;
+    }
+
+    &.infinite {
+        visibility:hidden;
+    }    
+}
