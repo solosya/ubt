@@ -80,6 +80,7 @@ UserProfielController.Load = (function ($) {
 
             $('#mangedUsers').append($(user));
             $('#addManagedUser').addClass('hidden');
+            $('#nousers').addClass('hidden');
             $('#createUser').on('click', function(e) {
 
                 
