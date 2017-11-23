@@ -3,38 +3,30 @@
         
         position:relative;
 
-
-
         a.card {
-            // height:180px;
-            @include card-image-bottom(454px, 244px);
+            @include card-image-top(454px, 278px);
 
             > article {
                 position:relative;
 
                 > figure{
-                    margin-bottom:10px;
+                    margin-bottom:21px;
                     
-                    // @include gradientbefore();
                 }
 
                 > .content{
                     position:relative;
-                    // padding: 110px 10px 20px 20px;
                     z-index:10;
-                    // color:#fff;
 
                   
                     >div {
+                        margin-bottom: 10px;
                         > .category{
-                            display:none;
+                            border-right: 1px solid #97999c;
                         }
-                        time {
-                            display:none;
-                            // display:block;
-                            // font-size: rem(9);
-                            // margin-top:7px;
-                        }
+                        // time {
+                        //     display:none;
+                        // }
 
                     }
                     > h2{
@@ -44,35 +36,13 @@
                         line-height: 1.2;
                         margin-bottom:15px;
                         padding-right: 80px;
+                        max-height:60px;
                         position:relative;
-
-                        &:before{
-                            content: '';
-                            display:block;
-                            height:62px;
-                            width:62px;
-                            margin-bottom:20px;
-                            background-image:url('../images/ubt-logo-small.png');
-                            background-size:cover;
-                            background-repeat: no-repeat;
-                        }
-                        &:after{
-                            content: '';
-                            position:absolute;
-                            right:0;
-                            bottom:0;
-                            display:block;
-                            height:25px;
-                            width:74px;
-                            background-image:url('../images/ubt-logo.png');
-                            background-size:cover;
-                            background-repeat: no-repeat;  
-                        }
 
                     }
 
                     > p.excerpt {
-                        display:none;
+                        max-height:40px;
                     }
 
                 }
@@ -86,11 +56,6 @@
                             margin-left: 0;
                             margin-top: 0;
                         }
-                        // &:after {
-                        //   content:"";
-                        //   display:table;
-                        //   clear:both;
-                        // }
 
                         h2, time {
                             margin-left:60px;
