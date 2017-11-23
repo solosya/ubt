@@ -7,7 +7,7 @@
 
 {{this.registerJs("CardController();")}}
 
-{% set limit = 10 %}
+{% set limit = 13 %}
 
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
@@ -52,7 +52,7 @@
 
 <!-- used to index each article as we loop over throughout the template -->
 {% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
-{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
+{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
 
 
 
@@ -227,6 +227,24 @@
         </section>
 
 
+        <section class="row">
+            <div class="col-sm-offset-1 col-sm-10 section-header">
+                <div class="row three-cols">
+
+                    {{ this.render('partials/ajaxarticles.twig', {
+                        offset: limit, 
+                        limit: 10,
+                        non_pinned: articlesArr.existingNonPinnedCount, 
+                        articles: articles,
+                        card_style: "col-sm-1 card-sm-short card-sm-short-tablet card-sm-mobile",
+                        container:"mainAjaxArticles",
+                    }) | raw }}
+                </div>
+            </div>
+        </section>
+
+
+
         <section class="row section listings three-cols">
 
             <div class="col-sm-offset-1 col-sm-10 section-header" data-test="1">
@@ -237,7 +255,7 @@
             {% if sections['property listings'].feed.articles|length > 0 %}
                 {% set propertyCount = 0 %}
                 
-                <div class="col-sm-offset-1 col-sm-11">
+                <div class="col-sm-offset-1 col-sm-10">
                     <div class="row">
                 
                         <div class="col-sm-12">
@@ -293,7 +311,7 @@
 
 
 
-                <div class="col-sm-offset-1 col-sm-11">
+                <div class="col-sm-offset-1 col-sm-10">
                     <div class="row">
                 
                         <div class="col-sm-12">

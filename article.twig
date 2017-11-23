@@ -12,17 +12,15 @@
 {% endif %}
 
 {% set profileImg = false %}
-{% if article.createdBy['media'] is defined and article.createdBy['media'] | length > 0 and article.createdBy['displayName'] != "AAP Newswire" %}
+{% if article.createdBy['media'] is defined and article.createdBy['media']['path'] and article.createdBy['displayName'] != "AAP Newswire" %}
     {% set profileImg = _Media.getMediaUrl(article.createdBy['media'], 54, 54, {radius: 'max', gravity: 'face', 'crop': 'thumb', type: 'user'}) %}
 {% endif %}
-
-
 
 {% set publishDate = _AppHelper.getDefaultTimezoneDateTime(article.publishDate, 'F, Y') %}
 
 {% set articles = _Article.getPopularArticles({ limit: 10, excludeArticleIds : article.id }) %}
 {% set popularArticles = _Article.getPopularArticles({ limit: 5, sortBy: 'VIEWS', blogId: article.blog.id, type: 'article' }) %}
-{% set suggestedArticles = _Article.getPopularArticles({ limit: 6, sortBy: 'VIEWS', scope: 'network' }) %}
+{% set suggestedArticles = _Article.getPopularArticles({ limit: 6, sortBy: 'VIEWS' }) %}
 
 {% set articleCount = 0 %}
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
