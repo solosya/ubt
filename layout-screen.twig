@@ -18,12 +18,16 @@
 
 
 
-{% set limit = 20 %}
+{% set limit = 7 %}
 
-{% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
-{% set articles = articlesArr.articles %}
+{# {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}#}
+{% set tickerArticles = _Article.getPopularArticles({ limit: limit, sortBy: 'VIEWS', scope: "network" }) %}
+{# {% set articles = tickerArticles.articles %} #}
 
-
+{# <pre>
+    {{dump(articles)}}
+</pre>
+ #}
 
 
 
@@ -34,9 +38,15 @@
 
 <main id="main" class="full-height" role="main">
     
-    <div class="main-screen full-height flex_col">
+    <div class="screen-header">
+        <img id="frank-logo" class="frank-logo" height="60px" class="" src="{{networkData.templatePath}}/static/images/frank-logo-reverse.svg">
+        <time id="screentime" class="screentime"></time>
+        <div id="screenweather" class="screenweather"></div>
+    </div>
 
-        <div class="flex1" style="max-height:100%">
+    <div class="main-screen flex_col full-height">
+
+        <div class="flex1" style="background:green">
 
             <div id="ajaxArticles" 
                  data-offset="0"
@@ -45,33 +55,28 @@
                  data-containerclass="screen-card card-sm-screen"
                  data-existing-nonpinned-count=""
                  class="full-height">
-
-
-
-
-                {# {{this.render('partials/_single-article.twig', {article: articles[0], containerClass: 'screen-card card-lg-screen col-sm-12', network:networkData}) | raw}} #}
-{#                 {{this.render('partials/_single-article.twig', {article: articles[0], containerClass: 'screen-card card-sm-screen col-sm-6', network:networkData}) | raw}}
-                {{this.render('partials/_single-article.twig', {article: articles[1], containerClass: 'screen-card card-sm-screen col-sm-6', network:networkData}) | raw}}
- #}                
-            </div>
+           </div>
 
             <a  class="loadMoreArticles" 
                 style="display:none;"
                 data-container="ajaxArticles"
                 data-limit="2"
                 href="#">Load more articles</a>
+                
+        </div>
 
+        <div class="ticker flex1 flex-shrink0">
+            <ul class="ticker__list" id="screenTicker">
+                {% for article in tickerArticles %}
+                    <li class="ticker__item"><p class="ticker__text">{{article.title}}</p></li>
+                {% endfor %}
+            </ul>
 
         </div>
     </div>
 
-    <div class="screen-header">
-        <img id="frank-logo" class="frank-logo" height="60px" class="" src="{{networkData.templatePath}}/static/images/frank-logo-reverse.svg">
-        
-        <time id="screentime" class="screentime"></time>
-        
-        <div id="screenweather" class="screenweather"></div>
-    </div>
+
+
 
 
 

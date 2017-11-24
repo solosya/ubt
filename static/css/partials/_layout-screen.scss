@@ -35,7 +35,7 @@ body.layout-screen {
 		top:0;
 		right:0;
 		width:100%;
-		// background: rgba(0,45,86, .2);
+		z-index:1;
 		text-align: center;
 
 		.frank-logo {
@@ -80,24 +80,26 @@ body.layout-screen {
 			font-size: rem(27);
 		}
 	}
-}
 
-.top-row{
-  padding-bottom:13px;
 
-}
-.bottom-row {
-  padding-top:12px;
-}
-.screen-card {
-  height:100%;
-  margin:0 !important;
-}
 
-.full-height {
-  height:100%;
-}
-.half-height {
-  height:50%;
-}
 
+	.top-row{
+	  padding-bottom:13px;
+
+	}
+	.bottom-row {
+	  padding-top:12px;
+	}
+	.screen-card {
+	  height:100%;
+	  margin:0 !important;
+	}
+
+	.full-height {
+	  height:100%;
+	}
+	.half-height {
+	  height:50%;
+	}
+}

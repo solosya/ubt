@@ -3,7 +3,6 @@ var CardController = function() {
 }
 
 var Card = function() {
-    console.log('running card controller');
     this.events();
 };
 
@@ -88,10 +87,10 @@ Card.prototype.screen = function()
 
     run();
 
-    setInterval( run, 10000 ); 
-    setInterval( function() {
-        location.reload(false);
-    } , pageRefreshInterval );
+    // setInterval( run, 10000 ); 
+    // setInterval( function() {
+    //     location.reload(false);
+    // } , pageRefreshInterval );
  
 };
 
@@ -99,9 +98,7 @@ Card.prototype.screen = function()
 Card.prototype.renderCard = function(card, cardClass, template, type)
 {
     var self = this;
-    // console.log(template);
     var template = (template) ? Acme[template] : Acme.systemCardTemplate;
-    // console.log(Acme.propertyCardTemplate);
     card['containerClass'] = cardClass;
     if (card.status == "draft") {
         card['articleStatus'] = "draft";
@@ -121,7 +118,6 @@ Card.prototype.renderCard = function(card, cardClass, template, type)
         var salary = "";
 
         if (salaryType === "1") {
-
             salaryPrefix = "Salary ";
             salary = "$" + card.additionalInfo.salaryfrom;
             if (card.additionalInfo.salaryto) {
@@ -539,7 +535,6 @@ Card.prototype.loadMore = function(elem, waypoint)
 
 Card.prototype.events = function() 
 {
-    console.log('events');
     var self = this;
 
     if(_appJsConfig.isUserLoggedIn === 1 && _appJsConfig.userHasBlogAccess === 1) {
@@ -590,7 +585,6 @@ Card.prototype.events = function()
             options.rendertype = container.data('loadtype');
         }
 
-        console.log(options);
 
         $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
             console.log(data);
