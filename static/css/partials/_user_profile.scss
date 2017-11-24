@@ -111,6 +111,17 @@
           @include padding(40px);
         }
 	}
+
+    
+    .planscontainer {
+        display: flex;
+        overflow-x: scroll;
+        margin-bottom: 30px;
+        .setplan {
+            color: #ae232c;
+        }
+    }
+
     .managed-user {
         .displayname{
             color: #ae232c;

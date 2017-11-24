@@ -262,6 +262,55 @@ UserProfielController.Load = (function ($) {
 
         });
 
+
+        $('.setplan').on('click', function(e) {
+            var listelem = $(e.target).closest('div');
+            var planusers = listelem.find('#planusercount').val();
+            var usercount = listelem.find('#currentusers').val();
+
+            var requestData = { 
+                planid: listelem.find('#planid').val(), 
+                _csrf: listelem.find('#_csrf').text(), 
+            };
+
+            console.log(requestData);
+
+            if (usercount <= planusers) {
+            // $.ajax({
+            //     type: 'post',
+            //     url: _appJsConfig.baseHttpPath + '/user/edit-managed-profile',
+            //     dataType: 'json',
+            //     data: requestData,
+            //     success: function (data, textStatus, jqXHR) {
+            //         console.log(data);
+            //         if (data.success == 1) {
+            //             console.log('success');
+            //             $('#createUserErrorMessage').text('');   
+
+            //             $('#createUserErrorMessage').text('User updated successfully.'); 
+            //         } else {
+            //             var text = '';
+            //             for (var key in data.error) {
+            //                 text = text + data.error[key] + " ";
+            //             } 
+            //             $('#createUserErrorMessage').text(text);
+            //         }
+            //     },
+            //     error: function (jqXHR, textStatus, errorThrown) {
+            //         console.log(textStatus);
+            //         console.log(jqXHR.responseText);
+            //          $('#createUserErrorMessage').text(textStatus);
+            //     },
+            // });        
+
+            } else {
+                
+            }
+        });
+
+
+
+
         
     };
     return {
