@@ -26346,36 +26346,45 @@ return hooks;
 
 
 jQuery.fn.liScroll = function(settings) {
-		settings = jQuery.extend({
-		travelocity: 0.07
-		}, settings);		
-		return this.each(function(){
-				var $strip = jQuery(this);
-				$strip.addClass("newsticker")
-				var stripWidth = 1;
-				$strip.find("li").each(function(i){
-				stripWidth += jQuery(this, i).outerWidth(true); // thanks to Michael Haszprunar and Fabien Volpi
-				});
-				var $mask = $strip.wrap("<div class='mask'></div>");
-				var $tickercontainer = $strip.parent().wrap("<div class='tickercontainer'></div>");								
-				var containerWidth = $strip.parent().parent().width();	//a.k.a. 'mask' width 	
-				$strip.width(stripWidth);			
-				var totalTravel = stripWidth+containerWidth;
-				var defTiming = totalTravel/settings.travelocity;	// thanks to Scott Waye		
-				function scrollnews(spazio, tempo){
-				$strip.animate({left: '-='+ spazio}, tempo, "linear", function(){$strip.css("left", containerWidth); scrollnews(totalTravel, defTiming);});
-				}
-				scrollnews(totalTravel, defTiming);				
-				$strip.hover(function(){
-				jQuery(this).stop();
-				},
-				function(){
-				var offset = jQuery(this).offset();
-				var residualSpace = offset.left + stripWidth;
-				var residualTime = residualSpace/settings.travelocity;
-				scrollnews(residualSpace, residualTime);
-				});			
-		});	
+	settings = jQuery.extend({
+	travelocity: 0.07
+	}, settings);		
+	return this.each(function(){
+		var $strip = jQuery(this);
+		$strip.addClass("newsticker")
+		var stripWidth = 1;
+
+		$strip.find("li").each(function(i){
+			stripWidth += jQuery(this, i).outerWidth(true); // thanks to Michael Haszprunar and Fabien Volpi
+		});
+
+		var $mask = $strip.wrap("<div class='mask'></div>");
+		var $tickercontainer = $strip.parent().wrap("<div class='tickercontainer'></div>");								
+		var containerWidth = $strip.parent().parent().width();	//a.k.a. 'mask' width 	
+		$strip.width(stripWidth);
+
+		var totalTravel = stripWidth;
+		var defTiming = totalTravel/settings.travelocity;	// thanks to Scott Waye		
+
+		function scrollnews(spazio, tempo, complete){
+			$strip.animate({left: '-='+ spazio}, tempo, "linear", function(){
+				$strip.css("left", containerWidth); 
+				scrollnews(totalTravel, defTiming, true);
+			});
+		}
+
+		scrollnews(totalTravel, defTiming);				
+		// $strip.hover(function() {
+		// 	jQuery(this).stop();
+		// },
+
+		// function() {
+		// 	var offset = jQuery(this).offset();
+		// 	var residualSpace = offset.left + stripWidth;
+		// 	var residualTime = residualSpace/settings.travelocity;
+		// 	scrollnews(residualSpace, residualTime);
+		// });			
+	});	
 };
 
 /**
@@ -33470,7 +33479,6 @@ var CardController = function() {
 }
 
 var Card = function() {
-    console.log('running card controller');
     this.events();
 };
 
@@ -33555,10 +33563,10 @@ Card.prototype.screen = function()
 
     run();
 
-    setInterval( run, 10000 ); 
-    setInterval( function() {
-        location.reload(false);
-    } , pageRefreshInterval );
+    // setInterval( run, 10000 ); 
+    // setInterval( function() {
+    //     location.reload(false);
+    // } , pageRefreshInterval );
  
 };
 
@@ -33566,9 +33574,7 @@ Card.prototype.screen = function()
 Card.prototype.renderCard = function(card, cardClass, template, type)
 {
     var self = this;
-    // console.log(template);
     var template = (template) ? Acme[template] : Acme.systemCardTemplate;
-    // console.log(Acme.propertyCardTemplate);
     card['containerClass'] = cardClass;
     if (card.status == "draft") {
         card['articleStatus'] = "draft";
@@ -33588,7 +33594,6 @@ Card.prototype.renderCard = function(card, cardClass, template, type)
         var salary = "";
 
         if (salaryType === "1") {
-
             salaryPrefix = "Salary ";
             salary = "$" + card.additionalInfo.salaryfrom;
             if (card.additionalInfo.salaryto) {
@@ -34006,7 +34011,6 @@ Card.prototype.loadMore = function(elem, waypoint)
 
 Card.prototype.events = function() 
 {
-    console.log('events');
     var self = this;
 
     if(_appJsConfig.isUserLoggedIn === 1 && _appJsConfig.userHasBlogAccess === 1) {
@@ -34057,7 +34061,6 @@ Card.prototype.events = function()
             options.rendertype = container.data('loadtype');
         }
 
-        console.log(options);
 
         $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
             console.log(data);
@@ -35835,8 +35838,7 @@ $('document').ready(function() {
     $("img.lazyload").lazyload({
         effect : "fadeIn"
     });
-
-
+    
 
 
 
@@ -36311,6 +36313,7 @@ card.addEventListener('change', function(event) {
 var form = document.getElementById('payment-form');
 form.addEventListener('submit', function(event) {
     event.preventDefault();
+     $('#card-errors').text('');
     var userdata = $('#listingForm').serializeArray();
     console.log(userdata);
     $.each(userdata, function(i, val) {
@@ -36587,6 +36590,7 @@ UserProfielController.Load = (function ($) {
 
             $('#mangedUsers').append($(user));
             $('#addManagedUser').addClass('hidden');
+            $('#nousers').addClass('hidden');
             $('#createUser').on('click', function(e) {
 
                 
@@ -36785,13 +36789,15 @@ UserProfielController.Load = (function ($) {
 
     Acme.Locations = function(){
         this.country = _appJsConfig.appHostName.split('.').reverse()[0];
+        console.log(this.country);
         this.data = this.getLocations(this.country);
+        console.log(this.data);
     };
     Acme.Locations.prototype.getLocations = function(country) 
     {
         switch (country) {
             case 'nz':
-                Acme.State.Country = 'NZ';
+                // Acme.State.Country = 'NZ';
                 return [
                     'NZ/Auckland',
                     'NZ/Wellington',
@@ -36802,7 +36808,7 @@ UserProfielController.Load = (function ($) {
                 ];
                 break;
             default:
-                Acme.State.Country = 'Australia';
+                // Acme.State.Country = 'Australia';
                 return [
                     'Australia/Sydney',
                     'Australia/Melbourne',
