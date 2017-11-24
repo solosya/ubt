@@ -25,6 +25,7 @@
 }
 
 .ticker__list {
+    overflow:auto;
     position: relative;
     list-style-type: none;
     margin: 0;
@@ -42,12 +43,12 @@
     float: left; /* important: display inline gives incorrect results when you check for elem's width */
     margin: 0;
     padding: 0;
+    margin-top:7px;
 }
 
 
 .ticker__text {
     padding-right:50px;
-    border-right:2px solid white;
     white-space: nowrap;
     padding: 0;
     color: #fff;
@@ -55,4 +56,15 @@
     font-weight: 200;
     font-size: rem(35);
     margin: 0 50px 0 0;
+
+    &:after {
+        content: '';
+        height: 30px;
+        display: block;
+        width: 2px;
+        float: right;
+        margin-left: 50px;
+        margin-top: 10px;
+        background: #fff;    
+    }
 }

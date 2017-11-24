@@ -6,6 +6,8 @@
 
 {{this.registerJs("CardController().screen();")}}
 {{this.registerJs("var clock = new Acme.Clock(); clock.render();")}}
+{{this.registerJs('$("#screenTicker").liScroll({travelocity:.07});')}}
+
 
 {% set weatherJs = 
     " var locations = new Acme.Locations();
@@ -46,7 +48,7 @@
 
     <div class="main-screen flex_col full-height">
 
-        <div class="flex1" style="background:green">
+        <div class="flex1" style="overflow:hidden;">
 
             <div id="ajaxArticles" 
                  data-offset="0"

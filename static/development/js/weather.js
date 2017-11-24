@@ -3,13 +3,15 @@
 
     Acme.Locations = function(){
         this.country = _appJsConfig.appHostName.split('.').reverse()[0];
+        console.log(this.country);
         this.data = this.getLocations(this.country);
+        console.log(this.data);
     };
     Acme.Locations.prototype.getLocations = function(country) 
     {
         switch (country) {
             case 'nz':
-                Acme.State.Country = 'NZ';
+                // Acme.State.Country = 'NZ';
                 return [
                     'NZ/Auckland',
                     'NZ/Wellington',
@@ -20,7 +22,7 @@
                 ];
                 break;
             default:
-                Acme.State.Country = 'Australia';
+                // Acme.State.Country = 'Australia';
                 return [
                     'Australia/Sydney',
                     'Australia/Melbourne',
