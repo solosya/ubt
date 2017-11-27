@@ -144,34 +144,6 @@
                                     </div>
                                 </div>
                                 
-                                <div class="col-sm-3 planbox">
-                                    <div class="plan-card">
-                                        <h3>{{plan.name}}</h3>
-                                        <p class="usercount">{{plan.user_count}} Users</p>
-                                        <p class="price">${{plan.plan_value/100}}/{{plan.period}}</p>
-                                        <input type="hidden" id="planid" value = {{plan.guid}}>
-                                        <input type="hidden" id="planusercount" value="{{plan.user_count}}">
-                                        <input type="hidden" id="currentusers" value="{{pwstats['user_count']}}">
-                                        <input type="hidden" id="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> 
-                                        <a class="setplan">CHANGE PLAN</a>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-3 planbox">
-                                    <div class="plan-card">
-                                        <h3>{{plan.name}}</h3>
-                                        <p class="usercount">{{plan.user_count}} Users</p>
-                                        <p class="price">${{plan.plan_value/100}}/{{plan.period}}</p>
-                                        <input type="hidden" id="planid" value = {{plan.guid}}>
-                                        <input type="hidden" id="planusercount" value="{{plan.user_count}}">
-                                        <input type="hidden" id="currentusers" value="{{pwstats['user_count']}}">
-                                        <input type="hidden" id="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> 
-                                        <a class="setplan">CHANGE PLAN</a>
-                                    </div>
-                                </div>
-
-
-
                             {% endfor %}
                             </div>
 
