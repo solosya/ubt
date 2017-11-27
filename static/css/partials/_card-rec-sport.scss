@@ -40,11 +40,11 @@
     @media screen and (min-width: $mmd-break){
         @include card-rec-sport-base();
 
-        margin-bottom: 43px;
+        margin-bottom: 66px;
 
         a.card {
-            @include card-image-left(217px, 231px);
-            height:250px;
+            @include card-image-left(217px, 152px);
+            height:152px;
 
             > article {
                 padding-bottom:20px;
@@ -52,11 +52,25 @@
                     margin-right:24px;
                 }
                 > .content{
+                    > .cat-time {
+                        line-height: 0;
+                        position: relative;
+                        top: 0px;
+                    }
 
                     > h2{
-                        // width: 410px;
+                        height: 32px;
+                        margin-top: 14px;
+                        margin-bottom: 16px;
                     }
                 }
+            }
+
+            &:after {
+                content: '';
+                display: block;
+                border-bottom: 2px solid #97999c;
+                padding-top: 30px;                
             }
         }
     }
