@@ -56,14 +56,16 @@
                 </div>
 
 
-                {{ this.render('partials/ajaxarticles.twig', {
-                    limit: limit, 
-                    non_pinned: articlesArr.existingNonPinnedCount, 
-                    articles: articles,
-                    rendertype: "write",
-                    card_style: "col-sm-12 card-rec-sport card-rec-sport-tablet card-rec-sport-mobile",
-                    container:"mainAjaxArticles"
-                }) | raw }}
+                <div class="row">
+                    {{ this.render('partials/ajaxarticles.twig', {
+                        limit: limit, 
+                        non_pinned: articlesArr.existingNonPinnedCount, 
+                        articles: articles,
+                        rendertype: "write",
+                        card_style: "col-sm-12 card-rec-sport card-rec-sport-tablet card-rec-sport-mobile",
+                        container:"mainAjaxArticles"
+                    }) | raw }}
+                </div>
 
 
             </div>

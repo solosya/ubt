@@ -16,9 +16,6 @@
 {% set articles = articlesArr.articles %}
  #}
 {% set articles = _Event.getEvents({'limit': limit, 'offset': 0}) %}
-<pre>
-    {{dump(articles)}}
-</pre>
 
 <!-- used to index each article as we loop over throughout the template -->
 {% set articleCount = 0 %}
