@@ -8,6 +8,7 @@
 {% set realEstateArr = [] %}
 {% set eventsArr = [] %}
 {% set pwstats = _User.getPaywallStats() %}
+{% set plans = _Network.getNetworkData()['paywallPlans'] %}
 
 {# {% if user %} 
     {% set jobListingsArr = _User.getUserArticles(user.guid, 0, 1000, [117]) %}
@@ -20,6 +21,7 @@
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
 
 <main id="main" class="user_profile listingForm" role="main">
+    <div id="stripekey" class="hidden" >{{networkData['stripe_publishable_key']}}</div>
     <div class="container">
 
         <div class="user_profile_section">
@@ -92,20 +94,85 @@
                                 <p>Subscription Details </p>
                             </div>
                             <div  id="userListing" class="col-md-12">
-{#                                 <div class="empty-listing">
-                                    {{dump(pwstats)}}
-                                </div> #}   
-                                {% if pwstats['type'] == 'time' %}
-                                    <p> Current Plan: {{ pwstats['plan_value']/100}}/{{pwstats['period']}}</p>
-                                    <p> Total Users: {{ pwstats['paywall_total_users']}}</p>
-                                    <p> Active Users: {{ pwstats['user_count']}}</p>
-                                    <p> Expires: {{ pwstats['expiry_date']}}</p>
-                                {% else %}  
-                                    <p> Current Plan: {{ pwstats['plan_value']/100}}/{{pwstats['total_articles']}}</p>
-                                    <p> Articles Remaining: {{ pwstats['article_count']}}</p>
-                                {% endif %}
-                                <p> Payemnt Method: {{ pwstats['card_brand']}} / •••• •••• •••• {{ pwstats['card_last_4']}}</p>
-                          </div>
+                                <div class="user-details">
+                                    {% if pwstats['type'] == 'time' %}
+                                        <p> Current Plan: {{ pwstats['plan_value']/100}}/{{pwstats['period']}}</p>
+                                        <p> Total Users: {{ pwstats['paywall_total_users']}}</p>
+                                        <p> Active Users: {{ pwstats['user_count']}}</p>
+                                        <p> Expires: {{ pwstats['expiry_date']}}</p>
+                                    {% else %}  
+                                        <p> Current Plan: {{ pwstats['plan_value']/100}}/{{pwstats['total_articles']}}</p>
+                                        <p> Articles Remaining: {{ pwstats['article_count']}}</p>
+                                    {% endif %}
+                                    <p> Payemnt Method: {{ pwstats['card_brand']}} / •••• •••• •••• {{ pwstats['card_last_4']}}</p>
+                                </div>
+
+                                <div class='update-card'>
+                                    <form action="/update-card" method="post" id="update-form">
+                                        <div class="form-row">
+                                        <label for="card-element">Credit or debit card</label>
+                                    <div id="card-element">
+                                      <!-- a Stripe Element will be inserted here. -->
+                                    </div>
+    
+                                    <!-- Used to display Element errors -->
+                                    <div id="card-errors" role="alert"></div>
+                                    </div>
+    
+                                    <button>Update Card</button>
+                                </form>
+                                </div>
+
+
+                            <div class="section-heading" style="margin-top:50px">
+                                <p>Change Plan </p>
+                            </div>
+                            <div class="planscontainer" >
+                                {# {{dump(plans)}} #}
+                            {% for plan in plans %}
+
+                                <div class="col-sm-3 planbox">
+                                    <div class="plan-card">
+                                        <h3>{{plan.name}}</h3>
+                                        <p class="usercount">{{plan.user_count}} Users</p>
+                                        <p class="price">${{plan.plan_value/100}}/{{plan.period}}</p>
+                                        <input type="hidden" id="planid" value = {{plan.guid}}>
+                                        <input type="hidden" id="planusercount" value="{{plan.user_count}}">
+                                        <input type="hidden" id="currentusers" value=" {{pwstats['user_count']}}">
+                                        <input type="hidden" id="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> 
+                                        <a class="setplan">CHANGE PLAN</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-sm-3 planbox">
+                                    <div class="plan-card">
+                                        <h3>{{plan.name}}</h3>
+                                        <p class="usercount">{{plan.user_count}} Users</p>
+                                        <p class="price">${{plan.plan_value/100}}/{{plan.period}}</p>
+                                        <input type="hidden"  name="planid" value = {{plan.guid}}>
+                                        <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> 
+                                        <a class="setplan">CHANGE PLAN</a>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3 planbox">
+                                    <div class="plan-card">
+                                        <h3>{{plan.name}}</h3>
+                                        <p class="usercount">{{plan.user_count}} Users</p>
+                                        <p class="price">${{plan.plan_value/100}}/{{plan.period}}</p>
+                                        <input type="hidden"  name="planid" value = {{plan.guid}}>
+                                        <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> 
+                                        <a class="setplan">CHANGE PLAN</a>
+                                    </div>
+                                </div>
+
+
+
+                            {% endfor %}
+                            </div>
+
+                        </div>
+
                         </div>
 
 
@@ -242,5 +309,9 @@
             </div>
         </div>
     </div>
+
+
+
+    
 </main>
 <!-- //End User Profile Page -->

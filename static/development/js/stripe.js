@@ -69,13 +69,13 @@ form.addEventListener('submit', function(event) {
         } else {
             // Send the token to your server
             console.log(result);
-            formhandler(result.token, userdata);
+            formhandler(result.token, userdata, '/auth/paywall-signup');
         }
     });
 });
 
 
-var formhandler = function(stripeToken, formdata) {
+var formhandler = function(stripeToken, formdata, path) {
     var csrfToken = $('meta[name="csrf-token"]').attr("content");
     console.log(formdata);
     console.log(csrfToken);
@@ -88,7 +88,7 @@ var formhandler = function(stripeToken, formdata) {
     formdata.push(token);
     console.log(formdata);
     $.ajax({
-        url: _appJsConfig.appHostName + '/auth/paywall-signup',
+        url: _appJsConfig.appHostName + path,
         type: 'post',
         data: formdata,
         dataType: 'json',
@@ -114,6 +114,26 @@ var formhandler = function(stripeToken, formdata) {
     });
 
 }
+
+
+
+var form = document.getElementById('update-form');
+form.addEventListener('submit', function(event) {
+    event.preventDefault();
+     $('#card-errors').text('');
+
+    stripe.createToken(card).then(function(result) {
+        if (result.error) {
+            // Inform the user if there was an error
+            var errorElement = document.getElementById('card-errors');
+            errorElement.textContent = result.error.message;
+        } else {
+            // Send the token to your server
+            console.log(result);
+            formhandler(result.token, userdata, '/user/update-payment-details');
+        }
+    });
+});
 
 
 
