@@ -33563,10 +33563,10 @@ Card.prototype.screen = function()
 
     run();
 
-    // setInterval( run, 10000 ); 
-    // setInterval( function() {
-    //     location.reload(false);
-    // } , pageRefreshInterval );
+    setInterval( run, 10000 ); 
+    setInterval( function() {
+        location.reload(false);
+    } , pageRefreshInterval );
  
 };
 
@@ -36335,13 +36335,13 @@ form.addEventListener('submit', function(event) {
         } else {
             // Send the token to your server
             console.log(result);
-            formhandler(result.token, userdata);
+            formhandler(result.token, userdata, '/auth/paywall-signup');
         }
     });
 });
 
 
-var formhandler = function(stripeToken, formdata) {
+var formhandler = function(stripeToken, formdata, path) {
     var csrfToken = $('meta[name="csrf-token"]').attr("content");
     console.log(formdata);
     console.log(csrfToken);
@@ -36354,7 +36354,7 @@ var formhandler = function(stripeToken, formdata) {
     formdata.push(token);
     console.log(formdata);
     $.ajax({
-        url: _appJsConfig.appHostName + '/auth/paywall-signup',
+        url: _appJsConfig.appHostName + path,
         type: 'post',
         data: formdata,
         dataType: 'json',
@@ -36380,6 +36380,26 @@ var formhandler = function(stripeToken, formdata) {
     });
 
 }
+
+
+
+var form = document.getElementById('update-form');
+form.addEventListener('submit', function(event) {
+    event.preventDefault();
+     $('#card-errors').text('');
+
+    stripe.createToken(card).then(function(result) {
+        if (result.error) {
+            // Inform the user if there was an error
+            var errorElement = document.getElementById('card-errors');
+            errorElement.textContent = result.error.message;
+        } else {
+            // Send the token to your server
+            console.log(result);
+            formhandler(result.token, userdata, '/user/update-payment-details');
+        }
+    });
+});
 
 
 
@@ -36771,6 +36791,55 @@ UserProfielController.Load = (function ($) {
             });        
 
         });
+
+
+        $('.setplan').on('click', function(e) {
+            var listelem = $(e.target).closest('div');
+            var planusers = listelem.find('#planusercount').val();
+            var usercount = listelem.find('#currentusers').val();
+
+            var requestData = { 
+                planid: listelem.find('#planid').val(), 
+                _csrf: listelem.find('#_csrf').text(), 
+            };
+
+            console.log(requestData);
+
+            if (usercount <= planusers) {
+            // $.ajax({
+            //     type: 'post',
+            //     url: _appJsConfig.baseHttpPath + '/user/edit-managed-profile',
+            //     dataType: 'json',
+            //     data: requestData,
+            //     success: function (data, textStatus, jqXHR) {
+            //         console.log(data);
+            //         if (data.success == 1) {
+            //             console.log('success');
+            //             $('#createUserErrorMessage').text('');   
+
+            //             $('#createUserErrorMessage').text('User updated successfully.'); 
+            //         } else {
+            //             var text = '';
+            //             for (var key in data.error) {
+            //                 text = text + data.error[key] + " ";
+            //             } 
+            //             $('#createUserErrorMessage').text(text);
+            //         }
+            //     },
+            //     error: function (jqXHR, textStatus, errorThrown) {
+            //         console.log(textStatus);
+            //         console.log(jqXHR.responseText);
+            //          $('#createUserErrorMessage').text(textStatus);
+            //     },
+            // });        
+
+            } else {
+                
+            }
+        });
+
+
+
 
         
     };

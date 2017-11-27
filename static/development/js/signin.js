@@ -108,6 +108,8 @@ var layouts = {
     "forgot"   : 'forgotFormTmpl',
     "expired"  : 'expiredNotice',
     "default_weather" : 'defaultWeatherTmpl',
+    "userPlan" : 'userPlanMessage',
+    "userPlanChange" : 'userPlanOkCancel',
 }
 Acme.SigninView = new Acme.Signin('modal', '#signin', layouts);
 

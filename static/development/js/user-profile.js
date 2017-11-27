@@ -267,6 +267,8 @@ UserProfielController.Load = (function ($) {
             var listelem = $(e.target).closest('div');
             var planusers = listelem.find('#planusercount').val();
             var usercount = listelem.find('#currentusers').val();
+            console.log(planusers);
+            console.log(usercount);
 
             var requestData = { 
                 planid: listelem.find('#planid').val(), 
@@ -275,37 +277,49 @@ UserProfielController.Load = (function ($) {
 
             console.log(requestData);
 
-            if (usercount <= planusers) {
-            // $.ajax({
-            //     type: 'post',
-            //     url: _appJsConfig.baseHttpPath + '/user/edit-managed-profile',
-            //     dataType: 'json',
-            //     data: requestData,
-            //     success: function (data, textStatus, jqXHR) {
-            //         console.log(data);
-            //         if (data.success == 1) {
-            //             console.log('success');
-            //             $('#createUserErrorMessage').text('');   
 
-            //             $('#createUserErrorMessage').text('User updated successfully.'); 
-            //         } else {
-            //             var text = '';
-            //             for (var key in data.error) {
-            //                 text = text + data.error[key] + " ";
-            //             } 
-            //             $('#createUserErrorMessage').text(text);
-            //         }
-            //     },
-            //     error: function (jqXHR, textStatus, errorThrown) {
-            //         console.log(textStatus);
-            //         console.log(jqXHR.responseText);
-            //          $('#createUserErrorMessage').text(textStatus);
-            //     },
-            // });        
+
+            if (usercount <= planusers) {
+
+
+                Acme.SigninView.render("userPlanChange", "Are you sure?. This will cost you $((newplandailycost-plandailycost)*remainingplandays)");
+                $('#okaybutton').on('click', function(e) {
+                    $('#dialog').parent().remove();
+                    console.log('pay');
+                    
+                    $.ajax({
+                        type: 'post',
+                        url: _appJsConfig.baseHttpPath + '/user/change-paywall-plan',
+                        dataType: 'json',
+                        data: requestData,
+                        success: function (data, textStatus, jqXHR) {
+                            console.log(data);
+                            if (data.success == 1) {
+                                window.location.reload();
+                            } else {
+                                //show some error somehow
+                                $('#dialog').parent().remove();
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus);
+                            console.log(jqXHR.responseText);
+                             $('#createUserErrorMessage').text(textStatus);
+                        },
+                    });        
+
+                });
+
+
 
             } else {
-                
+                Acme.SigninView.render("userPlan", "You have too many users to change to that plan.");
             }
+            $('#cancelbutton').on('click', function(e) {
+                $('#dialog').parent().remove();
+                console.log('moo');
+            });
+
         });
 
 

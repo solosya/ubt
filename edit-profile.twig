@@ -7,7 +7,7 @@
 {% set jobListingsArr = [] %}
 {% set realEstateArr = [] %}
 {% set eventsArr = [] %}
-{% set pwstats = _User.getPaywallStats() %}
+{% set pwstats = _User.getPaywallStats(true) %}
 {% set plans = _Network.getNetworkData()['paywallPlans'] %}
 
 {# {% if user %} 
@@ -136,9 +136,9 @@
                                         <h3>{{plan.name}}</h3>
                                         <p class="usercount">{{plan.user_count}} Users</p>
                                         <p class="price">${{plan.plan_value/100}}/{{plan.period}}</p>
-                                        <input type="hidden" id="planid" value = {{plan.guid}}>
+                                        <input type="hidden" id="planid" value="{{plan.guid}}">
                                         <input type="hidden" id="planusercount" value="{{plan.user_count}}">
-                                        <input type="hidden" id="currentusers" value=" {{pwstats['user_count']}}">
+                                        <input type="hidden" id="currentusers" value="{{pwstats['user_count']}}">
                                         <input type="hidden" id="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> 
                                         <a class="setplan">CHANGE PLAN</a>
                                     </div>
@@ -149,8 +149,10 @@
                                         <h3>{{plan.name}}</h3>
                                         <p class="usercount">{{plan.user_count}} Users</p>
                                         <p class="price">${{plan.plan_value/100}}/{{plan.period}}</p>
-                                        <input type="hidden"  name="planid" value = {{plan.guid}}>
-                                        <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> 
+                                        <input type="hidden" id="planid" value = {{plan.guid}}>
+                                        <input type="hidden" id="planusercount" value="{{plan.user_count}}">
+                                        <input type="hidden" id="currentusers" value="{{pwstats['user_count']}}">
+                                        <input type="hidden" id="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> 
                                         <a class="setplan">CHANGE PLAN</a>
                                     </div>
                                 </div>
@@ -160,8 +162,10 @@
                                         <h3>{{plan.name}}</h3>
                                         <p class="usercount">{{plan.user_count}} Users</p>
                                         <p class="price">${{plan.plan_value/100}}/{{plan.period}}</p>
-                                        <input type="hidden"  name="planid" value = {{plan.guid}}>
-                                        <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> 
+                                        <input type="hidden" id="planid" value = {{plan.guid}}>
+                                        <input type="hidden" id="planusercount" value="{{plan.user_count}}">
+                                        <input type="hidden" id="currentusers" value="{{pwstats['user_count']}}">
+                                        <input type="hidden" id="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> 
                                         <a class="setplan">CHANGE PLAN</a>
                                     </div>
                                 </div>
@@ -312,6 +316,6 @@
 
 
 
-    
+
 </main>
 <!-- //End User Profile Page -->
