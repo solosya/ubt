@@ -89,6 +89,7 @@
                     </div>
                     {% if pwstats.userManager == true %}
                         {% set managedUers = _User.getPaywallManagedUsers() %}
+
                         <div class="profile-section">
                             <div class="section-heading">
                                 <p>Subscription Details </p>
@@ -97,8 +98,8 @@
                                 <div class="user-details">
                                     {% if pwstats['type'] == 'time' %}
                                         <p> Current Plan: {{ pwstats['plan_value']/100}}/{{pwstats['period']}}</p>
-                                        <p> Total Users: {{ pwstats['paywall_total_users']}}</p>
-                                        <p> Active Users: {{ pwstats['user_count']}}</p>
+                                        <p> Total Users: {{ pwstats['user_count']}}</p>
+                                        <p> Active Users: {{ managedUers|length}}</p>
                                         <p> Expires: {{ pwstats['expiry_date']}}</p>
                                     {% else %}  
                                         <p> Current Plan: {{ pwstats['plan_value']/100}}/{{pwstats['total_articles']}}</p>
@@ -128,9 +129,8 @@
                                 <p>Change Plan </p>
                             </div>
                             <div class="planscontainer" >
-                                {# {{dump(plans)}} #}
                             {% for plan in plans %}
-
+                                {% if plan.guid != pwstats['plan_guid'] %}
                                 <div class="col-sm-3 planbox">
                                     <div class="plan-card">
                                         <h3>{{plan.name}}</h3>
@@ -143,7 +143,7 @@
                                         <a class="setplan">CHANGE PLAN</a>
                                     </div>
                                 </div>
-                                
+                                {% endif %}
                             {% endfor %}
                             </div>
 
@@ -155,7 +155,7 @@
 
                         <div class="profile-section">
                             <div class="section-heading">
-                                <p>My Users </p><a> {{managedUers|length}} of {{pwstats['paywall_total_users']}} used </a>
+                                <p>My Users </p><a> {{managedUers|length}} of {{pwstats['user_count']}} used </a>
                             </div>
                             <div class="row">
                                 <div  id="user_profile" class="col-md-12">
@@ -179,7 +179,7 @@
                                     {% endif %}
                                     </ul>
                                 </div>
-                                {% if managedUers|length < pwstats['paywall_total_users'] %}
+                                {% if managedUers|length < pwstats['user_count'] %}
                                     <a id="createUserErrorMessage"></a><a id="addManagedUser" style="z-index:1000;" class="addUser">+ Add users</a>
                                 {% endif %}
                             </div>
