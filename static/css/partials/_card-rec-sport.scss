@@ -1,8 +1,6 @@
 @mixin card-rec-sport-base() {
     position:relative;
     a.card {
-        border-bottom: 1px solid #97999c;
-
         > article {
             position:relative;
 
@@ -69,7 +67,7 @@
             &:after {
                 content: '';
                 display: block;
-                border-bottom: 2px solid #97999c;
+                border-bottom: 1px solid #97999c;
                 padding-top: 30px;                
             }
         }
