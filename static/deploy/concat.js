@@ -33060,6 +33060,19 @@ window.templates.modal =
 window.templates.listingSavedTmpl =  '<p>Thank you, your listing will be published in the next 24 hours</p><div><form><button class="dialogButton">Okay</button></form></div>';
 
 
+window.templates.userPlanMessage = 
+'<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
+     <button id="cancelbutton" class="_btn close">OK</button> \
+</form>';
+
+window.templates.userPlanOkCancel = 
+'<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
+     <button id="okaybutton" class="_btn okay">OK</button> \
+     <button id="cancelbutton" class="_btn close">Cancel</button> \
+</form>';
+
+
+
 window.templates.signinFormTmpl = 
 '<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
     <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> \
@@ -33125,6 +33138,7 @@ window.templates.defaultWeatherTmpl =
     \
     <button id="signinBtn" type="submit" class="_btn default-weather">Set as Default</button> \
 </form>';
+
 
 var cardTemplateTop = 
 '<div class="{{containerClass}} "> \
@@ -36247,6 +36261,8 @@ var layouts = {
     "forgot"   : 'forgotFormTmpl',
     "expired"  : 'expiredNotice',
     "default_weather" : 'defaultWeatherTmpl',
+    "userPlan" : 'userPlanMessage',
+    "userPlanChange" : 'userPlanOkCancel',
 }
 Acme.SigninView = new Acme.Signin('modal', '#signin', layouts);
 
@@ -36797,6 +36813,8 @@ UserProfielController.Load = (function ($) {
             var listelem = $(e.target).closest('div');
             var planusers = listelem.find('#planusercount').val();
             var usercount = listelem.find('#currentusers').val();
+            console.log(planusers);
+            console.log(usercount);
 
             var requestData = { 
                 planid: listelem.find('#planid').val(), 
@@ -36805,37 +36823,49 @@ UserProfielController.Load = (function ($) {
 
             console.log(requestData);
 
-            if (usercount <= planusers) {
-            // $.ajax({
-            //     type: 'post',
-            //     url: _appJsConfig.baseHttpPath + '/user/edit-managed-profile',
-            //     dataType: 'json',
-            //     data: requestData,
-            //     success: function (data, textStatus, jqXHR) {
-            //         console.log(data);
-            //         if (data.success == 1) {
-            //             console.log('success');
-            //             $('#createUserErrorMessage').text('');   
 
-            //             $('#createUserErrorMessage').text('User updated successfully.'); 
-            //         } else {
-            //             var text = '';
-            //             for (var key in data.error) {
-            //                 text = text + data.error[key] + " ";
-            //             } 
-            //             $('#createUserErrorMessage').text(text);
-            //         }
-            //     },
-            //     error: function (jqXHR, textStatus, errorThrown) {
-            //         console.log(textStatus);
-            //         console.log(jqXHR.responseText);
-            //          $('#createUserErrorMessage').text(textStatus);
-            //     },
-            // });        
+
+            if (usercount <= planusers) {
+
+
+                Acme.SigninView.render("userPlanChange", "Are you sure?. This will cost you $((newplandailycost-plandailycost)*remainingplandays)");
+                $('#okaybutton').on('click', function(e) {
+                    $('#dialog').parent().remove();
+                    console.log('pay');
+                    
+                    $.ajax({
+                        type: 'post',
+                        url: _appJsConfig.baseHttpPath + '/user/change-paywall-plan',
+                        dataType: 'json',
+                        data: requestData,
+                        success: function (data, textStatus, jqXHR) {
+                            console.log(data);
+                            if (data.success == 1) {
+                                window.location.reload();
+                            } else {
+                                //show some error somehow
+                                $('#dialog').parent().remove();
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus);
+                            console.log(jqXHR.responseText);
+                             $('#createUserErrorMessage').text(textStatus);
+                        },
+                    });        
+
+                });
+
+
 
             } else {
-                
+                Acme.SigninView.render("userPlan", "You have too many users to change to that plan.");
             }
+            $('#cancelbutton').on('click', function(e) {
+                $('#dialog').parent().remove();
+                console.log('moo');
+            });
+
         });
 
 
