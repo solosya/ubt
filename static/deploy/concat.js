@@ -32179,6 +32179,7 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
     Acme.View         = {};
     Acme.Model        = {};
     Acme.Collection   = {};
+    Acme.State        = {};
 
     $('html').on('click', function(e) {
         $('Acme-pulldown ul').hide();
@@ -36896,7 +36897,7 @@ UserProfielController.Load = (function ($) {
     {
         switch (country) {
             case 'nz':
-                // Acme.State.Country = 'NZ';
+                Acme.State.Country = 'NZ';
                 return [
                     'NZ/Auckland',
                     'NZ/Wellington',
@@ -36907,7 +36908,7 @@ UserProfielController.Load = (function ($) {
                 ];
                 break;
             default:
-                // Acme.State.Country = 'Australia';
+                Acme.State.Country = 'Australia';
                 return [
                     'Australia/Sydney',
                     'Australia/Melbourne',
@@ -37086,6 +37087,7 @@ UserProfielController.Load = (function ($) {
     {
         var self = this;
         this.container.on("click", function (e) {
+            console.log('boo');
             Acme.PubSub.publish("update_state", {"nationalweather": self.locations.data.join(',')})
         });
     };
