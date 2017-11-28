@@ -30,6 +30,19 @@ window.templates.modal =
 window.templates.listingSavedTmpl =  '<p>Thank you, your listing will be published in the next 24 hours</p><div><form><button class="dialogButton">Okay</button></form></div>';
 
 
+window.templates.userPlanMessage = 
+'<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
+     <button id="cancelbutton" class="_btn close">OK</button> \
+</form>';
+
+window.templates.userPlanOkCancel = 
+'<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
+     <button id="okaybutton" class="_btn okay">OK</button> \
+     <button id="cancelbutton" class="_btn close">Cancel</button> \
+</form>';
+
+
+
 window.templates.signinFormTmpl = 
 '<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
     <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> \
@@ -95,6 +108,7 @@ window.templates.defaultWeatherTmpl =
     \
     <button id="signinBtn" type="submit" class="_btn default-weather">Set as Default</button> \
 </form>';
+
 
 var cardTemplateTop = 
 '<div class="{{containerClass}} "> \

@@ -11,7 +11,7 @@
     {
         switch (country) {
             case 'nz':
-                // Acme.State.Country = 'NZ';
+                Acme.State.Country = 'NZ';
                 return [
                     'NZ/Auckland',
                     'NZ/Wellington',
@@ -22,7 +22,7 @@
                 ];
                 break;
             default:
-                // Acme.State.Country = 'Australia';
+                Acme.State.Country = 'Australia';
                 return [
                     'Australia/Sydney',
                     'Australia/Melbourne',
@@ -201,6 +201,7 @@
     {
         var self = this;
         this.container.on("click", function (e) {
+            console.log('boo');
             Acme.PubSub.publish("update_state", {"nationalweather": self.locations.data.join(',')})
         });
     };
