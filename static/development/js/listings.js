@@ -343,7 +343,6 @@ Acme.jobsSearchResultsClass = function(container, template)
         });
 
         $(".card .content > p, .card h2").dotdotdot();
-
     };
 
 Acme.propertySearchResultsClass = function(container, template)
@@ -374,7 +373,6 @@ Acme.propertySearchResultsClass = function(container, template)
             Acme.PubSub.publish('update_state', {'clear': self});
         });
         $(".card .content > p, .card h2").dotdotdot();
-
     }
 
 
@@ -951,7 +949,6 @@ Acme.EventForm = function(blogId)
                 Acme.PubSub.publish("update_state", data);
             }
         });
-
     }
 
 
@@ -1122,7 +1119,6 @@ Acme.Confirm = function(template, parent, layouts) {
         if ( $elem.is('a') ) {
             if ($elem.hasClass('close')) {
                 $('body').removeClass("active");
-                console.log('removing active');
                 this.closeWindow();
             }
         }
@@ -1130,17 +1126,13 @@ Acme.Confirm = function(template, parent, layouts) {
             if ($elem.hasClass('signin')) {
                 e.preventDefault();
                 var formData = {};
-                console.log($elem);
                 $.each($('#loginForm').serializeArray(), function () {
                     formData[this.name] = this.value;
                 });
-                console.log(formData);
                 Acme.server.create('/api/auth/login', formData).done(function(r) {
                     console.log(r);
                     if (r.success === 1) {
-                        console.log(location);
                         window.location.href = location.origin;
-                        // location.reload();
                     } else {
                         self.errorMsg();
                     }

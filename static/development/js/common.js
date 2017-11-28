@@ -4,8 +4,9 @@
     Acme.Model        = {};
     Acme.Collection   = {};
 
+
     $('html').on('click', function(e) {
-        $('Acme-pulldown ul').hide();
+        $('.Acme-pulldown ul').hide();
     });
 
     Acme.server = {

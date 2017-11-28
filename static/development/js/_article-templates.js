@@ -149,7 +149,6 @@ Acme.jobsCardTemplate =
 
 Handlebars.registerHelper('splitShift', function(text) {
   return text.split(" ")[0];
-  // return t[1] + " <br/> " + t[0];
 });
 
 Acme.propertyCardTemplate = 
@@ -158,7 +157,7 @@ Acme.propertyCardTemplate =
             <figure class="{{figureClass}}"> \
                 <picture> \
                     <source media="(max-width: 620px)" srcset="{{imageUrl}}"> \
-                    <img class="img-responsive" src="{{imageUrl}}" data-original="{{imageUrl}}"  style="background-image:url("{{placeholder}}")"> \
+                    <img class="img-responsive" src="{{imageUrl}}" data-original="{{imageUrl}}"> \
                 </picture> \
             </figure> \
         {{/if}} \
@@ -189,7 +188,7 @@ Acme.systemCardTemplate =
 
             '{{#if hasMedia}}\
                 <figure>\
-                    <img class="img-responsive lazyload" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url("{{placeholder}}")">\
+                    <img class="img-responsive lazyload" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url(https://placeholdit.imgix.net/~text?txtsize=33&txt=Loading&w=450&h=250)">\
                 </figure>\
             {{/if}} \
         \

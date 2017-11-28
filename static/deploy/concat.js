@@ -32180,8 +32180,9 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
     Acme.Model        = {};
     Acme.Collection   = {};
 
+
     $('html').on('click', function(e) {
-        $('Acme-pulldown ul').hide();
+        $('.Acme-pulldown ul').hide();
     });
 
     Acme.server = {
@@ -33179,7 +33180,6 @@ Acme.jobsCardTemplate =
 
 Handlebars.registerHelper('splitShift', function(text) {
   return text.split(" ")[0];
-  // return t[1] + " <br/> " + t[0];
 });
 
 Acme.propertyCardTemplate = 
@@ -33188,7 +33188,7 @@ Acme.propertyCardTemplate =
             <figure class="{{figureClass}}"> \
                 <picture> \
                     <source media="(max-width: 620px)" srcset="{{imageUrl}}"> \
-                    <img class="img-responsive" src="{{imageUrl}}" data-original="{{imageUrl}}"  style="background-image:url("{{placeholder}}")"> \
+                    <img class="img-responsive" src="{{imageUrl}}" data-original="{{imageUrl}}"> \
                 </picture> \
             </figure> \
         {{/if}} \
@@ -33219,7 +33219,7 @@ Acme.systemCardTemplate =
 
             '{{#if hasMedia}}\
                 <figure>\
-                    <img class="img-responsive lazyload" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url("{{placeholder}}")">\
+                    <img class="img-responsive lazyload" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url(https://placeholdit.imgix.net/~text?txtsize=33&txt=Loading&w=450&h=250)">\
                 </figure>\
             {{/if}} \
         \
@@ -33972,13 +33972,14 @@ Card.prototype.loadMore = function(elem, waypoint)
             var cardClass = container.data('containerclass');
 
             // if (options.ads_on == "yes") {
-                var html = "<div class='row'><div id='newAdSlot'></div><script>loadNextAd()</script>";
+                var html = '<div class="row" style="margin:0"><div id="newAdSlot"></div><script>loadNextAd()</script>';
             // } else {
             //     var html = "<div class='row'>";
             // }
             for (var i in data.articles) {
                 html += self.renderCard(data.articles[i], cardClass);
-            }  html += "</div>";
+            }  
+            html += "</div>";
 
             container.append(html);
 
@@ -34942,7 +34943,6 @@ Acme.jobsSearchResultsClass = function(container, template)
         });
 
         $(".card .content > p, .card h2").dotdotdot();
-
     };
 
 Acme.propertySearchResultsClass = function(container, template)
@@ -34973,7 +34973,6 @@ Acme.propertySearchResultsClass = function(container, template)
             Acme.PubSub.publish('update_state', {'clear': self});
         });
         $(".card .content > p, .card h2").dotdotdot();
-
     }
 
 
@@ -35550,7 +35549,6 @@ Acme.EventForm = function(blogId)
                 Acme.PubSub.publish("update_state", data);
             }
         });
-
     }
 
 
@@ -35721,7 +35719,6 @@ Acme.Confirm = function(template, parent, layouts) {
         if ( $elem.is('a') ) {
             if ($elem.hasClass('close')) {
                 $('body').removeClass("active");
-                console.log('removing active');
                 this.closeWindow();
             }
         }
@@ -35729,17 +35726,13 @@ Acme.Confirm = function(template, parent, layouts) {
             if ($elem.hasClass('signin')) {
                 e.preventDefault();
                 var formData = {};
-                console.log($elem);
                 $.each($('#loginForm').serializeArray(), function () {
                     formData[this.name] = this.value;
                 });
-                console.log(formData);
                 Acme.server.create('/api/auth/login', formData).done(function(r) {
                     console.log(r);
                     if (r.success === 1) {
-                        console.log(location);
                         window.location.href = location.origin;
-                        // location.reload();
                     } else {
                         self.errorMsg();
                     }

@@ -496,13 +496,14 @@ Card.prototype.loadMore = function(elem, waypoint)
             var cardClass = container.data('containerclass');
 
             // if (options.ads_on == "yes") {
-                var html = "<div class='row'><div id='newAdSlot'></div><script>loadNextAd()</script>";
+                var html = '<div class="row" style="margin:0"><div id="newAdSlot"></div><script>loadNextAd()</script>';
             // } else {
             //     var html = "<div class='row'>";
             // }
             for (var i in data.articles) {
                 html += self.renderCard(data.articles[i], cardClass);
-            }  html += "</div>";
+            }  
+            html += "</div>";
 
             container.append(html);
 
