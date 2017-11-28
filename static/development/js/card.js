@@ -588,7 +588,7 @@ Card.prototype.events = function()
 
 
         $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
-            console.log(data);
+
             if (data.success == 1) {
 
                 if (data.articles.length < 20) {
