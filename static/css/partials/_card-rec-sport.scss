@@ -1,6 +1,8 @@
 @mixin card-rec-sport-base() {
     position:relative;
     a.card {
+        pointer-events: none;
+
         > article {
             position:relative;
 
