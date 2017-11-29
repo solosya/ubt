@@ -34020,7 +34020,7 @@ Card.prototype.loadMore = function(elem, waypoint)
                 self.events();
             }
 
-            elem.html("Load more");
+            elem.html("Show more");
         }
     });
 }
