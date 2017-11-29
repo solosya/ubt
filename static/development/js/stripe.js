@@ -98,6 +98,7 @@ var formhandler = function(stripeToken, formdata, path) {
 
             if(data.success) {
                 console.log('success')
+                $('#card-errors').text('Completed successfully.');
             } else {
 
                 console.log(data)
