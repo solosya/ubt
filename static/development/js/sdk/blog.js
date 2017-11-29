@@ -43,7 +43,7 @@
         
         var dateFormat = 'SHORT';
         // console.log({offset: offset, limit: opts.limit, existingNonPinnedCount: existingNonPinnedCount, _csrf: csrfToken, dateFormat: dateFormat});
-        
+        console.log(options);
         var requestData = { 
             offset: offset, 
             limit: opts.limit, 
@@ -54,7 +54,11 @@
         if (options.blog_guid) {
             requestData['blog_guid'] = options.blogid;
         }
+        if (options.search) {
+            requestData['search'] = options.search;
+        }
 
+        console.log(requestData);
         return $.ajax({
             type: 'post',
             url: _appJsConfig.baseHttpPath + '/'+loadtype+'/load-articles',

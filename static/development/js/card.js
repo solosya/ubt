@@ -465,6 +465,7 @@ Card.prototype.initDroppable = function()
 
 Card.prototype.loadMore = function(elem, waypoint)
 {
+    console.log('loadmore');
     var self = this;
     elem.html("Please wait...");
     
@@ -482,6 +483,11 @@ Card.prototype.loadMore = function(elem, waypoint)
 
     if ( container.data('loadtype')) {
         options.loadtype = container.data('loadtype');
+        console.log('loadtype');
+        console.log(options);
+        if (options.loadtype == 'search') {
+            options.search = container.data('searchTerm');
+        }
     }
 
 
