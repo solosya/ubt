@@ -66,6 +66,11 @@
                 "feed": "",
                 "link": "",
                 "description": ""
+            },
+            "finance" : {
+                "feed": "",
+                "link": "",
+                "description": ""
             }
         }
     %}
@@ -509,14 +514,12 @@
 
                 <div class="col-sm-3">
                     <div class="finance-widget">
-                        {% for i in 0..1 if sections['business'].feed.articles[businessCount] %}
+                        {% for i in 0..1 if sections['finance'].feed.articles[i] %}
                             {{this.render('partials/_single-article.twig', {
-                                article: sections['business'].feed.articles[businessCount], 
+                                article: sections['finance'].feed.articles[i], 
                                 imageSuppress: true,
                                 containerClass: "card-rec-finance"
                             }) | raw}}
-
-                            {% set businessCount = (dev) ? businessCount : businessCount + 1 %}
                         {% endfor %}
                     </div>
                 </div>
