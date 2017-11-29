@@ -2,7 +2,7 @@
 
 {{this.registerJs("CardController();")}}
 
-{% set limit = 20 %}
+{% set limit = 18 %}
 {% set articles = _Search.searchArticles({'limit': limit, 'offset': 0, 'search': search}) %}
 {% set networkData = _Network.getNetworkData() %}
 
@@ -48,9 +48,9 @@
                     articles: articles,
                     card_style: "col-sm-4 card-sm card-sm-tablet",
                     container:"mainAjaxArticles",
-                    loadtype: "search"
+                    loadtype: "search",
+                    searchTerm: search
                 }) | raw }}
-
 
 
 

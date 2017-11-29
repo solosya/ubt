@@ -2,6 +2,13 @@
  * Handlebar Article templates for listing
  */
 window.templates = {};
+Handlebars.registerHelper('splitShift', function(text) {
+  return text.split(" ")[0];
+});
+Handlebars.registerHelper('fixPrice', function(text) {
+    newText = text.replace(/\$/g, "");
+    return newText; 
+});
 
 
 
@@ -151,7 +158,7 @@ var cardTemplateBottom =
     '</a>'+
 '</div>';
 
-Acme.jobsCardTemplate = 
+Acme.jobCardTemplate = 
     cardTemplateTop + 
         '<div class="content"> \
             <div class="cat-time"> \
@@ -160,18 +167,13 @@ Acme.jobsCardTemplate =
             <h2>{{{ title }}}</h2>\
             <p class="company">{{{ additionalInfo.company }}}</p> \
             <p class="salary">{{{salary}}}</p> \
-            \
             <p class="excerpt">{{{ excerpt }}}</p> \
-            <p class="location">{{ additionalInfo.region }}</p> \
             \
         </div>' + 
     cardTemplateBottom;
 
 
 
-Handlebars.registerHelper('splitShift', function(text) {
-  return text.split(" ")[0];
-});
 
 Acme.propertyCardTemplate = 
     cardTemplateTop +  
@@ -189,17 +191,14 @@ Acme.propertyCardTemplate =
                 <time datetime="{{publishDate}}">{{publishDate}}</time> \
             </div> \
             \
-            <h1 class="price">${{ additionalInfo.pricerange }}</h1> \
-            \
             <h2>{{ title }}</h2> \
             \
-            <p class="excerpt">{{ excerpt }}</p> \
-            <div class="listing-type"> \
-                <img class="listing-type__img" src="'+ _appJsConfig.templatePath + '/static/icons/property/{{ splitShift additionalInfo.type }}.svg"> \
-                <p class="listing-type__attribute listing-type__attribute--type">{{ additionalInfo.type }}</p> \
-                <p class="listing-type__attribute listing-type__attribute--contract">{{ additionalInfo.contracttype }}</p> \
+            <p class="propertyType">{{ additionalInfo.type }}</p> \
+            <div> \
+                <p class="contracttype">{{ additionalInfo.contracttype }}</p> \
+                <p class="price">${{ fixPrice additionalInfo.pricerange }}</p> \
             </div> \
-        </div>' + 
+        </div>' +
     cardTemplateBottom;
 
 

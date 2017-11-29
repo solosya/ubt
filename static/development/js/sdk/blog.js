@@ -29,7 +29,7 @@
         if(isNaN(offset) || offset < 0) {
             offset = opts.limit;
         }
-        
+        console.log(opts);
         // var existingNonPinnedCount = parseInt(container.data('existing-nonpinned-count'));
         var existingNonPinnedCount = options.nonpinned;
         
@@ -43,7 +43,7 @@
         
         var dateFormat = 'SHORT';
         // console.log({offset: offset, limit: opts.limit, existingNonPinnedCount: existingNonPinnedCount, _csrf: csrfToken, dateFormat: dateFormat});
-        
+
         var requestData = { 
             offset: offset, 
             limit: opts.limit, 
@@ -54,7 +54,11 @@
         if (options.blog_guid) {
             requestData['blog_guid'] = options.blogid;
         }
+        if (options.search) {
+            requestData['search'] = options.search;
+        }
 
+        // console.log(requestData);
         return $.ajax({
             type: 'post',
             url: _appJsConfig.baseHttpPath + '/'+loadtype+'/load-articles',
