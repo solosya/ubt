@@ -496,13 +496,14 @@ Card.prototype.loadMore = function(elem, waypoint)
             var cardClass = container.data('containerclass');
 
             // if (options.ads_on == "yes") {
-                var html = "<div class='row'><div id='newAdSlot'></div><script>loadNextAd()</script>";
+                var html = '<div class="row" style="margin:0"><div class="advert"><div id="ajaxAd"></div><script>loadNextAd(invSpace,"ajaxAd","banner",bannerSize,bannerMap)</script></div>';
             // } else {
             //     var html = "<div class='row'>";
             // }
             for (var i in data.articles) {
                 html += self.renderCard(data.articles[i], cardClass);
-            }  html += "</div>";
+            }  
+            html += "</div>";
 
             container.append(html);
 
@@ -528,7 +529,7 @@ Card.prototype.loadMore = function(elem, waypoint)
                 self.events();
             }
 
-            elem.html("Load more");
+            elem.html("Show more");
         }
     });
 }
@@ -587,7 +588,7 @@ Card.prototype.events = function()
 
 
         $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
-            console.log(data);
+
             if (data.success == 1) {
 
                 if (data.articles.length < 20) {

@@ -5,8 +5,9 @@
     Acme.Collection   = {};
     Acme.State        = {};
 
+
     $('html').on('click', function(e) {
-        $('Acme-pulldown ul').hide();
+        $('.Acme-pulldown ul').hide();
     });
 
     Acme.server = {
@@ -405,7 +406,6 @@
 
     Acme.listMenu = function(config)
     {
-        console.log(config);
         this.defaultTemp      = Handlebars.compile(window.templates.pulldown);
         this.defaultItemTemp  = Handlebars.compile('<li data-clear="{{clear}}" data-value="{{value}}">{{label}}</li>');
         this.divider          = "<hr>";
@@ -420,7 +420,6 @@
         this.key              = config.key           || null;
         this.listContainer    = null;
         this.defaultItem      = null;
-        console.log(this);
         return this;
     };
         Acme.listMenu.prototype.init = function(prepend)
@@ -457,6 +456,13 @@
         {
             var itemTemp = this.itemTemp;
             var html = '';
+            if (this.allowClear) {
+                html = itemTemp({
+                    'label'   :  'Any',
+                    'value'   :  '',
+                    'clear'   : true
+                });      
+            }
 
             for (var i=0; i<this.list.length; i++) {
                 if (typeof this.list[i] === 'string') {
@@ -469,15 +475,6 @@
                     'label'   :  label,
                     'value'   :  value
                 });
-            }
-            console.log(this.allowClear);
-            if (this.allowClear) {
-                html += this.divider;
-                html += itemTemp({
-                    'label'   :  'Clear',
-                    'value'   :  '',
-                    'clear'   : true
-                });      
             }
             return html;
         };
@@ -591,10 +588,14 @@
             }
 
             if ( $elem.is('button') ) {
-                if ($elem.text() === "Cancel") {
+                if ($elem.text().toLowerCase() === "cancel" || $elem.data('role') == 'cancel') {
+                    this.dfd.fail();
                     this.closeWindow();
-                } else if ($elem.text() === "Okay") {
+
+                } else if ($elem.text().toLowerCase() === "okay" || $elem.data('role') == 'okay') {
+                    this.dfd.resolve();
                     this.closeWindow();
+
 
                     // State can be provided by client external to 'show' call
                     // if (data === undefined && that.state) {

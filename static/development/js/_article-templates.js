@@ -16,18 +16,26 @@ window.templates.pulldown =
 window.templates.modal = 
 '<div id="signin" class="flex_col"> \
     <div id="dialog"> \
-        <div> \
+        <div class="centerContent"> \
             <div class="head"> \
                 <h2>{{title}}</h2> \
                 <a class="close" href="#"></a> \
             </div> \
-            <div id="dialogContent"></div> \
+            <div class="dialogContent" id="dialogContent"></div> \
         </div> \
     </div> \
 </div>';
 
 
-window.templates.listingSavedTmpl =  '<p>Thank you, your listing will be published in the next 24 hours</p><div><form><button class="dialogButton">Okay</button></form></div>';
+window.templates.listingSavedTmpl =  '<p>Thank you, your listing will be published in the next 24 hours</p><div><form><button class="_btn _btn--red">Okay</button></form></div>';
+window.templates.listingDeleteTmpl =  
+    '<p>Are you sure you want to permanently delete this listing?</p> \
+    <div> \
+        <form> \
+            <button class="_btn _btn--red" data-role="delete">DELETE</button> \
+            <button class="_btn _btn--gray">CANCEL</button> \
+        </form> \
+    </div>';
 
 
 window.templates.userPlanMessage = 
@@ -62,7 +70,7 @@ window.templates.signinFormTmpl =
         <div class="account-modal__error_text">Invalid Username or Password</div> \
     </div> \
     \
-    <button id="signinBtn" type="submit" class="_btn signin">SIGN IN</button> \
+    <button id="signinBtn" type="submit" class="_btn _btn--red signin">SIGN IN</button> \
 </form>';
 
 
@@ -76,7 +84,7 @@ window.templates.registerTmpl =
         <div class="account-modal__error_text">Done!</div> \
     </div> \
     \
-    <button id="signinBtn" type="submit" class="_btn register">Register</button> \
+    <button id="signinBtn" type="submit" class="_btn _btn--red register">Register</button> \
 </form>';
 
 
@@ -94,7 +102,7 @@ window.templates.forgotFormTmpl =
             <div class="account-modal__error_text">No user with that email found.</div> \
         </div> \
         \
-        <button id="forgotBtn" type="submit" class="_btn forgot">SEND EMAIL</button> \
+        <button id="forgotBtn" type="submit" class="_btn _btn--red forgot">SEND EMAIL</button> \
     </form>';
 
 window.templates.defaultWeatherTmpl = 
@@ -163,7 +171,6 @@ Acme.jobsCardTemplate =
 
 Handlebars.registerHelper('splitShift', function(text) {
   return text.split(" ")[0];
-  // return t[1] + " <br/> " + t[0];
 });
 
 Acme.propertyCardTemplate = 
@@ -172,7 +179,7 @@ Acme.propertyCardTemplate =
             <figure class="{{figureClass}}"> \
                 <picture> \
                     <source media="(max-width: 620px)" srcset="{{imageUrl}}"> \
-                    <img class="img-responsive" src="{{imageUrl}}" data-original="{{imageUrl}}"  style="background-image:url("{{placeholder}}")"> \
+                    <img class="img-responsive" src="{{imageUrl}}" data-original="{{imageUrl}}"> \
                 </picture> \
             </figure> \
         {{/if}} \
@@ -203,7 +210,7 @@ Acme.systemCardTemplate =
 
             '{{#if hasMedia}}\
                 <figure>\
-                    <img class="img-responsive lazyload" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url("{{placeholder}}")">\
+                    <img class="img-responsive lazyload" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url(https://placeholdit.imgix.net/~text?txtsize=33&txt=Loading&w=450&h=250)">\
                 </figure>\
             {{/if}} \
         \

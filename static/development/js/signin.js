@@ -15,29 +15,33 @@ Acme.Signin.prototype.errorMsg = function(msg) {
 Acme.Signin.prototype.handle = function(e) {
     var self = this;
     var $elem = this.parent.handle.call(this, e);
+
     if ( $elem.is('a') ) {
         if ($elem.hasClass('close')) {
             $('body').removeClass("active");
-            console.log('removing active');
             this.closeWindow();
         }
     }
     if ($elem.is('button')) {
+
         if ($elem.hasClass('signin')) {
+            $elem.text('')
+                 .addClass('spinner');
             e.preventDefault();
             var formData = {};
-            console.log($elem);
+
             $.each($('#loginForm').serializeArray(), function () {
                 formData[this.name] = this.value;
             });
-            console.log(formData);
+
             Acme.server.create('/api/auth/login', formData).done(function(r) {
                 console.log(r);
                 if (r.success === 1) {
-                    console.log(location);
                     window.location.href = location.origin;
                     // location.reload();
                 } else {
+                    $elem.text("Sign in")
+                         .removeClass('spinner');
                     self.errorMsg();
                 }
             }).fail(function(r) { console.log(r);});

@@ -32181,8 +32181,9 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
     Acme.Collection   = {};
     Acme.State        = {};
 
+
     $('html').on('click', function(e) {
-        $('Acme-pulldown ul').hide();
+        $('.Acme-pulldown ul').hide();
     });
 
     Acme.server = {
@@ -32581,7 +32582,6 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
 
     Acme.listMenu = function(config)
     {
-        console.log(config);
         this.defaultTemp      = Handlebars.compile(window.templates.pulldown);
         this.defaultItemTemp  = Handlebars.compile('<li data-clear="{{clear}}" data-value="{{value}}">{{label}}</li>');
         this.divider          = "<hr>";
@@ -32596,7 +32596,6 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
         this.key              = config.key           || null;
         this.listContainer    = null;
         this.defaultItem      = null;
-        console.log(this);
         return this;
     };
         Acme.listMenu.prototype.init = function(prepend)
@@ -32633,6 +32632,13 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
         {
             var itemTemp = this.itemTemp;
             var html = '';
+            if (this.allowClear) {
+                html = itemTemp({
+                    'label'   :  'Any',
+                    'value'   :  '',
+                    'clear'   : true
+                });      
+            }
 
             for (var i=0; i<this.list.length; i++) {
                 if (typeof this.list[i] === 'string') {
@@ -32645,15 +32651,6 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
                     'label'   :  label,
                     'value'   :  value
                 });
-            }
-            console.log(this.allowClear);
-            if (this.allowClear) {
-                html += this.divider;
-                html += itemTemp({
-                    'label'   :  'Clear',
-                    'value'   :  '',
-                    'clear'   : true
-                });      
             }
             return html;
         };
@@ -32767,10 +32764,14 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
             }
 
             if ( $elem.is('button') ) {
-                if ($elem.text() === "Cancel") {
+                if ($elem.text().toLowerCase() === "cancel" || $elem.data('role') == 'cancel') {
+                    this.dfd.fail();
                     this.closeWindow();
-                } else if ($elem.text() === "Okay") {
+
+                } else if ($elem.text().toLowerCase() === "okay" || $elem.data('role') == 'okay') {
+                    this.dfd.resolve();
                     this.closeWindow();
+
 
                     // State can be provided by client external to 'show' call
                     // if (data === undefined && that.state) {
@@ -33047,18 +33048,26 @@ window.templates.pulldown =
 window.templates.modal = 
 '<div id="signin" class="flex_col"> \
     <div id="dialog"> \
-        <div> \
+        <div class="centerContent"> \
             <div class="head"> \
                 <h2>{{title}}</h2> \
                 <a class="close" href="#"></a> \
             </div> \
-            <div id="dialogContent"></div> \
+            <div class="dialogContent" id="dialogContent"></div> \
         </div> \
     </div> \
 </div>';
 
 
-window.templates.listingSavedTmpl =  '<p>Thank you, your listing will be published in the next 24 hours</p><div><form><button class="dialogButton">Okay</button></form></div>';
+window.templates.listingSavedTmpl =  '<p>Thank you, your listing will be published in the next 24 hours</p><div><form><button class="_btn _btn--red">Okay</button></form></div>';
+window.templates.listingDeleteTmpl =  
+    '<p>Are you sure you want to permanently delete this listing?</p> \
+    <div> \
+        <form> \
+            <button class="_btn _btn--red" data-role="delete">DELETE</button> \
+            <button class="_btn _btn--gray">CANCEL</button> \
+        </form> \
+    </div>';
 
 
 window.templates.userPlanMessage = 
@@ -33093,7 +33102,7 @@ window.templates.signinFormTmpl =
         <div class="account-modal__error_text">Invalid Username or Password</div> \
     </div> \
     \
-    <button id="signinBtn" type="submit" class="_btn signin">SIGN IN</button> \
+    <button id="signinBtn" type="submit" class="_btn _btn--red signin">SIGN IN</button> \
 </form>';
 
 
@@ -33107,7 +33116,7 @@ window.templates.registerTmpl =
         <div class="account-modal__error_text">Done!</div> \
     </div> \
     \
-    <button id="signinBtn" type="submit" class="_btn register">Register</button> \
+    <button id="signinBtn" type="submit" class="_btn _btn--red register">Register</button> \
 </form>';
 
 
@@ -33125,7 +33134,7 @@ window.templates.forgotFormTmpl =
             <div class="account-modal__error_text">No user with that email found.</div> \
         </div> \
         \
-        <button id="forgotBtn" type="submit" class="_btn forgot">SEND EMAIL</button> \
+        <button id="forgotBtn" type="submit" class="_btn _btn--red forgot">SEND EMAIL</button> \
     </form>';
 
 window.templates.defaultWeatherTmpl = 
@@ -33194,7 +33203,6 @@ Acme.jobsCardTemplate =
 
 Handlebars.registerHelper('splitShift', function(text) {
   return text.split(" ")[0];
-  // return t[1] + " <br/> " + t[0];
 });
 
 Acme.propertyCardTemplate = 
@@ -33203,7 +33211,7 @@ Acme.propertyCardTemplate =
             <figure class="{{figureClass}}"> \
                 <picture> \
                     <source media="(max-width: 620px)" srcset="{{imageUrl}}"> \
-                    <img class="img-responsive" src="{{imageUrl}}" data-original="{{imageUrl}}"  style="background-image:url("{{placeholder}}")"> \
+                    <img class="img-responsive" src="{{imageUrl}}" data-original="{{imageUrl}}"> \
                 </picture> \
             </figure> \
         {{/if}} \
@@ -33234,7 +33242,7 @@ Acme.systemCardTemplate =
 
             '{{#if hasMedia}}\
                 <figure>\
-                    <img class="img-responsive lazyload" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url("{{placeholder}}")">\
+                    <img class="img-responsive lazyload" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url(https://placeholdit.imgix.net/~text?txtsize=33&txt=Loading&w=450&h=250)">\
                 </figure>\
             {{/if}} \
         \
@@ -33987,13 +33995,14 @@ Card.prototype.loadMore = function(elem, waypoint)
             var cardClass = container.data('containerclass');
 
             // if (options.ads_on == "yes") {
-                var html = "<div class='row'><div id='newAdSlot'></div><script>loadNextAd()</script>";
+                var html = '<div class="row" style="margin:0"><div class="advert"><div id="ajaxAd"></div><script>loadNextAd(invSpace,"ajaxAd","banner",bannerSize,bannerMap)</script></div>';
             // } else {
             //     var html = "<div class='row'>";
             // }
             for (var i in data.articles) {
                 html += self.renderCard(data.articles[i], cardClass);
-            }  html += "</div>";
+            }  
+            html += "</div>";
 
             container.append(html);
 
@@ -34019,7 +34028,7 @@ Card.prototype.loadMore = function(elem, waypoint)
                 self.events();
             }
 
-            elem.html("Load more");
+            elem.html("Show more");
         }
     });
 }
@@ -34078,7 +34087,7 @@ Card.prototype.events = function()
 
 
         $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
-            console.log(data);
+
             if (data.success == 1) {
 
                 if (data.articles.length < 20) {
@@ -34646,7 +34655,7 @@ var listingRegions = {
         "West Coast"
     ],
     "au" : [
-        "Australian Capital Territory",
+        "ACT",
         "New South Wales",
         "Northern Territory",
         "Queensland",
@@ -34957,7 +34966,6 @@ Acme.jobsSearchResultsClass = function(container, template)
         });
 
         $(".card .content > p, .card h2").dotdotdot();
-
     };
 
 Acme.propertySearchResultsClass = function(container, template)
@@ -34988,7 +34996,6 @@ Acme.propertySearchResultsClass = function(container, template)
             Acme.PubSub.publish('update_state', {'clear': self});
         });
         $(".card .content > p, .card h2").dotdotdot();
-
     }
 
 
@@ -35027,7 +35034,12 @@ ListingForm.constructor = ListingForm;
                 return;
             }
             this.data = data['user listing'];
+
             this.render();
+        },
+        "delete listing" : function(data, topic) {
+            console.log('in the delete listing listener');
+            this.deleteListing();
         },
         "extendedData.region" : function(data, topic) {
             this.updateData(data);
@@ -35172,6 +35184,7 @@ ListingForm.constructor = ListingForm;
 
         if (this.data.id) {
             $('#listingFormSubmit').text('UPDATE');
+            $('#listingFormDelete').show();
         }
         if (this.data.mediaData){
             this.renderImageThumbs(this.data.mediaData);
@@ -35212,6 +35225,7 @@ ListingForm.constructor = ListingForm;
                 this.menus[menus[i]].reset();
             }
         }
+        $('#listingFormDelete').hide();
         $('#imageArray').empty();
         this.clearErrorHightlights();
         this.resetData();
@@ -35223,6 +35237,17 @@ ListingForm.constructor = ListingForm;
             'blogs': this.blogId,
             'media_ids': ''
         };
+    };
+    ListingForm.prototype.deleteListing = function() 
+    {
+        Acme.server.create('/api/article/delete-user-article', {"articleguid": this.data.guid}).done(function(r) {
+            console.log(r);
+            $('#listingFormClear').click();
+            Acme.PubSub.publish('update_state', {'userArticles': ''});
+        }).fail(function(r) {
+            // Acme.PubSub.publish('update_state', {'confirm': r});
+            console.log(r);
+        });
     };
     ListingForm.prototype.events = function() 
     {
@@ -35292,6 +35317,11 @@ ListingForm.constructor = ListingForm;
             self.clear();
         });
 
+        $('#listingFormDelete').on('click', function(e) {
+            Acme.PubSub.publish('update_state', {'confirmDelete': ""});
+        });
+
+
         $('#listingForm').submit(function(e) {
             e.preventDefault();
 
@@ -35309,13 +35339,12 @@ ListingForm.constructor = ListingForm;
                 Acme.PubSub.publish('update_state', {'confirm': r});
                 Acme.PubSub.publish('update_state', {'userArticles': ''});
             }).fail(function(r) {
-                Acme.PubSub.publish('update_state', {'confirm': r});
+                // Acme.PubSub.publish('update_state', {'confirm': r});
                 console.log(r);
             });
         });
     }
     ListingForm.prototype.validate = function(checkFields) {
-
         // checkFields is used to validate a single field, 
         // otherwise itereate through all compulsory fields
 
@@ -35429,10 +35458,6 @@ Acme.JobForm = function(blogId, layout) {
                 $("#hourlyRateInputs").hide();
                 $("#salaryRangeMenus").hide();
             });
-
-
-
-
         };
 
 
@@ -35565,7 +35590,6 @@ Acme.EventForm = function(blogId)
                 Acme.PubSub.publish("update_state", data);
             }
         });
-
     }
 
 
@@ -35679,7 +35703,7 @@ Acme.listingViewClass.prototype = new Acme._View();
                         }
                         data['extendedData'] = extendedData;
                     }
-                    
+
                     Acme.PubSub.publish('state_changed', {'user listing': data});
                 });
             });
@@ -35736,7 +35760,6 @@ Acme.Confirm = function(template, parent, layouts) {
         if ( $elem.is('a') ) {
             if ($elem.hasClass('close')) {
                 $('body').removeClass("active");
-                console.log('removing active');
                 this.closeWindow();
             }
         }
@@ -35744,17 +35767,13 @@ Acme.Confirm = function(template, parent, layouts) {
             if ($elem.hasClass('signin')) {
                 e.preventDefault();
                 var formData = {};
-                console.log($elem);
                 $.each($('#loginForm').serializeArray(), function () {
                     formData[this.name] = this.value;
                 });
-                console.log(formData);
                 Acme.server.create('/api/auth/login', formData).done(function(r) {
                     console.log(r);
                     if (r.success === 1) {
-                        console.log(location);
                         window.location.href = location.origin;
-                        // location.reload();
                     } else {
                         self.errorMsg();
                     }
@@ -35813,6 +35832,11 @@ Acme.Confirm = function(template, parent, layouts) {
                 setTimeout(close, 500);            
             }        
 
+            if ($elem.data('role') === 'delete') {
+                console.log('calling delete from form');
+                Acme.PubSub.publish("update_state", {'delete listing': "" });                
+            }
+
         }
         if ($elem.hasClass('layout')) {
             var layout = $elem.data('layout');
@@ -35822,6 +35846,7 @@ Acme.Confirm = function(template, parent, layouts) {
 
 var layouts = {
     "listing"   : 'listingSavedTmpl',
+    "delete"   : 'listingDeleteTmpl',
 };
 
 Acme.confirmView = new Acme.Confirm('modal', '#signin', layouts);
@@ -35833,7 +35858,11 @@ Acme.confirmView = new Acme.Confirm('modal', '#signin', layouts);
     {
         "confirm" : function(data, topic) {
             this.render("listing", "Listing saved");
+        },
+        "confirmDelete" : function(data, topic) {
+            this.render("delete", "Warning");
         }
+
     };
 
 
@@ -36169,29 +36198,33 @@ Acme.Signin.prototype.errorMsg = function(msg) {
 Acme.Signin.prototype.handle = function(e) {
     var self = this;
     var $elem = this.parent.handle.call(this, e);
+
     if ( $elem.is('a') ) {
         if ($elem.hasClass('close')) {
             $('body').removeClass("active");
-            console.log('removing active');
             this.closeWindow();
         }
     }
     if ($elem.is('button')) {
+
         if ($elem.hasClass('signin')) {
+            $elem.text('')
+                 .addClass('spinner');
             e.preventDefault();
             var formData = {};
-            console.log($elem);
+
             $.each($('#loginForm').serializeArray(), function () {
                 formData[this.name] = this.value;
             });
-            console.log(formData);
+
             Acme.server.create('/api/auth/login', formData).done(function(r) {
                 console.log(r);
                 if (r.success === 1) {
-                    console.log(location);
                     window.location.href = location.origin;
                     // location.reload();
                 } else {
+                    $elem.text("Sign in")
+                         .removeClass('spinner');
                     self.errorMsg();
                 }
             }).fail(function(r) { console.log(r);});
@@ -36328,6 +36361,7 @@ card.addEventListener('change', function(event) {
 
 // Handle form submission
 var form = document.getElementById('payment-form');
+if (form != null) {
 form.addEventListener('submit', function(event) {
     event.preventDefault();
      $('#card-errors').text('');
@@ -36356,6 +36390,7 @@ form.addEventListener('submit', function(event) {
         }
     });
 });
+}
 
 
 var formhandler = function(stripeToken, formdata, path) {
@@ -36379,6 +36414,7 @@ var formhandler = function(stripeToken, formdata, path) {
 
             if(data.success) {
                 console.log('success')
+                $('#card-errors').text('Completed successfully.');
             } else {
 
                 console.log(data)
@@ -36400,11 +36436,12 @@ var formhandler = function(stripeToken, formdata, path) {
 
 
 
-var form = document.getElementById('update-form');
-form.addEventListener('submit', function(event) {
+var udform = document.getElementById('update-form');
+console.log(udform)
+if (udform != null) {
+udform.addEventListener('submit', function(event) {
     event.preventDefault();
      $('#card-errors').text('');
-
     stripe.createToken(card).then(function(result) {
         if (result.error) {
             // Inform the user if there was an error
@@ -36413,10 +36450,11 @@ form.addEventListener('submit', function(event) {
         } else {
             // Send the token to your server
             console.log(result);
-            formhandler(result.token, userdata, '/user/update-payment-details');
+            formhandler(result.token, [], '/user/update-payment-details');
         }
     });
 });
+}
 
 
 
@@ -36827,9 +36865,22 @@ UserProfielController.Load = (function ($) {
 
 
             if (usercount <= planusers) {
-
-
-                Acme.SigninView.render("userPlanChange", "Are you sure?. This will cost you $((newplandailycost-plandailycost)*remainingplandays)");
+                var newcost = listelem.find('#plancost').val();
+                var oldcost = listelem.find('#currentcost').val();
+                var newdays = listelem.find('#planperiod').val();
+                var olddays = listelem.find('#currentperiod').val();
+                if (newdays = 'week') {newdays = 7;}
+                if (newdays = 'month') {newdays = 30;}
+                if (newdays = 'year') {newdays = 365;}
+                if (olddays = 'week') {newdays = 7;}
+                if (olddays = 'month') {newdays = 30;}
+                if (olddays = 'year') {newdays = 365;}
+                var newplandailycost = newcost/newdays;
+                var plandailycost = oldcost/olddays;
+                var expDate = listelem.find('#expdate').val();
+                console.log(expDate);
+                var remainingplandays = 10;
+                Acme.SigninView.render("userPlanChange", "Are you sure?. This will cost you $"+((newplandailycost-plandailycost)*remainingplandays));
                 $('#okaybutton').on('click', function(e) {
                     $('#dialog').parent().remove();
                     console.log('pay');

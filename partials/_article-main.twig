@@ -6,7 +6,7 @@
     <figure class="{{params.figureClass}}">
         <picture>
             <source media="(max-width: 620px)" srcset="{{params.articleImgSmall}}">
-            <img class="img-responsive" src="{{params.articleImg}}" data-original="{{params.articleImg}}"  {% if articleImg is not empty %} style="background-image:url('{{params.placeholder}}');" {%endif%}>
+            <img class="img-responsive" src="{{params.articleImg}}" data-original="{{params.articleImg}}"  {% if params.articleImg is not empty %} style="background-image:url('{{params.placeholder}}');" {% endif %}>
         </picture>
     </figure>
 {% endif %}

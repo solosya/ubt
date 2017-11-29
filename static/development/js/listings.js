@@ -32,7 +32,7 @@ var listingRegions = {
         "West Coast"
     ],
     "au" : [
-        "Australian Capital Territory",
+        "ACT",
         "New South Wales",
         "Northern Territory",
         "Queensland",
@@ -343,7 +343,6 @@ Acme.jobsSearchResultsClass = function(container, template)
         });
 
         $(".card .content > p, .card h2").dotdotdot();
-
     };
 
 Acme.propertySearchResultsClass = function(container, template)
@@ -374,7 +373,6 @@ Acme.propertySearchResultsClass = function(container, template)
             Acme.PubSub.publish('update_state', {'clear': self});
         });
         $(".card .content > p, .card h2").dotdotdot();
-
     }
 
 
@@ -413,7 +411,12 @@ ListingForm.constructor = ListingForm;
                 return;
             }
             this.data = data['user listing'];
+
             this.render();
+        },
+        "delete listing" : function(data, topic) {
+            console.log('in the delete listing listener');
+            this.deleteListing();
         },
         "extendedData.region" : function(data, topic) {
             this.updateData(data);
@@ -558,6 +561,7 @@ ListingForm.constructor = ListingForm;
 
         if (this.data.id) {
             $('#listingFormSubmit').text('UPDATE');
+            $('#listingFormDelete').show();
         }
         if (this.data.mediaData){
             this.renderImageThumbs(this.data.mediaData);
@@ -598,6 +602,7 @@ ListingForm.constructor = ListingForm;
                 this.menus[menus[i]].reset();
             }
         }
+        $('#listingFormDelete').hide();
         $('#imageArray').empty();
         this.clearErrorHightlights();
         this.resetData();
@@ -609,6 +614,17 @@ ListingForm.constructor = ListingForm;
             'blogs': this.blogId,
             'media_ids': ''
         };
+    };
+    ListingForm.prototype.deleteListing = function() 
+    {
+        Acme.server.create('/api/article/delete-user-article', {"articleguid": this.data.guid}).done(function(r) {
+            console.log(r);
+            $('#listingFormClear').click();
+            Acme.PubSub.publish('update_state', {'userArticles': ''});
+        }).fail(function(r) {
+            // Acme.PubSub.publish('update_state', {'confirm': r});
+            console.log(r);
+        });
     };
     ListingForm.prototype.events = function() 
     {
@@ -678,6 +694,11 @@ ListingForm.constructor = ListingForm;
             self.clear();
         });
 
+        $('#listingFormDelete').on('click', function(e) {
+            Acme.PubSub.publish('update_state', {'confirmDelete': ""});
+        });
+
+
         $('#listingForm').submit(function(e) {
             e.preventDefault();
 
@@ -695,13 +716,12 @@ ListingForm.constructor = ListingForm;
                 Acme.PubSub.publish('update_state', {'confirm': r});
                 Acme.PubSub.publish('update_state', {'userArticles': ''});
             }).fail(function(r) {
-                Acme.PubSub.publish('update_state', {'confirm': r});
+                // Acme.PubSub.publish('update_state', {'confirm': r});
                 console.log(r);
             });
         });
     }
     ListingForm.prototype.validate = function(checkFields) {
-
         // checkFields is used to validate a single field, 
         // otherwise itereate through all compulsory fields
 
@@ -815,10 +835,6 @@ Acme.JobForm = function(blogId, layout) {
                 $("#hourlyRateInputs").hide();
                 $("#salaryRangeMenus").hide();
             });
-
-
-
-
         };
 
 
@@ -951,7 +967,6 @@ Acme.EventForm = function(blogId)
                 Acme.PubSub.publish("update_state", data);
             }
         });
-
     }
 
 
@@ -1065,7 +1080,7 @@ Acme.listingViewClass.prototype = new Acme._View();
                         }
                         data['extendedData'] = extendedData;
                     }
-                    
+
                     Acme.PubSub.publish('state_changed', {'user listing': data});
                 });
             });
@@ -1122,7 +1137,6 @@ Acme.Confirm = function(template, parent, layouts) {
         if ( $elem.is('a') ) {
             if ($elem.hasClass('close')) {
                 $('body').removeClass("active");
-                console.log('removing active');
                 this.closeWindow();
             }
         }
@@ -1130,17 +1144,13 @@ Acme.Confirm = function(template, parent, layouts) {
             if ($elem.hasClass('signin')) {
                 e.preventDefault();
                 var formData = {};
-                console.log($elem);
                 $.each($('#loginForm').serializeArray(), function () {
                     formData[this.name] = this.value;
                 });
-                console.log(formData);
                 Acme.server.create('/api/auth/login', formData).done(function(r) {
                     console.log(r);
                     if (r.success === 1) {
-                        console.log(location);
                         window.location.href = location.origin;
-                        // location.reload();
                     } else {
                         self.errorMsg();
                     }
@@ -1199,6 +1209,11 @@ Acme.Confirm = function(template, parent, layouts) {
                 setTimeout(close, 500);            
             }        
 
+            if ($elem.data('role') === 'delete') {
+                console.log('calling delete from form');
+                Acme.PubSub.publish("update_state", {'delete listing': "" });                
+            }
+
         }
         if ($elem.hasClass('layout')) {
             var layout = $elem.data('layout');
@@ -1208,6 +1223,7 @@ Acme.Confirm = function(template, parent, layouts) {
 
 var layouts = {
     "listing"   : 'listingSavedTmpl',
+    "delete"   : 'listingDeleteTmpl',
 };
 
 Acme.confirmView = new Acme.Confirm('modal', '#signin', layouts);
@@ -1219,7 +1235,11 @@ Acme.confirmView = new Acme.Confirm('modal', '#signin', layouts);
     {
         "confirm" : function(data, topic) {
             this.render("listing", "Listing saved");
+        },
+        "confirmDelete" : function(data, topic) {
+            this.render("delete", "Warning");
         }
+
     };
 
 

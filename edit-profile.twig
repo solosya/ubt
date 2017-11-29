@@ -21,7 +21,7 @@
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
 
 <main id="main" class="user_profile listingForm" role="main">
-    <div id="stripekey" class="hidden" >{{networkData['stripe_publishable_key']}}</div>
+    <div id="stripekey" class="hidden" >{{_Network.getNetworkData()['stripe_publishable_key']}}</div>
     <div class="container">
 
         <div class="user_profile_section">
@@ -82,7 +82,7 @@
                                 </div>
  #}
                                 <div class="button-full">
-                                    <button type="submit" class="button">Done</button>
+                                    <button type="submit" class="button">Update Details</button>
                                 </div>
                             </form>
                         </div>
@@ -105,11 +105,12 @@
                                         <p> Current Plan: {{ pwstats['plan_value']/100}}/{{pwstats['total_articles']}}</p>
                                         <p> Articles Remaining: {{ pwstats['article_count']}}</p>
                                     {% endif %}
+                                    <p> Nane on Card: {{ pwstats['card_name']}}</p>
                                     <p> Payemnt Method: {{ pwstats['card_brand']}} / •••• •••• •••• {{ pwstats['card_last_4']}}</p>
                                 </div>
 
                                 <div class='update-card'>
-                                    <form action="/update-card" method="post" id="update-form">
+                                    <form id="update-form">
                                         <div class="form-row">
                                         <label for="card-element">Credit or debit card</label>
                                     <div id="card-element">
@@ -121,7 +122,7 @@
                                     </div>
     
                                     <button>Update Card</button>
-                                </form>
+                                    </form>
                                 </div>
 
 
@@ -138,7 +139,12 @@
                                         <p class="price">${{plan.plan_value/100}}/{{plan.period}}</p>
                                         <input type="hidden" id="planid" value="{{plan.guid}}">
                                         <input type="hidden" id="planusercount" value="{{plan.user_count}}">
-                                        <input type="hidden" id="currentusers" value="{{pwstats['user_count']}}">
+                                        <input type="hidden" id="plancost" value="{{plan.plan_value}}">
+                                        <input type="hidden" id="planperiod" value="{{plan.period}}">
+                                        <input type="hidden" id="currentcost" value="{{pwstats['plan_value']}}">
+                                        <input type="hidden" id="currentperiod" value="{{pwstats['period']}}">
+                                        <input type="hidden" id="currentusers" value="{{managedUers|length}}">
+                                        <input type="hidden" id="expdate" value="{{ pwstats['expiry_date']}}">
                                         <input type="hidden" id="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> 
                                         <a class="setplan">CHANGE PLAN</a>
                                     </div>
