@@ -34655,7 +34655,7 @@ var listingRegions = {
         "West Coast"
     ],
     "au" : [
-        "Australian Capital Territory",
+        "ACT",
         "New South Wales",
         "Northern Territory",
         "Queensland",
