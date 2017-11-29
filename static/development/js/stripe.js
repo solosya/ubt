@@ -45,6 +45,7 @@ card.addEventListener('change', function(event) {
 
 // Handle form submission
 var form = document.getElementById('payment-form');
+if (form != null) {
 form.addEventListener('submit', function(event) {
     event.preventDefault();
      $('#card-errors').text('');
@@ -73,6 +74,7 @@ form.addEventListener('submit', function(event) {
         }
     });
 });
+}
 
 
 var formhandler = function(stripeToken, formdata, path) {
@@ -96,6 +98,7 @@ var formhandler = function(stripeToken, formdata, path) {
 
             if(data.success) {
                 console.log('success')
+                $('#card-errors').text('Completed successfully.');
             } else {
 
                 console.log(data)
@@ -117,11 +120,12 @@ var formhandler = function(stripeToken, formdata, path) {
 
 
 
-var form = document.getElementById('update-form');
-form.addEventListener('submit', function(event) {
+var udform = document.getElementById('update-form');
+console.log(udform)
+if (udform != null) {
+udform.addEventListener('submit', function(event) {
     event.preventDefault();
      $('#card-errors').text('');
-
     stripe.createToken(card).then(function(result) {
         if (result.error) {
             // Inform the user if there was an error
@@ -130,10 +134,11 @@ form.addEventListener('submit', function(event) {
         } else {
             // Send the token to your server
             console.log(result);
-            formhandler(result.token, userdata, '/user/update-payment-details');
+            formhandler(result.token, [], '/user/update-payment-details');
         }
     });
 });
+}
 
 
 
