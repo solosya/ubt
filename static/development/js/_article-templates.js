@@ -70,7 +70,7 @@ window.templates.signinFormTmpl =
         <div class="account-modal__error_text">Invalid Username or Password</div> \
     </div> \
     \
-    <button id="signinBtn" type="submit" class="_btn signin">SIGN IN</button> \
+    <button id="signinBtn" type="submit" class="_btn _btn--red signin">SIGN IN</button> \
 </form>';
 
 
@@ -84,7 +84,7 @@ window.templates.registerTmpl =
         <div class="account-modal__error_text">Done!</div> \
     </div> \
     \
-    <button id="signinBtn" type="submit" class="_btn register">Register</button> \
+    <button id="signinBtn" type="submit" class="_btn _btn--red register">Register</button> \
 </form>';
 
 
@@ -102,7 +102,7 @@ window.templates.forgotFormTmpl =
             <div class="account-modal__error_text">No user with that email found.</div> \
         </div> \
         \
-        <button id="forgotBtn" type="submit" class="_btn forgot">SEND EMAIL</button> \
+        <button id="forgotBtn" type="submit" class="_btn _btn--red forgot">SEND EMAIL</button> \
     </form>';
 
 window.templates.defaultWeatherTmpl = 

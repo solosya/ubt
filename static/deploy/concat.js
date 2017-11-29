@@ -32766,9 +32766,12 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
             if ( $elem.is('button') ) {
                 if ($elem.text().toLowerCase() === "cancel" || $elem.data('role') == 'cancel') {
                     this.dfd.fail();
+                    this.closeWindow();
+
                 } else if ($elem.text().toLowerCase() === "okay" || $elem.data('role') == 'okay') {
                     this.dfd.resolve();
-                    
+                    this.closeWindow();
+
 
                     // State can be provided by client external to 'show' call
                     // if (data === undefined && that.state) {
@@ -32794,7 +32797,6 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
                     //     this.dfd.resolve(result);
                     // }
                 }
-                this.closeWindow();
             }
             return $elem;
         };
@@ -33051,7 +33053,7 @@ window.templates.modal =
                 <h2>{{title}}</h2> \
                 <a class="close" href="#"></a> \
             </div> \
-            <div id="dialogContent"></div> \
+            <div class="dialogContent" id="dialogContent"></div> \
         </div> \
     </div> \
 </div>';
@@ -33100,7 +33102,7 @@ window.templates.signinFormTmpl =
         <div class="account-modal__error_text">Invalid Username or Password</div> \
     </div> \
     \
-    <button id="signinBtn" type="submit" class="_btn signin">SIGN IN</button> \
+    <button id="signinBtn" type="submit" class="_btn _btn--red signin">SIGN IN</button> \
 </form>';
 
 
@@ -33114,7 +33116,7 @@ window.templates.registerTmpl =
         <div class="account-modal__error_text">Done!</div> \
     </div> \
     \
-    <button id="signinBtn" type="submit" class="_btn register">Register</button> \
+    <button id="signinBtn" type="submit" class="_btn _btn--red register">Register</button> \
 </form>';
 
 
@@ -33132,7 +33134,7 @@ window.templates.forgotFormTmpl =
             <div class="account-modal__error_text">No user with that email found.</div> \
         </div> \
         \
-        <button id="forgotBtn" type="submit" class="_btn forgot">SEND EMAIL</button> \
+        <button id="forgotBtn" type="submit" class="_btn _btn--red forgot">SEND EMAIL</button> \
     </form>';
 
 window.templates.defaultWeatherTmpl = 
@@ -36196,19 +36198,25 @@ Acme.Signin.prototype.errorMsg = function(msg) {
 Acme.Signin.prototype.handle = function(e) {
     var self = this;
     var $elem = this.parent.handle.call(this, e);
+
+    console.log('handling after parent');
+
     if ( $elem.is('a') ) {
         if ($elem.hasClass('close')) {
             $('body').removeClass("active");
-            console.log('removing active');
             this.closeWindow();
         }
     }
     if ($elem.is('button')) {
+        console.log('elem is a button');
         if ($elem.hasClass('signin')) {
+            console.log('signing in!!!');
             e.preventDefault();
             var formData = {};
             console.log($elem);
+            console.log($('#loginForm'));
             $.each($('#loginForm').serializeArray(), function () {
+                console.log('getting data');
                 formData[this.name] = this.value;
             });
             console.log(formData);
@@ -36355,6 +36363,7 @@ card.addEventListener('change', function(event) {
 
 // Handle form submission
 var form = document.getElementById('payment-form');
+if (form != null) {
 form.addEventListener('submit', function(event) {
     event.preventDefault();
      $('#card-errors').text('');
@@ -36383,6 +36392,7 @@ form.addEventListener('submit', function(event) {
         }
     });
 });
+}
 
 
 var formhandler = function(stripeToken, formdata, path) {
@@ -36406,6 +36416,7 @@ var formhandler = function(stripeToken, formdata, path) {
 
             if(data.success) {
                 console.log('success')
+                $('#card-errors').text('Completed successfully.');
             } else {
 
                 console.log(data)
@@ -36427,11 +36438,12 @@ var formhandler = function(stripeToken, formdata, path) {
 
 
 
-var form = document.getElementById('update-form');
-form.addEventListener('submit', function(event) {
+var udform = document.getElementById('update-form');
+console.log(udform)
+if (udform != null) {
+udform.addEventListener('submit', function(event) {
     event.preventDefault();
      $('#card-errors').text('');
-
     stripe.createToken(card).then(function(result) {
         if (result.error) {
             // Inform the user if there was an error
@@ -36440,10 +36452,11 @@ form.addEventListener('submit', function(event) {
         } else {
             // Send the token to your server
             console.log(result);
-            formhandler(result.token, userdata, '/user/update-payment-details');
+            formhandler(result.token, [], '/user/update-payment-details');
         }
     });
 });
+}
 
 
 
@@ -36854,9 +36867,22 @@ UserProfielController.Load = (function ($) {
 
 
             if (usercount <= planusers) {
-
-
-                Acme.SigninView.render("userPlanChange", "Are you sure?. This will cost you $((newplandailycost-plandailycost)*remainingplandays)");
+                var newcost = listelem.find('#plancost').val();
+                var oldcost = listelem.find('#currentcost').val();
+                var newdays = listelem.find('#planperiod').val();
+                var olddays = listelem.find('#currentperiod').val();
+                if (newdays = 'week') {newdays = 7;}
+                if (newdays = 'month') {newdays = 30;}
+                if (newdays = 'year') {newdays = 365;}
+                if (olddays = 'week') {newdays = 7;}
+                if (olddays = 'month') {newdays = 30;}
+                if (olddays = 'year') {newdays = 365;}
+                var newplandailycost = newcost/newdays;
+                var plandailycost = oldcost/olddays;
+                var expDate = listelem.find('#expdate').val();
+                console.log(expDate);
+                var remainingplandays = 10;
+                Acme.SigninView.render("userPlanChange", "Are you sure?. This will cost you $"+((newplandailycost-plandailycost)*remainingplandays));
                 $('#okaybutton').on('click', function(e) {
                     $('#dialog').parent().remove();
                     console.log('pay');

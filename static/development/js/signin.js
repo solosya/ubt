@@ -15,19 +15,25 @@ Acme.Signin.prototype.errorMsg = function(msg) {
 Acme.Signin.prototype.handle = function(e) {
     var self = this;
     var $elem = this.parent.handle.call(this, e);
+
+    console.log('handling after parent');
+
     if ( $elem.is('a') ) {
         if ($elem.hasClass('close')) {
             $('body').removeClass("active");
-            console.log('removing active');
             this.closeWindow();
         }
     }
     if ($elem.is('button')) {
+        console.log('elem is a button');
         if ($elem.hasClass('signin')) {
+            console.log('signing in!!!');
             e.preventDefault();
             var formData = {};
             console.log($elem);
+            console.log($('#loginForm'));
             $.each($('#loginForm').serializeArray(), function () {
+                console.log('getting data');
                 formData[this.name] = this.value;
             });
             console.log(formData);

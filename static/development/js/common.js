@@ -590,9 +590,12 @@
             if ( $elem.is('button') ) {
                 if ($elem.text().toLowerCase() === "cancel" || $elem.data('role') == 'cancel') {
                     this.dfd.fail();
+                    this.closeWindow();
+
                 } else if ($elem.text().toLowerCase() === "okay" || $elem.data('role') == 'okay') {
                     this.dfd.resolve();
-                    
+                    this.closeWindow();
+
 
                     // State can be provided by client external to 'show' call
                     // if (data === undefined && that.state) {
@@ -618,7 +621,6 @@
                     //     this.dfd.resolve(result);
                     // }
                 }
-                this.closeWindow();
             }
             return $elem;
         };
