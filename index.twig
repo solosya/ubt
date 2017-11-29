@@ -32,8 +32,8 @@
 
 
 <!-- used to index each article as we loop over throughout the template -->
-{% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
-{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
+{% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 1 : 0 %}
+{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
 
 
     {% set sections =  {
@@ -508,7 +508,17 @@
 
 
                 <div class="col-sm-3">
-                    <div class="finance-widget"></div>
+                    <div class="finance-widget">
+                        {% for i in 0..1 if sections['business'].feed.articles[businessCount] %}
+                            {{this.render('partials/_single-article.twig', {
+                                article: sections['business'].feed.articles[businessCount], 
+                                imageSuppress: true,
+                                containerClass: "card-rec-finance"
+                            }) | raw}}
+
+                            {% set businessCount = (dev) ? businessCount : businessCount + 1 %}
+                        {% endfor %}
+                    </div>
                 </div>
 
             </section>
