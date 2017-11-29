@@ -1021,12 +1021,15 @@ Acme.listingCollectionClass = function(name, blogId) {
 
 
 
-Acme.listingViewClass = function(){};
+Acme.listingViewClass = function() {
+};
 Acme.listingViewClass.prototype = new Acme._View();
 
-    Acme.listingViewClass.prototype.init =  function(blogId) {
+    Acme.listingViewClass.prototype.init =  function(blogId, type) {
         this.events();
         this.blogs = blogId;
+        this.type = type || "";
+
     };
     Acme.listingViewClass.prototype.container = {
         'main' : $('#userListings')
@@ -1034,7 +1037,6 @@ Acme.listingViewClass.prototype = new Acme._View();
     Acme.listingViewClass.prototype.listeners = {
         "listingCollection" : function(data) {
             this.data = data.listingCollection.data;
-            console.log(this.data);
             this.render();
         }
     };
@@ -1094,11 +1096,11 @@ Acme.listingViewClass.prototype = new Acme._View();
     Acme.listingViewClass.prototype.render = function()
     {
         var container = this.container.main;
-        var cardClass = "card-form-job-listing listingCard";
-
+        var cardClass = "card-form-"+this.type+"-listing listingCard";
+        console.log(this.type + 'CardTemplate');
         var html = "";
         for (var i=0;i<this.data.length;i++) {
-            html += window.Acme.cards.renderCard(this.data[i].data, cardClass, 'jobsCardTemplate');
+            html += window.Acme.cards.renderCard(this.data[i].data, cardClass, this.type + 'CardTemplate');
         }
         container.empty().append(html);
 
@@ -1109,7 +1111,6 @@ Acme.listingView = new Acme.listingViewClass();
     Acme.listingView.subscriptions = Acme.PubSub.subscribe({
         'Acme.listingView.listener' : ["state_changed", 'update_state']
     });
-
 
 
 

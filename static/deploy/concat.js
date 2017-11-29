@@ -33034,6 +33034,13 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
  * Handlebar Article templates for listing
  */
 window.templates = {};
+Handlebars.registerHelper('splitShift', function(text) {
+  return text.split(" ")[0];
+});
+Handlebars.registerHelper('fixPrice', function(text) {
+    newText = text.replace(/\$/g, "");
+    return newText; 
+});
 
 
 
@@ -33183,7 +33190,7 @@ var cardTemplateBottom =
     '</a>'+
 '</div>';
 
-Acme.jobsCardTemplate = 
+Acme.jobCardTemplate = 
     cardTemplateTop + 
         '<div class="content"> \
             <div class="cat-time"> \
@@ -33192,18 +33199,13 @@ Acme.jobsCardTemplate =
             <h2>{{{ title }}}</h2>\
             <p class="company">{{{ additionalInfo.company }}}</p> \
             <p class="salary">{{{salary}}}</p> \
-            \
             <p class="excerpt">{{{ excerpt }}}</p> \
-            <p class="location">{{ additionalInfo.region }}</p> \
             \
         </div>' + 
     cardTemplateBottom;
 
 
 
-Handlebars.registerHelper('splitShift', function(text) {
-  return text.split(" ")[0];
-});
 
 Acme.propertyCardTemplate = 
     cardTemplateTop +  
@@ -33221,17 +33223,14 @@ Acme.propertyCardTemplate =
                 <time datetime="{{publishDate}}">{{publishDate}}</time> \
             </div> \
             \
-            <h1 class="price">${{ additionalInfo.pricerange }}</h1> \
-            \
             <h2>{{ title }}</h2> \
             \
-            <p class="excerpt">{{ excerpt }}</p> \
-            <div class="listing-type"> \
-                <img class="listing-type__img" src="'+ _appJsConfig.templatePath + '/static/icons/property/{{ splitShift additionalInfo.type }}.svg"> \
-                <p class="listing-type__attribute listing-type__attribute--type">{{ additionalInfo.type }}</p> \
-                <p class="listing-type__attribute listing-type__attribute--contract">{{ additionalInfo.contracttype }}</p> \
+            <p class="propertyType">{{ additionalInfo.type }}</p> \
+            <div> \
+                <p class="contracttype">{{ additionalInfo.contracttype }}</p> \
+                <p class="price">${{ fixPrice additionalInfo.pricerange }}</p> \
             </div> \
-        </div>' + 
+        </div>' +
     cardTemplateBottom;
 
 
@@ -35644,12 +35643,15 @@ Acme.listingCollectionClass = function(name, blogId) {
 
 
 
-Acme.listingViewClass = function(){};
+Acme.listingViewClass = function() {
+};
 Acme.listingViewClass.prototype = new Acme._View();
 
-    Acme.listingViewClass.prototype.init =  function(blogId) {
+    Acme.listingViewClass.prototype.init =  function(blogId, type) {
         this.events();
         this.blogs = blogId;
+        this.type = type || "";
+
     };
     Acme.listingViewClass.prototype.container = {
         'main' : $('#userListings')
@@ -35657,7 +35659,6 @@ Acme.listingViewClass.prototype = new Acme._View();
     Acme.listingViewClass.prototype.listeners = {
         "listingCollection" : function(data) {
             this.data = data.listingCollection.data;
-            console.log(this.data);
             this.render();
         }
     };
@@ -35717,11 +35718,11 @@ Acme.listingViewClass.prototype = new Acme._View();
     Acme.listingViewClass.prototype.render = function()
     {
         var container = this.container.main;
-        var cardClass = "card-form-job-listing listingCard";
-
+        var cardClass = "card-form-"+this.type+"-listing listingCard";
+        console.log(this.type + 'CardTemplate');
         var html = "";
         for (var i=0;i<this.data.length;i++) {
-            html += window.Acme.cards.renderCard(this.data[i].data, cardClass, 'jobsCardTemplate');
+            html += window.Acme.cards.renderCard(this.data[i].data, cardClass, this.type + 'CardTemplate');
         }
         container.empty().append(html);
 
@@ -35732,7 +35733,6 @@ Acme.listingView = new Acme.listingViewClass();
     Acme.listingView.subscriptions = Acme.PubSub.subscribe({
         'Acme.listingView.listener' : ["state_changed", 'update_state']
     });
-
 
 
 
