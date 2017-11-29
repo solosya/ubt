@@ -33985,7 +33985,7 @@ Card.prototype.loadMore = function(elem, waypoint)
             var cardClass = container.data('containerclass');
 
             // if (options.ads_on == "yes") {
-                var html = '<div class="row" style="margin:0"><div id="newAdSlot"></div><script>loadNextAd()</script>';
+                var html = '<div class="row" style="margin:0"><div class="advert"><div id="ajaxAd"></div><script>loadNextAd(invSpace,"ajaxAd","banner",bannerSize,bannerMap)</script></div>';
             // } else {
             //     var html = "<div class='row'>";
             // }
