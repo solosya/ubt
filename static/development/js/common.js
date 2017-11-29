@@ -458,6 +458,13 @@
         {
             var itemTemp = this.itemTemp;
             var html = '';
+            if (this.allowClear) {
+                html = itemTemp({
+                    'label'   :  'Any',
+                    'value'   :  '',
+                    'clear'   : true
+                });      
+            }
 
             for (var i=0; i<this.list.length; i++) {
                 if (typeof this.list[i] === 'string') {
@@ -470,15 +477,6 @@
                     'label'   :  label,
                     'value'   :  value
                 });
-            }
-            console.log(this.allowClear);
-            if (this.allowClear) {
-                html += this.divider;
-                html += itemTemp({
-                    'label'   :  'Clear',
-                    'value'   :  '',
-                    'clear'   : true
-                });      
             }
             return html;
         };

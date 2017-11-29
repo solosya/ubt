@@ -32634,6 +32634,13 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
         {
             var itemTemp = this.itemTemp;
             var html = '';
+            if (this.allowClear) {
+                html = itemTemp({
+                    'label'   :  'Any',
+                    'value'   :  '',
+                    'clear'   : true
+                });      
+            }
 
             for (var i=0; i<this.list.length; i++) {
                 if (typeof this.list[i] === 'string') {
@@ -32646,15 +32653,6 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
                     'label'   :  label,
                     'value'   :  value
                 });
-            }
-            console.log(this.allowClear);
-            if (this.allowClear) {
-                html += this.divider;
-                html += itemTemp({
-                    'label'   :  'Clear',
-                    'value'   :  '',
-                    'clear'   : true
-                });      
             }
             return html;
         };
