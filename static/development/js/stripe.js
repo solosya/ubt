@@ -125,7 +125,6 @@ if (udform != null) {
 udform.addEventListener('submit', function(event) {
     event.preventDefault();
      $('#card-errors').text('');
-     console.log('woo?');
     stripe.createToken(card).then(function(result) {
         if (result.error) {
             // Inform the user if there was an error
@@ -134,7 +133,7 @@ udform.addEventListener('submit', function(event) {
         } else {
             // Send the token to your server
             console.log(result);
-            formhandler(result.token, userdata, '/user/update-payment-details');
+            formhandler(result.token, [], '/user/update-payment-details');
         }
     });
 });
