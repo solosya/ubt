@@ -16,8 +16,6 @@ Acme.Signin.prototype.handle = function(e) {
     var self = this;
     var $elem = this.parent.handle.call(this, e);
 
-    console.log('handling after parent');
-
     if ( $elem.is('a') ) {
         if ($elem.hasClass('close')) {
             $('body').removeClass("active");
@@ -25,25 +23,25 @@ Acme.Signin.prototype.handle = function(e) {
         }
     }
     if ($elem.is('button')) {
-        console.log('elem is a button');
+
         if ($elem.hasClass('signin')) {
-            console.log('signing in!!!');
+            $elem.text('')
+                 .addClass('spinner');
             e.preventDefault();
             var formData = {};
-            console.log($elem);
-            console.log($('#loginForm'));
+
             $.each($('#loginForm').serializeArray(), function () {
-                console.log('getting data');
                 formData[this.name] = this.value;
             });
-            console.log(formData);
+
             Acme.server.create('/api/auth/login', formData).done(function(r) {
                 console.log(r);
                 if (r.success === 1) {
-                    console.log(location);
                     window.location.href = location.origin;
                     // location.reload();
                 } else {
+                    $elem.text("Sign in")
+                         .removeClass('spinner');
                     self.errorMsg();
                 }
             }).fail(function(r) { console.log(r);});
