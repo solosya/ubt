@@ -414,6 +414,10 @@ ListingForm.constructor = ListingForm;
 
             this.render();
         },
+        "delete listing" : function(data, topic) {
+            console.log('in the delete listing listener');
+            this.deleteListing();
+        },
         "extendedData.region" : function(data, topic) {
             this.updateData(data);
         },
@@ -611,6 +615,17 @@ ListingForm.constructor = ListingForm;
             'media_ids': ''
         };
     };
+    ListingForm.prototype.deleteListing = function() 
+    {
+        Acme.server.create('/api/article/delete-user-article', {"articleguid": this.data.guid}).done(function(r) {
+            console.log(r);
+            $('#listingFormClear').click();
+            Acme.PubSub.publish('update_state', {'userArticles': ''});
+        }).fail(function(r) {
+            // Acme.PubSub.publish('update_state', {'confirm': r});
+            console.log(r);
+        });
+    };
     ListingForm.prototype.events = function() 
     {
         var self = this;
@@ -679,6 +694,11 @@ ListingForm.constructor = ListingForm;
             self.clear();
         });
 
+        $('#listingFormDelete').on('click', function(e) {
+            Acme.PubSub.publish('update_state', {'confirmDelete': ""});
+        });
+
+
         $('#listingForm').submit(function(e) {
             e.preventDefault();
 
@@ -696,13 +716,12 @@ ListingForm.constructor = ListingForm;
                 Acme.PubSub.publish('update_state', {'confirm': r});
                 Acme.PubSub.publish('update_state', {'userArticles': ''});
             }).fail(function(r) {
-                Acme.PubSub.publish('update_state', {'confirm': r});
+                // Acme.PubSub.publish('update_state', {'confirm': r});
                 console.log(r);
             });
         });
     }
     ListingForm.prototype.validate = function(checkFields) {
-
         // checkFields is used to validate a single field, 
         // otherwise itereate through all compulsory fields
 
@@ -816,10 +835,6 @@ Acme.JobForm = function(blogId, layout) {
                 $("#hourlyRateInputs").hide();
                 $("#salaryRangeMenus").hide();
             });
-
-
-
-
         };
 
 
@@ -1194,6 +1209,11 @@ Acme.Confirm = function(template, parent, layouts) {
                 setTimeout(close, 500);            
             }        
 
+            if ($elem.data('role') === 'delete') {
+                console.log('calling delete from form');
+                Acme.PubSub.publish("update_state", {'delete listing': "" });                
+            }
+
         }
         if ($elem.hasClass('layout')) {
             var layout = $elem.data('layout');
@@ -1203,6 +1223,7 @@ Acme.Confirm = function(template, parent, layouts) {
 
 var layouts = {
     "listing"   : 'listingSavedTmpl',
+    "delete"   : 'listingDeleteTmpl',
 };
 
 Acme.confirmView = new Acme.Confirm('modal', '#signin', layouts);
@@ -1214,7 +1235,11 @@ Acme.confirmView = new Acme.Confirm('modal', '#signin', layouts);
     {
         "confirm" : function(data, topic) {
             this.render("listing", "Listing saved");
+        },
+        "confirmDelete" : function(data, topic) {
+            this.render("delete", "Warning");
         }
+
     };
 
 

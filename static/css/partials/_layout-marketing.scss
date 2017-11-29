@@ -402,6 +402,11 @@
                 }
             }
 
+            .dialogContent {
+                p {
+                    margin-bottom: 40px;
+                }
+            }
 
             form {
                 input[type=text], input[type=password], input[type=email] {
@@ -474,15 +479,6 @@
                         }
                     }
 
-                }
-                button {
-                    color:white;
-                    background:color(red);
-                    display:block;
-                    margin:auto;
-                    margin-top:25px;
-                    font-size:rem(14);
-                    border: none;
                 }
             }
         }

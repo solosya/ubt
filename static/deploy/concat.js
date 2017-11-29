@@ -32582,7 +32582,6 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
 
     Acme.listMenu = function(config)
     {
-        console.log(config);
         this.defaultTemp      = Handlebars.compile(window.templates.pulldown);
         this.defaultItemTemp  = Handlebars.compile('<li data-clear="{{clear}}" data-value="{{value}}">{{label}}</li>');
         this.divider          = "<hr>";
@@ -32597,7 +32596,6 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
         this.key              = config.key           || null;
         this.listContainer    = null;
         this.defaultItem      = null;
-        console.log(this);
         return this;
     };
         Acme.listMenu.prototype.init = function(prepend)
@@ -32766,10 +32764,11 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
             }
 
             if ( $elem.is('button') ) {
-                if ($elem.text() === "Cancel") {
-                    this.closeWindow();
-                } else if ($elem.text() === "Okay") {
-                    this.closeWindow();
+                if ($elem.text().toLowerCase() === "cancel" || $elem.data('role') == 'cancel') {
+                    this.dfd.fail();
+                } else if ($elem.text().toLowerCase() === "okay" || $elem.data('role') == 'okay') {
+                    this.dfd.resolve();
+                    
 
                     // State can be provided by client external to 'show' call
                     // if (data === undefined && that.state) {
@@ -32795,6 +32794,7 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
                     //     this.dfd.resolve(result);
                     // }
                 }
+                this.closeWindow();
             }
             return $elem;
         };
@@ -33046,7 +33046,7 @@ window.templates.pulldown =
 window.templates.modal = 
 '<div id="signin" class="flex_col"> \
     <div id="dialog"> \
-        <div> \
+        <div class="centerContent"> \
             <div class="head"> \
                 <h2>{{title}}</h2> \
                 <a class="close" href="#"></a> \
@@ -33057,7 +33057,15 @@ window.templates.modal =
 </div>';
 
 
-window.templates.listingSavedTmpl =  '<p>Thank you, your listing will be published in the next 24 hours</p><div><form><button class="dialogButton">Okay</button></form></div>';
+window.templates.listingSavedTmpl =  '<p>Thank you, your listing will be published in the next 24 hours</p><div><form><button class="_btn _btn--red">Okay</button></form></div>';
+window.templates.listingDeleteTmpl =  
+    '<p>Are you sure you want to permanently delete this listing?</p> \
+    <div> \
+        <form> \
+            <button class="_btn _btn--red" data-role="delete">DELETE</button> \
+            <button class="_btn _btn--gray">CANCEL</button> \
+        </form> \
+    </div>';
 
 
 window.templates.userPlanMessage = 
@@ -35027,6 +35035,10 @@ ListingForm.constructor = ListingForm;
 
             this.render();
         },
+        "delete listing" : function(data, topic) {
+            console.log('in the delete listing listener');
+            this.deleteListing();
+        },
         "extendedData.region" : function(data, topic) {
             this.updateData(data);
         },
@@ -35224,6 +35236,17 @@ ListingForm.constructor = ListingForm;
             'media_ids': ''
         };
     };
+    ListingForm.prototype.deleteListing = function() 
+    {
+        Acme.server.create('/api/article/delete-user-article', {"articleguid": this.data.guid}).done(function(r) {
+            console.log(r);
+            $('#listingFormClear').click();
+            Acme.PubSub.publish('update_state', {'userArticles': ''});
+        }).fail(function(r) {
+            // Acme.PubSub.publish('update_state', {'confirm': r});
+            console.log(r);
+        });
+    };
     ListingForm.prototype.events = function() 
     {
         var self = this;
@@ -35292,6 +35315,11 @@ ListingForm.constructor = ListingForm;
             self.clear();
         });
 
+        $('#listingFormDelete').on('click', function(e) {
+            Acme.PubSub.publish('update_state', {'confirmDelete': ""});
+        });
+
+
         $('#listingForm').submit(function(e) {
             e.preventDefault();
 
@@ -35309,13 +35337,12 @@ ListingForm.constructor = ListingForm;
                 Acme.PubSub.publish('update_state', {'confirm': r});
                 Acme.PubSub.publish('update_state', {'userArticles': ''});
             }).fail(function(r) {
-                Acme.PubSub.publish('update_state', {'confirm': r});
+                // Acme.PubSub.publish('update_state', {'confirm': r});
                 console.log(r);
             });
         });
     }
     ListingForm.prototype.validate = function(checkFields) {
-
         // checkFields is used to validate a single field, 
         // otherwise itereate through all compulsory fields
 
@@ -35429,10 +35456,6 @@ Acme.JobForm = function(blogId, layout) {
                 $("#hourlyRateInputs").hide();
                 $("#salaryRangeMenus").hide();
             });
-
-
-
-
         };
 
 
@@ -35807,6 +35830,11 @@ Acme.Confirm = function(template, parent, layouts) {
                 setTimeout(close, 500);            
             }        
 
+            if ($elem.data('role') === 'delete') {
+                console.log('calling delete from form');
+                Acme.PubSub.publish("update_state", {'delete listing': "" });                
+            }
+
         }
         if ($elem.hasClass('layout')) {
             var layout = $elem.data('layout');
@@ -35816,6 +35844,7 @@ Acme.Confirm = function(template, parent, layouts) {
 
 var layouts = {
     "listing"   : 'listingSavedTmpl',
+    "delete"   : 'listingDeleteTmpl',
 };
 
 Acme.confirmView = new Acme.Confirm('modal', '#signin', layouts);
@@ -35827,7 +35856,11 @@ Acme.confirmView = new Acme.Confirm('modal', '#signin', layouts);
     {
         "confirm" : function(data, topic) {
             this.render("listing", "Listing saved");
+        },
+        "confirmDelete" : function(data, topic) {
+            this.render("delete", "Warning");
         }
+
     };
 
 

@@ -16,18 +16,26 @@ window.templates.pulldown =
 window.templates.modal = 
 '<div id="signin" class="flex_col"> \
     <div id="dialog"> \
-        <div> \
+        <div class="centerContent"> \
             <div class="head"> \
                 <h2>{{title}}</h2> \
                 <a class="close" href="#"></a> \
             </div> \
-            <div id="dialogContent"></div> \
+            <div class="dialogContent" id="dialogContent"></div> \
         </div> \
     </div> \
 </div>';
 
 
-window.templates.listingSavedTmpl =  '<p>Thank you, your listing will be published in the next 24 hours</p><div><form><button class="dialogButton">Okay</button></form></div>';
+window.templates.listingSavedTmpl =  '<p>Thank you, your listing will be published in the next 24 hours</p><div><form><button class="_btn _btn--red">Okay</button></form></div>';
+window.templates.listingDeleteTmpl =  
+    '<p>Are you sure you want to permanently delete this listing?</p> \
+    <div> \
+        <form> \
+            <button class="_btn _btn--red" data-role="delete">DELETE</button> \
+            <button class="_btn _btn--gray">CANCEL</button> \
+        </form> \
+    </div>';
 
 
 window.templates.userPlanMessage = 

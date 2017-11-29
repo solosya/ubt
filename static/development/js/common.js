@@ -406,7 +406,6 @@
 
     Acme.listMenu = function(config)
     {
-        console.log(config);
         this.defaultTemp      = Handlebars.compile(window.templates.pulldown);
         this.defaultItemTemp  = Handlebars.compile('<li data-clear="{{clear}}" data-value="{{value}}">{{label}}</li>');
         this.divider          = "<hr>";
@@ -421,7 +420,6 @@
         this.key              = config.key           || null;
         this.listContainer    = null;
         this.defaultItem      = null;
-        console.log(this);
         return this;
     };
         Acme.listMenu.prototype.init = function(prepend)
@@ -590,10 +588,11 @@
             }
 
             if ( $elem.is('button') ) {
-                if ($elem.text() === "Cancel") {
-                    this.closeWindow();
-                } else if ($elem.text() === "Okay") {
-                    this.closeWindow();
+                if ($elem.text().toLowerCase() === "cancel" || $elem.data('role') == 'cancel') {
+                    this.dfd.fail();
+                } else if ($elem.text().toLowerCase() === "okay" || $elem.data('role') == 'okay') {
+                    this.dfd.resolve();
+                    
 
                     // State can be provided by client external to 'show' call
                     // if (data === undefined && that.state) {
@@ -619,6 +618,7 @@
                     //     this.dfd.resolve(result);
                     // }
                 }
+                this.closeWindow();
             }
             return $elem;
         };
