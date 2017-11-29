@@ -95,7 +95,7 @@
 
                 </div>
 
-                {% if articles|length > limit %}
+                {% if articles|length >= limit %}
                     {{ this.render('partials/ajaxarticles.twig', {
                         limit: limit, 
                         non_pinned: articlesArr.existingNonPinnedCount, 
