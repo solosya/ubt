@@ -63,8 +63,10 @@ div[class*="col-sm"] {
 
 
 .advert {
-    height:250px;
-    margin-top: 20px;
+    margin: 20px 0 20px 0;
+    @media screen and (min-width: $mmd-break){
+            margin: 40px 0 40px 0;
+        }
     .mini{
         img{
             margin-top: -25px;
