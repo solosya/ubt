@@ -8,7 +8,7 @@
 {{this.registerJs("Acme.cardController = CardController();")}}
 {{this.registerJs("Acme.SectionController();")}}
 
-{% set limit = 12 %}
+{% set limit = 9 %}
 
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
@@ -69,7 +69,7 @@
                     limit: 10,
                     non_pinned: articlesArr.existingNonPinnedCount, 
                     articles: articles,
-                    card_style: "col-sm-12 card-rec card-rec-tablet card-rec-mobile",
+                    card_style: "col-sm-12 card-rec card-rec-tablet card-rec-mobile no-padding",
                     container:"mainAjaxArticles",
                     buttonClass: "infinite",                
                 }) | raw }}
@@ -111,7 +111,7 @@
 
 
 
-
+{# 
 
 
         <section class="row">
@@ -145,7 +145,7 @@
                 {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
             {% endfor %}
         </section>
-
+ #}
 
 
 
