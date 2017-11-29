@@ -2,7 +2,7 @@
 
 {{this.registerJs("CardController();")}}
 
-{% set limit = 20 %}
+{% set limit = 18 %}
 {% set articles = _Search.searchArticles({'limit': limit, 'offset': 0, 'search': search}) %}
 {% set networkData = _Network.getNetworkData() %}
 

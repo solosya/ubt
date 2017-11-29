@@ -30541,7 +30541,7 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
         if(isNaN(offset) || offset < 0) {
             offset = opts.limit;
         }
-        
+        console.log(opts);
         // var existingNonPinnedCount = parseInt(container.data('existing-nonpinned-count'));
         var existingNonPinnedCount = options.nonpinned;
         
@@ -30555,7 +30555,7 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
         
         var dateFormat = 'SHORT';
         // console.log({offset: offset, limit: opts.limit, existingNonPinnedCount: existingNonPinnedCount, _csrf: csrfToken, dateFormat: dateFormat});
-        
+
         var requestData = { 
             offset: offset, 
             limit: opts.limit, 
@@ -30566,7 +30566,11 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
         if (options.blog_guid) {
             requestData['blog_guid'] = options.blogid;
         }
+        if (options.search) {
+            requestData['search'] = options.search;
+        }
 
+        // console.log(requestData);
         return $.ajax({
             type: 'post',
             url: _appJsConfig.baseHttpPath + '/'+loadtype+'/load-articles',
@@ -33963,6 +33967,7 @@ Card.prototype.initDroppable = function()
 
 Card.prototype.loadMore = function(elem, waypoint)
 {
+    console.log('loadmore');
     var self = this;
     elem.html("Please wait...");
     
@@ -33980,6 +33985,10 @@ Card.prototype.loadMore = function(elem, waypoint)
 
     if ( container.data('loadtype')) {
         options.loadtype = container.data('loadtype');
+
+        if (options.loadtype == 'search') {
+            options.search = container.data('searchTerm');
+        }
     }
 
 
@@ -34059,16 +34068,16 @@ Card.prototype.events = function()
 
     self.bindSocialPostPopup();
 
-    $('.loadMoreArticles').on('click', function(e){
+    $('.loadMoreArticles').unbind().on('click', function(e){
         e.preventDefault();
         var btn = $(e.target);
-        console.log('loading more cards');
         btn.html("Please wait...");
         
         var container = $('#'+btn.data('container'));
 
         var options = {
             'offset': container.data('offset'),
+            'limit': container.data('limit'),
             'containerClass': container.data('containerclass'),
             'container': container,
             'nonpinned' : container.data('offset'),
@@ -34076,20 +34085,22 @@ Card.prototype.events = function()
             'template' : container.data('cardtemplate')
         };
 
-        if ( container.data('loadtype')) {
-            options.loadtype = container.data('loadtype');
-        }
-
         if ( container.data('rendertype')) {
             options.rendertype = container.data('loadtype');
         }
 
+        if ( container.data('loadtype')) {
+            options.loadtype = container.data('loadtype');
 
+            if (options.loadtype == 'search') {
+                options.search = container.data('searchterm');
+            }
+        }
         $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
 
             if (data.success == 1) {
 
-                if (data.articles.length < 20) {
+                if (data.articles.length < options.limit) {
                     btn.css('display', 'none');
                 }
                 var container = options.container;
@@ -34121,7 +34132,7 @@ Card.prototype.events = function()
                     self.events();
                 }
 
-                btn.html("Load more");
+                btn.html("Show more");
             }
         });
     });

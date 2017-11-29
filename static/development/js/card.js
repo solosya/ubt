@@ -483,8 +483,7 @@ Card.prototype.loadMore = function(elem, waypoint)
 
     if ( container.data('loadtype')) {
         options.loadtype = container.data('loadtype');
-        console.log('loadtype');
-        console.log(options);
+
         if (options.loadtype == 'search') {
             options.search = container.data('searchTerm');
         }
@@ -567,16 +566,16 @@ Card.prototype.events = function()
 
     self.bindSocialPostPopup();
 
-    $('.loadMoreArticles').on('click', function(e){
+    $('.loadMoreArticles').unbind().on('click', function(e){
         e.preventDefault();
         var btn = $(e.target);
-        console.log('loading more cards');
         btn.html("Please wait...");
         
         var container = $('#'+btn.data('container'));
 
         var options = {
             'offset': container.data('offset'),
+            'limit': container.data('limit'),
             'containerClass': container.data('containerclass'),
             'container': container,
             'nonpinned' : container.data('offset'),
@@ -584,20 +583,22 @@ Card.prototype.events = function()
             'template' : container.data('cardtemplate')
         };
 
-        if ( container.data('loadtype')) {
-            options.loadtype = container.data('loadtype');
-        }
-
         if ( container.data('rendertype')) {
             options.rendertype = container.data('loadtype');
         }
 
+        if ( container.data('loadtype')) {
+            options.loadtype = container.data('loadtype');
 
+            if (options.loadtype == 'search') {
+                options.search = container.data('searchterm');
+            }
+        }
         $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
 
             if (data.success == 1) {
 
-                if (data.articles.length < 20) {
+                if (data.articles.length < options.limit) {
                     btn.css('display', 'none');
                 }
                 var container = options.container;
@@ -629,7 +630,7 @@ Card.prototype.events = function()
                     self.events();
                 }
 
-                btn.html("Load more");
+                btn.html("Show more");
             }
         });
     });
