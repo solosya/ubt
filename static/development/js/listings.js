@@ -411,6 +411,7 @@ ListingForm.constructor = ListingForm;
                 return;
             }
             this.data = data['user listing'];
+
             this.render();
         },
         "extendedData.region" : function(data, topic) {
@@ -556,6 +557,7 @@ ListingForm.constructor = ListingForm;
 
         if (this.data.id) {
             $('#listingFormSubmit').text('UPDATE');
+            $('#listingFormDelete').show();
         }
         if (this.data.mediaData){
             this.renderImageThumbs(this.data.mediaData);
@@ -596,6 +598,7 @@ ListingForm.constructor = ListingForm;
                 this.menus[menus[i]].reset();
             }
         }
+        $('#listingFormDelete').hide();
         $('#imageArray').empty();
         this.clearErrorHightlights();
         this.resetData();
@@ -1062,7 +1065,7 @@ Acme.listingViewClass.prototype = new Acme._View();
                         }
                         data['extendedData'] = extendedData;
                     }
-                    
+
                     Acme.PubSub.publish('state_changed', {'user listing': data});
                 });
             });

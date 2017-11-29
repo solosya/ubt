@@ -6,9 +6,20 @@
     border-bottom: 2px solid $brand-secondary;  
 }
 ._btn {
+
     border:0;
+    border-radius:0;
     font-size: rem(10);
     font-weight:700;
     width:170px;
     height:44px;
+}
+
+._btn--red {
+    background: color(red);
+    color:white;
+}
+._btn--gray {
+    background: color(lightgrey);
+    color:white;
 }
