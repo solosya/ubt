@@ -471,7 +471,7 @@ Card.prototype.loadMore = function(btn, waypoint)
         'nonpinned' :   container.data('offset'),
         'blogid'    :   container.data('blogid'),
         'template'  :   container.data('card-template') || null,
-        'label'     :   container.data('label'),
+        'label'     :   container.data('button-label'),
         'ads_on'    :   container.data('ads')           || null,
         'rendertype':   container.data('rendertype')    || null,
         'loadtype'  :   container.data('loadtype')      || null,
