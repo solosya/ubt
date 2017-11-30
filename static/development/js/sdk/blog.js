@@ -18,7 +18,6 @@
         if (opts.loadtype) {
             loadtype = opts.loadtype;
         }
-        console.log(opts);
         if (opts.container) {
             var container = opts.container;
         } else {
@@ -57,7 +56,8 @@
             requestData['search'] = options.search;
         }
 
-        // console.log(requestData);
+        console.log(_appJsConfig.baseHttpPath + '/'+loadtype+'/load-articles');
+        console.log(requestData);
         return $.ajax({
             type: 'post',
             url: _appJsConfig.baseHttpPath + '/'+loadtype+'/load-articles',

@@ -1,16 +1,40 @@
 /**
  * Handlebar Article templates for listing
  */
+
 window.templates = {};
 Handlebars.registerHelper('splitShift', function(text) {
   return text.split(" ")[0];
 });
+
 Handlebars.registerHelper('fixPrice', function(text) {
     newText = text.replace(/\$/g, "");
     return newText; 
 });
+
 Handlebars.registerHelper('draftStatus', function(text, date) {
     return text.toLowerCase() === 'draft' ? "Pending Approval" : "Posted " + date; 
+});
+
+Handlebars.registerHelper('formatSalary', function(salary, salaryType, salaryTo, salaryFrom, hourlyRate) {
+    var salaryPrefix = "";
+    var salary = "";
+
+    if (salaryType === "1") {
+        salaryPrefix = "Salary ";
+        salary = "$" + salaryFrom;
+        if (salaryTo) {
+            salaryPrefix = salaryPrefix + "range ";
+            salary = salary + " - " + salaryTo;
+        }
+    } else if (salaryType == 2) {
+        salaryPrefix = "Hourly rate ";
+        salary = "$" + hourlyRate;
+    } else if (salaryType == 3) {
+        salaryPrefix = "Commission";
+    }
+
+    return salaryPrefix + salary
 });
 
 
@@ -171,7 +195,7 @@ Acme.jobCardTemplate =
             </div> \
             <h2>{{{ title }}}</h2>\
             <p class="company">{{{ additionalInfo.company }}}</p> \
-            <p class="salary">{{{salary}}}</p> \
+            <p class="salary">{{{ formatSalary salary additionalInfo.salaryType additionalInfo.salaryto additionalInfo.salaryfrom additionalInfo.hourlyrate}}}</p> \
             <p class="excerpt">{{{ excerpt }}}</p> \
             \
         </div>' + 

@@ -7,7 +7,7 @@
 {{this.registerJs("window.Acme.cards = CardController();")}}
 {{this.registerJs("Acme.searchCollection = new Acme.searchCollectionClass(["~blogData['id']~"]);")}}
 {{this.registerJs("Acme.jobRegionFilter = new Acme.regionSearchView();")}}
-{{this.registerJs("Acme.jobsSearchResults = new Acme.jobsSearchResultsClass('job-listings', 'jobsCardTemplate');")}}
+{{this.registerJs("Acme.jobsSearchResults = new Acme.jobsSearchResultsClass('job-listings', 'jobCardTemplate');")}}
 
 
 {# {{this.registerJs("ListingController();")}} #}
@@ -16,8 +16,6 @@
 
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
-
-{% set events = _Event.getEvents() %}
 
 
 <!-- used to index each article as we loop over throughout the template -->

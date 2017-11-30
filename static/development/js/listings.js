@@ -1210,7 +1210,6 @@ Acme.Confirm = function(template, parent, layouts) {
             }        
 
             if ($elem.data('role') === 'delete') {
-                console.log('calling delete from form');
                 Acme.PubSub.publish("update_state", {'delete listing': "" });                
             }
 

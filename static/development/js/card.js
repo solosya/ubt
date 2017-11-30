@@ -95,7 +95,6 @@ Card.prototype.screen = function()
 Card.prototype.renderCard = function(card, cardClass, template, type)
 {
     var self = this;
-
     var template = (template) ? Acme[template] : Acme.systemCardTemplate;
 
     card['cardClass'] = cardClass;
@@ -104,37 +103,8 @@ Card.prototype.renderCard = function(card, cardClass, template, type)
         card['cardClass'] += " draft"; 
     }
 
-    if (type === 'property') {
-        var attr = card.additionalInfo;
-        attr.pricerange = attr.pricerange.replace(/\$/g, "");
-    }
-
-    if (card.additionalInfo && card.additionalInfo.salary) {
-        var salaryType = card.additionalInfo.salary;
-        var salaryPrefix = "";
-        var salary = "";
-
-        if (salaryType === "1") {
-            salaryPrefix = "Salary ";
-            salary = "$" + card.additionalInfo.salaryfrom;
-            if (card.additionalInfo.salaryto) {
-                salaryPrefix = salaryPrefix + "range ";
-                salary = salary + " - " + card.additionalInfo.salaryto;
-            }
-        } else if (salaryType == 2) {
-            salaryPrefix = "Hourly rate ";
-            salary = "$" + card.additionalInfo.hourlyrate;
-        } else if (salaryType == 3) {
-            salaryPrefix = "Commission";
-        }
-
-        card['salary'] = salaryPrefix + salary
-    }
-
-
-
     card['pinTitle'] = (card.isPinned == 1) ? 'Un-Pin Article' : 'Pin Article';
-    card['pinText'] = (card.isPinned == 1) ? 'Un-Pin' : 'Pin';
+    card['pinText']  = (card.isPinned == 1) ? 'Un-Pin' : 'Pin';
     card['promotedClass'] = (card.isPromoted == 1)? 'ad_icon' : '';
     card['hasArticleMediaClass'] = (card.hasMedia == 1)? 'withImage__content' : 'without__image';
     card['readingTime']= self.renderReadingTime(card.readingTime);
@@ -468,7 +438,7 @@ Card.prototype.loadMore = function(btn, waypoint)
         'offset'    :   container.data('offset'),
         'limit'     :   container.data('limit'),
         'cardClass' :   container.data('card-class'),
-        'nonpinned' :   container.data('offset'),
+        'nonpinned' :   container.data('existing-nonpinned-count'),
         'blogid'    :   container.data('blogid'),
         'template'  :   container.data('card-template') || null,
         'label'     :   container.data('button-label'),
