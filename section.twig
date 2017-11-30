@@ -2,18 +2,14 @@
 {% set networkData = _Network.getNetworkData() %}
 {% set blogData    = _Blog.getBlog() %}
 
-
-
-
-{{this.registerJs("Acme.cardController = CardController();")}}
-{{this.registerJs("Acme.SectionController();")}}
+{{this.registerJs("Acme.cards = CardController();")}}
 
 {% set limit = 9 %}
+{% set articlesArr  = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
+{% set articles     = articlesArr.articles %}
+{% set articleCount = articles | length %}
 
-{% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
-{% set articles = articlesArr.articles %}
-
-{% set events = _Event.getEvents() %}
+{{this.registerJs("var scroll = new Acme.infiniteScroll(" ~ limit ~ ", " ~ articleCount ~ ");")}}
 
 
 <!-- used to index each article as we loop over throughout the template -->
