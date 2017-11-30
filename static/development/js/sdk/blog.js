@@ -18,7 +18,7 @@
         if (opts.loadtype) {
             loadtype = opts.loadtype;
         }
-
+        console.log(opts);
         if (opts.container) {
             var container = opts.container;
         } else {

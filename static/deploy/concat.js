@@ -30530,7 +30530,7 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
         if (opts.loadtype) {
             loadtype = opts.loadtype;
         }
-
+        console.log(opts);
         if (opts.container) {
             var container = opts.container;
         } else {
@@ -34024,7 +34024,7 @@ Card.prototype.loadMore = function(btn, waypoint)
         'ads_on'    :   container.data('ads')           || null,
         'rendertype':   container.data('rendertype')    || null,
         'loadtype'  :   container.data('loadtype')      || null,
-        'searchterm':   container.data('searchterm')    || null
+        'search'    :   container.data('searchterm')    || null
     };
 
     $.fn.Ajax_LoadBlogArticles(options).done(function(data) {

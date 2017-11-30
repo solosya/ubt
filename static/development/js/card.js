@@ -170,7 +170,6 @@ Card.prototype.renderCard = function(card, cardClass, template, type)
 
 Card.prototype.bindPinUnpinArticle = function()
 {
-
     $('button.PinArticleBtn').Ajax_pinUnpinArticle({
         onSuccess: function(data, obj){
             var status = $(obj).data('status');
@@ -186,14 +185,8 @@ Card.prototype.bindPinUnpinArticle = function()
 
 Card.prototype.bindDeleteHideArticle = function()
 {
-
     $('button.HideBlogArticle').Ajax_deleteArticle({
         onSuccess: function(data, obj){
-            // var section = $(obj).closest('.section__content');
-            // var sectionPostsCount = section.find('.card__news').length;
-            // if(sectionPostsCount <= 1) {
-            //     section.addClass('hide');
-            // }
             $(obj).closest('.card').parent('div').remove();
             var postsCount = $('body').find('.card').length;
             if(postsCount <= 0) {
@@ -482,7 +475,7 @@ Card.prototype.loadMore = function(btn, waypoint)
         'ads_on'    :   container.data('ads')           || null,
         'rendertype':   container.data('rendertype')    || null,
         'loadtype'  :   container.data('loadtype')      || null,
-        'searchterm':   container.data('searchterm')    || null
+        'search'    :   container.data('searchterm')    || null
     };
 
     $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
