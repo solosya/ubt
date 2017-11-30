@@ -908,8 +908,7 @@ Acme.EventForm = function(blogId)
         "title", 
         "content",
         "start_date",
-        "state",
-        "contact_number"
+        "state"
     ];
 
     this.blogId = blogId;

@@ -34134,7 +34134,6 @@ Card.prototype.events = function()
                 options.search = container.data('searchterm');
             }
         }
-        console.log(options);
         $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
 
             if (data.success == 1) {
@@ -35579,8 +35578,7 @@ Acme.EventForm = function(blogId)
         "title", 
         "content",
         "start_date",
-        "state",
-        "contact_number"
+        "state"
     ];
 
     this.blogId = blogId;
