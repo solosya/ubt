@@ -43,7 +43,6 @@ Card.prototype.screen = function()
                 style: "screen-card card-lg-screen",
                 limit: 1,
                 logo: "large-logo"
-
             }
         ],
         'container': $( '#'+btn.data('container') ),
@@ -63,7 +62,7 @@ Card.prototype.screen = function()
         options.currentScreen = currentScreen;
 
         options.limit = options.screens[screenOption].limit;
-        options.containerClass = options.screens[screenOption].style;
+        options.cardClass = options.screens[screenOption].style;
         if (articleCount >= options.count) {
             articleCount = 0;
         }
@@ -77,7 +76,7 @@ Card.prototype.screen = function()
                 return;
             }
             articleCount = articleCount + data.articles.length;
-
+            console.log(data);
             if (data.success == 1) {
                 self.renderScreenCards(options, data);
             }

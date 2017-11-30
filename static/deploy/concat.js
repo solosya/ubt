@@ -33585,7 +33585,6 @@ Card.prototype.screen = function()
                 style: "screen-card card-lg-screen",
                 limit: 1,
                 logo: "large-logo"
-
             }
         ],
         'container': $( '#'+btn.data('container') ),
@@ -33605,7 +33604,7 @@ Card.prototype.screen = function()
         options.currentScreen = currentScreen;
 
         options.limit = options.screens[screenOption].limit;
-        options.containerClass = options.screens[screenOption].style;
+        options.cardClass = options.screens[screenOption].style;
         if (articleCount >= options.count) {
             articleCount = 0;
         }
@@ -33619,7 +33618,7 @@ Card.prototype.screen = function()
                 return;
             }
             articleCount = articleCount + data.articles.length;
-
+            console.log(data);
             if (data.success == 1) {
                 self.renderScreenCards(options, data);
             }
@@ -36204,7 +36203,6 @@ SearchController.Listing = (function ($) {
 
 }(jQuery));
 Acme.SectionController = function() {
-    console.log('foooo');
     return new Acme.section();
 }
 Acme.section = function() {
@@ -36216,6 +36214,33 @@ Acme.section.prototype.events = function()
     var totalPosts = parseInt($('main').data('article-count'));
     var limit = parseInt($('main').data('article-limit'));
 
+    if (totalPosts >= limit) {
+        var waypoint = new Waypoint({
+            element: $('.loadMoreArticles'),
+            offset: '80%',
+            handler: function (direction) {
+                if (direction == 'down') {
+                    Acme.cardController.loadMore($(this.element), waypoint);
+                }
+            }
+        });
+    }
+}
+
+
+Acme.InfiniteScrollController = function() {
+    return new Acme.infiniteScroll();
+}
+Acme.infiniteScroll = function() {
+    console.log('calling infinite events');
+    this.events();
+};
+
+Acme.infiniteScroll.prototype.events = function() 
+{
+    var totalPosts = parseInt($('main').data('article-count'));
+    var limit = parseInt($('main').data('article-limit'));
+    console.log(totalPosts);
     if (totalPosts >= limit) {
         var waypoint = new Waypoint({
             element: $('.loadMoreArticles'),

@@ -18,25 +18,30 @@
 {{this.registerJs( weatherJs )}}
 
 
+{% set sections =  {
+        "ticker": {
+            "limit" : 10
+        }
+    }
+%}
+
+{% for key, value in sections %}
+    {% for blog in networkData.networkBlogs %}
+        {% if blog.title | lower == key %}
+            {% set sections = sections | merge({
+                (key) : {
+                    'feed'          : _Blog.getBlogFeed({'limit': sections[key]['limit'], 'offset': 0, 'blogid':blog.guid}),
+                    'link'          : blog.link,
+                    'description'   : blog.short_description,
+                    'blogid'        : blog.guid,
+                    'limit'         : sections[key]['limit']
+                    }
+                }) %}
+        {% endif %}
+    {% endfor %}
+{% endfor %}
 
 
-{% set limit = 7 %}
-
-{# {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}#}
-{% set tickerArticles = _Article.getPopularArticles({ limit: limit, sortBy: 'VIEWS', scope: "network" }) %}
-{# {% set articles = tickerArticles.articles %} #}
-
-{# <pre>
-    {{dump(articles)}}
-</pre>
- #}
-
-
-
-<!-- used to index each article as we loop over throughout the template -->
-{% set articleCount = 0 %}
-
-    <!--placeholder temp -->
 
 <main id="main" class="full-height" role="main">
     
@@ -54,7 +59,7 @@
                  data-offset="0"
                  data-blogid="{{blogid}}"
                  data-articlecount="1"
-                 data-containerclass="screen-card card-sm-screen"
+                 data-card-class="screen-card card-sm-screen"
                  data-existing-nonpinned-count=""
                  class="full-height">
            </div>
@@ -69,17 +74,13 @@
 
         <div class="ticker flex1 flex-shrink0">
             <ul class="ticker__list" id="screenTicker">
-                {% for article in tickerArticles %}
+                {% for article in sections['ticker'].feed.articles %}
                     <li class="ticker__item"><p class="ticker__text">{{article.title}}</p></li>
                 {% endfor %}
             </ul>
 
         </div>
     </div>
-
-
-
-
 
 
 

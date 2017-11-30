@@ -5,10 +5,8 @@
 
 
 {{this.registerJs("window.Acme.cards = CardController();")}}
+{{this.registerJs("var scroll = Acme.InfiniteScrollController();")}}
 
-
-
-{# {{this.registerJs("ListingController();")}} #}
 
 {% set limit = 10 %}
 
@@ -58,7 +56,8 @@
                         label       : "Show more",
                         non_pinned  : articlesArr.existingNonPinnedCount, 
                         card_class  : "col-sm-12 card-rec-sport card-rec-sport-tablet card-rec-sport-mobile",
-                        container   : "mainAjaxArticles"
+                        container   : "mainAjaxArticles",
+                        buttonClass : 'infinite'
                     }) | raw }}
                 </div>
                 {% endif %}
