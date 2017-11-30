@@ -29,8 +29,7 @@
         if(isNaN(offset) || offset < 0) {
             offset = opts.limit;
         }
-        console.log(opts);
-        // var existingNonPinnedCount = parseInt(container.data('existing-nonpinned-count'));
+
         var existingNonPinnedCount = options.nonpinned;
         
         if(isNaN(existingNonPinnedCount)) {
@@ -51,8 +50,8 @@
             _csrf: csrfToken, 
             dateFormat: dateFormat
         };
-        if (options.blog_guid) {
-            requestData['blog_guid'] = options.blogid;
+        if (options.blogid) {
+            requestData['blogid'] = options.blogid;
         }
         if (options.search) {
             requestData['search'] = options.search;

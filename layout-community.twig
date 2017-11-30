@@ -14,38 +14,32 @@
 
 {% set events = _Event.getEvents() %}
 
-
-
 {% set sections =  {
         "job listings": {
-            "feed": "",
-            "link": "",
-            "description": ""
+            "limit"         : 1
         }, 
         "property listings": {
-            "feed": "",
-            "link": "",
-            "description": ""
+            "limit"         : 1
         }
     }
 %}
+
 
 {% for key, value in sections %}
     {% for blog in networkData.networkBlogs %}
         {% if blog.title | lower == key %}
             {% set sections = sections | merge({
                 (key) : {
-                    'feed': _Blog.getBlogFeed({'limit': 7, 'offset': 0, 'blogid':blog.guid}),
-                    'link' : blog.link,
-                    'description' : blog.short_description
+                    'feed'          : _Blog.getBlogFeed({'limit': sections[key]['limit'], 'offset': 0, 'blogid':blog.guid}),
+                    'link'          : blog.link,
+                    'description'   : blog.short_description,
+                    'blogid'        : blog.guid,
+                    'limit'         : sections[key]['limit']
                     }
                 }) %}
         {% endif %}
     {% endfor %}
 {% endfor %}
-
-
-
 
 
 
@@ -232,12 +226,12 @@
                 <div class="row three-cols">
 
                     {{ this.render('partials/ajaxarticles.twig', {
-                        offset: limit, 
-                        limit: 10,
-                        non_pinned: articlesArr.existingNonPinnedCount, 
-                        articles: articles,
-                        card_style: "col-sm-1 card-sm-short card-sm-short-tablet card-sm-mobile",
-                        container:"mainAjaxArticles",
+                        offset      : limit, 
+                        limit       : 10,
+                        label       : "Show more",
+                        non_pinned  : articlesArr.existingNonPinnedCount, 
+                        card_class  : "col-sm-1 card-sm-short card-sm-short-tablet card-sm-mobile",
+                        container   : "mainAjaxArticles",
                     }) | raw }}
                 </div>
             </div>
@@ -304,6 +298,28 @@
         </section>
 
 
+        {% if sections['property listings'].feed.articles|length >= sections['property listings'].limit %}
+        <section class="row listings three-cols">
+            <div class="col-sm-offset-1 col-sm-10">
+                <div class="row">
+
+                    {{ this.render('partials/ajaxarticles.twig', {
+                            offset:         sections['property listings'].limit, 
+                            limit:          sections['property listings'].limit,
+                            label:          "Show more",
+                            non_pinned:     sections['property listings']['feed'].existingNonPinnedCount, 
+                            cardTemplate:   'communityPropertyCardTemplate',
+                            card_class:     "col-sm-1 card-community-property-listing",
+                            container:      "propertyAjaxArticles",
+                            blogid:         sections['property listings']['blogid']
+                        }) | raw }}
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+
+
         <section class="row section listings three-cols">
 
             {% if sections['job listings'].feed.articles|length > 0 %}
@@ -361,6 +377,25 @@
         </section>
 
 
+        {% if sections['job listings'].feed.articles|length >= sections['job listings'].limit %}
+        <section class="row listings three-cols">
+            <div class="col-sm-offset-1 col-sm-10">
+                <div class="row">
+
+                    {{ this.render('partials/ajaxarticles.twig', {
+                            offset:         sections['job listings'].limit, 
+                            limit:          sections['job listings'].limit,
+                            label:          "Show more",
+                            non_pinned:     sections['job listings']['feed'].existingNonPinnedCount, 
+                            cardTemplate:   'communityJobCardTemplate',
+                            card_class:     "col-sm-1 card-community-job-listing",
+                            container:      "jobsAjaxArticles",
+                            blogid:         sections['job listings']['blogid']
+                        }) | raw }}
+                </div>
+            </div>
+        </section>
+        {% endif %}
 
 
 

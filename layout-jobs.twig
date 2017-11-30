@@ -77,15 +77,17 @@
                     {% endfor %}
                 </div>
 
-                {% if articles|length > limit %}
+
+
+                {% if articles|length >= limit %}
                     {{ this.render('partials/ajaxarticles.twig', {
-                        limit: limit, 
-                        non_pinned: articlesArr.existingNonPinnedCount, 
-                        articles: articles,
-                        articleTemplate: "jobsCardTemplate",
-                        rendertype: "write", 
-                        card_style: "col-sm-12 card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile",
-                        container:"mainAjaxArticles"
+                        limit           : limit,
+                        label           : "Show more", 
+                        non_pinned      : articlesArr.existingNonPinnedCount, 
+                        cardTemplate    : "jobsCardTemplate",
+                        rendertype      : "write", 
+                        card_class      : "col-sm-12 card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile",
+                        container       : "mainAjaxArticles"
                     }) | raw }}
                 {% endif %}
 

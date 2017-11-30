@@ -4,22 +4,19 @@
          data-offset="{{offset}}"
          data-limit="{{limit}}"
          data-blogid="{{blogid}}"
-         data-containerclass="{{card_style}}"
          data-loadtype="{{loadtype}}"
          data-searchterm="{{searchTerm}}"
-         data-cardTemplate="{{articleTemplate}}"
-         data-imageSuppress="{{imageSupress}}"
+         data-card-class="{{card_class}}"
+         data-button-label="{{label}}"
+         data-card-template="{{cardTemplate}}"
+         data-image-suppress="{{imageSupress}}"
          data-existing-nonpinned-count="{{non_pinned}}">
      </div>
     <a class="loadMoreArticles {{buttonClass}}" 
         data-container="{{container}}"
-        href="#">Show more</a>
+        href="#">{{label}}</a>
 
-    {% set noDataCls = 'hide' %}
-    {% if articles|length == 0 %}
-        {% set noDataCls = '' %}
-     {% endif %}
-    <div class="row text-center has-margin-bottom-20 has-margin-top-20 {{noDataCls}} NoArticlesMsg">
+    <div class="row text-center NoArticlesMsg {{container}}" style="display:none">
         <p class="no-data text-center">No articles found.</p>  
     </div>
 </div>

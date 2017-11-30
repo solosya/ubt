@@ -8,7 +8,7 @@
     {% set salaryPrefix = "Salary " %}
     {% set salary = "$" ~ article.additionalInfo.salaryfrom %}
     {% if article.additionalInfo.salaryto %}
-        {% set salaryPrefix = salaryPrefix ~ "range <br />" %}
+        {% set salaryPrefix = salaryPrefix ~ "range " %}
         {% set salary = salary ~ " - " ~ article.additionalInfo.salaryto %}
     {% endif %}
 

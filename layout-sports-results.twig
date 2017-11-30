@@ -15,11 +15,6 @@
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
 
-{# {% set articles = _Event.getEvents() %} #}
-{# <pre>
-    {{dump(articles)}}
-</pre>
- #}
 <!-- used to index each article as we loop over throughout the template -->
 {% set articleCount = 0 %}
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
@@ -55,18 +50,18 @@
                     {% endfor %}
                 </div>
 
-
+                {% if articles|length >= limit %}
                 <div class="row">
                     {{ this.render('partials/ajaxarticles.twig', {
-                        offset: limit, 
-                        limit: 10,
-                        non_pinned: articlesArr.existingNonPinnedCount, 
-                        articles: articles,
-                        card_style: "col-sm-12 card-rec-sport card-rec-sport-tablet card-rec-sport-mobile",
-                        container:"mainAjaxArticles"
+                        offset      : limit, 
+                        limit       : 10,
+                        label       : "Show more",
+                        non_pinned  : articlesArr.existingNonPinnedCount, 
+                        card_class  : "col-sm-12 card-rec-sport card-rec-sport-tablet card-rec-sport-mobile",
+                        container   : "mainAjaxArticles"
                     }) | raw }}
                 </div>
-
+                {% endif %}
 
             </div>
 

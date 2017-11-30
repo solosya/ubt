@@ -96,12 +96,14 @@
                 </div>
 
                 {% if articles|length >= limit %}
+
+
                     {{ this.render('partials/ajaxarticles.twig', {
-                        limit: limit, 
-                        non_pinned: articlesArr.existingNonPinnedCount, 
-                        articles: articles,
-                        card_style: "col-sm-12 card-rec-realestate card-rec-realestate-tablet card-rec-realestate-mobile",
-                        container:"mainAjaxArticles"
+                        limit       : limit, 
+                        label       : "Show more",
+                        non_pinned  : articlesArr.existingNonPinnedCount, 
+                        card_class  : "col-sm-12 card-rec-realestate card-rec-realestate-tablet card-rec-realestate-mobile",
+                        container   : "mainAjaxArticles"
                     }) | raw }}
                 {% endif %}
 

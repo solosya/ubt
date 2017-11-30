@@ -30541,8 +30541,7 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
         if(isNaN(offset) || offset < 0) {
             offset = opts.limit;
         }
-        console.log(opts);
-        // var existingNonPinnedCount = parseInt(container.data('existing-nonpinned-count'));
+
         var existingNonPinnedCount = options.nonpinned;
         
         if(isNaN(existingNonPinnedCount)) {
@@ -30563,8 +30562,8 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
             _csrf: csrfToken, 
             dateFormat: dateFormat
         };
-        if (options.blog_guid) {
-            requestData['blog_guid'] = options.blogid;
+        if (options.blogid) {
+            requestData['blogid'] = options.blogid;
         }
         if (options.search) {
             requestData['search'] = options.search;
@@ -33045,6 +33044,11 @@ Handlebars.registerHelper('fixPrice', function(text) {
     newText = text.replace(/\$/g, "");
     return newText; 
 });
+Handlebars.registerHelper('draftStatus', function(text, date) {
+    return text.toLowerCase() === 'draft' ? "Pending Approval" : "Posted " + date; 
+});
+
+
 
 
 
@@ -33162,7 +33166,7 @@ window.templates.defaultWeatherTmpl =
 
 
 var cardTemplateTop = 
-'<div class="{{containerClass}} "> \
+'<div class="{{cardClass}} "> \
     <a  itemprop="url" \
         href="{{url}}" \
         class="card swap {{articleStatus}}" \
@@ -33211,6 +33215,23 @@ Acme.jobCardTemplate =
 
 
 
+Acme.communityJobCardTemplate = 
+    cardTemplateTop + 
+        '<div class="cat-time"> \
+            <time datetime="{{publishDate}}">{{publishDate}}</time> \
+        </div> \
+        \
+        <div class="content"> \
+            <h2>{{ title }}</h2> \
+            <p class="company">{{ additionalInfo.company }}</p> \
+            \
+            <p class="excerpt">{{{ excerpt }}}</p> \
+        </div>' + 
+    cardTemplateBottom;
+
+
+
+
 Acme.propertyCardTemplate = 
     cardTemplateTop +  
         '{{#if hasMedia}} \
@@ -33237,6 +33258,25 @@ Acme.propertyCardTemplate =
         </div>' +
     cardTemplateBottom;
 
+
+
+Acme.communityPropertyCardTemplate = 
+    cardTemplateTop +  
+        '{{#if hasMedia}} \
+            <figure class="{{figureClass}}"> \
+                <picture> \
+                    <source media="(max-width: 620px)" srcset="{{imageUrl}}"> \
+                    <img class="img-responsive" src="{{imageUrl}}" data-original="{{imageUrl}}"> \
+                </picture> \
+            </figure> \
+        {{/if}} \
+        \
+        <div class="content"> \
+            <p class="region">{{ additionalInfo.region }}</p> \
+            <h1 class="price">${{ fixPrice additionalInfo.pricerange }}</h1> \
+            <h2>{{ params.articleTitle }}</h2> \
+        </div>' +
+    cardTemplateBottom;
 
 
 
@@ -33268,7 +33308,7 @@ Acme.systemCardTemplate =
 
 
 
-var socialCardTemplate =  '<div class="{{containerClass}}">' +
+var socialCardTemplate =  '<div class="{{cardClass}}">' +
                                 '<a href="{{social.url}}"\
                                     target="_blank"\
                                     class="card swap social {{social.source}} {{#if social.hasMedia}} withImage__content {{else }} without__image {{/if}} {{videoClass}}"\
@@ -33520,14 +33560,13 @@ Card.prototype.renderScreenCards = function(options, data)
     var html = "";
     for (var i in data.articles) {
         data.articles[i]['imageOptions'] = {width:1400, height:800 };
-        html += self.renderCard(data.articles[i], options.containerClass);
+        html += self.renderCard(data.articles[i], options.cardClass);
     }
     container.empty().append(html);
 
     $(".card p, .card h1").dotdotdot();
             
     $('.video-player').videoPlayer();
-    
 };
 
 Card.prototype.screen = function() 
@@ -33593,25 +33632,24 @@ Card.prototype.screen = function()
     setInterval( function() {
         location.reload(false);
     } , pageRefreshInterval );
- 
 };
 
 
 Card.prototype.renderCard = function(card, cardClass, template, type)
 {
     var self = this;
+
     var template = (template) ? Acme[template] : Acme.systemCardTemplate;
-    card['containerClass'] = cardClass;
+
+    card['cardClass'] = cardClass;
     if (card.status == "draft") {
         card['articleStatus'] = "draft";
-        card['containerClass'] += " draft"; 
+        card['cardClass'] += " draft"; 
     }
-
 
     if (type === 'property') {
         var attr = card.additionalInfo;
         attr.pricerange = attr.pricerange.replace(/\$/g, "");
-        console.log(card);
     }
 
     if (card.additionalInfo && card.additionalInfo.salary) {
@@ -33623,7 +33661,7 @@ Card.prototype.renderCard = function(card, cardClass, template, type)
             salaryPrefix = "Salary ";
             salary = "$" + card.additionalInfo.salaryfrom;
             if (card.additionalInfo.salaryto) {
-                salaryPrefix = salaryPrefix + "range <br />";
+                salaryPrefix = salaryPrefix + "range ";
                 salary = salary + " - " + card.additionalInfo.salaryto;
             }
         } else if (salaryType == 2) {
@@ -33660,6 +33698,7 @@ Card.prototype.renderCard = function(card, cardClass, template, type)
     card['imageUrl'] = ImageUrl;
     var articleId = parseInt(card.articleId);
     var articleTemplate;
+
     if (isNaN(articleId) || articleId <= 0) {
         card['videoClass'] = '';
         if(card.social.media.type && card.social.media.type == 'video') {
@@ -33976,7 +34015,7 @@ Card.prototype.loadMore = function(elem, waypoint)
     var options = {
         'offset': container.data('offset'),
         'limit': container.data('limit'),
-        'containerClass': container.data('containerclass'),
+        'cardClass': container.data('card-class'),
         'container': container,
         'nonpinned' : container.data('offset'),
         'blog_guid' : container.data('blogid'),
@@ -34000,7 +34039,6 @@ Card.prototype.loadMore = function(elem, waypoint)
             }
             var container = options.container;
             container.data('existing-nonpinned-count', data.existingNonPinnedCount);
-            var cardClass = container.data('containerclass');
 
             // if (options.ads_on == "yes") {
                 var html = '<div class="row" style="margin:0"><div class="advert"><div id="ajaxAd"></div><script>loadNextAd(invSpace,"ajaxAd","banner",bannerSize,bannerMap)</script></div>';
@@ -34008,7 +34046,7 @@ Card.prototype.loadMore = function(elem, waypoint)
             //     var html = "<div class='row'>";
             // }
             for (var i in data.articles) {
-                html += self.renderCard(data.articles[i], cardClass);
+                html += self.renderCard(data.articles[i], options.cardClass);
             }  
             html += "</div>";
 
@@ -34076,13 +34114,13 @@ Card.prototype.events = function()
         var container = $('#'+btn.data('container'));
 
         var options = {
-            'offset': container.data('offset'),
-            'limit': container.data('limit'),
-            'containerClass': container.data('containerclass'),
-            'container': container,
-            'nonpinned' : container.data('offset'),
-            'blog_guid' : container.data('blogid'),
-            'template' : container.data('cardtemplate')
+            'container' :   container,
+            'offset'    :   container.data('offset'),
+            'limit'     :   container.data('limit'),
+            'cardClass' :   container.data('card-class'),
+            'nonpinned' :   container.data('offset'),
+            'blogid'    :   container.data('blogid'),
+            'template'  :   container.data('card-template'),
         };
 
         if ( container.data('rendertype')) {
@@ -34096,6 +34134,7 @@ Card.prototype.events = function()
                 options.search = container.data('searchterm');
             }
         }
+        console.log(options);
         $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
 
             if (data.success == 1) {
@@ -34103,13 +34142,12 @@ Card.prototype.events = function()
                 if (data.articles.length < options.limit) {
                     btn.css('display', 'none');
                 }
-                var container = options.container;
+
                 container.data('existing-nonpinned-count', data.existingNonPinnedCount);
-                var cardClass = container.data('containerclass');
 
                 var html = "";
                 for (var i in data.articles) {
-                    html += self.renderCard(data.articles[i], cardClass, options.template);
+                    html += self.renderCard(data.articles[i], options.cardClass, options.template);
                 }
 
                 if (options.rendertype === "write") {

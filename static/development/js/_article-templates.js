@@ -9,6 +9,11 @@ Handlebars.registerHelper('fixPrice', function(text) {
     newText = text.replace(/\$/g, "");
     return newText; 
 });
+Handlebars.registerHelper('draftStatus', function(text, date) {
+    return text.toLowerCase() === 'draft' ? "Pending Approval" : "Posted " + date; 
+});
+
+
 
 
 
@@ -126,7 +131,7 @@ window.templates.defaultWeatherTmpl =
 
 
 var cardTemplateTop = 
-'<div class="{{containerClass}} "> \
+'<div class="{{cardClass}} "> \
     <a  itemprop="url" \
         href="{{url}}" \
         class="card swap {{articleStatus}}" \
@@ -175,6 +180,23 @@ Acme.jobCardTemplate =
 
 
 
+Acme.communityJobCardTemplate = 
+    cardTemplateTop + 
+        '<div class="cat-time"> \
+            <time datetime="{{publishDate}}">{{publishDate}}</time> \
+        </div> \
+        \
+        <div class="content"> \
+            <h2>{{ title }}</h2> \
+            <p class="company">{{ additionalInfo.company }}</p> \
+            \
+            <p class="excerpt">{{{ excerpt }}}</p> \
+        </div>' + 
+    cardTemplateBottom;
+
+
+
+
 Acme.propertyCardTemplate = 
     cardTemplateTop +  
         '{{#if hasMedia}} \
@@ -201,6 +223,25 @@ Acme.propertyCardTemplate =
         </div>' +
     cardTemplateBottom;
 
+
+
+Acme.communityPropertyCardTemplate = 
+    cardTemplateTop +  
+        '{{#if hasMedia}} \
+            <figure class="{{figureClass}}"> \
+                <picture> \
+                    <source media="(max-width: 620px)" srcset="{{imageUrl}}"> \
+                    <img class="img-responsive" src="{{imageUrl}}" data-original="{{imageUrl}}"> \
+                </picture> \
+            </figure> \
+        {{/if}} \
+        \
+        <div class="content"> \
+            <p class="region">{{ additionalInfo.region }}</p> \
+            <h1 class="price">${{ fixPrice additionalInfo.pricerange }}</h1> \
+            <h2>{{ params.articleTitle }}</h2> \
+        </div>' +
+    cardTemplateBottom;
 
 
 
@@ -232,7 +273,7 @@ Acme.systemCardTemplate =
 
 
 
-var socialCardTemplate =  '<div class="{{containerClass}}">' +
+var socialCardTemplate =  '<div class="{{cardClass}}">' +
                                 '<a href="{{social.url}}"\
                                     target="_blank"\
                                     class="card swap social {{social.source}} {{#if social.hasMedia}} withImage__content {{else }} without__image {{/if}} {{videoClass}}"\
