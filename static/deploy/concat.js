@@ -34003,51 +34003,51 @@ Card.prototype.initDroppable = function()
     }); 
 }
 
-Card.prototype.loadMore = function(elem, waypoint)
+Card.prototype.loadMore = function(btn, waypoint)
 {
     console.log('loadmore');
     var self = this;
-    elem.html("Please wait...");
+
+    btn.html("Please wait...");
     
-    var container = $('#'+elem.data('container'));
+    var container = $('#'+btn.data('container'));
 
     var options = {
-        'offset': container.data('offset'),
-        'limit': container.data('limit'),
-        'cardClass': container.data('card-class'),
-        'container': container,
-        'nonpinned' : container.data('offset'),
-        'blog_guid' : container.data('blogid'),
-        'ads_on' : container.data('ads')
+        'container' :   container,
+        'offset'    :   container.data('offset'),
+        'limit'     :   container.data('limit'),
+        'cardClass' :   container.data('card-class'),
+        'nonpinned' :   container.data('offset'),
+        'blogid'    :   container.data('blogid'),
+        'template'  :   container.data('card-template') || null,
+        'label'     :   container.data('label'),
+        'ads_on'    :   container.data('ads')           || null,
+        'rendertype':   container.data('rendertype')    || null,
+        'loadtype'  :   container.data('loadtype')      || null,
+        'searchterm':   container.data('searchterm')    || null
     };
 
-    if ( container.data('loadtype')) {
-        options.loadtype = container.data('loadtype');
-
-        if (options.loadtype == 'search') {
-            options.search = container.data('searchTerm');
-        }
-    }
-
-
     $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
+
         if (data.success == 1) {
 
             if (data.articles.length < options.limit) {
-                elem.css('display', 'none');
+                btn.css('display', 'none');
             }
-            var container = options.container;
+
             container.data('existing-nonpinned-count', data.existingNonPinnedCount);
 
-            // if (options.ads_on == "yes") {
-                var html = '<div class="row" style="margin:0"><div class="advert"><div id="ajaxAd"></div><script>loadNextAd(invSpace,"ajaxAd","banner",bannerSize,bannerMap)</script></div>';
-            // } else {
-            //     var html = "<div class='row'>";
-            // }
+            var html = "";
+            if (options.ads_on == "yes") {
+                var html = '<div class="advert"><div id="ajaxAd"></div><script>loadNextAd(invSpace,"ajaxAd","banner",bannerSize,bannerMap)</script></div>';
+            } 
             for (var i in data.articles) {
-                html += self.renderCard(data.articles[i], options.cardClass);
-            }  
-            html += "</div>";
+                html += self.renderCard(data.articles[i], options.cardClass, options.template);
+            }
+
+            if (options.rendertype === "write") {
+                container.empty();
+            }
 
             container.append(html);
 
@@ -34065,15 +34065,15 @@ Card.prototype.loadMore = function(elem, waypoint)
             
             $('.video-player').videoPlayer();
             
-            //Lazyload implement
             $("div.lazyload").lazyload({
                 effect: "fadeIn"
             });
+
             if (_appJsConfig.isUserLoggedIn === 1 && _appJsConfig.userHasBlogAccess === 1) {
                 self.events();
             }
 
-            elem.html("Show more");
+            btn.html(options.label);
         }
     });
 }
@@ -34105,72 +34105,9 @@ Card.prototype.events = function()
 
     self.bindSocialPostPopup();
 
-    $('.loadMoreArticles').unbind().on('click', function(e){
+    $('.loadMoreArticles').unbind().on('click', function(e) {
         e.preventDefault();
-        var btn = $(e.target);
-        btn.html("Please wait...");
-        
-        var container = $('#'+btn.data('container'));
-
-        var options = {
-            'container' :   container,
-            'offset'    :   container.data('offset'),
-            'limit'     :   container.data('limit'),
-            'cardClass' :   container.data('card-class'),
-            'nonpinned' :   container.data('offset'),
-            'blogid'    :   container.data('blogid'),
-            'template'  :   container.data('card-template'),
-        };
-
-        if ( container.data('rendertype')) {
-            options.rendertype = container.data('loadtype');
-        }
-
-        if ( container.data('loadtype')) {
-            options.loadtype = container.data('loadtype');
-
-            if (options.loadtype == 'search') {
-                options.search = container.data('searchterm');
-            }
-        }
-        $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
-
-            if (data.success == 1) {
-
-                if (data.articles.length < options.limit) {
-                    btn.css('display', 'none');
-                }
-
-                container.data('existing-nonpinned-count', data.existingNonPinnedCount);
-
-                var html = "";
-                for (var i in data.articles) {
-                    html += self.renderCard(data.articles[i], options.cardClass, options.template);
-                }
-
-                if (options.rendertype === "write") {
-                    container.empty();
-                }
-
-                container.append(html);
-
-                $(".card .content > p, .card h2").dotdotdot();
-                
-                self.bindSocialShareArticle();
-                
-                $('.video-player').videoPlayer();
-                
-                //Lazyload implement
-                $("div.lazyload").lazyload({
-                    effect: "fadeIn"
-                });
-                if (_appJsConfig.isUserLoggedIn === 1 && _appJsConfig.userHasBlogAccess === 1) {
-                    self.events();
-                }
-
-                btn.html("Show more");
-            }
-        });
+        self.loadMore($(e.target));
     });
 };
 (function ($) {
@@ -34667,6 +34604,27 @@ HomeController.Blog = (function ($) {
     };
 
 }(jQuery));
+Acme.infiniteScroll = function(limit, count) {
+    this.count = count || 0;
+    this.limit = limit || 0;
+    console.log("setting up infinite");
+    this.events();
+};
+
+    Acme.infiniteScroll.prototype.events = function() 
+    {
+        if (this.count >= this.limit) {
+            var waypoint = new Waypoint({
+                element: $('.loadMoreArticles'),
+                offset: '80%',
+                handler: function (direction) {
+                    if (direction == 'down') {
+                        window.Acme.cards.loadMore($(this.element), waypoint);
+                    }
+                }
+            });
+        }
+    };
 (function ($) {
 
 
@@ -36202,57 +36160,6 @@ SearchController.Listing = (function ($) {
     };
 
 }(jQuery));
-Acme.SectionController = function() {
-    return new Acme.section();
-}
-Acme.section = function() {
-    this.events();
-};
-
-Acme.section.prototype.events = function() 
-{
-    var totalPosts = parseInt($('main').data('article-count'));
-    var limit = parseInt($('main').data('article-limit'));
-
-    if (totalPosts >= limit) {
-        var waypoint = new Waypoint({
-            element: $('.loadMoreArticles'),
-            offset: '80%',
-            handler: function (direction) {
-                if (direction == 'down') {
-                    Acme.cardController.loadMore($(this.element), waypoint);
-                }
-            }
-        });
-    }
-}
-
-
-Acme.InfiniteScrollController = function() {
-    return new Acme.infiniteScroll();
-}
-Acme.infiniteScroll = function() {
-    console.log('calling infinite events');
-    this.events();
-};
-
-Acme.infiniteScroll.prototype.events = function() 
-{
-    var totalPosts = parseInt($('main').data('article-count'));
-    var limit = parseInt($('main').data('article-limit'));
-    console.log(totalPosts);
-    if (totalPosts >= limit) {
-        var waypoint = new Waypoint({
-            element: $('.loadMoreArticles'),
-            offset: '80%',
-            handler: function (direction) {
-                if (direction == 'down') {
-                    Acme.cardController.loadMore($(this.element), waypoint);
-                }
-            }
-        });
-    }
-}
 (function ($) {
 
 
