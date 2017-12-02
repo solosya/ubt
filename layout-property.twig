@@ -5,12 +5,13 @@
 
 
 
-{{this.registerJs("window.Acme.cards = CardController();")}}
+{{this.registerJs("Acme.cards = CardController();")}}
+{{this.registerJs("Acme.searchFeed = new Acme.View.articleFeed(Acme.cards);")}}
 {{this.registerJs("Acme.searchCollection = new Acme.searchCollectionClass(["~blogData['id']~"]);")}}
 {{this.registerJs("Acme.jobRegionFilter = new Acme.regionSearchView();")}}
 {{this.registerJs("Acme.propertyTypeFilter = new Acme.propertyTypeSearchView();")}}
 {{this.registerJs("Acme.saleTypeFilter = new Acme.saleTypeSearchView();")}}
-{{this.registerJs("Acme.propertySearchResults = new Acme.propertySearchResultsClass('property-listings', 'propertyCardTemplate');")}}
+{{this.registerJs("Acme.propertySearchResults = new Acme.propertySearchResultsClass('property-listings', 'propertyListingCardTemplate');")}}
 
 
 
@@ -90,21 +91,20 @@
                         }) | raw}}
                         {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                     {% endfor %}
-
                 </div>
 
                 {% if articles|length >= limit %}
-
-
                     {{ this.render('partials/ajaxarticles.twig', {
-                        limit       : limit, 
-                        label       : "Show more",
-                        non_pinned  : articlesArr.existingNonPinnedCount, 
-                        card_class  : "col-sm-12 card-rec-realestate card-rec-realestate-tablet card-rec-realestate-mobile",
-                        container   : "mainAjaxArticles"
+                        limit           : limit,
+                        name            : "property-load",
+                        label           : "Show more",
+                        non_pinned      : articlesArr.existingNonPinnedCount, 
+                        cardTemplate    : "propertyListingCardTemplate",  
+                        card_class      : "card-rec-realestate card-rec-realestate-tablet card-rec-realestate-mobile",
+                        container       : "property-listings",
+                        blogid          : blogData['id']
                     }) | raw }}
                 {% endif %}
-
 
             </div>
 

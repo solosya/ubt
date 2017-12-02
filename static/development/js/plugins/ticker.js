@@ -31,9 +31,9 @@ jQuery.fn.liScroll = function(settings) {
 		var containerWidth = $strip.parent().parent().width();	//a.k.a. 'mask' width 	
 		$strip.width(stripWidth);
 
-		var totalTravel = stripWidth;
+		var totalTravel = stripWidth + containerWidth;
 		var defTiming = totalTravel/settings.travelocity;	// thanks to Scott Waye		
-
+		$strip.css("left", containerWidth); 
 		function scrollnews(spazio, tempo, complete){
 			$strip.animate({left: '-='+ spazio}, tempo, "linear", function(){
 				$strip.css("left", containerWidth); 

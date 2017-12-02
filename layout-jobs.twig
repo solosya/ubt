@@ -4,7 +4,8 @@
 
 
 
-{{this.registerJs("window.Acme.cards = CardController();")}}
+{{this.registerJs("Acme.cards = CardController();")}}
+{{this.registerJs("Acme.searchFeed = new Acme.View.articleFeed(Acme.cards);")}}
 {{this.registerJs("Acme.searchCollection = new Acme.searchCollectionClass(["~blogData['id']~"]);")}}
 {{this.registerJs("Acme.jobRegionFilter = new Acme.regionSearchView();")}}
 {{this.registerJs("Acme.jobsSearchResults = new Acme.jobsSearchResultsClass('job-listings', 'jobCardTemplate');")}}
@@ -80,15 +81,15 @@
                 {% if articles|length >= limit %}
                     {{ this.render('partials/ajaxarticles.twig', {
                         limit           : limit,
-                        label           : "Show more", 
+                        name            : "jobs-load",
+                        label           : "Show more",
                         non_pinned      : articlesArr.existingNonPinnedCount, 
-                        cardTemplate    : "jobsCardTemplate",
-                        rendertype      : "write", 
+                        cardTemplate    : "jobsCardTemplate",  
                         card_class      : "col-sm-12 card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile",
                         container       : "mainAjaxArticles"
+                        blogid          : blogData['id']
                     }) | raw }}
                 {% endif %}
-
 
             </div>
 

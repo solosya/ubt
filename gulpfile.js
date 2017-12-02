@@ -44,8 +44,8 @@ gulp.task('concat', function () {
         './static/development/js/plugins/jquery.fancybox/source/jquery.fancybox.css',
         './static/development/js/plugins/jquery.noty-2.3.8/demo/animate.css',
         './static/development/js/sdk/media-player/mediaelementplayer.css',
-        './static/development/js/plugins/owl.carousel.min.css',
-        './static/development/js/plugins/owl.theme.default.css'
+        // './static/development/js/plugins/owl.carousel.min.css',
+        // './static/development/js/plugins/owl.theme.default.css'
 
     ]) // path to your file
     .pipe(concat('concat.css'))
@@ -86,32 +86,19 @@ gulp.task('scripts', function(){
         './static/development/js/plugins/handlebars-v4.0.5.js',
         './static/development/js/plugins/jquery.lazyload.min.js',
         './static/development/js/plugins/jquery.dotdotdot.min.js',
-        './static/development/js/plugins/owl.carousel.min.js',
+        // './static/development/js/plugins/owl.carousel.min.js',
         './static/development/js/plugins/moment.js',
         './static/development/js/plugins/bootstrap-datetimepicker.js',
         './static/development/js/plugins/ticker.js',
 
-        
 
+        './static/development/js/sdk/*.js', // all files that end in .js
+
+        './static/development/js/sdk/media-player/mediaelement-and-player.min.js',
         './static/development/js/sdk/cloudinary/jquery.cloudinary.js',
-        './static/development/js/sdk/common.js',
-        './static/development/js/sdk/weather.js',
-        './static/development/js/sdk/stripe.js',
-        './static/development/js/sdk/blog.js',
-        './static/development/js/sdk/article.js',
-        './static/development/js/sdk/search.js',
-        './static/development/js/sdk/disqus.js',
-        './static/development/js/sdk/video-player.js',
-        './static/development/js/sdk/user-articles.js',
-        './static/development/js/sdk/follow.js',
-        './static/development/js/sdk/login.js',
-        './static/development/js/sdk/image.js',
-        './static/development/js/sdk/social-share.js',
         './static/development/js/sdk/yii/yii.js',
         './static/development/js/sdk/yii/yii.captcha.js',
-        './static/development/js/sdk/uploadfile.js',
-        './static/development/js/sdk/media-player/mediaelement-and-player.min.js',
-        
+
         './static/development/js/common.js',
         './static/development/js/!(common)*.js', // all files that end in .js EXCEPT common*.js
 		])
@@ -124,36 +111,6 @@ gulp.task('scripts', function(){
 });
 
 
-// gulp.task('user_scripts', function(){
-//     return gulp.src([
-//         './bower_components/jquery/dist/jquery.js',
-//         './bower_components/bootstrap-sass/assets/javascripts/bootstrap.js',
-//         './assets/scripts/plugins/jquery.fancybox/source/jquery.fancybox.js',
-//         './assets/scripts/plugins/handlebars-v4.0.5.js',
-//         './assets/scripts/plugins/jquery.lazyload.min.js',
-//         './assets/scripts/plugins/jquery.dotdotdot.min.js',
-//         './assets/scripts/plugins/owl.carousel.min.js',
-
-//         './assets/scripts/sdk/search.js',
-//         './assets/scripts/sdk/video-player.js',
-//         './assets/scripts/sdk/user-articles.js',
-//         './assets/scripts/sdk/follow.js',
-//         './assets/scripts/sdk/login.js',
-//         './assets/scripts/sdk/image.js',
-//         './assets/scripts/sdk/social-share.js',
-//         './assets/scripts/sdk/yii/yii.js',
-//         './assets/scripts/sdk/yii/yii.captcha.js',
-//         './assets/scripts/sdk/uploadfile.js',
-//         './assets/scripts/sdk/media-player/mediaelement-and-player.min.js',
-//         './assets/scripts/*.js',
-//         ])
-//         .pipe(concat('user_concat.js'))
-//         .pipe(gulp.dest('./static/deploy'))
-//         .pipe(gp_rename('user_scripts.js'))
-//         .pipe(uglify().on('error', gutil.log))
-//         .pipe(gulp.dest('./static/deploy'));
-
-// });
 
 gulp.task('watch', function (){
 	gulp.watch('./static/css/**/*.scss', ['styles']);
