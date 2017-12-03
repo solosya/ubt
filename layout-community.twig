@@ -5,7 +5,8 @@
 
 
 
-{{this.registerJs("CardController();")}}
+{{this.registerJs("Acme.cards = CardController();")}}
+{{this.registerJs("Acme.searchFeed = new Acme.View.articleFeed(Acme.cards);")}}
 
 {% set limit = 13 %}
 
