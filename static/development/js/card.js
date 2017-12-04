@@ -92,7 +92,6 @@ Card.prototype.screen = function()
 
 Card.prototype.renderCard = function(card, cardClass, template, type)
 {
-    console.log(template);
     var self = this;
     var template = (template) ? Acme[template] : Acme.systemCardTemplate;
 
@@ -147,6 +146,8 @@ Card.prototype.renderReadingTime = function (time)
     }
 };
 
+
+
 // events
 Card.prototype.bindPinUnpinArticle = function()
 {
@@ -176,6 +177,7 @@ Card.prototype.bindDeleteHideArticle = function()
         }
     });
 };
+
 Card.prototype.bindSocialUpdatePost = function () 
 {
     $('.editSocialPost').on('click', function (e) {

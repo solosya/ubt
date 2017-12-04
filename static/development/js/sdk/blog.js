@@ -12,8 +12,8 @@
             existingNonPinnedCount: options.nonPinnedOffset
         };
 
-        if (options.blogId) {
-            requestData['blogId'] = options.blogId;
+        if (options.blogid) {
+            requestData['blogid'] = options.blogid;
         }
         if (options.search) {
             requestData['meta_info'] = options.search;

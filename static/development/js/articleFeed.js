@@ -20,11 +20,11 @@ Acme.View.articleFeed.prototype.fetch = function(elem, waypoint)
         'limit'             :   elem.data('limit'),
         'offset'            :   elem.data('offset') || elem.data('limit'),
         'nonPinnedOffset'   :   elem.data('non-pinned-offset') || -1,
-        'blogId'            :   elem.data('blogid'),
+        'blogid'            :   elem.data('blogid'),
         'loadtype'          :   elem.data('loadtype')      || "home",
         'search'            :   elem.data('searchterm')    || null,
     };
-    console.log(options);
+
     var cardClass  =   elem.data('card-class'),
         template   =   elem.data('card-template') || null,
         label      =   elem.data('button-label')  || "Load more",
@@ -33,7 +33,7 @@ Acme.View.articleFeed.prototype.fetch = function(elem, waypoint)
 
 
     $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
-        console.log(data);
+
         if (data.success == 1) {
 
             elem.html(label);
