@@ -86,6 +86,10 @@
                                 {% endif %}
                                 <p class="author">{{ article.createdBy['displayName'] }}</p>
 
+                                {% if article.createdBy['bio'] != null and article.createdBy['displayName'] != "AAP Newswire" %} 
+                                    <p class="bio">{{ article.createdBy['bio'] }}</p>
+                                {% endif %}   
+
                             </div><!--content-block-top-->
 
                             <div class="article_content">
