@@ -4,15 +4,17 @@
 
 window.templates = {};
 Handlebars.registerHelper('splitShift', function(text) {
+  if (!text) return "";
   return text.split(" ")[0].toLowerCase();
 });
 
 Handlebars.registerHelper('fixPrice', function(text) {
-    newText = text.replace(/\$/g, "");
-    return newText; 
+    if (!text) return "";
+    return text.replace(/\$/g, "");
 });
 
 Handlebars.registerHelper('draftStatus', function(text, date) {
+    if (!text || !date) return "";
     return text.toLowerCase() === 'draft' ? "Pending Approval" : "Posted " + date; 
 });
 
