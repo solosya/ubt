@@ -194,26 +194,34 @@
                     </div>
 
                     <div class="col-sm-2">
-                        {% for i in 0..1 if articles[articleCount] %}
                             {{this.render('partials/_single-article.twig', {
+                                article: articles[articleCount], 
+                                imageSize: {width: 198, height: 141},
+                                containerClass: "card-sm-full card-sm-full-tablet"
+                            }) | raw}}
+                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                                {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
                                 imageSuppress: true,
                                 containerClass: "card-blogger"
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                        {% endfor %}
                     </div>
 
 
                     <div class="col-sm-2">
-                        {% for i in 0..1 if articles[articleCount] %}
                             {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
                                 imageSuppress: true,
                                 containerClass: "card-blogger"
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                        {% endfor %}
+                            {{this.render('partials/_single-article.twig', {
+                                article: articles[articleCount], 
+                                imageSize: {width: 198, height: 141},
+                                containerClass: "card-sm-full card-sm-full-tablet"
+                            }) | raw}}
+                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                     </div>
                 </div>
             </div>
