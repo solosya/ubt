@@ -313,3 +313,36 @@ a.card {
         }
     }
 }
+
+.community {
+    .card{
+        article{
+            .content{
+
+                h2{
+                    margin-top: 105px;
+                }
+
+                .author{
+                    display: inherit;
+                    margin-top:5px;
+                    order: 3;
+                    font-weight: 300px;
+                    img{
+                        display:none;
+                    }
+                }
+                .cat-time{
+                    margin-top: -130px;
+                    .category{
+                        display:unset !important;
+                        border-right: 1px solid #97999c;
+                    }
+                    time{
+                        display: unset;
+                    }
+                }
+            }
+        }
+    }
+}
