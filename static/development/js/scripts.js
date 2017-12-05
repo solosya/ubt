@@ -86,11 +86,11 @@ $('document').ready(function() {
     };
 
 var adScroll = function() {
-        if ( scrollMetric[1] === 'up' && !isScrolledPast(475)) {
+        if ( scrollMetric[1] === 'up' && !isScrolledPast(675)) {
             articleAd.removeClass('fixad').addClass('lockad');
             // console.log(scrollMetric[0]);
         }
-        else if ( scrollMetric[1] === 'down' && isScrolledPast(475)) {
+        else if ( scrollMetric[1] === 'down' && isScrolledPast(675)) {
             articleAd.removeClass('lockad').addClass('fixad');
             // console.log(scrollMetric[1]);
         }
