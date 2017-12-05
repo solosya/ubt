@@ -197,13 +197,13 @@
                             {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
                                 imageSize: {width: 198, height: 141},
-                                containerClass: "card-sm-full card-sm-full-tablet community-mini"
+                                containerClass: "card-sm-full card-sm-full-tablet community"
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                                {{this.render('partials/_single-article.twig', {
+                            {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
-                                imageSuppress: true,
-                                containerClass: "card-blogger"
+                                imageSize: {width: 198, height: 141},
+                                containerClass: "card-sm-full card-sm-full-tablet community-mini"
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                     </div>
