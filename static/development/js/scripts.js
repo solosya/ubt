@@ -86,11 +86,11 @@ $('document').ready(function() {
     };
 
 var adScroll = function() {
-        if ( scrollMetric[1] === 'up' && !isScrolledPast(675)) {
+        if ( scrollMetric[1] === 'up' && !isScrolledPast(800)) {
             articleAd.removeClass('fixad').addClass('lockad');
             // console.log(scrollMetric[0]);
         }
-        else if ( scrollMetric[1] === 'down' && isScrolledPast(675)) {
+        else if ( scrollMetric[1] === 'down' && isScrolledPast(800)) {
             articleAd.removeClass('lockad').addClass('fixad');
             // console.log(scrollMetric[1]);
         }
@@ -107,6 +107,7 @@ var adScroll = function() {
         }
         scrollMetric = [scroll, direction];
         // scrollUpMenu();
+        console.log(scrollMetric[0]);
         adScroll();
 
     });
