@@ -43,7 +43,27 @@ body.layout-jobs, body.layout-property, body.layout-events {
                 text-align: left;
                 width:100%
             }
+
+            
         }
+
+        .listing-filter-menu__item\@md {
+            @media #{$media-iPad-to-desktop} {
+                padding-left:0;
+            }
+        }
+        .listing-filter-menu__item--first\@md {
+            @media #{$media-iPad-to-desktop} {
+                padding-left:20px;
+            }
+        }
+        .listing-filter-menu__item\@sm {
+            @media #{$media-mobile} {
+                margin-bottom:12px;
+            }
+        }
+
+
         .listing-filter-menu__link {
             display:block;
             color:color(red);

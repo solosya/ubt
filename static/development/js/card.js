@@ -6,7 +6,6 @@ var Card = function() {
     this.events();
 };
 
-
 Card.prototype.renderScreenCards = function(options, data) 
 {
     var self = this;
@@ -17,7 +16,7 @@ Card.prototype.renderScreenCards = function(options, data)
 
     var html = "";
     for (var i in data.articles) {
-        data.articles[i]['imageOptions'] = {width:1400, height:800 };
+        data.articles[i]['imageOptions'] = { width:1400, height:800 };
         html += self.renderCard(data.articles[i], options.cardClass);
     }
     container.empty().append(html);
@@ -59,10 +58,10 @@ Card.prototype.screen = function()
             currentScreen = 1;
         }
         var screenOption = currentScreen-1;
-        options.currentScreen = currentScreen;
-
-        options.limit = options.screens[screenOption].limit;
-        options.cardClass = options.screens[screenOption].style;
+        options.currentScreen   = currentScreen;
+        options.loadtype        = "home";
+        options.limit           = options.screens[screenOption].limit;
+        options.cardClass       = options.screens[screenOption].style;
         if (articleCount >= options.count) {
             articleCount = 0;
         }
@@ -76,7 +75,7 @@ Card.prototype.screen = function()
                 return;
             }
             articleCount = articleCount + data.articles.length;
-            console.log(data);
+
             if (data.success == 1) {
                 self.renderScreenCards(options, data);
             }
@@ -90,7 +89,6 @@ Card.prototype.screen = function()
         location.reload(false);
     } , pageRefreshInterval );
 };
-
 
 Card.prototype.renderCard = function(card, cardClass, template, type)
 {
@@ -138,17 +136,31 @@ Card.prototype.renderCard = function(card, cardClass, template, type)
     return articleTemplate(card);
 }
 
+Card.prototype.renderReadingTime = function (time) 
+{
+    if (time <= '59') {
+        return ((time <= 0) ? 1 : time) + ' min read';
+    } else {
+        var hr = Math.round(parseInt(time) / 100);
+        return hr + ' hour read';
+    }
+};
+
+
+
+// events
 Card.prototype.bindPinUnpinArticle = function()
 {
     $('button.PinArticleBtn').Ajax_pinUnpinArticle({
         onSuccess: function(data, obj){
             var status = $(obj).data('status');
+            var obj = $(obj);
             (status == 1) 
-                ? $(obj).attr('title', 'Un-Pin Article') 
-                : $(obj).attr('title', 'Pin Article');
+                ? obj.attr('title', 'Un-Pin Article') 
+                : obj.attr('title', 'Pin Article');
             (status == 1) 
-                ? $(obj).find('span').first().html('Un-Pin')
-                : $(obj).find('span').first().html('Pin');        
+                ? obj.find('span').first().html('Un-Pin')
+                : obj.find('span').first().html('Pin');        
         }
     });
 };
@@ -189,43 +201,12 @@ Card.prototype.bindSocialUpdatePost = function ()
     });
 };
 
-Card.prototype.bindSocialShareArticle = function () 
-{
-    $('.shareIcons').SocialShare({
-        onLoad: function (obj) {
-            var title = obj.parents('div.article').find('.card__news-category').text();
-            var url = obj.parents('div.article').find('a').attr('href');
-            var content = obj.parents('div.article').find('.card__news-description').text();
-            $('.rrssb-buttons').rrssb({
-                title: title,
-                url: url,
-                description: content
-            });
-            setTimeout(function () {
-                rrssbInit();
-            }, 10);
-        }
-    });
-};
-
-Card.prototype.renderReadingTime = function (time) 
-{
-    if (time <= '59') {
-        return ((time <= 0) ? 1 : time) + ' min read';
-    } else {
-        var hr = Math.round(parseInt(time) / 100);
-        return hr + ' hour read';
-    }
-};
-
 Card.prototype.bindSocialPostPopup = function()
 {
     var isRequestSent = false;
     $(document).on('click', 'article.lightbox', function (e) {
         e.preventDefault();
         // e.stopPropogation();
-
-        console.log('lightbox clicked');
 
         var csrfToken = $('meta[name="csrf-token"]').attr("content");
 
@@ -240,8 +221,6 @@ Card.prototype.bindSocialPostPopup = function()
             var articleId = $(this).parent().data('id');
             var payload = {articleId: articleId, _csrf: csrfToken}
         }
-
-        console.log(payload);
 
         if (!isRequestSent) {
 
@@ -266,7 +245,7 @@ Card.prototype.bindSocialPostPopup = function()
                     var articleTemplate = Handlebars.compile(socialPostPopupTemplate);
                     var article = articleTemplate(data);
                     $('.modal').html(article);
-                    //$('body').modalmanager('loading');
+
                     setTimeout(function () {
                         $('.modal').modal('show');
                     }, 500);
@@ -295,13 +274,7 @@ Card.prototype.initDraggable = function()
         scrollSensitivity: 100,
         cursorAt: { left: 150, top: 50 },
         appendTo:'body',
-        drag: function( event, ui ) {
-            console.log(event);
-            console.log('h');
-        },
-
         start: function( event, ui ) {
-            console.log('dragging');
             ui.helper.attr('class', '');
             var postImage = $(ui.helper).data('article-image');
             var postText = $(ui.helper).data('article-text');
@@ -315,7 +288,7 @@ Card.prototype.initDraggable = function()
             $(ui.helper).html($('div.SwappingHelper').html());    
         }
     });
-}
+};
 
 Card.prototype.initDroppable = function()
 {
@@ -422,112 +395,19 @@ Card.prototype.initDroppable = function()
 
         }
     }); 
-}
-
-Card.prototype.loadMore = function(btn, waypoint)
-{
-    console.log('loadmore');
-    var self = this;
-
-    btn.html("Please wait...");
-    
-    var container = $('#'+btn.data('container'));
-
-    var options = {
-        'container' :   container,
-        'offset'    :   container.data('offset'),
-        'limit'     :   container.data('limit'),
-        'cardClass' :   container.data('card-class'),
-        'nonpinned' :   container.data('existing-nonpinned-count'),
-        'blogid'    :   container.data('blogid'),
-        'template'  :   container.data('card-template') || null,
-        'label'     :   container.data('button-label'),
-        'ads_on'    :   container.data('ads')           || null,
-        'rendertype':   container.data('rendertype')    || null,
-        'loadtype'  :   container.data('loadtype')      || null,
-        'search'    :   container.data('searchterm')    || null
-    };
-
-    $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
-
-        if (data.success == 1) {
-
-            if (data.articles.length < options.limit) {
-                btn.css('display', 'none');
-            }
-
-            container.data('existing-nonpinned-count', data.existingNonPinnedCount);
-
-            var html = "";
-            if (options.ads_on == "yes") {
-                var html = '<div class="advert"><div id="ajaxAd"></div><script>loadNextAd(invSpace,"ajaxAd","banner",bannerSize,bannerMap)</script></div>';
-            } 
-            for (var i in data.articles) {
-                html += self.renderCard(data.articles[i], options.cardClass, options.template);
-            }
-
-            if (options.rendertype === "write") {
-                container.empty();
-            }
-
-            container.append(html);
-
-            if (waypoint) {
-                if (data.articles.length < options.limit) {
-                    waypoint.destroy();
-                } else {
-                    waypoint.enable();
-                }
-            }
-
-            $(".card .content > p, .card h2").dotdotdot();
-            
-            self.bindSocialShareArticle();
-            
-            $('.video-player').videoPlayer();
-            
-            $("div.lazyload").lazyload({
-                effect: "fadeIn"
-            });
-
-            if (_appJsConfig.isUserLoggedIn === 1 && _appJsConfig.userHasBlogAccess === 1) {
-                self.events();
-            }
-
-            btn.html(options.label);
-        }
-    });
-}
+};
 
 Card.prototype.events = function() 
 {
     var self = this;
 
-    if(_appJsConfig.isUserLoggedIn === 1 && _appJsConfig.userHasBlogAccess === 1) {
-        initSwap();
+    if (_appJsConfig.isUserLoggedIn === 1 && _appJsConfig.userHasBlogAccess === 1) {
+        self.initDroppable();
+        self.initDraggable();        
+        self.bindPinUnpinArticle();
+        self.bindDeleteHideArticle();
+        self.bindSocialUpdatePost();  
     }
 
-    function initSwap() {
-        self.initDroppable();
-        self.initDraggable();
-        
-        //Bind pin/unpin article event
-        self.bindPinUnpinArticle();
-
-        //Bind delete social article & hide system article
-        self.bindDeleteHideArticle();
-        
-        //Bind update social article
-        self.bindSocialUpdatePost();
-        
-        //Following will called on page load and also on load more articles
-        $(".articleMenu, .socialMenu").delay(2000).fadeIn(500);
-    }  
-
     self.bindSocialPostPopup();
-
-    $('.loadMoreArticles').unbind().on('click', function(e) {
-        e.preventDefault();
-        self.loadMore($(e.target));
-    });
 };

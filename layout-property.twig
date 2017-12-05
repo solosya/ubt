@@ -5,17 +5,18 @@
 
 
 
-{{this.registerJs("window.Acme.cards = CardController();")}}
+{{this.registerJs("Acme.cards = CardController();")}}
+{{this.registerJs("Acme.searchFeed = new Acme.View.articleFeed(Acme.cards);")}}
 {{this.registerJs("Acme.searchCollection = new Acme.searchCollectionClass(["~blogData['id']~"]);")}}
 {{this.registerJs("Acme.jobRegionFilter = new Acme.regionSearchView();")}}
 {{this.registerJs("Acme.propertyTypeFilter = new Acme.propertyTypeSearchView();")}}
 {{this.registerJs("Acme.saleTypeFilter = new Acme.saleTypeSearchView();")}}
-{{this.registerJs("Acme.propertySearchResults = new Acme.propertySearchResultsClass('property-listings', 'propertyCardTemplate');")}}
+{{this.registerJs("Acme.propertySearchResults = new Acme.propertySearchResultsClass('property-listings', 'propertyListingCardTemplate');")}}
 
 
 
 
-{% set limit = 6 %}
+{% set limit = 10 %}
 
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
@@ -34,16 +35,15 @@
 
         <section class="row section">
 
-
-            <div class="col-sm-offset-1 col-sm-10 section-header">
+            <div class="col-md-offset-1 col-sm-10 section-header">
                 <h2 class="section-header__title">{{this.title}}</h2>
             </div>
-            <div class="col-sm-offset-1 col-sm-7 subsection-header" >
+            <div class="col-md-offset-1 col-sm-7 subsection-header" >
                 <p class="section-header__description">
                     {{blogData.shortDescription}}
                 </p>
             </div>
-            <div class="col-sm-3" >
+            <div class="col-sm-3 hidden-xs" >
                 <a class="listing-link" href="{{networkData.defaultBlogUrl}}/@property-form">Submit a listing</a>
             </div>
         
@@ -53,16 +53,36 @@
 
         <section class="row">
 
-            <div class="col-sm-offset-1 col-sm-6">
+            <div class="col-sm-12 col-md-offset-1 col-md-6">
 
-                <div class="listing-filter-menu row">
-                    <div id="regionSelect" class="col-md-4 regionSelect"></div>
-                    <div id="typeSelect" class="col-md-4 typeSelect" style="padding-left:0;"></div>
-                    <div id="saleSelect" class="col-md-3 saleSelect" style="padding-left:0;"></div>
-                    <a class="col-md-1 listing-filter-menu__link" id="searchButton" href="#" style="padding-left:0;">Search</a>
+                <div class="listing-filter-menu listing-filter-menu@sm row">
+                    <div id="regionSelect" 
+                         class="col-sm-4 
+                                listing-filter-menu__item 
+                                listing-filter-menu__item@md 
+                                listing-filter-menu__item@sm 
+                                listing-filter-menu__item--first@md 
+                                regionSelect"></div>
+
+                    <div id="typeSelect" 
+                         class="col-sm-4 
+                                listing-filter-menu__item 
+                                listing-filter-menu__item@md 
+                                listing-filter-menu__item@sm 
+                                typeSelect" ></div>
+
+                    <div id="saleSelect" 
+                         class="col-sm-3 
+                                listing-filter-menu__item 
+                                listing-filter-menu__item@md 
+                                listing-filter-menu__item@sm 
+                                saleSelect" ></div>
+
+                    <a class="col-sm-1 listing-filter-menu__link" id="searchButton" href="#" style="padding-left:0;">Search</a>
                 </div>
+            </div>
 
-
+            <div class="col-sm-7 col-md-offset-1 col-md-6">
 
 
                 <div id="property-listings">
@@ -73,7 +93,7 @@
                             template: 'property',
                             networkData: networkData,
                             imageSize: {width: 640, height: 309},
-                            containerClass: 'card-main-realestate card-main-realestate-tablet card-main-realestate-mobile'
+                            containerClass: 'card-main-realestate card-main-realestate-tablet card-rec-realestate-mobile'
                         }) | raw}}
                         {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                     {% endif %}
@@ -90,35 +110,39 @@
                         }) | raw}}
                         {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                     {% endfor %}
-
                 </div>
 
                 {% if articles|length >= limit %}
-
-
                     {{ this.render('partials/ajaxarticles.twig', {
-                        limit       : limit, 
-                        label       : "Show more",
-                        non_pinned  : articlesArr.existingNonPinnedCount, 
-                        card_class  : "col-sm-12 card-rec-realestate card-rec-realestate-tablet card-rec-realestate-mobile",
-                        container   : "mainAjaxArticles"
+                        limit           : limit,
+                        name            : "property-load",
+                        label           : "Show more",
+                        non_pinned      : articlesArr.existingNonPinnedCount, 
+                        cardTemplate    : "propertyListingCardTemplate",  
+                        card_class      : "card-rec-realestate card-rec-realestate-tablet card-rec-realestate-mobile",
+                        container       : "property-listings",
+                        blogid          : blogData['guid']
                     }) | raw }}
                 {% endif %}
-
 
             </div>
 
 
 
 
-            <div class="col-sm-offset-1 col-sm-3">
+            <div class="col-sm-4 col-sm-offset-1 col-md-3">
                 <div class="advert">
-                       <div id='hPageAd1'></div>
-                        <script>loadNextAd(invSpace,'hPageAd1','halfAd',hPageSize,hPageMap);</script>
+                    <div id='hPageAd1'></div>
+                    <script>loadNextAd(invSpace,'hPageAd1','halfAd',hPageSize,hPageMap);</script>
                 </div>
             </div>
         </section>
 
+        <section class="row visible-xs">
+            <div class="col-sm-12">
+                <a class="listing-link" href="{{networkData.defaultBlogUrl}}/@property-form">Submit a listing</a>
+            </div>
+        </section>
 
 
 

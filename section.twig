@@ -3,18 +3,20 @@
 {% set blogData    = _Blog.getBlog() %}
 
 {{this.registerJs("Acme.cards = CardController();")}}
+{{this.registerJs("Acme.searchFeed = new Acme.View.articleFeed(Acme.cards);")}}
+
 
 {% set limit = 9 %}
 {% set articlesArr  = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles     = articlesArr.articles %}
-{% set articleCount = articles | length %}
+{% set firstCount = articles | length %}
 
-{{this.registerJs("var scroll = new Acme.infiniteScroll(" ~ limit ~ ", " ~ articleCount ~ ");")}}
+{{this.registerJs("var scroll = new Acme.infiniteScroll(" ~ limit ~ ", " ~ firstCount ~ ", Acme.searchFeed);")}}
 
 
 <!-- used to index each article as we loop over throughout the template -->
 {% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
-{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
+{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
 
 
 
@@ -48,7 +50,7 @@
                 {% endif %}
 
 
-                {% for i in 0..4 if articles[articleCount] %}
+                {% for i in 0..5 if articles[articleCount] %}
                     {{this.render('partials/_single-article.twig', {
                         article: articles[articleCount], 
                         position: (articleCount+1),
@@ -60,18 +62,18 @@
 
 
 
-
-                {{ this.render('partials/ajaxarticles.twig', {
-                    offset      : limit, 
-                    limit       : 10,
-                    non_pinned  : articlesArr.existingNonPinnedCount, 
-                    card_class  : "col-sm-12 card-rec card-rec-tablet card-rec-mobile no-padding",
-                    container   : "mainAjaxArticles",
-                    buttonClass : "infinite",   
-                    ads         : "yes"             
-                }) | raw }}
-
-
+                {% if articles|length >= limit %}
+                    {{ this.render('partials/ajaxarticles.twig', {
+                        offset          : limit,
+                        limit           : limit,
+                        name            : "section-load",
+                        non_pinned      : articlesArr.existingNonPinnedCount, 
+                        card_class      : "col-sm-12 card-rec card-rec-tablet card-rec-mobile no-padding",
+                        container       : "mainAjaxArticles",
+                        ads             : "yes",
+                        buttonClass     : "infinite"
+                    }) | raw }}
+                {% endif %}
 
 
             </div>

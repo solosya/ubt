@@ -4,7 +4,8 @@
 
 
 
-{{this.registerJs("window.Acme.cards = CardController();")}}
+{{this.registerJs("Acme.cards = CardController();")}}
+{{this.registerJs("Acme.searchFeed = new Acme.View.articleFeed(Acme.cards);")}}
 {{this.registerJs("Acme.searchCollection = new Acme.searchCollectionClass(["~blogData['id']~"]);")}}
 {{this.registerJs("Acme.jobRegionFilter = new Acme.regionSearchView();")}}
 {{this.registerJs("Acme.jobsSearchResults = new Acme.jobsSearchResultsClass('job-listings', 'jobCardTemplate');")}}
@@ -12,7 +13,7 @@
 
 {# {{this.registerJs("ListingController();")}} #}
 
-{% set limit = 7 %}
+{% set limit = 10 %}
 
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
@@ -31,15 +32,15 @@
 
         <section class="row section">
 
-            <div class="col-sm-offset-1 col-sm-10 section-header">
+            <div class="col-md-offset-1 col-sm-10 section-header">
                 <h2 class="section-header__title">{{this.title}}</h2>
             </div>
-            <div class="col-sm-offset-1 col-sm-7 subsection-header" >
+            <div class="col-md-offset-1 col-sm-7 subsection-header" >
                 <p class="section-header__description">
                     {{blogData.shortDescription}}
                 </p>
             </div>
-            <div class="col-sm-3" >
+            <div class="col-sm-3 hidden-xs">
                 <a class="listing-link" href="{{networkData.defaultBlogUrl}}/@job-form">Submit a job</a>
             </div>
             
@@ -47,19 +48,20 @@
 
 
         <section class="row">
-
-            <div class="col-sm-offset-1 col-sm-6">
-
-                <div class="row">
-                    <div class="col-sm-10">
-                        <div class="listing-filter-menu">
-                            <div id="regionSelect" class="regionSelect"></div>
-                        </div>
-                    </div>
-                    <div class="col-sm-2">
-                        <a class="listing-filter-menu__link" id="searchButton" href="#">Search</a>
-                    </div>
+            
+            <div class="col-sm-10 col-md-offset-1 col-md-6">
+                <div class="listing-filter-menu">
+                    <div id="regionSelect" class="regionSelect"></div>
                 </div>
+            </div>
+            <div class="col-sm-2">
+                <a class="listing-filter-menu__link" id="searchButton" href="#">Search</a>
+            </div>
+
+
+
+
+            <div class="col-md-offset-1 col-sm-7 col-md-6">
 
 
                 <div id="job-listings">
@@ -80,22 +82,23 @@
                 {% if articles|length >= limit %}
                     {{ this.render('partials/ajaxarticles.twig', {
                         limit           : limit,
-                        label           : "Show more", 
+                        name            : "jobs-load",
+                        label           : "Show more",
                         non_pinned      : articlesArr.existingNonPinnedCount, 
-                        cardTemplate    : "jobsCardTemplate",
+                        cardTemplate    : "jobCardTemplate",
                         rendertype      : "write", 
-                        card_class      : "col-sm-12 card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile",
-                        container       : "mainAjaxArticles"
+                        card_class      : "card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile",
+                        container       : "mainAjaxArticles",
+                        blogid          : blogData['guid']
                     }) | raw }}
                 {% endif %}
-
 
             </div>
 
 
 
 
-            <div class="col-sm-offset-1 col-sm-3">
+            <div class="col-sm-offset-1 col-sm-4 col-md-3" style="background:pink">
                 <div class="advert">
                        <div id='hPageAd1'></div>
                         <script>loadNextAd(invSpace,'hPageAd1','halfAd',hPageSize,hPageMap);</script>
@@ -104,6 +107,11 @@
         </section>
 
 
+        <section class="row visible-xs">
+            <div class="col-sm-12">
+                <a class="listing-link" href="{{networkData.defaultBlogUrl}}/@job-form">Submit a listing</a>
+            </div>
+        </section>
 
 
     </main><!-- .site-main -->

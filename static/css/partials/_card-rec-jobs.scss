@@ -85,7 +85,7 @@
                     }
                     > p.excerpt {
                         height:40px;
-                        width:500px;
+                        width:80%;
                         padding-right:20px;
                         position: absolute;
                         top:90px;
@@ -119,24 +119,24 @@
 
 
 .card-rec-jobs-tablet{
-    @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
+    @media #{$media-iPad} {
         @include card-rec-jobs-base();
 
         margin-bottom: 32px;
 
         a.card {
-            height:190px;
+            height:173px;
 
             > article {
 
                 > figure{
-                    margin-right:18px;
-                    margin-bottom:10px;
+                    display:none;
                 }
 
                 > .content{
 
                     > h2{
+                        width:80%;
                         font-size: rem(25);
                         line-height:1.2;
                         margin-top:12px;
@@ -148,25 +148,30 @@
                         margin-bottom:11px;
                     }
                     > p.excerpt {
-                        height:60px;
+                        height:40px;
+                        width:80%;
+                        padding-right:20px;
                         position: absolute;
-                        top: 120px;
+                        top:90px;
+                        left:0px;
                     }
 
                     > p.salary {
-                        font-size: rem(13);
                         color: color(darkblue);
                         position: absolute;
-                        top: 90px;
+                        top:33px;
                         right:0px;                        
                     }
 
                     > p.location {
                         font-size: rem(13);
                         position: absolute;
-                        top: 90px;
-                        left:0px;
+                        width: 110px;
+                        height:40px;
+                        top:90px;
+                        right:0px;
                         font-style: italic;
+                        text-align:right;
                     }
                 }
             }
@@ -183,26 +188,59 @@
 
 
 .card-rec-jobs-mobile{
-    @media screen and (max-width: $sm-break-down){
+    @media #{$media-mobile} {
         @include card-rec-jobs-base();
 
-        margin-bottom: 20px;
+        margin-bottom: 32px;
 
         a.card {
-            @include card-image-left(80px, 82px);
-            height:102px;
+            height:173px;
 
             > article {
 
                 > figure{
-                    margin-right:18px;
+                    display:none;
                 }
 
                 > .content{
+
                     > h2{
-                        font-size: rem(16);
-                        line-height:1.38;
-                        margin-top:0;
+                        width:80%;
+                        font-size: rem(25);
+                        line-height:1.2;
+                        margin-top:12px;
+                        margin-bottom:2px;
+                    }
+                    > p.company{
+                        font-size: rem(13);
+                        font-weight:600;
+                        margin-bottom:11px;
+                    }
+                    > p.excerpt {
+                        height:40px;
+                        width:80%;
+                        padding-right:20px;
+                        position: absolute;
+                        top:90px;
+                        left:0px;
+                    }
+
+                    > p.salary {
+                        color: color(darkblue);
+                        position: absolute;
+                        top:33px;
+                        right:0px;                        
+                    }
+
+                    > p.location {
+                        font-size: rem(13);
+                        position: absolute;
+                        width: 110px;
+                        height:40px;
+                        top:90px;
+                        right:0px;
+                        font-style: italic;
+                        text-align:right;
                     }
                 }
             }
