@@ -35945,11 +35945,11 @@ $('document').ready(function() {
     };
 
 var adScroll = function() {
-        if ( scrollMetric[1] === 'up' && !isScrolledPast(800)) {
+        if ( scrollMetric[1] === 'up' && !isScrolledPast(1350)) {
             articleAd.removeClass('fixad').addClass('lockad');
             // console.log(scrollMetric[0]);
         }
-        else if ( scrollMetric[1] === 'down' && isScrolledPast(800)) {
+        else if ( scrollMetric[1] === 'down' && isScrolledPast(1350)) {
             articleAd.removeClass('lockad').addClass('fixad');
             // console.log(scrollMetric[1]);
         }
