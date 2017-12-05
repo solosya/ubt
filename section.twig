@@ -102,6 +102,12 @@
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 {% endfor %}
+
+                <div id='articleAdScroll' class="advert lockad">
+                    <div id='hPage1'></div>
+                    <script>loadNextAd(invSpace,'hPage1','hpage',hPageSize,hPageMap)</script>
+                </div>
+
             </div>
 
         </section>    

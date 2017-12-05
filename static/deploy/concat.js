@@ -30530,7 +30530,6 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
         if (opts.loadtype) {
             loadtype = opts.loadtype;
         }
-        console.log(opts);
         if (opts.container) {
             var container = opts.container;
         } else {
@@ -30569,7 +30568,8 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
             requestData['search'] = options.search;
         }
 
-        // console.log(requestData);
+        console.log(_appJsConfig.baseHttpPath + '/'+loadtype+'/load-articles');
+        console.log(requestData);
         return $.ajax({
             type: 'post',
             url: _appJsConfig.baseHttpPath + '/'+loadtype+'/load-articles',
@@ -33036,16 +33036,40 @@ function(a){"use strict";void 0===a.en&&(a.en={"mejs.plural-form":1,"mejs.downlo
 /**
  * Handlebar Article templates for listing
  */
+
 window.templates = {};
 Handlebars.registerHelper('splitShift', function(text) {
   return text.split(" ")[0];
 });
+
 Handlebars.registerHelper('fixPrice', function(text) {
     newText = text.replace(/\$/g, "");
     return newText; 
 });
+
 Handlebars.registerHelper('draftStatus', function(text, date) {
     return text.toLowerCase() === 'draft' ? "Pending Approval" : "Posted " + date; 
+});
+
+Handlebars.registerHelper('formatSalary', function(salary, salaryType, salaryTo, salaryFrom, hourlyRate) {
+    var salaryPrefix = "";
+    var salary = "";
+
+    if (salaryType === "1") {
+        salaryPrefix = "Salary ";
+        salary = "$" + salaryFrom;
+        if (salaryTo) {
+            salaryPrefix = salaryPrefix + "range ";
+            salary = salary + " - " + salaryTo;
+        }
+    } else if (salaryType == 2) {
+        salaryPrefix = "Hourly rate ";
+        salary = "$" + hourlyRate;
+    } else if (salaryType == 3) {
+        salaryPrefix = "Commission";
+    }
+
+    return salaryPrefix + salary
 });
 
 
@@ -33206,7 +33230,7 @@ Acme.jobCardTemplate =
             </div> \
             <h2>{{{ title }}}</h2>\
             <p class="company">{{{ additionalInfo.company }}}</p> \
-            <p class="salary">{{{salary}}}</p> \
+            <p class="salary">{{{ formatSalary salary additionalInfo.salaryType additionalInfo.salaryto additionalInfo.salaryfrom additionalInfo.hourlyrate}}}</p> \
             <p class="excerpt">{{{ excerpt }}}</p> \
             \
         </div>' + 
@@ -33637,7 +33661,6 @@ Card.prototype.screen = function()
 Card.prototype.renderCard = function(card, cardClass, template, type)
 {
     var self = this;
-
     var template = (template) ? Acme[template] : Acme.systemCardTemplate;
 
     card['cardClass'] = cardClass;
@@ -33646,37 +33669,8 @@ Card.prototype.renderCard = function(card, cardClass, template, type)
         card['cardClass'] += " draft"; 
     }
 
-    if (type === 'property') {
-        var attr = card.additionalInfo;
-        attr.pricerange = attr.pricerange.replace(/\$/g, "");
-    }
-
-    if (card.additionalInfo && card.additionalInfo.salary) {
-        var salaryType = card.additionalInfo.salary;
-        var salaryPrefix = "";
-        var salary = "";
-
-        if (salaryType === "1") {
-            salaryPrefix = "Salary ";
-            salary = "$" + card.additionalInfo.salaryfrom;
-            if (card.additionalInfo.salaryto) {
-                salaryPrefix = salaryPrefix + "range ";
-                salary = salary + " - " + card.additionalInfo.salaryto;
-            }
-        } else if (salaryType == 2) {
-            salaryPrefix = "Hourly rate ";
-            salary = "$" + card.additionalInfo.hourlyrate;
-        } else if (salaryType == 3) {
-            salaryPrefix = "Commission";
-        }
-
-        card['salary'] = salaryPrefix + salary
-    }
-
-
-
     card['pinTitle'] = (card.isPinned == 1) ? 'Un-Pin Article' : 'Pin Article';
-    card['pinText'] = (card.isPinned == 1) ? 'Un-Pin' : 'Pin';
+    card['pinText']  = (card.isPinned == 1) ? 'Un-Pin' : 'Pin';
     card['promotedClass'] = (card.isPromoted == 1)? 'ad_icon' : '';
     card['hasArticleMediaClass'] = (card.hasMedia == 1)? 'withImage__content' : 'without__image';
     card['readingTime']= self.renderReadingTime(card.readingTime);
@@ -34010,7 +34004,7 @@ Card.prototype.loadMore = function(btn, waypoint)
         'offset'    :   container.data('offset'),
         'limit'     :   container.data('limit'),
         'cardClass' :   container.data('card-class'),
-        'nonpinned' :   container.data('offset'),
+        'nonpinned' :   container.data('existing-nonpinned-count'),
         'blogid'    :   container.data('blogid'),
         'template'  :   container.data('card-template') || null,
         'label'     :   container.data('button-label'),
@@ -34019,7 +34013,7 @@ Card.prototype.loadMore = function(btn, waypoint)
         'loadtype'  :   container.data('loadtype')      || null,
         'search'    :   container.data('searchterm')    || null
     };
-    console.log(options);
+
     $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
 
         if (data.success == 1) {
@@ -35830,7 +35824,6 @@ Acme.Confirm = function(template, parent, layouts) {
             }        
 
             if ($elem.data('role') === 'delete') {
-                console.log('calling delete from form');
                 Acme.PubSub.publish("update_state", {'delete listing': "" });                
             }
 
@@ -35873,6 +35866,7 @@ $('document').ready(function() {
     var scrollMetric = [pageWindow.scrollTop()];
     var menuContainer = $("#mainHeader");
     var masthead = $('#masthead');
+    var articleAd = $('#articleAdScroll');
 
     $('.video-player').videoPlayer();
     
@@ -35943,17 +35937,38 @@ $('document').ready(function() {
         // scrollUpMenu();
     }).resize();
 
+    var isScrolledPast = function(position){
+        if (scrollMetric[0] >= position) {
+            return true;
+        }
+        return false;
+    };
+
+var adScroll = function() {
+        if ( scrollMetric[1] === 'up' && !isScrolledPast(475)) {
+            articleAd.removeClass('fixad').addClass('lockad');
+            // console.log(scrollMetric[0]);
+        }
+        else if ( scrollMetric[1] === 'down' && isScrolledPast(475)) {
+            articleAd.removeClass('lockad').addClass('fixad');
+            // console.log(scrollMetric[1]);
+        }
+        
+    }
+
     //On Scroll
-    // pageWindow.scroll(function() {
-    //     console.log('scrolling');
-    //     var direction = 'down';
-    //     var scroll = pageWindow.scrollTop();
-    //     if (scroll < scrollMetric[0]) {
-    //         direction = 'up';
-    //     }
-    //     scrollMetric = [scroll, direction];
-    //     scrollUpMenu();
-    // });
+    pageWindow.scroll(function() {
+        // console.log('scrolling');
+        var direction = 'down';
+        var scroll = pageWindow.scrollTop();
+        if (scroll < scrollMetric[0]) {
+            direction = 'up';
+        }
+        scrollMetric = [scroll, direction];
+        // scrollUpMenu();
+        adScroll();
+
+    });
 
 
 

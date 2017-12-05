@@ -7,6 +7,7 @@ $('document').ready(function() {
     var scrollMetric = [pageWindow.scrollTop()];
     var menuContainer = $("#mainHeader");
     var masthead = $('#masthead');
+    var articleAd = $('#articleAdScroll');
 
     $('.video-player').videoPlayer();
     
@@ -77,17 +78,38 @@ $('document').ready(function() {
         // scrollUpMenu();
     }).resize();
 
+    var isScrolledPast = function(position){
+        if (scrollMetric[0] >= position) {
+            return true;
+        }
+        return false;
+    };
+
+var adScroll = function() {
+        if ( scrollMetric[1] === 'up' && !isScrolledPast(475)) {
+            articleAd.removeClass('fixad').addClass('lockad');
+            // console.log(scrollMetric[0]);
+        }
+        else if ( scrollMetric[1] === 'down' && isScrolledPast(475)) {
+            articleAd.removeClass('lockad').addClass('fixad');
+            // console.log(scrollMetric[1]);
+        }
+        
+    }
+
     //On Scroll
-    // pageWindow.scroll(function() {
-    //     console.log('scrolling');
-    //     var direction = 'down';
-    //     var scroll = pageWindow.scrollTop();
-    //     if (scroll < scrollMetric[0]) {
-    //         direction = 'up';
-    //     }
-    //     scrollMetric = [scroll, direction];
-    //     scrollUpMenu();
-    // });
+    pageWindow.scroll(function() {
+        // console.log('scrolling');
+        var direction = 'down';
+        var scroll = pageWindow.scrollTop();
+        if (scroll < scrollMetric[0]) {
+            direction = 'up';
+        }
+        scrollMetric = [scroll, direction];
+        // scrollUpMenu();
+        adScroll();
+
+    });
 
 
 
