@@ -13,7 +13,7 @@
 
 {# {{this.registerJs("ListingController();")}} #}
 
-{% set limit = 7 %}
+{% set limit = 5 %}
 
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
@@ -84,7 +84,8 @@
                         name            : "jobs-load",
                         label           : "Show more",
                         non_pinned      : articlesArr.existingNonPinnedCount, 
-                        cardTemplate    : "jobsCardTemplate",  
+                        cardTemplate    : "jobCardTemplate",
+                        rendertype      : "write", 
                         card_class      : "col-sm-12 card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile",
                         container       : "mainAjaxArticles"
                         blogid          : blogData['id']
