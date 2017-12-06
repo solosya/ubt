@@ -13,7 +13,7 @@
 {% set layout        = _Page.getLayoutName() %}
 
 {% set showPaywall = false %}
- {% if blogName != "Subscribe" and _AppHelper.getParsedUrl().path != _AppHelper.getEditProfileUrl() and blogData['showPaywall'] == "Yes" %}
+ {% if blogName != "Subscribe" and _AppHelper.getParsedUrl().path != _AppHelper.getEditProfileUrl() and blogData['showPaywall'] == true %}
     {% set showPaywall = true %}
     {% set layout = "layout-marketing" %}
  {% endif %}
