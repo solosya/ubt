@@ -33010,6 +33010,10 @@ Handlebars.registerHelper('formatSalary', function(salary, salaryType, salaryTo,
     return salaryPrefix + salary
 });
 
+window.templates.carousel_item = 
+'<div class="carousel-tray__item" style="background-image:url( {{imagePath}} )"> \
+    <span class="carousel-tray__delete"></span> \
+</div>';
 
 window.templates.ads_infinite = 
 '<div class="advert"> \
@@ -34776,9 +34780,10 @@ ListingForm.constructor = ListingForm;
     {
         var imageArray = $('#imageArray');
         var html = "";
+        var temp = Handlebars.compile(window.templates.carousel_item); 
         for (var i=0;i<images.length;i++) {
             var imagePath = images[i].url || images[i].path;
-            html += '<div class="carousel-tray__item" style="background-image:url(' + imagePath + ')"></div>';
+            html += temp({"imagePath": imagePath});
         }
         imageArray.append(html);
     },
