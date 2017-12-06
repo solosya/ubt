@@ -1,6 +1,10 @@
 {% if _AppHelper.getApplicationEnv() == 'PROD'%}
     {# http://d31nhj1t453igc.cloudfront.net/sdk/sdk-v1.0.0.min.js #}
+<<<<<<< HEAD
     <script type="text/javascript" src="{{networkData.templatePath}}/static/deploy/scripts.js?ver=84"></script>
+=======
+    <script type="text/javascript" src="{{networkData.templatePath}}/static/deploy/scripts.js?ver=80"></script>
+>>>>>>> UAT
 
 
 {% else %}
@@ -54,6 +58,7 @@
     <script type="text/javascript" src="{{networkData.templatePath}}/static/development/js/common.js"></script>
     <script type="text/javascript" src="{{networkData.templatePath}}/static/development/js/_article-templates.js?ver=2"></script>
     <script type="text/javascript" src="{{networkData.templatePath}}/static/development/js/card.js?ver=10"></script>
+    <script type="text/javascript" src="{{networkData.templatePath}}/static/development/js/articleFeed.js?ver=1"></script>
     <script type="text/javascript" src="{{networkData.templatePath}}/static/development/js/listings.js?ver=1"></script>
     <script type="text/javascript" src="{{networkData.templatePath}}/static/development/js/search.js?ver=1"></script>
     <script type="text/javascript" src="{{networkData.templatePath}}/static/development/js/user-articles.js"></script>

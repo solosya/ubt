@@ -2,5 +2,8 @@
     <defs>
         <path id="a" d="M0 0h34v20H0z"/>
     </defs>
-    <use fill="#FFF" fill-rule="evenodd" xlink:href="#a"/>
+    <g fill="none" fill-rule="evenodd">
+        <use fill="#FFF" xlink:href="#a"/>
+        <path fill="#002D56" d="M5.307 1L0 3.847v13.031L5.307 20l1.748-1.034V16.79l2.269-.94v1.786l1.286-.756V3.854L5.307 1zM.74 6.743l3.83-1.037v.733L.74 7.3v-.556zm5.304-.304v-.727l3.833 1.031v.56l-3.833-.864zm0 3.678l3.833-.016v.559l-3.833.184v-.727zM.74 10.66v-.556l3.83.01v.733L.74 10.66zm0 3.364v-.559l3.83 1.057v.734L.74 14.024z"/>
+    </g>
 </svg>

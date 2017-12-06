@@ -4,15 +4,17 @@
 
 window.templates = {};
 Handlebars.registerHelper('splitShift', function(text) {
-  return text.split(" ")[0];
+  if (!text) return "";
+  return text.split(" ")[0].toLowerCase();
 });
 
 Handlebars.registerHelper('fixPrice', function(text) {
-    newText = text.replace(/\$/g, "");
-    return newText; 
+    if (!text) return "";
+    return text.replace(/\$/g, "");
 });
 
 Handlebars.registerHelper('draftStatus', function(text, date) {
+    if (!text || !date) return "";
     return text.toLowerCase() === 'draft' ? "Pending Approval" : "Posted " + date; 
 });
 
@@ -37,8 +39,16 @@ Handlebars.registerHelper('formatSalary', function(salary, salaryType, salaryTo,
     return salaryPrefix + salary
 });
 
+window.templates.carousel_item = 
+'<div class="carousel-tray__item" style="background-image:url( {{imagePath}} )"> \
+    <span class="carousel-tray__delete"></span> \
+</div>';
 
-
+window.templates.ads_infinite = 
+'<div class="advert"> \
+    <div id="ajaxAd"></div> \
+    <script>loadNextAd(invSpace,"ajaxAd","banner",bannerSize,bannerMap)</script> \
+</div>';
 
 
 window.templates.pulldown = 
@@ -221,7 +231,7 @@ Acme.communityJobCardTemplate =
 
 
 
-Acme.propertyCardTemplate = 
+Acme.propertyListingCardTemplate = 
     cardTemplateTop +  
         '{{#if hasMedia}} \
             <figure class="{{figureClass}}"> \
@@ -237,8 +247,43 @@ Acme.propertyCardTemplate =
                 <time datetime="{{publishDate}}">{{publishDate}}</time> \
             </div> \
             \
-            <h2>{{ title }}</h2> \
+            <div class="property__left"> \
+                <h1 class="price">${{ fixPrice additionalInfo.pricerange }}</h1> \
+                <h2>{{ title }}</h2> \
+            </div> \
             \
+            <div class="property__right"> \
+                <p class="region">{{ additionalInfo.region }}</p> \
+                <p class="excerpt">{{{ excerpt }}}</p> \
+            </div> \
+            <div class="listing-type"> \
+                <img class="listing-type__img" src="'+_appJsConfig.templatePath +'/static/icons/property/{{ splitShift additionalInfo.type }}.svg"> \
+                <p class="listing-type__attribute listing-type__attribute--type">{{ additionalInfo.type }}</p> \
+                <p class="listing-type__attribute listing-type__attribute--contract">{{ additionalInfo.contracttype }}</p> \
+                <p class="region__below">{{ additionalInfo.region }}</p> \
+            </div> \
+        </div>' +
+    cardTemplateBottom;
+
+
+
+
+Acme.userPropertyCardTemplate = 
+    cardTemplateTop +  
+        '{{#if hasMedia}} \
+            <figure class="{{figureClass}}"> \
+                <picture> \
+                    <source media="(max-width: 620px)" srcset="{{imageUrl}}"> \
+                    <img class="img-responsive" src="{{imageUrl}}" data-original="{{imageUrl}}"> \
+                </picture> \
+            </figure> \
+        {{/if}} \
+        \
+        <div class="content"> \
+            <div class="cat-time"> \
+                <time datetime="{{publishDate}}">{{publishDate}}</time> \
+            </div> \
+            <h2>{{ title }}</h2> \
             <p class="propertyType">{{ additionalInfo.type }}</p> \
             <div> \
                 <p class="contracttype">{{ additionalInfo.contracttype }}</p> \
@@ -271,74 +316,73 @@ Acme.communityPropertyCardTemplate =
 
 Acme.systemCardTemplate = 
     cardTemplateTop + 
-
-            '{{#if hasMedia}}\
-                <figure>\
-                    <img class="img-responsive lazyload" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url(https://placeholdit.imgix.net/~text?txtsize=33&txt=Loading&w=450&h=250)">\
-                </figure>\
-            {{/if}} \
+        '{{#if hasMedia}}\
+            <figure>\
+                <img class="img-responsive lazyload" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url(https://placeholdit.imgix.net/~text?txtsize=33&txt=Loading&w=450&h=250)">\
+            </figure>\
+        {{/if}} \
         \
-            <div class="content">\
-                <div class="cat-time">\
-                    <p class="category">{{label}}</p>\
-                    <time datetime="{{publishDate}}">{{publishDate}}</time>\
-                </div>\
-                <h2>{{{ title }}}</h2>\
-                <p class="excerpt">{{{ excerpt }}}</p>\
-                <div class="author">\
-                    <img src="{{profileImg}}" class="img-circle">\
-                    <p>{{ createdBy.displayName }}</p>\
-                </div>\
-            </div>' + 
-
+        <div class="content">\
+            <div class="cat-time">\
+                <p class="category">{{label}}</p>\
+                <time datetime="{{publishDate}}">{{publishDate}}</time>\
+            </div>\
+            <h2>{{{ title }}}</h2>\
+            <p class="excerpt">{{{ excerpt }}}</p>\
+            <div class="author">\
+                <img src="{{profileImg}}" class="img-circle">\
+                <p>{{ createdBy.displayName }}</p>\
+            </div>\
+        </div>' + 
     cardTemplateBottom;
                      
 
 
 
 
-var socialCardTemplate =  '<div class="{{cardClass}}">' +
-                                '<a href="{{social.url}}"\
-                                    target="_blank"\
-                                    class="card swap social {{social.source}} {{#if social.hasMedia}} withImage__content {{else }} without__image {{/if}} {{videoClass}}"\
-                                    data-id="{{socialId}}"\
-                                    data-position="{{position}}"\
-                                    data-social="1"\
-                                    data-article-image="{{{social.media.path}}}"\
-                                    data-article-text="{{social.content}}">\
-                                    <article class="">\
-                                        {{#if social.hasMedia}}\
-                                            <figure class="{{videoClass}}">\
-                                                <img class="img-responsive" src="{{social.media.path}}" style="background-image:url(https://placeholdit.imgix.net/~text?txtsize=33&txt=Loading&w=450&h=250)">\
-                                            </figure>\
-                                        {{/if}}\
-                                        \
-                                        <div class="content">\
-                                            <div class="category {{social.source}}">{{social.source}}</div>\
-                                            <p id="updateSocial{{article.socialId}}" data-update="0">{{{social.content}}}</p>\
-                                            <time datetime="2016-11-16"></time>\
-                                            <div class="author">\
-                                                <p class="">{{ social.user.name }}</p>\
-                                            </div>\
-                                        </div>'+
+var socialCardTemplate =  
+    '<div class="{{cardClass}}"> \
+        <a href="{{social.url}}"\
+            target="_blank"\
+            class="card swap social {{social.source}} {{#if social.hasMedia}} withImage__content {{else }} without__image {{/if}} {{videoClass}}"\
+            data-id="{{socialId}}"\
+            data-position="{{position}}"\
+            data-social="1"\
+            data-article-image="{{{social.media.path}}}"\
+            data-article-text="{{social.content}}">\
+            <article class="">\
+                {{#if social.hasMedia}}\
+                    <figure class="{{videoClass}}">\
+                        <img class="img-responsive" src="{{social.media.path}}" style="background-image:url(https://placeholdit.imgix.net/~text?txtsize=33&txt=Loading&w=450&h=250)">\
+                    </figure>\
+                {{/if}}\
+                \
+                <div class="content">\
+                    <div class="category {{social.source}}">{{social.source}}</div>\
+                    <p id="updateSocial{{article.socialId}}" data-update="0">{{{social.content}}}</p>\
+                    <time datetime="2016-11-16"></time>\
+                    <div class="author">\
+                        <p class="">{{ social.user.name }}</p>\
+                    </div>\
+                </div>'+
 
 
-                                        '{{#if userHasBlogAccess}}\
-                                            <div class="btn_overlay articleMenu">\
-                                                <button title="Hide" data-guid="{{social.guid}}" class="btnhide social-tooltip HideBlogArticle" type="button" data-social="1">\
-                                                    <i class="fa fa-eye-slash"></i><span class="hide">Hide</span>\
-                                                </button>\
-                                                <button title="Edit" class="btnhide social-tooltip editSocialPost" type="button" data-url="/admin/social-funnel/update-social?guid={{blog.guid}}&socialguid={{social.guid}}">\
-                                                <i class="fa fa-edit"></i><span class="hide">Edit</span>\
-                                                </button>\
-                                                <button data-position="{{position}}" data-social="1" data-id="{{socialId}}" title="{{pinTitle}}" class="btnhide social-tooltip PinArticleBtn" type="button" data-status="{{isPinned}}">\
-                                                    <i class="fa fa-thumb-tack"></i><span class="hide">{{pinText}}</span>\
-                                                </button>\
-                                            </div>\
-                                        {{/if}}\
-                                    </article>\
-                                </a>\
-                            </div>';
+                '{{#if userHasBlogAccess}}\
+                    <div class="btn_overlay articleMenu">\
+                        <button title="Hide" data-guid="{{social.guid}}" class="btnhide social-tooltip HideBlogArticle" type="button" data-social="1">\
+                            <i class="fa fa-eye-slash"></i><span class="hide">Hide</span>\
+                        </button>\
+                        <button title="Edit" class="btnhide social-tooltip editSocialPost" type="button" data-url="/admin/social-funnel/update-social?guid={{blog.guid}}&socialguid={{social.guid}}">\
+                        <i class="fa fa-edit"></i><span class="hide">Edit</span>\
+                        </button>\
+                        <button data-position="{{position}}" data-social="1" data-id="{{socialId}}" title="{{pinTitle}}" class="btnhide social-tooltip PinArticleBtn" type="button" data-status="{{isPinned}}">\
+                            <i class="fa fa-thumb-tack"></i><span class="hide">{{pinText}}</span>\
+                        </button>\
+                    </div>\
+                {{/if}}\
+            </article>\
+        </a>\
+    </div>';
 
 
 var socialPostPopupTemplate = 

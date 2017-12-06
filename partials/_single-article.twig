@@ -73,7 +73,8 @@
             data-id="{{article.articleId}}" 
             data-status="{{articleStatus}}" 
             data-guid="{{article.guid}}" 
-            data-position="{{position}}" 
+            data-position="{{position}}"
+            data-blogguid="{{article.blog.guid}}"
             data-social="0"
             data-article-image="{{params.articleImg}}" 
             data-article-text="{{Helper.htmlToText(article.title, -1) | raw | escape('html')}}">

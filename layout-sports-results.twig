@@ -2,6 +2,7 @@
 {% set networkData = _Network.getNetworkData() %}
 {% set blogData    = _Blog.getBlog() %}
 {{this.registerJs("window.Acme.cards = CardController();")}}
+{{this.registerJs("Acme.searchFeed = new Acme.View.articleFeed(Acme.cards);")}}
 
 {% set limit = 10 %}
 
@@ -9,7 +10,7 @@
 {% set articles = articlesArr.articles %}
 {% set articleCount = articles | length %}
 
-{{this.registerJs("var scroll = new Acme.infiniteScroll(" ~ limit ~ ", " ~ articleCount ~ ");")}}
+{{this.registerJs("var scroll = new Acme.infiniteScroll(" ~ limit ~ ", " ~ articleCount ~ ", Acme.searchFeed);")}}
 
 <!-- used to index each article as we loop over throughout the template -->
 {% set articleCount = 0 %}
@@ -47,6 +48,7 @@
                 </div>
 
 
+<<<<<<< HEAD
                 
                 <div class="row">
                 {{ this.render('partials/ajaxarticles.twig', {
@@ -60,6 +62,22 @@
                 }) | raw }}
                 </div>
                 
+=======
+                {% if articles|length >= limit %}
+                    {{ this.render('partials/ajaxarticles.twig', {
+                        offset          : limit,
+                        limit           : limit,
+                        name            : "section-load",
+                        non_pinned      : articlesArr.existingNonPinnedCount, 
+                        card_class      : "col-sm-12 card-rec-sport card-rec-sport-tablet card-rec-sport-mobile",
+                        container       : "mainAjaxArticles",
+                        buttonClass     : "infinite"
+                    }) | raw }}
+                {% endif %}
+>>>>>>> UAT
+
+
+
 
             </div>
 

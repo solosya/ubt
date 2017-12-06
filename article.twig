@@ -85,6 +85,7 @@
                                     <img class="author-photo" src="{{ profileImg }}" alt="Author photo">
                                 {% endif %}
                                 <p class="author">{{ article.createdBy['displayName'] }}</p>
+                                <p class="author_bio">{{ article.createdBy['bio'] }}</p>
 
                                 {% if article.createdBy['bio'] != null and article.createdBy['displayName'] != "AAP Newswire" %} 
                                     <p class="bio">{{ article.createdBy['bio'] }}</p>

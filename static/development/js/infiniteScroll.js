@@ -1,19 +1,20 @@
-Acme.infiniteScroll = function(limit, count) {
+Acme.infiniteScroll = function(limit, count, feedModel) {
     this.count = count || 0;
     this.limit = limit || 0;
-    console.log("setting up infinite");
+    this.feedModel = feedModel;
     this.events();
 };
 
     Acme.infiniteScroll.prototype.events = function() 
     {
+        var self = this;
         if (this.count >= this.limit) {
             var waypoint = new Waypoint({
                 element: $('.loadMoreArticles'),
                 offset: '80%',
                 handler: function (direction) {
                     if (direction == 'down') {
-                        window.Acme.cards.loadMore($(this.element), waypoint);
+                        self.feedModel.fetch($(this.element), waypoint);
                     }
                 }
             });

@@ -5,7 +5,8 @@
 
 
 
-{{this.registerJs("CardController();")}}
+{{this.registerJs("Acme.cards = CardController();")}}
+{{this.registerJs("Acme.searchFeed = new Acme.View.articleFeed(Acme.cards);")}}
 
 {% set limit = 13 %}
 
@@ -228,22 +229,25 @@
 
         </section>
 
-
+        {% if articles|length >= limit %}
         <section class="row">
             <div class="col-sm-offset-1 col-sm-10 section-header">
                 <div class="row three-cols">
 
                     {{ this.render('partials/ajaxarticles.twig', {
-                        offset      : limit, 
-                        limit       : 10,
-                        label       : "Show more",
-                        non_pinned  : articlesArr.existingNonPinnedCount, 
-                        card_class  : "col-sm-1 card-sm-short card-sm-short-tablet card-sm-mobile",
-                        container   : "mainAjaxArticles",
+                        offset          : limit,
+                        limit           : limit,
+                        label           : "Show more",
+                        name            : "community-load",
+                        non_pinned      : articlesArr.existingNonPinnedCount, 
+                        card_class      : "col-sm-1 card-sm-short card-sm-short-tablet card-sm-mobile",
+                        container       : "mainAjaxArticles"
                     }) | raw }}
+
                 </div>
             </div>
         </section>
+        {% endif %}
 
 
 
@@ -306,7 +310,7 @@
         </section>
 
 
-        {% if sections['property listings'].feed.articles|length >= sections['property listings'].limit %}
+{#         {% if sections['property listings'].feed.articles|length >= sections['property listings'].limit %}
         <section class="row listings three-cols">
             <div class="col-sm-offset-1 col-sm-10">
                 <div class="row">
@@ -325,7 +329,7 @@
             </div>
         </section>
         {% endif %}
-
+ #}
 
 
         <section class="row section listings three-cols">
@@ -385,7 +389,7 @@
         </section>
 
 
-        {% if sections['job listings'].feed.articles|length >= sections['job listings'].limit %}
+{#         {% if sections['job listings'].feed.articles|length >= sections['job listings'].limit %}
         <section class="row listings three-cols">
             <div class="col-sm-offset-1 col-sm-10">
                 <div class="row">
@@ -404,7 +408,7 @@
             </div>
         </section>
         {% endif %}
-
+ #}
 
 
 

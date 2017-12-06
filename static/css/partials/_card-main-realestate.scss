@@ -153,93 +153,70 @@
 
 
 .card-main-realestate-tablet{
-    @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
+    @media #{$media-iPad} {
         @include card-main-realestate();
-        margin-bottom: 10px;
+
+        margin-bottom: 32px;
 
         a.card {
-            @include card-image-top(auto, 162px);
+            @include card-image-top(auto, 310px);
 
             > article {
 
                 > figure{
-                    margin-bottom:5px;
+                    margin-bottom:15px;
                 }
 
-                
                 > .content{
-                    padding-bottom:5px;
+                    padding-bottom:20px;
 
+                    >div {
+                        >time {
+                            margin-bottom:8px;
+                        }
+                    }
 
-    
-                    > h2{
+                    h1{
+                        font-size:rem(25);
+                        margin-bottom:4px;
+                    }
+                    h2{
+                        margin:0;
+                        width:216px;
+                        font-weight:400;
+                        color: color(red);
+                        font-size:rem(14);
+                        line-height:1.3;
+                        max-height:90px;
+                        text-transform:uppercase;
+                    }
+
+                    .property__left {
                         float:left;
-                        width:48%;
-                        font-size:rem(15);
-                        line-height: 1.2;
+                        min-height:60px;
                     }
 
-                    > p.excerpt {
-                        font-size:rem(11);
+
+                    .property__right {
                         float:right;
-                        width:48%;
-                        height:105px;
-                        margin-top:4px;
-                        max-height:105px;
-                        line-height: 1.36;
+                        padding-top:15px;
+                        width:60%;
+
                     }
-                }
-
-
-                &.video {
-
-                    > figure{
-                        overflow: hidden;
-                        height:360px;
-                        @include gradientafter();
+                    p.region {
+                        font-size: rem(10);
+                        color:color(lightgrey);
+                        margin-bottom:4px;
                     }
 
-
-
-                    > .content { 
-                        height: 135px;
-
-                        h2 {
-                            float:none;
-                            width:100%;
-                        }
-
-                        p.excerpt {
-                            display:none;
-                        }
+                    p.excerpt {
+                        line-height: 1.54;
+                        font-size: rem(13);
+                        max-height:100px;
 
                     }
                 }
             }
-
-
-            &.article.without__image {
-                .content {
-                    background: #d8d8d8;
-
-                    padding: 70px 35px 0 35px;
-                    margin-bottom:30px;
-                    height:491px;
-
-                    h2 {
-                        font-size: rem(25);
-                        line-height:1.2;
-                        font-weight:bold;
-                    }
-
-                    > p.excerpt {
-                        font-size: rem(15);
-                        display: block;
-                        min-height:286px;
-                        line-height: 1.73;
-                    }
-                }
-            }   
         }
     }
 }
@@ -254,52 +231,69 @@
 
 
 .card-main-realestate-mobile{
-    @media screen and (max-width: $sm-break-down){
+    @media #{$media-mobile} {
         @include card-main-realestate();
-        margin-bottom: 20px;
+
+        margin-bottom: 32px;
 
         a.card {
-            @include card-image-top(auto, 190px);
 
             > article {
+
                 > figure{
-                    margin-bottom:15px;
+                    display:none;
                 }
+
                 > .content{
-                    > h2{
-                        font-size:rem(24);
-                        line-height:1.25;
-                        max-height:90px;
+                    padding-bottom:20px;
+
+                    >div {
+                        >time {
+                            margin-bottom:8px;
+                        }
                     }
 
-                    > p.excerpt {
+                    h1{
+                        font-size:rem(25);
+                        margin-bottom:4px;
+                    }
+                    h2{
+                        margin:0;
+                        width:216px;
+                        font-weight:400;
+                        color: color(red);
+                        font-size:rem(14);
+                        line-height:1.3;
+                        max-height:90px;
+                        text-transform:uppercase;
+                    }
+
+                    .property__left {
+                        float:left;
+                        min-height:60px;
+                    }
+
+
+                    .property__right {
+                        float:right;
+                        padding-top:15px;
+                        width:60%;
+
+                    }
+                    p.region {
+                        font-size: rem(10);
+                        color:color(lightgrey);
+                        margin-bottom:4px;
+                    }
+
+                    p.excerpt {
                         line-height: 1.54;
-                        margin-top:8px;
-                        max-height:80px;
-                        margin-bottom: 30px;
+                        font-size: rem(13);
+                        max-height:100px;
+
                     }
                 }
             }
-
-
-            &.article.without__image {
-                .content {
-                    padding: 90px 60px 100px 60px;
-
-                    h2 {
-                        font-size: rem(34);
-                        font-weight:bold;
-                        max-height:80px;
-                    }
-
-                    > p.excerpt {
-                        font-size: rem(15);
-                        display: block;
-                        line-height: 1.73;
-                        height:185px;
-                    }
-                }
-            }   
         }
     }
 }
