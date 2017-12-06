@@ -64,10 +64,34 @@
             </div>
 
             <div class="col-sm-offset-1 col-sm-3">
+
                 <div class="advert">
-                       <div id='hPageAd1'></div>
-                        <script>loadNextAd(invSpace,'hPageAd1','halfAd',hPageSize,hPageMap);</script>
+                    <div id='blockAd1'></div>
+                    <script>loadNextAd(invSpace,'blockAd1','mRec',mRecSize,mRecMap)</script>
                 </div>
+
+
+
+
+
+                {% for i in 0..2 if articles[articleCount] %}
+                    {% set classes = ["card-sm card-sm-tablet card-rec-mobile", "card-sm-full card-sm-full-tablet", "card-sm card-rec-tablet card-sm-mobile"] %}
+                    {% set images = [false, false, true] %}
+                    {{this.render('partials/_single-article.twig', {
+                        article: articles[articleCount], 
+                        position: (articleCount+1),
+                        imageSuppress: images[i],
+                        imageSize: {width: 300, height: 185},
+                        containerClass: classes[i]
+                    }) | raw}}
+                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                {% endfor %}
+
+                <div id='articleAdScroll' class="advert lockad">
+                    <div id='hPage1'></div>
+                    <script>loadNextAd(invSpace,'hPage1','hpage',hPageSize,hPageMap)</script>
+                </div>
+
             </div>
         </section>
 
