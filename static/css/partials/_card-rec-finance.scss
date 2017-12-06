@@ -131,6 +131,9 @@
 
     &:last-of-type {
         border-bottom: 1px solid color(lightgrey);
+        @media screen and (max-width: $mmd-break-down){
+            border-bottom: none;
+        }
 
         a.card {
             > article {
