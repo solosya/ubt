@@ -64,11 +64,13 @@
                         </p>
                     </div>
 
-                    <div class="col-md-4">
-                        <p class="contactinfo">For more information please contact</p>
-                        <p class="contactname">{{event.contactName}}</p>
-                        <p class="contactnumber">{{event.contactNumber}}</p>
-                    </div>
+                    {% if event.contactName %}
+                        <div class="col-md-4">
+                            <p class="contactinfo">For more information please contact</p>
+                            <p class="contactname">{{event.contactName}}</p>
+                            <p class="contactnumber">{{event.contactNumber}}</p>
+                        </div>
+                    {% endif %}
                 </div>
 
                 <p class="content">
