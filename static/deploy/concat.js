@@ -32975,15 +32975,17 @@ jQuery(document).ready(function () {
 
 window.templates = {};
 Handlebars.registerHelper('splitShift', function(text) {
+  if (!text) return "";
   return text.split(" ")[0].toLowerCase();
 });
 
 Handlebars.registerHelper('fixPrice', function(text) {
-    newText = text.replace(/\$/g, "");
-    return newText; 
+    if (!text) return "";
+    return text.replace(/\$/g, "");
 });
 
 Handlebars.registerHelper('draftStatus', function(text, date) {
+    if (!text || !date) return "";
     return text.toLowerCase() === 'draft' ? "Pending Approval" : "Posted " + date; 
 });
 
@@ -34271,7 +34273,6 @@ var regionList = listingRegions[domain] || listingRegions["test"];
 //     });
 
 
-
 Acme.searchCollectionClass = function(blogId)
 {
     this.blogId = blogId;
@@ -34298,12 +34299,12 @@ Acme.searchCollectionClass = function(blogId)
             }
             this.searchTerms['type'] = data.type;
         },
-        "sale" : function(data) {
-            if (data.sale === "") {
-                delete this.searchTerms['sale'];
+        "contracttype" : function(data) {
+            if (data.contracttype === "") {
+                delete this.searchTerms['contracttype'];
                 return;
             }
-            this.searchTerms['sale'] = data.sale;
+            this.searchTerms['contracttype'] = data.contracttype;
         },
         "fetch" :  function() {
             var searchTerms = [];
@@ -34318,27 +34319,26 @@ Acme.searchCollectionClass = function(blogId)
                              .data('rendertype', 'write')
                              .data('searchterm', searchString)
                              .data('offset', '0')
-                             .data('limit', 2)
+                             .data('limit', 10)
                              .data('non-pinned-offset', '0')
                              .click()
                              .data('rendertype', '');
                 // return this.fetch('/api/search?meta_info='+searchString + '&blogId=' + this.blogId + '&offset=0&limit=2');
             }
-            return loader.data('loadtype', '')
+            var params = loader.data('loadtype', '')
                          .data('rendertype', 'write')
-                         .data('6')
+                         .data('limit', 10)
                          .data('searchterm', '')
                          .data('offset', '0')
                          .data('non-pinned-offset', '0')
                          .click()
                          .data('rendertype', '');
-
-
+            return params;
             // return this.fetch(_appJsConfig.baseHttpPath + '/home/load-articles', {'limit': 10, 'offset':0});
         },
-        "clear" :  function() {
-            // return this.fetch(_appJsConfig.baseHttpPath + '/home/load-articles', {'limit': 10, 'offset':0});
-        }
+        // "clear" :  function() {
+        //     // return this.fetch(_appJsConfig.baseHttpPath + '/home/load-articles', {'limit': 10, 'offset':0});
+        // }
     };
     // Acme.searchCollectionClass.prototype.fetch = function(url, data)
     // {
@@ -34463,7 +34463,7 @@ Acme.saleTypeSearchView = function() {
     Acme.saleTypeSearchView.prototype.listeners =  {
         "saleSelect" : function(data) {
             var data = {
-                "sale": data.saleSelect
+                "contracttype": data.saleSelect
             };
             Acme.PubSub.publish('update_state', data);
         }
@@ -34778,7 +34778,7 @@ ListingForm.constructor = ListingForm;
         var html = "";
         for (var i=0;i<images.length;i++) {
             var imagePath = images[i].url || images[i].path;
-            html += '<div class="formimage" style="background-image:url(' + imagePath + ')"></div>';
+            html += '<div class="carousel-tray__item" style="background-image:url(' + imagePath + ')"></div>';
         }
         imageArray.append(html);
     },

@@ -1,0 +1,21 @@
+.carousel-tray {
+    clear:both;
+    margin:20px 0;
+    overflow:auto;
+}
+.carousel-tray__item {
+    float:left;
+    margin-right:15px;
+    height:150px;
+    width:150px;
+    background-size:cover;
+}
+.carousel-tray__delete {
+    display:block;
+    width:20px;
+    height:20px;
+    background:red;
+    &:hover {
+        cursor:pointer;
+    }
+}

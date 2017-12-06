@@ -606,9 +606,10 @@ ListingForm.constructor = ListingForm;
     {
         var imageArray = $('#imageArray');
         var html = "";
+        var temp = Handlebars.compile(window.templates.carousel_item); 
         for (var i=0;i<images.length;i++) {
             var imagePath = images[i].url || images[i].path;
-            html += '<div class="formimage" style="background-image:url(' + imagePath + ')"></div>';
+            html += temp({"imagePath": imagePath});
         }
         imageArray.append(html);
     },
