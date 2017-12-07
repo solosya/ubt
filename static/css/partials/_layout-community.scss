@@ -94,7 +94,7 @@
                         }
                         .cat-time{
                             margin-top: -115px;
-                            margin-left:-15px;
+                            margin-left:-20px;
                             .category{
                                 display:unset !important;
                                 border-right: 1px solid #97999c;
@@ -125,7 +125,6 @@
                         .excerpt {
                             order: 2;
                             color: black;
-                            margin-left: -15px;
                             margin-bottom: -5px;
                             margin-top: 10px;
                             height: 45px;
@@ -139,7 +138,6 @@
                             }
                             display: inherit;
                             margin-top: 5px;
-                            margin-left: -15px;
                             order: 3;
                             font-weight: 400;
                             font-size: rem(14);
@@ -190,11 +188,14 @@
                 .excerpt {
                     order: 2;
                     color: black;
-                    margin-left: -15px;
+                    margin-left: -20px;
                     margin-bottom: -5px;
                     margin-top: 10px;
                     height: 45px;
                     display: unset !important;
+                    @media screen and (max-width: $mmd-break-down){
+                        margin-left: 0;
+                    }
                 }
 
                 .author{
@@ -209,13 +210,16 @@
                     font-weight: 400;
                     font-size: rem(14);
                     color: #ae232c;
+                    @media screen and (max-width: $mmd-break-down){
+                        margin-left: 0;
+                    }
                     img{
                         display:none;
                     }
                 }
                 .cat-time{
                     margin-top: -115px;
-                    margin-left:-15px;
+                    margin-left:-20px;
                     @media screen and (max-width: $mmd-break-down){
                         margin-top: -95px;
                         margin-left: 35%;
@@ -263,7 +267,6 @@
                     }
                     display: inherit;
                     margin-top: 5px;
-                    margin-left: -15px;
                     order: 3;
                     font-weight: 400;
                     font-size: rem(14);
