@@ -64,43 +64,100 @@
 
 }
 
-@media screen and (min-width: $md-break){ 
     .community {
         .card{
             article{
-                figure{
-                        height: 90% !important;
+                @media screen and (min-width: $md-break){
+                    figure{
+                            height: 90% !important;
+                            margin-top: 18px;
+                        }
+                    .content{
+
+                        h2{
+                            margin-top: 95px;
+                        }
+
+                        .author{
+                            &:before {
+                                content:'By ';
+                                margin-right: 5px;
+                            }
+                            display: inherit;
+                            margin-top: 5px;
+                            order: 3;
+                            font-weight: 300;
+                            font-size: rem(14);
+                            img{
+                                display:none;
+                            }
+                        }
+                        .cat-time{
+                            margin-top: -115px;
+                            margin-left:-15px;
+                            .category{
+                                display:unset !important;
+                                border-right: 1px solid #97999c;
+                            }
+                            time{
+                                display: unset;
+                            }
+                        }
+                    }
+                }
+                @media screen and (max-width: $md-break-down){
+                    figure{
+                        height: 50% !important;
+                        width: 35% !important;
                         margin-top: 18px;
                     }
-                .content{
+                    .content{
 
-                    h2{
-                        margin-top: 95px;
-                    }
+                        h2{
+                            margin-top: 5px;
+                            color: black;
+                            margin-left: 35%;
+                            height: 90px !important;
+                            font-weight: 600 !important;
+                            font-size: rem(18) !important;
+                        }
 
-                    .author{
-                        &:before {
-                            content:'By ';
-                            margin-right: 5px;
+                        .excerpt {
+                            order: 2;
+                            color: black;
+                            margin-left: -15px;
+                            margin-bottom: -5px;
+                            margin-top: 10px;
+                            height: 45px;
+                            display: unset !important;
                         }
-                        display: inherit;
-                        margin-top: 5px;
-                        order: 3;
-                        font-weight: 300;
-                        font-size: rem(14);
-                        img{
-                            display:none;
+
+                        .author{
+                            &:before {
+                                content:'By ';
+                                margin-right: 5px;
+                            }
+                            display: inherit;
+                            margin-top: 5px;
+                            margin-left: -15px;
+                            order: 3;
+                            font-weight: 400;
+                            font-size: rem(14);
+                            color: #ae232c;
+                            img{
+                                display:none;
+                            }
                         }
-                    }
-                    .cat-time{
-                        margin-top: -115px;
-                        margin-left:-15px;
-                        .category{
-                            display:unset !important;
-                            border-right: 1px solid #97999c;
-                        }
-                        time{
-                            display: unset;
+                        .cat-time{
+                            margin-top: -115px;
+                            margin-left:-15px;
+                            .category{
+                                display:unset !important;
+                                border-right: 1px solid #97999c;
+                            }
+                            time{
+                                display: unset;
+                            }
                         }
                     }
                 }
@@ -172,9 +229,18 @@
 @media screen and (max-width: $md-break){
 
     .card-ubt{
+        height: 420px;
+        margin-top: 40px;
+        border-bottom: 1px solid #97999c;
         .card{
             figure{
-                height: 50px;
+                height: 190px;
+            }
+            .content{
+                .category{
+                    border-right: 1px solid #97999c;
+                    margin-right:   10px;
+                }
             }
         }
     }
