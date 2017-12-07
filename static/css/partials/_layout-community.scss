@@ -67,7 +67,7 @@
     .community {
         .card{
             article{
-                @media screen and (min-width: $md-break){
+                @media screen and (min-width: $mmd-break){
                     figure{
                             height: 90% !important;
                             margin-top: 18px;
@@ -105,7 +105,7 @@
                         }
                     }
                 }
-                @media screen and (max-width: $md-break-down){
+                @media screen and (max-width: $mmd-break-down){
                     figure{
                         height: 50% !important;
                         width: 35% !important;
@@ -165,68 +165,68 @@
         }
     }
 
-    .community-mini {
-        .card{
-            article{
-                figure{
-                        height: 50% !important;
-                        width: 35% !important;
-                        margin-top: 18px;
-                    }
-                .content{
+.community-mini {
+    .card{
+        article{
+            figure{
+                    height: 50% !important;
+                    width: 35% !important;
+                    margin-top: 18px;
+                }
+            .content{
 
-                    h2{
-                        margin-top: 5px;
-                        color: black;
-                        margin-left: 35%;
-                        height: 90px !important;
-                        font-weight: 600 !important;
-                        font-size: rem(18) !important;
-                    }
+                h2{
+                    margin-top: 5px;
+                    color: black;
+                    margin-left: 35%;
+                    height: 90px !important;
+                    font-weight: 600 !important;
+                    font-size: rem(18) !important;
+                }
 
-                    .excerpt {
-                        order: 2;
-                        color: black;
-                        margin-left: -15px;
-                        margin-bottom: -5px;
-                        margin-top: 10px;
-                        height: 45px;
-                        display: unset !important;
-                    }
+                .excerpt {
+                    order: 2;
+                    color: black;
+                    margin-left: -15px;
+                    margin-bottom: -5px;
+                    margin-top: 10px;
+                    height: 45px;
+                    display: unset !important;
+                }
 
-                    .author{
-                        &:before {
-                            content:'By ';
-                            margin-right: 5px;
-                        }
-                        display: inherit;
-                        margin-top: 5px;
-                        margin-left: -15px;
-                        order: 3;
-                        font-weight: 400;
-                        font-size: rem(14);
-                        color: #ae232c;
-                        img{
-                            display:none;
-                        }
+                .author{
+                    &:before {
+                        content:'By ';
+                        margin-right: 5px;
                     }
-                    .cat-time{
-                        margin-top: -115px;
-                        margin-left:-15px;
-                        .category{
-                            display:unset !important;
-                            border-right: 1px solid #97999c;
-                        }
-                        time{
-                            display: unset;
-                        }
+                    display: inherit;
+                    margin-top: 5px;
+                    margin-left: -15px;
+                    order: 3;
+                    font-weight: 400;
+                    font-size: rem(14);
+                    color: #ae232c;
+                    img{
+                        display:none;
+                    }
+                }
+                .cat-time{
+                    margin-top: -115px;
+                    margin-left:-15px;
+                    .category{
+                        display:unset !important;
+                        border-right: 1px solid #97999c;
+                    }
+                    time{
+                        display: unset;
                     }
                 }
             }
         }
     }
 }
-@media screen and (max-width: $md-break){
+
+@media screen and (max-width: $mmd-break-down){
 
     .card-ubt{
         height: 420px;
