@@ -117,7 +117,7 @@
                             margin-top: 5px;
                             color: black;
                             margin-left: 35%;
-                            height: 90px !important;
+                            height: 70px !important;
                             font-weight: 600 !important;
                             font-size: rem(18) !important;
                         }
@@ -149,8 +149,8 @@
                             }
                         }
                         .cat-time{
-                            margin-top: -115px;
-                            margin-left:-15px;
+                            margin-top: -95px;
+                            margin-left: 35%;
                             .category{
                                 display:unset !important;
                                 border-right: 1px solid #97999c;
@@ -182,6 +182,9 @@
                     height: 90px !important;
                     font-weight: 600 !important;
                     font-size: rem(18) !important;
+                    @media screen and (max-width: $mmd-break-down){
+                        height: 70px !important;
+                    }
                 }
 
                 .excerpt {
@@ -213,6 +216,10 @@
                 .cat-time{
                     margin-top: -115px;
                     margin-left:-15px;
+                    @media screen and (max-width: $mmd-break-down){
+                        margin-top: -95px;
+                        margin-left: 35%;
+                    }
                     .category{
                         display:unset !important;
                         border-right: 1px solid #97999c;
@@ -240,6 +247,30 @@
                 .category{
                     border-right: 1px solid #97999c;
                     margin-right:   10px;
+                }
+                h2{
+                    margin-top: 5px;
+                    margin-bottom: 5px;
+                    color: black;
+                    height: 90px !important;
+                    font-weight: 600 !important;
+                    font-size: rem(18) !important;
+                }
+                .author{
+                    &:before {
+                        content:'By ';
+                        margin-right: 5px;
+                    }
+                    display: inherit;
+                    margin-top: 5px;
+                    margin-left: -15px;
+                    order: 3;
+                    font-weight: 400;
+                    font-size: rem(14);
+                    color: #ae232c;
+                    img{
+                        display:none;
+                    }
                 }
             }
         }
