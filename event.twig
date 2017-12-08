@@ -21,7 +21,7 @@
 {% if event.endDate %}
     {% set difference = date(event.endDate).diff(date(event.startDate)) %}
     {% set leftDays = difference.days %}
-    {% set endTime = _AppHelper.getDefaultTimezoneDateTime(event.endDate, 'g:ia') %}
+    {% set endTime = " - " ~ _AppHelper.getDefaultTimezoneDateTime(event.endDate, 'g:ia') %}
 {% endif %}
 
 
@@ -63,7 +63,7 @@
                             <p class="date">{{ startDate }} - {{ endDate }}</p>
                         {% else %}
                             <p class="date">{{ startDate }}</p>
-                            <p class="time">{{ startTime }} - {{ endTime }} </p>
+                            <p class="time">{{ startTime }}{{ endTime }} </p>
                         {% endif %}
 
                         <p class="address">
