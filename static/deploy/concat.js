@@ -36727,6 +36727,8 @@ UserProfielController.Load = (function ($) {
                     'NZ/Christchurch',
                     'NZ/Dunedin',
                     'NZ/Invercargill',
+                    'NZ/Palmerston%20North',
+                    'NZ/New%20Plymouth',
                 ];
                 break;
             default:
@@ -36830,14 +36832,14 @@ UserProfielController.Load = (function ($) {
                         '<p class="location" style="text-align:right;">{{location}}</p>' + 
                         '<p class="description">{{description}}</p>' + 
                     '</div>' + 
-                    '<div class="icon weather-{{icon}}"></div>' + 
+                    '<img class="icon" src="' + _appJsConfig.templatePath + '/static/icons/weather/{{icon}}.svg">' + 
                     '<p class="temp">{{temp}}&#176;</p>' + 
                 '</div>'
             ,
             "weatherPanel" : 
                 '<div id="{{name}}-weather" class="panel visible-sm-block visible-md-block visible-lg-block">' +
                     '<div style="display: flex">' + 
-                        '<div class="icon weather-{{icon}}"></div>' + 
+                        '<img class="icon" src="' + _appJsConfig.templatePath + '/static/icons/weather/{{icon}}.svg">' + 
                         '<p class="temp">{{temp}}&#176;</p>' + 
                     '</div>' +
                     '<p class="location">{{location}}</p>' + 
