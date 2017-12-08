@@ -204,6 +204,41 @@ UserProfielController.Load = (function ($) {
 
         });        
 
+        $('#cancelAccount').on('click', function(e) {
+            var listelem = $(e.target).closest('li');
+            var userid = listelem.attr("id");
+            var requestData = { 
+                status: 'cancelled', 
+                _csrf: csrfToken, 
+            };
+
+            $.ajax({
+                type: 'post',
+                url: _appJsConfig.baseHttpPath + '/user/paywall-account-sataus',
+                dataType: 'json',
+                data: requestData,
+                success: function (data, textStatus, jqXHR) {
+                    console.log(data);
+                    if (data.success == 1) {
+                        console.log('success');
+                        location.reload(false);             
+                    } else {
+                        var text = '';
+                        for (var key in data.error) {
+                            text = text + data.error[key] + " ";
+                        } 
+                        $('#createUserErrorMessage').text(text);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                    console.log(jqXHR.responseText);
+                     $('#createUserErrorMessage').text(textStatus);
+                },
+            });        
+
+
+        });        
 
 
         $('.saveedit').on('click', function(e) {
