@@ -85,8 +85,15 @@
                 margin-left:40px;
                 vertical-align: middle;
 
+                > a {
+                    color: #fff;
+                    }
+
                 &:hover {
                     cursor: pointer;
+                    > a {
+                        color: #337ab7;
+                    }
                 }
 
                 &.glass {
