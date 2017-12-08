@@ -33459,10 +33459,14 @@ Acme.View.articleFeed.prototype.fetch = function(elem, waypoint)
         'limit'             :   elem.data('limit'),
         'offset'            :   elem.data('offset') || elem.data('limit'),
         'nonPinnedOffset'   :   elem.data('non-pinned-offset') || -1,
-        'blogid'            :   elem.data('blogid'),
+        'blogid'            :   elem.data('blogguid'),
         'loadtype'          :   elem.data('loadtype')      || "home",
         'search'            :   elem.data('searchterm')    || null,
     };
+    if (options.search != null) {
+        options.blogid = elem.data("blogid"); // search takes an id instead of a guid
+    }
+
 
     var cardClass  =   elem.data('card-class'),
         template   =   elem.data('card-template') || null,
@@ -34318,6 +34322,7 @@ Acme.searchCollectionClass = function(blogId)
                 searchTerms.push( search + ":" + this.searchTerms[search]);
             }
             var searchString = searchTerms.join(",");
+
             if (searchString) {
                 return loader.data('loadtype', 'api/search')
                              .data('rendertype', 'write')
@@ -34327,7 +34332,7 @@ Acme.searchCollectionClass = function(blogId)
                              .data('non-pinned-offset', '0')
                              .click()
                              .data('rendertype', '');
-                // return this.fetch('/api/search?meta_info='+searchString + '&blogId=' + this.blogId + '&offset=0&limit=2');
+
             }
             var params = loader.data('loadtype', '')
                          .data('rendertype', 'write')
@@ -34338,46 +34343,8 @@ Acme.searchCollectionClass = function(blogId)
                          .click()
                          .data('rendertype', '');
             return params;
-            // return this.fetch(_appJsConfig.baseHttpPath + '/home/load-articles', {'limit': 10, 'offset':0});
         },
-        // "clear" :  function() {
-        //     // return this.fetch(_appJsConfig.baseHttpPath + '/home/load-articles', {'limit': 10, 'offset':0});
-        // }
     };
-    // Acme.searchCollectionClass.prototype.fetch = function(url, data)
-    // {
-    //     console.log('in the fetch');
-    //     var self = this;
-    //     var url = (url === undefined) ? this.url() : url;
-    //     var server = 'fetch';
-    //     if (data) { server = 'create'; }
-
-    //     console.log(server, url, data);
-    //     var data = Acme.server[server]( url, data );
-    //     data.done( function(response) {
-    //         if ( typeof response.articles != 'undefined') {
-    //             response = response.articles;
-    //         }
-    //         self.data = [];
-    //         for (var i=0; i<response.length; i++) {
-    //             console.log(self.model);
-    //             self.data.push( Object.create(self.model,
-    //                 {   'data' : {
-    //                         'value': response[i],
-    //                         'writable': true
-    //                     }
-    //                 }
-    //             ));
-    //         }
-    //         console.log(self.data);
-    //         Acme.PubSub.publish('state_changed', {'search': self});
-    //     });
-    //     return data;
-    // };
-
-
-
-
 
 $('#searchButton').on('click', function(e) {
     e.preventDefault();
@@ -36534,6 +36501,8 @@ UserProfielController.Load = (function ($) {
                     'NZ/Christchurch',
                     'NZ/Dunedin',
                     'NZ/Invercargill',
+                    'NZ/Palmerston%20North',
+                    'NZ/New%20Plymouth',
                 ];
                 break;
             default:
@@ -36637,14 +36606,14 @@ UserProfielController.Load = (function ($) {
                         '<p class="location" style="text-align:right;">{{location}}</p>' + 
                         '<p class="description">{{description}}</p>' + 
                     '</div>' + 
-                    '<div class="icon weather-{{icon}}"></div>' + 
+                    '<img class="icon" src="' + _appJsConfig.templatePath + '/static/icons/weather/{{icon}}.svg">' + 
                     '<p class="temp">{{temp}}&#176;</p>' + 
                 '</div>'
             ,
             "weatherPanel" : 
                 '<div id="{{name}}-weather" class="panel visible-sm-block visible-md-block visible-lg-block">' +
                     '<div style="display: flex">' + 
-                        '<div class="icon weather-{{icon}}"></div>' + 
+                        '<img class="icon" src="' + _appJsConfig.templatePath + '/static/icons/weather/{{icon}}.svg">' + 
                         '<p class="temp">{{temp}}&#176;</p>' + 
                     '</div>' +
                     '<p class="location">{{location}}</p>' + 
