@@ -7,6 +7,8 @@
             position:relative;
             > figure{
             }
+
+
             > .content{
                 padding: 0;
                 position:relative;
@@ -15,17 +17,28 @@
                         // display:none;
                     }
                 }
-                > h2{
+
+                .edit {
+                    float:right;
+                    height:14px;
+                    width:14px;
+                    background: url('../icons/pencil.svg');
+                    background-repeat: no-repeat;
+                    background-size:contain;
+                }
+
+
+                .title {
                     font-family: $base-font-family;
                     color:color(black);
                 }
-                > p.company {
-
+                
+                .company {
                     font-size:rem(13);
                     font-weight:600;
                 }
 
-                > p.excerpt {
+                .excerpt {
                     height:40px;
                 }
             }
