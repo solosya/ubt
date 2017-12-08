@@ -1,12 +1,13 @@
 Acme.View.articleFeed = function(cardModel) {
     this.cardModel = cardModel;
+    console.log('doing events');
     this.events();
 };
 
 Acme.View.articleFeed.prototype.fetch = function(elem, waypoint)
 {
     var self = this;
-
+    console.log('fetching');
     elem.html("Please wait...");
 
     var container = $('#'+elem.data('container'));
