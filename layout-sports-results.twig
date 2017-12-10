@@ -48,21 +48,6 @@
                 </div>
 
 
-<<<<<<< HEAD
-                
-                <div class="row">
-                {{ this.render('partials/ajaxarticles.twig', {
-                    offset      : limit, 
-                    limit       : 10,
-                    non_pinned  : articlesArr.existingNonPinnedCount, 
-                    card_class  : "col-sm-12 card-rec-sport card-rec-sport-tablet card-rec-sport-mobile",
-                    container   : "mainAjaxArticles",
-                    buttonClass : "infinite",   
-                    ads         : "no"             
-                }) | raw }}
-                </div>
-                
-=======
                 {% if articles|length >= limit %}
                     {{ this.render('partials/ajaxarticles.twig', {
                         offset          : limit,
@@ -74,7 +59,6 @@
                         buttonClass     : "infinite"
                     }) | raw }}
                 {% endif %}
->>>>>>> UAT
 
 
 
