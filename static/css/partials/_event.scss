@@ -211,8 +211,11 @@
 
 		}
 
-		.side-border {
+		.side-border-right {
 			border-right: 1px solid color(border);
+		}
+		.side-border-left {
+			border-left: 1px solid color(border);
 		}
 
 		figure.featured {
