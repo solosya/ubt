@@ -15,20 +15,20 @@
                     padding:0;
                 }
 
-                > div {
-                    > .category{
-                        // display:none;
-                    }
-                }
-                > h2{
+                .title {
                     font-family: $base-font-family;
                     color:color(red);
                 }
-
-                > p.excerpt {
-                    clear:both;
-                    height:40px;
+                .edit {
+                    height:14px;
+                    width:14px;
+                    background:red;
                 }
+
+                // > p.excerpt {
+                //     clear:both;
+                //     height:40px;
+                // }
             }
         }
         &.draft {
@@ -58,7 +58,7 @@
 
                 > .content{
 
-                    > h2{
+                    .title {
                         font-weight:400;
                         font-size: rem(14);
                         margin-top:10px;
@@ -66,15 +66,24 @@
                         height:40px;
                     }
 
-                    >p.propertyType {
+                    .edit {
+                        float:right;
+                        height:14px;
+                        width:14px;
+                        background: url('../icons/pencil.svg');
+                        background-repeat: no-repeat;
+                        background-size:contain;
+                    }
+
+                    .propertyType {
                         font-size: rem(13);
                         font-weight:600;
                     }
-                    >div >p.contracttype {
+                    .contracttype {
                         font-size: rem(13);
                         float:left;
                     }
-                    >div >p.price {
+                    .price {
                         font-size: rem(13);
                         float:right;
                     }

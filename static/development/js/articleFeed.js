@@ -1,12 +1,13 @@
 Acme.View.articleFeed = function(cardModel) {
     this.cardModel = cardModel;
+    console.log('doing events');
     this.events();
 };
 
 Acme.View.articleFeed.prototype.fetch = function(elem, waypoint)
 {
     var self = this;
-
+    console.log('fetching');
     elem.html("Please wait...");
 
     var container = $('#'+elem.data('container'));
@@ -20,10 +21,14 @@ Acme.View.articleFeed.prototype.fetch = function(elem, waypoint)
         'limit'             :   elem.data('limit'),
         'offset'            :   elem.data('offset') || elem.data('limit'),
         'nonPinnedOffset'   :   elem.data('non-pinned-offset') || -1,
-        'blogid'            :   elem.data('blogid'),
+        'blogid'            :   elem.data('blogguid'),
         'loadtype'          :   elem.data('loadtype')      || "home",
         'search'            :   elem.data('searchterm')    || null,
     };
+    if (options.search != null) {
+        options.blogid = elem.data("blogid"); // search takes an id instead of a guid
+    }
+
 
     var cardClass  =   elem.data('card-class'),
         template   =   elem.data('card-template') || null,

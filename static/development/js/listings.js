@@ -144,6 +144,7 @@ Acme.searchCollectionClass = function(blogId)
                 searchTerms.push( search + ":" + this.searchTerms[search]);
             }
             var searchString = searchTerms.join(",");
+
             if (searchString) {
                 return loader.data('loadtype', 'api/search')
                              .data('rendertype', 'write')
@@ -153,7 +154,7 @@ Acme.searchCollectionClass = function(blogId)
                              .data('non-pinned-offset', '0')
                              .click()
                              .data('rendertype', '');
-                // return this.fetch('/api/search?meta_info='+searchString + '&blogId=' + this.blogId + '&offset=0&limit=2');
+
             }
             var params = loader.data('loadtype', '')
                          .data('rendertype', 'write')
@@ -164,46 +165,8 @@ Acme.searchCollectionClass = function(blogId)
                          .click()
                          .data('rendertype', '');
             return params;
-            // return this.fetch(_appJsConfig.baseHttpPath + '/home/load-articles', {'limit': 10, 'offset':0});
         },
-        // "clear" :  function() {
-        //     // return this.fetch(_appJsConfig.baseHttpPath + '/home/load-articles', {'limit': 10, 'offset':0});
-        // }
     };
-    // Acme.searchCollectionClass.prototype.fetch = function(url, data)
-    // {
-    //     console.log('in the fetch');
-    //     var self = this;
-    //     var url = (url === undefined) ? this.url() : url;
-    //     var server = 'fetch';
-    //     if (data) { server = 'create'; }
-
-    //     console.log(server, url, data);
-    //     var data = Acme.server[server]( url, data );
-    //     data.done( function(response) {
-    //         if ( typeof response.articles != 'undefined') {
-    //             response = response.articles;
-    //         }
-    //         self.data = [];
-    //         for (var i=0; i<response.length; i++) {
-    //             console.log(self.model);
-    //             self.data.push( Object.create(self.model,
-    //                 {   'data' : {
-    //                         'value': response[i],
-    //                         'writable': true
-    //                     }
-    //                 }
-    //             ));
-    //         }
-    //         console.log(self.data);
-    //         Acme.PubSub.publish('state_changed', {'search': self});
-    //     });
-    //     return data;
-    // };
-
-
-
-
 
 $('#searchButton').on('click', function(e) {
     e.preventDefault();

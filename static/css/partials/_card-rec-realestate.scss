@@ -21,6 +21,8 @@
                     font-family: $font-family-serif;
                     color:color(darkblue);
                     height: 30px;
+                    max-height:33px;
+                    overflow:hidden;
                 }
                 h2 {
                     margin:0;
