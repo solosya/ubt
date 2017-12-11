@@ -35,8 +35,20 @@
 {% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 1 : 0 %}
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
 
+{% set sectionOrder = ["australia", "new zealand"] %}
+{% set sectionCount = 0 %}
 
     {% set sections =  {
+            "australia": {
+                "feed": "",
+                "link": "",
+                "description": ""
+            },
+            "new zealand": {
+                "feed": "",
+                "link": "",
+                "description": ""
+            },
             "world": {
                 "feed": "",
                 "link": "",
@@ -47,22 +59,12 @@
                 "link": "",
                 "description": ""
             },
-            "community": {
-                "feed": "",
-                "link": "",
-                "description": ""
-            },
             "videos": {
                 "feed": "",
                 "link": "",
                 "description": ""
             },
-            "australia": {
-                "feed": "",
-                "link": "",
-                "description": ""
-            },
-            "new zealand": {
+            "community": {
                 "feed": "",
                 "link": "",
                 "description": ""
