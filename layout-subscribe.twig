@@ -15,10 +15,8 @@
 		{% endfor %}
 	{% endif %}
 {% endfor %}
-{# <pre>
-	{{dump(plan)}}
-</pre>
- #}
+
+
 <main id="main" class="site-main listingForm" role="main">
 	<div id="stripekey" class="hidden" >{{networkData['stripe_publishable_key']}}</div>
 	<div class="container-fluid">
@@ -81,7 +79,7 @@
 
 			            <div id="countrySelect" class="countrySelect"></div>
 
-			            <p class="form-section-label">Payment details</p>
+			            <p class="form-section-label u-margin-top-40">Payment details</p>
 
 {# 		                <fieldset>
 		                    <div class="inline">
@@ -117,10 +115,10 @@
 						    </div>
 
 						    <!-- Used to display form errors -->
-						    <div id="card-errors" role="alert"></div>
+						    <div id="card-errors" class="card-errors" role="alert"></div>
 						  </div>
 
-						  <button>Submit Payment</button>
+						  <button id="subscribe" class="_btn _btn--red u-margin-top-25">SUBSCRIBE</button>
 						</form>
 
 				{% else %}
@@ -145,7 +143,7 @@
 							<img src="{{networkData.templatePath}}/static/images/market-screens.png">
 							<p class="featuresheader">What's included in your subscription:</p>
 							<p class="featuresheader">{{plan.description}}</p>
-							<a href="{{networkData.defaultBlogUrl}}/@marketing">Change subscription</a>
+							<a href="{{networkData.defaultBlogUrl}}">Change subscription</a>
 						</div>
 
 

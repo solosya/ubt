@@ -58,6 +58,17 @@ window.templates.pulldown =
     <ul class="Acme-pulldown__list" data-key="{{ key }}" class="articleExtendedData"></ul> \
 </div>';
 
+window.templates.spinner = 
+'<div id="{{name}}" class="flex_col {{name}}"> \
+    <div id="dialog"> \
+        <div class="centerContent"> \
+            <div class="head"> \
+                <h2>{{title}}</h2> \
+            </div> \
+            <div class="dialogContent" id="dialogContent"></div> \
+        </div> \
+    </div> \
+</div>';
 
 window.templates.modal = 
 '<div id="signin" class="flex_col"> \
@@ -71,6 +82,8 @@ window.templates.modal =
         </div> \
     </div> \
 </div>';
+
+window.templates.spinnerTmpl = '<div class="spinner"></div>';
 
 
 window.templates.listingSavedTmpl =  '<p>Thank you, your listing will be published in the next 24 hours</p><div><form><button class="_btn _btn--red">Okay</button></form></div>';

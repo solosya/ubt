@@ -4,7 +4,7 @@
         position:relative;
 
         a.card {
-            @include card-image-top(454px, 278px);
+            @include card-image-top(auto, 278px);
 
             > article {
                 position:relative;

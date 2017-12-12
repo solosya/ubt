@@ -26777,6 +26777,8 @@ jQuery.fn.liScroll = function(settings) {
             url: url,
             dataType: 'json',
             data: requestData
+        }).done(function(r) {
+            console.log(r);
         });        
     };
 
@@ -32886,8 +32888,8 @@ jQuery(document).ready(function () {
 
 
 
-    Acme.modal = function(template, parent, layouts, data) {
-        this.parentCont = parent || null;
+    Acme.modal = function(template, name, layouts, data) {
+        this.parentCont = name || null;
         this.template = template || null;
         this.layouts = layouts   || null;
         this.data = data         || {};
@@ -32899,6 +32901,7 @@ jQuery(document).ready(function () {
             if (title) {
                 this.data['title'] = title;
             }
+            this.data['name'] = this.parentCont;
             var tmp = Handlebars.compile(window.templates[this.template]);
             var tmp = tmp(this.data);
             $('body').addClass('active').append(tmp);
@@ -32911,12 +32914,12 @@ jQuery(document).ready(function () {
         Acme.modal.prototype.renderLayout = function(layout) {
             // var layout = Handlebars.compile(window.templates[this.layouts[layout]]);
             var layout = window.templates[this.layouts[layout]];
-            $(this.parentCont).find('#dialogContent').empty().append(layout); 
+            $('#'+this.parentCont).find('#dialogContent').empty().append(layout); 
         };
         Acme.modal.prototype.events = function() 
         {
             var self = this;
-            $(this.parentCont).on("click", function(e) {
+            $('#'+this.parentCont).on("click", function(e) {
                 self.handle(e);
             });
 
@@ -32967,7 +32970,7 @@ jQuery(document).ready(function () {
         };
         Acme.modal.prototype.closeWindow = function() {
             $('body').removeClass('active');
-            $(this.parentCont).remove();
+            $('#'+this.parentCont).remove();
         };
     
 
@@ -33255,6 +33258,17 @@ window.templates.pulldown =
     <ul class="Acme-pulldown__list" data-key="{{ key }}" class="articleExtendedData"></ul> \
 </div>';
 
+window.templates.spinner = 
+'<div id="{{name}}" class="flex_col {{name}}"> \
+    <div id="dialog"> \
+        <div class="centerContent"> \
+            <div class="head"> \
+                <h2>{{title}}</h2> \
+            </div> \
+            <div class="dialogContent" id="dialogContent"></div> \
+        </div> \
+    </div> \
+</div>';
 
 window.templates.modal = 
 '<div id="signin" class="flex_col"> \
@@ -33268,6 +33282,8 @@ window.templates.modal =
         </div> \
     </div> \
 </div>';
+
+window.templates.spinnerTmpl = '<div class="spinner"></div>';
 
 
 window.templates.listingSavedTmpl =  '<p>Thank you, your listing will be published in the next 24 hours</p><div><form><button class="_btn _btn--red">Okay</button></form></div>';
@@ -33663,16 +33679,18 @@ var socialPostPopupTemplate =
                     '</div>'+
     '</div>'+
  '</div>'   ;   
-Acme.View.articleFeed = function(cardModel) {
+Acme.View.articleFeed = function(cardModel, limit, offset, infinite) {
     this.cardModel = cardModel;
-    console.log('doing events');
+    this.offset    = offset || 0;
+    this.limit     = limit || 10;
+    this.infinite  = infinite || false;
+    this.waypoint  = false;
     this.events();
 };
 
 Acme.View.articleFeed.prototype.fetch = function(elem, waypoint)
 {
     var self = this;
-    console.log('fetching');
     elem.html("Please wait...");
 
     var container = $('#'+elem.data('container'));
@@ -33729,11 +33747,10 @@ Acme.View.articleFeed.prototype.fetch = function(elem, waypoint)
                 ? container.empty().append( html.join('') )
                 : container.append( html.join('') );
                 
-
-            if (waypoint) {
+            if (self.waypoint) {
                 (data.articles.length < options.limit)
-                    ? waypoint.destroy()
-                    : waypoint.enable();
+                    ? self.waypoint.disable()
+                    : self.waypoint.enable();
             }
 
             $(".card .content > p, .card h2").dotdotdot();     
@@ -33741,10 +33758,6 @@ Acme.View.articleFeed.prototype.fetch = function(elem, waypoint)
             $("div.lazyload").lazyload({
                 effect: "fadeIn"
             });
-
-            if (_appJsConfig.isUserLoggedIn === 1 && _appJsConfig.userHasBlogAccess === 1) {
-                self.events();
-            }          
         }
     });
 };
@@ -33756,6 +33769,19 @@ Acme.View.articleFeed.prototype.events = function()
         e.preventDefault();
         self.fetch($(e.target));
     });
+
+
+    if (this.infinite && this.offset >= this.limit) {
+        self.waypoint = new Waypoint({
+            element: $('.loadMoreArticles'),
+            offset: '80%',
+            handler: function (direction) {
+                if (direction == 'down') {
+                    self.fetch($(this.element));
+                }
+            }
+        });
+    }
 };
 
 
@@ -34381,28 +34407,6 @@ BlogConrtoller.Blog = (function ($) {
     };
 
 }(jQuery));
-Acme.infiniteScroll = function(limit, count, feedModel) {
-    this.count = count || 0;
-    this.limit = limit || 0;
-    this.feedModel = feedModel;
-    this.events();
-};
-
-    Acme.infiniteScroll.prototype.events = function() 
-    {
-        var self = this;
-        if (this.count >= this.limit) {
-            var waypoint = new Waypoint({
-                element: $('.loadMoreArticles'),
-                offset: '80%',
-                handler: function (direction) {
-                    if (direction == 'down') {
-                        self.feedModel.fetch($(this.element), waypoint);
-                    }
-                }
-            });
-        }
-    };
 (function ($) {
 
 
@@ -34543,7 +34547,7 @@ Acme.searchCollectionClass = function(blogId)
         },
         "fetch" :  function() {
             var searchTerms = [];
-            var loader = $('#property-load');
+            var loader = $('#article-load');
 
             for (search in this.searchTerms) {
                 searchTerms.push( search + ":" + this.searchTerms[search]);
@@ -34555,7 +34559,6 @@ Acme.searchCollectionClass = function(blogId)
                              .data('rendertype', 'write')
                              .data('searchterm', searchString)
                              .data('offset', '0')
-                             .data('limit', 10)
                              .data('non-pinned-offset', '0')
                              .click()
                              .data('rendertype', '');
@@ -34563,12 +34566,12 @@ Acme.searchCollectionClass = function(blogId)
             }
             var params = loader.data('loadtype', '')
                          .data('rendertype', 'write')
-                         .data('limit', 10)
                          .data('searchterm', '')
                          .data('offset', '0')
                          .data('non-pinned-offset', '0')
                          .click()
                          .data('rendertype', '');
+
             return params;
         },
     };
@@ -34688,7 +34691,6 @@ Acme.filteredListingViewClass = function() {
     Acme.filteredListingViewClass.prototype.listeners = {
         "search" : function(data) {
             this.data = data.search.data;
-            console.log(data);
             this.render();
         }
     };
@@ -34740,7 +34742,7 @@ Acme.propertySearchResultsClass = function(container, template)
     });
 
     Acme.propertySearchResultsClass.prototype.render = function() {
-        console.log('rendering search results');
+
         var container = this.container;
         var cardClasses = [ "card-main-realestate card-main-realestate-tablet card-main-realestate-mobile",
                             "card-rec-realestate card-rec-realestate-tablet card-rec-realestate-mobile"];
@@ -34801,7 +34803,6 @@ ListingForm.constructor = ListingForm;
             this.render();
         },
         "delete listing" : function(data, topic) {
-            console.log('in the delete listing listener');
             this.deleteListing();
         },
         "extendedData.region" : function(data, topic) {
@@ -35005,7 +35006,6 @@ ListingForm.constructor = ListingForm;
     ListingForm.prototype.deleteListing = function() 
     {
         Acme.server.create('/api/article/delete-user-article', {"articleguid": this.data.guid}).done(function(r) {
-            console.log(r);
             $('#listingFormClear').click();
             Acme.PubSub.publish('update_state', {'userArticles': ''});
         }).fail(function(r) {
@@ -35098,7 +35098,6 @@ ListingForm.constructor = ListingForm;
             self.data.theme_layout_name = self.layout;
 
             Acme.server.create('/api/article/create', self.data).done(function(r) {
-                console.log(r);
                 $('#listingFormClear').click();
                 Acme.PubSub.publish('update_state', {'confirm': r});
                 Acme.PubSub.publish('update_state', {'userArticles': ''});
@@ -35320,7 +35319,6 @@ Acme.EventForm = function(blogId)
             this.data.end_date = data['end_date'];
         },
         "after" : function(data, topic) {
-            console.log(this.data);
         }
     };
     Acme.EventForm.prototype.resetData = function() 
@@ -35482,7 +35480,7 @@ Acme.listingViewClass.prototype = new Acme._View();
     {
         var container = this.container.main;
         var cardClass = "card-form-"+this.type+"-listing listingCard";
-        console.log(this.type + 'CardTemplate');
+
         var html = "";
         for (var i=0;i<this.data.length;i++) {
             html += window.Acme.cards.renderCard(this.data[i].data, cardClass, this.type + 'CardTemplate');
@@ -35534,7 +35532,6 @@ Acme.Confirm = function(template, parent, layouts) {
                     formData[this.name] = this.value;
                 });
                 Acme.server.create('/api/auth/login', formData).done(function(r) {
-                    console.log(r);
                     if (r.success === 1) {
                         window.location.href = location.origin;
                     } else {
@@ -35629,6 +35626,21 @@ Acme.confirmView = new Acme.Confirm('modal', '#signin', layouts);
 
 
 }(jQuery));
+var paywallController = function() {
+    return new Paywall();
+}
+
+var Paywall = function() {
+    this.events();
+};
+
+Paywall.prototype.events = function() 
+{
+    var self = this;
+    $('#subscribe').on('submit', function(e) {
+        console.log('clicked');
+    });
+};
 $('document').ready(function() {
     var isMenuBroken, isMobile;
     var sbCustomMenuBreakPoint = 992;
@@ -36057,8 +36069,9 @@ var layouts = {
     "default_weather" : 'defaultWeatherTmpl',
     "userPlan" : 'userPlanMessage',
     "userPlanChange" : 'userPlanOkCancel',
+    "spinner": 'spinnerTmpl'
 }
-Acme.SigninView = new Acme.Signin('modal', '#signin', layouts);
+Acme.SigninView = new Acme.Signin('modal', 'signin', layouts);
 
 
 $('#header_login_link').on('click', function() {
@@ -36078,6 +36091,8 @@ $('a.register').on('click', function(e) {
 if ($('#stripekey').length) {
 var stripekey = $('#stripekey').html();
 console.log(stripekey)
+
+var modal = new Acme.Signin('spinner', 'acme-dialog', {"spinner": 'spinnerTmpl'});
 
 var stripe = Stripe(stripekey);
 
@@ -36111,7 +36126,9 @@ card.mount('#card-element');
 
 // Handle real-time validation errors from the card Element.
 card.addEventListener('change', function(event) {
+    console.log('changed!!!');
     var displayError = document.getElementById('card-errors');
+    console.log(event);
     if (event.error) {
         displayError.textContent = event.error.message;
     } else {
@@ -36124,22 +36141,26 @@ var form = document.getElementById('payment-form');
 if (form != null) {
 form.addEventListener('submit', function(event) {
     event.preventDefault();
-     $('#card-errors').text('');
+
+    $('#card-errors').text('');
     var userdata = $('#listingForm').serializeArray();
-    console.log(userdata);
+
     $.each(userdata, function(i, val) {
-        //userdata.append(val.name, val.value);
+
         if (val.value == '') {
             $('#card-errors').text('Please fill out the '+ val.name + ' field.');
+            return;
         }
     });
     if ( $('#password').val() !== $('#verifypassword').val() ) {
         $('#card-errors').text('Password fields do not match.');
+        return;
     }
 
-
+    modal.render("spinner", "Authorising payment");
     stripe.createToken(card).then(function(result) {
         if (result.error) {
+            modal.closeWindow();
             // Inform the user if there was an error
             var errorElement = document.getElementById('card-errors');
             errorElement.textContent = result.error.message;
@@ -36342,58 +36363,6 @@ UserArticlesController.Load = (function ($) {
 }(jQuery));
 
 
-
-// (function ($) {
-
-// Acme.UserProfile = Acme.View.create(
-// {
-//     "container"     : {
-//         'main'          : $('#listingForm')
-//     },
-//     "listeners"     : {
-//     },
-//     "render": function() {
-//         console.log('in the render function');
-//         console.log(this.data);
-//     },
-//     "events": function() 
-//     {
-//         var self = this;
-//     console.log("events");
-
-//         $('input, textarea').on("change", function(e) {
-//         });
-
-//         $('#profile-form').submit(function(e) {
-//         });
-
-//         $('.change-password').on("click", function(e) {
-//             console.log('passewrd')
-//             $('#password').removeAttr('disabled');
-//             $('#password').attr("placeholder", "Enter new password")
-//             $('.verifypassword').removeClass('hidden');
-//             this.remove();
-//         })
-
-
-
-//     },
-//     "construct": function() 
-//     {
-//         this.subscriptions = Acme.PubSub.subscribe({
-//             // 'Acme.ListingForm.listener' : ["state_changed", 'update_state']
-//         });
-//         console.log('construct');
-//         this.render();
-//         this.events();
-//     }
-// });
-
-// $('[data-dismiss="alert"]').on('click', function(e) {
-//     this.closest('div').remove();
-// });
-
-// }(jQuery));
 
 
 var UserProfielController = (function ($) {

@@ -3,6 +3,8 @@ if ($('#stripekey').length) {
 var stripekey = $('#stripekey').html();
 console.log(stripekey)
 
+var modal = new Acme.Signin('spinner', 'acme-dialog', {"spinner": 'spinnerTmpl'});
+
 var stripe = Stripe(stripekey);
 
 // Create an instance of Elements
@@ -35,7 +37,9 @@ card.mount('#card-element');
 
 // Handle real-time validation errors from the card Element.
 card.addEventListener('change', function(event) {
+    console.log('changed!!!');
     var displayError = document.getElementById('card-errors');
+    console.log(event);
     if (event.error) {
         displayError.textContent = event.error.message;
     } else {
@@ -48,22 +52,26 @@ var form = document.getElementById('payment-form');
 if (form != null) {
 form.addEventListener('submit', function(event) {
     event.preventDefault();
-     $('#card-errors').text('');
+
+    $('#card-errors').text('');
     var userdata = $('#listingForm').serializeArray();
-    console.log(userdata);
+
     $.each(userdata, function(i, val) {
-        //userdata.append(val.name, val.value);
+
         if (val.value == '') {
             $('#card-errors').text('Please fill out the '+ val.name + ' field.');
+            return;
         }
     });
     if ( $('#password').val() !== $('#verifypassword').val() ) {
         $('#card-errors').text('Password fields do not match.');
+        return;
     }
 
-
+    modal.render("spinner", "Authorising payment");
     stripe.createToken(card).then(function(result) {
         if (result.error) {
+            modal.closeWindow();
             // Inform the user if there was an error
             var errorElement = document.getElementById('card-errors');
             errorElement.textContent = result.error.message;

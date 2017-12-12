@@ -36,7 +36,10 @@
     }
 
 
-
+    .card-errors {
+        color:color(red);
+        margin-top:25px;
+    }
 
     .site-header-main {
         display:none;
@@ -87,6 +90,7 @@
         .plan-body {
             padding:30px 20px;
             text-align:center;
+            overflow:auto;
 
             h3 {
                 color:color(red);

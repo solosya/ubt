@@ -114,8 +114,9 @@ var layouts = {
     "default_weather" : 'defaultWeatherTmpl',
     "userPlan" : 'userPlanMessage',
     "userPlanChange" : 'userPlanOkCancel',
+    "spinner": 'spinnerTmpl'
 }
-Acme.SigninView = new Acme.Signin('modal', '#signin', layouts);
+Acme.SigninView = new Acme.Signin('modal', 'signin', layouts);
 
 
 $('#header_login_link').on('click', function() {

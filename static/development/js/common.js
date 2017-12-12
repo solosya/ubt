@@ -545,8 +545,8 @@
 
 
 
-    Acme.modal = function(template, parent, layouts, data) {
-        this.parentCont = parent || null;
+    Acme.modal = function(template, name, layouts, data) {
+        this.parentCont = name || null;
         this.template = template || null;
         this.layouts = layouts   || null;
         this.data = data         || {};
@@ -558,6 +558,7 @@
             if (title) {
                 this.data['title'] = title;
             }
+            this.data['name'] = this.parentCont;
             var tmp = Handlebars.compile(window.templates[this.template]);
             var tmp = tmp(this.data);
             $('body').addClass('active').append(tmp);
@@ -570,12 +571,12 @@
         Acme.modal.prototype.renderLayout = function(layout) {
             // var layout = Handlebars.compile(window.templates[this.layouts[layout]]);
             var layout = window.templates[this.layouts[layout]];
-            $(this.parentCont).find('#dialogContent').empty().append(layout); 
+            $('#'+this.parentCont).find('#dialogContent').empty().append(layout); 
         };
         Acme.modal.prototype.events = function() 
         {
             var self = this;
-            $(this.parentCont).on("click", function(e) {
+            $('#'+this.parentCont).on("click", function(e) {
                 self.handle(e);
             });
 
@@ -626,7 +627,7 @@
         };
         Acme.modal.prototype.closeWindow = function() {
             $('body').removeClass('active');
-            $(this.parentCont).remove();
+            $('#'+this.parentCont).remove();
         };
     
 
