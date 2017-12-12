@@ -20,7 +20,7 @@
 
 {% set articles = _Article.getPopularArticles({ limit: 10, excludeArticleIds : article.id }) %}
 {% set popularArticles = _Article.getPopularArticles({ limit: 5, sortBy: 'VIEWS', blogId: article.blog.id, type: 'article' }) %}
-{% set suggestedArticles = _Article.getPopularArticles({ limit: 6, sortBy: 'VIEWS' }) %}
+{% set suggestedArticles = _Article.getPopularArticles({ limit: 3, sortBy: 'VIEWS' }) %}
 
 {% set articleCount = 0 %}
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
@@ -85,7 +85,10 @@
                                     <img class="author-photo" src="{{ profileImg }}" alt="Author photo">
                                 {% endif %}
                                 <p class="author">{{ article.createdBy['displayName'] }}</p>
-                                <p class="author_bio">{{ article.createdBy['bio'] }}</p>
+
+                                {% if article.createdBy['bio'] != null and article.createdBy['displayName'] != "AAP Newswire" %} 
+                                    <p class="author_bio">{{ article.createdBy['bio'] }}</p>
+                                {% endif %}   
 
                             </div><!--content-block-top-->
 
@@ -110,7 +113,7 @@
                             
                             {% set suggestCount = 0 %}
 
-                            {% for i in 0..4 if suggestedArticles[suggestCount] %}
+                            {% for i in 0..2 if suggestedArticles[suggestCount] %}
                                 {{this.render('partials/_single-article.twig', {
                                     article: suggestedArticles[suggestCount], 
                                     imageSize: {width: 75, height: 63},
@@ -119,14 +122,14 @@
                                 {% set suggestCount = (dev) ? suggestCount : suggestCount + 1 %}
                             {% endfor %}
 
-                            {% if suggestedArticles[suggestCount] %}
+{#                             {% if suggestedArticles[suggestCount] %}
                                 {{this.render('partials/_single-article.twig', {
                                     article: suggestedArticles[suggestCount], 
                                     imageSize: {width: 300, height: 180},
                                     containerClass: 'card-sm-full'
                                 }) | raw}}
                             {% endif %}
-
+ #}
                         </div>
                     </div>
 

@@ -144,6 +144,7 @@ Acme.searchCollectionClass = function(blogId)
                 searchTerms.push( search + ":" + this.searchTerms[search]);
             }
             var searchString = searchTerms.join(",");
+
             if (searchString) {
                 return loader.data('loadtype', 'api/search')
                              .data('rendertype', 'write')
@@ -152,7 +153,7 @@ Acme.searchCollectionClass = function(blogId)
                              .data('non-pinned-offset', '0')
                              .click()
                              .data('rendertype', '');
-                // return this.fetch('/api/search?meta_info='+searchString + '&blogId=' + this.blogId + '&offset=0&limit=2');
+
             }
             var params = loader.data('loadtype', '')
                          .data('rendertype', 'write')
@@ -163,15 +164,8 @@ Acme.searchCollectionClass = function(blogId)
                          .data('rendertype', '');
 
             return params;
-            // return this.fetch(_appJsConfig.baseHttpPath + '/home/load-articles', {'limit': 10, 'offset':0});
         },
-        // "clear" :  function() {
-        //     // return this.fetch(_appJsConfig.baseHttpPath + '/home/load-articles', {'limit': 10, 'offset':0});
-        // }
     };
-
-
-
 
 $('#searchButton').on('click', function(e) {
     e.preventDefault();
@@ -572,9 +566,10 @@ ListingForm.constructor = ListingForm;
     {
         var imageArray = $('#imageArray');
         var html = "";
+        var temp = Handlebars.compile(window.templates.carousel_item); 
         for (var i=0;i<images.length;i++) {
             var imagePath = images[i].url || images[i].path;
-            html += '<div class="formimage" style="background-image:url(' + imagePath + ')"></div>';
+            html += temp({"imagePath": imagePath});
         }
         imageArray.append(html);
     },

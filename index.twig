@@ -35,8 +35,20 @@
 {% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 1 : 0 %}
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
 
+{% set sectionOrder = ["australia", "new zealand"] %}
+{% set sectionCount = 0 %}
 
     {% set sections =  {
+            "australia": {
+                "feed": "",
+                "link": "",
+                "description": ""
+            },
+            "new zealand": {
+                "feed": "",
+                "link": "",
+                "description": ""
+            },
             "world": {
                 "feed": "",
                 "link": "",
@@ -47,22 +59,12 @@
                 "link": "",
                 "description": ""
             },
-            "community": {
-                "feed": "",
-                "link": "",
-                "description": ""
-            },
             "videos": {
                 "feed": "",
                 "link": "",
                 "description": ""
             },
-            "australia": {
-                "feed": "",
-                "link": "",
-                "description": ""
-            },
-            "new zealand": {
+            "community": {
                 "feed": "",
                 "link": "",
                 "description": ""
@@ -106,7 +108,7 @@
                     {{this.render('partials/_single-article.twig', {
                         article: articles[articleCount], 
                         position: (articleCount+1),
-                        imageSize: {width: 640, height: 310},
+                        imageSize: {width: 645, height: 310},
                         containerClass: class
                     }) | raw}}
                     {% set class = 'card-rec  card-rec-tablet card-rec-mobile' %}
@@ -146,7 +148,7 @@
                     </div>
                 </a>
 
-                <div class="advert">
+                <div class="advert" style="margin-top:0;">
                     <div id='blockAd1'></div>
                     <script>loadNextAd(invSpace,'blockAd1','mRec',mRecSize,mRecMap)</script>
                 </div>
@@ -272,7 +274,7 @@
 
 
 
-        {% if sections['australia'].feed.articles|length > 0 %}
+        {% if sections['australia'].feed.articles|length > 0 and (networkData.title | lower) != 'frank nz' %}
             {% set australiaCount = 0 %}
 
             <section class="row section australia">
@@ -402,6 +404,63 @@
         {% endif %}
 
 
+
+        {% if sections['australia'].feed.articles|length > 0 and (networkData.title | lower) == 'frank nz'  %}
+            {% set australiaCount = 0 %}
+
+            <section class="row section australia">
+
+
+                <div class="col-sm-12 section-header">
+                    <h2 class="section-header__title">
+                        <a class="section-header__link" href="{{sections['australia'].link}}">Australia</a>
+                    </h2>
+                    <p class="section-header__description">{{sections['australia'].description}}</p>
+                </div>
+
+
+                <div class="col-sm-6">
+                    {% if sections['australia'].feed.articles[australiaCount] %}
+                        {{this.render('partials/_single-article.twig', {
+                            article: sections['australia'].feed.articles[australiaCount], 
+                            imageSize: {width: 640, height: 420},
+                            containerClass: 'card-md-full card-md-full-tablet card-md-full-mobile'
+                        }) | raw}}
+                        {% set australiaCount = (dev) ? australiaCount : australiaCount + 1 %}
+                    {% endif %}
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="row">
+                        {% if sections['australia'].feed.articles[australiaCount] %}
+                            {{this.render('partials/_single-article.twig', {
+                                article: sections['australia'].feed.articles[australiaCount], 
+                                imageSize: {width: 198, height: 141},
+                                containerClass: "col-sm-12 card-rec  card-rec-tablet card-rec-mobile"
+                            }) | raw}}
+
+                            {% set australiaCount = (dev) ? australiaCount : australiaCount + 1 %}
+                        {% endif %}
+                    </div>
+
+
+
+                    <div class="row">
+                        {% for i in 0..1 if sections['australia'].feed.articles[australiaCount] %}
+                            <div class="col-sm-6">
+                                {{this.render('partials/_single-article.twig', {
+                                    article: sections['australia'].feed.articles[australiaCount], 
+                                    imageSize: {width: 198, height: 141},
+                                    containerClass: "card-sm-full card-sm-full-tablet community"
+                                }) | raw}}
+                            </div>
+                            {% set australiaCount = (dev) ? australiaCount : australiaCount + 1 %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </section>
+        {% endif %}
 
 
 

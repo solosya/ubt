@@ -5,7 +5,7 @@
     limit:              required - number of articles to fetch
     name:               optional - id of the load more button in case you have multiple on a page
     blogId:             optional - Choose which blog to fetch from
-    loadtype:           optional - blog articles or search or user articles (defaults to current blog)
+    loadtype:           optional - blog/search/user articles or events(defaults to current blog)
     searchTerm:         optional - If search add the term
     card-class:         optional - Class added to card during render
     buttonClass:        optional - Class added to button (hide for infinite scroll)
@@ -24,6 +24,7 @@
     data-limit="{{limit}}"
     data-offset="{{offset}}"
     data-blogid="{{blogid}}"
+    data-blogguid="{{blogguid}}"
     data-loadtype="{{loadtype}}"
     data-container="{{container}}"
     data-searchterm="{{searchTerm}}"

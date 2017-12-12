@@ -6,6 +6,9 @@
 {% endif %}
 
 
+<div class="cat-time">
+    <time datetime="{{params.publishDate}}">{{status}}</time>
+</div>
 
 
 {% if (article.hasMedia == 'TRUE' or article.hasPreviewMedia == 'TRUE') and params.imageSuppress == 'false' %}
@@ -17,12 +20,9 @@
 {% endif %}
 
 <div class="content">
-    <div class="cat-time">
-        <time datetime="{{params.publishDate}}">{{status}}</time>
-        <div class="edit"></div>
-    </div>
 
     <h2 class="title">{{ params.articleTitle }}</h2>
     <p class="company">{{ article.additionalInfo.company }}</p>
+
     <p class="excerpt">{{ quotes.smarten(article.excerpt | raw) }}</p>
 </div>

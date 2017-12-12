@@ -4,13 +4,14 @@
 
 
 
-{{this.registerJs("window.Acme.cards = CardController();")}}
+{{this.registerJs("Acme.cards = CardController();")}}
+{{this.registerJs("Acme.eventFeed = new Acme.View.articleFeed(Acme.cards);")}}
 
 
 
 {# {{this.registerJs("ListingController();")}} #}
 
-{% set limit = 8 %}
+{% set limit = 50 %}
 
 {# {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
@@ -51,29 +52,28 @@
 
 
                 <div id="job-listings">
-                    {% for i in 0..7 if articles[articleCount] %}
+                    {% for article in articles %}
                         {{this.render('partials/_single-event.twig', {
-                            event: articles[articleCount], 
-                            position: (articleCount+1),
+                            event: article, 
                             imageSize: {width: 173, height: 144},
                             containerClass: 'card-rec card-rec-tablet card-rec-mobile'
                         }) | raw}}
-                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                     {% endfor %}
                 </div>
 
-                {% if articles|length >= limit %}
+{#                 {% if articles|length >= limit %}
                     {{ this.render('partials/ajaxarticles.twig', {
                         limit       : limit, 
                         label       : "Show more",
                         non_pinned  : articlesArr.existingNonPinnedCount, 
                         rendertype  : "write",
+                        loadtype    : "events",
                         card_class  : "col-sm-12 card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile",
                         container   : "mainAjaxArticles"
                     }) | raw }}
                 {% endif %}
 
-            </div>
+ #}            </div>
 
 
 

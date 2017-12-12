@@ -39,6 +39,10 @@ Handlebars.registerHelper('formatSalary', function(salary, salaryType, salaryTo,
     return salaryPrefix + salary
 });
 
+window.templates.carousel_item = 
+'<div class="carousel-tray__item" style="background-image:url( {{imagePath}} )"> \
+    <span class="carousel-tray__delete"></span> \
+</div>';
 
 window.templates.ads_infinite = 
 '<div class="advert"> \

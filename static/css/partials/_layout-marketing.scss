@@ -301,6 +301,10 @@
             font-size: rem(23);
             width: 427px;
             height: 94px;
+            @media screen and (max-width: $sm-break-down){
+                width: 80%;
+                height: 10%;
+            }
             display: block;
             margin: 0 auto;
             padding: 33px 10px;
