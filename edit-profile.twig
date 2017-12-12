@@ -1,24 +1,26 @@
 {{ set(this, 'title', 'Edit Profile') }}
 {{this.registerJs("UserProfielController.load()")}}
+{% set networkData = _Network.getNetworkData() %}
+{% set blogData = _Blog.getBlog() %}
+{% set jobsBlogId = blogData.additionalInfo['joblistingsid'] %}
+{% set propBlogId = blogData.additionalInfo['propertylistingsid'] %}
 
 <!-- Begin User Profile Page -->
-{% set user = _User.getUser() %}
 
 {% set jobListingsArr = [] %}
-{% set realEstateArr = [] %}
-{% set eventsArr = [] %}
+{% set propListingsArr = [] %}
 {% set pwstats = _User.getPaywallStats(true) %}
 {% set plans = _Network.getNetworkData()['paywallPlans'] %}
 
-{# {% if user %} 
-    {% set jobListingsArr = _User.getUserArticles(user.guid, 0, 1000, [117]) %}
-    {% set realEstateArr = _User.getUserArticles(user.guid, 0, 1000, [117]) %}
-    {% set eventsArr = _Event.getEvents() %}
-{% endif %} #}
+{% set user = _User.getUser() %}
+{% if user %} 
+    {% set jobListingsArr = _User.getUserArticles(user.guid, 0, 1000, {'blogs':[jobsBlogId], 'status': '-1'}) %}
+    {% set propListingsArr = _User.getUserArticles(user.guid, 0, 1000, {'blogs':[propBlogId], 'status': '-1'}) %}
+{% endif %}
 
-{% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 4 : 0 %}
+{% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
 <!-- 3 is job, 4 is property, 5 is event -->
-{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
+{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
 
 <main id="main" class="user_profile listingForm" role="main">
     <div id="stripekey" class="hidden" >{{_Network.getNetworkData()['stripe_publishable_key']}}</div>
@@ -82,15 +84,18 @@
                                 </div>
  #}
                                 <div class="button-full">
-                                    <button type="submit" class="button">Update Details</button>
+                                    <button type="submit" class="button margin-top-25">Update Details</button>
                                 </div>
                             </form>
 
                             <div class="button-full">
-                                <button type="submit" id='cancelAccount' class="button">Cancel Account</button>
+                                <button type="submit" id='cancelAccount' class="button margin-top-25">Cancel Account</button>
                             </div>
                         </div>
                     </div>
+
+
+
                     {% if pwstats.userManager == true %}
                         {% set managedUers = _User.getPaywallManagedUsers() %}
 
@@ -130,34 +135,38 @@
                                 </div>
 
 
-                            <div class="section-heading" style="margin-top:50px">
-                                <p>Change Plan </p>
-                            </div>
-                            <div class="planscontainer" >
-                            {% for plan in plans %}
-                                {% if plan.guid != pwstats['plan_guid'] %}
-                                <div class="col-sm-3 planbox">
-                                    <div class="plan-card">
-                                        <h3>{{plan.name}}</h3>
-                                        <p class="usercount">{{plan.user_count}} Users</p>
-                                        <p class="price">${{plan.plan_value/100}}/{{plan.period}}</p>
-                                        <input type="hidden" id="planid" value="{{plan.guid}}">
-                                        <input type="hidden" id="planusercount" value="{{plan.user_count}}">
-                                        <input type="hidden" id="plancost" value="{{plan.plan_value}}">
-                                        <input type="hidden" id="planperiod" value="{{plan.period}}">
-                                        <input type="hidden" id="currentcost" value="{{pwstats['plan_value']}}">
-                                        <input type="hidden" id="currentperiod" value="{{pwstats['period']}}">
-                                        <input type="hidden" id="currentusers" value="{{managedUers|length}}">
-                                        <input type="hidden" id="expdate" value="{{ pwstats['expiry_date']}}">
-                                        <input type="hidden" id="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> 
-                                        <a class="setplan">CHANGE PLAN</a>
-                                    </div>
-                                </div>
-                                {% endif %}
-                            {% endfor %}
-                            </div>
 
-                        </div>
+
+
+
+                                <div class="section-heading" style="margin-top:50px">
+                                    <p>Change Plan</p>
+                                </div>
+                                <div class="planscontainer" >
+                                {% for plan in plans %}
+                                    {% if plan.guid != pwstats['plan_guid'] %}
+                                    <div class="col-sm-3 planbox">
+                                        <div class="plan-card">
+                                            <h3>{{plan.name}}</h3>
+                                            <p class="usercount">{{plan.user_count}} Users</p>
+                                            <p class="price">${{plan.plan_value/100}}/{{plan.period}}</p>
+                                            <input type="hidden" id="planid" value="{{plan.guid}}">
+                                            <input type="hidden" id="planusercount" value="{{plan.user_count}}">
+                                            <input type="hidden" id="plancost" value="{{plan.plan_value}}">
+                                            <input type="hidden" id="planperiod" value="{{plan.period}}">
+                                            <input type="hidden" id="currentcost" value="{{pwstats['plan_value']}}">
+                                            <input type="hidden" id="currentperiod" value="{{pwstats['period']}}">
+                                            <input type="hidden" id="currentusers" value="{{managedUers|length}}">
+                                            <input type="hidden" id="expdate" value="{{ pwstats['expiry_date']}}">
+                                            <input type="hidden" id="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> 
+                                            <a class="setplan">CHANGE PLAN</a>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                                </div>
+
+                            </div>
 
                         </div>
 
@@ -198,98 +207,60 @@
                         </div>
                     {% endif %}
 
+
+                    {% if jobListingsArr | length > 0  %}
+
                     <div class="profile-section">
                         <div class="section-heading">
                             <p>Job Listings</p>
-                            <a>View all</a>
+                            <a href="{{networkData.defaultBlogUrl}}/@jobs-form">Edit listings</a>
                         </div>
                         <div class="row">
                             <div  id="jobListings" class="col-md-12">
-                                {% if jobListingsArr[0] %}
-                                    {% set articleCount = (dev) ? articleCount : 0 %}
-                                    {% for i in 0..2 %}
+                                {% set articleCount = (dev) ? articleCount : 0 %}
+                                {% for i in 0..2 if jobListingsArr[articleCount] %}
 
-                                        {{this.render('partials/_single-article.twig', {
-                                            article: jobListingsArr[articleCount], 
-                                            position: loop.index,
-                                            behaviour: 'noclick',
-                                            template: 'jobs',
-                                            containerClass: "card-rec-jobs card-rec-jobs-tablet listingCard"
-                                        }) | raw}}
-                                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                                    {{this.render('partials/_single-article.twig', {
+                                        article: jobListingsArr[articleCount], 
+                                        behaviour: 'noclick',
+                                        template: 'jobs',
+                                        containerClass: "card-rec-jobs card-rec-jobs-tablet listingCard"
+                                    }) | raw}}
+                                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
 
-                                    {% endfor %}
-                                {% else %}
-                                    <div class="empty-listing">
-                                        <p>You have no current listings.</p>
-                                    </div>
-                                {% endif %}
+                                {% endfor %}
                             </div>
                         </div>
-                        <a class="submit">Submit a listing</a>
                     </div>
+                    {% endif %}
+
+
+
+                    {% if propListingsArr | length > 0 %}
 
                     <div class="profile-section">
                         <div class="section-heading">
                             <p>Realestate Listings</p>
-                            <a>View all</a>
+                            <a href="{{networkData.defaultBlogUrl}}/@property-form">Edit Listings</a>
                         </div>
                         <div class="row">
                             <div  id="realEstateListings" class="col-md-12">
-                                {% if realEstateArr[0] %}
-                                    {% set articleCount = (dev) ? articleCount : 0 %}
-                                    {% for i in 0..2 %}
+                                {% set articleCount = (dev) ? articleCount : 0 %}
+                                {% for i in 0..2 if propListingsArr[articleCount] %}
 
-                                        {{this.render('partials/_single-article.twig', {
-                                            article: realEstateArr[articleCount], 
-                                            position: loop.index,
-                                            behaviour: 'noclick',
-                                            template: 'property',
-                                            containerClass: "card-rec-realestate card-rec-realestate-tablet listingCard"
-                                        }) | raw}}
-                                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                                    {{this.render('partials/_single-article.twig', {
+                                        article: propListingsArr[articleCount], 
+                                        behaviour: 'noclick',
+                                        template: 'property',
+                                        containerClass: "card-rec-realestate card-rec-realestate-tablet listingCard"
+                                    }) | raw}}
+                                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
 
-                                    {% endfor %}
-                                {% else %}
-                                    <div class="empty-listing">
-                                        <p>You have no current listings.</p>
-                                    </div>
-                                {% endif %}
+                                {% endfor %}
                             </div>
                         </div>
-                        <a class="submit">Submit a listing</a>
                     </div>
-
-                    <div class="profile-section">
-                        <div class="section-heading">
-                            <p>Events</p>
-                            <a>View all</a>
-                        </div>
-                        <div class="row">
-                            <div  id="userListings" class="col-md-12">
-                                {% if eventsArr[0] %}
-                                    {% set articleCount = (dev) ? 0 : 0 %}
-                                    {% for i in 0..0 %}
-
-                                        {{this.render('partials/_single-event.twig', {
-                                            event: eventsArr[articleCount], 
-                                            position: loop.index,
-                                            behaviour: 'noclick',
-                                            containerClass: "card-event card-event-tablet listingCard"
-                                        }) | raw}}
-                                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-
-                                    {% endfor %}
-                                {% else %}
-                                    <div class="empty-listing">
-                                        <p>You have no current events.</p>
-                                    </div>
-                                {% endif %}
-                            </div>
-                        </div>
-                        <a class="submit">Submit an event</a>
-                    </div>                   
-
+                    {% endif %}
 
                 </div>
             </div>

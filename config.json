@@ -119,6 +119,16 @@
                     "name": "publishto",
                     "label": "Publish to...",
                     "type": "inputbox"
+                },
+                {
+                    "name": "joblistingsid",
+                    "label": "Job listings blog id",
+                    "type": "inputbox"
+                },
+                {
+                    "name": "propertylistingsid",
+                    "label": "Property listings blog id",
+                    "type": "inputbox"
                 }
             ]
         }

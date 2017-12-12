@@ -53,7 +53,7 @@
 
     {% set params = {
         placeholder:     'https://placeholdit.imgix.net/~text?txtsize=33&txt=Loading&w='~imgWidth~'&h='~imgHeight~'',
-        figureClass:     article.featuredMedia['type'] == 'video' ? 'video' : 'video',
+        figureClass:     article.featuredMedia['type'] == 'video' ? 'video' : '',
         articleImgSmall: _Media.getMediaUrl(article.featuredMedia,500, 500, {'crop': 'fill', 'gravity': 'faces'} ),
         articleImg:      _Media.getMediaUrl(article.featuredMedia,imgWidth, imgHeight, {'crop': 'fill', 'gravity': 'faces'} ),
         publishDate:     publishDate,
