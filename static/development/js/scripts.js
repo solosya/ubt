@@ -107,7 +107,7 @@ var adScroll = function() {
         }
         scrollMetric = [scroll, direction];
         // scrollUpMenu();
-        console.log(scrollMetric[0]);
+        // console.log(scrollMetric[0]);
         adScroll();
 
     });

@@ -1,9 +1,9 @@
 @mixin card-sm-full-base() {
     position:relative;
-    border-bottom: 1px solid color(lightgrey);
 
     a.card {
         @include card-image-full();
+        border-bottom: 1px solid color(lightgrey);
 
         > article {
             position:relative;

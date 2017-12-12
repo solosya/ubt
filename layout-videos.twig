@@ -1,0 +1,81 @@
+{{ set(this, 'title', _Blog.getBlogTitle()) }}
+{% set networkData = _Network.getNetworkData() %}
+{% set blogData    = _Blog.getBlog() %}
+
+{{this.registerJs("Acme.cards = CardController();")}}
+{{this.registerJs("Acme.searchFeed = new Acme.View.articleFeed(Acme.cards);")}}
+
+{% set limit = 9 %}
+{% set articlesArr  = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
+{% set articles     = articlesArr.articles %}
+
+
+<!-- used to index each article as we loop over throughout the template -->
+{% set articleCount = 0 %}
+
+
+    <main id="main" class="site-main searchPage" role="main">
+    
+
+
+        <section class="card-group">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-10">
+                        <h1>{{this.title}}</h1>
+                    </div>
+                </div>
+
+                
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-10">
+                        <div class="row">
+                            {% for article in articles %}                                                                
+                                {{this.render('partials/_single-article.twig', {
+                                    article: article, 
+                                    position: (articleCount+1), 
+                                    imageSize: {width: 360, height: 215},
+                                    containerClass: 'col-sm-4 card-sm-full card-sm-full-tablet'}) | raw}}
+                                {% set articleCount = articleCount + 1 %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div><!-- .row-->
+
+
+
+                {% if articles|length >= limit %}
+
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-10">
+                        <div class="row">
+
+                            {{ this.render('partials/ajaxarticles.twig', {
+                                limit       : limit, 
+                                label       : "Show more",
+                                non_pinned  : articlesArr.existingNonPinnedCount, 
+                                card_class  : "col-sm-4 card-sm card-sm-tablet",
+                                container   : "mainAjaxArticles",
+                                loadtype    : "search",
+                                searchTerm  : search
+                            }) | raw }}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+
+
+
+            </div><!-- .container-->
+
+
+
+
+        </section><!-- .top-stories-->
+
+
+    </main><!-- .site-main -->
+
