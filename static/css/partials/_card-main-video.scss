@@ -1,0 +1,263 @@
+@mixin card-main-video-base() {
+    position:relative;
+
+    a.card {
+        border-bottom: 1px solid #97999c;
+
+        > article {
+            position:relative;
+            > figure{
+            }
+            > .content{
+                position:relative;
+                padding:0;
+                overflow:hidden;
+                text-align:center;
+                
+                >div {
+                    > .category{
+                        border-right:1px solid color(lightgrey);
+                    }
+                }
+                > h2{
+                    font-family:$font-family-serif;
+                    color:color(black);
+                    font-weight:600;
+                    margin-top:4px;
+                    clear:both;
+                    margin-bottom:0;
+                    text-align:center;
+                }
+                > p.excerpt {
+                    display:none;
+                }
+            }
+        }
+    }
+}
+
+
+
+.card-main-video{
+    @media screen and (min-width: $mmd-break){
+        @include card-main-video-base();
+
+        margin-bottom: 32px;
+
+        a.card {
+            @include card-image-top(auto, 310px);
+
+            > article {
+
+                > figure{
+                    margin-bottom:22px;
+                }
+
+                > .content{
+                    padding-bottom:20px;
+
+                    > h2{
+                        font-size:rem(30);
+                    }
+
+                }
+
+
+                &.video {
+                    > figure{
+                        height:360px;
+                        @include gradientafter();
+                    }
+
+                    > .content { 
+                        height: 135px;
+
+                        h2 {
+                            float:none;
+                            width:100%;
+                        }
+
+                        p.excerpt {
+                            display:none;
+                        }
+
+                    }
+                }
+            }
+
+
+            &.article.without__image {
+                .content {
+                    background: #d8d8d8;
+
+                    padding: 70px 35px 0 35px;
+                    margin-bottom:30px;
+                    height:491px;
+
+                    h2 {
+                        font-size: rem(25);
+                        line-height:1.2;
+                        font-weight:bold;
+                    }
+
+                    > p.excerpt {
+                        font-size: rem(15);
+                        display: block;
+                        min-height:286px;
+                        line-height: 1.73;
+                    }
+                }
+            }   
+        }
+    }
+}
+
+
+
+
+
+.card-main-video-tablet{
+    @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
+        @include card-main-video-base();
+        margin-bottom: 10px;
+
+        a.card {
+            @include card-image-top(auto, 162px);
+
+            > article {
+
+                > figure{
+                    margin-bottom:5px;
+                }
+
+                
+                > .content{
+                    padding-bottom:5px;
+
+
+    
+                    > h2{
+                        float:left;
+                        width:48%;
+                        font-size:rem(15);
+                        line-height: 1.2;
+                    }
+
+                    > p.excerpt {
+                        font-size:rem(11);
+                        float:right;
+                        width:48%;
+                        height:105px;
+                        margin-top:4px;
+                        max-height:105px;
+                        line-height: 1.36;
+                    }
+                }
+
+
+                &.video {
+
+                    > figure{
+                        overflow: hidden;
+                        height:360px;
+                        @include gradientafter();
+                    }
+
+
+
+                    > .content { 
+                        height: 135px;
+
+                        h2 {
+                            float:none;
+                            width:100%;
+                        }
+
+                        p.excerpt {
+                            display:none;
+                        }
+
+                    }
+                }
+            }
+
+
+            &.article.without__image {
+                .content {
+                    background: #d8d8d8;
+
+                    padding: 70px 35px 0 35px;
+                    margin-bottom:30px;
+                    height:491px;
+
+                    h2 {
+                        font-size: rem(25);
+                        line-height:1.2;
+                        font-weight:bold;
+                    }
+
+                    > p.excerpt {
+                        font-size: rem(15);
+                        display: block;
+                        min-height:286px;
+                        line-height: 1.73;
+                    }
+                }
+            }   
+        }
+    }
+}
+
+
+
+.card-main-video-mobile{
+    @media screen and (max-width: $sm-break-down){
+        @include card-main-video-base();
+        margin-bottom: 20px;
+
+        a.card {
+            @include card-image-top(auto, 190px);
+
+            > article {
+                > figure{
+                    margin-bottom:15px;
+                }
+                > .content{
+                    > h2{
+                        font-size:rem(24);
+                        line-height:1.25;
+                        max-height:90px;
+                    }
+
+                    > p.excerpt {
+                        line-height: 1.54;
+                        margin-top:8px;
+                        max-height:80px;
+                        margin-bottom: 30px;
+                    }
+                }
+            }
+
+
+            &.article.without__image {
+                .content {
+                    padding: 90px 60px 100px 60px;
+
+                    h2 {
+                        font-size: rem(34);
+                        font-weight:bold;
+                        max-height:80px;
+                    }
+
+                    > p.excerpt {
+                        font-size: rem(15);
+                        display: block;
+                        line-height: 1.73;
+                        height:185px;
+                    }
+                }
+            }   
+        }
+    }
+}
+

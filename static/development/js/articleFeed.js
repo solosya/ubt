@@ -1,5 +1,9 @@
-Acme.View.articleFeed = function(cardModel) {
+Acme.View.articleFeed = function(cardModel, limit, offset, infinite) {
     this.cardModel = cardModel;
+    this.offset    = offset || 0;
+    this.limit     = limit || 10;
+    this.infinite  = infinite || false;
+    this.waypoint  = false;
     this.events();
 };
 
@@ -59,11 +63,10 @@ Acme.View.articleFeed.prototype.fetch = function(elem, waypoint)
                 ? container.empty().append( html.join('') )
                 : container.append( html.join('') );
                 
-
-            if (waypoint) {
+            if (self.waypoint) {
                 (data.articles.length < options.limit)
-                    ? waypoint.destroy()
-                    : waypoint.enable();
+                    ? self.waypoint.disable()
+                    : self.waypoint.enable();
             }
 
             $(".card .content > p, .card h2").dotdotdot();     
@@ -71,10 +74,6 @@ Acme.View.articleFeed.prototype.fetch = function(elem, waypoint)
             $("div.lazyload").lazyload({
                 effect: "fadeIn"
             });
-
-            if (_appJsConfig.isUserLoggedIn === 1 && _appJsConfig.userHasBlogAccess === 1) {
-                self.events();
-            }          
         }
     });
 };
@@ -86,5 +85,18 @@ Acme.View.articleFeed.prototype.events = function()
         e.preventDefault();
         self.fetch($(e.target));
     });
+
+
+    if (this.infinite && this.offset >= this.limit) {
+        self.waypoint = new Waypoint({
+            element: $('.loadMoreArticles'),
+            offset: '80%',
+            handler: function (direction) {
+                if (direction == 'down') {
+                    self.fetch($(this.element));
+                }
+            }
+        });
+    }
 };
 

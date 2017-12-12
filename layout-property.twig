@@ -4,9 +4,7 @@
 
 
 
-
 {{this.registerJs("Acme.cards = CardController();")}}
-{{this.registerJs("Acme.searchFeed = new Acme.View.articleFeed(Acme.cards);")}}
 {{this.registerJs("Acme.searchCollection = new Acme.searchCollectionClass(["~blogData['id']~"]);")}}
 {{this.registerJs("Acme.jobRegionFilter = new Acme.regionSearchView();")}}
 {{this.registerJs("Acme.propertyTypeFilter = new Acme.propertyTypeSearchView();")}}
@@ -14,12 +12,13 @@
 {{this.registerJs("Acme.propertySearchResults = new Acme.propertySearchResultsClass('property-listings', 'propertyListingCardTemplate');")}}
 
 
-
-
-{% set limit = 10 %}
-
+{% set limit = 4 %}
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
+{% set firstCount = articles | length %}
+                                                     {# renders the card    fetch-limit      fetch-offset    infinite scroll #}
+                                                     {#            ↑             ↑                 ↑            ↑            #}
+{{this.registerJs("Acme.searchFeed = new Acme.View.articleFeed(Acme.cards, " ~ limit ~ ", " ~ firstCount ~ ", true);")}}
 
 
 <!-- used to index each article as we loop over throughout the template -->
@@ -112,18 +111,17 @@
                     {% endfor %}
                 </div>
 
-                {% if articles|length >= limit %}
-                    {{ this.render('partials/ajaxarticles.twig', {
-                        limit           : limit,
-                        name            : "property-load",
-                        label           : "Show more",
-                        non_pinned      : articlesArr.existingNonPinnedCount, 
-                        cardTemplate    : "propertyListingCardTemplate",  
-                        card_class      : "card-rec-realestate card-rec-realestate-tablet card-rec-realestate-mobile",
-                        container       : "property-listings",
-                        blogid          : blogData['guid']
-                    }) | raw }}
-                {% endif %}
+                {{ this.render('partials/ajaxarticles.twig', {
+                    limit           : limit,
+                    name            : "article-load",
+                    label           : "Show more",
+                    non_pinned      : articlesArr.existingNonPinnedCount, 
+                    cardTemplate    : "propertyListingCardTemplate",  
+                    card_class      : "card-rec-realestate card-rec-realestate-tablet card-rec-realestate-mobile",
+                    container       : "property-listings",
+                    blogid          : blogData['guid'],
+                    buttonClass     : "infinite"
+                }) | raw }}
 
             </div>
 

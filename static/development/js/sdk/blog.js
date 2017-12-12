@@ -29,6 +29,8 @@
             url: url,
             dataType: 'json',
             data: requestData
+        }).done(function(r) {
+            console.log(r);
         });        
     };
 

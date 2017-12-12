@@ -26551,6 +26551,8 @@ jQuery.fn.liScroll = function(settings) {
             url: url,
             dataType: 'json',
             data: requestData
+        }).done(function(r) {
+            console.log(r);
         });        
     };
 
@@ -32975,15 +32977,17 @@ jQuery(document).ready(function () {
 
 window.templates = {};
 Handlebars.registerHelper('splitShift', function(text) {
+  if (!text) return "";
   return text.split(" ")[0].toLowerCase();
 });
 
 Handlebars.registerHelper('fixPrice', function(text) {
-    newText = text.replace(/\$/g, "");
-    return newText; 
+    if (!text) return "";
+    return text.replace(/\$/g, "");
 });
 
 Handlebars.registerHelper('draftStatus', function(text, date) {
+    if (!text || !date) return "";
     return text.toLowerCase() === 'draft' ? "Pending Approval" : "Posted " + date; 
 });
 
@@ -33431,8 +33435,12 @@ var socialPostPopupTemplate =
                     '</div>'+
     '</div>'+
  '</div>'   ;   
-Acme.View.articleFeed = function(cardModel) {
+Acme.View.articleFeed = function(cardModel, limit, offset, infinite) {
     this.cardModel = cardModel;
+    this.offset    = offset || 0;
+    this.limit     = limit || 10;
+    this.infinite  = infinite || false;
+    this.waypoint  = false;
     this.events();
 };
 
@@ -33492,11 +33500,10 @@ Acme.View.articleFeed.prototype.fetch = function(elem, waypoint)
                 ? container.empty().append( html.join('') )
                 : container.append( html.join('') );
                 
-
-            if (waypoint) {
+            if (self.waypoint) {
                 (data.articles.length < options.limit)
-                    ? waypoint.destroy()
-                    : waypoint.enable();
+                    ? self.waypoint.disable()
+                    : self.waypoint.enable();
             }
 
             $(".card .content > p, .card h2").dotdotdot();     
@@ -33504,10 +33511,6 @@ Acme.View.articleFeed.prototype.fetch = function(elem, waypoint)
             $("div.lazyload").lazyload({
                 effect: "fadeIn"
             });
-
-            if (_appJsConfig.isUserLoggedIn === 1 && _appJsConfig.userHasBlogAccess === 1) {
-                self.events();
-            }          
         }
     });
 };
@@ -33519,6 +33522,19 @@ Acme.View.articleFeed.prototype.events = function()
         e.preventDefault();
         self.fetch($(e.target));
     });
+
+
+    if (this.infinite && this.offset >= this.limit) {
+        self.waypoint = new Waypoint({
+            element: $('.loadMoreArticles'),
+            offset: '80%',
+            handler: function (direction) {
+                if (direction == 'down') {
+                    self.fetch($(this.element));
+                }
+            }
+        });
+    }
 };
 
 
@@ -34271,7 +34287,6 @@ var regionList = listingRegions[domain] || listingRegions["test"];
 //     });
 
 
-
 Acme.searchCollectionClass = function(blogId)
 {
     this.blogId = blogId;
@@ -34298,16 +34313,16 @@ Acme.searchCollectionClass = function(blogId)
             }
             this.searchTerms['type'] = data.type;
         },
-        "sale" : function(data) {
-            if (data.sale === "") {
-                delete this.searchTerms['sale'];
+        "contracttype" : function(data) {
+            if (data.contracttype === "") {
+                delete this.searchTerms['contracttype'];
                 return;
             }
-            this.searchTerms['sale'] = data.sale;
+            this.searchTerms['contracttype'] = data.contracttype;
         },
         "fetch" :  function() {
             var searchTerms = [];
-            var loader = $('#property-load');
+            var loader = $('#article-load');
 
             for (search in this.searchTerms) {
                 searchTerms.push( search + ":" + this.searchTerms[search]);
@@ -34318,59 +34333,26 @@ Acme.searchCollectionClass = function(blogId)
                              .data('rendertype', 'write')
                              .data('searchterm', searchString)
                              .data('offset', '0')
-                             .data('limit', 2)
                              .data('non-pinned-offset', '0')
                              .click()
                              .data('rendertype', '');
                 // return this.fetch('/api/search?meta_info='+searchString + '&blogId=' + this.blogId + '&offset=0&limit=2');
             }
-            return loader.data('loadtype', '')
+            var params = loader.data('loadtype', '')
                          .data('rendertype', 'write')
-                         .data('6')
                          .data('searchterm', '')
                          .data('offset', '0')
                          .data('non-pinned-offset', '0')
                          .click()
                          .data('rendertype', '');
 
-
+            return params;
             // return this.fetch(_appJsConfig.baseHttpPath + '/home/load-articles', {'limit': 10, 'offset':0});
         },
-        "clear" :  function() {
-            // return this.fetch(_appJsConfig.baseHttpPath + '/home/load-articles', {'limit': 10, 'offset':0});
-        }
+        // "clear" :  function() {
+        //     // return this.fetch(_appJsConfig.baseHttpPath + '/home/load-articles', {'limit': 10, 'offset':0});
+        // }
     };
-    // Acme.searchCollectionClass.prototype.fetch = function(url, data)
-    // {
-    //     console.log('in the fetch');
-    //     var self = this;
-    //     var url = (url === undefined) ? this.url() : url;
-    //     var server = 'fetch';
-    //     if (data) { server = 'create'; }
-
-    //     console.log(server, url, data);
-    //     var data = Acme.server[server]( url, data );
-    //     data.done( function(response) {
-    //         if ( typeof response.articles != 'undefined') {
-    //             response = response.articles;
-    //         }
-    //         self.data = [];
-    //         for (var i=0; i<response.length; i++) {
-    //             console.log(self.model);
-    //             self.data.push( Object.create(self.model,
-    //                 {   'data' : {
-    //                         'value': response[i],
-    //                         'writable': true
-    //                     }
-    //                 }
-    //             ));
-    //         }
-    //         console.log(self.data);
-    //         Acme.PubSub.publish('state_changed', {'search': self});
-    //     });
-    //     return data;
-    // };
-
 
 
 
@@ -34463,7 +34445,7 @@ Acme.saleTypeSearchView = function() {
     Acme.saleTypeSearchView.prototype.listeners =  {
         "saleSelect" : function(data) {
             var data = {
-                "sale": data.saleSelect
+                "contracttype": data.saleSelect
             };
             Acme.PubSub.publish('update_state', data);
         }
@@ -34490,7 +34472,6 @@ Acme.filteredListingViewClass = function() {
     Acme.filteredListingViewClass.prototype.listeners = {
         "search" : function(data) {
             this.data = data.search.data;
-            console.log(data);
             this.render();
         }
     };
@@ -34542,7 +34523,7 @@ Acme.propertySearchResultsClass = function(container, template)
     });
 
     Acme.propertySearchResultsClass.prototype.render = function() {
-        console.log('rendering search results');
+
         var container = this.container;
         var cardClasses = [ "card-main-realestate card-main-realestate-tablet card-main-realestate-mobile",
                             "card-rec-realestate card-rec-realestate-tablet card-rec-realestate-mobile"];
@@ -34603,7 +34584,6 @@ ListingForm.constructor = ListingForm;
             this.render();
         },
         "delete listing" : function(data, topic) {
-            console.log('in the delete listing listener');
             this.deleteListing();
         },
         "extendedData.region" : function(data, topic) {
@@ -34806,7 +34786,6 @@ ListingForm.constructor = ListingForm;
     ListingForm.prototype.deleteListing = function() 
     {
         Acme.server.create('/api/article/delete-user-article', {"articleguid": this.data.guid}).done(function(r) {
-            console.log(r);
             $('#listingFormClear').click();
             Acme.PubSub.publish('update_state', {'userArticles': ''});
         }).fail(function(r) {
@@ -34899,7 +34878,6 @@ ListingForm.constructor = ListingForm;
             self.data.theme_layout_name = self.layout;
 
             Acme.server.create('/api/article/create', self.data).done(function(r) {
-                console.log(r);
                 $('#listingFormClear').click();
                 Acme.PubSub.publish('update_state', {'confirm': r});
                 Acme.PubSub.publish('update_state', {'userArticles': ''});
@@ -35121,7 +35099,6 @@ Acme.EventForm = function(blogId)
             this.data.end_date = data['end_date'];
         },
         "after" : function(data, topic) {
-            console.log(this.data);
         }
     };
     Acme.EventForm.prototype.resetData = function() 
@@ -35283,7 +35260,7 @@ Acme.listingViewClass.prototype = new Acme._View();
     {
         var container = this.container.main;
         var cardClass = "card-form-"+this.type+"-listing listingCard";
-        console.log(this.type + 'CardTemplate');
+
         var html = "";
         for (var i=0;i<this.data.length;i++) {
             html += window.Acme.cards.renderCard(this.data[i].data, cardClass, this.type + 'CardTemplate');
@@ -35335,7 +35312,6 @@ Acme.Confirm = function(template, parent, layouts) {
                     formData[this.name] = this.value;
                 });
                 Acme.server.create('/api/auth/login', formData).done(function(r) {
-                    console.log(r);
                     if (r.success === 1) {
                         window.location.href = location.origin;
                     } else {
