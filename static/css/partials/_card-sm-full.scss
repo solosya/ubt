@@ -4,7 +4,7 @@
     a.card {
         @include card-image-full();
         border-bottom: 1px solid color(lightgrey);
-
+        padding-bottom:30px;
         > article {
             position:relative;
 
@@ -98,7 +98,7 @@
         padding-bottom: 30px;
 
         a.card {
-            height:180px;
+            height:210px;
 
             > article {
 
