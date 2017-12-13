@@ -32346,6 +32346,7 @@ jQuery(document).ready(function () {
     Acme.View         = {};
     Acme.Model        = {};
     Acme.Collection   = {};
+    Acme.Controller   = {};
     Acme.State        = {};
 
 
@@ -32395,15 +32396,11 @@ jQuery(document).ready(function () {
     }
 
     Acme.listen = function() {};
-
     Acme.listen.prototype.listener = function(topic, data)
     {
         var keys = Object.keys(data);
-        // console.log(this);
-        // console.log(topic, data);
         for (var i = 0; i<keys.length; i++) {
             for (var listener in this.listeners) {
-                // console.log(keys[i], listener);
                 if ( listener === keys[i] ) {
                     this.listeners[listener].call(this, data, topic);
                     if (this.listeners.after) {
@@ -34407,6 +34404,13 @@ BlogConrtoller.Blog = (function ($) {
     };
 
 }(jQuery));
+Acme.Controller.JobFormPage = function (blogid) {
+	window.Acme.cards = CardController();
+	Acme.jobForm = new Acme.JobForm([blogid], 'Single Job Listing');
+	Acme.listingView.init(blogid, 'job');
+	Acme.listingCollection = new Acme.listingCollectionClass('listingCollection', blogid);
+};
+
 (function ($) {
 
 
@@ -34766,19 +34770,121 @@ Acme.propertySearchResultsClass = function(container, template)
 
 
 
+Acme.Form = function(validators, rules) {
+    this.errorField;
+    this.validators = validators || null;
+    this.validateRules = rules || {};
+
+};
+Acme.Form.prototype = new Acme._View();
+Acme.Form.constructor = Acme.Form;
+    Acme.Form.prototype.clearInlineErrors = function()
+    {
+        if (this.errorField) {
+            this.errorField.removeClass('active');
+        }
+        for (var field in this.validateFields) {
+            var fieldname = this.validateFields[field].split('.').reverse()[0];
+            $('#'+fieldname).removeClass('formError');
+        }
+    };
+    Acme.Form.prototype.addInlineErrors = function()
+    {
+        if (this.errorFields.length > 0 && this.errorField) {
+            this.errorField.addClass('active');
+        }
+        for (var field in this.errorFields) {
+            $('#'+this.errorFields[field]).addClass('formError');
+        }
+    };
+
+    Acme.Form.prototype.validate = function( /* Array */ checkFields)  {
+        console.log('validating');
+        // checkFields is used to validate a single field, 
+        // otherwise itereate through all compulsory fields
+
+        // intersect used to clear the field we want to check 
+        // from errorFields.  if still an error it will add again.
+        function intersect(a, b) {
+            var t;
+            if (b.length > a.length) t = b, b = a, a = t; // indexOf to loop over shorter
+            return a.filter(function (e) {
+                return b.indexOf(e) > -1;
+            });
+        }
+
+        var validated = true, fields = [];
+
+        if (checkFields && this.validateFields) {
+            var fields = intersect(this.validateFields, checkFields);
+            for (var j=0; j<fields.length;j++) {
+                var fieldName = fields[j].split('.').reverse()[0];
+                var index = this.errorFields.indexOf(fieldName);
+                if (index === -1) break;
+                this.errorFields.splice(index, 1);
+            }
+        } else {
+            var fields = this.validateFields || [];
+            this.errorFields = []; // reset and re-calcuate all fields
+        }
+        console.log(fields);
+        for (var i=0;i<fields.length; i++) {
+            var key = fields[i];
+            var keySplit = key.split('.');
+            var scope = this.data;
+            for(var j=0; j<keySplit.length; j++) {
+
+                if (!scope[keySplit[j]]) {
+                    scope = false;
+                    break;
+                }
+                if(j == keySplit.length -1 ) {
+                    scope = scope[keySplit[j]];
+                    break;
+                }
+                scope = scope[keySplit[j]];
+            }
+
+            // DO THE VALIDATE!!!
+            var fieldValidators = this.validateRules[key];
+            if (fieldValidators.length > 0) {
+                var fieldname = fields[i].split('.').reverse()[0];
+                for (var k=0; k<fieldValidators.length; k++) {
+                    if ( !this.validators[ fieldValidators[k] ](scope) ) {
+                        this.errorFields.push(fieldname); 
+                        validated = false;
+                        break;
+                    }
+                }
+            }
+        }
+        console.log(this.errorFields);
+        return validated;
+    };
 
 
 
+
+Acme.Validators = {
+    'notEmpty' : function(input) {
+        return !input ? false : true;
+    },
+    'isNumeric' : function(n) {
+        var ret = !isNaN(parseFloat(n)) && isFinite(n);
+        return !isNaN(parseFloat(n)) && isFinite(n);
+    }
+};
 
 
 
 var ListingForm = function() {};
-ListingForm.prototype = new Acme._View();
+// ListingForm.prototype = new Acme._View();
+ListingForm.prototype = new Acme.Form(Acme.Validators);
 ListingForm.constructor = ListingForm;
     ListingForm.prototype.init = function(blogId, layout) 
     {
         this.blogId = blogId;
-
+        this.errorField = $('#formerror');
         this.data = {
             'id': 0,
             'blogs':this.blogId,
@@ -34806,6 +34912,7 @@ ListingForm.constructor = ListingForm;
             this.deleteListing();
         },
         "extendedData.region" : function(data, topic) {
+            console.log(data, topic);
             this.updateData(data);
         },
         "extendedData.contracttype" : function(data, topic) {
@@ -34909,7 +35016,7 @@ ListingForm.constructor = ListingForm;
         title.val(this.data.title);
         content.val(this.data.content);
 
-        this.clearErrorHightlights();
+        this.clearInlineErrors();
 
         for (key in this.data.extendedData) {
             if (key === 'region') {
@@ -34943,8 +35050,7 @@ ListingForm.constructor = ListingForm;
             $('#'+key).val(this.data.extendedData[key]);
         }
 
-
-        this.addErrorHightlights();
+        this.addInlineErrors();
 
         if (this.data.id) {
             $('#listingFormSubmit').text('UPDATE');
@@ -34954,23 +35060,6 @@ ListingForm.constructor = ListingForm;
             this.renderImageThumbs(this.data.mediaData);
         }
     };
-    ListingForm.prototype.clearErrorHightlights = function()
-    {
-        $("#formerror").removeClass('active');
-        for (var field in this.compulsoryFields) {
-            var fieldname = this.compulsoryFields[field].split('.').reverse()[0];
-            $('#'+fieldname).removeClass('formError');
-        }
-    }
-    ListingForm.prototype.addErrorHightlights = function()
-    {
-        if (this.errorFields.length > 0) {
-            $("#formerror").addClass('active');
-        }
-        for (var field in this.errorFields) {
-            $('#'+this.errorFields[field]).addClass('formError');
-        }
-    }
     ListingForm.prototype.renderImageThumbs = function(images) 
     {
         var imageArray = $('#imageArray');
@@ -34981,7 +35070,7 @@ ListingForm.constructor = ListingForm;
             html += temp({"imagePath": imagePath});
         }
         imageArray.append(html);
-    },
+    };
     ListingForm.prototype.clear = function() 
     {
         if (this.menus) {
@@ -34992,9 +35081,9 @@ ListingForm.constructor = ListingForm;
         }
         $('#listingFormDelete').hide();
         $('#imageArray').empty();
-        this.clearErrorHightlights();
+        this.clearInlineErrors();
         this.resetData();
-    },
+    };
     ListingForm.prototype.resetData = function() 
     {
         this.data = {
@@ -35013,6 +35102,25 @@ ListingForm.constructor = ListingForm;
             console.log(r);
         });
     };
+    ListingForm.prototype.submit = function()
+    {
+        var validated = self.validate();
+        if (!validated) {
+            self.render();
+            return;
+        }
+
+        self.data.theme_layout_name = self.layout;
+
+        Acme.server.create('/api/article/create', self.data).done(function(r) {
+            $('#listingFormClear').click();
+            Acme.PubSub.publish('update_state', {'confirm': r});
+            Acme.PubSub.publish('update_state', {'userArticles': ''});
+        }).fail(function(r) {
+            // Acme.PubSub.publish('update_state', {'confirm': r});
+            console.log(r);
+        });
+    };
     ListingForm.prototype.events = function() 
     {
         var self = this;
@@ -35025,16 +35133,13 @@ ListingForm.constructor = ListingForm;
 
             data[elemid] = elem.val();
             self.updateData(data);
-
-            if (self.compulsoryFields.indexOf(elemid) > -1 ) {
-
-                if (elem.val() == '') {
-                    elem.addClass("formError");
-                } else {
-                    elem.removeClass("formError");
-                }
-            } 
-
+            var validated = self.validate([elemid]);
+            self.render();
+            // if ( validated ) {
+            //     elem.removeClass("formError");
+            // } else {
+            //     elem.addClass("formError");
+            // }
         });
 
 
@@ -35088,78 +35193,9 @@ ListingForm.constructor = ListingForm;
 
         $('#listingForm').submit(function(e) {
             e.preventDefault();
-
-            var validated = self.validate();
-            if (!validated) {
-                self.render();
-                return;
-            }
-
-            self.data.theme_layout_name = self.layout;
-
-            Acme.server.create('/api/article/create', self.data).done(function(r) {
-                $('#listingFormClear').click();
-                Acme.PubSub.publish('update_state', {'confirm': r});
-                Acme.PubSub.publish('update_state', {'userArticles': ''});
-            }).fail(function(r) {
-                // Acme.PubSub.publish('update_state', {'confirm': r});
-                console.log(r);
-            });
+            self.submit();
         });
     }
-    ListingForm.prototype.validate = function(checkFields) {
-        // checkFields is used to validate a single field, 
-        // otherwise itereate through all compulsory fields
-
-        // intersect used to clear the field we want to check 
-        // from errorFields.  if still an error it will add again.
-        function intersect(a, b) {
-            var t;
-            if (b.length > a.length) t = b, b = a, a = t; // indexOf to loop over shorter
-            return a.filter(function (e) {
-                return b.indexOf(e) > -1;
-            });
-        }
-
-        var validated = true, fields = [];
-        if (checkFields) {
-            var fields = intersect(this.compulsoryFields, checkFields);
-            for (var j=0; j<fields.length;j++) {
-                var fieldName = fields[j].split('.').reverse()[0];
-                var index = this.errorFields.indexOf(fieldName)
-                this.errorFields.splice(index, 1);
-            }
-        } else {
-            var fields = this.compulsoryFields;
-            this.errorFields = []; // reset and re-calcuate all fields
-        }
-
-        for (var i=0;i<fields.length; i++) {
-            var key = fields[i];
-            var keySplit = key.split('.');
-            var scope = this.data;
-            for(var j=0; j<keySplit.length; j++) {
-
-                if (!scope[keySplit[j]]) {
-                    scope = false;
-                    break;
-                }
-                if(j == keySplit.length -1 ) {
-                    scope = scope[keySplit[j]];
-                    break;
-                }
-                scope = scope[keySplit[j]];
-            }
-
-            if (!scope) {
-                var fieldname = fields[i].split('.').reverse()[0];
-                this.errorFields.push(fieldname); 
-                validated = false;
-            }
-        }
-        return validated;
-    };
-
 
 
 
@@ -35173,19 +35209,21 @@ Acme.JobForm = function(blogId, layout) {
 
     this.errorFields = [];
 
-    this.compulsoryFields = [
-        "title", 
-        "content", 
-        "extendedData.company", 
-        "extendedData.location",
-        "extendedData.region",
-        "extendedData.worktype",
-        "extendedData.contactname",
-        "extendedData.contactemail"
-    ];
+    this.validateRules = {
+        "title"                     : ["notEmpty"], 
+        "content"                   : ["notEmpty"], 
+        "extendedData.company"      : ["notEmpty"], 
+        "extendedData.location"     : ["notEmpty"],
+        "extendedData.region"       : ["notEmpty"],
+        "extendedData.worktype"     : ["notEmpty"],
+        "extendedData.contactname"  : ["notEmpty", "isNumeric"],
+        "extendedData.contactemail" : ["notEmpty"]
+    };
+
+    this.validateFields = Object.keys(this.validateRules);
 
     this.init(blogId, layout);
-}
+};
     Acme.JobForm.prototype = new ListingForm();
     Acme.JobForm.prototype.constructor=Acme.JobForm;
         Acme.JobForm.prototype.events = function() 
@@ -35236,16 +35274,18 @@ Acme.PropertyForm = function(blogId, layout) {
 
     this.errorFields = [];
 
-    this.compulsoryFields = [
-        "title", 
-        "content", 
-        "extendedData.pricerange", 
-        "extendedData.region",
-        "extendedData.type",
-        "extendedData.contracttype",
-        "extendedData.contactname",
-        "extendedData.contactphone"
-    ];
+    this.validateRules = {
+        "title"                     : ["notEmpty"], 
+        "content"                   : ["notEmpty"], 
+        "extendedData.pricerange"   : ["notEmpty"], 
+        "extendedData.region"       : ["notEmpty"],
+        "extendedData.type"         : ["notEmpty"],
+        "extendedData.contracttype" : ["notEmpty"],
+        "extendedData.contactname"  : ["notEmpty"],
+        "extendedData.contactphone" : ["notEmpty"]
+    };
+
+    this.validateFields = Object.keys(this.validateRules);
 
     this.init(blogId, layout);
 };
@@ -35290,11 +35330,13 @@ Acme.EventForm = function(blogId)
 
     this.errorFields = [];
 
-    this.compulsoryFields = [
-        "title", 
-        "content",
-        "start_date"
-    ];
+    this.validateRules = {
+        "title"         : ["notEmpty"], 
+        "content"       : ["notEmpty"], 
+        "start_date"    : ["notEmpty"], 
+    };
+
+    this.validateFields = Object.keys(this.validateRules);
 
     this.blogId = blogId;
 
@@ -36030,7 +36072,11 @@ $('a.j-register').on('click', function(e) {
 
 }(jQuery));
 // Create a Stripe client
-if ($('#stripekey').length) {
+// if ($('#stripekey').length == 0) {
+//     console.log("Stripe API key is missing");
+// }
+
+
 var stripekey = $('#stripekey').html();
 console.log(stripekey)
 
@@ -36077,21 +36123,81 @@ card.addEventListener('change', function(event) {
 }); 
 
 // Handle form submission
+
+var SubscribeForm = function() {
+    this.data = {
+
+    };
+
+    this.errorFields = [];
+
+    this.validateRules = {
+        "username"  : ["notEmpty"], 
+        "firstname" : ["notEmpty"], 
+        "lastname"  : ["notEmpty"], 
+        "email"     : ["notEmpty"],
+        "mobile"    : ["notEmpty"],
+        "address"   : ["notEmpty"],
+        "suburb"    : ["notEmpty"],
+        "state"     : ["notEmpty"],
+        "Postcode"  : ["notEmpty", "isNumeric"]
+    };
+
+    this.validateFields = Object.keys(this.validateRules);
+
+    this.events();
+};
+    SubscribeForm.prototype = new Acme.Form(Acme.Validators);
+    SubscribeForm.constructor = SubscribeForm;
+    SubscribeForm.prototype.render = function() 
+    {
+        this.clearInlineErrors();
+        this.addInlineErrors();
+    };
+    SubscribeForm.prototype.submit = function() 
+    {
+    };
+    SubscribeForm.prototype.events = function()
+    {
+        var self = this;
+        $('input, textarea').on("change", function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            var data = {};
+            var elem = $(e.target);
+            var elemid = elem.attr('name');
+
+            data[elemid] = elem.val();
+            self.updateData(data);
+            var validated = self.validate([elemid]);
+            self.render();
+        });
+    };
+
+var subscribe = new SubscribeForm();
+
+
+
+
 var form = document.getElementById('payment-form');
+
 if (form != null) {
 form.addEventListener('submit', function(event) {
     event.preventDefault();
+    subscribe.validate();
+    subscribe.render();
 
     $('#card-errors').text('');
     var userdata = $('#listingForm').serializeArray();
+    console.log(userdata);
+    console.log(subscribe.data);
+    // $.each(userdata, function(i, val) {
 
-    $.each(userdata, function(i, val) {
-
-        if (val.value == '') {
-            $('#card-errors').text('Please fill out the '+ val.name + ' field.');
-            return;
-        }
-    });
+    //     if (val.value == '') {
+    //         $('#card-errors').text('Please fill out the '+ val.name + ' field.');
+    //         return;
+    //     }
+    // });
     if ( $('#password').val() !== $('#verifypassword').val() ) {
         $('#card-errors').text('Password fields do not match.');
         return;
@@ -36107,37 +36213,29 @@ form.addEventListener('submit', function(event) {
         } else {
             // Send the token to your server
             console.log(result);
-            formhandler(result.token, userdata, '/auth/paywall-signup');
+            subscribe.data['stripetoken'] = result.token.id;
+            formhandler(subscribe.data, '/auth/paywall-signup');
         }
     });
 });
-}
 
 
-var formhandler = function(stripeToken, formdata, path) {
+
+var formhandler = function(formdata, path) {
     var csrfToken = $('meta[name="csrf-token"]').attr("content");
-    console.log(formdata);
-    console.log(csrfToken);
-    console.log(_appJsConfig.baseHttpPath);
-    console.log(_appJsConfig);
-    console.log(stripeToken);
-    var token = new Object();
-    token['name'] = 'stripetoken';
-    token['value'] = stripeToken.id;
-    formdata.push(token);
+    formdata['planid'] = $('#planid').val();
     console.log(formdata);
     $.ajax({
         url: _appJsConfig.appHostName + path,
         type: 'post',
         data: formdata,
         dataType: 'json',
-        success: function(data){
+        success: function(data) {
 
             if(data.success) {
-                console.log('success')
                 $('#card-errors').text('Completed successfully.');
             } else {
-
+                modal.closeWindow();
                 console.log(data)
                 console.log(data.error)
                 var text = ''
@@ -36147,7 +36245,8 @@ var formhandler = function(stripeToken, formdata, path) {
                 $('#card-errors').text(text);
             }   
         },
-        error: function(data){
+        error: function(data) {
+            modal.closeWindow();
             console.log('fail'); 
             console.log(data);   
         }
@@ -36158,7 +36257,7 @@ var formhandler = function(stripeToken, formdata, path) {
 
 
 var udform = document.getElementById('update-form');
-console.log(udform)
+
 if (udform != null) {
 udform.addEventListener('submit', function(event) {
     event.preventDefault();

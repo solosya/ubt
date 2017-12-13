@@ -357,15 +357,15 @@ Acme.propertySearchResultsClass = function(container, template)
 
 
 
-var Form = function(validators, rules) {
+Acme.Form = function(validators, rules) {
     this.errorField;
     this.validators = validators || null;
     this.validateRules = rules || {};
 
 };
-Form.prototype = new Acme._View();
-Form.constructor = Form;
-    Form.prototype.clearInlineErrors = function()
+Acme.Form.prototype = new Acme._View();
+Acme.Form.constructor = Acme.Form;
+    Acme.Form.prototype.clearInlineErrors = function()
     {
         if (this.errorField) {
             this.errorField.removeClass('active');
@@ -375,7 +375,7 @@ Form.constructor = Form;
             $('#'+fieldname).removeClass('formError');
         }
     };
-    Form.prototype.addInlineErrors = function()
+    Acme.Form.prototype.addInlineErrors = function()
     {
         if (this.errorFields.length > 0 && this.errorField) {
             this.errorField.addClass('active');
@@ -385,7 +385,8 @@ Form.constructor = Form;
         }
     };
 
-    Form.prototype.validate = function( /* Array */ checkFields)  {
+    Acme.Form.prototype.validate = function( /* Array */ checkFields)  {
+        console.log('validating');
         // checkFields is used to validate a single field, 
         // otherwise itereate through all compulsory fields
 
@@ -400,7 +401,8 @@ Form.constructor = Form;
         }
 
         var validated = true, fields = [];
-        if (checkFields) {
+
+        if (checkFields && this.validateFields) {
             var fields = intersect(this.validateFields, checkFields);
             for (var j=0; j<fields.length;j++) {
                 var fieldName = fields[j].split('.').reverse()[0];
@@ -409,10 +411,10 @@ Form.constructor = Form;
                 this.errorFields.splice(index, 1);
             }
         } else {
-            var fields = this.validateFields;
+            var fields = this.validateFields || [];
             this.errorFields = []; // reset and re-calcuate all fields
         }
-
+        console.log(fields);
         for (var i=0;i<fields.length; i++) {
             var key = fields[i];
             var keySplit = key.split('.');
@@ -443,6 +445,7 @@ Form.constructor = Form;
                 }
             }
         }
+        console.log(this.errorFields);
         return validated;
     };
 
@@ -463,7 +466,7 @@ Acme.Validators = {
 
 var ListingForm = function() {};
 // ListingForm.prototype = new Acme._View();
-ListingForm.prototype = new Form(Acme.Validators);
+ListingForm.prototype = new Acme.Form(Acme.Validators);
 ListingForm.constructor = ListingForm;
     ListingForm.prototype.init = function(blogId, layout) 
     {
@@ -686,6 +689,25 @@ ListingForm.constructor = ListingForm;
             console.log(r);
         });
     };
+    ListingForm.prototype.submit = function()
+    {
+        var validated = self.validate();
+        if (!validated) {
+            self.render();
+            return;
+        }
+
+        self.data.theme_layout_name = self.layout;
+
+        Acme.server.create('/api/article/create', self.data).done(function(r) {
+            $('#listingFormClear').click();
+            Acme.PubSub.publish('update_state', {'confirm': r});
+            Acme.PubSub.publish('update_state', {'userArticles': ''});
+        }).fail(function(r) {
+            // Acme.PubSub.publish('update_state', {'confirm': r});
+            console.log(r);
+        });
+    };
     ListingForm.prototype.events = function() 
     {
         var self = this;
@@ -699,12 +721,12 @@ ListingForm.constructor = ListingForm;
             data[elemid] = elem.val();
             self.updateData(data);
             var validated = self.validate([elemid]);
-
-            if ( validated ) {
-                elem.removeClass("formError");
-            } else {
-                elem.addClass("formError");
-            }
+            self.render();
+            // if ( validated ) {
+            //     elem.removeClass("formError");
+            // } else {
+            //     elem.addClass("formError");
+            // }
         });
 
 
@@ -758,23 +780,7 @@ ListingForm.constructor = ListingForm;
 
         $('#listingForm').submit(function(e) {
             e.preventDefault();
-
-            var validated = self.validate();
-            if (!validated) {
-                self.render();
-                return;
-            }
-
-            self.data.theme_layout_name = self.layout;
-
-            Acme.server.create('/api/article/create', self.data).done(function(r) {
-                $('#listingFormClear').click();
-                Acme.PubSub.publish('update_state', {'confirm': r});
-                Acme.PubSub.publish('update_state', {'userArticles': ''});
-            }).fail(function(r) {
-                // Acme.PubSub.publish('update_state', {'confirm': r});
-                console.log(r);
-            });
+            self.submit();
         });
     }
 

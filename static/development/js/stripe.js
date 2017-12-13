@@ -1,5 +1,9 @@
 // Create a Stripe client
-if ($('#stripekey').length) {
+// if ($('#stripekey').length == 0) {
+//     console.log("Stripe API key is missing");
+// }
+
+
 var stripekey = $('#stripekey').html();
 console.log(stripekey)
 
@@ -46,67 +50,119 @@ card.addEventListener('change', function(event) {
 }); 
 
 // Handle form submission
+
+var SubscribeForm = function() {
+    this.data = {
+
+    };
+
+    this.errorFields = [];
+
+    this.validateRules = {
+        "username"  : ["notEmpty"], 
+        "firstname" : ["notEmpty"], 
+        "lastname"  : ["notEmpty"], 
+        "email"     : ["notEmpty"],
+        "mobile"    : ["notEmpty"],
+        "address"   : ["notEmpty"],
+        "suburb"    : ["notEmpty"],
+        "state"     : ["notEmpty"],
+        "Postcode"  : ["notEmpty", "isNumeric"]
+    };
+
+    this.validateFields = Object.keys(this.validateRules);
+
+    this.events();
+};
+    SubscribeForm.prototype = new Acme.Form(Acme.Validators);
+    SubscribeForm.constructor = SubscribeForm;
+    SubscribeForm.prototype.render = function() 
+    {
+        this.clearInlineErrors();
+        this.addInlineErrors();
+    };
+    SubscribeForm.prototype.submit = function() 
+    {
+    };
+    SubscribeForm.prototype.events = function()
+    {
+        var self = this;
+        $('input, textarea').on("change", function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            var data = {};
+            var elem = $(e.target);
+            var elemid = elem.attr('name');
+
+            data[elemid] = elem.val();
+            self.updateData(data);
+            var validated = self.validate([elemid]);
+            self.render();
+        });
+    };
+
+var subscribe = new SubscribeForm();
+
+
+
+
 var form = document.getElementById('payment-form');
+
 if (form != null) {
 form.addEventListener('submit', function(event) {
     event.preventDefault();
+    subscribe.validate();
+    subscribe.render();
 
     $('#card-errors').text('');
     var userdata = $('#listingForm').serializeArray();
+    console.log(userdata);
+    console.log(subscribe.data);
+    // $.each(userdata, function(i, val) {
 
-    $.each(userdata, function(i, val) {
-
-        if (val.value == '') {
-            $('#card-errors').text('Please fill out the '+ val.name + ' field.');
-            return;
-        }
-    });
+    //     if (val.value == '') {
+    //         $('#card-errors').text('Please fill out the '+ val.name + ' field.');
+    //         return;
+    //     }
+    // });
     if ( $('#password').val() !== $('#verifypassword').val() ) {
         $('#card-errors').text('Password fields do not match.');
         return;
     }
 
-    // modal.render("spinner", "Authorising payment");
+    modal.render("spinner", "Authorising payment");
     stripe.createToken(card).then(function(result) {
         if (result.error) {
-            // modal.closeWindow();
+            modal.closeWindow();
             // Inform the user if there was an error
             var errorElement = document.getElementById('card-errors');
             errorElement.textContent = result.error.message;
         } else {
             // Send the token to your server
             console.log(result);
-            formhandler(result.token, userdata, '/auth/paywall-signup');
+            subscribe.data['stripetoken'] = result.token.id;
+            formhandler(subscribe.data, '/auth/paywall-signup');
         }
     });
 });
-}
 
 
-var formhandler = function(stripeToken, formdata, path) {
+
+var formhandler = function(formdata, path) {
     var csrfToken = $('meta[name="csrf-token"]').attr("content");
-    console.log(formdata);
-    console.log(csrfToken);
-    console.log(_appJsConfig.baseHttpPath);
-    console.log(_appJsConfig);
-    console.log(stripeToken);
-    var token = new Object();
-    token['name'] = 'stripetoken';
-    token['value'] = stripeToken.id;
-    formdata.push(token);
+    formdata['planid'] = $('#planid').val();
     console.log(formdata);
     $.ajax({
         url: _appJsConfig.appHostName + path,
         type: 'post',
         data: formdata,
         dataType: 'json',
-        success: function(data){
+        success: function(data) {
 
             if(data.success) {
-                console.log('success')
                 $('#card-errors').text('Completed successfully.');
             } else {
-
+                modal.closeWindow();
                 console.log(data)
                 console.log(data.error)
                 var text = ''
@@ -116,7 +172,8 @@ var formhandler = function(stripeToken, formdata, path) {
                 $('#card-errors').text(text);
             }   
         },
-        error: function(data){
+        error: function(data) {
+            modal.closeWindow();
             console.log('fail'); 
             console.log(data);   
         }
@@ -127,7 +184,7 @@ var formhandler = function(stripeToken, formdata, path) {
 
 
 var udform = document.getElementById('update-form');
-console.log(udform)
+
 if (udform != null) {
 udform.addEventListener('submit', function(event) {
     event.preventDefault();
