@@ -99,15 +99,12 @@ var adScroll = function() {
 
     //On Scroll
     pageWindow.scroll(function() {
-        // console.log('scrolling');
         var direction = 'down';
         var scroll = pageWindow.scrollTop();
         if (scroll < scrollMetric[0]) {
             direction = 'up';
         }
         scrollMetric = [scroll, direction];
-        // scrollUpMenu();
-        console.log(scrollMetric[0]);
         adScroll();
 
     });

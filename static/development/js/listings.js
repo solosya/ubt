@@ -359,19 +359,109 @@ Acme.propertySearchResultsClass = function(container, template)
 
 
 
+var Form = function() {
+    this.errorField;
+};
+Form.prototype = new Acme._View();
+Form.constructor = Form;
+    Form.prototype.clearInlineErrors = function()
+    {
+        if (this.errorField) {
+            this.errorField.removeClass('active');
+        }
+        for (var field in this.compulsoryFields) {
+            var fieldname = this.compulsoryFields[field].split('.').reverse()[0];
+            $('#'+fieldname).removeClass('formError');
+        }
+    };
+    Form.prototype.addInlineErrors = function()
+    {
+        if (this.errorFields.length > 0 && this.errorField) {
+            this.errorField.addClass('active');
+        }
+        for (var field in this.errorFields) {
+            $('#'+this.errorFields[field]).addClass('formError');
+        }
+    };
+
+    Form.prototype.validate = function(checkFields) {
+        // checkFields is used to validate a single field, 
+        // otherwise itereate through all compulsory fields
+
+        // intersect used to clear the field we want to check 
+        // from errorFields.  if still an error it will add again.
+        function intersect(a, b) {
+            var t;
+            if (b.length > a.length) t = b, b = a, a = t; // indexOf to loop over shorter
+            return a.filter(function (e) {
+                return b.indexOf(e) > -1;
+            });
+        }
+
+        var validated = true, fields = [];
+        if (checkFields) {
+            var fields = intersect(this.compulsoryFields, checkFields);
+            for (var j=0; j<fields.length;j++) {
+                var fieldName = fields[j].split('.').reverse()[0];
+                var index = this.errorFields.indexOf(fieldName)
+                this.errorFields.splice(index, 1);
+            }
+        } else {
+            var fields = this.compulsoryFields;
+            this.errorFields = []; // reset and re-calcuate all fields
+        }
+
+        for (var i=0;i<fields.length; i++) {
+            var key = fields[i];
+            console.log(key);
+            var keySplit = key.split('.');
+            var scope = this.data;
+            for(var j=0; j<keySplit.length; j++) {
+
+                if (!scope[keySplit[j]]) {
+                    scope = false;
+                    break;
+                }
+                if(j == keySplit.length -1 ) {
+                    scope = scope[keySplit[j]];
+                    break;
+                }
+                scope = scope[keySplit[j]];
+            }
+
+            // DO THE VALIDATE!!!
+            if (!scope) {
+                var fieldname = fields[i].split('.').reverse()[0];
+                this.errorFields.push(fieldname); 
+                validated = false;
+            }
+        }
+        console.log(validated);
+        return validated;
+    };
 
 
 
+
+var validator = {
+    'notEmpty' : function(input) {
+        return !input;
+    },
+    'isNumeric' : function(n) {
+          return !isNaN(parseFloat(n)) && isFinite(n);
+    }
+};
 
 
 
 var ListingForm = function() {};
-ListingForm.prototype = new Acme._View();
+// ListingForm.prototype = new Acme._View();
+ListingForm.prototype = new Form();
 ListingForm.constructor = ListingForm;
     ListingForm.prototype.init = function(blogId, layout) 
     {
         this.blogId = blogId;
-
+        this.errorField = $('#formerror');
         this.data = {
             'id': 0,
             'blogs':this.blogId,
@@ -400,6 +490,7 @@ ListingForm.constructor = ListingForm;
             this.deleteListing();
         },
         "extendedData.region" : function(data, topic) {
+            console.log(data, topic);
             this.updateData(data);
         },
         "extendedData.contracttype" : function(data, topic) {
@@ -503,7 +594,7 @@ ListingForm.constructor = ListingForm;
         title.val(this.data.title);
         content.val(this.data.content);
 
-        this.clearErrorHightlights();
+        this.clearInlineErrors();
 
         for (key in this.data.extendedData) {
             if (key === 'region') {
@@ -537,8 +628,7 @@ ListingForm.constructor = ListingForm;
             $('#'+key).val(this.data.extendedData[key]);
         }
 
-
-        this.addErrorHightlights();
+        this.addInlineErrors();
 
         if (this.data.id) {
             $('#listingFormSubmit').text('UPDATE');
@@ -548,23 +638,6 @@ ListingForm.constructor = ListingForm;
             this.renderImageThumbs(this.data.mediaData);
         }
     };
-    ListingForm.prototype.clearErrorHightlights = function()
-    {
-        $("#formerror").removeClass('active');
-        for (var field in this.compulsoryFields) {
-            var fieldname = this.compulsoryFields[field].split('.').reverse()[0];
-            $('#'+fieldname).removeClass('formError');
-        }
-    }
-    ListingForm.prototype.addErrorHightlights = function()
-    {
-        if (this.errorFields.length > 0) {
-            $("#formerror").addClass('active');
-        }
-        for (var field in this.errorFields) {
-            $('#'+this.errorFields[field]).addClass('formError');
-        }
-    }
     ListingForm.prototype.renderImageThumbs = function(images) 
     {
         var imageArray = $('#imageArray');
@@ -575,7 +648,7 @@ ListingForm.constructor = ListingForm;
             html += temp({"imagePath": imagePath});
         }
         imageArray.append(html);
-    },
+    };
     ListingForm.prototype.clear = function() 
     {
         if (this.menus) {
@@ -586,9 +659,9 @@ ListingForm.constructor = ListingForm;
         }
         $('#listingFormDelete').hide();
         $('#imageArray').empty();
-        this.clearErrorHightlights();
+        this.clearInlineErrors();
         this.resetData();
-    },
+    };
     ListingForm.prototype.resetData = function() 
     {
         this.data = {
@@ -703,64 +776,11 @@ ListingForm.constructor = ListingForm;
             });
         });
     }
-    ListingForm.prototype.validate = function(checkFields) {
-        // checkFields is used to validate a single field, 
-        // otherwise itereate through all compulsory fields
-
-        // intersect used to clear the field we want to check 
-        // from errorFields.  if still an error it will add again.
-        function intersect(a, b) {
-            var t;
-            if (b.length > a.length) t = b, b = a, a = t; // indexOf to loop over shorter
-            return a.filter(function (e) {
-                return b.indexOf(e) > -1;
-            });
-        }
-
-        var validated = true, fields = [];
-        if (checkFields) {
-            var fields = intersect(this.compulsoryFields, checkFields);
-            for (var j=0; j<fields.length;j++) {
-                var fieldName = fields[j].split('.').reverse()[0];
-                var index = this.errorFields.indexOf(fieldName)
-                this.errorFields.splice(index, 1);
-            }
-        } else {
-            var fields = this.compulsoryFields;
-            this.errorFields = []; // reset and re-calcuate all fields
-        }
-
-        for (var i=0;i<fields.length; i++) {
-            var key = fields[i];
-            var keySplit = key.split('.');
-            var scope = this.data;
-            for(var j=0; j<keySplit.length; j++) {
-
-                if (!scope[keySplit[j]]) {
-                    scope = false;
-                    break;
-                }
-                if(j == keySplit.length -1 ) {
-                    scope = scope[keySplit[j]];
-                    break;
-                }
-                scope = scope[keySplit[j]];
-            }
-
-            if (!scope) {
-                var fieldname = fields[i].split('.').reverse()[0];
-                this.errorFields.push(fieldname); 
-                validated = false;
-            }
-        }
-        return validated;
-    };
 
 
 
 
-
-Acme.JobForm = function(blogId, layout) {
+Acme.JobForm = function(blogId, layout, validators) {
     this.subscriptions = Acme.PubSub.subscribe({
         'Acme.jobForm.listener' : ['state_changed', 'update_state']
     });
@@ -779,7 +799,10 @@ Acme.JobForm = function(blogId, layout) {
         "extendedData.contactname",
         "extendedData.contactemail"
     ];
-
+    this.validationRules = [
+        "title" : ["notEmpty"],
+        "content" : ["notEmpty"]
+    ];
     this.init(blogId, layout);
 }
     Acme.JobForm.prototype = new ListingForm();
