@@ -123,8 +123,9 @@ $('#header_login_link').on('click', function() {
     Acme.SigninView.render("signin", "Sign in");
 });
 
-$('a.register').on('click', function(e) {
+$('a.j-register').on('click', function(e) {
     e.preventDefault();
+    console.log('registering!!');
     Acme.SigninView.render("register", "Register your interest");
 });
 
