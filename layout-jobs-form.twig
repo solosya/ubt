@@ -4,11 +4,14 @@
 {% set blogData    = _Blog.getBlog() %}
 {% set jobsBlogId = blogData.additionalInfo['publishto'] %}
 
-{{this.registerJs("window.Acme.cards = CardController();")}}
+{{ this.registerJs("Acme.controller.JobFormPage("~jobsBlogId~");") }}
+
+
+{# {{this.registerJs("window.Acme.cards = CardController();")}}
 {{this.registerJs("Acme.jobForm = new Acme.JobForm(["~jobsBlogId~"], 'Single Job Listing');")}}
 {{this.registerJs("Acme.listingView.init("~jobsBlogId~", 'job');")}}
 {{this.registerJs("Acme.listingCollection = new Acme.listingCollectionClass('listingCollection', "~jobsBlogId~");")}}
-
+ #}
 
 {% set limit = 10 %}
 

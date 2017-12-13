@@ -3,6 +3,7 @@
     Acme.View         = {};
     Acme.Model        = {};
     Acme.Collection   = {};
+    Acme.Controller   = {};
     Acme.State        = {};
 
 
@@ -52,15 +53,11 @@
     }
 
     Acme.listen = function() {};
-
     Acme.listen.prototype.listener = function(topic, data)
     {
         var keys = Object.keys(data);
-        // console.log(this);
-        // console.log(topic, data);
         for (var i = 0; i<keys.length; i++) {
             for (var listener in this.listeners) {
-                // console.log(keys[i], listener);
                 if ( listener === keys[i] ) {
                     this.listeners[listener].call(this, data, topic);
                     if (this.listeners.after) {
