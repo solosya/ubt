@@ -33314,7 +33314,7 @@ window.templates.signinFormTmpl =
 '<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
     <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> \
     \
-    <input id="loginName" class="" type="text" name="username" placehold="Username" value=""> \
+    <input id="loginName" class="" type="text" name="username" placeholder="Username" value=""> \
     <input id="loginPass" class="" type="password" name="password" placeholder="Password"> \
     \
     <div class="remember"> \
@@ -35608,7 +35608,7 @@ var layouts = {
     "delete"   : 'listingDeleteTmpl',
 };
 
-Acme.confirmView = new Acme.Confirm('modal', '#signin', layouts);
+Acme.confirmView = new Acme.Confirm('modal', 'signin', layouts);
     Acme.confirmView.subscriptions = Acme.PubSub.subscribe({
         'Acme.confirmView.listener' : ['update_state']
     });
@@ -35663,43 +35663,7 @@ $('document').ready(function() {
 
 
 
-    // var isMobile = function(){
-    //     if (window.innerWidth < mobileView) {
-    //         return true;
-    //     }
-    //     return false;
-    // };
 
-    // var isDesktop = function(){
-    //     if (window.innerWidth > desktopView) {
-    //         return true;
-    //     }
-    //     return false;
-    // };
-
-
-    // var isScolledPast = function(position){
-    //     if (scrollMetric[0] >= position) {
-    //         return true;
-    //     }
-    //     return false;
-    // };
-
-
-    // var scrollUpMenu = function() {
-    //     if ( scrollMetric[1] === 'up' && isScolledPast(70)){
-    //         menuContainer.addClass('showOnScroll');
-    //     } 
-    //     else if ( scrollMetric[1] === 'down' && isScolledPast(70)) {
-    //         menuContainer.addClass('fixHeader');
-    //         menuContainer.removeClass('showOnScroll');
-
-    //     }
-    //     else {
-    //         menuContainer.removeClass('fixHeader');
-    //         menuContainer.removeClass('showOnScroll');
-    //     }
-    // }
 
     var removeMobileMenuStyles = function() {
         var menu = $('#sb-custom-menu');
@@ -35716,9 +35680,7 @@ $('document').ready(function() {
 
     // Onload and resize events
     pageWindow.on("resize", function () {
-        // stickHeader();
         removeMobileMenuStyles();
-        // scrollUpMenu();
     }).resize();
 
     var isScrolledPast = function(position){
@@ -35742,26 +35704,15 @@ var adScroll = function() {
 
     //On Scroll
     pageWindow.scroll(function() {
-        // console.log('scrolling');
         var direction = 'down';
         var scroll = pageWindow.scrollTop();
         if (scroll < scrollMetric[0]) {
             direction = 'up';
         }
         scrollMetric = [scroll, direction];
-        // scrollUpMenu();
-        // console.log(scrollMetric[0]);
         adScroll();
-
     });
 
-
-
-
-    // $("#menu-foldaway").on("click", function (e) {
-    //     menu_top_foldaway.toggleClass('hide');
-    //     menu_bottom_foldaway.toggleClass('hide');
-    // });
 
     $("#menu-mobile").on("click", function (e) {
         var thisMenuElem = $( $(this).parent('.sb-custom-menu') );
@@ -35793,16 +35744,6 @@ var adScroll = function() {
         }
     });
 
-
-
-    // $(".sb-custom-menu > ul > li").hover(function (e) {
-    // // $(".sb-custom-menu > .menuContainer > ul > li").bind("mouseenter", function (e) {
-    //     if (pageWindow.width() > sbCustomMenuBreakPoint) {
-    //         $('#searchpanel').stop(true, false).slideToggle(0);
-    //         $('#searchpanel').toggleClass('now-active');
-    //         e.preventDefault();
-    //     }
-    // });
 
 
     $(".sb-custom-menu > .menuContainer > ul > li > span").on("click", function(e) {
@@ -36078,8 +36019,9 @@ $('#header_login_link').on('click', function() {
     Acme.SigninView.render("signin", "Sign in");
 });
 
-$('a.register').on('click', function(e) {
+$('a.j-register').on('click', function(e) {
     e.preventDefault();
+    console.log('registering!!');
     Acme.SigninView.render("register", "Register your interest");
 });
 
@@ -36126,9 +36068,7 @@ card.mount('#card-element');
 
 // Handle real-time validation errors from the card Element.
 card.addEventListener('change', function(event) {
-    console.log('changed!!!');
     var displayError = document.getElementById('card-errors');
-    console.log(event);
     if (event.error) {
         displayError.textContent = event.error.message;
     } else {

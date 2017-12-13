@@ -37,9 +37,7 @@ card.mount('#card-element');
 
 // Handle real-time validation errors from the card Element.
 card.addEventListener('change', function(event) {
-    console.log('changed!!!');
     var displayError = document.getElementById('card-errors');
-    console.log(event);
     if (event.error) {
         displayError.textContent = event.error.message;
     } else {
