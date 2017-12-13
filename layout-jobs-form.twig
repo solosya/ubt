@@ -4,7 +4,7 @@
 {% set blogData    = _Blog.getBlog() %}
 {% set jobsBlogId = blogData.additionalInfo['publishto'] %}
 
-{{ this.registerJs("Acme.controller.JobFormPage("~jobsBlogId~");") }}
+{{ this.registerJs("Acme.Controller.JobFormPage("~jobsBlogId~");") }}
 
 
 {# {{this.registerJs("window.Acme.cards = CardController();")}}

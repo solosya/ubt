@@ -66,10 +66,10 @@ form.addEventListener('submit', function(event) {
         return;
     }
 
-    modal.render("spinner", "Authorising payment");
+    // modal.render("spinner", "Authorising payment");
     stripe.createToken(card).then(function(result) {
         if (result.error) {
-            modal.closeWindow();
+            // modal.closeWindow();
             // Inform the user if there was an error
             var errorElement = document.getElementById('card-errors');
             errorElement.textContent = result.error.message;
