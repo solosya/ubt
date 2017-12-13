@@ -114,7 +114,7 @@ window.templates.signinFormTmpl =
 '<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
     <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> \
     \
-    <input id="loginName" class="" type="text" name="username" placehold="Username" value=""> \
+    <input id="loginName" class="" type="text" name="username" placeholder="Username" value=""> \
     <input id="loginPass" class="" type="password" name="password" placeholder="Password"> \
     \
     <div class="remember"> \

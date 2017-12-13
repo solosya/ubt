@@ -25,6 +25,16 @@
         }
     }
 
+    .companylogo {
+        width:218px;
+        height:139px;
+    }
+    .companylogo__img {
+        height:100%;
+        object-fit: contain;
+        object-position: left;    
+    }
+
     article {
 
         .article_content {
@@ -37,10 +47,6 @@
             }
         }
 
-        > figure.companylogo {
-            width:265px;
-            height:75px;
-        }
 
         .page-content {
 

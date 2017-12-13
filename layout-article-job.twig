@@ -90,7 +90,7 @@
 
                         {% if articleImg %} 
                              <figure class="companylogo">
-                                 <img src="{{articleImg}}" class="img-responsive">
+                                 <img src="{{articleImg}}" class="img-responsive companylogo__img">
                                  {% if article.media[0].type == 'video' %} 
                                      {% set mediaUrl = "" %}
                                      {% if article.media[0].media.isSystemVideo == 'TRUE'%}
