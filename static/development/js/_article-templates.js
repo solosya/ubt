@@ -39,6 +39,20 @@ Handlebars.registerHelper('formatSalary', function(salary, salaryType, salaryTo,
     return salaryPrefix + salary
 });
 
+
+window.templates.managed_user = 
+'<div class="userdetails"> \
+    <div class="u-float-left"> \
+        <input type="text" id="newuserfirstname" class="displayname" value="" placeholder="{{firstname}}"> \
+        <input type="text" id="newuserlastname" class="displayname" value="" placeholder="{{lastname}}"><br /> \
+        <input type="text" id="newuserusername" class="username" value="" placeholder="{{username}}"> \
+    </div> \
+    <input type="text" id="newuseruseremail" class="uesremail" value="" placeholder="{{useremail}}"> \
+    <a id="createUser"       class="userdetails__edit">Create</a> \
+    <a id="cancelUserCreate" class="userdetails__delete">Cancel</a> \
+</div>';
+
+
 window.templates.carousel_item = 
 '<div class="carousel-tray__item" style="background-image:url( {{imagePath}} )"> \
     <span class="carousel-tray__delete"></span> \

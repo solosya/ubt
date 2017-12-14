@@ -237,14 +237,17 @@
                                     {% for user in managedUers %}
 
 
-                                    <li id="{{user.id}}">
-                                        <div class="userdetails" >
-                                            <p><a contenteditable="true" id='muFirstname' class="displayname">{{user.firstname}}</a> <a contenteditable="true" id='muLastname' class="displayname">{{user.lastname}}</a></p>
-                                            <p><a contenteditable="true" id='muUsername' class="username">{{user.username}}</a></p>
+                                    <li id="{{user.id}}" class="userdetails">
+                                        <div class="u-float-left">
+                                            <p id='muFirstname' class="userdetails__name">
+                                                <span class="j-firstname">{{user.firstname}}</span> 
+                                                <span class="j-lastname">{{user.lastname}}</span>
+                                            </p> 
+                                            <p id='muUsername' class="userdetails__username">{{user.username}}</p>
                                         </div>
-                                        <div class="useremailbuttons">
-                                            <div><p><a contenteditable="true" id='muEmail' class="uesremail">{{user.email}}</a> <a class="saveedit hidden">save</a> <a class="canceledit hidden">cancel</a><a class="edituser">edit</a><a class="reallydelete hidden">really delete</a><a class="deleteuser">delete</a></p></div>   
-                                        </div>
+                                        <a class="userdetails__delete u-float-right"></a>
+                                        <a class="userdetails__edit u-float-right">edit</a>
+                                        <p id='muEmail' class="userdetails__email u-float-right">{{user.email}}</p>
                                     </li>
                                     {% endfor %}
                                 {% endif %}
