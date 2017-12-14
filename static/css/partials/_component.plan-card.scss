@@ -1,0 +1,37 @@
+.plans {
+	display: flex;
+	overflow-x: scroll;
+	margin-bottom: 30px;
+	font-family:$base-font-family;
+	padding-bottom: 20px;
+	margin-top: 30px;
+}
+.plans__item {
+	padding:10px;
+	min-width:150px;
+	margin-right:15px;
+	background-color: rgba(216, 216, 216, 0.4);
+	text-align:center;
+}
+.plans__name {
+	margin:0;
+	padding:0;
+	font-family: $font-family-serif;
+	font-size: rem(15);
+	font-weight: bold;
+	letter-spacing: 0.3px;
+	text-align: center;
+	color:color(red);
+	margin-bottom:10px;
+}
+.plans__usercount {
+	font-size: rem(14);
+	height:32px;
+}
+.plans__price {
+	margin-top:14px;
+	font-size: rem(14);
+	color:color(darkblue);
+	line-height: 1.07;
+	letter-spacing: 0.3px;
+}

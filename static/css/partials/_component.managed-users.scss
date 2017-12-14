@@ -1,0 +1,90 @@
+.managed-users {
+    padding:0;
+    margin:0;
+}
+.managed-users {
+
+    .displayname{
+        color: #ae232c;
+        font-size: 18px;
+        text-align: left;
+    }
+    .username {
+        display: inline;
+        font-size: 11.7px;
+        font-weight: bold;
+        line-height: 1.33;
+        color: black;
+        padding-bottom: 11px;
+    }
+    .userdetails{
+        flex-grow: 1;
+    }
+    .useremailbuttons{
+        flex-grow: 0;
+        div {
+            position: relative;    
+            top: 50%;    
+            transform: translateY(-50%);
+        }
+        .uesremail {
+            margin-right:30px;
+            color:black;
+        }
+        .edituser {
+            margin-right:10px;
+            color: #717171;
+            &:hover {
+                color: color(red);
+                cursor: pointer;
+            }
+
+        }
+        .deleteuser {
+            color: #717171;
+            &:hover {
+                color: color(red);
+                cursor: pointer;
+            }
+        }
+        .saveedit {
+            color: #ae232c;
+            &:hover {
+                color: color(#717171);
+                cursor: pointer;
+            }
+        }
+        .canceledit {
+            color: #ae232c;
+            &:hover {
+                color: color(#717171);
+                cursor: pointer;
+            }
+        }
+
+    }
+
+    .edituserfield {
+        border-radius: 6px;
+        border: 1px solid #E5E5E5;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+
+    li {
+        display:flex;     
+        border-bottom: 1px solid #97999c;   
+        margin-bottom: 15px;
+    }
+}
+
+.empty-listing {
+    display: block;
+    padding: 20px 0;
+    border-bottom: 1px solid color(lightgrey);
+    margin-bottom: 30px;
+    text-align: center;
+    color: color(lightgrey);
+    font-size: rem(13);
+}

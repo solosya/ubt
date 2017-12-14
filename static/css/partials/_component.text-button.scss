@@ -1,0 +1,15 @@
+.text-button {
+	border:none;
+	background:none;
+	color: color(red);
+	border: none;
+	font-size:rem(14);
+	font-familty: $base-font-family
+	&:hover {
+		color:color(red);
+	}
+}
+
+.text-button--italic {
+	font-style:italic;
+}

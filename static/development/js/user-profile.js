@@ -246,8 +246,8 @@ UserProfielController.Load = (function ($) {
         });
 
 
-        $('.setplan').on('click', function(e) {
-            var listelem = $(e.target).closest('div');
+        $('.j-setplan').on('click', function(e) {
+            var listelem = $(e.target);
             var planusers = listelem.find('#planusercount').val();
             var usercount = listelem.find('#currentusers').val();
             console.log(planusers);
@@ -270,18 +270,24 @@ UserProfielController.Load = (function ($) {
                 if (newdays = 'week') {newdays = 7;}
                 if (newdays = 'month') {newdays = 30;}
                 if (newdays = 'year') {newdays = 365;}
-                if (olddays = 'week') {newdays = 7;}
-                if (olddays = 'month') {newdays = 30;}
-                if (olddays = 'year') {newdays = 365;}
+                if (olddays = 'week') {olddays = 7;}
+                if (olddays = 'month') {olddays = 30;}
+                if (olddays = 'year') {olddays = 365;}
                 var newplandailycost = newcost/newdays;
                 var plandailycost = oldcost/olddays;
                 var expDate = listelem.find('#expdate').val();
-                console.log(expDate);
+                // console.log(newplandailycost);
+                // console.log(oldcost);
+                // console.log(olddays);
+                // console.log(expDate);
+                // console.log(plandailycost);
+
                 var remainingplandays = 10;
                 Acme.SigninView.render("userPlanChange", "Are you sure?. This will cost you $"+((newplandailycost-plandailycost)*remainingplandays));
+                return;
+
                 $('#okaybutton').on('click', function(e) {
                     $('#dialog').parent().remove();
-                    console.log('pay');
                     
                     $.ajax({
                         type: 'post',

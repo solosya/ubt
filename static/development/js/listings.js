@@ -103,6 +103,116 @@ var regionList = listingRegions[domain] || listingRegions["test"];
 //     });
 
 
+
+
+
+
+
+
+
+/***                    ****
+      SEARCH PULLDOWNS
+***                     ****/
+Acme.regionSearchView = function() {
+    this.container = $('#regionSelect');
+    this.subscriptions = Acme.PubSub.subscribe({
+        'Acme.jobRegionFilter.listener' : ["update_state"]
+    });
+    this.render();
+};
+    Acme.regionSearchView.prototype = new Acme._View();
+
+    Acme.regionSearchView.prototype.listeners =  {
+        "regionSelect" : function(data) {
+            var data = {
+                "region": data.regionSelect
+            }
+            Acme.PubSub.publish('update_state', data);
+        }
+    };
+    Acme.regionSearchView.prototype.render = function() {
+        this.regionMenu = new Acme.listMenu({
+            'parent'        : this.container,
+            'list'          : regionList,
+            'defaultSelect' : {"label": 'Select region'},
+            'name'          : 'regionSelect',
+            'key'           : 'regionSelect',
+            'allowClear'    : true
+        }).init().render();
+    };
+    Acme.regionSearchView.prototype.reset = function() {
+        this.menu.reset();
+    };
+
+Acme.propertyTypeSearchView = function() {
+    this.container = $('#typeSelect');
+    this.subscriptions = Acme.PubSub.subscribe({
+        'Acme.propertyTypeFilter.listener' : ["update_state"]
+    });
+    this.render();
+};
+    Acme.propertyTypeSearchView.prototype = new Acme._View();
+
+    Acme.propertyTypeSearchView.prototype.listeners =  {
+        "typeSelect" : function(data) {
+            var data = {
+                "type": data.typeSelect
+            };
+            Acme.PubSub.publish('update_state', data);
+        }
+    };
+    Acme.propertyTypeSearchView.prototype.render = function() {
+        this.regionMenu = new Acme.listMenu({
+            'parent'        : this.container,
+            'list'          : propertyList,
+            'defaultSelect' : {"label": 'Type of property'},
+            'name'          : 'typeSelect',
+            'key'           : 'typeSelect',
+            'allowClear'    : true
+        }).init().render();
+    };
+    Acme.propertyTypeSearchView.prototype.reset = function() {
+        this.menu.reset();
+    };
+
+Acme.saleTypeSearchView = function() {
+    this.container = $('#saleSelect');
+    this.subscriptions = Acme.PubSub.subscribe({
+        'Acme.saleTypeFilter.listener' : ["update_state"]
+    });
+    this.render();
+};
+    Acme.saleTypeSearchView.prototype = new Acme._View();
+
+    Acme.saleTypeSearchView.prototype.listeners =  {
+        "saleSelect" : function(data) {
+            var data = {
+                "contracttype": data.saleSelect
+            };
+            Acme.PubSub.publish('update_state', data);
+        }
+    };
+    Acme.saleTypeSearchView.prototype.render = function() {
+        this.regionMenu = new Acme.listMenu({
+            'parent'        : this.container,
+            'list'          : contractList,
+            'defaultSelect' : {"label": 'Buy/Lease'},
+            'name'          : 'saleSelect',
+            'key'           : 'saleSelect',
+            'allowClear'    : true
+        }).init().render();
+    };
+    Acme.saleTypeSearchView.prototype.reset = function() {
+        this.menu.reset();
+    };
+
+
+
+
+
+/***                    ****
+  FETCHES SEARCH RESULTS
+***                     ****/
 Acme.searchCollectionClass = function(blogId)
 {
     this.blogId = blogId;
@@ -176,106 +286,9 @@ $('#searchButton').on('click', function(e) {
 
 
 
-
-
-
-Acme.regionSearchView = function() {
-    this.container = $('#regionSelect');
-    this.subscriptions = Acme.PubSub.subscribe({
-        'Acme.jobRegionFilter.listener' : ["update_state"]
-    });
-    this.render();
-};
-    Acme.regionSearchView.prototype = new Acme._View();
-
-    Acme.regionSearchView.prototype.listeners =  {
-        "regionSelect" : function(data) {
-            var data = {
-                "region": data.regionSelect
-            }
-            Acme.PubSub.publish('update_state', data);
-        }
-    };
-    Acme.regionSearchView.prototype.render = function() {
-        this.regionMenu = new Acme.listMenu({
-            'parent'        : this.container,
-            'list'          : regionList,
-            'defaultSelect' : {"label": 'Select region'},
-            'name'          : 'regionSelect',
-            'key'           : 'regionSelect',
-            'allowClear'    : true
-        }).init().render();
-    };
-    Acme.regionSearchView.prototype.reset = function() {
-        this.menu.reset();
-    };
-
-
-Acme.propertyTypeSearchView = function() {
-    this.container = $('#typeSelect');
-    this.subscriptions = Acme.PubSub.subscribe({
-        'Acme.propertyTypeFilter.listener' : ["update_state"]
-    });
-    this.render();
-};
-    Acme.propertyTypeSearchView.prototype = new Acme._View();
-
-    Acme.propertyTypeSearchView.prototype.listeners =  {
-        "typeSelect" : function(data) {
-            var data = {
-                "type": data.typeSelect
-            };
-            Acme.PubSub.publish('update_state', data);
-        }
-    };
-    Acme.propertyTypeSearchView.prototype.render = function() {
-        this.regionMenu = new Acme.listMenu({
-            'parent'        : this.container,
-            'list'          : propertyList,
-            'defaultSelect' : {"label": 'Type of property'},
-            'name'          : 'typeSelect',
-            'key'           : 'typeSelect',
-            'allowClear'    : true
-        }).init().render();
-    };
-    Acme.propertyTypeSearchView.prototype.reset = function() {
-        this.menu.reset();
-    };
-
-
-Acme.saleTypeSearchView = function() {
-    this.container = $('#saleSelect');
-    this.subscriptions = Acme.PubSub.subscribe({
-        'Acme.saleTypeFilter.listener' : ["update_state"]
-    });
-    this.render();
-};
-    Acme.saleTypeSearchView.prototype = new Acme._View();
-
-    Acme.saleTypeSearchView.prototype.listeners =  {
-        "saleSelect" : function(data) {
-            var data = {
-                "contracttype": data.saleSelect
-            };
-            Acme.PubSub.publish('update_state', data);
-        }
-    };
-    Acme.saleTypeSearchView.prototype.render = function() {
-        this.regionMenu = new Acme.listMenu({
-            'parent'        : this.container,
-            'list'          : contractList,
-            'defaultSelect' : {"label": 'Buy/Lease'},
-            'name'          : 'saleSelect',
-            'key'           : 'saleSelect',
-            'allowClear'    : true
-        }).init().render();
-    };
-    Acme.saleTypeSearchView.prototype.reset = function() {
-        this.menu.reset();
-    };
-
-
-
+/***                             ****
+    Base Class for results view
+***                              ****/
 Acme.filteredListingViewClass = function() {
 };
     Acme.filteredListingViewClass.prototype = new Acme._View();
@@ -356,15 +369,16 @@ Acme.propertySearchResultsClass = function(container, template)
 
 
 
-
+/***                             ****
+    Base Class for all Forms
+***                              ****/
 Acme.Form = function(validators, rules) {
     this.errorField;
     this.validators = validators || null;
     this.validateRules = rules || {};
-
 };
-Acme.Form.prototype = new Acme._View();
-Acme.Form.constructor = Acme.Form;
+    Acme.Form.prototype = new Acme._View();
+    Acme.Form.constructor = Acme.Form;
     Acme.Form.prototype.clearInlineErrors = function()
     {
         if (this.errorField) {
@@ -401,8 +415,9 @@ Acme.Form.constructor = Acme.Form;
         }
 
         var validated = true, fields = [];
-
+        console.log(checkFields);
         if (checkFields && this.validateFields) {
+            console.log('doing intersect');
             var fields = intersect(this.validateFields, checkFields);
             for (var j=0; j<fields.length;j++) {
                 var fieldName = fields[j].split('.').reverse()[0];
@@ -434,9 +449,13 @@ Acme.Form.constructor = Acme.Form;
 
             // DO THE VALIDATE!!!
             var fieldValidators = this.validateRules[key];
+            console.log('validating');
             if (fieldValidators.length > 0) {
+
                 var fieldname = fields[i].split('.').reverse()[0];
+                console.log(fieldname);
                 for (var k=0; k<fieldValidators.length; k++) {
+                    console.log(fieldValidators[k]);
                     if ( !this.validators[ fieldValidators[k] ](scope) ) {
                         this.errorFields.push(fieldname); 
                         validated = false;
@@ -463,11 +482,13 @@ Acme.Validators = {
 };
 
 
-
+/***                             ****
+  Base Class job and property forms
+        Extends Form Class
+***                              ****/
 var ListingForm = function() {};
-// ListingForm.prototype = new Acme._View();
-ListingForm.prototype = new Acme.Form(Acme.Validators);
-ListingForm.constructor = ListingForm;
+    ListingForm.prototype = new Acme.Form(Acme.Validators);
+    ListingForm.constructor = ListingForm;
     ListingForm.prototype.init = function(blogId, layout) 
     {
         this.blogId = blogId;
@@ -691,15 +712,15 @@ ListingForm.constructor = ListingForm;
     };
     ListingForm.prototype.submit = function()
     {
-        var validated = self.validate();
+        var validated = this.validate();
         if (!validated) {
-            self.render();
+            this.render();
             return;
         }
 
-        self.data.theme_layout_name = self.layout;
+        this.data.theme_layout_name = this.layout;
 
-        Acme.server.create('/api/article/create', self.data).done(function(r) {
+        Acme.server.create('/api/article/create', this.data).done(function(r) {
             $('#listingFormClear').click();
             Acme.PubSub.publish('update_state', {'confirm': r});
             Acme.PubSub.publish('update_state', {'userArticles': ''});
@@ -720,13 +741,9 @@ ListingForm.constructor = ListingForm;
 
             data[elemid] = elem.val();
             self.updateData(data);
+            console.log('validating: ', elemid);
             var validated = self.validate([elemid]);
             self.render();
-            // if ( validated ) {
-            //     elem.removeClass("formError");
-            // } else {
-            //     elem.addClass("formError");
-            // }
         });
 
 
@@ -803,7 +820,7 @@ Acme.JobForm = function(blogId, layout) {
         "extendedData.location"     : ["notEmpty"],
         "extendedData.region"       : ["notEmpty"],
         "extendedData.worktype"     : ["notEmpty"],
-        "extendedData.contactname"  : ["notEmpty", "isNumeric"],
+        "extendedData.contactname"  : ["notEmpty"],
         "extendedData.contactemail" : ["notEmpty"]
     };
 
@@ -848,11 +865,8 @@ Acme.JobForm = function(blogId, layout) {
             });
         };
 
-
-
-
-
-Acme.PropertyForm = function(blogId, layout) {
+Acme.PropertyForm = function(blogId, layout) 
+{
     this.subscriptions = Acme.PubSub.subscribe({
         'Acme.propertyForm.listener' : ['state_changed', 'update_state']
     });
@@ -899,15 +913,6 @@ Acme.PropertyForm = function(blogId, layout) {
                 Acme.PubSub.publish("update_state", data);
             });
         };
-
-
-
-
-
-
-
-
-
 
 Acme.EventForm = function(blogId) 
 {
@@ -988,16 +993,6 @@ Acme.EventForm = function(blogId)
 
 
 
-
-
-
-
-
-
-
-
-
-
 Acme.listing = Acme.Model.create({
     'url' : 'user'
 });
@@ -1023,13 +1018,6 @@ Acme.listingCollectionClass = function(name, blogId) {
     Acme.listingCollectionClass.subscriptions = Acme.PubSub.subscribe({
         'Acme.listingCollection.listener' : [ "update_state" ]
     });
-
-
-
-
-
-
-
 
 
 
@@ -1129,7 +1117,9 @@ Acme.listingView = new Acme.listingViewClass();
 
 
 
-
+/***                      ****
+  Dialog Confirmation Box
+***                       ****/
 
 Acme.Confirm = function(template, parent, layouts) {
 

@@ -33,43 +33,6 @@
     }
 }
 
-.profile-section {
-
-    .section-heading {
-        width: 100%;
-        border-bottom: 1px solid color(lightgrey);
-        padding-bottom: 10px;
-        margin-bottom: 15px;
-
-        p {
-            display: inline;
-            font-size: rem(15);
-            font-weight: bold;
-            line-height: 1.33;
-            color: black;
-            padding-bottom: 11px;
-        }
-
-        a {
-            float: right;
-            color: color(red);
-            font-style: italic;
-        }
-
-    }
-    
-    width: 100%;
-    padding: 18px 0px;
-
-    &.with-border {
-        border-bottom: 1px solid color(lightgrey);
-    }
-}
-
-
-.profile-section + .profile-section {
-    padding-top: 70px;
-}
 
 .user_profile {
 
@@ -86,12 +49,6 @@
         font-weight: bold;
     }
 
-    button, a.submit {
-        background-color: rgba(0,0,0,0.0) !important;
-        color: color(red) !important;
-        border: none;
-        float: right;
-    }
 
     a.submit {
         font-style: italic;
@@ -110,112 +67,5 @@
           @include padding(40px);
         }
 	}
-
-    
-    .planscontainer {
-        display: flex;
-        overflow-x: scroll;
-        margin-bottom: 30px;
-        .setplan {
-            color: #ae232c;
-        }
-    }
-
-    .managed-user {
-        .displayname{
-            color: #ae232c;
-            font-size: 18px;
-            text-align: left;
-        }
-        .username {
-            display: inline;
-            font-size: 11.7px;
-            font-weight: bold;
-            line-height: 1.33;
-            color: black;
-            padding-bottom: 11px;
-        }
-        .userdetails{
-            flex-grow: 1;
-        }
-        .useremailbuttons{
-            flex-grow: 0;
-            div {
-                position: relative;    
-                top: 50%;    
-                transform: translateY(-50%);
-            }
-            .uesremail {
-                margin-right:30px;
-                color:black;
-            }
-            .edituser {
-                margin-right:10px;
-                color: #717171;
-                &:hover {
-                    color: color(red);
-                    cursor: pointer;
-                }
-
-            }
-            .deleteuser {
-                color: #717171;
-                &:hover {
-                    color: color(red);
-                    cursor: pointer;
-                }
-            }
-            .saveedit {
-                color: #ae232c;
-                &:hover {
-                    color: color(#717171);
-                    cursor: pointer;
-                }
-            }
-            .canceledit {
-                color: #ae232c;
-                &:hover {
-                    color: color(#717171);
-                    cursor: pointer;
-                }
-            }
-
-        }
-
-        .edituserfield {
-            border-radius: 6px;
-            border: 1px solid #E5E5E5;
-            padding-left: 5px;
-            padding-right: 5px;
-        }
-
-
-        li {
-            display:flex;     
-            border-bottom: 1px solid #97999c;   
-            margin-bottom: 15px;
-        }
-    }
-
-    .addUser {
-        font-style: italic;
-        background-color: transparent !important;
-        color: #ae232c !important;
-        border: none;
-        float: right;
-        margin-top: 25px !important;
-        cursor: pointer;
-
-    }
-
-    .empty-listing {
-        display: block;
-        padding: 20px 0;
-        border-bottom: 1px solid color(lightgrey);
-        margin-bottom: 30px;
-        text-align: center;
-        color: color(lightgrey);
-        font-size: rem(13);
-    }
 
 }

@@ -28,16 +28,18 @@
 
         <div class="user_profile_section">
             <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="col-sm-12">
                     {{this.render('layouts/partials/messages.twig') | raw}}
 
-                    <div class="profile-section with-border">
-                        <div class="section-heading">
-                            <p>My details</p>                                    
-                            <a class="button" href="/auth/logoff">Log Out</a> 
-
+                    <div class="profile-section profile-section--border">
+                        <div class="profile-section__header">
+                            <p class="profile-section__heading">My details</p>                                    
+                            <a class="text-button text-button--italic u-float-right" href="/auth/logoff">Log Out</a> 
                         </div>
-                        <div class="profile-details listingForn">
+
+
+
+                        <div class="">
                             <form id="profile-form" class="form-horizontal" action="" method="post" enctype="multipart/form-data" autocomplete="off" >
                                 <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" />
                                 <input type="hidden" name="profileImage" id="userProfileImage" value="" />
@@ -78,143 +80,194 @@
                                     <input type="password" id="verifypassword" class="form-control" name="verifypassword" placeholder="verify password" >
                                 </div>
                                 
-{#                                 <div class="inline-inputs" style="height:0;">
-                                    <label></label>
-                                    <span class="change-password">Change password</span>
-                                </div>
- #}
                                 <div class="button-full">
-                                    <button type="submit" class="button u-margin-top-25">Update Details</button>
+                                    <button type="submit" class="text-button u-float-right u-margin-top-25">Update Details</button>
                                 </div>
                             </form>
 
                             <div class="button-full">
-                                <button type="submit" id='cancelAccount' class="button u-margin-top-25">Cancel Account</button>
+                                <button type="submit" id='cancelAccount' class="text-button u-float-right u-margin-top-25">Cancel Account</button>
                             </div>
                         </div>
                     </div>
 
 
 
-                    {% if pwstats.userManager == true %}
-                        {% set managedUers = _User.getPaywallManagedUsers() %}
-
-                        <div class="profile-section">
-                            <div class="section-heading">
-                                <p>Subscription Details </p>
-                            </div>
-                            <div  id="userListing" class="col-md-12">
-                                <div class="user-details">
-                                    {% if pwstats['type'] == 'time' %}
-                                        <p> Current Plan: {{ pwstats['plan_value']/100}}/{{pwstats['period']}}</p>
-                                        <p> Total Users: {{ pwstats['user_count']}}</p>
-                                        <p> Active Users: {{ managedUers|length}}</p>
-                                        <p> Expires: {{ pwstats['expiry_date']}}</p>
-                                    {% else %}  
-                                        <p> Current Plan: {{ pwstats['plan_value']/100}}/{{pwstats['total_articles']}}</p>
-                                        <p> Articles Remaining: {{ pwstats['article_count']}}</p>
-                                    {% endif %}
-                                    <p> Nane on Card: {{ pwstats['card_name']}}</p>
-                                    <p> Payemnt Method: {{ pwstats['card_brand']}} / •••• •••• •••• {{ pwstats['card_last_4']}}</p>
-                                </div>
-
-                                <div class='update-card'>
-                                    <form id="update-form">
-                                        <div class="form-row">
-                                        <label for="card-element">Credit or debit card</label>
-                                    <div id="card-element">
-                                      <!-- a Stripe Element will be inserted here. -->
-                                    </div>
-    
-                                    <!-- Used to display Element errors -->
-                                    <div id="card-errors" role="alert"></div>
-                                    </div>
-    
-                                    <button>Update Card</button>
-                                    </form>
-                                </div>
-
-
-
-
-
-
-                                <div class="section-heading" style="margin-top:50px">
-                                    <p>Change Plan</p>
-                                </div>
-                                <div class="planscontainer" >
-                                {% for plan in plans %}
-                                    {% if plan.guid != pwstats['plan_guid'] %}
-                                    <div class="col-sm-3 planbox">
-                                        <div class="plan-card">
-                                            <h3>{{plan.name}}</h3>
-                                            <p class="usercount">{{plan.user_count}} Users</p>
-                                            <p class="price">${{plan.plan_value/100}}/{{plan.period}}</p>
-                                            <input type="hidden" id="planid" value="{{plan.guid}}">
-                                            <input type="hidden" id="planusercount" value="{{plan.user_count}}">
-                                            <input type="hidden" id="plancost" value="{{plan.plan_value}}">
-                                            <input type="hidden" id="planperiod" value="{{plan.period}}">
-                                            <input type="hidden" id="currentcost" value="{{pwstats['plan_value']}}">
-                                            <input type="hidden" id="currentperiod" value="{{pwstats['period']}}">
-                                            <input type="hidden" id="currentusers" value="{{managedUers|length}}">
-                                            <input type="hidden" id="expdate" value="{{ pwstats['expiry_date']}}">
-                                            <input type="hidden" id="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> 
-                                            <a class="setplan">CHANGE PLAN</a>
-                                        </div>
-                                    </div>
-                                    {% endif %}
-                                {% endfor %}
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-
-                        <div class="profile-section">
-                            <div class="section-heading">
-                                <p>My Users </p><a> {{managedUers|length}} of {{pwstats['user_count']}} used </a>
-                            </div>
-                            <div class="row">
-                                <div  id="user_profile" class="col-md-12">
-                                    <ul id="mangedUsers" class="managed-user" >
-                                    {% if managedUers|length == 0 %} 
-                                    <div id="nousers" class="empty-listing">
-                                        <p>You have no current users.</p>
-                                    </div>
-                                    {% else %}
-                                        {% for user in managedUers %}
-                                        <li id="{{user.id}}">
-                                            <div class="userdetails" >
-                                                <p><a contenteditable="true" id='muFirstname' class="displayname">{{user.firstname}}</a> <a contenteditable="true" id='muLastname' class="displayname">{{user.lastname}}</a></p>
-                                                <p><a contenteditable="true" id='muUsername' class="username">{{user.username}}</a></p>
-                                            </div>
-                                            <div class="useremailbuttons">
-                                                <div><p><a contenteditable="true" id='muEmail' class="uesremail">{{user.email}}</a> <a class="saveedit hidden">save</a> <a class="canceledit hidden">cancel</a><a class="edituser">edit</a><a class="reallydelete hidden">really delete</a><a class="deleteuser">delete</a></p></div>   
-                                            </div>
-                                        </li>
-                                        {% endfor %}
-                                    {% endif %}
-                                    </ul>
-                                </div>
-                                {% if managedUers|length < pwstats['user_count'] %}
-                                    <a id="createUserErrorMessage"></a><a id="addManagedUser" style="z-index:1000;" class="addUser">+ Add users</a>
-                                {% endif %}
-                            </div>
-
-                                </div>
-                        </div>
-                    {% endif %}
-
-
-                    {% if jobListingsArr | length > 0  %}
+                {% if pwstats.userManager == true %}
+                    {% set managedUers = _User.getPaywallManagedUsers() %}
 
                     <div class="profile-section">
-                        <div class="section-heading">
-                            <p>Job Listings</p>
-                            <a href="{{networkData.defaultBlogUrl}}/@jobs-form">Edit listings</a>
+                       
+                       <div class="profile-section__header">
+                            <p class="profile-section__heading">Subscription Details</p>
                         </div>
+
+
+                        <div id="userPlanSection">
+                            
+                            <div class="user-details">
+                                
+                                <form id="profile-form" class="form-horizontal" action="" method="post" enctype="multipart/form-data" disabled="disabled">
+                                    
+                                    {% if pwstats['type'] == 'time' %}
+
+                                        <div class="inline-inputs">
+                                            <label for="currentplan">Current Plan</label>
+                                            <input type="text" id="currentplan" class="form-control" value="{{ pwstats['plan_value']/100}}/{{pwstats['period']}}" disabled="disabled">
+                                        </div>
+
+                                        <div class="inline-inputs">
+                                            <label for="totalusers">Total Users</label>
+                                            <input type="text" id="totalusers" class="form-control" value="{{ pwstats['user_count']}}" disabled="disabled">
+                                        </div>                            
+                                       
+                                        <div class="inline-inputs">
+                                            <label for="activeusers">Active Users</label>
+                                            <input type="text" id="activeusers" class="form-control" value="{{ managedUers|length}}" disabled="disabled">
+                                        </div>
+
+                                        <div class="inline-inputs">
+                                            <label for="expires">Next Payment</label>
+                                            <input type="text" id="expires" class="form-control" value="{{ pwstats['expiry_date']}}" disabled="disabled">
+                                        </div>
+
+                                    {% else %} 
+
+                                        <div class="inline-inputs">
+                                            <label for="currentplan">Current Plan</label>
+                                            <input type="text" id="currentplan" class="form-control" value="{{ pwstats['plan_value']/100}}/{{pwstats['total_articles']}}" disabled="disabled">
+                                        </div>
+
+                                        <div class="inline-inputs">
+                                            <label for="remaining">Articles Remaining</label>
+                                            <input type="text" id="remaining" class="form-control" value="{{ pwstats['article_count']}}" disabled="disabled">
+                                        </div>                            
+                                        
+                                    {% endif %} 
+
+                                    <div class="inline-inputs">
+                                        <label for="remaining">Payemnt Method</label>
+                                        <input type="text" id="remaining" class="form-control" value="{{ pwstats['card_brand']}} / •••• •••• •••• {{ pwstats['card_last_4']}}" disabled="disabled">
+                                    </div>                            
+
+                                </form>
+
+                            </div>
+
+
+
+
+                            <div class='update-card' style="overflow:auto">
+                                <div class="">
+
+                                    <div class="profile-section__header">
+                                         <p class="profile-section__heading">Change your credit card details</p>
+                                     </div>
+
+                                    <form id="update-form">
+
+                                        <div id="card-element">
+                                        <!-- a Stripe Element will be inserted here. -->
+                                        </div>
+
+                                        <!-- Used to display Element errors -->
+                                        <div id="card-errors" role="alert"></div>
+                                        <button class="text-button text-button--italic u-float-right u-margin-top-20">Change</button>
+                                    </form>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <div class="profile-section__header">
+                                <p class="profile-section__heading">Change Plan</p>
+                            </div>
+
+                            <div class="plans">
+                            {% for plan in plans %}
+                                {% if plan.guid != pwstats['plan_guid'] %}
+                                <div class="j-setplan plans__item">
+                                    <h3 class="plans__name">{{plan.name}}</h3>
+                                    <p class="plans__usercount">{{plan.user_count}} Users</p>
+                                    <p class="plans__price">${{plan.plan_value/100}}<br />
+                                                            per {{plan.period}}</p>
+
+                                    <input type="hidden" id="planid"        value="{{plan.guid}}">
+                                    <input type="hidden" id="planusercount" value="{{plan.user_count}}">
+                                    <input type="hidden" id="plancost"      value="{{plan.plan_value}}">
+                                    <input type="hidden" id="planperiod"    value="{{plan.period}}">
+                                    <input type="hidden" id="currentcost"   value="{{pwstats['plan_value']}}">
+                                    <input type="hidden" id="currentperiod" value="{{pwstats['period']}}">
+                                    <input type="hidden" id="currentusers"  value="{{managedUers|length}}">
+                                    <input type="hidden" id="expdate"       value="{{ pwstats['expiry_date']}}">
+                                    <input type="hidden" id="_csrf"         value="{{_AppHelper.getCsrfToken()}}" /> 
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                    <div class="profile-section">
+                        <div class="profile-section__header">
+                            <p class="profile-section__heading">My Users <span class="profile-section__users-left">{{managedUers|length}} of {{pwstats['user_count']}} used</span></p>
+                            {% if managedUers|length < pwstats['user_count'] %}
+                                <a id="addManagedUser" style="z-index:1000;" class="text-button text-button--italic u-float-right">+ Add users</a>
+                            {% endif %}
+                        </div>
+
+                        <div class="row">
+                            <div id="user_profile" class="col-md-12">
+                                
+                                <ul id="mangedUsers" class="managed-users">
+                                {% if managedUers|length == 0 %} 
+                                <div id="nousers" class="empty-listing">
+                                    <p>You have no current users.</p>
+                                </div>
+                                {% else %}
+                                 
+                                    {% for user in managedUers %}
+
+
+                                    <li id="{{user.id}}">
+                                        <div class="userdetails" >
+                                            <p><a contenteditable="true" id='muFirstname' class="displayname">{{user.firstname}}</a> <a contenteditable="true" id='muLastname' class="displayname">{{user.lastname}}</a></p>
+                                            <p><a contenteditable="true" id='muUsername' class="username">{{user.username}}</a></p>
+                                        </div>
+                                        <div class="useremailbuttons">
+                                            <div><p><a contenteditable="true" id='muEmail' class="uesremail">{{user.email}}</a> <a class="saveedit hidden">save</a> <a class="canceledit hidden">cancel</a><a class="edituser">edit</a><a class="reallydelete hidden">really delete</a><a class="deleteuser">delete</a></p></div>   
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                {% endif %}
+                                </ul>
+                            </div>
+                            <a id="createUserErrorMessage"></a>
+                        </div>
+
+                    </div>
+                {% endif %}
+
+
+
+
+                {% if jobListingsArr | length > 0  %}
+
+                    <div class="profile-section">
+                        
+                        <div class="profile-section__header">
+                            <p class="profile-section__heading">Job Listings</p>
+                            <a class="text-button text-button--italic u-float-right" href="{{networkData.defaultBlogUrl}}/@jobs-form">Edit listings</a>
+                        </div>
+
                         <div class="row">
                             <div  id="jobListings" class="col-md-12">
                                 {% set articleCount = (dev) ? articleCount : 0 %}
@@ -223,8 +276,8 @@
                                     {{this.render('partials/_single-article.twig', {
                                         article: jobListingsArr[articleCount], 
                                         behaviour: 'noclick',
-                                        template: 'jobs',
-                                        containerClass: "card-rec-jobs card-rec-jobs-tablet listingCard"
+                                        template: 'user-jobs',
+                                        containerClass: "card-profile-job card-profile-job-tablet card-profile-job-mobile"
                                     }) | raw}}
                                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
 
@@ -232,19 +285,20 @@
                             </div>
                         </div>
                     </div>
-                    {% endif %}
+                {% endif %}
 
 
 
-                    {% if propListingsArr | length > 0 %}
+                {% if propListingsArr | length > 0 %}
 
                     <div class="profile-section">
-                        <div class="section-heading">
-                            <p>Realestate Listings</p>
-                            <a href="{{networkData.defaultBlogUrl}}/@property-form">Edit Listings</a>
+                        <div class="profile-section__header">
+                            <p class="profile-section__heading">Realestate Listings</p>
+                            <a class="text-button text-button--italic u-float-right" href="{{networkData.defaultBlogUrl}}/@property-form">Edit Listings</a>
                         </div>
+
                         <div class="row">
-                            <div  id="realEstateListings" class="col-md-12">
+                            <div id="realEstateListings" class="col-md-12">
                                 {% set articleCount = (dev) ? articleCount : 0 %}
                                 {% for i in 0..2 if propListingsArr[articleCount] %}
 
@@ -252,7 +306,7 @@
                                         article: propListingsArr[articleCount], 
                                         behaviour: 'noclick',
                                         template: 'property',
-                                        containerClass: "card-rec-realestate card-rec-realestate-tablet listingCard"
+                                        containerClass: "card-rec-realestate card-rec-realestate-tablet"
                                     }) | raw}}
                                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
 
@@ -260,8 +314,7 @@
                             </div>
                         </div>
                     </div>
-                    {% endif %}
-
+                {% endif %}
                 </div>
             </div>
         </div>
