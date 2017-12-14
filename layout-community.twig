@@ -257,7 +257,10 @@
                 <h2 class="section-header__title">Community listings</h2>
             </div>
 
-            
+
+{#             If you don't display this section if there are no listings then you can never get to the listing form
+               unless you know the url #}
+
             {# {% if sections['property listings'].feed.articles|length > 0 %} #}
                 {% set propertyCount = 0 %}
                 
@@ -333,6 +336,8 @@
 
 
         <section class="row section listings three-cols">
+{#             If you don't display this section if there are no listings then you can never get to the listing form
+                unless you know the url #}
 
             {# {% if sections['job listings'].feed.articles|length > 0 %} #}
                 {% set propertyCount = 0 %}
