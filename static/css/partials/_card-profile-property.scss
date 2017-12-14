@@ -1,0 +1,152 @@
+@mixin card-profile-property-base() {
+    position:relative;
+    a.card {
+        border-bottom: 1px solid #97999c;
+
+        > article {
+            position:relative;
+            > figure{
+                display:none;
+            }
+
+
+            > .content{
+                display:block;
+                padding: 0;
+                position:relative;
+                > div.cat-time {
+                    float:right;
+                }
+                .edit {
+                    float:right;
+                    height:14px;
+                    width:14px;
+                    background: url('../icons/delete-cross.svg');
+                    background-repeat: no-repeat;
+                    background-size:contain;
+                }
+
+
+                .title {
+                    margin:0;
+                    font-family: $base-font-family;
+                    color:color(darkblue);
+                }
+                .location {
+                    display:none;
+                }
+                .price {
+                    line-height: .8;
+                }
+                .contracttype {
+                    float: left;
+                    padding-right: 15px;
+                    margin-right: 15px;
+                    border-right: 1px solid black;
+                    line-height: .8;
+                }
+                .excerpt {
+                    display:none;
+                }
+            }
+        }
+        &.draft {
+            opacity: 0.5;
+        }  
+    }
+}
+
+
+
+.card-profile-property {
+    @media screen and (min-width: $mmd-break){
+        @include card-profile-property-base();
+
+        margin-bottom: 18px;
+
+        a.card {
+
+            > article {
+
+                > .content{
+                    > div.cat-time {
+                        position:relative;
+                        top:25px;
+                        > time{
+                            margin-right:35px;
+                            position: relative;
+                            top: -4px;
+                        }
+                    }
+
+                    > h2{
+                        font-size: rem(18);
+                        line-height:1.44;
+                        margin-top:10px;
+                        margin-bottom:5px;
+                        height:28px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+.card-profile-property-tablet{
+    @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
+        @include card-profile-property-base();
+
+        margin-bottom: 20px;
+
+        a.card {
+            height:95px;
+
+            > article {
+
+                > .content{
+                    > h2{
+                        font-size: rem(16);
+                        line-height:1.12;
+                        margin-top:5px;
+                        margin-bottom:10px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+.card-profile-property-mobile{
+    @media screen and (max-width: $sm-break-down){
+        @include card-profile-property-base();
+
+        margin-bottom: 20px;
+
+        a.card {
+            height:102px;
+
+            > article {
+
+                > .content{
+                    > h2{
+                        font-size: rem(16);
+                        line-height:1.38;
+                        margin-top:0;
+                    }
+                }
+            }
+        }
+    }
+}
+

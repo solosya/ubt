@@ -305,8 +305,8 @@
                                     {{this.render('partials/_single-article.twig', {
                                         article: propListingsArr[articleCount], 
                                         behaviour: 'noclick',
-                                        template: 'property',
-                                        containerClass: "card-rec-realestate card-rec-realestate-tablet"
+                                        template: 'user-property',
+                                        containerClass: "card-profile-property card-profile-property-tablet card-profile-property-mobile"
                                     }) | raw}}
                                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
 
