@@ -41,28 +41,32 @@ Handlebars.registerHelper('formatSalary', function(salary, salaryType, salaryTo,
 
 
 window.templates.create_user = 
-'<div class=""> \
-    <div class="u-float-left"> \
-        <input type="text" id="newuserfirstname" class="j-firstname displayname" value="" placeholder="{{firstname}}"> \
-        <input type="text" id="newuserlastname" class="j-lastname displayname" value="" placeholder="{{lastname}}"><br /> \
-        <input type="text" id="newuserusername" class="j-username userdetails__username--input" value="" placeholder="{{username}}"> \
+'<div class="" style="height:100%; overflow:auto"> \
+    <div class="user-editor__input-container u-float-left"> \
+        <input type="text" id="newuserfirstname" class="j-firstname user-editor__input" value="" placeholder="{{firstname}}"> \
+        <input type="text" id="newuserlastname" class="j-lastname user-editor__input" value="" placeholder="{{lastname}}"> \
+        <input type="text" id="newuserusername" class="j-username user-editor__input" value="" placeholder="{{username}}"> \
+        <input type="text" id="newuseruseremail" class="j-email user-editor__input" value="" placeholder="{{useremail}}"> \
     </div> \
-    <input type="text" id="newuseruseremail" class="j-email userdetails__email--input" value="" placeholder="{{useremail}}"> \
-    <a id="createUser"       class="userdetails__edit">Create</a> \
-    <a id="cancelUserCreate" class="userdetails__delete">Cancel</a> \
+    <div id="user-editor-buttons" class="user-editor__input-container u-float-right"> \
+        <a id="cancelUserCreate" class="userdetails__button userdetails__button--delete u-float-right"></a> \
+        <a id="saveUser"       class="userdetails__button userdetails__button--save u-float-right">Save</a> \
+    </div> \
 </div>';
 
 
 window.templates.edit_user = 
-'<div class=""> \
-    <div class="u-float-left"> \
-        <input type="text" class="j-firstname displayname" value="{{firstname}}" placeholder="First name"> \
-        <input type="text" class="j-lastname displayname" value="{{lastname}}" placeholder="Last name"><br /> \
-        <input type="text" class="j-username userdetails__username--input" value="{{username}}" placeholder="Username"> \
+'<div class="" style="height:100%; overflow:auto"> \
+    <div class="user-editor__input-container u-float-left"> \
+        <input type="text" id="newuserfirstname" class="j-firstname user-editor__input" value="{{firstname}}" placeholder="First name"> \
+        <input type="text" id="newuserlastname" class="j-lastname user-editor__input" value="{{lastname}}" placeholder="Last name"> \
+        <input type="text" id="newuserusername" class="j-username user-editor__input" value="{{username}}" placeholder="Username"> \
+        <input type="text" id="newuseruseremail" class="j-email user-editor__input" value="{{useremail}}" placeholder="Email"> \
     </div> \
-    <input type="text" id="newuseruseremail" class="j-email userdetails__email--input" value="{{useremail}}" placeholder="email"> \
-    <a id="editUser"         class="userdetails__edit">Save</a> \
-    <a id="cancelUserCreate" class="userdetails__delete">Cancel</a> \
+    <div id="user-editor-buttons" class="user-editor__input-container u-float-right"> \
+        <a id="cancelUserCreate" class="userdetails__button userdetails__button--delete u-float-right"></a> \
+        <a id="saveUser"       class="userdetails__button userdetails__button--save u-float-right">Save</a> \
+    </div> \
 </div>';
 
 window.templates.managed_user = 
@@ -71,11 +75,11 @@ window.templates.managed_user =
         <span class="j-firstname">{{firstname}}</span> \
         <span class="j-lastname">{{lastname}}</span> \
     </p> \
-    <p class="userdetails__username">{{username}}</p> \
+    <p class="j-username userdetails__username">{{username}}</p> \
 </div>\
-<a class="j-delete userdetails__delete u-float-right"></a> \
-<a class="j-edit userdetails__edit u-float-right">edit</a> \
-<p class="userdetails__email u-float-right">{{email}}</p>';
+<a class="j-delete userdetails__button userdetails__button--delete u-float-right"></a> \
+<a class="j-edit userdetails__button userdetails__button--edit u-float-right"></a> \
+<p class="j-email  userdetails__email u-float-right">{{useremail}}</p>';
 
 
 window.templates.carousel_item = 

@@ -33237,17 +33237,46 @@ Handlebars.registerHelper('formatSalary', function(salary, salaryType, salaryTo,
 });
 
 
-window.templates.managed_user = 
-'<div class="userdetails"> \
-    <div class="u-float-left"> \
-        <input type="text" id="newuserfirstname" class="displayname" value="" placeholder="{{firstname}}"> \
-        <input type="text" id="newuserlastname" class="displayname" value="" placeholder="{{lastname}}"><br /> \
-        <input type="text" id="newuserusername" class="username" value="" placeholder="{{username}}"> \
+window.templates.create_user = 
+'<div class="" style="height:100%; overflow:auto"> \
+    <div class="user-editor__input-container u-float-left"> \
+        <input type="text" id="newuserfirstname" class="j-firstname user-editor__input" value="" placeholder="{{firstname}}"> \
+        <input type="text" id="newuserlastname" class="j-lastname user-editor__input" value="" placeholder="{{lastname}}"> \
+        <input type="text" id="newuserusername" class="j-username user-editor__input" value="" placeholder="{{username}}"> \
+        <input type="text" id="newuseruseremail" class="j-email user-editor__input" value="" placeholder="{{useremail}}"> \
     </div> \
-    <input type="text" id="newuseruseremail" class="uesremail" value="" placeholder="{{useremail}}"> \
-    <a id="createUser"       class="userdetails__edit">Create</a> \
-    <a id="cancelUserCreate" class="userdetails__delete">Cancel</a> \
+    <div id="user-editor-buttons" class="user-editor__input-container u-float-right"> \
+        <a id="cancelUserCreate" class="userdetails__button userdetails__button--delete u-float-right"></a> \
+        <a id="saveUser"       class="userdetails__button userdetails__button--save u-float-right">Save</a> \
+    </div> \
 </div>';
+
+
+window.templates.edit_user = 
+'<div class="" style="height:100%; overflow:auto"> \
+    <div class="user-editor__input-container u-float-left"> \
+        <input type="text" id="newuserfirstname" class="j-firstname user-editor__input" value="{{firstname}}" placeholder="First name"> \
+        <input type="text" id="newuserlastname" class="j-lastname user-editor__input" value="{{lastname}}" placeholder="Last name"> \
+        <input type="text" id="newuserusername" class="j-username user-editor__input" value="{{username}}" placeholder="Username"> \
+        <input type="text" id="newuseruseremail" class="j-email user-editor__input" value="{{useremail}}" placeholder="Email"> \
+    </div> \
+    <div id="user-editor-buttons" class="user-editor__input-container u-float-right"> \
+        <a id="cancelUserCreate" class="userdetails__button userdetails__button--delete u-float-right"></a> \
+        <a id="saveUser"       class="userdetails__button userdetails__button--save u-float-right">Save</a> \
+    </div> \
+</div>';
+
+window.templates.managed_user = 
+'<div class="u-float-left"> \
+    <p class="userdetails__name"> \
+        <span class="j-firstname">{{firstname}}</span> \
+        <span class="j-lastname">{{lastname}}</span> \
+    </p> \
+    <p class="j-username userdetails__username">{{username}}</p> \
+</div>\
+<a class="j-delete userdetails__button userdetails__button--delete u-float-right"></a> \
+<a class="j-edit userdetails__button userdetails__button--edit u-float-right"></a> \
+<p class="j-email  userdetails__email u-float-right">{{useremail}}</p>';
 
 
 window.templates.carousel_item = 
@@ -33315,8 +33344,8 @@ window.templates.userPlanMessage =
 
 window.templates.userPlanOkCancel = 
 '<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
-     <button id="okaybutton" class="_btn okay">OK</button> \
-     <button id="cancelbutton" class="_btn close">Cancel</button> \
+     <button id="okaybutton" class="_btn okay" data-role="okay">OK</button> \
+     <button id="cancelbutton" class="_btn close" data-role="cancel">Cancel</button> \
 </form>';
 
 
@@ -36079,8 +36108,6 @@ $('a.j-register').on('click', function(e) {
 }(jQuery));
 // Create a Stripe client
 if ($('#stripekey').length > 0) {
-    console.log("Stripe API key is missing");
-// }
 
 
     var stripekey = $('#stripekey').html();
@@ -36415,8 +36442,122 @@ var UserProfielController = (function ($) {
     };
 }(jQuery));
 
+
+
+
+
 UserProfielController.Load = (function ($) {
     var csrfToken = $('meta[name="csrf-token"]').attr("content");
+
+    var deleteUser = function(e) {
+        var user = $(e.target).closest('li');
+        var userid = user.attr("id");
+        var requestData = { 
+            id: userid, 
+            _csrf: csrfToken
+        };
+
+        return $.ajax({
+            type: 'post',
+            url: _appJsConfig.baseHttpPath + '/user/delete-managed-user',
+            dataType: 'json',
+            data: requestData,
+            success: function (data, textStatus, jqXHR) {
+                if (data.success == 1) {
+                    user.remove();
+                } else {
+                    var text = '';
+                    for (var key in data.error) {
+                        text = text + data.error[key] + " ";
+                    } 
+                    $('#createUserErrorMessage').text(text);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                // console.log(textStatus);
+                // console.log(jqXHR.responseText);
+                 $('#createUserErrorMessage').text(textStatus);
+            },
+        });
+    };
+
+    var renderUser = function(parent, data) {
+        var userTemp = Handlebars.compile(window.templates.managed_user);
+        var html = userTemp(data);
+        parent.empty().append(html);
+    };
+
+    var userEvents = function() {
+        $('.j-edit').unbind().on('click', function(e) {
+            var listelem = $(e.target).closest('li');
+            var userid          = listelem.attr("id");
+
+            function getUserData(func) {
+                return {
+                    firstname: listelem.find('.j-firstname')[func](), 
+                    lastname:  listelem.find('.j-lastname')[func](), 
+                    username:  listelem.find('.j-username')[func](), 
+                    useremail: listelem.find('.j-email')[func](),
+                };
+            };
+
+            var data = getUserData("text");
+            var userTemp = Handlebars.compile(window.templates.edit_user);
+            var html = userTemp(data);
+            listelem.empty().append(html);
+            console.log( getUserData("val") );
+
+            $('#cancelUserCreate').on('click', function(e) {
+                renderUser(listelem, data);
+                userEvents();
+            });
+
+            $('#saveUser').on('click', function(e) {
+                console.log('clicks')
+                var requestData = getUserData("val");
+                requestData.id = userid;
+                requestData._csrf = csrfToken;
+                console.log(requestData);
+                $.ajax({
+                    type: 'post',
+                    url: _appJsConfig.baseHttpPath + '/user/edit-managed-profile',
+                    dataType: 'json',
+                    data: requestData,
+                    success: function (data, textStatus, jqXHR) {
+                        console.log(data);
+                        if (data.success == 1) {
+                            console.log('success');
+                            renderUser(listelem, requestData);
+                            $('#addManagedUser').removeClass('hidden');
+                            $('#createUserErrorMessage').text('');   
+                        } else {
+                            var text = '';
+                            for (var key in data.error) {
+                                text = text + data.error[key] + " ";
+                            } 
+                            $('#createUserErrorMessage').text(text);
+                        }
+                        userEvents();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus);
+                        console.log(jqXHR.responseText);
+                         $('#createUserErrorMessage').text(textStatus);
+                    },
+                });        
+            });
+        });  
+
+        $('.j-delete').unbind().on('click', function(e) {
+            Acme.SigninView.render("userPlanChange", "Are you sure you want to delete this user?")
+                .done(function() {
+                    deleteUser(e);
+                });
+        });   
+    };
+
+
+
 
     var attachEvents = function () {
           console.log('events!');
@@ -36424,21 +36565,23 @@ UserProfielController.Load = (function ($) {
         $('#addManagedUser').on('click', function(e) {
             console.log('add user');
             e.preventDefault()
-            var userTemp = Handlebars.compile(window.templates.managed_user);
+            var userTemp = Handlebars.compile(window.templates.create_user);
             var data = {
-                firstname: "FIRSTNAME", 
-                lastname:  "LASTNAME", 
-                username:  "USERNAME", 
-                useremail: "EMAIL"
+                firstname: "First name", 
+                lastname:  "Last name", 
+                username:  "Username", 
+                useremail: "Email",
             };
 
-            var html = '<li id="newUser">' + userTemp(data) + '</li>';
+            var html = '<li id="newUser" class="user-editor">' + userTemp(data) + '</li>';
 
             $('#mangedUsers').append(html);
+            $('#newuserfirstname').focus();
             $('#addManagedUser').addClass('hidden');
             $('#nousers').addClass('hidden');
             
-            $('#createUser').on('click', function(e) {
+            $('#saveUser').on('click', function(e) {
+                $('#user-editor-buttons').addClass('spinner');
                 var requestData = { 
                     firstname: $('#newuserfirstname').val(), 
                     lastname:  $('#newuserlastname').val(), 
@@ -36447,8 +36590,6 @@ UserProfielController.Load = (function ($) {
                     _csrf: csrfToken
                 };
 
-                console.log(requestData);
-
                 $.ajax({
                     type: 'post',
                     url: _appJsConfig.baseHttpPath + '/user/create-paywall-managed-user',
@@ -36456,6 +36597,8 @@ UserProfielController.Load = (function ($) {
                     data: requestData,
                     success: function (data, textStatus, jqXHR) {
                         console.log(data);
+                        $('#user-editor-buttons').removeClass('spinner');
+
                         if (data.success == 1) {
                             location.reload(false);             
                         } else {
@@ -36469,7 +36612,8 @@ UserProfielController.Load = (function ($) {
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.log(textStatus);
                         console.log(jqXHR.responseText);
-                         $('#createUserErrorMessage').text(textStatus);
+                        $('#user-editor-buttons').removeClass('spinner');
+                        $('#createUserErrorMessage').text(textStatus);
                     },
                 });        
             });
@@ -36479,101 +36623,9 @@ UserProfielController.Load = (function ($) {
                 $('#addManagedUser').removeClass('hidden');
                 $('#createUserErrorMessage').text('');
             });
-
         });
 
-        $('.userdetails__edit').on('click', function(e) {
-            var listelem = $(e.target).closest('li');
-            var data = {
-                firstname: listelem.find('.j-firstname').text(), 
-                lastname:  listelem.find('.j-lastname').text(), 
-                username:  listelem.find('.userdetails__username').text(), 
-                useremail: listelem.find('.userdetails__email').text(),
-            };
-            console.log(data);
-            var userTemp = Handlebars.compile(window.templates.managed_user);
-            var html = userTemp(data);
-            listelem.empty().append(html);
-            // $('#mangedUsers').append($(user));
-            // $('#addManagedUser').addClass('hidden');
-            // $('#nousers').addClass('hidden');
-
-
-
-            // listelem.find('.edituser').addClass('hidden');
-            // listelem.find('.deleteuser').addClass('hidden');
-            // listelem.find('.saveedit').removeClass('hidden');
-            // listelem.find('.canceledit').removeClass('hidden');
-
-            // listelem.find('#muFirstname').addClass('edituserfield');
-            // listelem.find('#muLastname').addClass('edituserfield');
-            // listelem.find('#muUsername').addClass('edituserfield');
-            // listelem.find('#muEmail').addClass('edituserfield');
-        });        
-
-        $('.canceledit').on('click', function(e) {
-            var listelem = $(e.target).closest('li');
-            listelem.find('.edituser').removeClass('hidden');
-            listelem.find('.deleteuser').removeClass('hidden');
-            listelem.find('.saveedit').addClass('hidden');
-            listelem.find('.canceledit').addClass('hidden');
-            listelem.find('.reallydelete').addClass('hidden');
-
-
-            listelem.find('#muFirstname').removeClass('edituserfield');
-            listelem.find('#muLastname').removeClass('edituserfield');
-            listelem.find('#muUsername').removeClass('edituserfield');
-            listelem.find('#muEmail').removeClass('edituserfield');
-
-            $('#createUserErrorMessage').text('');   
-        });        
-
-
-        $('.deleteuser').on('click', function(e) {
-            var listelem = $(e.target).closest('li');
-            listelem.find('.edituser').addClass('hidden');
-            listelem.find('.deleteuser').addClass('hidden');
-            listelem.find('.reallydelete').removeClass('hidden');
-            listelem.find('.canceledit').removeClass('hidden');
-            $('#createUserErrorMessage').text('');   
-        });        
-
-        $('.reallydelete').on('click', function(e) {
-            var listelem = $(e.target).closest('li');
-            var userid = listelem.attr("id");
-            var requestData = { 
-                id: listelem.attr("id"), 
-                _csrf: csrfToken, 
-            };
-
-            $.ajax({
-                type: 'post',
-                url: _appJsConfig.baseHttpPath + '/user/delete-managed-user',
-                dataType: 'json',
-                data: requestData,
-                success: function (data, textStatus, jqXHR) {
-                    console.log(data);
-                    if (data.success == 1) {
-                        console.log('success');
-                        location.reload(false);             
-                    } else {
-                        var text = '';
-                        for (var key in data.error) {
-                            text = text + data.error[key] + " ";
-                        } 
-                        $('#createUserErrorMessage').text(text);
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus);
-                    console.log(jqXHR.responseText);
-                     $('#createUserErrorMessage').text(textStatus);
-                },
-            });        
-
-
-        });        
-
+  
         $('#cancelAccount').on('click', function(e) {
             var listelem = $(e.target).closest('li');
             var userid = listelem.attr("id");
@@ -36588,9 +36640,7 @@ UserProfielController.Load = (function ($) {
                 dataType: 'json',
                 data: requestData,
                 success: function (data, textStatus, jqXHR) {
-                    console.log(data);
                     if (data.success == 1) {
-                        console.log('success');
                         location.reload(false);             
                     } else {
                         var text = '';
@@ -36601,71 +36651,12 @@ UserProfielController.Load = (function ($) {
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus);
+                    // console.log(textStatus);
                     console.log(jqXHR.responseText);
                      $('#createUserErrorMessage').text(textStatus);
                 },
             });        
-
-
         });        
-
-
-        $('.saveedit').on('click', function(e) {
-            console.log('clicks')
-            var listelem = $(e.target).closest('li');
-            var userid = listelem.attr("id");
-            var firstname = listelem.find('#muFirstname').text();
-            var lastname = listelem.find('#muLastname').text();
-            var username = listelem.find('#muUsername').text();
-            var email = listelem.find('#muEmail').text();
-
-            var requestData = { 
-                id: listelem.attr("id"), 
-                firstname: listelem.find('#muFirstname').text(), 
-                lastname: listelem.find('#muLastname').text(), 
-                username: listelem.find('#muUsername').text(), 
-                _csrf: csrfToken, 
-                useremail: listelem.find('#muEmail').text()
-            };
-
-            $.ajax({
-                type: 'post',
-                url: _appJsConfig.baseHttpPath + '/user/edit-managed-profile',
-                dataType: 'json',
-                data: requestData,
-                success: function (data, textStatus, jqXHR) {
-                    console.log(data);
-                    if (data.success == 1) {
-                        console.log('success');
-                        $('#createUserErrorMessage').text('');   
-                        listelem.find('.edituser').removeClass('hidden');
-                        listelem.find('.deleteuser').removeClass('hidden');
-                        listelem.find('.saveedit').addClass('hidden');
-                        listelem.find('.canceledit').addClass('hidden');
-
-                        listelem.find('#muFirstname').removeClass('edituserfield');
-                        listelem.find('#muLastname').removeClass('edituserfield');
-                        listelem.find('#muUsername').removeClass('edituserfield');
-                        listelem.find('#muEmail').removeClass('edituserfield');
-
-                        $('#createUserErrorMessage').text('User updated successfully.'); 
-                    } else {
-                        var text = '';
-                        for (var key in data.error) {
-                            text = text + data.error[key] + " ";
-                        } 
-                        $('#createUserErrorMessage').text(text);
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus);
-                    console.log(jqXHR.responseText);
-                     $('#createUserErrorMessage').text(textStatus);
-                },
-            });        
-
-        });
 
 
         $('.j-setplan').on('click', function(e) {
@@ -36679,8 +36670,6 @@ UserProfielController.Load = (function ($) {
             };
 
             console.log(requestData);
-
-
 
             if (usercount <= planusers) {
                 // var newcost = listelem.find('#plancost').val();
@@ -36703,54 +36692,118 @@ UserProfielController.Load = (function ($) {
                 // console.log(plandailycost);
 
                 // var remainingplandays = 10;
-                Acme.SigninView.render("userPlanChange", "Are you sure you want to change plan?");
-
-                $('#okaybutton').on('click', function(e) {
-                    $('#dialog').parent().remove();
-                    
-                    $.ajax({
-                        type: 'post',
-                        url: _appJsConfig.baseHttpPath + '/user/change-paywall-plan',
-                        dataType: 'json',
-                        data: requestData,
-                        success: function (data, textStatus, jqXHR) {
-                            console.log(data);
-                            if (data.success == 1) {
-                                window.location.reload();
-                            } else {
-                                //show some error somehow
-                                $('#dialog').parent().remove();
-                            }
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            console.log(textStatus);
-                            console.log(jqXHR.responseText);
-                             $('#createUserErrorMessage').text(textStatus);
-                        },
-                    });        
-
-                });
-
-
+                Acme.SigninView.render("userPlanChange", "Are you sure you want to change plan?")
+                    .done(function() {
+                        $('#dialog').parent().remove();
+                        
+                        $.ajax({
+                            type: 'post',
+                            url: _appJsConfig.baseHttpPath + '/user/change-paywall-plan',
+                            dataType: 'json',
+                            data: requestData,
+                            success: function (data, textStatus, jqXHR) {
+                                if (data.success == 1) {
+                                    window.location.reload();
+                                } else {
+                                    $('#dialog').parent().remove();
+                                }
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                // console.log(textStatus);
+                                // console.log(jqXHR.responseText);
+                                 $('#createUserErrorMessage').text(textStatus);
+                            },
+                        });        
+                    }); 
 
             } else {
                 Acme.SigninView.render("userPlan", "You have too many users to change to that plan.");
             }
-            $('#cancelbutton').on('click', function(e) {
-                $('#dialog').parent().remove();
-                console.log('moo');
-            });
-
+            // $('#cancelbutton').on('click', function(e) {
+            //     $('#dialog').parent().remove();
+            //     console.log('moo');
+            // });
         });
 
-
-
-
-        
     };
+
+
+    var listingEvents = function() {
+        $('.j-edit').unbind().on('click', function(e) {
+            var listelem = $(e.target).closest('li');
+            var userid          = listelem.attr("id");
+
+            function getUserData(func) {
+                return {
+                    firstname: listelem.find('.j-firstname')[func](), 
+                    lastname:  listelem.find('.j-lastname')[func](), 
+                    username:  listelem.find('.j-username')[func](), 
+                    useremail: listelem.find('.j-email')[func](),
+                };
+            };
+
+            var data = getUserData("text");
+            var userTemp = Handlebars.compile(window.templates.edit_user);
+            var html = userTemp(data);
+            listelem.empty().append(html);
+
+            $('#cancelUserCreate').on('click', function(e) {
+                renderUser(listelem, data);
+                userEvents();
+            });
+
+            $('#saveUser').on('click', function(e) {
+                console.log('clicks')
+                var requestData = getUserData("val");
+                requestData.id = userid;
+                requestData._csrf = csrfToken;
+                console.log(requestData);
+                $.ajax({
+                    type: 'post',
+                    url: _appJsConfig.baseHttpPath + '/user/edit-managed-profile',
+                    dataType: 'json',
+                    data: requestData,
+                    success: function (data, textStatus, jqXHR) {
+                        console.log(data);
+                        if (data.success == 1) {
+                            console.log('success');
+                            renderUser(listelem, requestData);
+                            $('#addManagedUser').removeClass('hidden');
+                            $('#createUserErrorMessage').text('');   
+                        } else {
+                            var text = '';
+                            for (var key in data.error) {
+                                text = text + data.error[key] + " ";
+                            } 
+                            $('#createUserErrorMessage').text(text);
+                        }
+                        userEvents();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus);
+                        console.log(jqXHR.responseText);
+                         $('#createUserErrorMessage').text(textStatus);
+                    },
+                });        
+            });
+        });  
+
+        $('.j-delete').unbind().on('click', function(e) {
+            Acme.SigninView.render("userPlanChange", "Are you sure you want to delete this user?")
+                .done(function() {
+                    deleteUser(e);
+                });
+        });   
+    };
+
+
+
+
+
     return {
         init: function () {
             attachEvents();
+            userEvents();
         }
     };
 

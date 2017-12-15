@@ -30,18 +30,50 @@
     color:black;
 }
 
-.userdetails__delete {
+.userdetails__button {
     display:block;
     height:14px;
     width:14px;
-    background: url('../icons/delete-cross.svg');
     background-repeat: no-repeat;
     background-size:contain;
     &:hover {
         cursor: pointer;
     }
 }
+.userdetails__button--edit {
+    margin-right:10px;
+    background: url('../icons/pencil.svg');
+}
+.userdetails__button--delete {
+    background: url('../icons/delete-cross.svg');
+}
+.userdetails__button--save {
+    color:color(red);    
+    margin-right: 40px;
+    position: relative;
+    top: -2px;
+}
 
+
+.user-editor {
+    list-style:none;
+    height: 150px;
+}
+.user-editor__input-container {
+    width:50%;
+    height:100%;
+    position:relative;
+}
+
+.user-editor__input {
+    border:none;
+    padding:5px;
+    width:100%;
+    margin-bottom:4px;
+    border-radius:7px;
+    background-color:color(galleryback);
+    display:block;
+}
 
 
 .managed-users {

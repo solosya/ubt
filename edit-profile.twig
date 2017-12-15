@@ -236,19 +236,19 @@
                                  
                                     {% for user in managedUers %}
 
+                                        <li id="{{user.id}}" class="userdetails">
+                                            <div class="u-float-left">
+                                                <p class="userdetails__name">
+                                                    <span class="j-firstname">{{user.firstname}}</span> 
+                                                    <span class="j-lastname">{{user.lastname}}</span>
+                                                </p> 
+                                                <p class="j-username userdetails__username">{{user.username}}</p>
+                                            </div>
+                                            <a class="j-delete userdetails__button userdetails__button--delete u-float-right"></a>
+                                            <a class="j-edit userdetails__button userdetails__button--edit u-float-right"></a>
+                                            <p class="j-email userdetails__email u-float-right">{{user.email}}</p>
+                                        </li>
 
-                                    <li id="{{user.id}}" class="userdetails">
-                                        <div class="u-float-left">
-                                            <p id='muFirstname' class="userdetails__name">
-                                                <span class="j-firstname">{{user.firstname}}</span> 
-                                                <span class="j-lastname">{{user.lastname}}</span>
-                                            </p> 
-                                            <p id='muUsername' class="j-username userdetails__username">{{user.username}}</p>
-                                        </div>
-                                        <a class="j-delete userdetails__delete u-float-right"></a>
-                                        <a class="j-edit userdetails__edit u-float-right">edit</a>
-                                        <p id='muEmail' class="j-email userdetails__email u-float-right">{{user.email}}</p>
-                                    </li>
                                     {% endfor %}
                                 {% endif %}
                                 </ul>
