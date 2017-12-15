@@ -1136,7 +1136,9 @@ Acme.Confirm = function(template, parent, layouts) {
     };
     Acme.Confirm.prototype.handle = function(e) {
         var self = this;
-        var $elem = this.parent.handle.call(this, e);
+        this.parent.handle.call(this, e);
+        var $elem = $(e.target);
+
         if ( $elem.is('a') ) {
             if ($elem.hasClass('close')) {
                 $('body').removeClass("active");

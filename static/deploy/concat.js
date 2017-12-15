@@ -33236,6 +33236,20 @@ Handlebars.registerHelper('formatSalary', function(salary, salaryType, salaryTo,
     return salaryPrefix + salary
 });
 
+
+window.templates.managed_user = 
+'<div class="userdetails"> \
+    <div class="u-float-left"> \
+        <input type="text" id="newuserfirstname" class="displayname" value="" placeholder="{{firstname}}"> \
+        <input type="text" id="newuserlastname" class="displayname" value="" placeholder="{{lastname}}"><br /> \
+        <input type="text" id="newuserusername" class="username" value="" placeholder="{{username}}"> \
+    </div> \
+    <input type="text" id="newuseruseremail" class="uesremail" value="" placeholder="{{useremail}}"> \
+    <a id="createUser"       class="userdetails__edit">Create</a> \
+    <a id="cancelUserCreate" class="userdetails__delete">Cancel</a> \
+</div>';
+
+
 window.templates.carousel_item = 
 '<div class="carousel-tray__item" style="background-image:url( {{imagePath}} )"> \
     <span class="carousel-tray__delete"></span> \
@@ -35549,7 +35563,9 @@ Acme.Confirm = function(template, parent, layouts) {
     };
     Acme.Confirm.prototype.handle = function(e) {
         var self = this;
-        var $elem = this.parent.handle.call(this, e);
+        this.parent.handle.call(this, e);
+        var $elem = $(e.target);
+
         if ( $elem.is('a') ) {
             if ($elem.hasClass('close')) {
                 $('body').removeClass("active");
@@ -36408,29 +36424,27 @@ UserProfielController.Load = (function ($) {
         $('#addManagedUser').on('click', function(e) {
             console.log('add user');
             e.preventDefault()
-            var user = '<li id = "newUser">\
-                <div class="userdetails" >\
-                    <p><a contenteditable="true" id="newuserfirstname" class="displayname">FIRSTANAME</a> <a contenteditable="true" id="newuserlastname" class="displayname">LASTNAME</a></p>\
-                    <p><a contenteditable="true" id="newuserusername" class="username">USERNAME</a></p>\
-                </div>\
-                <div class="useremailbuttons">\
-                <div><p><a contenteditable="true" id="newuseruseremail" class="uesremail">EMAIL</a> <a id="createUser" class="edituser">create user</a><a id="cancelUserCreate" class="deleteuser">cancel</a></p></div>\
-                </div>\
-            </li>';
+            var userTemp = Handlebars.compile(window.templates.managed_user);
+            var data = {
+                firstname: "FIRSTNAME", 
+                lastname:  "LASTNAME", 
+                username:  "USERNAME", 
+                useremail: "EMAIL"
+            };
 
-            $('#mangedUsers').append($(user));
+            var html = '<li id="newUser">' + userTemp(data) + '</li>';
+
+            $('#mangedUsers').append(html);
             $('#addManagedUser').addClass('hidden');
             $('#nousers').addClass('hidden');
-            $('#createUser').on('click', function(e) {
-
-                
             
+            $('#createUser').on('click', function(e) {
                 var requestData = { 
-                    firstname: $('#newuserfirstname').text(), 
-                    lastname: $('#newuserlastname').text(), 
-                    username: $('#newuserusername').text(), 
-                    _csrf: csrfToken, 
-                    useremail: $('#newuseruseremail').text()
+                    firstname: $('#newuserfirstname').val(), 
+                    lastname:  $('#newuserlastname').val(), 
+                    username:  $('#newuserusername').val(), 
+                    useremail: $('#newuseruseremail').val(),
+                    _csrf: csrfToken
                 };
 
                 console.log(requestData);
@@ -36468,17 +36482,33 @@ UserProfielController.Load = (function ($) {
 
         });
 
-        $('.edituser').on('click', function(e) {
+        $('.userdetails__edit').on('click', function(e) {
             var listelem = $(e.target).closest('li');
-            listelem.find('.edituser').addClass('hidden');
-            listelem.find('.deleteuser').addClass('hidden');
-            listelem.find('.saveedit').removeClass('hidden');
-            listelem.find('.canceledit').removeClass('hidden');
+            var data = {
+                firstname: listelem.find('.j-firstname').text(), 
+                lastname:  listelem.find('.j-lastname').text(), 
+                username:  listelem.find('.userdetails__username').text(), 
+                useremail: listelem.find('.userdetails__email').text(),
+            };
+            console.log(data);
+            var userTemp = Handlebars.compile(window.templates.managed_user);
+            var html = userTemp(data);
+            listelem.empty().append(html);
+            // $('#mangedUsers').append($(user));
+            // $('#addManagedUser').addClass('hidden');
+            // $('#nousers').addClass('hidden');
 
-            listelem.find('#muFirstname').addClass('edituserfield');
-            listelem.find('#muLastname').addClass('edituserfield');
-            listelem.find('#muUsername').addClass('edituserfield');
-            listelem.find('#muEmail').addClass('edituserfield');
+
+
+            // listelem.find('.edituser').addClass('hidden');
+            // listelem.find('.deleteuser').addClass('hidden');
+            // listelem.find('.saveedit').removeClass('hidden');
+            // listelem.find('.canceledit').removeClass('hidden');
+
+            // listelem.find('#muFirstname').addClass('edituserfield');
+            // listelem.find('#muLastname').addClass('edituserfield');
+            // listelem.find('#muUsername').addClass('edituserfield');
+            // listelem.find('#muEmail').addClass('edituserfield');
         });        
 
         $('.canceledit').on('click', function(e) {
@@ -36642,8 +36672,6 @@ UserProfielController.Load = (function ($) {
             var listelem = $(e.target);
             var planusers = listelem.find('#planusercount').val();
             var usercount = listelem.find('#currentusers').val();
-            console.log(planusers);
-            console.log(usercount);
 
             var requestData = { 
                 planid: listelem.find('#planid').val(), 
@@ -36655,28 +36683,27 @@ UserProfielController.Load = (function ($) {
 
 
             if (usercount <= planusers) {
-                var newcost = listelem.find('#plancost').val();
-                var oldcost = listelem.find('#currentcost').val();
-                var newdays = listelem.find('#planperiod').val();
-                var olddays = listelem.find('#currentperiod').val();
-                if (newdays = 'week') {newdays = 7;}
-                if (newdays = 'month') {newdays = 30;}
-                if (newdays = 'year') {newdays = 365;}
-                if (olddays = 'week') {olddays = 7;}
-                if (olddays = 'month') {olddays = 30;}
-                if (olddays = 'year') {olddays = 365;}
-                var newplandailycost = newcost/newdays;
-                var plandailycost = oldcost/olddays;
-                var expDate = listelem.find('#expdate').val();
+                // var newcost = listelem.find('#plancost').val();
+                // var oldcost = listelem.find('#currentcost').val();
+                // var newdays = listelem.find('#planperiod').val();
+                // var olddays = listelem.find('#currentperiod').val();
+                // if (newdays = 'week') {newdays = 7;}
+                // if (newdays = 'month') {newdays = 30;}
+                // if (newdays = 'year') {newdays = 365;}
+                // if (olddays = 'week') {olddays = 7;}
+                // if (olddays = 'month') {olddays = 30;}
+                // if (olddays = 'year') {olddays = 365;}
+                // var newplandailycost = newcost/newdays;
+                // var plandailycost = oldcost/olddays;
+                // var expDate = listelem.find('#expdate').val();
                 // console.log(newplandailycost);
                 // console.log(oldcost);
                 // console.log(olddays);
                 // console.log(expDate);
                 // console.log(plandailycost);
 
-                var remainingplandays = 10;
-                Acme.SigninView.render("userPlanChange", "Are you sure?. This will cost you $"+((newplandailycost-plandailycost)*remainingplandays));
-                return;
+                // var remainingplandays = 10;
+                Acme.SigninView.render("userPlanChange", "Are you sure you want to change plan?");
 
                 $('#okaybutton').on('click', function(e) {
                     $('#dialog').parent().remove();
