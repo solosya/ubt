@@ -7,8 +7,129 @@ var UserProfielController = (function ($) {
     };
 }(jQuery));
 
+
+
+
+
 UserProfielController.Load = (function ($) {
     var csrfToken = $('meta[name="csrf-token"]').attr("content");
+
+    var deleteUser = function(e) {
+        console.log('DELETING THE USER!!!', e);
+
+        var user = $(e.target).closest('li');
+        var userid = user.attr("id");
+        var requestData = { 
+            id: userid, 
+            _csrf: csrfToken
+        };
+
+        return $.ajax({
+            type: 'post',
+            url: _appJsConfig.baseHttpPath + '/user/delete-managed-user',
+            dataType: 'json',
+            data: requestData,
+            success: function (data, textStatus, jqXHR) {
+                console.log(data);
+                if (data.success == 1) {
+                    user.remove();
+                } else {
+                    var text = '';
+                    for (var key in data.error) {
+                        text = text + data.error[key] + " ";
+                    } 
+                    $('#createUserErrorMessage').text(text);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus);
+                console.log(jqXHR.responseText);
+                 $('#createUserErrorMessage').text(textStatus);
+            },
+        });
+    };
+
+    var renderUser = function(parent, data) {
+        var userTemp = Handlebars.compile(window.templates.managed_user);
+        var html = userTemp(data);
+        parent.empty().append(html);
+    };
+
+    var userEvents = function() {
+        $('.j-edit').unbind().on('click', function(e) {
+            var listelem = $(e.target).closest('li');
+            // var firstNameElem   = listelem.find('.j-firstname');
+            // var lastNameElem    = listelem.find('.j-lastname');
+            // var userNameElem    = listelem.find('.userdetails__username');
+            // var emailElem       = listelem.find('.userdetails__email');
+            var userid          = listelem.attr("id");
+
+            function getUserData(func) {
+                return {
+                    firstname: listelem.find('.j-firstname')[func](), 
+                    lastname:  listelem.find('.j-lastname')[func](), 
+                    username:  listelem.find('.j-username')[func](), 
+                    useremail: listelem.find('.j-email')[func](),
+                };
+            };
+
+            var data = getUserData("text");
+            var userTemp = Handlebars.compile(window.templates.edit_user);
+            var html = userTemp(data);
+            listelem.empty().append(html);
+            console.log( getUserData("val") );
+
+            $('#cancelUserCreate').on('click', function(e) {
+                renderUser(listelem, data);
+                userEvents();
+            });
+
+            $('#editUser').on('click', function(e) {
+                console.log('clicks')
+                var requestData = getUserData("val");
+                requestData.id = userid;
+                requestData._csrf = csrfToken;
+                console.log(requestData);
+                $.ajax({
+                    type: 'post',
+                    url: _appJsConfig.baseHttpPath + '/user/edit-managed-profile',
+                    dataType: 'json',
+                    data: requestData,
+                    success: function (data, textStatus, jqXHR) {
+                        console.log(data);
+                        if (data.success == 1) {
+                            console.log('success');
+                            renderUser(listelem, requestData);
+                            $('#createUserErrorMessage').text('');   
+                        } else {
+                            var text = '';
+                            for (var key in data.error) {
+                                text = text + data.error[key] + " ";
+                            } 
+                            $('#createUserErrorMessage').text(text);
+                        }
+                        userEvents();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus);
+                        console.log(jqXHR.responseText);
+                         $('#createUserErrorMessage').text(textStatus);
+                    },
+                });        
+            });
+        });  
+
+        $('.j-delete').unbind().on('click', function(e) {
+            Acme.SigninView.render("userPlanChange", "Are you sure you want to delete this user?")
+                .done(function() {
+                    deleteUser(e);
+                });
+        });   
+
+    };
+
+
+
 
     var attachEvents = function () {
           console.log('events!');
@@ -16,12 +137,12 @@ UserProfielController.Load = (function ($) {
         $('#addManagedUser').on('click', function(e) {
             console.log('add user');
             e.preventDefault()
-            var userTemp = Handlebars.compile(window.templates.managed_user);
+            var userTemp = Handlebars.compile(window.templates.create_user);
             var data = {
                 firstname: "FIRSTNAME", 
                 lastname:  "LASTNAME", 
                 username:  "USERNAME", 
-                useremail: "EMAIL"
+                useremail: "EMAIL",
             };
 
             var html = '<li id="newUser">' + userTemp(data) + '</li>';
@@ -74,97 +195,27 @@ UserProfielController.Load = (function ($) {
 
         });
 
-        $('.userdetails__edit').on('click', function(e) {
-            var listelem = $(e.target).closest('li');
-            var data = {
-                firstname: listelem.find('.j-firstname').text(), 
-                lastname:  listelem.find('.j-lastname').text(), 
-                username:  listelem.find('.userdetails__username').text(), 
-                useremail: listelem.find('.userdetails__email').text(),
-            };
-            console.log(data);
-            var userTemp = Handlebars.compile(window.templates.managed_user);
-            var html = userTemp(data);
-            listelem.empty().append(html);
-            // $('#mangedUsers').append($(user));
-            // $('#addManagedUser').addClass('hidden');
-            // $('#nousers').addClass('hidden');
+  
 
 
 
-            // listelem.find('.edituser').addClass('hidden');
-            // listelem.find('.deleteuser').addClass('hidden');
-            // listelem.find('.saveedit').removeClass('hidden');
-            // listelem.find('.canceledit').removeClass('hidden');
-
-            // listelem.find('#muFirstname').addClass('edituserfield');
-            // listelem.find('#muLastname').addClass('edituserfield');
-            // listelem.find('#muUsername').addClass('edituserfield');
-            // listelem.find('#muEmail').addClass('edituserfield');
-        });        
-
-        $('.canceledit').on('click', function(e) {
-            var listelem = $(e.target).closest('li');
-            listelem.find('.edituser').removeClass('hidden');
-            listelem.find('.deleteuser').removeClass('hidden');
-            listelem.find('.saveedit').addClass('hidden');
-            listelem.find('.canceledit').addClass('hidden');
-            listelem.find('.reallydelete').addClass('hidden');
+        // $('.canceledit').on('click', function(e) {
+        //     var listelem = $(e.target).closest('li');
+        //     listelem.find('.edituser').removeClass('hidden');
+        //     listelem.find('.deleteuser').removeClass('hidden');
+        //     listelem.find('.saveedit').addClass('hidden');
+        //     listelem.find('.canceledit').addClass('hidden');
+        //     listelem.find('.reallydelete').addClass('hidden');
 
 
-            listelem.find('#muFirstname').removeClass('edituserfield');
-            listelem.find('#muLastname').removeClass('edituserfield');
-            listelem.find('#muUsername').removeClass('edituserfield');
-            listelem.find('#muEmail').removeClass('edituserfield');
+        //     listelem.find('#muFirstname').removeClass('edituserfield');
+        //     listelem.find('#muLastname').removeClass('edituserfield');
+        //     listelem.find('#muUsername').removeClass('edituserfield');
+        //     listelem.find('#muEmail').removeClass('edituserfield');
 
-            $('#createUserErrorMessage').text('');   
-        });        
+        // });        
 
-
-        $('.deleteuser').on('click', function(e) {
-            var listelem = $(e.target).closest('li');
-            listelem.find('.edituser').addClass('hidden');
-            listelem.find('.deleteuser').addClass('hidden');
-            listelem.find('.reallydelete').removeClass('hidden');
-            listelem.find('.canceledit').removeClass('hidden');
-            $('#createUserErrorMessage').text('');   
-        });        
-
-        $('.reallydelete').on('click', function(e) {
-            var listelem = $(e.target).closest('li');
-            var userid = listelem.attr("id");
-            var requestData = { 
-                id: listelem.attr("id"), 
-                _csrf: csrfToken, 
-            };
-
-            $.ajax({
-                type: 'post',
-                url: _appJsConfig.baseHttpPath + '/user/delete-managed-user',
-                dataType: 'json',
-                data: requestData,
-                success: function (data, textStatus, jqXHR) {
-                    console.log(data);
-                    if (data.success == 1) {
-                        console.log('success');
-                        location.reload(false);             
-                    } else {
-                        var text = '';
-                        for (var key in data.error) {
-                            text = text + data.error[key] + " ";
-                        } 
-                        $('#createUserErrorMessage').text(text);
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus);
-                    console.log(jqXHR.responseText);
-                     $('#createUserErrorMessage').text(textStatus);
-                },
-            });        
-
-
-        });        
+        
 
         $('#cancelAccount').on('click', function(e) {
             var listelem = $(e.target).closest('li');
@@ -203,61 +254,7 @@ UserProfielController.Load = (function ($) {
         });        
 
 
-        $('.saveedit').on('click', function(e) {
-            console.log('clicks')
-            var listelem = $(e.target).closest('li');
-            var userid = listelem.attr("id");
-            var firstname = listelem.find('#muFirstname').text();
-            var lastname = listelem.find('#muLastname').text();
-            var username = listelem.find('#muUsername').text();
-            var email = listelem.find('#muEmail').text();
 
-            var requestData = { 
-                id: listelem.attr("id"), 
-                firstname: listelem.find('#muFirstname').text(), 
-                lastname: listelem.find('#muLastname').text(), 
-                username: listelem.find('#muUsername').text(), 
-                _csrf: csrfToken, 
-                useremail: listelem.find('#muEmail').text()
-            };
-
-            $.ajax({
-                type: 'post',
-                url: _appJsConfig.baseHttpPath + '/user/edit-managed-profile',
-                dataType: 'json',
-                data: requestData,
-                success: function (data, textStatus, jqXHR) {
-                    console.log(data);
-                    if (data.success == 1) {
-                        console.log('success');
-                        $('#createUserErrorMessage').text('');   
-                        listelem.find('.edituser').removeClass('hidden');
-                        listelem.find('.deleteuser').removeClass('hidden');
-                        listelem.find('.saveedit').addClass('hidden');
-                        listelem.find('.canceledit').addClass('hidden');
-
-                        listelem.find('#muFirstname').removeClass('edituserfield');
-                        listelem.find('#muLastname').removeClass('edituserfield');
-                        listelem.find('#muUsername').removeClass('edituserfield');
-                        listelem.find('#muEmail').removeClass('edituserfield');
-
-                        $('#createUserErrorMessage').text('User updated successfully.'); 
-                    } else {
-                        var text = '';
-                        for (var key in data.error) {
-                            text = text + data.error[key] + " ";
-                        } 
-                        $('#createUserErrorMessage').text(text);
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus);
-                    console.log(jqXHR.responseText);
-                     $('#createUserErrorMessage').text(textStatus);
-                },
-            });        
-
-        });
 
 
         $('.j-setplan').on('click', function(e) {
@@ -343,6 +340,7 @@ UserProfielController.Load = (function ($) {
     return {
         init: function () {
             attachEvents();
+            userEvents();
         }
     };
 

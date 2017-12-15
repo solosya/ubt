@@ -1,7 +1,5 @@
 // Create a Stripe client
 if ($('#stripekey').length > 0) {
-    console.log("Stripe API key is missing");
-// }
 
 
     var stripekey = $('#stripekey').html();

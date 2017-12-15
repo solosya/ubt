@@ -40,17 +40,42 @@ Handlebars.registerHelper('formatSalary', function(salary, salaryType, salaryTo,
 });
 
 
-window.templates.managed_user = 
-'<div class="userdetails"> \
+window.templates.create_user = 
+'<div class=""> \
     <div class="u-float-left"> \
-        <input type="text" id="newuserfirstname" class="displayname" value="" placeholder="{{firstname}}"> \
-        <input type="text" id="newuserlastname" class="displayname" value="" placeholder="{{lastname}}"><br /> \
-        <input type="text" id="newuserusername" class="username" value="" placeholder="{{username}}"> \
+        <input type="text" id="newuserfirstname" class="j-firstname displayname" value="" placeholder="{{firstname}}"> \
+        <input type="text" id="newuserlastname" class="j-lastname displayname" value="" placeholder="{{lastname}}"><br /> \
+        <input type="text" id="newuserusername" class="j-username userdetails__username--input" value="" placeholder="{{username}}"> \
     </div> \
-    <input type="text" id="newuseruseremail" class="uesremail" value="" placeholder="{{useremail}}"> \
+    <input type="text" id="newuseruseremail" class="j-email userdetails__email--input" value="" placeholder="{{useremail}}"> \
     <a id="createUser"       class="userdetails__edit">Create</a> \
     <a id="cancelUserCreate" class="userdetails__delete">Cancel</a> \
 </div>';
+
+
+window.templates.edit_user = 
+'<div class=""> \
+    <div class="u-float-left"> \
+        <input type="text" class="j-firstname displayname" value="{{firstname}}" placeholder="First name"> \
+        <input type="text" class="j-lastname displayname" value="{{lastname}}" placeholder="Last name"><br /> \
+        <input type="text" class="j-username userdetails__username--input" value="{{username}}" placeholder="Username"> \
+    </div> \
+    <input type="text" id="newuseruseremail" class="j-email userdetails__email--input" value="{{useremail}}" placeholder="email"> \
+    <a id="editUser"         class="userdetails__edit">Save</a> \
+    <a id="cancelUserCreate" class="userdetails__delete">Cancel</a> \
+</div>';
+
+window.templates.managed_user = 
+'<div class="u-float-left"> \
+    <p class="userdetails__name"> \
+        <span class="j-firstname">{{firstname}}</span> \
+        <span class="j-lastname">{{lastname}}</span> \
+    </p> \
+    <p class="userdetails__username">{{username}}</p> \
+</div>\
+<a class="j-delete userdetails__delete u-float-right"></a> \
+<a class="j-edit userdetails__edit u-float-right">edit</a> \
+<p class="userdetails__email u-float-right">{{email}}</p>';
 
 
 window.templates.carousel_item = 
@@ -118,8 +143,8 @@ window.templates.userPlanMessage =
 
 window.templates.userPlanOkCancel = 
 '<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
-     <button id="okaybutton" class="_btn okay">OK</button> \
-     <button id="cancelbutton" class="_btn close">Cancel</button> \
+     <button id="okaybutton" class="_btn okay" data-role="okay">OK</button> \
+     <button id="cancelbutton" class="_btn close" data-role="cancel">Cancel</button> \
 </form>';
 
 

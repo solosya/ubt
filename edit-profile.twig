@@ -243,11 +243,11 @@
                                                 <span class="j-firstname">{{user.firstname}}</span> 
                                                 <span class="j-lastname">{{user.lastname}}</span>
                                             </p> 
-                                            <p id='muUsername' class="userdetails__username">{{user.username}}</p>
+                                            <p id='muUsername' class="j-username userdetails__username">{{user.username}}</p>
                                         </div>
-                                        <a class="userdetails__delete u-float-right"></a>
-                                        <a class="userdetails__edit u-float-right">edit</a>
-                                        <p id='muEmail' class="userdetails__email u-float-right">{{user.email}}</p>
+                                        <a class="j-delete userdetails__delete u-float-right"></a>
+                                        <a class="j-edit userdetails__edit u-float-right">edit</a>
+                                        <p id='muEmail' class="j-email userdetails__email u-float-right">{{user.email}}</p>
                                     </li>
                                     {% endfor %}
                                 {% endif %}

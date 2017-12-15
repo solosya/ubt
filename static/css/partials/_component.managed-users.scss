@@ -7,6 +7,9 @@
 .userdetails{
     list-style:none;
     overflow:hidden;
+    border-bottom: 1px solid color(border);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
 }
 .userdetails__name{
     color: #ae232c;
@@ -34,6 +37,9 @@
     background: url('../icons/delete-cross.svg');
     background-repeat: no-repeat;
     background-size:contain;
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 
