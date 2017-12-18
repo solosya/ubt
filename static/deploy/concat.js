@@ -36292,6 +36292,7 @@ if ($('#stripekey').length > 0) {
         var udform = document.getElementById('update-form');
 
         if (udform != null) {
+            console.log('updat-form init')
             udform.addEventListener('submit', function(event) {
                 event.preventDefault();
                  $('#card-errors').text('');
