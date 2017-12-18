@@ -139,7 +139,7 @@
 							<h3>{{plan.name}}</h3>
 
 							<p>{{plan.user_count}} users</p>
-							<p>${{plan.plan_value/100}}/{{plan.period}}</p>
+							<p>${{plan.plan_value/100|number_format(2, '.', ',')}}({{plan.currency|raw}})/{{plan.period}}</p>
 							<img src="{{networkData.templatePath}}/static/images/market-screens.png">
 							<p class="featuresheader">What's included in your subscription:</p>
 							<p class="featuresheader">{{plan.description}}</p>

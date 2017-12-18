@@ -219,6 +219,9 @@ UserProfielController.Load = (function ($) {
 
         $('.j-setplan').on('click', function(e) {
             var listelem = $(e.target);
+            if (!listelem.hasClass('j-setplan')) {
+                listelem = $(e.target.parentNode);
+            }
             var planusers = listelem.find('#planusercount').val();
             var usercount = listelem.find('#currentusers').val();
 

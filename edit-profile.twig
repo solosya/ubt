@@ -146,7 +146,7 @@
                                     {% endif %} 
 
                                     <div class="inline-inputs">
-                                        <label for="remaining">Payemnt Method</label>
+                                        <label for="remaining">Payment Method</label>
                                         <input type="text" id="remaining" class="form-control" value="{{ pwstats['card_brand']}} / •••• •••• •••• {{ pwstats['card_last_4']}}" disabled="disabled">
                                     </div>                            
 
@@ -191,7 +191,7 @@
                                 <div class="j-setplan plans__item">
                                     <h3 class="plans__name">{{plan.name}}</h3>
                                     <p class="plans__usercount">{{plan.user_count}} Users</p>
-                                    <p class="plans__price">${{plan.plan_value/100}}<br />
+                                    <p class="plans__price">${{plan.plan_value/100|number_format(2, '.', ',')}}({{plan.currency|raw}})<br />
                                                             per {{plan.period}}</p>
 
                                     <input type="hidden" id="planid"        value="{{plan.guid}}">

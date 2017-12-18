@@ -36521,7 +36521,6 @@ UserProfielController.Load = (function ($) {
                     dataType: 'json',
                     data: requestData,
                     success: function (data, textStatus, jqXHR) {
-                        console.log(data);
                         if (data.success == 1) {
                             console.log('success');
                             renderUser(listelem, requestData);
@@ -36557,10 +36556,8 @@ UserProfielController.Load = (function ($) {
 
 
     var attachEvents = function () {
-          console.log('events!');
 
         $('#addManagedUser').on('click', function(e) {
-            console.log('add user');
             e.preventDefault()
             var userTemp = Handlebars.compile(window.templates.create_user);
             var data = {
@@ -36593,7 +36590,6 @@ UserProfielController.Load = (function ($) {
                     dataType: 'json',
                     data: requestData,
                     success: function (data, textStatus, jqXHR) {
-                        console.log(data);
                         $('#user-editor-buttons').removeClass('spinner');
 
                         if (data.success == 1) {
@@ -36607,8 +36603,8 @@ UserProfielController.Load = (function ($) {
                         }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
-                        console.log(textStatus);
-                        console.log(jqXHR.responseText);
+                        // console.log(textStatus);
+                        // console.log(jqXHR.responseText);
                         $('#user-editor-buttons').removeClass('spinner');
                         $('#createUserErrorMessage').text(textStatus);
                     },
@@ -36658,6 +36654,9 @@ UserProfielController.Load = (function ($) {
 
         $('.j-setplan').on('click', function(e) {
             var listelem = $(e.target);
+            if (!listelem.hasClass('j-setplan')) {
+                listelem = $(e.target.parentNode);
+            }
             var planusers = listelem.find('#planusercount').val();
             var usercount = listelem.find('#currentusers').val();
 
@@ -36666,7 +36665,6 @@ UserProfielController.Load = (function ($) {
                 _csrf: listelem.find('#_csrf').text(), 
             };
 
-            console.log(requestData);
 
             if (usercount <= planusers) {
                 // var newcost = listelem.find('#plancost').val();
@@ -36716,29 +36714,20 @@ UserProfielController.Load = (function ($) {
             } else {
                 Acme.SigninView.render("userPlan", "You have too many users to change to that plan.");
             }
-            // $('#cancelbutton').on('click', function(e) {
-            //     $('#dialog').parent().remove();
-            //     console.log('moo');
-            // });
         });
 
     };
 
 
     var listingEvents = function() {
-        console.log('running listing events');
         $('.j-deleteListing').unbind().on('click', function(e) {
             var listing = $(e.target).closest('a.card');
             var id      = listing.data("guid");
-            console.log(id);
-
             Acme.SigninView.render("userPlanChange", "Are you sure you want to delete this listing?")
                 .done(function() {
-                    console.log('DELETING!!!');
                     Acme.server.create('/api/article/delete-user-article', {"articleguid": id}).done(function(r) {
                         listing.remove();
                     }).fail(function(r) {
-                        // Acme.PubSub.publish('update_state', {'confirm': r});
                         console.log(r);
                     });
                 });
