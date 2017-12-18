@@ -139,67 +139,68 @@ if ($('#stripekey').length > 0) {
                     // Send the token to your server
                     console.log(result);
                     subscribe.data['stripetoken'] = result.token.id;
+                    subscribe.data['planid'] = $('#planid').val();
                     formhandler(subscribe.data, '/auth/paywall-signup');
                 }
             });
         });
+    }
 
 
 
-        var formhandler = function(formdata, path) {
-            var csrfToken = $('meta[name="csrf-token"]').attr("content");
-            formdata['planid'] = $('#planid').val();
-            console.log(formdata);
-            $.ajax({
-                url: _appJsConfig.appHostName + path,
-                type: 'post',
-                data: formdata,
-                dataType: 'json',
-                success: function(data) {
+    var formhandler = function(formdata, path) {
+        var csrfToken = $('meta[name="csrf-token"]').attr("content");
+        console.log(formdata);
+        $.ajax({
+            url: _appJsConfig.appHostName + path,
+            type: 'post',
+            data: formdata,
+            dataType: 'json',
+            success: function(data) {
 
-                    if(data.success) {
-                        $('#card-errors').text('Completed successfully.');
-                    } else {
-                        modal.closeWindow();
-                        console.log(data)
-                        console.log(data.error)
-                        var text = ''
-                        for (var key in data.error) {
-                            text = text + data.error[key] + " ";
-                        } 
-                        $('#card-errors').text(text);
-                    }   
-                },
-                error: function(data) {
+                if(data.success) {
+                    $('#card-errors').text('Completed successfully.');
+                } else {
                     modal.closeWindow();
-                    console.log('fail'); 
-                    console.log(data);   
+                    console.log(data)
+                    console.log(data.error)
+                    var text = ''
+                    for (var key in data.error) {
+                        text = text + data.error[key] + " ";
+                    } 
+                    $('#card-errors').text(text);
+                }   
+            },
+            error: function(data) {
+                modal.closeWindow();
+                console.log('fail'); 
+                console.log(data);   
+            }
+        });
+
+    }
+
+
+
+    var udform = document.getElementById('update-card-form');
+
+    if (udform != null) {
+        console.log('updateform listen');
+        udform.addEventListener('submit', function(event) {
+            event.preventDefault();
+             $('#card-errors').text('');
+            stripe.createToken(card).then(function(result) {
+                if (result.error) {
+                    // Inform the user if there was an error
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                } else {
+                    // Send the token to your server
+                    console.log(result);
+                    formdata = {"stripetoken":result.token.id}
+                    formhandler(formdata, '/user/update-payment-details');
                 }
             });
-
-        }
-
-
-
-        var udform = document.getElementById('update-form');
-
-        if (udform != null) {
-            console.log('updat-form init')
-            udform.addEventListener('submit', function(event) {
-                event.preventDefault();
-                 $('#card-errors').text('');
-                stripe.createToken(card).then(function(result) {
-                    if (result.error) {
-                        // Inform the user if there was an error
-                        var errorElement = document.getElementById('card-errors');
-                        errorElement.textContent = result.error.message;
-                    } else {
-                        // Send the token to your server
-                        console.log(result);
-                        formhandler(result.token, [], '/user/update-payment-details');
-                    }
-                });
-            });
-        }
+        });
     }
 } 
