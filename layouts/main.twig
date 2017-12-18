@@ -29,6 +29,12 @@
     <!-- {{_AppHelper.getEditProfileUrl() | raw}} -->
     <!-- {{blogData['showPaywall'] | raw}} -->
 
+ {% if blogData['showPaywall'] == true %}
+    <!-- {{showPaywall | raw}} -->
+ {% endif %}
+
+
+
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <title>{{ this.title }}</title>
     {{ Html.csrfMetaTags | raw }}
