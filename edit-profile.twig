@@ -21,7 +21,10 @@
 {% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
 <!-- 3 is job, 4 is property, 5 is event -->
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
-
+<!--{{jobsBlogId|raw}}-->
+<!--{{propertylistingsid|raw}}-->
+<!--{{jobListingsArr|raw}}-->
+<!--{{propListingsArr|raw}}-->
 <main id="main" class="user_profile listingForm" role="main">
     <div id="stripekey" class="hidden" >{{_Network.getNetworkData()['stripe_publishable_key']}}</div>
     <div class="container">

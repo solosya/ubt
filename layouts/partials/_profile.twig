@@ -24,10 +24,10 @@
           </div>
           <ul class="profile__menu-navigation">
               {% if _User.isAdminUser() %}
-                  <li><a class="profile__menu-navigation-link" href="http://{{network.defaultDomain['domain']}}/admin" target="_blank">Admin</a></li>
+                  <li><a class="profile__menu-navigation-link" href="https://{{network.defaultDomain['domain']}}/admin" target="_blank">Admin</a></li>
               {% endif %}
               <li><a class="profile__menu-navigation-link" href="{{blogUrl}}/profile/{{user.username}}">View Profile</a></li>
-              <li><a class="profile__menu-navigation-link" href="http://{{network.defaultDomain['domain']}}/user/edit-profile">Settings</a></li>
+              <li><a class="profile__menu-navigation-link" href="https://{{network.defaultDomain['domain']}}/user/edit-profile">Settings</a></li>
               <li><a class="profile__menu-navigation-link" href="{{_AppHelper.getLogoffUrl()}}">Sign Out</a></li>
           </ul>
         </div>
