@@ -218,6 +218,7 @@ UserProfielController.Load = (function ($) {
 
 
         $('.j-setplan').on('click', function(e) {
+            console.log(e.target);
             var listelem = $(e.target);
             if (!listelem.hasClass('j-setplan')) {
                 listelem = $(e.target.parentNode);
@@ -230,29 +231,37 @@ UserProfielController.Load = (function ($) {
                 planid: listelem.find('#planid').val(), 
                 _csrf: listelem.find('#_csrf').text(), 
             };
-
+            console.log(usercount);
+            console.log(planusers);
 
             if (usercount <= planusers) {
-                // var newcost = listelem.find('#plancost').val();
-                // var oldcost = listelem.find('#currentcost').val();
-                // var newdays = listelem.find('#planperiod').val();
-                // var olddays = listelem.find('#currentperiod').val();
-                // if (newdays = 'week') {newdays = 7;}
-                // if (newdays = 'month') {newdays = 30;}
-                // if (newdays = 'year') {newdays = 365;}
-                // if (olddays = 'week') {olddays = 7;}
-                // if (olddays = 'month') {olddays = 30;}
-                // if (olddays = 'year') {olddays = 365;}
-                // var newplandailycost = newcost/newdays;
-                // var plandailycost = oldcost/olddays;
-                // var expDate = listelem.find('#expdate').val();
-                // console.log(newplandailycost);
-                // console.log(oldcost);
-                // console.log(olddays);
-                // console.log(expDate);
-                // console.log(plandailycost);
+                var newcost = listelem.find('#plancost').val();
+                var oldcost = listelem.find('#currentcost').val();
+                var newdays = listelem.find('#planperiod').val();
+                var olddays = listelem.find('#currentperiod').val();
+                if (newdays = 'week') {newdays = 7;}
+                if (newdays = 'month') {newdays = 30;}
+                if (newdays = 'year') {newdays = 365;}
+                if (olddays = 'week') {olddays = 7;}
+                if (olddays = 'month') {olddays = 30;}
+                if (olddays = 'year') {olddays = 365;}
+                var newplandailycost = newcost/newdays;
+                var plandailycost = oldcost/olddays;
+                var expDate = listelem.find('#expires').val();
+                console.log(newplandailycost);
+                console.log(oldcost);
+                console.log(olddays);
+                console.log(expDate);
+                console.log(plandailycost);
 
+                var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+                var firstDate = new Date();
+                var secondDate = new Date(expDate.split('-')[0],expDate.split('-')[0]-1,expDate.split('-')[2]);
+
+                var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
                 // var remainingplandays = 10;
+                console.log(diffDays);
+                console.log((newplandailycost-plandailycost) * diffdays);
                 Acme.SigninView.render("userPlanChange", "Are you sure you want to change plan?")
                     .done(function() {
                         $('#dialog').parent().remove();
