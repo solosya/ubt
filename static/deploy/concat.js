@@ -36676,6 +36676,8 @@ UserProfielController.Load = (function ($) {
                 var oldcost = listelem.find('#currentcost').val();
                 var newdays = listelem.find('#planperiod').val();
                 var olddays = listelem.find('#currentperiod').val();
+                console.log(newdays);
+                console.log(olddays);
                 if (newdays = 'week') {newdays = 7;}
                 if (newdays = 'month') {newdays = 30;}
                 if (newdays = 'year') {newdays = 365;}
@@ -36700,7 +36702,9 @@ UserProfielController.Load = (function ($) {
                 var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
                 // var remainingplandays = 10;
                 console.log(diffDays);
-                console.log((newplandailycost-plandailycost) * diffdays);
+                console.log((newplandailycost-plandailycost) * diffDays);
+                console.log(firstDate.getFullYear() +'-'+firstDate.getMonth()+1 + '-' + firstDate.getDate()  )
+                console.log(secondDate.getFullYear() +'-'+secondDate.getMonth()+1 + '-' + secondDate.getDate()  )
                 Acme.SigninView.render("userPlanChange", "Are you sure you want to change plan?")
                     .done(function() {
                         $('#dialog').parent().remove();
