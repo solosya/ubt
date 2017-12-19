@@ -260,7 +260,7 @@ UserProfielController.Load = (function ($) {
 
                 var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
                 var firstDate = new Date();
-                var secondDate = new Date(expDate.split('-')[0],expDate.split('-')[0]-1,expDate.split('-')[2]);
+                var secondDate = new Date(expDate.split('-')[0],expDate.split('-')[1]-1,expDate.split('-')[2]);
 
                 var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
                 // var remainingplandays = 10;
@@ -268,7 +268,11 @@ UserProfielController.Load = (function ($) {
                 console.log((newplandailycost-plandailycost) * diffDays);
                 console.log(firstDate.getFullYear() +'-'+firstDate.getMonth()+1 + '-' + firstDate.getDate()  )
                 console.log(secondDate.getFullYear() +'-'+secondDate.getMonth()+1 + '-' + secondDate.getDate()  )
-                Acme.SigninView.render("userPlanChange", "Are you sure you want to change plan?")
+                var msg = "";
+                if ((newplandailycost-plandailycost) * diffDays > 0) {
+                    msg = " This will cos $" + round((newplandailycost-plandailycost) * diffDays * 10)/10 + "." 
+                }
+                Acme.SigninView.render("userPlanChange", "Are you sure you want to change plan?" + msg)
                     .done(function() {
                         $('#dialog').parent().remove();
                         
