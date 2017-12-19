@@ -36707,7 +36707,8 @@ UserProfielController.Load = (function ($) {
                 console.log(secondDate.getFullYear() +'-'+secondDate.getMonth()+1 + '-' + secondDate.getDate()  )
                 var msg = "";
                 if ((newplandailycost-plandailycost) * diffDays > 0) {
-                    msg = " This will cos $" + Math.round((newplandailycost-plandailycost) * diffDays)/100 + "." 
+                    msg = " This will cos $" + Math.round((newplandailycost-plandailycost) * diffDays)/100 + ".";
+                    msg = msg.replace(/(.+\.\d)\.$/g, "$1") + "0.";
                 }
                 Acme.SigninView.render("userPlanChange", "Are you sure you want to change plan?" + msg)
                     .done(function() {
