@@ -247,12 +247,14 @@ UserProfielController.Load = (function ($) {
                 if (olddays = 'year') {olddays = 365;}
                 var newplandailycost = newcost/newdays;
                 var plandailycost = oldcost/olddays;
-                var expDate = listelem.find('#expires').val();
-                console.log(newplandailycost);
+                var expDate = listelem.find('#expdate').val();
+                console.log(newcost);
+                console.log(newdays);
                 console.log(oldcost);
                 console.log(olddays);
                 console.log(expDate);
                 console.log(plandailycost);
+                console.log(newplandailycost);
 
                 var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
                 var firstDate = new Date();
