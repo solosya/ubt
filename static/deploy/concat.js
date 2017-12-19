@@ -36671,19 +36671,19 @@ UserProfielController.Load = (function ($) {
             console.log(usercount);
             console.log(planusers);
 
-            if (usercount <= planusers) {
+            if (Number(usercount) <= Number(planusers)) {
                 var newcost = listelem.find('#plancost').val();
                 var oldcost = listelem.find('#currentcost').val();
                 var newdays = listelem.find('#planperiod').val();
                 var olddays = listelem.find('#currentperiod').val();
                 console.log(newdays);
                 console.log(olddays);
-                if (newdays = 'week') {newdays = 7;}
-                if (newdays = 'month') {newdays = 30;}
-                if (newdays = 'year') {newdays = 365;}
-                if (olddays = 'week') {olddays = 7;}
-                if (olddays = 'month') {olddays = 30;}
-                if (olddays = 'year') {olddays = 365;}
+                if (newdays == 'week') {newdays = 7;}
+                if (newdays == 'month') {newdays = 30;}
+                if (newdays == 'year') {newdays = 365;}
+                if (olddays == 'week') {olddays = 7;}
+                if (olddays == 'month') {olddays = 30;}
+                if (olddays == 'year') {olddays = 365;}
                 var newplandailycost = newcost/newdays;
                 var plandailycost = oldcost/olddays;
                 var expDate = listelem.find('#expdate').val();
