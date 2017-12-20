@@ -34447,6 +34447,28 @@ BlogConrtoller.Blog = (function ($) {
     };
 
 }(jQuery));
+Acme.infiniteScroll = function(limit, count, feedModel) {
+    this.count = count || 0;
+    this.limit = limit || 0;
+    this.feedModel = feedModel;
+    this.events();
+};
+
+    Acme.infiniteScroll.prototype.events = function() 
+    {
+        var self = this;
+        if (this.count >= this.limit) {
+            var waypoint = new Waypoint({
+                element: $('.loadMoreArticles'),
+                offset: '80%',
+                handler: function (direction) {
+                    if (direction == 'down') {
+                        self.feedModel.fetch($(this.element), waypoint);
+                    }
+                }
+            });
+        }
+    };
 Acme.Controller.JobFormPage = function (blogid) {
 	window.Acme.cards = CardController();
 	Acme.jobForm = new Acme.JobForm([blogid], 'Single Job Listing');
