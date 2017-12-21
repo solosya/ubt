@@ -49,6 +49,7 @@ $('document').ready(function() {
     };
 
 var adScroll = function() {
+    console.log(scrollMetric[0]);
         if ( scrollMetric[1] === 'up' && !isScrolledPast(1610)) {
             articleAd.removeClass('fixad').addClass('lockad');
             // console.log(scrollMetric[0]);
@@ -57,11 +58,11 @@ var adScroll = function() {
             articleAd.removeClass('lockad').addClass('fixad');
             // console.log(scrollMetric[1]);
         }
-        if ( scrollMetric[1] === 'up' && !isScrolledPast(500)) {
+        if ( scrollMetric[1] === 'up' && !isScrolledPast(400)) {
             articleTopAd.removeClass('fixad').addClass('lockad');
             // console.log(scrollMetric[0]);
         }
-        else if ( scrollMetric[1] === 'down' && isScrolledPast(500)) {
+        else if ( scrollMetric[1] === 'down' && isScrolledPast(400)) {
             articleTopAd.removeClass('lockad').addClass('fixad');
             // console.log(scrollMetric[1]);
         }
