@@ -15,8 +15,11 @@
     ads:                optional - Will insert an ad into the rendered result
 #}
 
-<div id="{{container}}" 
-    class="clearfix"
+<div id="{{container}}" class="clearfix"></div>
+
+<a  href="#"
+    id="{{name}}"
+    class="loadMoreArticles {{buttonClass}}"
     data-ads="{{ads}}"
     data-limit="{{limit}}"
     data-offset="{{offset}}"
@@ -29,11 +32,6 @@
     data-button-label="{{label}}"
     data-card-template="{{cardTemplate}}"
     data-image-suppress="{{imageSupress}}"
-    data-non-pinned-offset="{{non_pinned}}"></div>
-
-<a  href="#"
-    id="{{name}}"
-    class="loadMoreArticles {{buttonClass}}"
-    >{{label}}
+    data-non-pinned-offset="{{non_pinned}}">{{label}}
 </a>
 

@@ -34466,6 +34466,7 @@ Acme.infiniteScroll = function(limit, count, feedModel) {
                 handler: function (direction) {
                     if (direction == 'down') {
                         self.feedModel.fetch($(this.element), waypoint);
+                        this.element = $('.loadMoreArticles');
                     }
                 }
             });
