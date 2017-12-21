@@ -35793,7 +35793,6 @@ $('document').ready(function() {
     };
 
 var adScroll = function() {
-    console.log(scrollMetric[0]);
         if ( scrollMetric[1] === 'up' && !isScrolledPast(1610)) {
             articleAd.removeClass('fixad').addClass('lockad');
             // console.log(scrollMetric[0]);
@@ -35802,11 +35801,11 @@ var adScroll = function() {
             articleAd.removeClass('lockad').addClass('fixad');
             // console.log(scrollMetric[1]);
         }
-        if ( scrollMetric[1] === 'up' && !isScrolledPast(390)) {
+        if ( scrollMetric[1] === 'up' && !isScrolledPast(375)) {
             articleTopAd.removeClass('fixad').addClass('lockad');
             // console.log(scrollMetric[0]);
         }
-        else if ( scrollMetric[1] === 'down' && isScrolledPast(390)) {
+        else if ( scrollMetric[1] === 'down' && isScrolledPast(375)) {
             articleTopAd.removeClass('lockad').addClass('fixad');
             // console.log(scrollMetric[1]);
         }
