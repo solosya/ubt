@@ -15,6 +15,8 @@ body.layout-jobs, body.layout-property, body.layout-events {
             float: right;
             color:color(red);
             font-style:italic;
+            width: 176px;
+            height: 44px;
             
             &:hover {
                 text-decoration:none;
@@ -27,7 +29,7 @@ body.layout-jobs, body.layout-property, body.layout-events {
                 top: 7px;
                 height:24px;
                 width:24px;
-                background: url('../images/arrow-in-circle-icon.svg');
+                background: url('../images/submit.svg');
                 color:color(red);
             }
         }
