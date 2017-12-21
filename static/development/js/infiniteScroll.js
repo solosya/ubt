@@ -8,6 +8,7 @@ Acme.infiniteScroll = function(limit, count, feedModel) {
 
     Acme.infiniteScroll.prototype.events = function() 
     {
+        console.log('moo');
         var self = this;
         if (this.count >= this.limit) {
             var waypoint = new Waypoint({
