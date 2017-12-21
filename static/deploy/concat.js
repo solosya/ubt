@@ -35801,11 +35801,11 @@ var adScroll = function() {
             articleAd.removeClass('lockad').addClass('fixad');
             // console.log(scrollMetric[1]);
         }
-        if ( scrollMetric[1] === 'up' && !isScrolledPast(375)) {
+        if ( scrollMetric[1] === 'up' && !isScrolledPast(370)) {
             articleTopAd.removeClass('fixad').addClass('lockad');
             // console.log(scrollMetric[0]);
         }
-        else if ( scrollMetric[1] === 'down' && isScrolledPast(375)) {
+        else if ( scrollMetric[1] === 'down' && isScrolledPast(370)) {
             articleTopAd.removeClass('lockad').addClass('fixad');
             // console.log(scrollMetric[1]);
         }
