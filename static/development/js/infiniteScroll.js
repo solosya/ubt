@@ -16,7 +16,7 @@ Acme.infiniteScroll = function(limit, count, feedModel) {
                 handler: function (direction) {
                     if (direction == 'down') {
                         self.feedModel.fetch($(this.element), waypoint);
-                        setTimeout(function(){Waypoint.refreshAll();},2000);
+                        setTimeout(function(){Waypoint.refreshAll();},1000);
                     }
                 }
             });
