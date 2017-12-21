@@ -47,8 +47,6 @@
   }
 
   function loadNextAd(blogAd,adDivId,adClass,sizes,mapping) {
-    console.log(sizes);
-    console.log(mapping);
     var adSlot = document.getElementById(adDivId);
     var slotName = generateNextAdName();
     var slotDiv = document.createElement('div');
@@ -60,7 +58,6 @@
     
     googletag.cmd.push(function() {
       var slot = googletag.defineSlot('/{{dfpAcct}}/'+blogAd, sizes, slotName).setTargeting().defineSizeMapping(mapping).addService(googletag.pubads());
-      console.log(slot);
       googletag.display(slotName);
       googletag.pubads().refresh([slot]);
     });
