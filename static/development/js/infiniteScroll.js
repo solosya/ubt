@@ -5,6 +5,7 @@ Acme.infiniteScroll = function(limit, count, feedModel) {
     this.events();
 };
 
+
     Acme.infiniteScroll.prototype.events = function() 
     {
         var self = this;
