@@ -34457,7 +34457,6 @@ Acme.infiniteScroll = function(limit, count, feedModel) {
 
     Acme.infiniteScroll.prototype.events = function() 
     {
-        console.log('moo');
         var self = this;
         if (this.count >= this.limit) {
             var waypoint = new Waypoint({
@@ -34467,6 +34466,8 @@ Acme.infiniteScroll = function(limit, count, feedModel) {
                     if (direction == 'down') {
                         self.feedModel.fetch($(this.element), waypoint);
                         this.element = $('.loadMoreArticles');
+                        console.log('meep');
+                        console.log(this.element);
                     }
                 }
             });
