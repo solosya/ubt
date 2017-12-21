@@ -35752,6 +35752,7 @@ $('document').ready(function() {
     var menuContainer = $("#mainHeader");
     var masthead = $('#masthead');
     var articleAd = $('#articleAdScroll');
+    var articleTopAd = $('#articleTopAdScroll');
 
     $('.video-player').videoPlayer();
     
@@ -35798,6 +35799,14 @@ var adScroll = function() {
         }
         else if ( scrollMetric[1] === 'down' && isScrolledPast(1610)) {
             articleAd.removeClass('lockad').addClass('fixad');
+            // console.log(scrollMetric[1]);
+        }
+        if ( scrollMetric[1] === 'up' && !isScrolledPast(500)) {
+            articleTopAd.removeClass('fixad').addClass('lockad');
+            // console.log(scrollMetric[0]);
+        }
+        else if ( scrollMetric[1] === 'down' && isScrolledPast(500)) {
+            articleTopAd.removeClass('lockad').addClass('fixad');
             // console.log(scrollMetric[1]);
         }
         
