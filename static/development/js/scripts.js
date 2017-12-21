@@ -58,11 +58,11 @@ var adScroll = function() {
             articleAd.removeClass('lockad').addClass('fixad');
             // console.log(scrollMetric[1]);
         }
-        if ( scrollMetric[1] === 'up' && !isScrolledPast(400)) {
+        if ( scrollMetric[1] === 'up' && !isScrolledPast(390)) {
             articleTopAd.removeClass('fixad').addClass('lockad');
             // console.log(scrollMetric[0]);
         }
-        else if ( scrollMetric[1] === 'down' && isScrolledPast(400)) {
+        else if ( scrollMetric[1] === 'down' && isScrolledPast(390)) {
             articleTopAd.removeClass('lockad').addClass('fixad');
             // console.log(scrollMetric[1]);
         }
