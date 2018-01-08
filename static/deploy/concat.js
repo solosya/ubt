@@ -36066,6 +36066,8 @@ Acme.Signin.prototype.handle = function(e) {
                 $elem.addClass('spinner');
                 function close() {
                     self.closeWindow();
+                    self.render('userPlan', "Thank you for registering.");
+
                 };
                 setTimeout(close, 2000);
 
@@ -36103,13 +36105,23 @@ Acme.Signin.prototype.handle = function(e) {
                 self.closeWindow();
             };
             setTimeout(close, 500);            
-        }        
+        }     
+
+
+        if ($elem.hasClass('close')) {
+            $('body').removeClass("active");
+            this.closeWindow();
+        }
+   
 
     }
     if ($elem.hasClass('layout')) {
         var layout = $elem.data('layout');
         this.renderLayout(layout);
     }
+
+
+
 };
 
 var layouts = {
