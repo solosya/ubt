@@ -179,6 +179,14 @@
 
                 > time {
                     margin-right:18px;
+                    span.day {
+
+                        font-size: rem(13);
+                    }
+                    span.month {
+                        font-size: rem(8);
+                        color: color(lightgrey);
+                    }
                 }
 
                 > .content{
