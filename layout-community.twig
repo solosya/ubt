@@ -153,6 +153,17 @@
                     <h3 class="eventlist__link">EVENTS</h3>
                 </a>
 
+                <div class="col-sm-1">
+                    <a href="{{networkData.defaultBlogUrl}}/@events"> 
+                        <h3 class="eventlist__link">EVENTS</h3>
+                    </a>
+                </div>
+                <div class="col-sm-1 eventlist__view" >
+                    <a href="{{networkData.defaultBlogUrl}}/@events">
+                        <p style="font-weight:400"><i>View All</i></p>
+                    </a>
+                </div>
+
                 {% for i in 0..6 if events[i] %}
                     {{this.render('partials/_single-event.twig', {
                         event: events[i], 
@@ -269,11 +280,17 @@
                 <div class="col-sm-offset-1 col-sm-10">
                     <div class="row">
                 
-                        <div class="col-sm-12">
+                        <div class="col-sm-8">
                             <a href="{{networkData.defaultBlogUrl}}/@property-listings"> 
                                 <h3 class="listings__link">PROPERTY</h3>
                             </a>
                         </div>
+                        <div class="col-sm-4 listings__view" >
+                            <a href="{{networkData.defaultBlogUrl}}/@property-listings">
+                                <p style="font-weight:400"><i>View All</i></p>
+                            </a>
+                        </div>
+
 
                         <div class="col-sm-1">
                             {% if sections['property listings'].feed.articles[propertyCount] %}
@@ -349,9 +366,14 @@
                 <div class="col-sm-offset-1 col-sm-10">
                     <div class="row">
                 
-                        <div class="col-sm-12">
+                        <div class="col-sm-8">
                             <a href="{{networkData.defaultBlogUrl}}/@job-listings"> 
                                 <h3 class="listings__link">EMPLOYMENT</h3>
+                            </a>
+                        </div>
+                        <div class="col-sm-4 listings__view" >
+                            <a href="{{networkData.defaultBlogUrl}}/@job-listings">
+                                <p style="font-weight:400"><i>View All</i></p>
                             </a>
                         </div>
 
