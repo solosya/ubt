@@ -159,8 +159,8 @@
                         <p class="eventlist__view" style="height:28px;">View All</p>
                     </a>
                 </div>
-                <div class="col-sm-12 eventlist">
-                    {% for i in 0..5 if events[i] %}
+                <div class="col-sm-12 eventlist" style="padding:0;">
+                    {% for i in 0..6 if events[i] %}
                         {{this.render('partials/_single-event.twig', {
                             event: events[i], 
                             imageSize: {width: 60, height: 37},
