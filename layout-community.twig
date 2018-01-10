@@ -149,18 +149,18 @@
             </div>
 
             <div class="col-sm-offset-1 col-sm-3 eventlist">
-                <div class="col-sm-8">
+                <div class="col-sm-8" style="padding:0">
                     <a href="{{networkData.defaultBlogUrl}}/@events"> 
                         <h3 class="eventlist__link">EVENTS</h3>
                     </a>
                 </div>
-                <div class="col-sm-4" >
+                <div class="col-sm-4" style="padding:0">
                     <a href="{{networkData.defaultBlogUrl}}/@events">
-                        <p class="eventlist__view">View All</p>
+                        <p class="eventlist__view" style="height:28px;">View All</p>
                     </a>
                 </div>
 
-                {% for i in 0..6 if events[i] %}
+                {% for i in 0..5 if events[i] %}
                     {{this.render('partials/_single-event.twig', {
                         event: events[i], 
                         imageSize: {width: 60, height: 37},
