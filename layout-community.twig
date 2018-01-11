@@ -305,7 +305,7 @@
                                 {{this.render('partials/_single-article.twig', {
                                     article: sections['property listings'].feed.articles[propertyCount], 
                                     imageSize: {width: 100, height: 82},
-                                    template: 'community-property',
+                                    template: 'property',
                                     containerClass: "card-community-property-listing card-rec-realestate-tablet card-rec-realestate-mobile"
                                 }) | raw}}
                                 {% set propertyCount = (dev) ? propertyCount : propertyCount + 1 %}
