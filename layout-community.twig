@@ -212,7 +212,7 @@
                                 containerClass: "card-blogger card-sm-tablet card-sm-mobile"
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                        {% endif %}
+                        {% endfor %}
                     </div>
 
 
@@ -224,7 +224,7 @@
                                 containerClass: "card-blogger card-sm-tablet card-sm-mobile"
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                        {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
             </div>
