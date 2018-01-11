@@ -198,7 +198,7 @@
                                 article: articles[articleCount], 
                                 position: (articleCount+1),
                                 imageSize: {width: 454, height: 245},
-                                containerClass: 'card-ubt card-sm-tablet card-sm-mobile'
+                                containerClass: 'card-ubt card-article-suggested-mobile'
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                         {% endif %}
@@ -209,7 +209,7 @@
                             {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
                                 imageSize: {width: 198, height: 141},
-                                containerClass: "card-blogger-full card-sm-tablet card-sm-mobile"
+                                containerClass: "card-article-suggested-full card-article-suggested-mobile"
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                         {% endfor %}
@@ -221,7 +221,7 @@
                             {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
                                 imageSize: {width: 198, height: 141},
-                                containerClass: "card-blogger-full card-sm-tablet card-sm-mobile"
+                                containerClass: "card-article-suggested-full card-article-suggested-mobile"
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                         {% endfor %}

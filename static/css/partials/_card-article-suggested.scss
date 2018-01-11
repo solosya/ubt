@@ -90,3 +90,196 @@
         }
     // }
 }
+.card-article-suggested-full{
+    @media screen and (min-width: $sm-break){
+        height:206px;
+        width: 270px;
+        position:relative;
+        margin-bottom: 32px;
+        
+
+
+        a.card {
+            @include card-image-left(75px, 63px);
+            padding-bottom: 20px;
+            border-bottom: 1px solid color(lightgrey);
+            height:100%;
+
+            > article {
+                position:relative;
+
+
+                > figure {
+                    display:none;
+                }
+
+
+                > div {
+                    > .content  {
+                        line-height:1;
+                        margin-bottom:6px;
+                    }
+
+                    > div {
+                        font-size: rem(14);
+                    }
+
+                    
+                    &:after {
+                        content: ' ';
+                        display:block;
+                        clear:both;
+                    }
+
+                }
+
+
+
+                > .content{
+                    position:relative;
+                    padding: 0;
+
+                    > h2{
+                        font-size: rem(18);
+                        line-height: 1.25;
+                        max-height:50px;
+                        margin:15px 0 5px 0;
+                    }
+                    .cat-time{
+                        .category{
+                            border-right: none;
+                            font-size: rem(11);
+                            color: #ae232c;
+                        }
+                        > time {
+                            display:none;
+                        }
+                    }
+
+                    > p.excerpt {
+                        font-size: rem(13);
+                        line-height: 1.54;
+                        height:60px;
+                    }
+                    .author {
+                        font-size:rem(14);
+                        display:block;
+                        color:color(red);
+                        font-weight: bold;
+                        &:before {
+                            content: 'By ';
+                            color:color(red);
+                            float: left;
+                            margin-right: 3px;
+                        }
+                        > img {
+                            display:none;
+                        }
+                    }
+                    .lowerTime {
+                        display: inherit;
+                        color: #97999c;
+                        font-size: rem(11);
+                        font-weight: bold;
+                    }
+                }
+            }
+
+
+            &.article.without__image {
+            }   
+        }
+    }
+}
+.card-article-suggested-mobile{
+    @media screen and (max-width: $sm-break){
+        height:122px;
+        position:relative;
+        margin-bottom: 32px;
+        
+
+
+        a.card {
+            @include card-image-left(75px, 63px);
+            padding-bottom: 20px;
+            border-bottom: 1px solid color(lightgrey);
+            height:100%;
+
+            > article {
+                position:relative;
+
+
+                > figure {
+                    margin-right:18px;
+                    position: absolute;
+                    margin-right: 18px;
+                    margin-top: 35px;
+                }
+
+
+                > div {
+                    > .content  {
+                        line-height:1;
+                        margin-bottom:6px;
+                    }
+
+                    > div {
+                        font-size: rem(14);
+                        > .category{
+                            border-right:1px solid color(lightgrey);
+                        }
+                    }
+
+                    
+                    &:after {
+                        content: ' ';
+                        display:block;
+                        clear:both;
+                    }
+
+                }
+
+
+
+                > .content{
+                    position:relative;
+                    padding: 0;
+
+                    > h2{
+                        font-size: rem(18);
+                        line-height: 1.25;
+                        max-height:50px;
+                        margin:15px 0 5px 90px;
+                    }
+
+                    > p.excerpt {
+                        display:none;
+                        font-size: rem(13);
+                        line-height: 1.54;
+                        height:40px;
+                        margin-left:90px;
+                    }
+                    .author {
+                        margin-left:90px;
+                        font-size:rem(14);
+                        display:block;
+                        color:color(red);
+                        &:before {
+                            content: 'By ';
+                            color:color(red);
+                            float: left;
+                            margin-right: 3px;
+                        }
+                        > img {
+                            display:none;
+                        }
+                    }
+                }
+            }
+
+
+            &.article.without__image {
+            }   
+        }
+    }
+}
