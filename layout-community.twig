@@ -205,34 +205,26 @@
                     </div>
 
                     <div class="col-sm-2">
+                        {% for i in 0..1 if articles[articleCount] %}
                             {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
                                 imageSize: {width: 198, height: 141},
-                                containerClass: "card-sm-full card-sm-tablet card-sm-mobile"
+                                containerClass: "card-blogger card-sm-tablet card-sm-mobile"
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                            {{this.render('partials/_single-article.twig', {
-                                article: articles[articleCount], 
-                                imageSize: {width: 198, height: 141},
-                                containerClass: "card-sm-full card-sm-tablet card-sm-mobile"
-                            }) | raw}}
-                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                        {% endif %}
                     </div>
 
 
                     <div class="col-sm-2">
+                        {% for i in 0..1 if articles[articleCount] %}
                             {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
                                 imageSize: {width: 198, height: 141},
-                                containerClass: "card-sm-full card-sm-tablet card-sm-mobile"
+                                containerClass: "card-blogger card-sm-tablet card-sm-mobile"
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                            {{this.render('partials/_single-article.twig', {
-                                article: articles[articleCount], 
-                                imageSize: {width: 198, height: 141},
-                                containerClass: "card-sm-full card-sm-tablet card-sm-mobile"
-                            }) | raw}}
-                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -376,7 +368,18 @@
 
 
                         <div class="col-sm-1">
-                            {% for i in 0..2 if sections['job listings'].feed.articles[propertyCount] %}
+                            {% for i in 0..1 if sections['job listings'].feed.articles[propertyCount] %}
+                                {{this.render('partials/_single-article.twig', {
+                                    article: sections['job listings'].feed.articles[propertyCount], 
+                                    imageSize: {width: 60, height: 60},
+                                    template: 'community-jobs',
+                                    containerClass: "card-community-job-listing card-community-job-listing-tablet card-community-job-listing-mobile"
+                                }) | raw}}
+                                {% set propertyCount = (dev) ? propertyCount : propertyCount + 1 %}
+                            {% endfor %}
+                        </div>
+                         <div class="col-sm-1">
+                            {% for i in 0..1 if sections['job listings'].feed.articles[propertyCount] %}
                                 {{this.render('partials/_single-article.twig', {
                                     article: sections['job listings'].feed.articles[propertyCount], 
                                     imageSize: {width: 60, height: 60},
@@ -387,7 +390,7 @@
                             {% endfor %}
                         </div>
                         <div class="col-sm-1">
-                            {% for i in 0..2 if sections['job listings'].feed.articles[propertyCount] %}
+                            {% for i in 0..1 if sections['job listings'].feed.articles[propertyCount] %}
                                 {{this.render('partials/_single-article.twig', {
                                     article: sections['job listings'].feed.articles[propertyCount], 
                                     imageSize: {width: 60, height: 60},
