@@ -124,10 +124,19 @@
                 }
 
                 > .content{
+                    height: 103px;
                     > h2{
-                        font-size: rem(16);
+                        font-size: rem(11);
                         line-height:1.38;
-                        margin-top:0;
+                        margin: 0 0 10px 0;
+                        color: #97999c;
+                        font-weight: 200;
+                        text-transform: uppercase;
+                    }
+                    .price{
+                        font-size: rem(14);
+                        font-weight: 600;
+                        margin-bottom: 10px;
                     }
                 }
             }
