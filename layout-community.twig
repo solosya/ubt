@@ -295,7 +295,7 @@
                                     article: sections['property listings'].feed.articles[propertyCount], 
                                     imageSize: {width: 341, height: 207},
                                     template: 'community-property',
-                                    containerClass: "card-main-community-property-listing card-main-realestate-tablet card-rec-realestate-mobile"
+                                    containerClass: "card-main-community-property-listing  card-community-property-listing-tablet card-community-property-listing-mobile"
                                 }) | raw}}
                                 {% set propertyCount = (dev) ? propertyCount : propertyCount + 1 %}
                             {% endif %}
@@ -306,7 +306,7 @@
                                     article: sections['property listings'].feed.articles[propertyCount], 
                                     imageSize: {width: 100, height: 82},
                                     template: 'community-property',
-                                    containerClass: "card-community-property-listing card-rec-realestate-tablet card-rec-realestate-mobile"
+                                    containerClass: "card-community-property-listing card-community-property-listing-tablet card-community-property-listing-mobile"
                                 }) | raw}}
                                 {% set propertyCount = (dev) ? propertyCount : propertyCount + 1 %}
                             {% endfor %}
@@ -317,7 +317,7 @@
                                     article: sections['property listings'].feed.articles[propertyCount], 
                                     imageSize: {width: 100, height: 82},
                                     template: 'community-property',
-                                    containerClass: "card-community-property-listing card-rec-realestate-tablet card-rec-realestate-mobile"
+                                    containerClass: "card-community-property-listing card-community-property-listing-tablet card-community-property-listing-mobile"
                                 }) | raw}}
                                 {% set propertyCount = (dev) ? propertyCount : propertyCount + 1 %}
                             {% endfor %}
@@ -376,29 +376,18 @@
 
 
                         <div class="col-sm-1">
-                            {% for i in 0..1 if sections['job listings'].feed.articles[propertyCount] %}
+                            {% for i in 0..2 if sections['job listings'].feed.articles[propertyCount] %}
                                 {{this.render('partials/_single-article.twig', {
                                     article: sections['job listings'].feed.articles[propertyCount], 
                                     imageSize: {width: 60, height: 60},
                                     template: 'community-jobs',
-                                    containerClass: "card-community-job-listing card-rec-jobs-tablet card-rec-jobs-mobile"
+                                    containerClass: "card-community-job-listing card-community-job-listing-tablet card-community-job-listing-mobile"
                                 }) | raw}}
                                 {% set propertyCount = (dev) ? propertyCount : propertyCount + 1 %}
                             {% endfor %}
                         </div>
                         <div class="col-sm-1">
-                            {% for i in 0..1 if sections['job listings'].feed.articles[propertyCount] %}
-                                {{this.render('partials/_single-article.twig', {
-                                    article: sections['job listings'].feed.articles[propertyCount], 
-                                    imageSize: {width: 60, height: 60},
-                                    template: 'community-jobs',
-                                    containerClass: "card-community-job-listing card-rec-jobs-tablet card-rec-jobs-mobile"
-                                }) | raw}}
-                                {% set propertyCount = (dev) ? propertyCount : propertyCount + 1 %}
-                            {% endfor %}
-                        </div>
-                        <div class="col-sm-1">
-                            {% for i in 0..1 if sections['job listings'].feed.articles[propertyCount] %}
+                            {% for i in 0..2 if sections['job listings'].feed.articles[propertyCount] %}
                                 {{this.render('partials/_single-article.twig', {
                                     article: sections['job listings'].feed.articles[propertyCount], 
                                     imageSize: {width: 60, height: 60},
