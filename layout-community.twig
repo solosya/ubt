@@ -209,7 +209,7 @@
                             {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
                                 imageSize: {width: 198, height: 141},
-                                containerClass: "card-blogger card-sm-tablet card-sm-mobile"
+                                containerClass: "card-blogger-full card-sm-tablet card-sm-mobile"
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                         {% endfor %}
@@ -221,7 +221,7 @@
                             {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
                                 imageSize: {width: 198, height: 141},
-                                containerClass: "card-blogger card-sm-tablet card-sm-mobile"
+                                containerClass: "card-blogger-full card-sm-tablet card-sm-mobile"
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                         {% endfor %}
