@@ -29,7 +29,7 @@
 {% set salary = "" %}
 
 {% if salaryType == 1 %}
-    {% set salaryPrefix = "Anual salary " %}
+    {% set salaryPrefix = "Annual salary " %}
     {% set salary = "$" ~ article.additionalInfo.salaryfrom %}
     {% if article.additionalInfo.salaryto %}
         {% set salaryPrefix = salaryPrefix ~ "range " %}

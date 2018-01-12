@@ -39,8 +39,8 @@
                     {{blogData.shortDescription}}
                 </p>
             </div>
-            <div class="col-sm-3" >
-                <a class="listing-link" href="{{networkData.defaultBlogUrl}}/@event-form">Submit an event</a>
+            <div class="col-sm-3 hidden-xs" >
+                <a class="listing-link" href="{{networkData.defaultBlogUrl}}/@event-form" style="background-image:url('{{networkData.templatePath}}/static/images/submit_event.svg')"></a>
             </div>
             
         </section>
@@ -83,6 +83,12 @@
                        <div id='hPageAd1'></div>
                         <script>loadNextAd(invSpace,'hPageAd1','halfAd',hPageSize,hPageMap);</script>
                 </div>
+            </div>
+        </section>
+
+        <section class="row visible-xs">
+            <div class="col-sm-12" >
+               <a class="listing-link" href="{{networkData.defaultBlogUrl}}/@event-form" style="background-image:url('{{networkData.templatePath}}/static/images/submit_event.svg');float:left;"></a>
             </div>
         </section>
 
