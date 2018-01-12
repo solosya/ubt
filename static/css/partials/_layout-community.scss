@@ -34,6 +34,19 @@
                 margin-bottom:16px;
                 border-bottom: 1px solid color(lightgrey);
             }
+            .eventlist__view {
+                margin: 20px 0 15px 0;
+                text-align:right;
+                font-family: $font-family-serif;
+                font-style: italic;
+                font-size: rem(13);
+                line-height: rem(21);
+                font-weight:400;
+                padding-bottom: 4px;
+                margin-top:0px;
+                margin-bottom:16px;
+                border-bottom: 1px solid color(lightgrey);
+            }
         }
     }
 
@@ -60,7 +73,14 @@
             font-weight:600;
             margin-bottom:14px;
         }
+        .listings__view {
+            margin: 20px 0 15px 0;
+            text-align:right;
+            font-family: $font-family-serif;
+        }
     }
+
+
 
 }
 

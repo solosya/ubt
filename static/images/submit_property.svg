@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="176" height="44" viewBox="0 0 176 44">
+    <g fill="none" fill-rule="evenodd">
+        <path stroke="#AE232C" stroke-width="1.64" d="M.82.82h174.36v42.36H.82z"/>
+        <text fill="#AE232C" font-family="OpenSans-Italic, Open Sans" font-size="14" font-style="italic">
+            <tspan x="13" y="27">Submit a listing</tspan>
+        </text>
+        <path fill="#AE232C" d="M154.844 26L160 21l-5.156-5-.717.696 3.931 3.812H142v.984h16.058l-3.931 3.812z"/>
+    </g>
+</svg>
