@@ -105,7 +105,7 @@
 		                <button class="_btn" type="reset"  id="listingFormClear">CLEAR</button>
  #}				    
 					</form>
-					
+
 					<form action="/charge" method="post" id="payment-form">
 					  <div class="form-row ">
 					    <label for="card-element">
@@ -144,7 +144,7 @@
 							<p>${{plan.plan_value/100|number_format(2, '.', ',')}}({{plan.currency|raw}})/{{plan.period}}</p>
 							<img src="{{networkData.templatePath}}/static/images/market-screens.png">
 							<p class="featuresheader">What's included in your subscription:</p>
-							<p class="featuresheader">{{plan.description}}</p>
+							<p class="featuresheader">{{plan.description | raw }}</p>
 							<a href="{{networkData.defaultBlogUrl}}">Change subscription</a>
 						</div>
 
