@@ -4,9 +4,12 @@
 
 
 {% set plan = false %}
+{% set trial = false %}
+
 {% set url = _AppHelper.getParsedUrl() %}
 {% set params = url['query'] %}
 {% for k, p in params %}
+
 	{% if k == 'plan' %}
 		{% for pl in plans %}
 			{% if pl.guid == p %}
@@ -14,6 +17,13 @@
 			{% endif %}
 		{% endfor %}
 	{% endif %}
+
+	{% if k == 'trial' %}
+		{% if p == 'true' %}
+			{% set trial = true %}
+		{% endif %}
+	{% endif %}
+
 {% endfor %}
 
 
@@ -70,17 +80,21 @@
 
 		                <input type="email" class="" name="email" id="email" value="" placeholder="Email">
 		                <input type="text" class="articleExtendedData" name="mobile" id="mobile" value="" placeholder="Mobile">
-		                <input type="text" class="articleExtendedData" name="address" id="address" value="" placeholder="address">
+		                <input type="text" class="articleExtendedData" name="address" id="address" value="" placeholder="Address">
 		                <input type="text" class="articleExtendedData" name="suburb" id="suburb" value="" placeholder="Suburb">
 		                <input type="text" class="articleExtendedData" name="state" id="state" value="" placeholder="State">
 		                <input type="text" class="articleExtendedData" name="Postcode" id="Postcode" value="" placeholder="Postcode">
 			            
 			            <input type="hidden" class="" name="planid" id="planid" value="{{plan.guid}}">
+			            {# <input type="hidden" class="" name="trial" id="trial" value="{{trial}}"> #}
 
 			            <div id="countrySelect" class="countrySelect"></div> 
-			            <input type="checkbox" class="" value="true" id="trial" name="trial" checked> 
-			            Include 14 day trial period.
-			            <p class="form-section-label u-margin-top-40">Payment details</p>
+
+			            {% if trial %}
+			            	<input type="checkbox" class="" onclick="return false;" value="true" id="trial" name="trial" checked> 
+			            	Include 14 day trial period
+			            {% endif %}
+ 						<p class="form-section-label u-margin-top-40">Payment details</p>
 {# 		                <fieldset>
 		                    <div class="inline">
 		                        <input type="radio" name="extendedData.salary" id="paymentType1" class="articleExtendedData" value="1" checked="checked" />
@@ -148,7 +162,7 @@
 								{{plan.description | raw }}
 							</ul>
 
-							<a href="{{networkData.defaultBlogUrl}}">Change subscription</a>
+							<a href="{{networkData.defaultBlogUrl}}#subscriptions">Change subscription</a>
 						</div>
 
 

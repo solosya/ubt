@@ -133,6 +133,7 @@ div[class*="col-sm"] {
 .container-fluid {max-width: $index-width;}
 .clearfix {overflow:auto;}
 .centerContent { display:inline; text-align: center;}
+.centerBlock {margin-left:auto;margin-right:auto}
 // 20px gutter
 .gutter-60.row {
   margin-right: -30px;

@@ -92,7 +92,7 @@
 
 
 
-
+		<a name="subscriptions"></a>
 		<section class="row subscription">
 			<div class="container-fluid">
 				<div class="col-sm-12 section-title">
@@ -104,14 +104,17 @@
 			    {% for plan in plans %}
 
 					<div class="col-sm-3 subscriptionCard">
-						<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan={{plan.guid}}">
-							<div class="card">
-								<h3>{{plan.name}}</h3>
-								<p class="usercount">{{plan.user_count}} Users</p>
-								<p class="price">${{plan.plan_value/100|number_format(2, '.', ',')}}({{plan.currency|raw}})/{{plan.period}}</p>
-								<p class="subnow">SUBSCRIBE NOW</p>
-							</div>
-						</a>
+						<div class="card">
+							<h3>{{plan.name}}</h3>
+							<p class="usercount">{{plan.user_count}} Users</p>
+							<p class="price">${{plan.plan_value/100|number_format(2, '.', ',')}}({{plan.currency|raw}})/{{plan.period}}</p>
+							<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan={{plan.guid}}&amp;trial=true">
+								<p class="centerBlock _btn _btn--blue _btn__subscribe">14-DAY FREE TRIAL</p>
+							</a>
+							<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan={{plan.guid}}">
+								<p class="centerBlock _btn _btn--red _btn__subscribe">SUBSCRIBE NOW</p>
+							</a>
+						</div>
 					</div>
 					
 			    {% endfor %}
