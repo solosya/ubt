@@ -17,15 +17,12 @@
     {% set jobListingsArr = _User.getUserArticles(user.guid, 0, 1000, {'blogs':[jobsBlogId], 'status': '-1'}) %}
     {% set propListingsArr = _User.getUserArticles(user.guid, 0, 1000, {'blogs':[propBlogId], 'status': '-1'}) %}
 {% endif %}
+{% set propListingsArr = [] %}
 
 {% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
 <!-- 3 is job, 4 is property, 5 is event -->
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
-<!--{{jobsBlogId|raw}}-->
-<!--{{propertylistingsid|raw}}-->
-<!--{{jobListingsArr|raw}}-->
-<!--{{blogData.title|raw}}-->
-<!--{{blogData.id|raw}}-->
+
 
 <main id="main" class="user_profile listingForm" role="main">
     <div id="stripekey" class="hidden" >{{_Network.getNetworkData()['stripe_publishable_key']}}</div>
@@ -59,11 +56,11 @@
                                     <input type="text" id="lastname" class="form-control" name="lastname" value="{{user.lastname}}" placeholder="Last name" >
                                 </div>                            
                                
-                                <div class="inline-inputs">
+{#                                 <div class="inline-inputs">
                                     <label for="company">Company</label>
                                     <input type="text" id="company" class="form-control" name="company" value="{{user.company}}" placeholder="Company" >
                                 </div>
-
+ #}
                                 <div class="inline-inputs">
                                     <label for="username">Username</label>
                                     <input type="text" id="username" class="form-control" name="username" value="{{user.username}}" placeholder="Username" >
@@ -267,16 +264,20 @@
 
 
 
-                {% if jobListingsArr | length > 0  %}
+                {% set hasJobListings = jobListingsArr | length > 0 %}
+                {% set jobLink = (hasJobListings) ? "Edit listings" : "Submit a listing"  %}
+                
+                <div class="profile-section">
+                    
+                    <div class="profile-section__header">
+                        <p class="profile-section__heading">Employment Listings</p>
+                        <a class="text-button text-button--italic u-float-right" href="{{networkData.defaultBlogUrl}}/@job-form">{{jobLink}}</a>
+                    </div>
 
-                    <div class="profile-section">
-                        
-                        <div class="profile-section__header">
-                            <p class="profile-section__heading">Job Listings</p>
-                            <a class="text-button text-button--italic u-float-right" href="{{networkData.defaultBlogUrl}}/@job-form">Edit listings</a>
-                        </div>
+                    <div class="row">
 
-                        <div class="row">
+                        {% if hasJobListings  %}
+
                             <div  id="jobListings" class="col-md-12">
                                 {% set articleCount = (dev) ? articleCount : 0 %}
                                 {% for i in 0..2 if jobListingsArr[articleCount] %}
@@ -291,38 +292,59 @@
 
                                 {% endfor %}
                             </div>
-                        </div>
+                        {% else %}
+                            <div class="col-md-12">
+                                <p class="no-listings">
+                                    You have no current listings
+                                </p>
+                            </div>
+                        {% endif %}
+
                     </div>
-                {% endif %}
+                </div>
 
 
+                {% set hasPropListings =  propListingsArr | length > 0 %}
+                {% set propLink = hasPropListings ? "Edit listings" : "Submit a listing"  %}
+                
 
-                {% if propListingsArr | length > 0 %}
 
                     <div class="profile-section">
                         <div class="profile-section__header">
-                            <p class="profile-section__heading">Realestate Listings</p>
-                            <a class="text-button text-button--italic u-float-right" href="{{networkData.defaultBlogUrl}}/@property-form">Edit Listings</a>
+                            <p class="profile-section__heading">Property Listings</p>
+                            <a class="text-button text-button--italic u-float-right" href="{{networkData.defaultBlogUrl}}/@property-form">{{propLink}}</a>
                         </div>
 
                         <div class="row">
-                            <div id="realEstateListings" class="col-md-12">
-                                {% set articleCount = (dev) ? articleCount : 0 %}
-                                {% for i in 0..2 if propListingsArr[articleCount] %}
+                            {% if hasPropListings %}
 
-                                    {{this.render('partials/_single-article.twig', {
-                                        article: propListingsArr[articleCount], 
-                                        behaviour: 'noclick',
-                                        template: 'user-property',
-                                        containerClass: "card-profile-property card-profile-property-tablet card-profile-property-mobile"
-                                    }) | raw}}
-                                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                                <div id="realEstateListings" class="col-md-12">
+                                    {% set articleCount = (dev) ? articleCount : 0 %}
+                                    {% for i in 0..2 if propListingsArr[articleCount] %}
 
-                                {% endfor %}
-                            </div>
+                                        {{this.render('partials/_single-article.twig', {
+                                            article: propListingsArr[articleCount], 
+                                            behaviour: 'noclick',
+                                            template: 'user-property',
+                                            containerClass: "card-profile-property card-profile-property-tablet card-profile-property-mobile"
+                                        }) | raw}}
+                                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+
+                                    {% endfor %}
+                                </div>
+
+                            {% else %}
+                                <div class="col-md-12">
+                                    <p class="no-listings">
+                                        You have no current listings
+                                    </p>
+                                </div>
+                            {% endif %}
+
                         </div>
                     </div>
-                {% endif %}
+
+
                 </div>
             </div>
         </div>

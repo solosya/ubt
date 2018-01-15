@@ -23,12 +23,27 @@
         text-decoration: none;
         color:white;
     }
-
 }
+
+._btn--blue {
+    background: color(darkblue);
+    color:white;
+    &:hover{
+        text-decoration: none;
+        color:white;
+    }
+}
+
 ._btn--gray {
     background: color(lightgrey);
     color:white;
 }
+
+
+._btn__subscribe {
+    padding-top:10px;
+}
+
 
 ._btn__register {
     font-size: rem(23);
