@@ -36218,39 +36218,51 @@ if ($('#stripekey').length > 0) {
             "address"   : ["notEmpty"],
             "suburb"    : ["notEmpty"],
             "state"     : ["notEmpty"],
+            "trial"     : [],
             "Postcode"  : ["notEmpty", "isNumeric"]
         };
 
         this.validateFields = Object.keys(this.validateRules);
 
         this.events();
-    };
-        SubscribeForm.prototype = new Acme.Form(Acme.Validators);
-        SubscribeForm.constructor = SubscribeForm;
-        SubscribeForm.prototype.render = function() 
-        {
-            this.clearInlineErrors();
-            this.addInlineErrors();
-        };
-        SubscribeForm.prototype.submit = function() 
-        {
-        };
-        SubscribeForm.prototype.events = function()
-        {
-            var self = this;
-            $('input, textarea').on("change", function(e) {
-                e.stopPropagation();
-                e.preventDefault();
-                var data = {};
-                var elem = $(e.target);
-                var elemid = elem.attr('name');
+        // if ($('#trial').attr('checked')) {
+            this.data['trial'] = $('#trial').is(":checked");
+        // }
 
+    };
+
+    SubscribeForm.prototype = new Acme.Form(Acme.Validators);
+    SubscribeForm.constructor = SubscribeForm;
+    SubscribeForm.prototype.render = function() 
+    {
+        this.clearInlineErrors();
+        this.addInlineErrors();
+    };
+    SubscribeForm.prototype.submit = function() 
+    {
+    };
+    SubscribeForm.prototype.events = function()
+    {
+        var self = this;
+        $('input, textarea').on("change", function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            var data = {};
+            var elem = $(e.target);
+            var elemid = elem.attr('name');
+
+            if (elemid != 'trial') {
                 data[elemid] = elem.val();
-                self.updateData(data);
-                var validated = self.validate([elemid]);
-                self.render();
-            });
-        };
+            } else {
+
+                 data[elemid] = $('#trial').is(":checked");
+                // if ($('#trial').attr('checked')) { data[elemid] = true; console.log('true??')}
+            }
+            self.updateData(data);
+            var validated = self.validate([elemid]);
+            self.render();
+        });
+    };
 
     var subscribe = new SubscribeForm();
 
@@ -36266,8 +36278,8 @@ if ($('#stripekey').length > 0) {
             subscribe.render();
 
             $('#card-errors').text('');
-            var userdata = $('#listingForm').serializeArray();
-            console.log(userdata);
+            // var userdata = $('#listingForm').serializeArray();
+            // console.log(userdata);
             console.log(subscribe.data);
             // $.each(userdata, function(i, val) {
 
@@ -36356,6 +36368,9 @@ if ($('#stripekey').length > 0) {
             });
         });
     }
+
+
+
 } 
 var UserArticlesController = (function ($) {
     return {

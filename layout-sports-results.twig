@@ -1,7 +1,8 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
 {% set networkData = _Network.getNetworkData() %}
 {% set blogData    = _Blog.getBlog() %}
-{{this.registerJs("window.Acme.cards = CardController();")}}
+
+{{this.registerJs("Acme.cards = CardController();")}}
 {{this.registerJs("Acme.searchFeed = new Acme.View.articleFeed(Acme.cards);")}}
 
 {% set limit = 10 %}
@@ -10,7 +11,10 @@
 {% set articles = articlesArr.articles %}
 {% set articleCount = articles | length %}
 
-{{this.registerJs("var scroll = new Acme.infiniteScroll(" ~ limit ~ ", " ~ articleCount ~ ", Acme.searchFeed);")}}
+
+                                                     {# renders the card  fetch-limit      fetch-offset    infinite scroll #}
+                                                     {#        ↑             ↑                 ↑             ↑             #}
+{{this.registerJs("var scroll = new Acme.View.articleFeed(Acme.cards, " ~ limit ~ ", " ~ articleCount ~ ", true);")}}
 
 <!-- used to index each article as we loop over throughout the template -->
 {% set articleCount = 0 %}

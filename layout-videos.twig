@@ -10,7 +10,11 @@
 {% set articles     = articlesArr.articles %}
 {% set firstCount   = articles | length %}
 
-{{this.registerJs("var scroll = new Acme.infiniteScroll(" ~ limit ~ ", " ~ firstCount ~ ", Acme.searchFeed);")}}
+                                                     {# renders the card  fetch-limit      fetch-offset    infinite scroll #}
+                                                     {#        ↑             ↑                 ↑             ↑             #}
+{{this.registerJs("var scroll = new Acme.View.articleFeed(Acme.cards, " ~ limit ~ ", " ~ firstCount ~ ", true);")}}
+
+
 
 <!-- used to index each article as we loop over throughout the template -->
 {% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
