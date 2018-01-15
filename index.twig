@@ -172,15 +172,15 @@
     
 
         <section class="row">
-            <div class="advert banner hidden-sm hidden-md hidden-lg">
-                <div id='moBanner2'></div>
-                <script>loadNextAd(invSpace,'moBanner2','mob-banner',mOnlySize,mOnlyMap)</script>
+            <div class="advert banner">
+                <div id='Banner2'></div>
+                <script>loadNextAd(invSpace,'Banner2','banner',bannerSize,bannerMap)</script>
             </div>
-            <div class="advert banner hidden-xs" style="margin-left: 1.4%;margin-right: 1.4%;">
+            {# <div class="advert banner hidden-xs" style="margin-left: 1.4%;margin-right: 1.4%;">
                 <a href="mailto:franknews@ubteam.com">
                 <img src="{{networkData.templatePath}}/static/images/ads/any-questions.svg">
                 </a>
-            </div>
+            </div> #}
         </section>
 
 
@@ -250,10 +250,16 @@
                 </div>
 
                 <section class="row">
-                    <div class="advert banner">
+                    {# <div class="advert banner">
                        <div id='bannerAd3'></div>
                         <script>loadNextAd(invSpace,'bannerAd3','bannerad',sBannerSize,sBannerMap);</script>
+                    </div> #}
+                    <div class="advert banner">
+                        <a href="mailto:franknews@ubteam.com">
+                        <img src="{{networkData.templatePath}}/static/images/ads/ideas-banner.jpg">
+                        </a>
                     </div>
+
                 </section>
             </div>
 
