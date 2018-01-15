@@ -93,12 +93,19 @@
             overflow:auto;
 
             h3 {
+                margin-top: -20px;
                 color:color(red);
                 font-size:rem(18);
                 font-weight:600;
                 letter-spacing: 0.4px;
                 font-family: $font-family-serif;
             }
+            h4 {
+                color:color(darkblue);
+                margin-bottom:20px;
+            }
+            
+
             >img {
                 width:100%;
             }
@@ -109,6 +116,13 @@
                 color:color(red);
                 font-style:italic;
                 font-size: rem(14);
+            }
+            .features-list {
+                text-align: left;
+
+                li {
+                    margin-bottom: 20px;
+                }
             }
         }
     }
