@@ -3,7 +3,7 @@
     .market-hero {
         height:566px;
         margin-bottom:70px;
-        background-image: url('../images/market-hand_crop.jpg');
+        background-image: linear-gradient(to left, rgba(0, 0, 0, 0.0), #000000), url('../images/market-hand_crop.png');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: right;

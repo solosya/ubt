@@ -77,10 +77,10 @@
 			            
 			            <input type="hidden" class="" name="planid" id="planid" value="{{plan.guid}}">
 
-			            <div id="countrySelect" class="countrySelect"></div>
-
+			            <div id="countrySelect" class="countrySelect"></div> 
+			            <input type="checkbox" class="" value="true" id="trial" name="trial" checked> 
+			            Include 14 day trial period.
 			            <p class="form-section-label u-margin-top-40">Payment details</p>
-
 {# 		                <fieldset>
 		                    <div class="inline">
 		                        <input type="radio" name="extendedData.salary" id="paymentType1" class="articleExtendedData" value="1" checked="checked" />
@@ -105,21 +105,23 @@
 		                <button class="_btn" type="reset"  id="listingFormClear">CLEAR</button>
  #}				    
 					</form>
-						<form action="/charge" method="post" id="payment-form">
-						  <div class="form-row ">
-						    <label for="card-element">
-						      Credit or debit card
-						    </label>
-						    <div id="card-element">
-						      <!-- a Stripe Element will be inserted here. -->
-						    </div>
 
-						    <!-- Used to display form errors -->
-						    <div id="card-errors" class="card-errors" role="alert"></div>
-						  </div>
+					<form action="/charge" method="post" id="payment-form">
+					  <div class="form-row ">
+					    <label for="card-element">
+					      Credit or debit card
+					    </label>
+					    <div id="card-element">
+					      <!-- a Stripe Element will be inserted here. -->
+					    </div>
 
-						  <button id="subscribe" class="_btn _btn--red u-margin-top-25">SUBSCRIBE</button>
-						</form>
+					    <!-- Used to display form errors -->
+					    <div id="card-errors" class="card-errors" role="alert"></div>
+					  </div>
+
+					  {# <button id="subscribe-trial" class="_btn _btn--red u-margin-top-25">SIGN UP FOR A 14 DAY TRIAL</button> #}
+					  <button id="subscribe" class="_btn _btn--red u-margin-top-25">SUBSCRIBE</button>
+					</form>
 
 				{% else %}
 					<h1>You need to choose a plan from the subscriptions screen</h1>
@@ -140,9 +142,9 @@
 
 							<p>{{plan.user_count}} users</p>
 							<p>${{plan.plan_value/100|number_format(2, '.', ',')}}({{plan.currency|raw}})/{{plan.period}}</p>
-							<img src="{{networkData.templatePath}}/static/images/market-screens.png?v=3">
+							<img src="{{networkData.templatePath}}/static/images/market-screens.png?v=4">
 							<p class="featuresheader">What's included in your subscription:</p>
-							<p class="featuresheader">{{plan.description}}</p>
+							<p class="featuresheader">{{plan.description | raw }}</p>
 							<a href="{{networkData.defaultBlogUrl}}">Change subscription</a>
 						</div>
 

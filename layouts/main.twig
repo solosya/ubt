@@ -14,7 +14,7 @@
 
 {% set showPaywall = false %}
 
- {% if blogName | lower != "subscribe" and _AppHelper.getParsedUrl().path != _AppHelper.getEditProfileUrl() and blogData['showPaywall'] == true %}
+ {% if blogName | lower != "subscribe" and _AppHelper.getParsedUrl().path != _AppHelper.getEditProfileUrl() and _AppHelper.getParsedUrl().path != _AppHelper.getForgotPasswordUrl() and _AppHelper.getParsedUrl().path != _AppHelper.getResetPasswordUrl() and blogData['showPaywall'] == true %}
     {% set showPaywall = true %}
     {% set layout = "layout-marketing" %}
  {% endif %}
@@ -25,8 +25,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
     <meta http-equiv="Accept-CH" content="DPR, Viewport-Width, Width">
     <!-- {{blogName | lower}} -->
+    <!-- {{blogName | lower}} -->
+    
     <!-- {{_AppHelper.getParsedUrl().path | raw}} -->
-    <!-- {{_AppHelper.getEditProfileUrl() | raw}} -->
+    <!-- {{_AppHelper.getForgotPasswordUrl() | raw}} -->
     <!-- {{blogData['showPaywall'] | raw}} -->
 
  {% if showPaywall == true %}
@@ -67,7 +69,7 @@
 
 
     {% if _AppHelper.getApplicationEnv() == 'PROD'%}
-        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=d7c7a329" type="text/css" media="all">
+        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=303fea35" type="text/css" media="all">
     {% else %}
 {#             <link type="text/css" rel="stylesheet" href="{{networkData.templatePath}}/static/css/jquery.fancybox.css?ver=2" />
         <link type="text/css" rel="stylesheet" href="{{networkData.templatePath}}/static/css/animate.css?ver=1" />

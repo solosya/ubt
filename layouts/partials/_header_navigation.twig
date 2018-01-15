@@ -1,9 +1,8 @@
 {% set logo = networkData.templatePath~'/static/images/logo.svg'%}
+{% set userData = _User.getPaywallStats(false)  %}
 {% if networkData.logoMedia | length > 0 %}
     {% set logo = _Media.getMediaUrl(networkData.logoMedia, 290, 80, {'crop': 'fit'} )%}
 {% endif %}
-
-
 
 
 
@@ -30,6 +29,9 @@
             <ul class="top-nav">
                 {% if not _User.isGuest() %}
                     {% set user = _User.getUser() %}
+                    {% if (userData.status == 'trial') %}
+                        <li class="menu-item">TRIAL PERIOD. You will be billed on {{ userData.expiry_date }}.
+                    {% endif %}
                     <li>{{ (user.firstname ~" "~ user.lastname) | truncate(15) | title}} </li>
                     <li class="menu-item"><a href="{{networkData.defaultBlogUrl}}/user/edit-profile">MY ACCOUNT</a></li>
                     <li class="menu-item"><a href="{{_AppHelper.getLogoffUrl()}}">SIGN OUT</a></li>
