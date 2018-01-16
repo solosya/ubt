@@ -33,10 +33,35 @@
                 <img src="{{networkData.templatePath}}/static/images/ubt-logo.png">
 
                 <ul class="footer-links">
-                     <li><a href="#">TERMS OF USE</a></li
-                    ><li><a href="#">FAQs</a></li>
+                    {% set menuItems = blog.blogFooterMenu %}
+                    {% for parentItem in menuItems  %}
+
+                       {% set activeClass = (parentItem.link == _AppHelper.getServerUrl()) ? 'active' : ''%}
+                       {% set externalClass = (parentItem.isExternal) ? 'external-link' : '' %}
+
+                       <li>
+                            <a href="{{parentItem.link |raw}}" class="{{activeClass}} {{externalClass}}" {% if parentItem.target != "" %}target="{{parentItem.target}}"{% endif %}>
+                                {% if parentItem.label != "" %}
+                                    {{parentItem.label | upper}}
+                                {% elseif parentItem.blogTitle != "" %}
+                                    {{parentItem.blogTitle | upper}}
+                                {% elseif parentItem.pageTitle != "" %}
+                                    {{parentItem.pageTitle | upper}}
+                                {% endif %}
+                            </a>
+                        </li>
+
+                    {% endfor %}
                 </ul>
-                <p>10 Herb Elliott Ave Sydney Olympic Park NSW 1700  | T:&nbsp;+61&nbsp;2&nbsp;8831&nbsp;6031 | F:&nbsp;1300&nbsp;010&nbsp;103</p>
+
+
+
+
+{#                 <ul class="footer-links">
+                     <li><a href="#">TERMS OF USE</a></li
+                    ><li><a href="#">FAQ</a></li>
+                </ul>
+ #}                <p>10 Herb Elliott Ave Sydney Olympic Park NSW 1700  | T:&nbsp;+61&nbsp;2&nbsp;8831&nbsp;6031 | F:&nbsp;1300&nbsp;010&nbsp;103</p>
                 <p class="copyright">Copyright © UBT Marketing Pty Ltd 2018</p>
 
             </div>
