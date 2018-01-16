@@ -109,7 +109,11 @@
                                                     {% endif %}
                                                 </a>
                                             </li>
+
                                         {% endfor %}
+                                        <li class=""><a href="{{networkData.defaultBlogUrl}}/user/edit-profile">My Account</a></li>
+                                        <li class=""><a href="{{_AppHelper.getLogoffUrl()}}">Sign out</a></li>
+
                                     {% else %}
                                         <li>
                                             <a id="header_login_link" href="#" class="{{activeClass}} {{externalClass}}">Sign in</a>
