@@ -36697,37 +36697,77 @@ UserProfielController.Load = (function ($) {
         });
 
   
+  
         $('#cancelAccount').on('click', function(e) {
+
             var listelem = $(e.target).closest('li');
             var userid = listelem.attr("id");
+
+            var status = 'cancelled';
+            message = "Are you sure you want to cancel your plan?"
+            if ($(e.target).text() == 'Restart Subscription') {
+                message = "Do you want to re activae your plan? You will be billed on the next payment date."
+                status = 'unpaid'
+            }
             var requestData = { 
-                status: 'cancelled', 
+                status: status, 
                 _csrf: csrfToken, 
             };
 
-            $.ajax({
-                type: 'post',
-                url: _appJsConfig.baseHttpPath + '/user/paywall-account-sataus',
-                dataType: 'json',
-                data: requestData,
-                success: function (data, textStatus, jqXHR) {
-                    if (data.success == 1) {
-                        location.reload(false);             
-                    } else {
-                        var text = '';
-                        for (var key in data.error) {
-                            text = text + data.error[key] + " ";
-                        } 
-                        $('#createUserErrorMessage').text(text);
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    // console.log(textStatus);
-                    console.log(jqXHR.responseText);
-                     $('#createUserErrorMessage').text(textStatus);
-                },
-            });        
-        });        
+
+console.log($(e.target).text());
+
+            Acme.SigninView.render("userPlanChange", message)
+                .done(function() {
+                    $('#dialog').parent().remove();
+                    
+                    $.ajax({
+                        type: 'post',
+                        url: _appJsConfig.baseHttpPath + '/user/paywall-account-sataus',
+                        dataType: 'json',
+                        data: requestData,
+                        success: function (data, textStatus, jqXHR) {
+                            if (data.success == 1) {
+                                location.reload(false);             
+                            } else {
+                                var text = '';
+                                for (var key in data.error) {
+                                    text = text + data.error[key] + " ";
+                                } 
+                                $('#createUserErrorMessage').text(text);
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            // console.log(textStatus);
+                            console.log(jqXHR.responseText);
+                             $('#createUserErrorMessage').text(textStatus);
+                        },
+                    });        
+                }); 
+
+            // $.ajax({
+            //     type: 'post',
+            //     url: _appJsConfig.baseHttpPath + '/user/paywall-account-sataus',
+            //     dataType: 'json',
+            //     data: requestData,
+            //     success: function (data, textStatus, jqXHR) {
+            //         if (data.success == 1) {
+            //             location.reload(false);             
+            //         } else {
+            //             var text = '';
+            //             for (var key in data.error) {
+            //                 text = text + data.error[key] + " ";
+            //             } 
+            //             $('#createUserErrorMessage').text(text);
+            //         }
+            //     },
+            //     error: function (jqXHR, textStatus, errorThrown) {
+            //         // console.log(textStatus);
+            //         console.log(jqXHR.responseText);
+            //          $('#createUserErrorMessage').text(textStatus);
+            //     },
+            // });        
+        });       
 
 
         $('.j-setplan').on('click', function(e) {
@@ -36783,8 +36823,8 @@ UserProfielController.Load = (function ($) {
                 console.log(secondDate.getFullYear() +'-'+secondDate.getMonth()+1 + '-' + secondDate.getDate()  )
                 var msg = "";
                 if ((newplandailycost-plandailycost) * diffDays > 0) {
-                    msg = " This will cost $" + Math.round((newplandailycost-plandailycost) * diffDays)/100 + ".";
-                    msg = msg.replace(/(.+\.\d)\.$/g, "$1") + "0.";
+                    msg = " This will cost $" + Math.round((newplandailycost-plandailycost) * diffDays);
+                    msg = msg.replace(/(.+)(\d\d)$/g, "$1.$2");
                 }
                 Acme.SigninView.render("userPlanChange", "Are you sure you want to change plan?" + msg)
                     .done(function() {
