@@ -21,8 +21,6 @@ $('document').ready(function() {
 
 
 
-
-
     var removeMobileMenuStyles = function() {
         var menu = $('#sb-custom-menu');
 
@@ -81,11 +79,11 @@ var adScroll = function() {
 
 
     $("#menu-mobile").on("click", function (e) {
-        var thisMenuElem = $( $(this).parent('.sb-custom-menu') );
         $(this).toggleClass("active");
-        thisMenuElem
+        var thisMenuElem = $( $(this).parent('.sb-custom-menu') );
         thisMenuElem.find('.menuContainer').toggleClass("show-on-tablet");
         thisMenuElem.toggleClass('open');
+
         if (pageWindow.width() < 620) {
             masthead.toggleClass('mobile-menu-active')
                     .toggleClass('fixHeader');

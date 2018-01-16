@@ -13,7 +13,10 @@ a {
 }
 body{
     // overflow-y:scroll;
-    -webkit-overflow-scrolling:touch;
+
+    // below touch style turned off as mobile menu won't show
+    // up on iphone if turned on
+
     color: color(dark);
     background: #fff;
     

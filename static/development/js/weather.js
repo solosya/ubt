@@ -1,6 +1,5 @@
 (function ($) {
 
-
     Acme.Locations = function(){
         this.country = _appJsConfig.appHostName.split('.').reverse()[0];
         console.log(this.country);
