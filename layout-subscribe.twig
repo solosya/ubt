@@ -155,10 +155,13 @@
 							<h3>{{plan.name}}</h3>
 
 							<p>{{plan.user_count}} users</p>
-							<p>${{plan.plan_value/100|number_format(2, '.', ',')}}({{plan.currency|raw}})/{{plan.period}}</p>
+							<h4>${{plan.plan_value/100|number_format(2, '.', ',')}}({{plan.currency|raw}})/{{plan.period}}</h4>
 							<img src="{{networkData.templatePath}}/static/images/market-screens.png?v=4">
-							<p class="featuresheader">What's included in your subscription:</p>
-							<p class="featuresheader">{{plan.description | raw }}</p>
+							<p class="red-label u-margin-top-40">What's included in your subscription:</p>
+							<ul class="features-list">
+								{{plan.description | raw }}
+							</ul>
+
 							<a href="{{networkData.defaultBlogUrl}}#subscriptions">Change subscription</a>
 						</div>
 
