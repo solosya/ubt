@@ -1,0 +1,30 @@
+.trial {
+	margin-bottom:80px;
+}
+.trial__header {
+	font-family: $font-family-serif;
+	font-size: rem(36px);
+	font-weight: bold;
+	line-height: 0.89;
+	color: color(darkblue);
+	margin-bottom:22px;
+}
+.trial__text {
+	font-size: rem(16);
+	color: color(trialtext);
+	margin-bottom: 20px;
+}
+.trial__text--last {
+	font-size: rem(16);
+	color: color(trialtext);
+	margin-bottom: 20px;
+	&:before {
+	    content: '';
+	    display:block;
+	    height:1px;
+	    width: 49px;
+	    margin-bottom:15px;
+	    background:color(lightgrey);
+	}
+
+}

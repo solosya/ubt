@@ -115,6 +115,7 @@
     Acme._View = function() {};
         Acme._View.prototype = new Acme.listen();
         Acme._View.prototype.updateData = function(data) {
+            console.log(data);
             var key = Object.keys(data)[0];
             var keySplit = key.split('.');
             var scope = this.data;
@@ -552,6 +553,8 @@
         Acme.modal.prototype = new Acme.listen();
 
         Acme.modal.prototype.render = function(layout, title) {
+            console.log('rendering');
+            console.log(layout, title);
             if (title) {
                 this.data['title'] = title;
             }

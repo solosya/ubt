@@ -139,6 +139,7 @@ window.templates.listingDeleteTmpl =
         </form> \
     </div>';
 
+window.templates.subscribeTerms =  '<p>Please agree to the terms of use</p><div><form><button class="_btn _btn--red">Okay</button></form></div>';
 
 window.templates.userPlanMessage = 
 '<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
@@ -157,12 +158,12 @@ window.templates.signinFormTmpl =
 '<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
     <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> \
     \
-    <input id="loginName" class="" type="text" name="username" placeholder="Username" value=""> \
-    <input id="loginPass" class="" type="password" name="password" placeholder="Password"> \
+    <input id="loginName" class="" type="text" name="username" placeholder="Username" value="" /> \
+    <input id="loginPass" class="" type="password" name="password" placeholder="Password" value="" /> \
     \
     <div class="remember"> \
         <div> \
-            <input type="checkbox" id="remember" class="" name="rememberMe"> \
+            <input type="checkbox" id="remember" class="" name="rememberMe" /> \
             <label for="remember" class="">Keep me logged in.</label> \
         </div> \
         <p class="layout" data-layout="forgot" class="">Forgot password</p> \

@@ -66,27 +66,70 @@ if ($('#stripekey').length > 0) {
             "suburb"    : ["notEmpty"],
             "state"     : ["notEmpty"],
             "trial"     : [],
+            "terms"     : ["isTrue"],
             "Postcode"  : ["notEmpty", "isNumeric"]
         };
 
         this.validateFields = Object.keys(this.validateRules);
 
         this.events();
-        // if ($('#trial').attr('checked')) {
-            this.data['trial'] = $('#trial').is(":checked");
-        // }
+
+        this.data['trial'] = $('#trial').is(":checked");
 
     };
 
     SubscribeForm.prototype = new Acme.Form(Acme.Validators);
     SubscribeForm.constructor = SubscribeForm;
-    SubscribeForm.prototype.render = function() 
+    SubscribeForm.prototype.render = function(checkTerms) 
     {
         this.clearInlineErrors();
         this.addInlineErrors();
+        if (checkTerms) {
+            if (!this.data.terms) {
+                this.confirmView = new Acme.Confirm('modal', 'signin', {'terms': 'subscribeTerms'});
+                this.confirmView.render("terms", "Terms of use");
+            }
+        }
     };
-    SubscribeForm.prototype.submit = function() 
+    SubscribeForm.prototype.submit = function(event) 
     {
+        var self = this;
+        event.preventDefault();
+        var validated = self.validate();
+        self.render(true);
+        if (!validated) return;
+
+
+        $('#card-errors').text('');
+        // var userdata = $('#listingForm').serializeArray();
+        // console.log(userdata);
+        // console.log(self.data);
+        // $.each(userdata, function(i, val) {
+
+        //     if (val.value == '') {
+        //         $('#card-errors').text('Please fill out the '+ val.name + ' field.');
+        //         return;
+        //     }
+        // });
+        if ( $('#password').val() !== $('#verifypassword').val() ) {
+            $('#card-errors').text('Password fields do not match.');
+            return;
+        }
+
+        // modal.render("spinner", "Authorising payment");
+        // stripe.createToken(card).then(function(result) {
+        //     if (result.error) {
+        //         modal.closeWindow();
+        //         // Inform the user if there was an error
+        //         var errorElement = document.getElementById('card-errors');
+        //         errorElement.textContent = result.error.message;
+        //     } else {
+        //         // Send the token to your server
+        //         subscribe.data['stripetoken'] = result.token.id;
+        //         subscribe.data['planid'] = $('#planid').val();
+        //         formhandler(subscribe.data, '/auth/paywall-signup');
+        //     }
+        // });    
     };
     SubscribeForm.prototype.events = function()
     {
@@ -97,18 +140,28 @@ if ($('#stripekey').length > 0) {
             var data = {};
             var elem = $(e.target);
             var elemid = elem.attr('name');
+            var inputType = elem.attr('type');
 
-            // if (elemid != 'trial') {
-            data[elemid] = elem.val();
-            // } else {
+            if (inputType == 'text' || inputType == 'email' || inputType == 'password') {
+                data[elemid] = elem.val();
+            } else if (inputType =='checkbox') {
+                data[elemid] = elem.is(":checked");
+            }
 
-                 // data[elemid] = $('#trial').is(":checked");
-                // if ($('#trial').attr('checked')) { data[elemid] = true; console.log('true??')}
-            // }
             self.updateData(data);
             var validated = self.validate([elemid]);
             self.render();
         });
+
+        var form = document.getElementById('payment-form');
+
+        if (form != null) {
+            form.addEventListener('submit', function(event) {
+                self.submit(event);
+            });
+        }
+
+
     };
 
     var subscribe = new SubscribeForm();
@@ -116,47 +169,7 @@ if ($('#stripekey').length > 0) {
 
 
 
-    var form = document.getElementById('payment-form');
 
-    if (form != null) {
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            subscribe.validate();
-            subscribe.render();
-
-            $('#card-errors').text('');
-            // var userdata = $('#listingForm').serializeArray();
-            // console.log(userdata);
-            console.log(subscribe.data);
-            // $.each(userdata, function(i, val) {
-
-            //     if (val.value == '') {
-            //         $('#card-errors').text('Please fill out the '+ val.name + ' field.');
-            //         return;
-            //     }
-            // });
-            if ( $('#password').val() !== $('#verifypassword').val() ) {
-                $('#card-errors').text('Password fields do not match.');
-                return;
-            }
-
-            modal.render("spinner", "Authorising payment");
-            stripe.createToken(card).then(function(result) {
-                if (result.error) {
-                    modal.closeWindow();
-                    // Inform the user if there was an error
-                    var errorElement = document.getElementById('card-errors');
-                    errorElement.textContent = result.error.message;
-                } else {
-                    // Send the token to your server
-                    console.log(result);
-                    subscribe.data['stripetoken'] = result.token.id;
-                    subscribe.data['planid'] = $('#planid').val();
-                    formhandler(subscribe.data, '/auth/paywall-signup');
-                }
-            });
-        });
-    }
 
 
 
@@ -215,7 +228,4 @@ if ($('#stripekey').length > 0) {
             });
         });
     }
-
-
-
 } 

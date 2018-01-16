@@ -32458,6 +32458,7 @@ jQuery(document).ready(function () {
     Acme._View = function() {};
         Acme._View.prototype = new Acme.listen();
         Acme._View.prototype.updateData = function(data) {
+            console.log(data);
             var key = Object.keys(data)[0];
             var keySplit = key.split('.');
             var scope = this.data;
@@ -32895,6 +32896,8 @@ jQuery(document).ready(function () {
         Acme.modal.prototype = new Acme.listen();
 
         Acme.modal.prototype.render = function(layout, title) {
+            console.log('rendering');
+            console.log(layout, title);
             if (title) {
                 this.data['title'] = title;
             }
@@ -33336,6 +33339,7 @@ window.templates.listingDeleteTmpl =
         </form> \
     </div>';
 
+window.templates.subscribeTerms =  '<p>Please agree to the terms of use</p><div><form><button class="_btn _btn--red">Okay</button></form></div>';
 
 window.templates.userPlanMessage = 
 '<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
@@ -33354,12 +33358,12 @@ window.templates.signinFormTmpl =
 '<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
     <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> \
     \
-    <input id="loginName" class="" type="text" name="username" placeholder="Username" value=""> \
-    <input id="loginPass" class="" type="password" name="password" placeholder="Password"> \
+    <input id="loginName" class="" type="text" name="username" placeholder="Username" value="" /> \
+    <input id="loginPass" class="" type="password" name="password" placeholder="Password" value="" /> \
     \
     <div class="remember"> \
         <div> \
-            <input type="checkbox" id="remember" class="" name="rememberMe"> \
+            <input type="checkbox" id="remember" class="" name="rememberMe" /> \
             <label for="remember" class="">Keep me logged in.</label> \
         </div> \
         <p class="layout" data-layout="forgot" class="">Forgot password</p> \
@@ -34953,11 +34957,15 @@ Acme.Form = function(validators, rules) {
 
 Acme.Validators = {
     'notEmpty' : function(input) {
+        console.log(input);
         return !input ? false : true;
     },
     'isNumeric' : function(n) {
         var ret = !isNaN(parseFloat(n)) && isFinite(n);
         return !isNaN(parseFloat(n)) && isFinite(n);
+    },
+    'isTrue' : function(data) {
+        return (data === 'true' || data === true) ? true : false;
     }
 };
 
@@ -35705,7 +35713,7 @@ Acme.Confirm = function(template, parent, layouts) {
     };
 
 var layouts = {
-    "listing"   : 'listingSavedTmpl',
+    "listing"  : 'listingSavedTmpl',
     "delete"   : 'listingDeleteTmpl',
 };
 
@@ -36217,27 +36225,70 @@ if ($('#stripekey').length > 0) {
             "suburb"    : ["notEmpty"],
             "state"     : ["notEmpty"],
             "trial"     : [],
+            "terms"     : ["isTrue"],
             "Postcode"  : ["notEmpty", "isNumeric"]
         };
 
         this.validateFields = Object.keys(this.validateRules);
 
         this.events();
-        // if ($('#trial').attr('checked')) {
-            this.data['trial'] = $('#trial').is(":checked");
-        // }
+
+        this.data['trial'] = $('#trial').is(":checked");
 
     };
 
     SubscribeForm.prototype = new Acme.Form(Acme.Validators);
     SubscribeForm.constructor = SubscribeForm;
-    SubscribeForm.prototype.render = function() 
+    SubscribeForm.prototype.render = function(checkTerms) 
     {
         this.clearInlineErrors();
         this.addInlineErrors();
+        if (checkTerms) {
+            if (!this.data.terms) {
+                this.confirmView = new Acme.Confirm('modal', 'signin', {'terms': 'subscribeTerms'});
+                this.confirmView.render("terms", "Terms of use");
+            }
+        }
     };
-    SubscribeForm.prototype.submit = function() 
+    SubscribeForm.prototype.submit = function(event) 
     {
+        var self = this;
+        event.preventDefault();
+        var validated = self.validate();
+        self.render(true);
+        if (!validated) return;
+
+
+        $('#card-errors').text('');
+        // var userdata = $('#listingForm').serializeArray();
+        // console.log(userdata);
+        // console.log(self.data);
+        // $.each(userdata, function(i, val) {
+
+        //     if (val.value == '') {
+        //         $('#card-errors').text('Please fill out the '+ val.name + ' field.');
+        //         return;
+        //     }
+        // });
+        if ( $('#password').val() !== $('#verifypassword').val() ) {
+            $('#card-errors').text('Password fields do not match.');
+            return;
+        }
+
+        // modal.render("spinner", "Authorising payment");
+        // stripe.createToken(card).then(function(result) {
+        //     if (result.error) {
+        //         modal.closeWindow();
+        //         // Inform the user if there was an error
+        //         var errorElement = document.getElementById('card-errors');
+        //         errorElement.textContent = result.error.message;
+        //     } else {
+        //         // Send the token to your server
+        //         subscribe.data['stripetoken'] = result.token.id;
+        //         subscribe.data['planid'] = $('#planid').val();
+        //         formhandler(subscribe.data, '/auth/paywall-signup');
+        //     }
+        // });    
     };
     SubscribeForm.prototype.events = function()
     {
@@ -36248,18 +36299,28 @@ if ($('#stripekey').length > 0) {
             var data = {};
             var elem = $(e.target);
             var elemid = elem.attr('name');
+            var inputType = elem.attr('type');
 
-            // if (elemid != 'trial') {
-            data[elemid] = elem.val();
-            // } else {
+            if (inputType == 'text' || inputType == 'email' || inputType == 'password') {
+                data[elemid] = elem.val();
+            } else if (inputType =='checkbox') {
+                data[elemid] = elem.is(":checked");
+            }
 
-                 // data[elemid] = $('#trial').is(":checked");
-                // if ($('#trial').attr('checked')) { data[elemid] = true; console.log('true??')}
-            // }
             self.updateData(data);
             var validated = self.validate([elemid]);
             self.render();
         });
+
+        var form = document.getElementById('payment-form');
+
+        if (form != null) {
+            form.addEventListener('submit', function(event) {
+                self.submit(event);
+            });
+        }
+
+
     };
 
     var subscribe = new SubscribeForm();
@@ -36267,47 +36328,7 @@ if ($('#stripekey').length > 0) {
 
 
 
-    var form = document.getElementById('payment-form');
 
-    if (form != null) {
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            subscribe.validate();
-            subscribe.render();
-
-            $('#card-errors').text('');
-            // var userdata = $('#listingForm').serializeArray();
-            // console.log(userdata);
-            console.log(subscribe.data);
-            // $.each(userdata, function(i, val) {
-
-            //     if (val.value == '') {
-            //         $('#card-errors').text('Please fill out the '+ val.name + ' field.');
-            //         return;
-            //     }
-            // });
-            if ( $('#password').val() !== $('#verifypassword').val() ) {
-                $('#card-errors').text('Password fields do not match.');
-                return;
-            }
-
-            modal.render("spinner", "Authorising payment");
-            stripe.createToken(card).then(function(result) {
-                if (result.error) {
-                    modal.closeWindow();
-                    // Inform the user if there was an error
-                    var errorElement = document.getElementById('card-errors');
-                    errorElement.textContent = result.error.message;
-                } else {
-                    // Send the token to your server
-                    console.log(result);
-                    subscribe.data['stripetoken'] = result.token.id;
-                    subscribe.data['planid'] = $('#planid').val();
-                    formhandler(subscribe.data, '/auth/paywall-signup');
-                }
-            });
-        });
-    }
 
 
 
@@ -36366,9 +36387,6 @@ if ($('#stripekey').length > 0) {
             });
         });
     }
-
-
-
 } 
 var UserArticlesController = (function ($) {
     return {

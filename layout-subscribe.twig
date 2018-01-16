@@ -66,6 +66,25 @@
 		<section class="row">
 			<div class="col-md-offset-1 col-md-7">
 				{% if plan != false  %}
+
+					{% if trial %}
+						<div class="trial">
+							<h2 class="trial__header">Start your 14-day free trial now</h2>
+
+							<p class="trial__text">
+								A 14-day free trial requires registration with a valid credit card. After 14 days, 
+								your credit card will be charged for your chosen subscription unless you cancel 
+								not less than two days before the end of the free period. Subscriptions are billed 
+								monthly.
+							</p>
+
+							<p class="trial__text trial__text--last">
+								To cancel your trial, visit the My Account section.  For further 
+								information, please visit the FAQ.
+							</p>
+						</div>
+					{% endif %}
+
 				    <form class="" method="post" action="" id="listingForm">
 			    		<p class="form-section-label">Your information</p>
 
@@ -92,8 +111,10 @@
 
 			            {% if trial %}
 			            	<input type="checkbox" class="" onclick="return false;" value="true" id="trial" name="trial" checked> 
-			            	Include 14 day trial period
+			            	<label>Include 14 day trial period</label>
 			            {% endif %}
+			            <br /><input type="checkbox" class="" id="terms" name="terms"> 
+			            <label>I agree to the Frank Terms of Use <a href="{{networkData.defaultBlogUrl}}/terms-of-use">Terms of use</a></label>
  						<p class="form-section-label u-margin-top-40">Payment details</p>
 {# 		                <fieldset>
 		                    <div class="inline">

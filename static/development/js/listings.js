@@ -473,11 +473,15 @@ Acme.Form = function(validators, rules) {
 
 Acme.Validators = {
     'notEmpty' : function(input) {
+        console.log(input);
         return !input ? false : true;
     },
     'isNumeric' : function(n) {
         var ret = !isNaN(parseFloat(n)) && isFinite(n);
         return !isNaN(parseFloat(n)) && isFinite(n);
+    },
+    'isTrue' : function(data) {
+        return (data === 'true' || data === true) ? true : false;
     }
 };
 
@@ -1225,7 +1229,7 @@ Acme.Confirm = function(template, parent, layouts) {
     };
 
 var layouts = {
-    "listing"   : 'listingSavedTmpl',
+    "listing"  : 'listingSavedTmpl',
     "delete"   : 'listingDeleteTmpl',
 };
 
