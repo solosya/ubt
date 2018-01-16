@@ -17,7 +17,7 @@
     {% set jobListingsArr = _User.getUserArticles(user.guid, 0, 1000, {'blogs':[jobsBlogId], 'status': '-1'}) %}
     {% set propListingsArr = _User.getUserArticles(user.guid, 0, 1000, {'blogs':[propBlogId], 'status': '-1'}) %}
 {% endif %}
-{% set propListingsArr = [] %}
+
 
 {% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
 <!-- 3 is job, 4 is property, 5 is event -->
