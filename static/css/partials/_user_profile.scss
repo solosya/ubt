@@ -64,6 +64,7 @@
         @include padding(40px);
 
         @media #{$media-iPhoneLarge}, #{$media-iPhoneMedium}, #{$media-phone} {
+            width:100%;
           @include padding(40px);
         }
 	}

@@ -1,15 +1,14 @@
 {{ set(this, 'title', 'Signup Successful') }}
 {% set networkData = _Network.getNetworkData() %}
 <div class="login-page">
-    <div class="container">
-        <div class="tab-content">
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12 text-center">
-                    <p class="helper-text">Thank you for subscribing to Frank News. </p>
-                    <p class="helper-text">To add or edit users, please visit the My Account page. </p>
-                    <p class="helper-text">Your account will be billed monthly.</p>
-                    <a href="{{networkData.defaultBlogUrl}}" class="button green">Back to Home</a>
-                </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-offset-2 col-xs-12 thank-you">
+                <h2 class="thank-you__header">Thank you</h2>
+                <p class="thank-you__text">Thank you for subscribing to Frank News. </p>
+                <p class="thank-you__text">To add or edit users, please visit the My Account page. </p>
+                <p class="thank-you__text">Your account will be billed monthly.</p>
+                <a href="{{networkData.defaultBlogUrl}}" class="thank-you__link">Back to Home</a>
             </div>
         </div>
     </div>

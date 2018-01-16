@@ -148,7 +148,7 @@ window.templates.userPlanMessage =
 
 window.templates.userPlanOkCancel = 
 '<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
-     <button id="okaybutton" class="_btn okay" data-role="okay">OK</button> \
+     <button id="okaybutton" class="_btn _btn--red okay" data-role="okay">OK</button> \
      <button id="cancelbutton" class="_btn close" data-role="cancel">Cancel</button> \
 </form>';
 
@@ -217,7 +217,7 @@ window.templates.defaultWeatherTmpl =
         <div class="account-modal__error_text">Done!</div> \
     </div> \
     \
-    <button id="signinBtn" type="submit" class="_btn default-weather">Set as Default</button> \
+    <button id="signinBtn" type="submit" class="_btn _btn--red default-weather">Set as Default</button> \
 </form>';
 
 
