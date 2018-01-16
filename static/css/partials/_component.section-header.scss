@@ -1,0 +1,29 @@
+.section-header {
+    margin-bottom:20px;
+}
+.section-header__title {
+    font-family:$font-family-serif;
+    font-weight:300;
+    font-size:rem(30);
+    letter-spacing: 0.7px;
+    margin-bottom:15px;
+    color:color(red);
+    &:after {
+        content: '';
+        display:block;
+        height:1px;
+        width: 23px;
+        margin-top:15px;
+        background:color(lightgrey);
+    }
+}
+.section-header__link {
+    color:color(red);
+}
+
+.section-header__description {
+    font-size: rem(13);
+    font-family:$font-family-serif;
+    font-style:italic;
+    color: color(lightgrey);
+}

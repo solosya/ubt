@@ -36251,13 +36251,13 @@ if ($('#stripekey').length > 0) {
             var elem = $(e.target);
             var elemid = elem.attr('name');
 
-            if (elemid != 'trial') {
-                data[elemid] = elem.val();
-            } else {
+            // if (elemid != 'trial') {
+            data[elemid] = elem.val();
+            // } else {
 
-                 data[elemid] = $('#trial').is(":checked");
+                 // data[elemid] = $('#trial').is(":checked");
                 // if ($('#trial').attr('checked')) { data[elemid] = true; console.log('true??')}
-            }
+            // }
             self.updateData(data);
             var validated = self.validate([elemid]);
             self.render();
