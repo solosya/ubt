@@ -36897,7 +36897,7 @@ Acme.UserProfileController.Load = function () {
 
             case 'nz-regional':
                 return [
-                    'NZ/Kiataia', // not working
+                    'NZ/Kaitaia',
                     'NZ/Kerikeri',
                     'NZ/Whangarei',
                     'NZ/Dargaville',
