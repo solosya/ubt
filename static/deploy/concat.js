@@ -33348,7 +33348,7 @@ window.templates.userPlanMessage =
 window.templates.userPlanOkCancel = 
 '<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
      <button id="okaybutton" class="_btn _btn--red okay" data-role="okay">OK</button> \
-     <button id="cancelbutton" class="_btn close" data-role="cancel">Cancel</button> \
+     <button id="cancelbutton" class="_btn _btn--gray close" data-role="cancel">Cancel</button> \
 </form>';
 
 
