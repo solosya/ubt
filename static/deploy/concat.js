@@ -36522,9 +36522,9 @@ UserArticlesController.Load = (function ($) {
 
 
 
+Acme.UserProfileController = function() {};
 
-
-Acme.UserProfileController.Load = (function ($) {
+Acme.UserProfileController.Load = function () {
     var csrfToken = $('meta[name="csrf-token"]').attr("content");
 
     var deleteUser = function(e) {
@@ -36883,7 +36883,7 @@ console.log($(e.target).text());
         }
     };
 
-}(jQuery));
+};
 
 
 
