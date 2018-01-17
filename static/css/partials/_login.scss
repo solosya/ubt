@@ -92,8 +92,8 @@ body.login {
         &.forget_password {
 			button {
 				&.forget_btn {
-					background: darken($gray-4-color, 20%) none repeat scroll 0 0;
-					border-color: darken($gray-4-color, 20%);
+					background: #ae232c;
+					border-color: #ae232c;
 					color: color(white);
 					&:hover {
 						background: darken($gray-4-color, 30%) none repeat scroll 0 0;
@@ -108,10 +108,12 @@ body.login {
             .forget_btn {
                 font-size:($baseFontSize * 1) + 2;
                 @include padding(7px 20px);
-                float:right;
+                float:left;
+                margin-left: 134px;
 
                 @media #{$media-iPhoneMedium}, #{$media-phone} {
                     width: 100%;
+                    margin-left: 0;
                 }
             }
         }
