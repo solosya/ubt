@@ -86,7 +86,7 @@ Acme.UserProfileController.Load = function () {
                     data: requestData,
                     success: function (data, textStatus, jqXHR) {
                         if (data.success == 1) {
-                            console.log('success');
+                            // console.log('success');
                             renderUser(listelem, requestData);
                             $('#addManagedUser').removeClass('hidden');
                             $('#createUserErrorMessage').text('');   
@@ -120,7 +120,7 @@ Acme.UserProfileController.Load = function () {
 
 
     var attachEvents = function () {
-        console.log('adding events');
+
         $('#addManagedUser').on('click', function(e) {
             e.preventDefault()
             var userTemp = Handlebars.compile(window.templates.create_user);
@@ -183,9 +183,9 @@ Acme.UserProfileController.Load = function () {
         });
 
   
-        console.log('adding cacenl account handler');
+
         $('#cancelAccount').on('click', function(e) {
-            console.log('canceling');
+
             var listelem = $(e.target).closest('li');
             var userid = listelem.attr("id");
 
@@ -234,7 +234,7 @@ Acme.UserProfileController.Load = function () {
 
 
         $('.j-setplan').on('click', function(e) {
-            console.log(e.target);
+
             var listelem = $(e.target);
             if (!listelem.hasClass('j-setplan')) {
                 listelem = $(e.target.parentNode);
@@ -269,10 +269,10 @@ Acme.UserProfileController.Load = function () {
 
                 var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
                 // var remainingplandays = 10;
-                console.log(diffDays);
-                console.log((newplandailycost-plandailycost) * diffDays);
-                console.log(firstDate.getFullYear() +'-'+firstDate.getMonth()+1 + '-' + firstDate.getDate()  )
-                console.log(secondDate.getFullYear() +'-'+secondDate.getMonth()+1 + '-' + secondDate.getDate()  )
+                // console.log(diffDays);
+                // console.log((newplandailycost-plandailycost) * diffDays);
+                // console.log(firstDate.getFullYear() +'-'+firstDate.getMonth()+1 + '-' + firstDate.getDate()  )
+                // console.log(secondDate.getFullYear() +'-'+secondDate.getMonth()+1 + '-' + secondDate.getDate()  )
                 var msg = "";
                 if ((newplandailycost-plandailycost) * diffDays > 0) {
                     msg = " This will cost $" + Math.round((newplandailycost-plandailycost) * diffDays);
@@ -329,7 +329,6 @@ Acme.UserProfileController.Load = function () {
 
     return {
         init: function () {
-            console.log('initttining');
             attachEvents();
             userEvents();
             listingEvents();

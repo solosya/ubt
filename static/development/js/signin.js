@@ -10,7 +10,7 @@ Acme.Signin = function(template, parent, layouts) {
 Acme.Signin.prototype = new Acme.modal();
 Acme.Signin.constructor = Acme.Signin;
 Acme.Signin.prototype.errorMsg = function(msg) {
-    $('.message').toggleClass('hide');
+    $('.message').removeClass('hide');
 };
 Acme.Signin.prototype.handle = function(e) {
     var self = this;
@@ -23,7 +23,7 @@ Acme.Signin.prototype.handle = function(e) {
         }
     }
     if ($elem.is('button')) {
-
+        $('.message').addClass('hide');
         if ($elem.hasClass('signin')) {
             $elem.text('')
                  .addClass('spinner');
@@ -35,7 +35,7 @@ Acme.Signin.prototype.handle = function(e) {
             });
 
             Acme.server.create('/api/auth/login', formData).done(function(r) {
-                console.log(r);
+                // console.log(r);
                 if (r.success === 1) {
                     window.location.href = location.origin;
                     // location.reload();
@@ -137,7 +137,6 @@ $('#header_login_link').on('click', function() {
 
 $('a.j-register').on('click', function(e) {
     e.preventDefault();
-    console.log('registering!!');
     Acme.SigninView.render("register", "Register your interest");
 });
 

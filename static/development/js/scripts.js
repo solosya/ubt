@@ -101,7 +101,7 @@ var adScroll = function() {
 
 
     $("ul > li.menu-item-search").on("click", function (e) {
-        console.log('clicked search');
+
         if (window.innerWidth > sbCustomMenuBreakPoint) {
             $("#searchpanel").toggleClass('active');
             e.preventDefault();

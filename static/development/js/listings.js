@@ -400,7 +400,6 @@ Acme.Form = function(validators, rules) {
     };
 
     Acme.Form.prototype.validate = function( /* Array */ checkFields)  {
-        console.log('validating');
         // checkFields is used to validate a single field, 
         // otherwise itereate through all compulsory fields
 
@@ -415,9 +414,7 @@ Acme.Form = function(validators, rules) {
         }
 
         var validated = true, fields = [];
-        console.log(checkFields);
         if (checkFields && this.validateFields) {
-            console.log('doing intersect');
             var fields = intersect(this.validateFields, checkFields);
             for (var j=0; j<fields.length;j++) {
                 var fieldName = fields[j].split('.').reverse()[0];
@@ -429,7 +426,6 @@ Acme.Form = function(validators, rules) {
             var fields = this.validateFields || [];
             this.errorFields = []; // reset and re-calcuate all fields
         }
-        console.log(fields);
         for (var i=0;i<fields.length; i++) {
             var key = fields[i];
             var keySplit = key.split('.');
@@ -449,13 +445,10 @@ Acme.Form = function(validators, rules) {
 
             // DO THE VALIDATE!!!
             var fieldValidators = this.validateRules[key];
-            console.log('validating');
             if (fieldValidators.length > 0) {
 
                 var fieldname = fields[i].split('.').reverse()[0];
-                console.log(fieldname);
                 for (var k=0; k<fieldValidators.length; k++) {
-                    console.log(fieldValidators[k]);
                     if ( !this.validators[ fieldValidators[k] ](scope) ) {
                         this.errorFields.push(fieldname); 
                         validated = false;
@@ -464,7 +457,6 @@ Acme.Form = function(validators, rules) {
                 }
             }
         }
-        console.log(this.errorFields);
         return validated;
     };
 
@@ -473,7 +465,6 @@ Acme.Form = function(validators, rules) {
 
 Acme.Validators = {
     'notEmpty' : function(input) {
-        console.log(input);
         return !input ? false : true;
     },
     'isNumeric' : function(n) {

@@ -172,7 +172,7 @@
     {
         this.container = config.container || null;
         this.locations = config.locations || null;
-        console.log(this.locations);
+
         this.templates = {
             "dropdown" : 
                 '<div class="weather-date">' + 
@@ -254,7 +254,7 @@
             Acme.SigninView.render("default_weather", "Set default city");
             var locations = new Acme.Locations();
             var locations = self.locations.data.concat(locations.getLocations(locations.country +'-regional'));
-            console.log(locations);
+
             Acme.WeatherSelector = new Acme.listMenu({
                         'parent'        : $('#weather-dropdown'),
                         'list'          : locations.map(function(l) {

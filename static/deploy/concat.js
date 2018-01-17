@@ -32458,7 +32458,7 @@ jQuery(document).ready(function () {
     Acme._View = function() {};
         Acme._View.prototype = new Acme.listen();
         Acme._View.prototype.updateData = function(data) {
-            console.log(data);
+
             var key = Object.keys(data)[0];
             var keySplit = key.split('.');
             var scope = this.data;
@@ -32477,7 +32477,7 @@ jQuery(document).ready(function () {
     Acme.View.create = function(config)
     {
         var obj = function(){};
-        console.log(config);
+
         for (conf in config) {
             obj.prototype[conf] = config[conf];
         }
@@ -32796,7 +32796,6 @@ jQuery(document).ready(function () {
         Acme.listMenu.prototype.createList = function()
         {
             var itemTemp = this.itemTemp;
-            console.log(itemTemp);
             var html = '';
             if (this.allowClear) {
                 html = itemTemp({
@@ -32833,7 +32832,7 @@ jQuery(document).ready(function () {
                 elem.attr('checked', true);
                 var data = {};
                 data[self.key || self.name] = value;
-                console.log(data);
+
                 Acme.PubSub.publish('update_state', data);
                 
                 if (clear) {
@@ -32856,8 +32855,6 @@ jQuery(document).ready(function () {
         {
 
             // var menuid = $('#' + this.name + ' > p');
-            console.log(this.defaultSelection.label);
-            console.log(this.defaultItem);
             this.defaultItem.text(this.defaultSelection.label)
                   .removeClass('Acme-pulldown__selected-item--is-active');
             return this;
@@ -32897,8 +32894,6 @@ jQuery(document).ready(function () {
         Acme.modal.prototype = new Acme.listen();
 
         Acme.modal.prototype.render = function(layout, title) {
-            console.log('rendering');
-            console.log(layout, title);
             if (title) {
                 this.data['title'] = title;
             }
@@ -34890,7 +34885,6 @@ Acme.Form = function(validators, rules) {
     };
 
     Acme.Form.prototype.validate = function( /* Array */ checkFields)  {
-        console.log('validating');
         // checkFields is used to validate a single field, 
         // otherwise itereate through all compulsory fields
 
@@ -34905,9 +34899,7 @@ Acme.Form = function(validators, rules) {
         }
 
         var validated = true, fields = [];
-        console.log(checkFields);
         if (checkFields && this.validateFields) {
-            console.log('doing intersect');
             var fields = intersect(this.validateFields, checkFields);
             for (var j=0; j<fields.length;j++) {
                 var fieldName = fields[j].split('.').reverse()[0];
@@ -34919,7 +34911,6 @@ Acme.Form = function(validators, rules) {
             var fields = this.validateFields || [];
             this.errorFields = []; // reset and re-calcuate all fields
         }
-        console.log(fields);
         for (var i=0;i<fields.length; i++) {
             var key = fields[i];
             var keySplit = key.split('.');
@@ -34939,13 +34930,10 @@ Acme.Form = function(validators, rules) {
 
             // DO THE VALIDATE!!!
             var fieldValidators = this.validateRules[key];
-            console.log('validating');
             if (fieldValidators.length > 0) {
 
                 var fieldname = fields[i].split('.').reverse()[0];
-                console.log(fieldname);
                 for (var k=0; k<fieldValidators.length; k++) {
-                    console.log(fieldValidators[k]);
                     if ( !this.validators[ fieldValidators[k] ](scope) ) {
                         this.errorFields.push(fieldname); 
                         validated = false;
@@ -34954,7 +34942,6 @@ Acme.Form = function(validators, rules) {
                 }
             }
         }
-        console.log(this.errorFields);
         return validated;
     };
 
@@ -34963,7 +34950,6 @@ Acme.Form = function(validators, rules) {
 
 Acme.Validators = {
     'notEmpty' : function(input) {
-        console.log(input);
         return !input ? false : true;
     },
     'isNumeric' : function(n) {
@@ -35858,7 +35844,7 @@ var adScroll = function() {
 
 
     $("ul > li.menu-item-search").on("click", function (e) {
-        console.log('clicked search');
+
         if (window.innerWidth > sbCustomMenuBreakPoint) {
             $("#searchpanel").toggleClass('active');
             e.preventDefault();
@@ -36027,7 +36013,7 @@ Acme.Signin = function(template, parent, layouts) {
 Acme.Signin.prototype = new Acme.modal();
 Acme.Signin.constructor = Acme.Signin;
 Acme.Signin.prototype.errorMsg = function(msg) {
-    $('.message').toggleClass('hide');
+    $('.message').removeClass('hide');
 };
 Acme.Signin.prototype.handle = function(e) {
     var self = this;
@@ -36040,7 +36026,7 @@ Acme.Signin.prototype.handle = function(e) {
         }
     }
     if ($elem.is('button')) {
-
+        $('.message').addClass('hide');
         if ($elem.hasClass('signin')) {
             $elem.text('')
                  .addClass('spinner');
@@ -36052,7 +36038,7 @@ Acme.Signin.prototype.handle = function(e) {
             });
 
             Acme.server.create('/api/auth/login', formData).done(function(r) {
-                console.log(r);
+                // console.log(r);
                 if (r.success === 1) {
                     window.location.href = location.origin;
                     // location.reload();
@@ -36154,7 +36140,6 @@ $('#header_login_link').on('click', function() {
 
 $('a.j-register').on('click', function(e) {
     e.preventDefault();
-    console.log('registering!!');
     Acme.SigninView.render("register", "Register your interest");
 });
 
@@ -36167,7 +36152,7 @@ if ($('#stripekey').length > 0) {
 
 
     var stripekey = $('#stripekey').html();
-    console.log(stripekey)
+
 
     var modal = new Acme.Signin('spinner', 'acme-dialog', {"spinner": 'spinnerTmpl'});
 
@@ -36321,7 +36306,6 @@ if ($('#stripekey').length > 0) {
         if (form != null) {
             form.addEventListener('submit', function(event) {
                 self.submit(event);
-                        console.log('submitting');
 
             });
         }
@@ -36340,7 +36324,7 @@ if ($('#stripekey').length > 0) {
 
     var formhandler = function(formdata, path) {
         var csrfToken = $('meta[name="csrf-token"]').attr("content");
-        console.log(formdata);
+
         $.ajax({
             url: _appJsConfig.appHostName + path,
             type: 'post',
@@ -36352,8 +36336,7 @@ if ($('#stripekey').length > 0) {
                     $('#card-errors').text('Completed successfully.');
                 } else {
                     modal.closeWindow();
-                    console.log(data)
-                    console.log(data.error)
+
                     var text = ''
                     for (var key in data.error) {
                         text = text + data.error[key] + " ";
@@ -36363,8 +36346,6 @@ if ($('#stripekey').length > 0) {
             },
             error: function(data) {
                 modal.closeWindow();
-                console.log('fail'); 
-                console.log(data);   
             }
         });
 
@@ -36375,7 +36356,7 @@ if ($('#stripekey').length > 0) {
     var udform = document.getElementById('update-card-form');
 
     if (udform != null) {
-        console.log('updateform listen');
+
         udform.addEventListener('submit', function(event) {
             event.preventDefault();
              $('#card-errors').text('');
@@ -36386,7 +36367,7 @@ if ($('#stripekey').length > 0) {
                     errorElement.textContent = result.error.message;
                 } else {
                     // Send the token to your server
-                    console.log(result);
+
                     formdata = {"stripetoken":result.token.id}
                     formhandler(formdata, '/user/update-payment-details');
                 }
@@ -36605,7 +36586,7 @@ Acme.UserProfileController.Load = function () {
                     data: requestData,
                     success: function (data, textStatus, jqXHR) {
                         if (data.success == 1) {
-                            console.log('success');
+                            // console.log('success');
                             renderUser(listelem, requestData);
                             $('#addManagedUser').removeClass('hidden');
                             $('#createUserErrorMessage').text('');   
@@ -36639,7 +36620,7 @@ Acme.UserProfileController.Load = function () {
 
 
     var attachEvents = function () {
-        console.log('adding events');
+
         $('#addManagedUser').on('click', function(e) {
             e.preventDefault()
             var userTemp = Handlebars.compile(window.templates.create_user);
@@ -36702,9 +36683,9 @@ Acme.UserProfileController.Load = function () {
         });
 
   
-        console.log('adding cacenl account handler');
+
         $('#cancelAccount').on('click', function(e) {
-            console.log('canceling');
+
             var listelem = $(e.target).closest('li');
             var userid = listelem.attr("id");
 
@@ -36753,7 +36734,7 @@ Acme.UserProfileController.Load = function () {
 
 
         $('.j-setplan').on('click', function(e) {
-            console.log(e.target);
+
             var listelem = $(e.target);
             if (!listelem.hasClass('j-setplan')) {
                 listelem = $(e.target.parentNode);
@@ -36788,10 +36769,10 @@ Acme.UserProfileController.Load = function () {
 
                 var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
                 // var remainingplandays = 10;
-                console.log(diffDays);
-                console.log((newplandailycost-plandailycost) * diffDays);
-                console.log(firstDate.getFullYear() +'-'+firstDate.getMonth()+1 + '-' + firstDate.getDate()  )
-                console.log(secondDate.getFullYear() +'-'+secondDate.getMonth()+1 + '-' + secondDate.getDate()  )
+                // console.log(diffDays);
+                // console.log((newplandailycost-plandailycost) * diffDays);
+                // console.log(firstDate.getFullYear() +'-'+firstDate.getMonth()+1 + '-' + firstDate.getDate()  )
+                // console.log(secondDate.getFullYear() +'-'+secondDate.getMonth()+1 + '-' + secondDate.getDate()  )
                 var msg = "";
                 if ((newplandailycost-plandailycost) * diffDays > 0) {
                     msg = " This will cost $" + Math.round((newplandailycost-plandailycost) * diffDays);
@@ -36848,7 +36829,6 @@ Acme.UserProfileController.Load = function () {
 
     return {
         init: function () {
-            console.log('initttining');
             attachEvents();
             userEvents();
             listingEvents();
@@ -37033,7 +37013,7 @@ Acme.UserProfileController.Load = function () {
     {
         this.container = config.container || null;
         this.locations = config.locations || null;
-        console.log(this.locations);
+
         this.templates = {
             "dropdown" : 
                 '<div class="weather-date">' + 
@@ -37115,7 +37095,7 @@ Acme.UserProfileController.Load = function () {
             Acme.SigninView.render("default_weather", "Set default city");
             var locations = new Acme.Locations();
             var locations = self.locations.data.concat(locations.getLocations(locations.country +'-regional'));
-            console.log(locations);
+
             Acme.WeatherSelector = new Acme.listMenu({
                         'parent'        : $('#weather-dropdown'),
                         'list'          : locations.map(function(l) {

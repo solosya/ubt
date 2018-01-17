@@ -115,7 +115,7 @@
     Acme._View = function() {};
         Acme._View.prototype = new Acme.listen();
         Acme._View.prototype.updateData = function(data) {
-            console.log(data);
+
             var key = Object.keys(data)[0];
             var keySplit = key.split('.');
             var scope = this.data;
@@ -134,7 +134,7 @@
     Acme.View.create = function(config)
     {
         var obj = function(){};
-        console.log(config);
+
         for (conf in config) {
             obj.prototype[conf] = config[conf];
         }
@@ -453,7 +453,6 @@
         Acme.listMenu.prototype.createList = function()
         {
             var itemTemp = this.itemTemp;
-            console.log(itemTemp);
             var html = '';
             if (this.allowClear) {
                 html = itemTemp({
@@ -490,7 +489,7 @@
                 elem.attr('checked', true);
                 var data = {};
                 data[self.key || self.name] = value;
-                console.log(data);
+
                 Acme.PubSub.publish('update_state', data);
                 
                 if (clear) {
@@ -513,8 +512,6 @@
         {
 
             // var menuid = $('#' + this.name + ' > p');
-            console.log(this.defaultSelection.label);
-            console.log(this.defaultItem);
             this.defaultItem.text(this.defaultSelection.label)
                   .removeClass('Acme-pulldown__selected-item--is-active');
             return this;
@@ -554,8 +551,6 @@
         Acme.modal.prototype = new Acme.listen();
 
         Acme.modal.prototype.render = function(layout, title) {
-            console.log('rendering');
-            console.log(layout, title);
             if (title) {
                 this.data['title'] = title;
             }

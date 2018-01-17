@@ -3,7 +3,7 @@ if ($('#stripekey').length > 0) {
 
 
     var stripekey = $('#stripekey').html();
-    console.log(stripekey)
+
 
     var modal = new Acme.Signin('spinner', 'acme-dialog', {"spinner": 'spinnerTmpl'});
 
@@ -157,7 +157,6 @@ if ($('#stripekey').length > 0) {
         if (form != null) {
             form.addEventListener('submit', function(event) {
                 self.submit(event);
-                        console.log('submitting');
 
             });
         }
@@ -176,7 +175,7 @@ if ($('#stripekey').length > 0) {
 
     var formhandler = function(formdata, path) {
         var csrfToken = $('meta[name="csrf-token"]').attr("content");
-        console.log(formdata);
+
         $.ajax({
             url: _appJsConfig.appHostName + path,
             type: 'post',
@@ -188,8 +187,7 @@ if ($('#stripekey').length > 0) {
                     $('#card-errors').text('Completed successfully.');
                 } else {
                     modal.closeWindow();
-                    console.log(data)
-                    console.log(data.error)
+
                     var text = ''
                     for (var key in data.error) {
                         text = text + data.error[key] + " ";
@@ -199,8 +197,6 @@ if ($('#stripekey').length > 0) {
             },
             error: function(data) {
                 modal.closeWindow();
-                console.log('fail'); 
-                console.log(data);   
             }
         });
 
@@ -211,7 +207,7 @@ if ($('#stripekey').length > 0) {
     var udform = document.getElementById('update-card-form');
 
     if (udform != null) {
-        console.log('updateform listen');
+
         udform.addEventListener('submit', function(event) {
             event.preventDefault();
              $('#card-errors').text('');
@@ -222,7 +218,7 @@ if ($('#stripekey').length > 0) {
                     errorElement.textContent = result.error.message;
                 } else {
                     // Send the token to your server
-                    console.log(result);
+
                     formdata = {"stripetoken":result.token.id}
                     formhandler(formdata, '/user/update-payment-details');
                 }
