@@ -16,12 +16,13 @@
 
 
 {# Pages don't have a blogName so class has to be used #}
- {% if  blogName  | lower               != "subscribe"                       and
-        pageClass | lower               != 'page page-terms-of-use'          and 
-        pageClass | lower               != 'page page-faq'                   and 
-        _AppHelper.getParsedUrl().path  != _AppHelper.getEditProfileUrl()    and 
-        _AppHelper.getParsedUrl().path  != _AppHelper.getForgotPasswordUrl() and 
-        _AppHelper.getParsedUrl().path  != _AppHelper.getResetPasswordUrl()  and 
+ {% if  blogName  | lower               != "subscribe"                      and
+        pageClass | lower               != 'page page-terms-of-use'         and 
+        pageClass | lower               != 'page page-faq'                  and 
+        _AppHelper.getParsedUrl().path  != _AppHelper.getEditProfileUrl()   and 
+        _AppHelper.getParsedUrl().path  != "/verify-email-thanks"           and 
+        _AppHelper.getParsedUrl().path  != _AppHelper.getResetPasswordUrl() and 
+        _AppHelper.getParsedUrl().path  != _AppHelper.getResetPasswordUrl() and 
         blogData['showPaywall']         == true %}
     {% set showPaywall = true %}
     {% set layout = "layout-marketing" %}
