@@ -405,7 +405,7 @@
     Acme.listMenu = function(config)
     {
         this.defaultTemp      = Handlebars.compile(window.templates.pulldown);
-        this.defaultItemTemp  = Handlebars.compile('<li data-clear="{{clear}}" data-value="{{value}}">{{label}}</li>');
+        this.defaultItemTemp  = Handlebars.compile('<li data-clear="{{clear}}" data-value="{{value}}" style="text-align:left">{{label}}</li>');
         this.divider          = "<hr>";
         this.menuParent       = config.parent        || {};
         this.class            = config.class         || "";
@@ -453,6 +453,7 @@
         Acme.listMenu.prototype.createList = function()
         {
             var itemTemp = this.itemTemp;
+            console.log(itemTemp);
             var html = '';
             if (this.allowClear) {
                 html = itemTemp({
@@ -569,10 +570,8 @@
             return this.dfd.promise();
         };
         Acme.modal.prototype.renderLayout = function(layout) {
-            console.log(layout);
             // var layout = Handlebars.compile(window.templates[this.layouts[layout]]);
             var layout = window.templates[this.layouts[layout]];
-            console.log(layout);
 
             $('#'+this.parentCont).find('#dialogContent').empty().append(layout); 
         };

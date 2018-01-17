@@ -2,9 +2,12 @@
 
     Acme.Locations = function(){
         this.country = _appJsConfig.appHostName.split('.').reverse()[0];
-        console.log(this.country);
+        // this.country = 'nz';
+        // console.log(this.country);
         this.data = this.getLocations(this.country);
-        console.log(this.data);
+        this.regional = this.getLocations(this.country + '-regional');
+        // console.log('regional', this.regional);
+        // console.log('ciry', this.data);
     };
     Acme.Locations.prototype.getLocations = function(country) 
     {
@@ -22,6 +25,67 @@
                     'NZ/New%20Plymouth',
                 ];
                 break;
+
+
+            case 'nz-regional':
+                return [
+                    'NZ/Kiataia', // not working
+                    'NZ/Kerikeri',
+                    'NZ/Whangarei',
+                    'NZ/Dargaville',
+                    'NZ/Thames',
+                    'NZ/Tauranga',
+                    'NZ/Gisborne',
+                    'NZ/Hastings',
+                    'NZ/Wanganui',
+                    'NZ/Masterton',
+                    'NZ/Blenheim',
+                    'NZ/Westport',
+                    'NZ/Greymouth',
+                    'NZ/Ashburton',
+                    'NZ/Timaru',
+                    'NZ/Oamaru',
+                    'NZ/Gore',
+                ];
+                break;
+
+
+            case 'au-regional':
+                return [
+                    'Australia/Launceston',
+                    'Australia/Albany',
+                    'Australia/Alice Springs',
+                    'Australia/Mount Gambier',
+                    'Australia/Cairns',
+                    'Australia/Gympie',
+                    'Australia/Newcastle',
+                    'Australia/Wagga',  // not working
+                    'Australia/Bairnsdale',
+                    'Australia/Northam',
+                    'Australia/Bundaberg',
+                    'Australia/Tamworth',
+                    'Australia/Orange',
+                    'Australia/Griffith',
+                    'Australia/Wollongong',
+                    'Australia/Bendigo',
+                    'Australia/Albury',
+                    'Australia/Toowoomba',
+                ];
+                break;
+
+            case 'au':
+                Acme.State.Country = 'Australia';
+                return [
+                    'Australia/Sydney',
+                    'Australia/Melbourne',
+                    'Australia/Brisbane',
+                    'Australia/Perth',
+                    'Australia/Adelaide',
+                    'Australia/Hobart',
+                    'Australia/Canberra',
+                    'Australia/Darwin',
+                ];
+
             default:
                 Acme.State.Country = 'Australia';
                 return [
@@ -33,25 +97,6 @@
                     'Australia/Hobart',
                     'Australia/Canberra',
                     'Australia/Darwin',
-                    'Australia/Launceston',
-                    'Australia/Albany',
-                    'Australia/Darwin',
-                    'Australia/Alice Springs',
-                    'Australia/Mount Gambier',
-                    'Australia/Cairns',
-                    'Australia/Gympie',
-                    'Australia/Newcastle',
-                    'Australia/Wagga wagga',
-                    'Australia/Bairnsdale',
-                    'Australia/Northam',
-                    'Australia/Bundaberg',
-                    'Australia/Tamworth',
-                    'Australia/Orange',
-                    'Australia/Griffith',
-                    'Australia/Wollongong',
-                    'Australia/Bendigo',
-                    'Australia/Albury',
-                    'Australia/Toowoomba',
                 ];
         }
     };
@@ -103,6 +148,7 @@
 
     Acme.WeatherHeader_View_Class = function()
     {
+        this.localdata = null;
         this.subscriptions = Acme.PubSub.subscribe({
             'Acme.weather_view.listener' : ["state_changed"]
         });
@@ -126,6 +172,7 @@
     {
         this.container = config.container || null;
         this.locations = config.locations || null;
+        console.log(this.locations);
         this.templates = {
             "dropdown" : 
                 '<div class="weather-date">' + 
@@ -205,12 +252,15 @@
         $('#default_weather').on('click', function(e) {
 
             Acme.SigninView.render("default_weather", "Set default city");
-
+            var locations = new Acme.Locations();
+            var locations = self.locations.data.concat(locations.getLocations(locations.country +'-regional'));
+            console.log(locations);
             Acme.WeatherSelector = new Acme.listMenu({
                         'parent'        : $('#weather-dropdown'),
-                        'list'          : self.locations.data.map(function(l) {
-                            return l.split('/')[1];
+                        'list'          : locations.map(function(l) {
+                            return l.split('/')[1].replace('%20', ' ');
                         }),
+                        'class'         : 'weather-pulldown',
                         'defaultSelect' : {"label": 'Select default city'},
                         'name'          : 'city',
                         'key'           : 'city'
