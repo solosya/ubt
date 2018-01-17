@@ -1,7 +1,7 @@
 {{ set(this, 'title', 'Edit Profile') }}
 
 
-{{this.registerJs("Acme.UserProfileController.Load().init();")}}
+{# {{this.registerJs("Acme.UserProfileController.Load().init();")}} #}
 {% set networkData = _Network.getNetworkData() %}
 {% set blogData = _Blog.getBlog() %}
 {% set jobsBlogId = blogData.additionalInfo['joblistingsid'] %}

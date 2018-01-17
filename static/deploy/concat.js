@@ -36882,9 +36882,9 @@ console.log($(e.target).text());
             listingEvents();
         }
     };
-
+    
 };
-
+Acme.UserProfileController.Load().init();
 
 
 (function ($) {
