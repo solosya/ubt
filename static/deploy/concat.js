@@ -36545,9 +36545,9 @@ Acme.UserProfileController.Load = (function ($) {
                     user.remove();
                 } else {
                     var text = '';
-                    for (var key in data.error) {
-                        text = text + data.error[key] + " ";
-                    } 
+                    // for (var key in data.error) {
+                    //     text = text + data.error[key] + " ";
+                    // } 
                     $('#createUserErrorMessage').text(text);
                 }
             },
