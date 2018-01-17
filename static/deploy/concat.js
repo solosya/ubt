@@ -36522,7 +36522,7 @@ UserArticlesController.Load = (function ($) {
 
 console.log('loading profile controller');
 
-Acme.UserProfileController = function() {};
+Acme.UserProfileController = {};
 
 Acme.UserProfileController.Load = function () {
     var csrfToken = $('meta[name="csrf-token"]').attr("content");
