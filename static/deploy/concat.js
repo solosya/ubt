@@ -32348,7 +32348,7 @@ jQuery(document).ready(function () {
     Acme.Collection   = {};
     Acme.Controller   = {};
     Acme.State        = {};
-
+    Acme.SigninView   = {};
 
     $('html').on('click', function(e) {
         $('.Acme-pulldown ul').hide();
