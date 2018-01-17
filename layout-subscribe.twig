@@ -179,7 +179,7 @@
 							{% set uc = plan.user_count + 1 %}
 							{% set val = plan.plan_value / 100 %}
 							{% if val == 19.89 %}
-								{% set 19.90 %}
+								{% set val = 19.90 %}
 							{% endif %}
 
 							<p>{{uc|replace({ '10001': '20+' })}} users</p>
