@@ -113,19 +113,19 @@
 
                 > .content{
                     > h2{
-                        font-size: rem(19);
-                        line-height:1.12;
-                        margin-top:5px;
-                        margin-bottom:10px;
+                        font-size: rem(17);
+                        line-height:1.38;
+                        margin:5px 0 5px 0;
+                        max-height: 25px;
                     }
                     p.excerpt {
-                        font-size:rem(13);
-                        max-height: 15px;
+                        font-size:rem(12);
+                        max-height: 20px;
                         
                     }
                     > .starttime{
                         color: #002d56;
-                        font-size: rem(13);
+                        font-size: rem(11);
                         font-weight: 600;
                     }
                 }
