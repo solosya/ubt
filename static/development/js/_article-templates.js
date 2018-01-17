@@ -353,6 +353,30 @@ Acme.userPropertyCardTemplate =
         </div>' +
     cardTemplateBottom;
 
+Acme.propertyCardTemplate = 
+    cardTemplateTop +  
+        '{{#if hasMedia}} \
+            <figure class="{{figureClass}}"> \
+                <picture> \
+                    <source media="(max-width: 620px)" srcset="{{imageUrl}}"> \
+                    <img class="img-responsive" src="{{imageUrl}}" data-original="{{imageUrl}}"> \
+                </picture> \
+            </figure> \
+        {{/if}} \
+        \
+        <div class="content"> \
+            <div class="cat-time"> \
+                <time datetime="{{publishDate}}">{{publishDate}}</time> \
+            </div> \
+            <h2>{{ title }}</h2> \
+            <p class="propertyType">{{ additionalInfo.type }}</p> \
+            <div> \
+                <p class="contracttype">{{ additionalInfo.contracttype }}</p> \
+                <p class="price">${{ fixPrice additionalInfo.pricerange }}</p> \
+            </div> \
+        </div>' +
+    cardTemplateBottom;
+
 
 
 Acme.communityPropertyCardTemplate = 

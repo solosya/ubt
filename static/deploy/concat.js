@@ -33550,6 +33550,30 @@ Acme.userPropertyCardTemplate =
         </div>' +
     cardTemplateBottom;
 
+Acme.propertyCardTemplate = 
+    cardTemplateTop +  
+        '{{#if hasMedia}} \
+            <figure class="{{figureClass}}"> \
+                <picture> \
+                    <source media="(max-width: 620px)" srcset="{{imageUrl}}"> \
+                    <img class="img-responsive" src="{{imageUrl}}" data-original="{{imageUrl}}"> \
+                </picture> \
+            </figure> \
+        {{/if}} \
+        \
+        <div class="content"> \
+            <div class="cat-time"> \
+                <time datetime="{{publishDate}}">{{publishDate}}</time> \
+            </div> \
+            <h2>{{ title }}</h2> \
+            <p class="propertyType">{{ additionalInfo.type }}</p> \
+            <div> \
+                <p class="contracttype">{{ additionalInfo.contracttype }}</p> \
+                <p class="price">${{ fixPrice additionalInfo.pricerange }}</p> \
+            </div> \
+        </div>' +
+    cardTemplateBottom;
+
 
 
 Acme.communityPropertyCardTemplate = 
@@ -34033,7 +34057,6 @@ Card.prototype.renderCard = function(card, cardClass, template, type)
 {
     var self = this;
     var template = (template) ? Acme[template] : Acme.systemCardTemplate;
-
     card['cardClass'] = cardClass;
     if (card.status == "draft") {
         card['articleStatus'] = "draft";
@@ -34997,10 +35020,9 @@ var ListingForm = function() {};
             this.render();
         },
         "delete listing" : function(data, topic) {
-            this.deleteListing();
+            return this.deleteListing();
         },
         "extendedData.region" : function(data, topic) {
-            console.log(data, topic);
             this.updateData(data);
         },
         "extendedData.contracttype" : function(data, topic) {
@@ -35150,6 +35172,7 @@ var ListingForm = function() {};
     };
     ListingForm.prototype.renderImageThumbs = function(images) 
     {
+        // console.log('rendering image array');
         var imageArray = $('#imageArray');
         var html = "";
         var temp = Handlebars.compile(window.templates.carousel_item); 
@@ -35182,7 +35205,7 @@ var ListingForm = function() {};
     };
     ListingForm.prototype.deleteListing = function() 
     {
-        Acme.server.create('/api/article/delete-user-article', {"articleguid": this.data.guid}).done(function(r) {
+        return Acme.server.create('/api/article/delete-user-article', {"articleguid": this.data.guid}).done(function(r) {
             $('#listingFormClear').click();
             Acme.PubSub.publish('update_state', {'userArticles': ''});
         }).fail(function(r) {
@@ -35502,13 +35525,12 @@ Acme.listingCollectionClass = function(name, blogId) {
 
 Acme.listingViewClass = function() {
 };
-Acme.listingViewClass.prototype = new Acme._View();
+    Acme.listingViewClass.prototype = new Acme._View();
 
     Acme.listingViewClass.prototype.init =  function(blogId, type) {
         this.events();
         this.blogs = blogId;
         this.type = type || "";
-
     };
     Acme.listingViewClass.prototype.container = {
         'main' : $('#userListings')
@@ -35693,12 +35715,14 @@ Acme.Confirm = function(template, parent, layouts) {
             }        
 
             if ($elem.data('role') === 'delete') {
-                Acme.PubSub.publish("update_state", {'delete listing': "" });                
+                $elem.addClass("spinner");
+                Acme.PubSub.publish("update_state", {'delete listing': "" });
             }
 
         }
         if ($elem.hasClass('layout')) {
             var layout = $elem.data('layout');
+            // console.log('rendering layout');
             this.renderLayout(layout);
         }
     };
@@ -35720,6 +35744,9 @@ Acme.confirmView = new Acme.Confirm('modal', 'signin', layouts);
         },
         "confirmDelete" : function(data, topic) {
             this.render("delete", "Warning");
+        },
+        "userArticles" : function(data, topic) {
+            this.closeWindow();
         }
 
     };
