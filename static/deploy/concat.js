@@ -33376,8 +33376,9 @@ window.templates.signinFormTmpl =
     </div> \
     \
     <button id="signinBtn" type="submit" class="_btn _btn--red signin">SIGN IN</button> \
+    \
+    <script>$("#loginName").on("input", function() {window.scrollBy(0,1);console.log("ios fix?")})</script>\
 </form>';
-
 
 window.templates.registerTmpl = 
 '<form name="registerForm" id="registerForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \

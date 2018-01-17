@@ -175,7 +175,7 @@ window.templates.signinFormTmpl =
     \
     <button id="signinBtn" type="submit" class="_btn _btn--red signin">SIGN IN</button> \
     \
-    <script>$("#loginName").on("change", function() {window.scrollBy(0,1);console.log("ios fix?")};)</script\
+    <script>$("#loginName").on("input", function() {window.scrollBy(0,1);console.log("ios fix?")})</script>\
 </form>';
 
 window.templates.registerTmpl = 
