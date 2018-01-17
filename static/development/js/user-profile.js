@@ -364,6 +364,7 @@ console.log($(e.target).text());
 
     return {
         init: function () {
+            deleteUser();
             attachEvents();
             userEvents();
             listingEvents();
