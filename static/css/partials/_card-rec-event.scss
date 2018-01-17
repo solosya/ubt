@@ -113,10 +113,15 @@
 
                 > .content{
                     > h2{
-                        font-size: rem(16);
+                        font-size: rem(21);
                         line-height:1.12;
                         margin-top:5px;
                         margin-bottom:10px;
+                    }
+                    p.excerpt {
+                        font-size:rem(13);
+                        max-height: 15px;
+                        
                     }
                     > .starttime{
                         color: #002d56;
@@ -158,7 +163,7 @@
                         font-size: rem(17);
                         line-height:1.38;
                         margin-top:0;
-                        max-height: 20px;
+                        max-height: 25px;
                     }
                     .cat-time{
                         line-height: .5;
