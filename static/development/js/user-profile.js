@@ -1,8 +1,8 @@
 
-Acme.UserProfielController = (function ($) {
+Acme.UserProfileController = (function ($) {
     return {
         load: function () {
-            Acme.UserProfielController.Load.init();
+            Acme.UserProfileController.Load.init();
         }
     };
 }(jQuery));
@@ -11,7 +11,7 @@ Acme.UserProfielController = (function ($) {
 
 
 
-Acme.UserProfielController.Load = (function ($) {
+Acme.UserProfileController.Load = (function ($) {
     var csrfToken = $('meta[name="csrf-token"]').attr("content");
 
     var deleteUser = function(e) {
