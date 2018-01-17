@@ -36634,7 +36634,7 @@ Acme.UserProfileController.Load = function () {
 
 
     var attachEvents = function () {
-
+        console.log('adding events');
         $('#addManagedUser').on('click', function(e) {
             e.preventDefault()
             var userTemp = Handlebars.compile(window.templates.create_user);
@@ -36697,7 +36697,7 @@ Acme.UserProfileController.Load = function () {
         });
 
   
-  
+        console.log('adding cacenl account handler');
         $('#cancelAccount').on('click', function(e) {
             console.log('canceling');
             var listelem = $(e.target).closest('li');
@@ -36877,7 +36877,7 @@ console.log($(e.target).text());
 
     return {
         init: function () {
-            deleteUser();
+            console.log('initttining');
             attachEvents();
             userEvents();
             listingEvents();
