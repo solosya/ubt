@@ -174,10 +174,16 @@
 							<h2>Order Summary</h2>
 						</div>
 						<div class="plan-body">
-							<h3>{{plan.name}}</h3>
 
-							<p>{{plan.user_count}} users</p>
-							<h4>${{plan.plan_value/100|number_format(2, '.', ',')}}({{plan.currency|raw}})/{{plan.period}}</h4>
+							<h3>{{plan.name}}</h3>
+							{% set uc = plan.user_count + 1 %}
+							{% set val = plan.plan_value / 100 %}
+							{% if val == 19.89 %}
+								{% set 19.90 %}
+							{% endif %}
+
+							<p>{{uc|replace({ '10001': '20+' })}} users</p>
+							<h4>${{val|number_format(2, '.', ',')}} ({{plan.currency|raw}})/{{plan.period}}</h4>
 							<img src="{{networkData.templatePath}}/static/images/market-screens.png?v=4">
 							<p class="red-label u-margin-top-40">What's included in your subscription:</p>
 							<ul class="features-list">
