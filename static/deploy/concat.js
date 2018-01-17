@@ -36512,10 +36512,10 @@ UserArticlesController.Load = (function ($) {
 
 
 
-var UserProfielController = (function ($) {
+Acme.UserProfielController = (function ($) {
     return {
         load: function () {
-            UserProfielController.Load.init();
+            Acme.UserProfielController.Load.init();
         }
     };
 }(jQuery));
@@ -36524,7 +36524,7 @@ var UserProfielController = (function ($) {
 
 
 
-UserProfielController.Load = (function ($) {
+Acme.UserProfielController.Load = (function ($) {
     var csrfToken = $('meta[name="csrf-token"]').attr("content");
 
     var deleteUser = function(e) {
