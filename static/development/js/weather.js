@@ -33,6 +33,25 @@
                     'Australia/Hobart',
                     'Australia/Canberra',
                     'Australia/Darwin',
+                    'Australia/Launceston',
+                    'Australia/Albany',
+                    'Australia/Darwin',
+                    'Australia/Alice Springs',
+                    'Australia/Mount Gambier',
+                    'Australia/Cairns',
+                    'Australia/Gympie',
+                    'Australia/Newcastle',
+                    'Australia/Wagga wagga',
+                    'Australia/Bairnsdale',
+                    'Australia/Northam',
+                    'Australia/Bundaberg',
+                    'Australia/Tamworth',
+                    'Australia/Orange',
+                    'Australia/Griffith',
+                    'Australia/Wollongong',
+                    'Australia/Bendigo',
+                    'Australia/Albury',
+                    'Australia/Toowoomba',
                 ];
         }
     };
@@ -202,7 +221,6 @@
     {
         var self = this;
         this.container.on("click", function (e) {
-            console.log('boo');
             Acme.PubSub.publish("update_state", {"nationalweather": self.locations.data.join(',')})
         });
     };
