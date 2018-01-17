@@ -51,12 +51,15 @@
             time {
                 color:color(lightgrey);
                 font-size: rem(10);
+                text-transform: uppercase;
+                font-family: $base-font-family;
             }
             h1 {
                 color: color(red);
                 font-size: rem(14);
                 font-weight: normal;
                 font-family: $base-font-family;
+                text-transform: uppercase;
                 
                 // @media screen and (max-width: $sm-break) {
                 //     font-size: rem(24);
@@ -88,6 +91,7 @@
                     td {
                         vertical-align:top;
                         font-size:rem(13);
+                        border-bottom: 1px solid #979797;
                         &.label {
                             width:100px;
                             vertical-align:top;
