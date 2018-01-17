@@ -113,7 +113,7 @@
 
                 > .content{
                     > h2{
-                        font-size: rem(21);
+                        font-size: rem(19);
                         line-height:1.12;
                         margin-top:5px;
                         margin-bottom:10px;
@@ -125,7 +125,7 @@
                     }
                     > .starttime{
                         color: #002d56;
-                        font-size: rem(14);
+                        font-size: rem(13);
                         font-weight: 600;
                     }
                 }
@@ -171,11 +171,13 @@
                     }
                     > .starttime{
                         color: #002d56;
-                        font-size: rem(12);
+                        font-size: rem(11);
                         font-weight: 600;
                     }
                     > p {
-                        font-size: rem(12);
+                        font-size: rem(11);
+                        max-height:15px;
+                        margin-top:5px;
 
                     }
                 }
