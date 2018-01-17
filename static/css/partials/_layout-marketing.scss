@@ -362,6 +362,7 @@
         margin: auto auto;min-width:468px;min-height:240px;background:white;padding:30px;border-radius:3px;
         @media screen and (max-width: $sm-break-down) {
             min-width:auto;
+            margin-top: 10px;
         }
 
         > div {

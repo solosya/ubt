@@ -33316,8 +33316,10 @@ window.templates.spinner =
 </div>';
 
 window.templates.modal = 
+// style="scrolling == unusable position:fixed element might be fixing login for ios safari
+// also margin-top:10px
 '<div id="signin" class="flex_col"> \
-    <div id="dialog" style="margin-top:10px"> \
+    <div id="dialog"> \
         <div class="centerContent" style="scrolling == unusable position:fixed element"> \
             <div class="head"> \
                 <h2>{{title}}</h2> \
@@ -33357,6 +33359,7 @@ window.templates.userPlanOkCancel =
 
 
 window.templates.signinFormTmpl = 
+// <script> tag possible ios safari login fix
 '<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
     <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> \
     \
@@ -33377,7 +33380,7 @@ window.templates.signinFormTmpl =
     \
     <button id="signinBtn" type="submit" class="_btn _btn--red signin">SIGN IN</button> \
     \
-    <script>$("#loginName").on("input", function() {window.scrollBy(0,1);window.scrollBy(0,-1);console.log("ios fix?");})</script>\
+    <script>$("#loginName").on("input", function() {window.scrollBy(0,1);window.scrollBy(0,-1);})</script>\
 </form>';
 
 window.templates.registerTmpl = 
@@ -35232,7 +35235,6 @@ var ListingForm = function() {};
 
             data[elemid] = elem.val();
             self.updateData(data);
-            console.log('validating: ', elemid);
             var validated = self.validate([elemid]);
             self.render();
         });

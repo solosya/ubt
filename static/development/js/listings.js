@@ -745,7 +745,6 @@ var ListingForm = function() {};
 
             data[elemid] = elem.val();
             self.updateData(data);
-            console.log('validating: ', elemid);
             var validated = self.validate([elemid]);
             self.render();
         });

@@ -117,7 +117,7 @@ window.templates.modal =
 // style="scrolling == unusable position:fixed element might be fixing login for ios safari
 // also margin-top:10px
 '<div id="signin" class="flex_col"> \
-    <div id="dialog" style="margin-top:10px"> \
+    <div id="dialog"> \
         <div class="centerContent" style="scrolling == unusable position:fixed element"> \
             <div class="head"> \
                 <h2>{{title}}</h2> \
