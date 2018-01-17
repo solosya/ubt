@@ -1,4 +1,6 @@
 {{ set(this, 'title', 'Edit Profile') }}
+{{this.registerJs("Acme.cards = CardController();")}}
+{{this.registerJs("Acme.searchFeed = new Acme.View.articleFeed(Acme.cards);")}}
 
 {{this.registerJs("Acme.UserProfileController.Load().init();")}}
 {% set networkData = _Network.getNetworkData() %}
