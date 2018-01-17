@@ -584,13 +584,17 @@
 
                 <div class="col-sm-3">
                     <div class="finance-widget">
-                        {% for i in 0..1 if sections['finance'].feed.articles[i] %}
+                        {% if sections['finance'].feed.articles[0] %}
                             {{this.render('partials/_single-article.twig', {
                                 article: sections['finance'].feed.articles[i], 
                                 imageSuppress: true,
                                 containerClass: "card-rec-finance"
                             }) | raw}}
-                        {% endfor %}
+                        {% endif %}
+
+                        <div id="id1149b8"></div>
+
+                        <script type="text/javascript" src="//mediatools.hifx.com/widget/compact-converter-widget/id1149b8/?affiliate=HIFX0110780606&amp;sell=NZD&amp;buy=AUD&amp;amount=1&amp;brandcolour=bbc614&amp;fontcolour=001f2b"></script>
                     </div>
                 </div>
 
