@@ -4,15 +4,15 @@
         <div class="tab-content forget_password">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12 text-center">
-                    <h3 class="sub-heading">Email Verification</h3>
-                    <p class="helper-text">
-                        {% if success == '1' %}
-                            Your email address has been verified successfully.
+
+                    {% if success == '1' %}
+                            <h3 class="thank-you__header">Thank you</h3>
+                            <p class="thank-you__text">Your email address has been verified.</p>
+                            <a href="{{_AppHelper.getLoginUrl()}}" class="thank-you__link">Get Started</a>
                         {% else %}
-                            Verification of email address failed.
-                        {% endif %}
-                    </p>
-                    <a href="{{_AppHelper.getLoginUrl()}}" class="button green">Back to login</a>
+                            <h3 class="thank-you__header">Oops!</h3>
+                            <p class="thank-you__text">Something went wrong.<br>Please check your email address is not already registered.</p>
+                        {% endif %}                    
                 </div>
             </div>
         </div>
