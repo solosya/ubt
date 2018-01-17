@@ -120,6 +120,12 @@
                         margin-top:5px;
                         margin-bottom:10px;
                     }
+                    .propertyType {
+                        height: 20px;
+                    }
+                    .price {
+                        display:none;
+                    }
                 }
             }
         }
@@ -156,6 +162,13 @@
                         line-height:1.38;
                         margin-top:0;
                     }
+                    .propertyType {
+                        height: 20px;
+                    }
+                    .price {
+                        display:none;
+                    }
+
                 }
             }
         }

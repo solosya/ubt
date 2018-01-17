@@ -25,6 +25,11 @@ main.listingForm, main.eventForm {
             margin-top: 15px;
             background: color(darkblue);
         }
+
+        @media screen and (max-width: $mmd-break-down){
+            margin-top:50px;
+        }
+
     }
 
     .error-message {
@@ -241,6 +246,14 @@ main.listingForm, main.eventForm {
                     }
 
                 }
+                @media screen and (max-width: $mmd-break-down){
+                    > div {
+                        padding-top: 10%;
+                    }
+                }
+
+
+
             }
             &.events {
                 > div {

@@ -38,7 +38,7 @@
     <main id="main" class="container-fluid site-main listingForm" role="main">
         
         <section class="row section">
-            <div class="col-sm-11 col-md-offset-2 col-md-7">
+            <div class="col-sm-7 col-md-offset-2 col-md-7">
                 <div class="row">
 
                     <div class="col-md-12 section-header">
@@ -56,12 +56,12 @@
 
                         <form class="" method="post" action="#" id="listingForm" data-type="jobs">
                             <div class="row">
-                                <div class="col-sm-9">
+                                <div class="col-sm-8">
                                     <input type="text" class="articleExtendedData" name="extendedData.company" id="company" value="" placeholder="Company name*">
                                     <input type="text" class="articleExtendedData" name="extendedData.website" id="website" value="" placeholder="Company website">
                                     <input type="text" class="articleExtendedData" name="extendedData.contactname" id="contactname" value="" placeholder="Contact name*">
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-4 hidden-xs">
 
                                     <div id="uploadFileBtn" data-imgcls="images" data-id="imageArray" class="uploadFileBtn jobs">
                                         <div class="innerImgBtn">
@@ -71,9 +71,8 @@
                                             </div>
                                         </div>
                                         <p style="font-size:8px;margin-top:15px;">Please ensure your logo has a square background for correct appearance.</p>
+                                    
                                     </div>
-
-
                                 </div>
                             </div>
                             <div class="row">
@@ -134,6 +133,18 @@
                                     </div>
 
 
+                                    <div id="uploadFileBtn" data-imgcls="images" data-id="imageArray" class="uploadFileBtn jobs">
+                                        <div class="innerImgBtn">
+                                            <div id="InnerUploadFileBtn" class="vertical">
+                                                <p>Upload logo <br />(optional)</p>
+                                                <img src="{{networkData.templatePath}}/static/icons/upload-arrow.svg">
+                                            </div>
+                                        </div>
+                                        <p style="font-size:8px;margin-top:15px;margin-bottom:20px;">Please ensure your logo has a square background for correct appearance.</p>
+                                    
+                                    </div>
+
+
                                     <div id="imageArray" data-media="" class="carousel-tray"></div>
 
                                     <button class="_btn _btn--red" type="submit" id="listingFormSubmit">SUBMIT</button>
@@ -150,7 +161,7 @@
 
 
 
-            <div class="col-sm-4 col-md-3">
+            <div class="col-sm-5 col-md-3">
                 <h2 id="userlistingsrefresh" class="userListingsHeader">YOUR JOB LISTINGS</h2>
 
                 <div  id="userListings" class="">
@@ -163,7 +174,7 @@
                             behaviour: 'noclick',
                             imageSuppress: true,
                             template: 'user-jobs',
-                            containerClass: "card-form-job-listing listingCard"
+                            containerClass: "card-form-job-listing card-form-job-listing-tablet card-form-job-listing-mobile listingCard"
                         }) | raw}}
 
                     {% endfor %}
