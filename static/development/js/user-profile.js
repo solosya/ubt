@@ -193,7 +193,7 @@ Acme.UserProfileController.Load = function () {
             var status = 'cancelled';
             message = "Are you sure you want to cancel your plan?"
             if ($(e.target).text() == 'Restart Subscription') {
-                message = "Do you want to re activae your plan? You will be billed on the next payment date."
+                message = "Do you want to re activate your plan? You will be billed on the next payment date."
                 status = 'unpaid'
             }
             var requestData = { 

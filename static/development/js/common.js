@@ -569,8 +569,11 @@
             return this.dfd.promise();
         };
         Acme.modal.prototype.renderLayout = function(layout) {
+            console.log(layout);
             // var layout = Handlebars.compile(window.templates[this.layouts[layout]]);
             var layout = window.templates[this.layouts[layout]];
+            console.log(layout);
+
             $('#'+this.parentCont).find('#dialogContent').empty().append(layout); 
         };
         Acme.modal.prototype.events = function() 
