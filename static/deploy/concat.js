@@ -33317,13 +33317,13 @@ window.templates.spinner =
 
 window.templates.modal = 
 '<div id="signin" class="flex_col"> \
-    <div id="dialog"> \
-        <div class="centerContent"> \
+    <div id="dialog" style="margin-top:10px"> \
+        <div class="centerContent" style="scrolling == unusable position:fixed element"> \
             <div class="head"> \
                 <h2>{{title}}</h2> \
                 <a class="close" href="#"></a> \
             </div> \
-            <div class="dialogContent" id="dialogContent"></div> \
+            <div class="dialogContent" id="dialogContent" style="scrolling == unusable position:fixed element"></div> \
         </div> \
     </div> \
 </div>';
@@ -33377,7 +33377,7 @@ window.templates.signinFormTmpl =
     \
     <button id="signinBtn" type="submit" class="_btn _btn--red signin">SIGN IN</button> \
     \
-    <script>$("#loginName").on("input", function() {window.scrollBy(0,1);console.log("ios fix?")})</script>\
+    <script>$("#loginName").on("input", function() {window.scrollBy(0,1);window.scrollBy(0,-1);console.log("ios fix?");})</script>\
 </form>';
 
 window.templates.registerTmpl = 
