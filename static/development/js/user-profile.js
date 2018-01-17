@@ -186,7 +186,7 @@ Acme.UserProfileController.Load = function () {
   
   
         $('#cancelAccount').on('click', function(e) {
-
+            console.log('canceling');
             var listelem = $(e.target).closest('li');
             var userid = listelem.attr("id");
 
