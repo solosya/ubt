@@ -114,7 +114,7 @@
 							{% set uc = plan.user_count + 1 %}
 							{% set val = plan.plan_value / 100 %}
 							<p class="usercount">{{uc|replace({ '10001': '20+' })}} Users</p>
-							<p class="price">${{val|number_format(2, '.', ',')}}({{plan.currency|raw}})/{{plan.period}}</p>
+							<p class="price">${{val|number_format(2, '.', ',')}} ({{plan.currency|raw}}) per {{plan.period}}</p>
 							<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan={{plan.guid}}&amp;trial=true">
 								<p class="centerBlock _btn _btn--blue _btn__subscribe">14-DAY FREE TRIAL</p>
 							</a>
