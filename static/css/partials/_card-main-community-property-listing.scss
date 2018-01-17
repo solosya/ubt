@@ -45,6 +45,7 @@
                     > h1.price {
                         font-size: rem(14);
                         font-weight:600;
+                        text-align: right;
                     }
                     > h2{
                         font-weight:400;
@@ -54,6 +55,9 @@
                         height:40px;
                         color:color(lightgrey);
                         text-transform:uppercase;
+                        width: 150px;
+                        margin-top: -13px;
+                        margin-bottom: 27px;
                     }
                 }
             }
