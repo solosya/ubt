@@ -372,5 +372,5 @@ console.log($(e.target).text());
     };
     
 };
-Acme.UserProfileController.Load().init();
+// Acme.UserProfileController.Load().init();
 
