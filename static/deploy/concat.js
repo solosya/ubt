@@ -36261,7 +36261,6 @@ if ($('#stripekey').length > 0) {
         self.render(true);
         if (!validated) return;
 
-
         $('#card-errors').text('');
         // var userdata = $('#listingForm').serializeArray();
         // console.log(userdata);
@@ -36278,20 +36277,20 @@ if ($('#stripekey').length > 0) {
             return;
         }
 
-        // modal.render("spinner", "Authorising payment");
-        // stripe.createToken(card).then(function(result) {
-        //     if (result.error) {
-        //         modal.closeWindow();
-        //         // Inform the user if there was an error
-        //         var errorElement = document.getElementById('card-errors');
-        //         errorElement.textContent = result.error.message;
-        //     } else {
-        //         // Send the token to your server
-        //         subscribe.data['stripetoken'] = result.token.id;
-        //         subscribe.data['planid'] = $('#planid').val();
-        //         formhandler(subscribe.data, '/auth/paywall-signup');
-        //     }
-        // });    
+        modal.render("spinner", "Authorising payment");
+        stripe.createToken(card).then(function(result) {
+            if (result.error) {
+                modal.closeWindow();
+                // Inform the user if there was an error
+                var errorElement = document.getElementById('card-errors');
+                errorElement.textContent = result.error.message;
+            } else {
+                // Send the token to your server
+                subscribe.data['stripetoken'] = result.token.id;
+                subscribe.data['planid'] = $('#planid').val();
+                formhandler(subscribe.data, '/auth/paywall-signup');
+            }
+        });    
     };
     SubscribeForm.prototype.events = function()
     {
@@ -36320,6 +36319,8 @@ if ($('#stripekey').length > 0) {
         if (form != null) {
             form.addEventListener('submit', function(event) {
                 self.submit(event);
+                        console.log('submitting');
+
             });
         }
 
@@ -36763,8 +36764,6 @@ Acme.UserProfileController.Load = function () {
                 planid: listelem.find('#planid').val(), 
                 _csrf: listelem.find('#_csrf').text(), 
             };
-            console.log(usercount);
-            console.log(planusers);
 
             if (Number(usercount) <= Number(planusers)) {
                 var newcost = listelem.find('#plancost').val();
