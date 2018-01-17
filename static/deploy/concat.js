@@ -36520,7 +36520,7 @@ UserArticlesController.Load = (function ($) {
 //     };
 // }(jQuery));
 
-
+console.log('loading profile controller');
 
 Acme.UserProfileController = function() {};
 

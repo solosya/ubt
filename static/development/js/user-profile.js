@@ -7,7 +7,7 @@
 //     };
 // }(jQuery));
 
-
+console.log('loading profile controller');
 
 Acme.UserProfileController = function() {};
 
