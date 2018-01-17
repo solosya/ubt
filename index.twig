@@ -155,7 +155,7 @@
 
                 <hr class="divide visible-md-block visible-lg-block">
 
-                {% if articles[articleCount] %}
+                {# {% if articles[articleCount] %}
 
                     {{this.render('partials/_single-article.twig', {
                         article: articles[articleCount], 
@@ -164,7 +164,10 @@
                         containerClass: 'card-sm card-sm-tablet card-sm-mobile'
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                {% endif %}
+                {% endif %} #}
+                <div id="id1149b8"></div>
+
+                        <script type="text/javascript" src="//mediatools.hifx.com/widget/compact-converter-widget/id1149b8/?affiliate=HIFX0110780606&amp;sell=NZD&amp;buy=AUD&amp;amount=1&amp;brandcolour=bbc614&amp;fontcolour=001f2b"></script>
             </div>
 
 
@@ -584,17 +587,13 @@
 
                 <div class="col-sm-3">
                     <div class="finance-widget">
-                        {% if sections['finance'].feed.articles[0] %}
+                        {% for i in 0..1 if sections['finance'].feed.articles[i] %}
                             {{this.render('partials/_single-article.twig', {
                                 article: sections['finance'].feed.articles[i], 
                                 imageSuppress: true,
                                 containerClass: "card-rec-finance"
                             }) | raw}}
-                        {% endif %}
-
-                        <div id="id1149b8"></div>
-
-                        <script type="text/javascript" src="//mediatools.hifx.com/widget/compact-converter-widget/id1149b8/?affiliate=HIFX0110780606&amp;sell=NZD&amp;buy=AUD&amp;amount=1&amp;brandcolour=bbc614&amp;fontcolour=001f2b"></script>
+                        {% endfor %}
                     </div>
                 </div>
 
