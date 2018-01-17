@@ -26,7 +26,8 @@
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
 
 <main id="main" class="user_profile listingForm" role="main">
-    <div id="stripekey" class="hidden" >{{_Network.getNetworkData()['stripe_publishable_key']}}</div>
+    {# <div id="stripekey" class="hidden" >{{_Network.getNetworkData()['stripe_publishable_key']}}</div> #}
+    <div id="stripekey" class="hidden" >pk_live_0xvvL0i2RAw7vjUbw5xI7L7O</div>
     <div class="container">
 
         <div class="user_profile_section">
