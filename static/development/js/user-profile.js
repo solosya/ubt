@@ -7,7 +7,6 @@
 //     };
 // }(jQuery));
 
-console.log('loading profile controller');
 
 Acme.UserProfileController = {};
 
@@ -194,7 +193,7 @@ Acme.UserProfileController.Load = function () {
             message = "Are you sure you want to cancel your plan?"
             if ($(e.target).text() == 'Restart Subscription') {
                 message = "Do you want to re activate your plan? You will be billed on the next payment date."
-                status = 'unpaid'
+                status = 'paid'
             }
             var requestData = { 
                 status: status, 
@@ -202,7 +201,6 @@ Acme.UserProfileController.Load = function () {
             };
 
 
-console.log($(e.target).text());
 
             Acme.SigninView.render("userPlanChange", message)
                 .done(function() {
@@ -231,29 +229,7 @@ console.log($(e.target).text());
                         },
                     });        
                 }); 
-
-            // $.ajax({
-            //     type: 'post',
-            //     url: _appJsConfig.baseHttpPath + '/user/paywall-account-sataus',
-            //     dataType: 'json',
-            //     data: requestData,
-            //     success: function (data, textStatus, jqXHR) {
-            //         if (data.success == 1) {
-            //             location.reload(false);             
-            //         } else {
-            //             var text = '';
-            //             for (var key in data.error) {
-            //                 text = text + data.error[key] + " ";
-            //             } 
-            //             $('#createUserErrorMessage').text(text);
-            //         }
-            //     },
-            //     error: function (jqXHR, textStatus, errorThrown) {
-            //         // console.log(textStatus);
-            //         console.log(jqXHR.responseText);
-            //          $('#createUserErrorMessage').text(textStatus);
-            //     },
-            // });        
+     
         });       
 
 
@@ -271,16 +247,12 @@ console.log($(e.target).text());
                 planid: listelem.find('#planid').val(), 
                 _csrf: listelem.find('#_csrf').text(), 
             };
-            console.log(usercount);
-            console.log(planusers);
 
             if (Number(usercount) <= Number(planusers)) {
                 var newcost = listelem.find('#plancost').val();
                 var oldcost = listelem.find('#currentcost').val();
                 var newdays = listelem.find('#planperiod').val();
                 var olddays = listelem.find('#currentperiod').val();
-                console.log(newdays);
-                console.log(olddays);
                 if (newdays == 'week') {newdays = 7;}
                 if (newdays == 'month') {newdays = 30;}
                 if (newdays == 'year') {newdays = 365;}
@@ -290,13 +262,6 @@ console.log($(e.target).text());
                 var newplandailycost = newcost/newdays;
                 var plandailycost = oldcost/olddays;
                 var expDate = listelem.find('#expdate').val();
-                console.log(newcost);
-                console.log(newdays);
-                console.log(oldcost);
-                console.log(olddays);
-                console.log(expDate);
-                console.log(plandailycost);
-                console.log(newplandailycost);
 
                 var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
                 var firstDate = new Date();
