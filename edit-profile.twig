@@ -27,6 +27,7 @@
 
 <main id="main" class="user_profile listingForm" role="main">
     <div id="stripekey" class="hidden" >{{_Network.getNetworkData()['stripe_publishable_key']}}</div>
+    {# <div id="stripekey" class="hidden" >pk_live_0xvvL0i2RAw7vjUbw5xI7L7O</div> #}
     <div class="container">
 
         <div class="user_profile_section">
@@ -163,11 +164,11 @@
                                         
                                     {% endif %} 
 
-                                    <div class="inline-inputs">
+{#                                     <div class="inline-inputs">
                                         <label for="remaining">Payment Method</label>
                                         <input type="text" id="remaining" class="form-control" value="{{ pwstats['card_brand']}} / •••• •••• •••• {{ pwstats['card_last_4']}}" disabled="disabled">
                                     </div>                            
-
+ #}
                                 </form>
 
                             </div>
@@ -206,14 +207,22 @@
                             <div class="plans">
                             {% for plan in plans %}
                                 {% if plan.guid != pwstats['plan_guid'] %}
+                                
+                                {% set uc = plan.user_count + 1 %}
+                                {% set val = plan.plan_value / 100 %}
+                                {% if val == 19.89 %}
+                                    {% set val = 19.90 %}
+                                {% endif %}
+
+
                                 <div class="j-setplan plans__item">
                                     <h3 class="plans__name">{{plan.name}}</h3>
-                                    <p class="plans__usercount">{{plan.user_count}} Users</p>
-                                    <p class="plans__price">${{plan.plan_value/100|number_format(2, '.', ',')}}({{plan.currency|raw}})<br />
+                                    <p class="plans__usercount">{{uc|replace({ '10001': '20+' })}} Users</p>
+                                    <p class="plans__price">${{val|number_format(2, '.', ',')}}({{plan.currency|raw}})<br />
                                                             per {{plan.period}}</p>
 
                                     <input type="hidden" id="planid"        value="{{plan.guid}}">
-                                    <input type="hidden" id="planusercount" value="{{plan.user_count}}">
+                                    <input type="hidden" id="planusercount" value="{{uc}}">
                                     <input type="hidden" id="plancost"      value="{{plan.plan_value}}">
                                     <input type="hidden" id="planperiod"    value="{{plan.period}}">
                                     <input type="hidden" id="currentcost"   value="{{pwstats['plan_value']}}">
