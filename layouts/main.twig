@@ -19,6 +19,7 @@
  {% if  blogName  | lower               != "subscribe"                      and
         pageClass | lower               != 'page page-terms-of-use'         and 
         pageClass | lower               != 'page page-faq'                  and 
+        pageClass | lower               != 'screen'                         and 
         _AppHelper.getParsedUrl().path  != _AppHelper.getEditProfileUrl()   and 
         _AppHelper.getParsedUrl().path  != "/auth/verify-email-thanks"      and 
         _AppHelper.getParsedUrl().path  != _AppHelper.getResetPasswordUrl() and 
