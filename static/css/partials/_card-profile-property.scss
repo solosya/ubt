@@ -139,10 +139,17 @@
             > article {
 
                 > .content{
+                    > div.cat-time {
+                        float: unset;
+                    }
                     > h2{
                         font-size: rem(16);
                         line-height:1.38;
-                        margin-top:0;
+                            margin-bottom: 10px;
+                            margin-top: 5px;
+                    }
+                    .propertyType {
+                        display:none;
                     }
                 }
             }

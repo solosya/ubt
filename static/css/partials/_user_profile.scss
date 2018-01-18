@@ -55,6 +55,7 @@
             display: none;
             @media screen and (max-width: $sm-break-down){
                 display: inherit;
+                margin-bottom: -10px;
             }
         }
     .container {
