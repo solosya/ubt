@@ -76,6 +76,7 @@
 
         }
 
+
         > div {
             text-align:center;
             width:350px;
@@ -106,7 +107,13 @@
 
 
             }
-            img.frankHeader {
+            
+        }
+        .frankheader{
+            @media screen and (max-width: $sm-break) {
+                float: right;
+            }
+            img.frankHeader__img {
                 @media screen and (max-width: $mmd-break) {
                     width:129px;
                 }
@@ -114,6 +121,14 @@
                     width:104px;
                 }
 
+            }
+        }
+        .ubt-logo {
+            @media screen and (max-width: $sm-break) {
+                float: left;
+                margin-top: 55px; 
+                width: 90px;
+                height: 31px;
             }
         }
 

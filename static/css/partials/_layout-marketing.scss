@@ -43,6 +43,7 @@
 
         }
 
+
         > div {
             text-align:center;
             width:350px;
@@ -73,27 +74,28 @@
 
 
             }
-            .frankheader{
-                @media screen and (max-width: $sm-break) {
-                    float: right;
-                }
-                img.frankHeader__img {
-                    @media screen and (max-width: $mmd-break) {
-                        width:129px;
-                    }
-                    @media screen and (max-width: $sm-break) {
-                        width:104px;
-                    }
-
-                }
+            
+        }
+        .frankheader{
+            @media screen and (max-width: $sm-break) {
+                float: right;
             }
-            .ubt-logo {
-                @media screen and (max-width: $sm-break) {
-                    float: left;
-                    margin-top: 55px; 
-                    width: 90px;
-                    height: 31px;
+            img.frankHeader__img {
+                @media screen and (max-width: $mmd-break) {
+                    width:129px;
                 }
+                @media screen and (max-width: $sm-break) {
+                    width:104px;
+                }
+
+            }
+        }
+        .ubt-logo {
+            @media screen and (max-width: $sm-break) {
+                float: left;
+                margin-top: 55px; 
+                width: 90px;
+                height: 31px;
             }
         }
 
@@ -207,6 +209,7 @@
                 @media screen and (max-width: $sm-break-down) {
                     font-size: rem(36);
                     width:262px;
+                    margin-top: -25px;
                 }
             }
              p{
@@ -240,7 +243,8 @@
 
                 @media screen and (max-width: $sm-break-down) {
                     font-size:rem(9);
-                    padding:8px 6px;
+                    padding:8px 15px;
+                    width: 113px;
                 }
 
              }
