@@ -47,13 +47,16 @@
         line-height: 44px;
         color: color(darkblue);
         font-weight: bold;
+        display: none;
         @media screen and (max-width: $sm-break-down){
-           display: none;
+            display: inherit;
         }
-        .mobLabel {
-            display: none;
+    }
+    .inline-inputs{
+        label {
+            display: inherit;
             @media screen and (max-width: $sm-break-down){
-                display: inherit;
+               display: none;
             }
         }
     }
