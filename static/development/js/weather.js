@@ -2,12 +2,8 @@
 
     Acme.Locations = function(){
         this.country = _appJsConfig.appHostName.split('.').reverse()[0];
-        // this.country = 'nz';
-        // console.log(this.country);
         this.data = this.getLocations(this.country);
         this.regional = this.getLocations(this.country + '-regional');
-        // console.log('regional', this.regional);
-        // console.log('ciry', this.data);
     };
     Acme.Locations.prototype.getLocations = function(country) 
     {
@@ -54,12 +50,12 @@
                 return [
                     'Australia/Launceston',
                     'Australia/Albany',
-                    'Australia/Alice Springs',
-                    'Australia/Mount Gambier',
+                    'Australia/Alice%20Springs',
+                    'Australia/Mount%20Gambier',
                     'Australia/Cairns',
                     'Australia/Gympie',
                     'Australia/Newcastle',
-                    'Australia/Wagga',  // not working
+                    'Australia/Wagga%20Wagga',
                     'Australia/Bairnsdale',
                     'Australia/Northam',
                     'Australia/Bundaberg',

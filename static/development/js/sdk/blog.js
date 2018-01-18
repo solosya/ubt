@@ -22,15 +22,13 @@
         }
 
 
-        console.log(url);
-        console.log(requestData);
         return $.ajax({
             type: requestType,
             url: url,
             dataType: 'json',
             data: requestData
         }).done(function(r) {
-            console.log(r);
+            // console.log(r);
         });        
     };
 

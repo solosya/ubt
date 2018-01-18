@@ -18,10 +18,9 @@ Handlebars.registerHelper('draftStatus', function(text, date) {
     return text.toLowerCase() === 'draft' ? "Pending Approval" : "Posted " + date; 
 });
 
-Handlebars.registerHelper('formatSalary', function(salary, salaryType, salaryTo, salaryFrom, hourlyRate) {
+Handlebars.registerHelper('formatSalary', function(salaryType, salaryTo, salaryFrom, hourlyRate) {
     var salaryPrefix = "";
     var salary = "";
-
     if (salaryType === "1") {
         salaryPrefix = "Salary ";
         salary = "$" + salaryFrom;
@@ -266,8 +265,9 @@ Acme.jobCardTemplate =
             </div> \
             <h2>{{{ title }}}</h2>\
             <p class="company">{{{ additionalInfo.company }}}</p> \
-            <p class="salary">{{{ formatSalary salary additionalInfo.salaryType additionalInfo.salaryto additionalInfo.salaryfrom additionalInfo.hourlyrate}}}</p> \
+            <p class="salary">{{{ formatSalary additionalInfo.salary additionalInfo.salaryto additionalInfo.salaryfrom additionalInfo.hourlyrate}}}</p> \
             <p class="excerpt">{{{ excerpt }}}</p> \
+            <p class="location">{{ additionalInfo.region }}</p> \
             \
         </div>' + 
     cardTemplateBottom;

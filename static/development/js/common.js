@@ -551,6 +551,7 @@
         Acme.modal.prototype = new Acme.listen();
 
         Acme.modal.prototype.render = function(layout, title) {
+            console.log('renderingt confirm in base');
             if (title) {
                 this.data['title'] = title;
             }
@@ -562,6 +563,7 @@
                 this.renderLayout(layout);
             }
             this.events();
+            console.log('returning promise');
             return this.dfd.promise();
         };
         Acme.modal.prototype.renderLayout = function(layout) {
