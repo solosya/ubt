@@ -156,12 +156,12 @@
                                             <div class="button-full">
                                             {% if pwstats['status'] == 'cancelled' %}
                                                 {% if (date(pwstats['expiry_date']) > date(now) ) %}
-                                                <a  id='cancelAccount' class="text-button u-float-right u-margin-top-25">Restart Subscription</a>
+                                                <a  id='cancelAccount' style="cursor:hand; cursor:pointer;" class="text-button u-float-right u-margin-top-25">Restart Subscription</a>
                                                 {% else %} 
                                                 <a  class="text-button u-float-right u-margin-top-25">Choose a plan to renew your account, or all data will be removed 30 days after last payment date.</a>
                                                 {% endif %} 
                                             {% else %} 
-                                                <a  id='cancelAccount' class="text-button u-float-right u-margin-top-25">Cancel Subscription</a>
+                                                <a  id='cancelAccount' style="cursor:hand; cursor:pointer;" class="text-button u-float-right u-margin-top-25">Cancel Subscription</a>
                                             {% endif %} 
                                             </div>
                                         </div>
@@ -247,7 +247,7 @@
                                 {% endif %}
 
 
-                                <div class="j-setplan plans__item">
+                                <div class="j-setplan plans__item" style="cursor:hand; cursor:pointer;">
                                     <h3 class="plans__name">{{plan.name}}</h3>
                                     <p class="plans__usercount">{{uc|replace({ '10001': '20+' })}} Users</p>
                                     <p class="plans__price">${{val|number_format(2, '.', ',')}}({{plan.currency|raw}})<br />
