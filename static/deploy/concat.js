@@ -26770,15 +26770,13 @@ jQuery.fn.liScroll = function(settings) {
         }
 
 
-        console.log(url);
-        console.log(requestData);
         return $.ajax({
             type: requestType,
             url: url,
             dataType: 'json',
             data: requestData
         }).done(function(r) {
-            console.log(r);
+            // console.log(r);
         });        
     };
 
@@ -32894,6 +32892,7 @@ jQuery(document).ready(function () {
         Acme.modal.prototype = new Acme.listen();
 
         Acme.modal.prototype.render = function(layout, title) {
+            console.log('renderingt confirm in base');
             if (title) {
                 this.data['title'] = title;
             }
@@ -32905,6 +32904,7 @@ jQuery(document).ready(function () {
                 this.renderLayout(layout);
             }
             this.events();
+            console.log('returning promise');
             return this.dfd.promise();
         };
         Acme.modal.prototype.renderLayout = function(layout) {
@@ -33215,10 +33215,9 @@ Handlebars.registerHelper('draftStatus', function(text, date) {
     return text.toLowerCase() === 'draft' ? "Pending Approval" : "Posted " + date; 
 });
 
-Handlebars.registerHelper('formatSalary', function(salary, salaryType, salaryTo, salaryFrom, hourlyRate) {
+Handlebars.registerHelper('formatSalary', function(salaryType, salaryTo, salaryFrom, hourlyRate) {
     var salaryPrefix = "";
     var salary = "";
-
     if (salaryType === "1") {
         salaryPrefix = "Salary ";
         salary = "$" + salaryFrom;
@@ -33463,8 +33462,9 @@ Acme.jobCardTemplate =
             </div> \
             <h2>{{{ title }}}</h2>\
             <p class="company">{{{ additionalInfo.company }}}</p> \
-            <p class="salary">{{{ formatSalary salary additionalInfo.salaryType additionalInfo.salaryto additionalInfo.salaryfrom additionalInfo.hourlyrate}}}</p> \
+            <p class="salary">{{{ formatSalary additionalInfo.salary additionalInfo.salaryto additionalInfo.salaryfrom additionalInfo.hourlyrate}}}</p> \
             <p class="excerpt">{{{ excerpt }}}</p> \
+            <p class="location">{{ additionalInfo.region }}</p> \
             \
         </div>' + 
     cardTemplateBottom;
@@ -34475,30 +34475,6 @@ BlogConrtoller.Blog = (function ($) {
     };
 
 }(jQuery));
-Acme.infiniteScroll = function(limit, count, feedModel) {
-    this.count = count || 0;
-    this.limit = limit || 0;
-    this.feedModel = feedModel;
-    this.events();
-};
-
-
-    Acme.infiniteScroll.prototype.events = function() 
-    {
-        var self = this;
-        if (this.count >= this.limit) {
-            var waypoint = new Waypoint({
-                element: $('.loadMoreArticles'),
-                offset: '80%',
-                handler: function (direction) {
-                    if (direction == 'down') {
-                        self.feedModel.fetch($(this.element), waypoint);
-                        setTimeout(function(){Waypoint.refreshAll();},1000);
-                    }
-                }
-            });
-        }
-    };
 Acme.Controller.JobFormPage = function (blogid) {
 	window.Acme.cards = CardController();
 	Acme.jobForm = new Acme.JobForm([blogid], 'Single Job Listing');
@@ -34794,86 +34770,86 @@ $('#searchButton').on('click', function(e) {
 
 
 
-/***                             ****
-    Base Class for results view
-***                              ****/
-Acme.filteredListingViewClass = function() {
-};
-    Acme.filteredListingViewClass.prototype = new Acme._View();
-    Acme.filteredListingViewClass.prototype.listeners = {
-        "search" : function(data) {
-            this.data = data.search.data;
-            this.render();
-        }
-    };
-    Acme.filteredListingViewClass.prototype.init = function(container, template)
-    {
-        this.container = (container) ?  $('#'+container) : $('#job-listings');
-        this.template = template || 'jobsCardTemplate';
-    };
+// /***                             ****
+//     Base Class for results view
+// ***                              ****/
+// Acme.filteredListingViewClass = function() {
+// };
+//     Acme.filteredListingViewClass.prototype = new Acme._View();
+//     Acme.filteredListingViewClass.prototype.listeners = {
+//         "search" : function(data) {
+//             this.data = data.search.data;
+//             this.render();
+//         }
+//     };
+//     Acme.filteredListingViewClass.prototype.init = function(container, template)
+//     {
+//         this.container = (container) ?  $('#'+container) : $('#job-listings');
+//         this.template = template || 'jobsCardTemplate';
+//     };
 
 
 
 
-Acme.jobsSearchResultsClass = function(container, template)
-{
-    this.parent = Acme.filteredListingViewClass.prototype;
-    this.parent.init(container, template);
-};
-    Acme.jobsSearchResultsClass.prototype = new Acme.filteredListingViewClass();
-    Acme.jobsSearchResultsClass.prototype.subscriptions = Acme.PubSub.subscribe({
-        'Acme.jobsSearchResults.listener' : ['state_changed']
-    });
+// Acme.jobsSearchResultsClass = function(container, template)
+// {
+//     this.parent = Acme.filteredListingViewClass.prototype;
+//     this.parent.init(container, template);
+// };
+//     Acme.jobsSearchResultsClass.prototype = new Acme.filteredListingViewClass();
+//     Acme.jobsSearchResultsClass.prototype.subscriptions = Acme.PubSub.subscribe({
+//         'Acme.jobsSearchResults.listener' : ['state_changed']
+//     });
 
-    Acme.jobsSearchResultsClass.prototype.render = function(search) {
-        var container = this.container;
-        var cardClasses = ["card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile"];
+//     Acme.jobsSearchResultsClass.prototype.render = function(search) {
+//         var container = this.container;
+//         var cardClasses = ["card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile"];
 
-        var html = '<div id="searchResults"><h2>Search results</h2><a id="searchClear" href="#">Clear</a></div>', n = 0;
-        for (var i=0;i<this.data.length;i++) {
-            html += window.Acme.cards.renderCard(this.data[i].data, cardClasses[n], this.template);
-        }
-        container.empty().append(html);
-        $('#searchClear').on('click', function(e) {
-            e.preventDefault();
-            $("#searchResults").remove();
-            Acme.PubSub.publish('update_state', {'clear': self});
-        });
+//         var html = '<div id="searchResults"><h2>Search results</h2><a id="searchClear" href="#">Clear</a></div>', n = 0;
+//         for (var i=0;i<this.data.length;i++) {
+//             html += window.Acme.cards.renderCard(this.data[i].data, cardClasses[n], this.template);
+//         }
+//         container.empty().append(html);
+//         $('#searchClear').on('click', function(e) {
+//             e.preventDefault();
+//             $("#searchResults").remove();
+//             Acme.PubSub.publish('update_state', {'clear': self});
+//         });
 
-        $(".card .content > p, .card h2").dotdotdot();
-    };
+//         $(".card .content > p, .card h2").dotdotdot();
+//     };
 
-Acme.propertySearchResultsClass = function(container, template)
-{
-    this.parent = Acme.filteredListingViewClass.prototype;
-    this.parent.init(container, template);
-};
-    Acme.propertySearchResultsClass.prototype = new Acme.filteredListingViewClass();
-    Acme.propertySearchResultsClass.prototype.subscriptions = Acme.PubSub.subscribe({
-        'Acme.propertySearchResults.listener' : ['state_changed']
-    });
+// Acme.propertySearchResultsClass = function(container, template)
+// {
+//     this.parent = Acme.filteredListingViewClass.prototype;
+//     this.parent.init(container, template);
+// };
+//     Acme.propertySearchResultsClass.prototype = new Acme.filteredListingViewClass();
+//     Acme.propertySearchResultsClass.prototype.subscriptions = Acme.PubSub.subscribe({
+//         'Acme.propertySearchResults.listener' : ['state_changed']
+//     });
 
-    Acme.propertySearchResultsClass.prototype.render = function() {
+//     Acme.propertySearchResultsClass.prototype.render = function() {
 
-        var container = this.container;
-        var cardClasses = [ "card-main-realestate card-main-realestate-tablet card-main-realestate-mobile",
-                            "card-rec-realestate card-rec-realestate-tablet card-rec-realestate-mobile"];
+//         var container = this.container;
+//         var cardClasses = [ "card-main-realestate card-main-realestate-tablet card-main-realestate-mobile",
+//                             "card-rec-realestate card-rec-realestate-tablet card-rec-realestate-mobile"];
 
-        var html = '<h2>Search results</h2><a id="searchClear" href="#">Clear</a>', n = 0;
+//         var html = '<h2>Search results</h2><a id="searchClear" href="#">Clear</a>', n = 0;
 
-        for (var i=0;i<this.data.length;i++) {
-            html += window.Acme.cards.renderCard(this.data[i].data, cardClasses[n], this.template, 'property');
-            n = 1;
-        }
-        container.empty().append(html);
-        $('#mainAjaxArticles').empty();
+//         for (var i=0;i<this.data.length;i++) {
+//             html += window.Acme.cards.renderCard(this.data[i].data, cardClasses[n], this.template, 'property');
+//             n = 1;
+//         }
+//         container.empty().append(html);
+//         $('#mainAjaxArticles').empty();
 
-        $('#searchClear').on('click', function(e) {
-            e.preventDefault();
-            Acme.PubSub.publish('update_state', {'clear': self});
-        });
-        $(".card .content > p, .card h2").dotdotdot();
-    }
+//         $('#searchClear').on('click', function(e) {
+//             e.preventDefault();
+//             Acme.PubSub.publish('update_state', {'clear': self});
+//         });
+//         $(".card .content > p, .card h2").dotdotdot();
+//     }
 
 
 
@@ -35205,9 +35181,12 @@ var ListingForm = function() {};
     };
     ListingForm.prototype.deleteListing = function() 
     {
+
         return Acme.server.create('/api/article/delete-user-article', {"articleguid": this.data.guid}).done(function(r) {
             $('#listingFormClear').click();
-            Acme.PubSub.publish('update_state', {'userArticles': ''});
+            Acme.PubSub.publish('update_state', {'deleteConfirmed': ''});
+            // Acme.PubSub.publish('update_state', {'userArticles': ''});
+
         }).fail(function(r) {
             // Acme.PubSub.publish('update_state', {'confirm': r});
             console.log(r);
@@ -35228,7 +35207,7 @@ var ListingForm = function() {};
             Acme.PubSub.publish('update_state', {'confirm': r});
             Acme.PubSub.publish('update_state', {'userArticles': ''});
         }).fail(function(r) {
-            // Acme.PubSub.publish('update_state', {'confirm': r});
+            Acme.PubSub.publish('update_state', {'confirm': r});
             console.log(r);
         });
     };
@@ -35745,7 +35724,7 @@ Acme.confirmView = new Acme.Confirm('modal', 'signin', layouts);
         "confirmDelete" : function(data, topic) {
             this.render("delete", "Warning");
         },
-        "userArticles" : function(data, topic) {
+        "deleteConfirmed" : function(data, topic) {
             this.closeWindow();
         }
 
@@ -36870,12 +36849,8 @@ Acme.UserProfileController.Load = function () {
 
     Acme.Locations = function(){
         this.country = _appJsConfig.appHostName.split('.').reverse()[0];
-        // this.country = 'nz';
-        // console.log(this.country);
         this.data = this.getLocations(this.country);
         this.regional = this.getLocations(this.country + '-regional');
-        // console.log('regional', this.regional);
-        // console.log('ciry', this.data);
     };
     Acme.Locations.prototype.getLocations = function(country) 
     {
@@ -36922,12 +36897,12 @@ Acme.UserProfileController.Load = function () {
                 return [
                     'Australia/Launceston',
                     'Australia/Albany',
-                    'Australia/Alice Springs',
-                    'Australia/Mount Gambier',
+                    'Australia/Alice%20Springs',
+                    'Australia/Mount%20Gambier',
                     'Australia/Cairns',
                     'Australia/Gympie',
                     'Australia/Newcastle',
-                    'Australia/Wagga',  // not working
+                    'Australia/Wagga%20Wagga',
                     'Australia/Bairnsdale',
                     'Australia/Northam',
                     'Australia/Bundaberg',
