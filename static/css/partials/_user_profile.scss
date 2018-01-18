@@ -50,13 +50,13 @@
         @media screen and (max-width: $sm-break-down){
            display: none;
         }
-        .mobLabel {
+    }
+    .mobLabel {
             display: none;
             @media screen and (max-width: $sm-break-down){
                 display: inherit;
             }
         }
-    }
     .container {
         @media screen and (max-width: $sm-break-down){
             background-color:white;
