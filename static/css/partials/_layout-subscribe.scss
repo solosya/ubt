@@ -31,6 +31,9 @@
                 // @media screen and (max-width: $sm-break-down) {
                 //     font-size: rem(60);
                 // }
+                @media screen and (max-width: $sm-break-down) {
+                    font-size: rem(40);
+                }
             }
         }
     }
@@ -57,6 +60,20 @@
             position:absolute;
             left:0;
             top:55px;
+            @media screen and (max-width: $mmd-break) {
+                width:91px;
+                height:32px;
+                left:20px;
+            }
+
+            @media screen and (max-width: $sm-break) {
+                width:73px;
+                height:26px;
+                display:block;
+                margin:auto;
+                position:static;
+            }
+
         }
 
         > div {
@@ -64,16 +81,44 @@
             width:350px;
             margin: 0 auto;
             margin-top:25px;
+
+            @media screen and (max-width: $mmd-break) {
+                width: 265px;
+            }
+            @media screen and (max-width: $sm-break) {
+                width: 189px;
+            }
+
            p {
                 border-top:1px solid black;
                 padding-top:10px;
                 font-size: rem(17);
                 margin-top:20px;
-           }
- 
+
+                @media screen and (max-width: $mmd-break) {
+                    font-size: rem(11);
+                    margin-top:0;
+                }
+                @media screen and (max-width: $sm-break) {
+                    font-size: rem(9);
+                }
+
+
+
+            }
+            img.frankHeader {
+                @media screen and (max-width: $mmd-break) {
+                    width:129px;
+                }
+                @media screen and (max-width: $sm-break) {
+                    width:104px;
+                }
+
+            }
         }
 
     }
+
 
 
     .plan-type {
