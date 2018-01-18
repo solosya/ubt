@@ -80,11 +80,13 @@
                                 <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" />
                                 <input type="hidden" name="profileImage" id="userProfileImage" value="" />
 
+                                <label class="mobLabel" for="firstname">First name</label>
                                 <div class="inline-inputs">
                                     <label for="firstname">First name</label>
                                     <input type="text" id="firstname" class="form-control" name="firstname" value="{{user.firstname}}" placeholder="First name" >
                                 </div>
 
+                                <label class="mobLabel" for="lastname">Last name</label>
                                 <div class="inline-inputs">
                                     <label for="lastname">Last name</label>
                                     <input type="text" id="lastname" class="form-control" name="lastname" value="{{user.lastname}}" placeholder="Last name" >
@@ -94,23 +96,26 @@
                                     <label for="company">Company</label>
                                     <input type="text" id="company" class="form-control" name="company" value="{{user.company}}" placeholder="Company" >
                                 </div>
- #}
+ #}                             
+                                <label class="mobLabel" for="username">Username</label>
                                 <div class="inline-inputs">
                                     <label for="username">Username</label>
                                     <input type="text" id="username" class="form-control" name="username" value="{{user.username}}" placeholder="Username" >
                                 </div>
 
+                                <label class="mobLabel" for="email">Email</label>
                                 <div class="inline-inputs">
                                     <label for="email">Email</label>
                                     <input type="text" id="email" class="form-control" name="email" value="{{user.email}}" placeholder="email@domain.com" >
                                 </div>
 
+                                <label class="mobLabel" for="password">Password</label>
                                 <div class="inline-inputs">
                                     <label for="password">Password</label>
                                     <input type="password" id="password" class="form-control" name="password" placeholder="new password" >
                                 </div>
 
-
+                                <label class="mobLabel" for="password">Verify Password</label>
                                 <div class="inline-inputs">
                                     <label for="password">Verify Password</label>
                                     <input type="password" id="verifypassword" class="form-control" name="verifypassword" placeholder="verify password" >

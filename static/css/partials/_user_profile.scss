@@ -47,8 +47,21 @@
         line-height: 44px;
         color: color(darkblue);
         font-weight: bold;
+        @media screen and (max-width: $sm-break-down){
+           display: none;
+        }
+        .mobLabel {
+            display: none;
+            @media screen and (max-width: $sm-break-down){
+                display: inherit;
+            }
+        }
     }
-
+    .container {
+        @media screen and (max-width: $sm-break-down){
+            background-color:white;
+        }
+    }
 
     a.submit {
         font-style: italic;
@@ -65,7 +78,8 @@
 
         @media #{$media-iPhoneLarge}, #{$media-iPhoneMedium}, #{$media-phone} {
             width:100%;
-          @include padding(40px);
+          @include padding(0);
+          margin-top:0;
         }
 	}
 
