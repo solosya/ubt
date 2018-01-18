@@ -13,14 +13,13 @@
         };
 
         if (options.blogid) {
-            requestData['blogid'] = options.blogid;
+            requestData['blogguid'] = options.blogid;
         }
         if (options.search) {
             requestData['meta_info'] = options.search;
             var url = _appJsConfig.appHostName + '/'+options.loadtype;
             var requestType = 'get';
         }
-
 
         return $.ajax({
             type: requestType,

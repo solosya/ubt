@@ -261,17 +261,14 @@ Acme.searchCollectionClass = function(blogId)
                              .data('searchterm', searchString)
                              .data('offset', '0')
                              .data('non-pinned-offset', '0')
-                             .click()
-                             .data('rendertype', '');
-
+                             .click();
             }
             var params = loader.data('loadtype', '')
                          .data('rendertype', 'write')
                          .data('searchterm', '')
                          .data('offset', '0')
                          .data('non-pinned-offset', '0')
-                         .click()
-                         .data('rendertype', '');
+                         .click();
 
             return params;
         },
@@ -1217,7 +1214,6 @@ Acme.Confirm = function(template, parent, layouts) {
         }
         if ($elem.hasClass('layout')) {
             var layout = $elem.data('layout');
-            // console.log('rendering layout');
             this.renderLayout(layout);
         }
     };

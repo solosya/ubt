@@ -20,11 +20,13 @@
         };
         w.Intercom=i;
         function l(){
+            console.log('calling l'); 
             var s=d.createElement('script');
             s.type='text/javascript';
             s.async=true;
             s.src='https://widget.intercom.io/widget/zxwsoz9f';
             var x=d.getElementsByTagName('script')[0];
+            console.log(x);
             x.parentNode.insertBefore(s,x);
         }
         if(w.attachEvent){
