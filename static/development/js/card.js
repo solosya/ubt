@@ -67,7 +67,7 @@ Card.prototype.screen = function()
         }
 
         options.offset = articleCount;
-        options.nonpinned = articleCount;
+        options.nonPinnedOffset = articleCount;
 
         $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
             if (data.articles.length == 0 ) {
