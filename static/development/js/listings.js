@@ -504,7 +504,6 @@ var ListingForm = function() {};
     };
     ListingForm.prototype.render = function() 
     {
-        console.log(this.data);
         var form = this.container.main;
         var title = form.find("#title");
         var content = form.find("#content");
@@ -562,7 +561,7 @@ var ListingForm = function() {};
         var imageArray = $('#imageArray');
         var html = "";
         var temp = Handlebars.compile(window.templates.carousel_item); 
-        console.log(images);
+
         for (var i=0;i<images.length;i++) {
             var imagePath = images[i].url || images[i].path;
             html += temp({"imagePath": imagePath, 'imageid' : images[i].media_id});
@@ -619,8 +618,6 @@ var ListingForm = function() {};
     }
     ListingForm.prototype.deleteImage = function(data) 
     {
-        console.log('deleting listing');
-
         var info = data['delete image'].confirmDeleteImage;
         var elem = info.elem;
         var id = info.id;
@@ -632,7 +629,6 @@ var ListingForm = function() {};
         if (index > -1) {
             mediaids.splice(index, 1);
         }
-        console.log(mediaids);
         
         if (mediaids.length > 0) {
             this.data.media_id = mediaids[0];
@@ -712,11 +708,7 @@ var ListingForm = function() {};
         $('#imageArray').on('click', '.carousel-tray__delete', function(e) {
             var elem = $(e.target);
             var mediaId = elem.data('id');
-            // console.log(self.data);
             Acme.PubSub.publish('update_state', {'confirmDeleteImage': {elem:elem, id:mediaId}});
-
-            // console.log(elem);
-            // console.log(mediaId);
         });
 
         $('#listingFormClear').on('click', function(e) {
