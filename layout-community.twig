@@ -205,26 +205,42 @@
                     </div>
 
                     <div class="col-sm-2">
-                        {% for i in 0..1 if articles[articleCount] %}
+                        {% if articles[articleCount] %}
                             {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
                                 imageSize: {width: 198, height: 141},
                                 containerClass: "card-article-suggested-full card-article-suggested-mobile"
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                        {% endfor %}
+                        {% endif %}
+                        {% if articles[articleCount] %}
+                            {{this.render('partials/_single-article.twig', {
+                                article: articles[articleCount], 
+                                imageSize: {width: 198, height: 141},
+                                containerClass: "card-article-suggested-semi card-article-suggested-mobile"
+                            }) | raw}}
+                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                        {% endif %}
                     </div>
 
 
                     <div class="col-sm-2">
-                        {% for i in 0..1 if articles[articleCount] %}
+                        {% if articles[articleCount] %}
+                            {{this.render('partials/_single-article.twig', {
+                                article: articles[articleCount], 
+                                imageSize: {width: 198, height: 141},
+                                containerClass: "card-article-suggested-semi card-article-suggested-mobile"
+                            }) | raw}}
+                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                        {% endif %}
+                        {% if articles[articleCount] %}
                             {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
                                 imageSize: {width: 198, height: 141},
                                 containerClass: "card-article-suggested-full card-article-suggested-mobile"
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                        {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
             </div>
