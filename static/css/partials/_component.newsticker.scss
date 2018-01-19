@@ -44,6 +44,8 @@
     margin: 0;
     padding: 0;
     margin-top:7px;
+    margin-right: 50px;
+
     &:last-child {
         .ticker__text {
             &:after {
@@ -51,21 +53,6 @@
             }
         }
     }
-
-}
-
-
-.ticker__text {
-    padding-right:50px;
-    white-space: nowrap;
-    padding: 0;
-    color: #fff;
-    font-family: $base-font-family;
-    font-weight: 200;
-    font-size: rem(35);
-    margin: 0 50px 0 0;
-
-
     &:after {
         content: '';
         height: 30px;
@@ -76,5 +63,30 @@
         margin-top: 10px;
         background: #fff;    
     }
+
+}
+
+
+.ticker__text {
+    white-space: nowrap;
+    padding: 0;
+    color: #fff;
+    font-family: $base-font-family;
+    font-weight: 200;
+    font-size: rem(35);
+    float:left;
+    // margin: 0 50px 0 0;
+
+
+    // &:after {
+    //     content: '';
+    //     height: 30px;
+    //     display: block;
+    //     width: 2px;
+    //     float: right;
+    //     margin-left: 50px;
+    //     margin-top: 10px;
+    //     background: #fff;    
+    // }
 
 }

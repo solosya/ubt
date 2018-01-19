@@ -34110,11 +34110,8 @@ Card.prototype.renderCard = function(card, cardClass, template, type)
         if(card.social.media.type && card.social.media.type == 'video') {
             card['videoClass'] = 'video_card';
         }
-        console.log('social card render');
         articleTemplate = Handlebars.compile(socialCardTemplate); 
     } else {
-        console.log('article card render');
-        // console.log(template);
         articleTemplate = Handlebars.compile(template);
     }
     return articleTemplate(card);
