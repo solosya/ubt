@@ -81,32 +81,6 @@ var regionList = listingRegions[domain] || listingRegions["test"];
 
 
 
-// Acme.searchModel = Acme.Model.create({
-//     'url' : 'search'
-// });
-//     Acme.searchModel.listeners = {
-//         "regionSelect" : function(data) {
-//             var self = this;
-//             this.query = ['s', data.regionSelect]; //, 'migrate', 'true'
-//             this.fetch().done(
-//                 function(r) {
-//                     if (r.data) {
-//                         self.data = r.data;
-//                         Acme.state.listener('update_state', {'searchModel': self});
-//                     }
-//                 }
-//             );
-//         }
-//     };
-//     Acme.searchModel.subscriptions = Acme.PubSub.subscribe({
-//         'Acme.searchModel.listener' : [ "state_changed"]
-//     });
-
-
-
-
-
-
 
 
 
@@ -283,87 +257,6 @@ $('#searchButton').on('click', function(e) {
 
 
 
-// /***                             ****
-//     Base Class for results view
-// ***                              ****/
-// Acme.filteredListingViewClass = function() {
-// };
-//     Acme.filteredListingViewClass.prototype = new Acme._View();
-//     Acme.filteredListingViewClass.prototype.listeners = {
-//         "search" : function(data) {
-//             this.data = data.search.data;
-//             this.render();
-//         }
-//     };
-//     Acme.filteredListingViewClass.prototype.init = function(container, template)
-//     {
-//         this.container = (container) ?  $('#'+container) : $('#job-listings');
-//         this.template = template || 'jobsCardTemplate';
-//     };
-
-
-
-
-// Acme.jobsSearchResultsClass = function(container, template)
-// {
-//     this.parent = Acme.filteredListingViewClass.prototype;
-//     this.parent.init(container, template);
-// };
-//     Acme.jobsSearchResultsClass.prototype = new Acme.filteredListingViewClass();
-//     Acme.jobsSearchResultsClass.prototype.subscriptions = Acme.PubSub.subscribe({
-//         'Acme.jobsSearchResults.listener' : ['state_changed']
-//     });
-
-//     Acme.jobsSearchResultsClass.prototype.render = function(search) {
-//         var container = this.container;
-//         var cardClasses = ["card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile"];
-
-//         var html = '<div id="searchResults"><h2>Search results</h2><a id="searchClear" href="#">Clear</a></div>', n = 0;
-//         for (var i=0;i<this.data.length;i++) {
-//             html += window.Acme.cards.renderCard(this.data[i].data, cardClasses[n], this.template);
-//         }
-//         container.empty().append(html);
-//         $('#searchClear').on('click', function(e) {
-//             e.preventDefault();
-//             $("#searchResults").remove();
-//             Acme.PubSub.publish('update_state', {'clear': self});
-//         });
-
-//         $(".card .content > p, .card h2").dotdotdot();
-//     };
-
-// Acme.propertySearchResultsClass = function(container, template)
-// {
-//     this.parent = Acme.filteredListingViewClass.prototype;
-//     this.parent.init(container, template);
-// };
-//     Acme.propertySearchResultsClass.prototype = new Acme.filteredListingViewClass();
-//     Acme.propertySearchResultsClass.prototype.subscriptions = Acme.PubSub.subscribe({
-//         'Acme.propertySearchResults.listener' : ['state_changed']
-//     });
-
-//     Acme.propertySearchResultsClass.prototype.render = function() {
-
-//         var container = this.container;
-//         var cardClasses = [ "card-main-realestate card-main-realestate-tablet card-main-realestate-mobile",
-//                             "card-rec-realestate card-rec-realestate-tablet card-rec-realestate-mobile"];
-
-//         var html = '<h2>Search results</h2><a id="searchClear" href="#">Clear</a>', n = 0;
-
-//         for (var i=0;i<this.data.length;i++) {
-//             html += window.Acme.cards.renderCard(this.data[i].data, cardClasses[n], this.template, 'property');
-//             n = 1;
-//         }
-//         container.empty().append(html);
-//         $('#mainAjaxArticles').empty();
-
-//         $('#searchClear').on('click', function(e) {
-//             e.preventDefault();
-//             Acme.PubSub.publish('update_state', {'clear': self});
-//         });
-//         $(".card .content > p, .card h2").dotdotdot();
-//     }
-
 
 
 /***                             ****
@@ -511,6 +404,9 @@ var ListingForm = function() {};
         "delete listing" : function(data, topic) {
             return this.deleteListing();
         },
+        "delete image" : function(data, topic) {
+            return this.deleteImage(data);
+        },
         "extendedData.region" : function(data, topic) {
             this.updateData(data);
         },
@@ -608,6 +504,7 @@ var ListingForm = function() {};
     };
     ListingForm.prototype.render = function() 
     {
+        console.log(this.data);
         var form = this.container.main;
         var title = form.find("#title");
         var content = form.find("#content");
@@ -665,9 +562,10 @@ var ListingForm = function() {};
         var imageArray = $('#imageArray');
         var html = "";
         var temp = Handlebars.compile(window.templates.carousel_item); 
+        console.log(images);
         for (var i=0;i<images.length;i++) {
             var imagePath = images[i].url || images[i].path;
-            html += temp({"imagePath": imagePath});
+            html += temp({"imagePath": imagePath, 'imageid' : images[i].media_id});
         }
         imageArray.append(html);
     };
@@ -697,7 +595,7 @@ var ListingForm = function() {};
 
         return Acme.server.create('/api/article/delete-user-article', {"articleguid": this.data.guid}).done(function(r) {
             $('#listingFormClear').click();
-            Acme.PubSub.publish('update_state', {'deleteConfirmed': ''});
+            Acme.PubSub.publish('update_state', {'closeConfirm': ''});
             // Acme.PubSub.publish('update_state', {'userArticles': ''});
 
         }).fail(function(r) {
@@ -705,6 +603,23 @@ var ListingForm = function() {};
             console.log(r);
         });
     };
+    ListingForm.prototype.deleteImage = function(id) 
+    {
+
+        return Acme.server.create('/api/article/delete-user-image', {
+                "articleguid": this.data.guid,
+                "mediaid": id
+            }).done(function(r) {
+            // $('#listingFormClear').click();
+            Acme.PubSub.publish('update_state', {'closeConfirm': ''});
+            // Acme.PubSub.publish('update_state', {'userArticles': ''});
+
+        }).fail(function(r) {
+            // Acme.PubSub.publish('update_state', {'confirm': r});
+            console.log(r);
+        });
+    };
+
     ListingForm.prototype.submit = function()
     {
         var validated = this.validate();
@@ -714,7 +629,7 @@ var ListingForm = function() {};
         }
 
         this.data.theme_layout_name = this.layout;
-
+        console.log(this.data);
         Acme.server.create('/api/article/create', this.data).done(function(r) {
             $('#listingFormClear').click();
             Acme.PubSub.publish('update_state', {'confirm': r});
@@ -769,7 +684,6 @@ var ListingForm = function() {};
                         self.data.media_id = mediaids[0];
 
                         self.renderImageThumbs([data]);
-                        $().General_ShowNotification({message: 'Image added successfully' });
                         outer.removeClass("spinner");
                         inner.show();
 
@@ -777,6 +691,16 @@ var ListingForm = function() {};
                         console.log(r);
                     });
                 }
+        });
+
+        $('#imageArray').on('click', '.carousel-tray__delete', function(e) {
+            var elem = $(e.target);
+            var mediaId = elem.data('id');
+            console.log(self.data);
+            // Acme.PubSub.publish('update_state', {'confirmDeleteImage': mediaId});
+
+            console.log(elem);
+            console.log(mediaId);
         });
 
         $('#listingFormClear').on('click', function(e) {
@@ -787,7 +711,6 @@ var ListingForm = function() {};
         $('#listingFormDelete').on('click', function(e) {
             Acme.PubSub.publish('update_state', {'confirmDelete': ""});
         });
-
 
         $('#listingForm').submit(function(e) {
             e.preventDefault();
@@ -1211,6 +1134,16 @@ Acme.Confirm = function(template, parent, layouts) {
                 Acme.PubSub.publish("update_state", {'delete listing': "" });
             }
 
+            if ($elem.data('role') === 'deleteImage') {
+                console.log('you want to delete an image???');
+                console.log(self.data);
+                Acme.PubSub.publish("update_state", {'delete image': self.data });
+
+                // $elem.addClass("spinner");
+                // Acme.PubSub.publish("update_state", {'delete listing': "" });
+            }
+
+
         }
         if ($elem.hasClass('layout')) {
             var layout = $elem.data('layout');
@@ -1234,9 +1167,20 @@ Acme.confirmView = new Acme.Confirm('modal', 'signin', layouts);
             this.render("listing", "Listing saved");
         },
         "confirmDelete" : function(data, topic) {
-            this.render("delete", "Warning");
+            this.render("delete", "Warning", { msg: "Are you sure you want to permanently delete this listing?", role:"delete"});
         },
-        "deleteConfirmed" : function(data, topic) {
+        "confirmDeleteImage" : function(data, topic) {
+            console.log(data, topic);
+            this.data = data;
+            console.log(this.data);
+            this.render("delete", "Warning", 
+                {
+                     msg: "Are you sure you want to permanently delete this image?", 
+                     role:"deleteImage"
+                 }
+            );
+        },
+        "closeConfirm" : function(data, topic) {
             this.closeWindow();
         }
 
