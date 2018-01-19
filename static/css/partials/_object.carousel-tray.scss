@@ -14,8 +14,14 @@
     display:block;
     width:20px;
     height:20px;
-    // background:red;
-    // &:hover {
-    //     cursor:pointer;
-    // }
+    background-image: url('../icons/delete-cross.svg');
+    background-repeat: no-repeat;
+    // background-size:contain;
+    background-color: rgba(255,255,255,.5);
+    margin-top: 5px;
+    margin-left: 5px;
+    background-position: center;
+    &:hover {
+        cursor:pointer;
+    }
 }

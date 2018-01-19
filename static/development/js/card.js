@@ -17,6 +17,7 @@ Card.prototype.renderScreenCards = function(options, data)
     var html = "";
     for (var i in data.articles) {
         data.articles[i]['imageOptions'] = { width:1400, height:800 };
+        data.articles[i]['lazyloadImage'] = false;
         html += self.renderCard(data.articles[i], options.cardClass);
     }
     container.empty().append(html);
@@ -104,6 +105,7 @@ Card.prototype.renderCard = function(card, cardClass, template, type)
     card['pinText']  = (card.isPinned == 1) ? 'Un-Pin' : 'Pin';
     card['promotedClass'] = (card.isPromoted == 1)? 'ad_icon' : '';
     card['hasArticleMediaClass'] = (card.hasMedia == 1)? 'withImage__content' : 'without__image';
+    card['imgClass'] = (card.lazyloadImage == false) ? '' : 'lazyload';
     card['readingTime']= self.renderReadingTime(card.readingTime);
     card['blogClass']= '';
     if(card.blog['id'] !== null) {
@@ -128,8 +130,11 @@ Card.prototype.renderCard = function(card, cardClass, template, type)
         if(card.social.media.type && card.social.media.type == 'video') {
             card['videoClass'] = 'video_card';
         }
+        console.log('social card render');
         articleTemplate = Handlebars.compile(socialCardTemplate); 
     } else {
+        console.log('article card render');
+        // console.log(template);
         articleTemplate = Handlebars.compile(template);
     }
     return articleTemplate(card);

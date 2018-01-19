@@ -33596,7 +33596,7 @@ Acme.systemCardTemplate =
     cardTemplateTop + 
         '{{#if hasMedia}}\
             <figure>\
-                <img class="img-responsive lazyload" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url(https://placeholdit.imgix.net/~text?txtsize=33&txt=Loading&w=450&h=250)">\
+                <img class="img-responsive {{imgClass}}" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url(https://placeholdit.imgix.net/~text?txtsize=33&txt=Loading&w=450&h=250)">\
             </figure>\
         {{/if}} \
         \
@@ -33992,6 +33992,7 @@ Card.prototype.renderScreenCards = function(options, data)
     var html = "";
     for (var i in data.articles) {
         data.articles[i]['imageOptions'] = { width:1400, height:800 };
+        data.articles[i]['lazyloadImage'] = false;
         html += self.renderCard(data.articles[i], options.cardClass);
     }
     container.empty().append(html);
@@ -34079,6 +34080,7 @@ Card.prototype.renderCard = function(card, cardClass, template, type)
     card['pinText']  = (card.isPinned == 1) ? 'Un-Pin' : 'Pin';
     card['promotedClass'] = (card.isPromoted == 1)? 'ad_icon' : '';
     card['hasArticleMediaClass'] = (card.hasMedia == 1)? 'withImage__content' : 'without__image';
+    card['imgClass'] = (card.lazyloadImage == false) ? '' : 'lazyload';
     card['readingTime']= self.renderReadingTime(card.readingTime);
     card['blogClass']= '';
     if(card.blog['id'] !== null) {
@@ -34103,8 +34105,11 @@ Card.prototype.renderCard = function(card, cardClass, template, type)
         if(card.social.media.type && card.social.media.type == 'video') {
             card['videoClass'] = 'video_card';
         }
+        console.log('social card render');
         articleTemplate = Handlebars.compile(socialCardTemplate); 
     } else {
+        console.log('article card render');
+        // console.log(template);
         articleTemplate = Handlebars.compile(template);
     }
     return articleTemplate(card);
@@ -34930,7 +34935,7 @@ var ListingForm = function() {};
         "after" : function(data, topic) {
             var keys = Object.keys(data);
 
-            if(keys[0] === 'user listing') return;
+            if(keys[0] === 'user listing' || keys[0] === 'delete image') return;
             var validated = this.validate(keys);
 
             // if (!validated) {
@@ -35099,23 +35104,49 @@ var ListingForm = function() {};
             console.log(r);
         });
     };
-    ListingForm.prototype.deleteImage = function(id) 
+    ListingForm.prototype.saveImage = function(r, data)
     {
+        var newImageId = r.media.media_id;
+        var mediaids = [];
+        if (this.data.media_ids != "") {
+            mediaids = this.data.media_ids.split(',');
+        }
+        mediaids.push(newImageId);
+        this.data.media_ids = mediaids.join(',');
+        this.data.media_id = mediaids[0];
 
-        return Acme.server.create('/api/article/delete-user-image', {
-                "articleguid": this.data.guid,
-                "mediaid": id
-            }).done(function(r) {
-            // $('#listingFormClear').click();
-            Acme.PubSub.publish('update_state', {'closeConfirm': ''});
-            // Acme.PubSub.publish('update_state', {'userArticles': ''});
+        this.renderImageThumbs([data]);
+        return true;
+    }
+    ListingForm.prototype.deleteImage = function(data) 
+    {
+        console.log('deleting listing');
 
-        }).fail(function(r) {
-            // Acme.PubSub.publish('update_state', {'confirm': r});
-            console.log(r);
-        });
+        var info = data['delete image'].confirmDeleteImage;
+        var elem = info.elem;
+        var id = info.id;
+        elem.parent().remove();
+
+        mediaids = this.data.media_ids.split(',');
+
+        var index = mediaids.indexOf(id.toString());
+        if (index > -1) {
+            mediaids.splice(index, 1);
+        }
+        console.log(mediaids);
+        
+        if (mediaids.length > 0) {
+            this.data.media_id = mediaids[0];
+            this.data.media_ids = mediaids.join(',');
+        } else {
+            this.data.media_id = '';
+            this.data.media_ids = '-1';
+        }
+
+        console.log(this.data.media_ids, this.data.media_id);
+        Acme.PubSub.publish('update_state', {'closeConfirm': ''});
+
     };
-
     ListingForm.prototype.submit = function()
     {
         var validated = this.validate();
@@ -35125,7 +35156,7 @@ var ListingForm = function() {};
         }
 
         this.data.theme_layout_name = this.layout;
-        console.log(this.data);
+        // console.log(this.data);
         Acme.server.create('/api/article/create', this.data).done(function(r) {
             $('#listingFormClear').click();
             Acme.PubSub.publish('update_state', {'confirm': r});
@@ -35168,21 +35199,11 @@ var ListingForm = function() {};
                     outer.addClass("spinner");
 
                     Acme.server.create('/api/article/save-image', postdata).done(function(r) {
-
-                        var newImageId = r.media.media_id;
-                        var arrayid = $(obj).data('id');
-                        var mediaids = [];
-                        if (self.data.media_ids != "") {
-                            mediaids = self.data.media_ids.split(',');
+                        console.log(r);
+                        if (self.saveImage(r, data) ) {
+                            outer.removeClass("spinner");
+                            inner.show();
                         }
-                        mediaids.push(newImageId);
-                        self.data.media_ids = mediaids.join(',');
-                        self.data.media_id = mediaids[0];
-
-                        self.renderImageThumbs([data]);
-                        outer.removeClass("spinner");
-                        inner.show();
-
                     }).fail(function(r) {
                         console.log(r);
                     });
@@ -35192,11 +35213,11 @@ var ListingForm = function() {};
         $('#imageArray').on('click', '.carousel-tray__delete', function(e) {
             var elem = $(e.target);
             var mediaId = elem.data('id');
-            console.log(self.data);
-            // Acme.PubSub.publish('update_state', {'confirmDeleteImage': mediaId});
+            // console.log(self.data);
+            Acme.PubSub.publish('update_state', {'confirmDeleteImage': {elem:elem, id:mediaId}});
 
-            console.log(elem);
-            console.log(mediaId);
+            // console.log(elem);
+            // console.log(mediaId);
         });
 
         $('#listingFormClear').on('click', function(e) {
