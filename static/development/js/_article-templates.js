@@ -402,7 +402,7 @@ Acme.systemCardTemplate =
     cardTemplateTop + 
         '{{#if hasMedia}}\
             <figure>\
-                <img class="img-responsive {{imgClass}}" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url(https://placeholdit.imgix.net/~text?txtsize=33&txt=Loading&w=450&h=250)">\
+                <img class="img-responsive {{imgClass}}" data-original="{{imageUrl}}" src="{{imageUrl}}" {{imgBackgroundStyle}}">\
             </figure>\
         {{/if}} \
         \

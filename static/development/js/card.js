@@ -105,7 +105,12 @@ Card.prototype.renderCard = function(card, cardClass, template, type)
     card['pinText']  = (card.isPinned == 1) ? 'Un-Pin' : 'Pin';
     card['promotedClass'] = (card.isPromoted == 1)? 'ad_icon' : '';
     card['hasArticleMediaClass'] = (card.hasMedia == 1)? 'withImage__content' : 'without__image';
+    
+    // mainly for screen to turn off lazyload and loading background img
     card['imgClass'] = (card.lazyloadImage == false) ? '' : 'lazyload';
+    card['imgBackgroundStyle'] = (card.lazyloadImage == false) ? '' : 'style="background-image:url(https://placeholdit.imgix.net/~text?txtsize=33&txt=Loading&w=450&h=250)"';
+    
+
     card['readingTime']= self.renderReadingTime(card.readingTime);
     card['blogClass']= '';
     if(card.blog['id'] !== null) {
