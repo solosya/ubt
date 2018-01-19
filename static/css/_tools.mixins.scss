@@ -19,6 +19,23 @@
 	}
 }
 
+@mixin screenGradientbefore() {
+	&:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		height:100%;
+		bottom: 0;
+		width: 100%;
+		z-index: 1;
+        // background-image: -webkit-linear-gradient(to top, rgba(25, 44, 84, 0), #3a3a3a);
+        // background-image: -o-linear-gradient(to top, rgba(25, 44, 84, 0), #3a3a3a);
+        // background-image: linear-gradient(to top, rgba(25, 44, 84, 0), #3a3a3a);
+        background-image: -moz-linear-gradient(top, rgba(0,0,0,.7) 0%, rgba(27,27,27,0) 54%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
+        background-image: -webkit-linear-gradient(top, rgba(0,0,0,.7) 0%,rgba(27,27,27,0) 54%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
+        background-image: linear-gradient(to bottom, rgba(0,0,0,.7) 0%,rgba(27,27,27,0) 54%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */	}
+}
+
 @mixin gradientbefore() {
 	&:before {
 		content: '';

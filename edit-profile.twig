@@ -20,11 +20,13 @@
         };
         w.Intercom=i;
         function l(){
+            console.log('calling l'); 
             var s=d.createElement('script');
             s.type='text/javascript';
             s.async=true;
             s.src='https://widget.intercom.io/widget/zxwsoz9f';
             var x=d.getElementsByTagName('script')[0];
+            console.log(x);
             x.parentNode.insertBefore(s,x);
         }
         if(w.attachEvent){
@@ -80,11 +82,13 @@
                                 <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" />
                                 <input type="hidden" name="profileImage" id="userProfileImage" value="" />
 
+                                <label class="mobLabel" for="firstname">First name</label>
                                 <div class="inline-inputs">
                                     <label for="firstname">First name</label>
                                     <input type="text" id="firstname" class="form-control" name="firstname" value="{{user.firstname}}" placeholder="First name" >
                                 </div>
 
+                                <label class="mobLabel" for="lastname">Last name</label>
                                 <div class="inline-inputs">
                                     <label for="lastname">Last name</label>
                                     <input type="text" id="lastname" class="form-control" name="lastname" value="{{user.lastname}}" placeholder="Last name" >
@@ -94,23 +98,26 @@
                                     <label for="company">Company</label>
                                     <input type="text" id="company" class="form-control" name="company" value="{{user.company}}" placeholder="Company" >
                                 </div>
- #}
+ #}                             
+                                <label class="mobLabel" for="username">Username</label>
                                 <div class="inline-inputs">
                                     <label for="username">Username</label>
                                     <input type="text" id="username" class="form-control" name="username" value="{{user.username}}" placeholder="Username" >
                                 </div>
 
+                                <label class="mobLabel" for="email">Email</label>
                                 <div class="inline-inputs">
                                     <label for="email">Email</label>
                                     <input type="text" id="email" class="form-control" name="email" value="{{user.email}}" placeholder="email@domain.com" >
                                 </div>
 
+                                <label class="mobLabel" for="password">Password</label>
                                 <div class="inline-inputs">
                                     <label for="password">Password</label>
                                     <input type="password" id="password" class="form-control" name="password" placeholder="new password" >
                                 </div>
 
-
+                                <label class="mobLabel" for="password">Verify Password</label>
                                 <div class="inline-inputs">
                                     <label for="password">Verify Password</label>
                                     <input type="password" id="verifypassword" class="form-control" name="verifypassword" placeholder="verify password" >
@@ -156,12 +163,12 @@
                                             <div class="button-full">
                                             {% if pwstats['status'] == 'cancelled' %}
                                                 {% if (date(pwstats['expiry_date']) > date(now) ) %}
-                                                <a  id='cancelAccount' class="text-button u-float-right u-margin-top-25">Restart Subscription</a>
+                                                <a  id='cancelAccount' style="cursor:hand; cursor:pointer;" class="text-button u-float-right u-margin-top-25">Restart Subscription</a>
                                                 {% else %} 
                                                 <a  class="text-button u-float-right u-margin-top-25">Choose a plan to renew your account, or all data will be removed 30 days after last payment date.</a>
                                                 {% endif %} 
                                             {% else %} 
-                                                <a  id='cancelAccount' class="text-button u-float-right u-margin-top-25">Cancel Subscription</a>
+                                                <a  id='cancelAccount' style="cursor:hand; cursor:pointer;" class="text-button u-float-right u-margin-top-25">Cancel Subscription</a>
                                             {% endif %} 
                                             </div>
                                         </div>
@@ -247,7 +254,7 @@
                                 {% endif %}
 
 
-                                <div class="j-setplan plans__item">
+                                <div class="j-setplan plans__item" style="cursor:hand; cursor:pointer;">
                                     <h3 class="plans__name">{{plan.name}}</h3>
                                     <p class="plans__usercount">{{uc|replace({ '10001': '20+' })}} Users</p>
                                     <p class="plans__price">${{val|number_format(2, '.', ',')}}({{plan.currency|raw}})<br />

@@ -9,7 +9,7 @@
 {{this.registerJs("Acme.jobRegionFilter = new Acme.regionSearchView();")}}
 {{this.registerJs("Acme.propertyTypeFilter = new Acme.propertyTypeSearchView();")}}
 {{this.registerJs("Acme.saleTypeFilter = new Acme.saleTypeSearchView();")}}
-{{this.registerJs("Acme.propertySearchResults = new Acme.propertySearchResultsClass('property-listings', 'propertyListingCardTemplate');")}}
+{# {{this.registerJs("Acme.propertySearchResults = new Acme.propertySearchResultsClass('property-listings', 'propertyListingCardTemplate');")}} #}
 
 
 {% set limit = 4 %}
@@ -18,7 +18,7 @@
 {% set firstCount = articles | length %}
                                                      {# renders the card    fetch-limit      fetch-offset    infinite scroll #}
                                                      {#            ↑             ↑                 ↑            ↑            #}
-{{this.registerJs("Acme.searchFeed = new Acme.View.articleFeed(Acme.cards, " ~ limit ~ ", " ~ firstCount ~ ", true);")}}
+{{this.registerJs("Acme.searchFeed = new Acme.View.articleFeed(Acme.cards, " ~ limit ~ ", " ~ firstCount ~ ", true,  'No listings found');")}}
 
 
 <!-- used to index each article as we loop over throughout the template -->

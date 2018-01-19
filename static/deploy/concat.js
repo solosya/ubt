@@ -26761,14 +26761,13 @@ jQuery.fn.liScroll = function(settings) {
         };
 
         if (options.blogid) {
-            requestData['blogid'] = options.blogid;
+            requestData['blogguid'] = options.blogid;
         }
         if (options.search) {
             requestData['meta_info'] = options.search;
             var url = _appJsConfig.appHostName + '/'+options.loadtype;
             var requestType = 'get';
         }
-
 
         return $.ajax({
             type: requestType,
@@ -27395,7 +27394,6 @@ jQuery.fn.liScroll = function(settings) {
         return this.each(function () {
             var elem = $(this);
             $(elem).click(function (e) {
-                console.log('clicking on image thing');
                 e.preventDefault();
                 e.stopPropagation();
 
@@ -27403,7 +27401,6 @@ jQuery.fn.liScroll = function(settings) {
 
                 //initialization code
                 $.loadScript("//api.filepicker.io/v2/filepicker.js", function () {
-                    console.log('in the callback');
                     var tabs = $.extend([], ['COMPUTER'], opts.tabs);
 
                     //Set file picker api key
@@ -27428,9 +27425,7 @@ jQuery.fn.liScroll = function(settings) {
     };
 
     $.loadScript = function (url, callback) {
-        console.log('loading filestack window');
         if ( $('#fileuploadscript').length ) {
-            console.log('straight to callback');
             callback();
             return;
         }
@@ -32891,7 +32886,7 @@ jQuery(document).ready(function () {
     }
         Acme.modal.prototype = new Acme.listen();
 
-        Acme.modal.prototype.render = function(layout, title) {
+        Acme.modal.prototype.render = function(layout, title, data) {
             console.log('renderingt confirm in base');
             if (title) {
                 this.data['title'] = title;
@@ -32901,15 +32896,17 @@ jQuery(document).ready(function () {
             var tmp = tmp(this.data);
             $('body').addClass('active').append(tmp);
             if (layout) {
-                this.renderLayout(layout);
+                this.renderLayout(layout, data);
             }
             this.events();
-            console.log('returning promise');
             return this.dfd.promise();
         };
-        Acme.modal.prototype.renderLayout = function(layout) {
-            // var layout = Handlebars.compile(window.templates[this.layouts[layout]]);
-            var layout = window.templates[this.layouts[layout]];
+        Acme.modal.prototype.renderLayout = function(layout, data) {
+            var data = data || {};
+            console.log(data);
+            var tmp = Handlebars.compile(window.templates[this.layouts[layout]]);
+            var layout = tmp(data);
+            // var layout = window.templates[this.layouts[layout]];
 
             $('#'+this.parentCont).find('#dialogContent').empty().append(layout); 
         };
@@ -33280,7 +33277,7 @@ window.templates.managed_user =
 
 window.templates.carousel_item = 
 '<div class="carousel-tray__item" style="background-image:url( {{imagePath}} )"> \
-    <span class="carousel-tray__delete"></span> \
+    <span data-id="{{imageid}}" class="carousel-tray__delete"></span> \
 </div>';
 
 window.templates.ads_infinite = 
@@ -33329,10 +33326,10 @@ window.templates.spinnerTmpl = '<div class="spinner"></div>';
 
 window.templates.listingSavedTmpl =  '<p>Thank you, your listing will be published in the next 24 hours</p><div><form><button class="_btn _btn--red">Okay</button></form></div>';
 window.templates.listingDeleteTmpl =  
-    '<p>Are you sure you want to permanently delete this listing?</p> \
+    '<p>{{msg}}</p> \
     <div> \
         <form> \
-            <button class="_btn _btn--red" data-role="delete">DELETE</button> \
+            <button class="_btn _btn--red" data-role="{{role}}">DELETE</button> \
             <button class="_btn _btn--gray">CANCEL</button> \
         </form> \
     </div>';
@@ -33355,7 +33352,6 @@ window.templates.userPlanOkCancel =
 window.templates.signinFormTmpl = 
 // <script> tag possible ios safari login fix
 '<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
-    <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> \
     \
     <input id="loginName" class="" type="text" name="username" placeholder="Username" value="" /> \
     <input id="loginPass" class="" type="password" name="password" placeholder="Password" value="" /> \
@@ -33600,7 +33596,7 @@ Acme.systemCardTemplate =
     cardTemplateTop + 
         '{{#if hasMedia}}\
             <figure>\
-                <img class="img-responsive lazyload" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url(https://placeholdit.imgix.net/~text?txtsize=33&txt=Loading&w=450&h=250)">\
+                <img class="img-responsive {{imgClass}}" data-original="{{imageUrl}}" src="{{imageUrl}}" {{imgBackgroundStyle}}">\
             </figure>\
         {{/if}} \
         \
@@ -33748,105 +33744,121 @@ var socialPostPopupTemplate =
                     '</div>'+
     '</div>'+
  '</div>'   ;   
-Acme.View.articleFeed = function(cardModel, limit, offset, infinite) {
+Acme.View.articleFeed = function(cardModel, limit, offset, infinite, failText) {
     this.cardModel = cardModel;
     this.offset    = offset || 0;
     this.limit     = limit || 10;
     this.infinite  = infinite || false;
     this.waypoint  = false;
+    this.options   = {};
+    this.elem      = $('.loadMoreArticles');
+    this.failText  = failText || null;
     this.events();
 };
 
-Acme.View.articleFeed.prototype.fetch = function(elem, waypoint)
+Acme.View.articleFeed.prototype.fetch = function()
 {
     var self = this;
-    elem.html("Please wait...");
+    self.elem.html("Please wait...");
 
-    var container = $('#'+elem.data('container'));
+    var container = $('#'+self.elem.data('container'));
 
     // blogfeed makes 2 sql calls.  
     //      Offset is to get pinned contect 
     //      nonPinnedOffset gets the rest
     //      They're combined to return full result
-    var options = {
+    self.options = {
         'container'         :   container,
-        'limit'             :   elem.data('limit'),
-        'offset'            :   elem.data('offset') || elem.data('limit'),
-        'nonPinnedOffset'   :   elem.data('non-pinned-offset') || -1,
-        'blogid'            :   elem.data('blogguid'),
-        'loadtype'          :   elem.data('loadtype')      || "home",
-        'search'            :   elem.data('searchterm')    || null,
+        'limit'             :   self.elem.data('limit'),
+        'offset'            :   self.elem.data('offset') || self.elem.data('limit'),
+        'nonPinnedOffset'   :   self.elem.data('non-pinned-offset') || -1,
+        'blogid'            :   self.elem.data('blogguid'),
+        'loadtype'          :   self.elem.data('loadtype')      || "home",
+        'search'            :   self.elem.data('searchterm')    || null,
     };
-    if (options.search != null) {
-        options.blogid = elem.data("blogid"); // search takes an id instead of a guid
+    if (self.options.search != null) {
+        self.options.blogid = self.elem.data("blogid"); // search takes an id instead of a guid
     }
 
-
-    var cardClass  =   elem.data('card-class'),
-        template   =   elem.data('card-template') || null,
-        label      =   elem.data('button-label')  || "Load more",
-        ads_on     =   elem.data('ads')           || null,
-        rendertype =   elem.data('rendertype')    || null;
-
-
-    $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
+    $.fn.Ajax_LoadBlogArticles(self.options).done(function(data) {
 
         if (data.success == 1) {
-
-            elem.html(label);
-
-            (data.articles.length < options.limit) 
-                ? elem.css('display', 'none')
-                : elem.show();
-            
-            // add counts to the dom for next request
-            elem.data('non-pinned-offset', data.existingNonPinnedCount);
-            elem.data('offset', (options.offset + options.limit));
-            
-            var html = [];
-            if (ads_on == "yes") {
-                html.push( window.templates.ads_infinite );
-            }
-
-            for (var i in data.articles) {
-                html.push( self.cardModel.renderCard(data.articles[i], cardClass, template) );
-            }
-
-            (rendertype === "write")
-                ? container.empty().append( html.join('') )
-                : container.append( html.join('') );
-                
-            if (self.waypoint) {
-                (data.articles.length < options.limit)
-                    ? self.waypoint.disable()
-                    : self.waypoint.enable();
-            }
-
-            $(".card .content > p, .card h2").dotdotdot();     
-            // $('.video-player').videoPlayer();
-            $("div.lazyload").lazyload({
-                effect: "fadeIn"
-            });
+            self.render(data);
         }
     });
 };
 
+
+Acme.View.articleFeed.prototype.render = function(data) 
+{
+    var self = this;
+
+    var cardClass  =   self.elem.data('card-class'),
+        template   =   self.elem.data('card-template') || null,
+        label      =   self.elem.data('button-label')  || "Load more",
+        ads_on     =   self.elem.data('ads')           || null,
+        rendertype =   self.elem.data('rendertype')    || null;
+
+    self.elem.html(label);
+
+    (data.articles.length < self.options.limit) 
+        ? self.elem.css('display', 'none')
+        : self.elem.show();
+
+    // add counts to the dom for next request
+    self.elem.data('non-pinned-offset', data.existingNonPinnedCount);
+    self.elem.data('offset', (self.options.offset + self.options.limit));
+
+    var html = [];
+    if (ads_on == "yes") {
+        html.push( window.templates.ads_infinite );
+    }
+
+
+    if (data.articles.length === 0 && self.failText) {
+        html = ["<p>" + self.failText + "</p>"];
+    } else {
+        for (var i in data.articles) {
+            html.push( self.cardModel.renderCard(data.articles[i], cardClass, template) );
+        }
+    }
+
+    (rendertype === "write")
+        ? self.options.container.empty().append( html.join('') )
+        : self.options.container.append( html.join('') );
+        
+    if (self.waypoint) {
+        (data.articles.length < self.options.limit)
+            ? self.waypoint.disable()
+            : self.waypoint.enable();
+    }
+
+    $(".card .content > p, .card h2").dotdotdot();     
+    // $('.video-player').videoPlayer();
+    $("div.lazyload").lazyload({
+        effect: "fadeIn"
+    });
+
+    self.elem.data('rendertype', '');
+};
+
+
 Acme.View.articleFeed.prototype.events = function() 
 {
     var self = this;
-    $('.loadMoreArticles').unbind().on('click', function(e) {
+    self.elem.unbind().on('click', function(e) {
         e.preventDefault();
-        self.fetch($(e.target));
+        self.fetch();
     });
 
 
     if (this.infinite && this.offset >= this.limit) {
         self.waypoint = new Waypoint({
-            element: $('.loadMoreArticles'),
+            element: self.elem,
             offset: '80%',
             handler: function (direction) {
                 if (direction == 'down') {
-                    self.fetch($(this.element));
+                    self.fetch();
                 }
             }
         });
@@ -33980,6 +33992,7 @@ Card.prototype.renderScreenCards = function(options, data)
     var html = "";
     for (var i in data.articles) {
         data.articles[i]['imageOptions'] = { width:1400, height:800 };
+        data.articles[i]['lazyloadImage'] = false;
         html += self.renderCard(data.articles[i], options.cardClass);
     }
     container.empty().append(html);
@@ -34030,7 +34043,7 @@ Card.prototype.screen = function()
         }
 
         options.offset = articleCount;
-        options.nonpinned = articleCount;
+        options.nonPinnedOffset = articleCount;
 
         $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
             if (data.articles.length == 0 ) {
@@ -34067,6 +34080,12 @@ Card.prototype.renderCard = function(card, cardClass, template, type)
     card['pinText']  = (card.isPinned == 1) ? 'Un-Pin' : 'Pin';
     card['promotedClass'] = (card.isPromoted == 1)? 'ad_icon' : '';
     card['hasArticleMediaClass'] = (card.hasMedia == 1)? 'withImage__content' : 'without__image';
+    
+    // mainly for screen to turn off lazyload and loading background img
+    card['imgClass'] = (card.lazyloadImage == false) ? '' : 'lazyload';
+    card['imgBackgroundStyle'] = (card.lazyloadImage == false) ? '' : 'style="background-image:url(https://placeholdit.imgix.net/~text?txtsize=33&txt=Loading&w=450&h=250)"';
+    
+
     card['readingTime']= self.renderReadingTime(card.readingTime);
     card['blogClass']= '';
     if(card.blog['id'] !== null) {
@@ -34565,32 +34584,6 @@ var regionList = listingRegions[domain] || listingRegions["test"];
 
 
 
-// Acme.searchModel = Acme.Model.create({
-//     'url' : 'search'
-// });
-//     Acme.searchModel.listeners = {
-//         "regionSelect" : function(data) {
-//             var self = this;
-//             this.query = ['s', data.regionSelect]; //, 'migrate', 'true'
-//             this.fetch().done(
-//                 function(r) {
-//                     if (r.data) {
-//                         self.data = r.data;
-//                         Acme.state.listener('update_state', {'searchModel': self});
-//                     }
-//                 }
-//             );
-//         }
-//     };
-//     Acme.searchModel.subscriptions = Acme.PubSub.subscribe({
-//         'Acme.searchModel.listener' : [ "state_changed"]
-//     });
-
-
-
-
-
-
 
 
 
@@ -34745,17 +34738,14 @@ Acme.searchCollectionClass = function(blogId)
                              .data('searchterm', searchString)
                              .data('offset', '0')
                              .data('non-pinned-offset', '0')
-                             .click()
-                             .data('rendertype', '');
-
+                             .click();
             }
             var params = loader.data('loadtype', '')
                          .data('rendertype', 'write')
                          .data('searchterm', '')
                          .data('offset', '0')
                          .data('non-pinned-offset', '0')
-                         .click()
-                         .data('rendertype', '');
+                         .click();
 
             return params;
         },
@@ -34769,87 +34759,6 @@ $('#searchButton').on('click', function(e) {
 
 
 
-
-// /***                             ****
-//     Base Class for results view
-// ***                              ****/
-// Acme.filteredListingViewClass = function() {
-// };
-//     Acme.filteredListingViewClass.prototype = new Acme._View();
-//     Acme.filteredListingViewClass.prototype.listeners = {
-//         "search" : function(data) {
-//             this.data = data.search.data;
-//             this.render();
-//         }
-//     };
-//     Acme.filteredListingViewClass.prototype.init = function(container, template)
-//     {
-//         this.container = (container) ?  $('#'+container) : $('#job-listings');
-//         this.template = template || 'jobsCardTemplate';
-//     };
-
-
-
-
-// Acme.jobsSearchResultsClass = function(container, template)
-// {
-//     this.parent = Acme.filteredListingViewClass.prototype;
-//     this.parent.init(container, template);
-// };
-//     Acme.jobsSearchResultsClass.prototype = new Acme.filteredListingViewClass();
-//     Acme.jobsSearchResultsClass.prototype.subscriptions = Acme.PubSub.subscribe({
-//         'Acme.jobsSearchResults.listener' : ['state_changed']
-//     });
-
-//     Acme.jobsSearchResultsClass.prototype.render = function(search) {
-//         var container = this.container;
-//         var cardClasses = ["card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile"];
-
-//         var html = '<div id="searchResults"><h2>Search results</h2><a id="searchClear" href="#">Clear</a></div>', n = 0;
-//         for (var i=0;i<this.data.length;i++) {
-//             html += window.Acme.cards.renderCard(this.data[i].data, cardClasses[n], this.template);
-//         }
-//         container.empty().append(html);
-//         $('#searchClear').on('click', function(e) {
-//             e.preventDefault();
-//             $("#searchResults").remove();
-//             Acme.PubSub.publish('update_state', {'clear': self});
-//         });
-
-//         $(".card .content > p, .card h2").dotdotdot();
-//     };
-
-// Acme.propertySearchResultsClass = function(container, template)
-// {
-//     this.parent = Acme.filteredListingViewClass.prototype;
-//     this.parent.init(container, template);
-// };
-//     Acme.propertySearchResultsClass.prototype = new Acme.filteredListingViewClass();
-//     Acme.propertySearchResultsClass.prototype.subscriptions = Acme.PubSub.subscribe({
-//         'Acme.propertySearchResults.listener' : ['state_changed']
-//     });
-
-//     Acme.propertySearchResultsClass.prototype.render = function() {
-
-//         var container = this.container;
-//         var cardClasses = [ "card-main-realestate card-main-realestate-tablet card-main-realestate-mobile",
-//                             "card-rec-realestate card-rec-realestate-tablet card-rec-realestate-mobile"];
-
-//         var html = '<h2>Search results</h2><a id="searchClear" href="#">Clear</a>', n = 0;
-
-//         for (var i=0;i<this.data.length;i++) {
-//             html += window.Acme.cards.renderCard(this.data[i].data, cardClasses[n], this.template, 'property');
-//             n = 1;
-//         }
-//         container.empty().append(html);
-//         $('#mainAjaxArticles').empty();
-
-//         $('#searchClear').on('click', function(e) {
-//             e.preventDefault();
-//             Acme.PubSub.publish('update_state', {'clear': self});
-//         });
-//         $(".card .content > p, .card h2").dotdotdot();
-//     }
 
 
 
@@ -34998,6 +34907,9 @@ var ListingForm = function() {};
         "delete listing" : function(data, topic) {
             return this.deleteListing();
         },
+        "delete image" : function(data, topic) {
+            return this.deleteImage(data);
+        },
         "extendedData.region" : function(data, topic) {
             this.updateData(data);
         },
@@ -35025,7 +34937,7 @@ var ListingForm = function() {};
         "after" : function(data, topic) {
             var keys = Object.keys(data);
 
-            if(keys[0] === 'user listing') return;
+            if(keys[0] === 'user listing' || keys[0] === 'delete image') return;
             var validated = this.validate(keys);
 
             // if (!validated) {
@@ -35152,9 +35064,10 @@ var ListingForm = function() {};
         var imageArray = $('#imageArray');
         var html = "";
         var temp = Handlebars.compile(window.templates.carousel_item); 
+
         for (var i=0;i<images.length;i++) {
             var imagePath = images[i].url || images[i].path;
-            html += temp({"imagePath": imagePath});
+            html += temp({"imagePath": imagePath, 'imageid' : images[i].media_id});
         }
         imageArray.append(html);
     };
@@ -35184,13 +35097,53 @@ var ListingForm = function() {};
 
         return Acme.server.create('/api/article/delete-user-article', {"articleguid": this.data.guid}).done(function(r) {
             $('#listingFormClear').click();
-            Acme.PubSub.publish('update_state', {'deleteConfirmed': ''});
+            Acme.PubSub.publish('update_state', {'closeConfirm': ''});
             // Acme.PubSub.publish('update_state', {'userArticles': ''});
 
         }).fail(function(r) {
             // Acme.PubSub.publish('update_state', {'confirm': r});
             console.log(r);
         });
+    };
+    ListingForm.prototype.saveImage = function(r, data)
+    {
+        var newImageId = r.media.media_id;
+        var mediaids = [];
+        if (this.data.media_ids != "") {
+            mediaids = this.data.media_ids.split(',');
+        }
+        mediaids.push(newImageId);
+        this.data.media_ids = mediaids.join(',');
+        this.data.media_id = mediaids[0];
+
+        this.renderImageThumbs([data]);
+        return true;
+    }
+    ListingForm.prototype.deleteImage = function(data) 
+    {
+        var info = data['delete image'].confirmDeleteImage;
+        var elem = info.elem;
+        var id = info.id;
+        elem.parent().remove();
+
+        mediaids = this.data.media_ids.split(',');
+
+        var index = mediaids.indexOf(id.toString());
+        if (index > -1) {
+            mediaids.splice(index, 1);
+        }
+        
+        if (mediaids.length > 0) {
+            this.data.media_id = mediaids[0];
+            this.data.media_ids = mediaids.join(',');
+        } else {
+            this.data.media_id = '';
+            this.data.media_ids = '-1';
+        }
+
+        console.log(this.data.media_ids, this.data.media_id);
+        Acme.PubSub.publish('update_state', {'closeConfirm': ''});
+
     };
     ListingForm.prototype.submit = function()
     {
@@ -35201,7 +35154,7 @@ var ListingForm = function() {};
         }
 
         this.data.theme_layout_name = this.layout;
-
+        // console.log(this.data);
         Acme.server.create('/api/article/create', this.data).done(function(r) {
             $('#listingFormClear').click();
             Acme.PubSub.publish('update_state', {'confirm': r});
@@ -35244,26 +35197,21 @@ var ListingForm = function() {};
                     outer.addClass("spinner");
 
                     Acme.server.create('/api/article/save-image', postdata).done(function(r) {
-
-                        var newImageId = r.media.media_id;
-                        var arrayid = $(obj).data('id');
-                        var mediaids = [];
-                        if (self.data.media_ids != "") {
-                            mediaids = self.data.media_ids.split(',');
+                        console.log(r);
+                        if (self.saveImage(r, data) ) {
+                            outer.removeClass("spinner");
+                            inner.show();
                         }
-                        mediaids.push(newImageId);
-                        self.data.media_ids = mediaids.join(',');
-                        self.data.media_id = mediaids[0];
-
-                        self.renderImageThumbs([data]);
-                        $().General_ShowNotification({message: 'Image added successfully' });
-                        outer.removeClass("spinner");
-                        inner.show();
-
                     }).fail(function(r) {
                         console.log(r);
                     });
                 }
+        });
+
+        $('#imageArray').on('click', '.carousel-tray__delete', function(e) {
+            var elem = $(e.target);
+            var mediaId = elem.data('id');
+            Acme.PubSub.publish('update_state', {'confirmDeleteImage': {elem:elem, id:mediaId}});
         });
 
         $('#listingFormClear').on('click', function(e) {
@@ -35274,7 +35222,6 @@ var ListingForm = function() {};
         $('#listingFormDelete').on('click', function(e) {
             Acme.PubSub.publish('update_state', {'confirmDelete': ""});
         });
-
 
         $('#listingForm').submit(function(e) {
             e.preventDefault();
@@ -35698,10 +35645,19 @@ Acme.Confirm = function(template, parent, layouts) {
                 Acme.PubSub.publish("update_state", {'delete listing': "" });
             }
 
+            if ($elem.data('role') === 'deleteImage') {
+                console.log('you want to delete an image???');
+                console.log(self.data);
+                Acme.PubSub.publish("update_state", {'delete image': self.data });
+
+                // $elem.addClass("spinner");
+                // Acme.PubSub.publish("update_state", {'delete listing': "" });
+            }
+
+
         }
         if ($elem.hasClass('layout')) {
             var layout = $elem.data('layout');
-            // console.log('rendering layout');
             this.renderLayout(layout);
         }
     };
@@ -35722,9 +35678,20 @@ Acme.confirmView = new Acme.Confirm('modal', 'signin', layouts);
             this.render("listing", "Listing saved");
         },
         "confirmDelete" : function(data, topic) {
-            this.render("delete", "Warning");
+            this.render("delete", "Warning", { msg: "Are you sure you want to permanently delete this listing?", role:"delete"});
         },
-        "deleteConfirmed" : function(data, topic) {
+        "confirmDeleteImage" : function(data, topic) {
+            console.log(data, topic);
+            this.data = data;
+            console.log(this.data);
+            this.render("delete", "Warning", 
+                {
+                     msg: "Are you sure you want to permanently delete this image?", 
+                     role:"deleteImage"
+                 }
+            );
+        },
+        "closeConfirm" : function(data, topic) {
             this.closeWindow();
         }
 

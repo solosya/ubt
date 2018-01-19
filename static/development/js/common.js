@@ -550,7 +550,7 @@
     }
         Acme.modal.prototype = new Acme.listen();
 
-        Acme.modal.prototype.render = function(layout, title) {
+        Acme.modal.prototype.render = function(layout, title, data) {
             console.log('renderingt confirm in base');
             if (title) {
                 this.data['title'] = title;
@@ -560,15 +560,17 @@
             var tmp = tmp(this.data);
             $('body').addClass('active').append(tmp);
             if (layout) {
-                this.renderLayout(layout);
+                this.renderLayout(layout, data);
             }
             this.events();
-            console.log('returning promise');
             return this.dfd.promise();
         };
-        Acme.modal.prototype.renderLayout = function(layout) {
-            // var layout = Handlebars.compile(window.templates[this.layouts[layout]]);
-            var layout = window.templates[this.layouts[layout]];
+        Acme.modal.prototype.renderLayout = function(layout, data) {
+            var data = data || {};
+            console.log(data);
+            var tmp = Handlebars.compile(window.templates[this.layouts[layout]]);
+            var layout = tmp(data);
+            // var layout = window.templates[this.layouts[layout]];
 
             $('#'+this.parentCont).find('#dialogContent').empty().append(layout); 
         };

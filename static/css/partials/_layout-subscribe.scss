@@ -3,7 +3,7 @@
     .market-hero {
         height:566px;
         margin-bottom:70px;
-        background-image: linear-gradient(to right, #193046 17%, rgba(0, 0, 0, 0.0) 100%) , url('../images/market-hand_crop.png');
+        background-image: linear-gradient(to right, #193046 17%, rgba(0, 0, 0, 0.0) 100%) , url('../images/market-hand_crop2.png');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: right;
@@ -76,6 +76,7 @@
 
         }
 
+
         > div {
             text-align:center;
             width:350px;
@@ -106,7 +107,13 @@
 
 
             }
-            img.frankHeader {
+            
+        }
+        .frankheader{
+            @media screen and (max-width: $sm-break) {
+                float: right;
+            }
+            img.frankHeader__img {
                 @media screen and (max-width: $mmd-break) {
                     width:129px;
                 }
@@ -114,6 +121,14 @@
                     width:104px;
                 }
 
+            }
+        }
+        .ubt-logo {
+            @media screen and (max-width: $sm-break) {
+                float: left;
+                margin-top: 55px; 
+                width: 90px;
+                height: 31px;
             }
         }
 

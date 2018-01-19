@@ -81,32 +81,6 @@ var regionList = listingRegions[domain] || listingRegions["test"];
 
 
 
-// Acme.searchModel = Acme.Model.create({
-//     'url' : 'search'
-// });
-//     Acme.searchModel.listeners = {
-//         "regionSelect" : function(data) {
-//             var self = this;
-//             this.query = ['s', data.regionSelect]; //, 'migrate', 'true'
-//             this.fetch().done(
-//                 function(r) {
-//                     if (r.data) {
-//                         self.data = r.data;
-//                         Acme.state.listener('update_state', {'searchModel': self});
-//                     }
-//                 }
-//             );
-//         }
-//     };
-//     Acme.searchModel.subscriptions = Acme.PubSub.subscribe({
-//         'Acme.searchModel.listener' : [ "state_changed"]
-//     });
-
-
-
-
-
-
 
 
 
@@ -261,17 +235,14 @@ Acme.searchCollectionClass = function(blogId)
                              .data('searchterm', searchString)
                              .data('offset', '0')
                              .data('non-pinned-offset', '0')
-                             .click()
-                             .data('rendertype', '');
-
+                             .click();
             }
             var params = loader.data('loadtype', '')
                          .data('rendertype', 'write')
                          .data('searchterm', '')
                          .data('offset', '0')
                          .data('non-pinned-offset', '0')
-                         .click()
-                         .data('rendertype', '');
+                         .click();
 
             return params;
         },
@@ -285,87 +256,6 @@ $('#searchButton').on('click', function(e) {
 
 
 
-
-// /***                             ****
-//     Base Class for results view
-// ***                              ****/
-// Acme.filteredListingViewClass = function() {
-// };
-//     Acme.filteredListingViewClass.prototype = new Acme._View();
-//     Acme.filteredListingViewClass.prototype.listeners = {
-//         "search" : function(data) {
-//             this.data = data.search.data;
-//             this.render();
-//         }
-//     };
-//     Acme.filteredListingViewClass.prototype.init = function(container, template)
-//     {
-//         this.container = (container) ?  $('#'+container) : $('#job-listings');
-//         this.template = template || 'jobsCardTemplate';
-//     };
-
-
-
-
-// Acme.jobsSearchResultsClass = function(container, template)
-// {
-//     this.parent = Acme.filteredListingViewClass.prototype;
-//     this.parent.init(container, template);
-// };
-//     Acme.jobsSearchResultsClass.prototype = new Acme.filteredListingViewClass();
-//     Acme.jobsSearchResultsClass.prototype.subscriptions = Acme.PubSub.subscribe({
-//         'Acme.jobsSearchResults.listener' : ['state_changed']
-//     });
-
-//     Acme.jobsSearchResultsClass.prototype.render = function(search) {
-//         var container = this.container;
-//         var cardClasses = ["card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile"];
-
-//         var html = '<div id="searchResults"><h2>Search results</h2><a id="searchClear" href="#">Clear</a></div>', n = 0;
-//         for (var i=0;i<this.data.length;i++) {
-//             html += window.Acme.cards.renderCard(this.data[i].data, cardClasses[n], this.template);
-//         }
-//         container.empty().append(html);
-//         $('#searchClear').on('click', function(e) {
-//             e.preventDefault();
-//             $("#searchResults").remove();
-//             Acme.PubSub.publish('update_state', {'clear': self});
-//         });
-
-//         $(".card .content > p, .card h2").dotdotdot();
-//     };
-
-// Acme.propertySearchResultsClass = function(container, template)
-// {
-//     this.parent = Acme.filteredListingViewClass.prototype;
-//     this.parent.init(container, template);
-// };
-//     Acme.propertySearchResultsClass.prototype = new Acme.filteredListingViewClass();
-//     Acme.propertySearchResultsClass.prototype.subscriptions = Acme.PubSub.subscribe({
-//         'Acme.propertySearchResults.listener' : ['state_changed']
-//     });
-
-//     Acme.propertySearchResultsClass.prototype.render = function() {
-
-//         var container = this.container;
-//         var cardClasses = [ "card-main-realestate card-main-realestate-tablet card-main-realestate-mobile",
-//                             "card-rec-realestate card-rec-realestate-tablet card-rec-realestate-mobile"];
-
-//         var html = '<h2>Search results</h2><a id="searchClear" href="#">Clear</a>', n = 0;
-
-//         for (var i=0;i<this.data.length;i++) {
-//             html += window.Acme.cards.renderCard(this.data[i].data, cardClasses[n], this.template, 'property');
-//             n = 1;
-//         }
-//         container.empty().append(html);
-//         $('#mainAjaxArticles').empty();
-
-//         $('#searchClear').on('click', function(e) {
-//             e.preventDefault();
-//             Acme.PubSub.publish('update_state', {'clear': self});
-//         });
-//         $(".card .content > p, .card h2").dotdotdot();
-//     }
 
 
 
@@ -514,6 +404,9 @@ var ListingForm = function() {};
         "delete listing" : function(data, topic) {
             return this.deleteListing();
         },
+        "delete image" : function(data, topic) {
+            return this.deleteImage(data);
+        },
         "extendedData.region" : function(data, topic) {
             this.updateData(data);
         },
@@ -541,7 +434,7 @@ var ListingForm = function() {};
         "after" : function(data, topic) {
             var keys = Object.keys(data);
 
-            if(keys[0] === 'user listing') return;
+            if(keys[0] === 'user listing' || keys[0] === 'delete image') return;
             var validated = this.validate(keys);
 
             // if (!validated) {
@@ -668,9 +561,10 @@ var ListingForm = function() {};
         var imageArray = $('#imageArray');
         var html = "";
         var temp = Handlebars.compile(window.templates.carousel_item); 
+
         for (var i=0;i<images.length;i++) {
             var imagePath = images[i].url || images[i].path;
-            html += temp({"imagePath": imagePath});
+            html += temp({"imagePath": imagePath, 'imageid' : images[i].media_id});
         }
         imageArray.append(html);
     };
@@ -700,13 +594,53 @@ var ListingForm = function() {};
 
         return Acme.server.create('/api/article/delete-user-article', {"articleguid": this.data.guid}).done(function(r) {
             $('#listingFormClear').click();
-            Acme.PubSub.publish('update_state', {'deleteConfirmed': ''});
+            Acme.PubSub.publish('update_state', {'closeConfirm': ''});
             // Acme.PubSub.publish('update_state', {'userArticles': ''});
 
         }).fail(function(r) {
             // Acme.PubSub.publish('update_state', {'confirm': r});
             console.log(r);
         });
+    };
+    ListingForm.prototype.saveImage = function(r, data)
+    {
+        var newImageId = r.media.media_id;
+        var mediaids = [];
+        if (this.data.media_ids != "") {
+            mediaids = this.data.media_ids.split(',');
+        }
+        mediaids.push(newImageId);
+        this.data.media_ids = mediaids.join(',');
+        this.data.media_id = mediaids[0];
+
+        this.renderImageThumbs([data]);
+        return true;
+    }
+    ListingForm.prototype.deleteImage = function(data) 
+    {
+        var info = data['delete image'].confirmDeleteImage;
+        var elem = info.elem;
+        var id = info.id;
+        elem.parent().remove();
+
+        mediaids = this.data.media_ids.split(',');
+
+        var index = mediaids.indexOf(id.toString());
+        if (index > -1) {
+            mediaids.splice(index, 1);
+        }
+        
+        if (mediaids.length > 0) {
+            this.data.media_id = mediaids[0];
+            this.data.media_ids = mediaids.join(',');
+        } else {
+            this.data.media_id = '';
+            this.data.media_ids = '-1';
+        }
+
+        console.log(this.data.media_ids, this.data.media_id);
+        Acme.PubSub.publish('update_state', {'closeConfirm': ''});
+
     };
     ListingForm.prototype.submit = function()
     {
@@ -717,7 +651,7 @@ var ListingForm = function() {};
         }
 
         this.data.theme_layout_name = this.layout;
-
+        // console.log(this.data);
         Acme.server.create('/api/article/create', this.data).done(function(r) {
             $('#listingFormClear').click();
             Acme.PubSub.publish('update_state', {'confirm': r});
@@ -760,26 +694,21 @@ var ListingForm = function() {};
                     outer.addClass("spinner");
 
                     Acme.server.create('/api/article/save-image', postdata).done(function(r) {
-
-                        var newImageId = r.media.media_id;
-                        var arrayid = $(obj).data('id');
-                        var mediaids = [];
-                        if (self.data.media_ids != "") {
-                            mediaids = self.data.media_ids.split(',');
+                        console.log(r);
+                        if (self.saveImage(r, data) ) {
+                            outer.removeClass("spinner");
+                            inner.show();
                         }
-                        mediaids.push(newImageId);
-                        self.data.media_ids = mediaids.join(',');
-                        self.data.media_id = mediaids[0];
-
-                        self.renderImageThumbs([data]);
-                        $().General_ShowNotification({message: 'Image added successfully' });
-                        outer.removeClass("spinner");
-                        inner.show();
-
                     }).fail(function(r) {
                         console.log(r);
                     });
                 }
+        });
+
+        $('#imageArray').on('click', '.carousel-tray__delete', function(e) {
+            var elem = $(e.target);
+            var mediaId = elem.data('id');
+            Acme.PubSub.publish('update_state', {'confirmDeleteImage': {elem:elem, id:mediaId}});
         });
 
         $('#listingFormClear').on('click', function(e) {
@@ -790,7 +719,6 @@ var ListingForm = function() {};
         $('#listingFormDelete').on('click', function(e) {
             Acme.PubSub.publish('update_state', {'confirmDelete': ""});
         });
-
 
         $('#listingForm').submit(function(e) {
             e.preventDefault();
@@ -1214,10 +1142,19 @@ Acme.Confirm = function(template, parent, layouts) {
                 Acme.PubSub.publish("update_state", {'delete listing': "" });
             }
 
+            if ($elem.data('role') === 'deleteImage') {
+                console.log('you want to delete an image???');
+                console.log(self.data);
+                Acme.PubSub.publish("update_state", {'delete image': self.data });
+
+                // $elem.addClass("spinner");
+                // Acme.PubSub.publish("update_state", {'delete listing': "" });
+            }
+
+
         }
         if ($elem.hasClass('layout')) {
             var layout = $elem.data('layout');
-            // console.log('rendering layout');
             this.renderLayout(layout);
         }
     };
@@ -1238,9 +1175,20 @@ Acme.confirmView = new Acme.Confirm('modal', 'signin', layouts);
             this.render("listing", "Listing saved");
         },
         "confirmDelete" : function(data, topic) {
-            this.render("delete", "Warning");
+            this.render("delete", "Warning", { msg: "Are you sure you want to permanently delete this listing?", role:"delete"});
         },
-        "deleteConfirmed" : function(data, topic) {
+        "confirmDeleteImage" : function(data, topic) {
+            console.log(data, topic);
+            this.data = data;
+            console.log(this.data);
+            this.render("delete", "Warning", 
+                {
+                     msg: "Are you sure you want to permanently delete this image?", 
+                     role:"deleteImage"
+                 }
+            );
+        },
+        "closeConfirm" : function(data, topic) {
             this.closeWindow();
         }
 

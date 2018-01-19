@@ -43,6 +43,7 @@
 
         }
 
+
         > div {
             text-align:center;
             width:350px;
@@ -73,7 +74,13 @@
 
 
             }
-            img.frankHeader {
+            
+        }
+        .frankheader{
+            @media screen and (max-width: $sm-break) {
+                float: right;
+            }
+            img.frankHeader__img {
                 @media screen and (max-width: $mmd-break) {
                     width:129px;
                 }
@@ -81,6 +88,14 @@
                     width:104px;
                 }
 
+            }
+        }
+        .ubt-logo {
+            @media screen and (max-width: $sm-break) {
+                float: left;
+                margin-top: 55px; 
+                width: 90px;
+                height: 31px;
             }
         }
 
@@ -150,7 +165,7 @@
         // background:yellow;
         // background-image: linear-gradient(to left, rgba(0, 0, 0, 0.0), #000000), url('../images/market-hand_crop.png');
         // background-image: linear-gradient(to left, rgba(0, 45, 86, 0.0), #193046), url('../images/market-hand_crop.png');
-        background-image: linear-gradient(to right, #193046 17%, rgba(0, 0, 0, 0.0) 100%) , url('../images/market-hand_crop.png');
+        background-image: linear-gradient(to right, #193046 17%, rgba(0, 0, 0, 0.0) 100%) , url('../images/market-hand_crop2.png');
 
         // background: url('../images/market-hand.png');
         background-size: contain;
@@ -192,8 +207,9 @@
                 }
 
                 @media screen and (max-width: $sm-break-down) {
-                    font-size: rem(24);
-                    width:200px;
+                    font-size: rem(36);
+                    width:262px;
+                    margin-top: -25px;
                 }
             }
              p{
@@ -207,8 +223,9 @@
                 }
                 @media screen and (max-width: $sm-break-down) {
                     font-size: rem(14);
-                    width:150px;
+                    width:113px;
                     margin-bottom:15px;
+                    font-weight: 200;
                 }
              }
              a {
@@ -219,12 +236,15 @@
                 @media screen and (max-width: $mmd-break-down) {
                     font-size:rem(11);
                     padding:11px 8px;
+                    width: 113px;
+
 
                 }
 
                 @media screen and (max-width: $sm-break-down) {
                     font-size:rem(9);
-                    padding:8px 6px;
+                    padding:8px 15px;
+                    width: 113px;
                 }
 
              }

@@ -83,7 +83,7 @@ window.templates.managed_user =
 
 window.templates.carousel_item = 
 '<div class="carousel-tray__item" style="background-image:url( {{imagePath}} )"> \
-    <span class="carousel-tray__delete"></span> \
+    <span data-id="{{imageid}}" class="carousel-tray__delete"></span> \
 </div>';
 
 window.templates.ads_infinite = 
@@ -132,10 +132,10 @@ window.templates.spinnerTmpl = '<div class="spinner"></div>';
 
 window.templates.listingSavedTmpl =  '<p>Thank you, your listing will be published in the next 24 hours</p><div><form><button class="_btn _btn--red">Okay</button></form></div>';
 window.templates.listingDeleteTmpl =  
-    '<p>Are you sure you want to permanently delete this listing?</p> \
+    '<p>{{msg}}</p> \
     <div> \
         <form> \
-            <button class="_btn _btn--red" data-role="delete">DELETE</button> \
+            <button class="_btn _btn--red" data-role="{{role}}">DELETE</button> \
             <button class="_btn _btn--gray">CANCEL</button> \
         </form> \
     </div>';
@@ -158,7 +158,6 @@ window.templates.userPlanOkCancel =
 window.templates.signinFormTmpl = 
 // <script> tag possible ios safari login fix
 '<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
-    <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> \
     \
     <input id="loginName" class="" type="text" name="username" placeholder="Username or email" value="" /> \
     <input id="loginPass" class="" type="password" name="password" placeholder="Password" value="" /> \
@@ -403,7 +402,7 @@ Acme.systemCardTemplate =
     cardTemplateTop + 
         '{{#if hasMedia}}\
             <figure>\
-                <img class="img-responsive lazyload" data-original="{{imageUrl}}" src="{{imageUrl}}" style="background-image:url(https://placeholdit.imgix.net/~text?txtsize=33&txt=Loading&w=450&h=250)">\
+                <img class="img-responsive {{imgClass}}" data-original="{{imageUrl}}" src="{{imageUrl}}" {{imgBackgroundStyle}}">\
             </figure>\
         {{/if}} \
         \

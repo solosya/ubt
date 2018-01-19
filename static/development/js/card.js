@@ -17,6 +17,7 @@ Card.prototype.renderScreenCards = function(options, data)
     var html = "";
     for (var i in data.articles) {
         data.articles[i]['imageOptions'] = { width:1400, height:800 };
+        data.articles[i]['lazyloadImage'] = false;
         html += self.renderCard(data.articles[i], options.cardClass);
     }
     container.empty().append(html);
@@ -67,7 +68,7 @@ Card.prototype.screen = function()
         }
 
         options.offset = articleCount;
-        options.nonpinned = articleCount;
+        options.nonPinnedOffset = articleCount;
 
         $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
             if (data.articles.length == 0 ) {
@@ -104,6 +105,12 @@ Card.prototype.renderCard = function(card, cardClass, template, type)
     card['pinText']  = (card.isPinned == 1) ? 'Un-Pin' : 'Pin';
     card['promotedClass'] = (card.isPromoted == 1)? 'ad_icon' : '';
     card['hasArticleMediaClass'] = (card.hasMedia == 1)? 'withImage__content' : 'without__image';
+    
+    // mainly for screen to turn off lazyload and loading background img
+    card['imgClass'] = (card.lazyloadImage == false) ? '' : 'lazyload';
+    card['imgBackgroundStyle'] = (card.lazyloadImage == false) ? '' : 'style="background-image:url(https://placeholdit.imgix.net/~text?txtsize=33&txt=Loading&w=450&h=250)"';
+    
+
     card['readingTime']= self.renderReadingTime(card.readingTime);
     card['blogClass']= '';
     if(card.blog['id'] !== null) {
