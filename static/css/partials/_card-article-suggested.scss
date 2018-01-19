@@ -101,6 +101,92 @@
 
 
         a.card {
+            @include card-image-full();
+            padding-bottom: 20px;
+            border-bottom: 1px solid color(lightgrey);
+            height:100%;
+
+            > article {
+
+                > figure {
+                    @include gradientbefore();
+                    height:80%;
+                    top: 25px;
+                }
+
+                > .content{
+                    z-index: 1;
+                    position:relative;
+                    padding: 0;
+
+                    > h2{
+                        font-size: rem(18);
+                        line-height: 1.25;
+                        max-height:50px;
+                        width: 222px;
+                        margin: 85px 5px 5px 5px;
+                        color:color(white);
+
+                    }
+                    .cat-time{
+                        .category{
+                            display: inline-block;
+                            font-size: .625rem;
+                            color: #97999c;
+                            text-transform: uppercase;
+                            margin: 0;
+                            padding-right: 5px;
+                            margin-right: 5px;
+                            line-height: 1;
+                            border-right: 1px solid #97999c;
+                        }
+                        > time {
+                               font-size: .625rem;
+                                display: inline-block;
+                                color: #97999c;
+                                text-transform: uppercase;
+                                line-height: 1;
+                        }
+                    }
+
+                    > p.excerpt {
+                        display:none;
+                    }
+                    .author {
+                        font-size:rem(14);
+                        display:block;
+                        color:color(white);
+                        font-weight: 300;
+                        margin: 5px;
+                        &:before {
+                            content: 'By ';
+                            color:color(white);
+                            float: left;
+                            margin-right: 3px;
+                        }
+                        > img {
+                            display:none;
+                        }
+                    }
+                    .lowerTime {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.card-article-suggested-semi{
+    @media screen and (min-width: $sm-break){
+        height:206px;
+        width: 270px;
+        position:relative;
+        margin-bottom: 32px;
+        
+
+
+        a.card {
             @include card-image-left(75px, 63px);
             padding-bottom: 20px;
             border-bottom: 1px solid color(lightgrey);
@@ -111,7 +197,7 @@
 
 
                 > figure {
-                    display:none;
+                    margin-top: 35px;
                 }
 
 
@@ -143,17 +229,28 @@
                     > h2{
                         font-size: rem(18);
                         line-height: 1.25;
-                        max-height:50px;
-                        margin:15px 0 5px 0;
+                        max-height:75px;
+                        margin:15px 0 5px 85px;
                     }
                     .cat-time{
                         .category{
-                            border-right: none;
-                            font-size: rem(11);
-                            color: #ae232c;
+                            display: inline-block;
+                            font-size: .625rem;
+                            color: #97999c;
+                            text-transform: uppercase;
+                            margin: 0;
+                            padding-right: 5px;
+                            margin-right: 5px;
+                            line-height: 1;
+                            margin-left: -75px;
+                            border-right: 1px solid #97999c;
                         }
                         > time {
-                            display:none;
+                               font-size: .625rem;
+                                display: inline-block;
+                                color: #97999c;
+                                text-transform: uppercase;
+                                line-height: 1;
                         }
                     }
 
@@ -162,6 +259,7 @@
                         line-height: 1.54;
                         height:60px;
                         font-family: $font-family-sans-serif;
+                        margin-top: 5px;
                     }
                     .author {
                         font-size:rem(14);
@@ -179,10 +277,8 @@
                         }
                     }
                     .lowerTime {
-                        display: inherit;
-                        color: #97999c;
-                        font-size: rem(11);
-                        font-weight: bold;
+                        display: none;
+                        
                     }
                 }
             }
