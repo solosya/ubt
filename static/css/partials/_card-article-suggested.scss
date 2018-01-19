@@ -124,7 +124,7 @@
                         line-height: 1.25;
                         max-height:50px;
                         width: 222px;
-                        margin: 85px 5px 5px 5px;
+                        margin: 85px 10px 0 10px;
                         color:color(white);
 
                     }
@@ -157,7 +157,7 @@
                         display:block;
                         color:color(white);
                         font-weight: 300;
-                        margin: 5px;
+                        margin: 10px;
                         &:before {
                             content: 'By ';
                             color:color(white);
@@ -229,7 +229,7 @@
                     > h2{
                         font-size: rem(18);
                         line-height: 1.25;
-                        max-height:75px;
+                        height:75px;
                         margin:15px 0 5px 85px;
                     }
                     .cat-time{
