@@ -94,7 +94,7 @@
                                 ><time datetime="{{publishedDate}}">{{article.publishedDate}}</time>
                                 {% if _User.isAdminUser() %}
                                     <br />
-                                    <a href="{{article.editUrl}}" target="_blank" class="_btn _btn--red u-block centerText">Edit article</a>
+                                    <a href="{{article.editUrl}}" target="_blank" class="_btn _btn--red u-block centerText u-margin-bottom-25">Edit article</a>
                                 {% endif %}
 
                                 <h1>{{ quotes.smarten(article.title) }}</h1>
