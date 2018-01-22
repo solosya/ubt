@@ -36502,6 +36502,12 @@ Acme.UserProfileController.Load = function () {
             success: function (data, textStatus, jqXHR) {
                 if (data.success == 1) {
                     user.remove();
+                    $('#addManagedUser').removeClass('hidden');
+                    var usertxt = $('.profile-section__users-left').text();
+                    var usercount = usertxt.split(" ");
+                    var total = usercount[2];
+                    usercount = parseInt(usercount[0]);
+                    $('.profile-section__users-left').text((usercount - 1) + " of " + total + " used.");
                 } else {
                     var text = '';
                     for (var key in data.error) {
