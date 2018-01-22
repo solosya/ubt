@@ -195,7 +195,7 @@ window.templates.registerTmpl =
 
 window.templates.forgotFormTmpl = 
 '<form name="forgotForm" id="forgotForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
-        <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" /> \
+        <input type="hidden" name="_csrf" value="" /> \
         <p>Forgot your password? Enter your email below and we will send you a link to reset.</p> \
         <input id="email" class="" type="text" name="email" placehold="Email" value=""> \
         \

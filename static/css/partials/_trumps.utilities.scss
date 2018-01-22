@@ -3,7 +3,6 @@ a.fancybox-close {z-index:1 !important;}
 div.fancybox-title {display:none !important;}
 
 
-.no-padding {padding:0;}
 
 button.bootbox-close-button {
     float: right;
@@ -62,6 +61,13 @@ div[class*="col-sm"] {
     }
 }
 
+.no-padding {padding:0;}
+.u-padding-5 {
+    padding:5px;
+}
+.u-padding-10 {
+    padding:10px
+}
 .u-margin-top-40 {
     margin-top: 40px;
 }
@@ -85,6 +91,9 @@ div[class*="col-sm"] {
 }
 .u-float-right {
     float:right;
+}
+.u-block {
+    display:block;
 }
 
 .advert {
@@ -139,6 +148,7 @@ div[class*="col-sm"] {
 .container-fluid {max-width: $index-width;}
 .clearfix {overflow:auto;}
 .centerContent { display:inline; text-align: center;}
+.centerText {text-align: center;}
 .centerBlock {margin-left:auto;margin-right:auto}
 // 20px gutter
 .gutter-60.row {
