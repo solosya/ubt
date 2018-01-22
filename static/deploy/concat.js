@@ -33353,7 +33353,7 @@ window.templates.signinFormTmpl =
 // <script> tag possible ios safari login fix
 '<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
     \
-    <input id="loginName" class="" type="text" name="username" placeholder="Username" value="" /> \
+    <input id="loginName" class="" type="text" name="username" placeholder="Username or email" value="" /> \
     <input id="loginPass" class="" type="password" name="password" placeholder="Password" value="" /> \
     \
     <div class="remember"> \
@@ -36502,6 +36502,12 @@ Acme.UserProfileController.Load = function () {
             success: function (data, textStatus, jqXHR) {
                 if (data.success == 1) {
                     user.remove();
+                    $('#addManagedUser').removeClass('hidden');
+                    var usertxt = $('.profile-section__users-left').text();
+                    var usercount = usertxt.split(" ");
+                    var total = usercount[2];
+                    usercount = parseInt(usercount[0]);
+                    $('.profile-section__users-left').text((usercount - 1) + " of " + total + " used.");
                 } else {
                     var text = '';
                     for (var key in data.error) {

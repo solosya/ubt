@@ -284,10 +284,8 @@
 
                     <div class="profile-section">
                         <div class="profile-section__header">
-                            <p class="profile-section__heading">My Users <span class="profile-section__users-left">{{managedUers|length}} of {{pwstats['user_count']}} used</span></p>
-                            {% if managedUers|length < pwstats['user_count'] %}
-                                <a id="addManagedUser" style="z-index:1000;" class="text-button text-button--italic u-float-right">+ Add users</a>
-                            {% endif %}
+                            <p class="profile-section__heading">My Users <span class="profile-section__users-left">{{managedUers|length}} of {{pwstats['user_count']}} used.</span></p>
+                            <a id="addManagedUser" style="z-index:1000;" class="text-button text-button--italic u-float-right{% if managedUers|length >= pwstats['user_count'] %} hidden{% endif %}">+ Add users</a>
                         </div>
 
                         <div class="row">
