@@ -151,11 +151,13 @@
                                     
                                     {% if pwstats['type'] == 'time' %}
 
+                                        <label class="mobLabel" for="currentplan">Current Plan</label>
                                         <div class="inline-inputs">
                                             <label for="currentplan">Current Plan</label>
                                             <input type="text" id="currentplan" class="form-control" value="{{pwstats['name']}}: ${{ pwstats['plan_value']/100}} per {{pwstats['period']}}" disabled="disabled">
                                         </div>
 
+                                        <label class="mobLabel" for="currentplan">Plan Status</label>
                                         <div class="inline-inputs">
                                             <label for="currentplan">Plan Status</label>
                                             <input style="margin-left:35px; cursor: pointer; cursor: hand;" type="text" id="currentplan" class="form-control" value="{{ pwstats['status']}}" disabled="disabled">
@@ -173,7 +175,7 @@
                                             </div>
                                         </div>
 
-
+                                        <label class="mobLabel" for="totalusers">Available Users</label>
                                         <div class="inline-inputs">
                                             <label for="totalusers">Available Users</label>
                                             <input type="text" id="totalusers" class="form-control" value="{{ pwstats['user_count'] - managedUers|length }}" disabled="disabled">
@@ -183,7 +185,8 @@
                                             <label for="activeusers">Active Users</label>
                                             <input type="text" id="activeusers" class="form-control" value="{{ managedUers|length }}" disabled="disabled">
                                         </div>
- #}
+ #}     
+                                        <label class="mobLabel" for="expires">Next Payment</label>
                                         <div class="inline-inputs">
                                             <label for="expires">Next Payment</label>
                                             <input type="text" id="expires" class="form-control" value="{{ pwstats['expiry_date']}}" disabled="disabled">
@@ -191,11 +194,13 @@
 
                                     {% else %} 
 
+                                        <label class="mobLabel" for="currentplan">Current Plan</label>
                                         <div class="inline-inputs">
                                             <label for="currentplan">Current Plan</label>
                                             <input type="text" id="currentplan" class="form-control" value="{{ pwstats['plan_value']/100}}/{{pwstats['total_articles']}}" disabled="disabled">
                                         </div>
 
+                                        <label class="mobLabel" for="remaining">Articles Remaining</label>
                                         <div class="inline-inputs">
                                             <label for="remaining">Articles Remaining</label>
                                             <input type="text" id="remaining" class="form-control" value="{{ pwstats['article_count']}}" disabled="disabled">
@@ -203,6 +208,7 @@
                                         
                                     {% endif %} 
 
+                                    <label class="mobLabel" for="remaining">Payment Method</label>
                                     <div class="inline-inputs">
                                         <label for="remaining">Payment Method</label>
                                         <input type="text" id="remaining" class="form-control" value="{{ pwstats['card_brand']}} / •••• •••• •••• {{ pwstats['card_last_4']}}" disabled="disabled">
