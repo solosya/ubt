@@ -17,6 +17,10 @@ body.layout-jobs, body.layout-property, body.layout-events {
             font-style:italic;
             width: 176px;
             height: 44px;
+            @media #{$media-mobile} {
+                margin-bottom: 30px;
+                margin-left: 0;
+            }
             
             &:hover {
                 text-decoration:none;
