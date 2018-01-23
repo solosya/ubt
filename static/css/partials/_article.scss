@@ -205,6 +205,9 @@
 		.related-articles {
 			padding: 0 60px;
 			margin-top: 70px;
+			@media #{$media-mobile} {
+                padding:0;
+            }
 	
 			h1 {
 				font-size: rem(16);
