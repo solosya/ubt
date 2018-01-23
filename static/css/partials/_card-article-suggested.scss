@@ -60,7 +60,7 @@
                     }
 
                     > p.excerpt {
-                        display:none;
+                        // display:none;
                         font-size: rem(13);
                         line-height: 1.54;
                         height:40px;
@@ -68,6 +68,7 @@
                         font-family: $font-family-sans-serif;
                     }
                     .author {
+                        display:none;
                         margin-left:90px;
                         font-size:rem(14);
                         display:block;
