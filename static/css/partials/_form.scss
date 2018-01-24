@@ -82,6 +82,13 @@ main.listingForm, main.eventForm {
             margin-bottom:12px;
             font-weight:700;
         }
+        p.form-section-note {
+            font-size: rem(12);
+            color:#002d56;
+            font-style: italic;
+            margin-top: -5px;
+            margin-left: 15px;
+        }
 
         hr {
             background-color: color(dark);

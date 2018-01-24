@@ -34,6 +34,24 @@
                 // > p.excerpt {
                 //     display:none;
                 // }
+                > h2{
+                    
+                }
+                > p.company{
+                    font-family: $font-family-sans-serif;
+                }
+                > p.excerpt {
+                    font-family: $font-family-sans-serif;
+                }
+
+                > p.salary {
+                    color: color(darkblue);
+                    font-family: $font-family-sans-serif;                      
+                }
+
+                > p.location {
+                    
+                }
             }
         }
         &.article.without__image {
@@ -194,7 +212,7 @@
         margin-bottom: 32px;
 
         a.card {
-            height:173px;
+            // height:173px;
 
             > article {
 
@@ -215,32 +233,26 @@
                         font-size: rem(13);
                         font-weight:600;
                         margin-bottom:11px;
+
+                    
                     }
                     > p.excerpt {
-                        height:40px;
+                        height:60px;
                         width:80%;
                         padding-right:20px;
-                        position: absolute;
-                        top:90px;
-                        left:0px;
                     }
 
                     > p.salary {
                         color: color(darkblue);
-                        position: absolute;
-                        top:33px;
-                        right:0px;                        
+                                              
                     }
 
                     > p.location {
                         font-size: rem(13);
-                        position: absolute;
-                        width: 110px;
+                        width: 200px;
                         height:40px;
-                        top:90px;
-                        right:0px;
                         font-style: italic;
-                        text-align:right;
+                       
                     }
                 }
             }

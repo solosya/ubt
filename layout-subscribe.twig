@@ -91,6 +91,7 @@
 			    		<p class="form-section-label">Your information</p>
 
 		                <input type="text" class="articleExtendedData" name="username" id="username" value="" placeholder="User Name">
+		                <p class="form-section-note">Username must be at least five characters long and contain no spaces or special characters</p>
 
 		                <input type="text" class="articleExtendedData" name="firstname" id="firstname" value="" placeholder="First name">
 		                <input type="text" class="articleExtendedData" name="lastname" id="lastname" value="" placeholder="Last name">
@@ -116,7 +117,7 @@
 			            	<label>Include 14 day trial period</label>
 			            {% endif %}
 			            <br /><input type="checkbox" class="" id="terms" name="terms"> 
-			            <label>I agree to the Frank <a href="{{networkData.defaultBlogUrl}}/terms-of-use">Terms of Use</a></label>
+			            <label>I agree to the Frank <a href="{{networkData.defaultBlogUrl}}/terms-of-use" target="_blank">Terms of Use</a></label>
  						<p class="form-section-label u-margin-top-40">Payment details</p>
 {# 		                <fieldset>
 		                    <div class="inline">
