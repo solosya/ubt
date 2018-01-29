@@ -28,8 +28,8 @@
 
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
-{% set popularArticles = _Article.getPopularArticles({ limit: 5, sortBy: 'VIEWS', scope: 'network' }) %}
-
+{# {% set popularArticles = _Article.getPopularArticles({ limit: 5, sortBy: 'VIEWS', scope: 'network' }) %} #}
+{% set recentArticles = _Article.getRecentArticles({'limit': 5}) %}
 {% set events = _Event.getEvents() %}
 
 
@@ -252,11 +252,11 @@
                         {% endif %}
 
                         <div class="row top-stories">
-                            <h2>MOST READ</h2>
+                            <h2>LATEST STORIES</h2>
 
-                            {% for i in 0..3 if popularArticles|length > 0 %}
+                            {% for i in 0..3 if recentArticles|length > 0 %}
                                 {{this.render('partials/_single-article.twig', {
-                                    article: popularArticles[i], 
+                                    article: recentArticles[i], 
                                     imageSuppress: true,
                                     containerClass: "card-top-story card-top-story-dt card-top-story-tablet card-top-story-mobile"
                                 }) | raw}}
