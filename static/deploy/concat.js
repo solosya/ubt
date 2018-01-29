@@ -36862,6 +36862,7 @@ Acme.UserProfileController.Load = function () {
                     'NZ/Timaru',
                     'NZ/Oamaru',
                     'NZ/Gore',
+                    'NZ/Napier'
                 ];
                 break;
 
