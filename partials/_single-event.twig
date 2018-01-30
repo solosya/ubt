@@ -33,7 +33,8 @@
 {% set eventTitle    = quotes.smarten(titleTruncateLength is defined ? event.title | truncate(titleTruncateLength) : event.title)  %}
 {% set figureClass   = event.media['type'] == 'video' ? 'video' : '' %}
 
-{% if eventTitle != "" %}
+{% if eventTitle != "    
+" %}
     <div class="{{containerClass}}" data-title="{{ eventTitle | raw }}">
 {% else %}
     <div class="{{containerClass}}" data-title="{{ eventTitle | raw }}" style="display:none">
