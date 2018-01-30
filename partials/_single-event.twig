@@ -33,8 +33,11 @@
 {% set eventTitle    = quotes.smarten(titleTruncateLength is defined ? event.title | truncate(titleTruncateLength) : event.title)  %}
 {% set figureClass   = event.media['type'] == 'video' ? 'video' : '' %}
 
-
-<div class="{{containerClass}}" data-title="{{ eventTitle | raw }}">
+{% if eventTitle != "" %}
+    <div class="{{containerClass}}" data-title="{{ eventTitle | raw }}">
+{% else %}
+    <div class="{{containerClass}}" data-title="{{ eventTitle | raw }}" style="display:none">
+{% endif %}
     {% set eventImgSmall = _Media.getMediaUrl(event.media[0],500, 500, {'crop': 'fill', 'gravity': 'faces'} ) %}
     {% set eventImg = _Media.getMediaUrl(event.media[0],imgWidth, imgHeight, {'crop': 'fill', 'gravity': 'faces'} ) %}
 
