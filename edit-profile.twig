@@ -164,11 +164,11 @@
 
                                             <div class="button-full">
                                             {% if pwstats['status'] == 'cancelled' %}
-                                                {% if (date(pwstats['expiry_date']) > date(now) ) %}
+                                                {# {% if (date(pwstats['expiry_date']) > date(now) ) %} #}
                                                 <a  id='cancelAccount' style="cursor:hand; cursor:pointer;" class="text-button u-float-right u-margin-top-25">Restart Subscription</a>
-                                                {% else %} 
-                                                <a  class="text-button u-float-right u-margin-top-25">Choose a plan to renew your account, or all data will be removed 30 days after last payment date.</a>
-                                                {% endif %} 
+                                                {# {% else %}  #}
+                                                <sapn  class="u-float-right profile-section__users-left">All data will be removed 30 days after last payment date.</span>
+                                                {# {% endif %}  #}
                                             {% else %} 
                                                 <a  id='cancelAccount' style="cursor:hand; cursor:pointer;" class="text-button u-float-right u-margin-top-25">Cancel Subscription</a>
                                             {% endif %} 
@@ -250,8 +250,9 @@
                             </div>
 
                             <div class="plans">
+
                             {% for plan in plans %}
-                                {% if plan.guid != pwstats['plan_guid'] %}
+                                {% if plan.guid != pwstats['plan_guid'] or (pwstats['status'] != 'paid' and pwstats['status'] != 'trial') %}
                                 
                                 {% set uc = plan.user_count + 1 %}
                                 {% set val = plan.plan_value / 100 %}

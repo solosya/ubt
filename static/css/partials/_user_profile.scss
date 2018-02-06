@@ -47,6 +47,7 @@
         line-height: 44px;
         color: color(darkblue);
         font-weight: bold;
+        min-width: 100px;
         @media screen and (max-width: $sm-break-down){
            display: none;
         }
