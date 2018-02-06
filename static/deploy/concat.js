@@ -33238,7 +33238,7 @@ window.templates.create_user =
     <div class="user-editor__input-container u-float-left"> \
         <input type="text" id="newuserfirstname" class="j-firstname user-editor__input" value="" placeholder="{{firstname}}"> \
         <input type="text" id="newuserlastname" class="j-lastname user-editor__input" value="" placeholder="{{lastname}}"> \
-        <input type="text" id="newuserusername" class="j-username user-editor__input" value="" placeholder="{{username}}"> \
+        <input type="text" id="newuserusername" class="j-username user-editor__input" value="" placeholder="{{username}} (between 5 and 15 characters)"> \
         <input type="text" id="newuseruseremail" class="j-email user-editor__input" value="" placeholder="{{useremail}}"> \
     </div> \
     <div id="user-editor-buttons" class="user-editor__input-container u-float-right"> \
