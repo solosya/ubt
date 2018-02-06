@@ -33253,7 +33253,7 @@ window.templates.edit_user =
     <div class="user-editor__input-container u-float-left"> \
         <input type="text" id="newuserfirstname" class="j-firstname user-editor__input" value="{{firstname}}" placeholder="First name"> \
         <input type="text" id="newuserlastname" class="j-lastname user-editor__input" value="{{lastname}}" placeholder="Last name"> \
-        <input type="text" id="newuserusername" class="j-username user-editor__input" value="{{username}}" placeholder="Username"> \
+        <input type="text" id="newuserusername" class="j-username user-editor__input" value="{{username}}" placeholder="Username (between 5 and 15 characters)"> \
         <input type="text" id="newuseruseremail" class="j-email user-editor__input" value="{{useremail}}" placeholder="Email"> \
     </div> \
     <div id="user-editor-buttons" class="user-editor__input-container u-float-right"> \
