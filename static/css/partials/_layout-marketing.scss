@@ -13,6 +13,10 @@
                     li {
                         margin: 0 40px;
                     }
+                    @media screen and (max-width: $sm-break-down) {
+                        padding-top: 14px;
+                        font-size: 11px;
+                    }
                 }
             }
 
