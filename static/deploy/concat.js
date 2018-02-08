@@ -36110,6 +36110,9 @@ Acme.SigninView = new Acme.Signin('modal', 'signin', layouts);
 $('#header_login_link').on('click', function() {
     Acme.SigninView.render("signin", "Sign in");
 });
+$('#body_login_link').on('click', function() {
+    Acme.SigninView.render("signin", "Sign in");
+});
 
 $('a.j-register').on('click', function(e) {
     e.preventDefault();
@@ -36839,6 +36842,7 @@ Acme.UserProfileController.Load = function () {
                     'NZ/Invercargill',
                     'NZ/Palmerston%20North',
                     'NZ/New%20Plymouth',
+                    'NZ/Tauranga',
                 ];
                 break;
 
@@ -36850,7 +36854,6 @@ Acme.UserProfileController.Load = function () {
                     'NZ/Whangarei',
                     'NZ/Dargaville',
                     'NZ/Thames',
-                    'NZ/Tauranga',
                     'NZ/Gisborne',
                     'NZ/Hastings',
                     'NZ/Wanganui',
