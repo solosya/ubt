@@ -4,7 +4,18 @@
         .top-header {
             > div {
                 display:block !important;
+                height: 40px;
+                ul {
+                    height: 40px;
+                    padding-top: 9px;
+                    font-size: 14px;
+                    background:#337ab7;
+                    li {
+                        margin: 0 40px;
+                    }
+                }
             }
+
         }
     }
     .site-header-main {

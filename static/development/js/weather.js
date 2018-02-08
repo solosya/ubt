@@ -19,6 +19,7 @@
                     'NZ/Invercargill',
                     'NZ/Palmerston%20North',
                     'NZ/New%20Plymouth',
+                    'NZ/Tauranga',
                 ];
                 break;
 
@@ -30,7 +31,6 @@
                     'NZ/Whangarei',
                     'NZ/Dargaville',
                     'NZ/Thames',
-                    'NZ/Tauranga',
                     'NZ/Gisborne',
                     'NZ/Hastings',
                     'NZ/Wanganui',
