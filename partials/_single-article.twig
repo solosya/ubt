@@ -44,9 +44,11 @@
 
     {% set publishDate = _AppHelper.getDefaultTimezoneDateTime(publishedDateTime,'d M Y') %}
     {% set publishedAgo = _AppHelper.getSecondsSincePublished(publishedDateTime) %}
-    
+    {% set timeOnly = _AppHelper.getDefaultTimezoneDateTime(publishedDateTime,'g.ia') %}
+
     {% if publishedAgo < 86400 %}
-        {% set publishDate = _AppHelper.getRelativeTime(publishedDateTime) ~ " ago" %}
+        {# {% set publishDate = _AppHelper.getRelativeTime(publishedDateTime) ~ " ago" %} #}
+        {% set publishDate = timeOnly %}
     {% endif %}
 
 
@@ -165,7 +167,7 @@
 
                 <div class="content">
                     <div class="category {{social.source}}">{{social.source}}</div>
-                    <time datetime="2016-11-16">{{_AppHelper.getDateTimeBasedOnTimezone(social.publishDate, 'F, Y')}}</time>
+                    <time datetime="">{{_AppHelper.getDateTimeBasedOnTimezone(social.publishDate, 'F, Y')}}</time>
 
                     <p id="updateSocial{{article.socialId}}" data-update="0">
                         {{ quotes.smarten(social.content  | raw) }}
