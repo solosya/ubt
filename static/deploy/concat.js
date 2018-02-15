@@ -36186,15 +36186,16 @@ if ($('#stripekey').length > 0) {
             "firstname" : ["notEmpty"], 
             "lastname"  : ["notEmpty"], 
             "email"     : ["notEmpty"],
-            "mobile"    : ["notEmpty"],
-            "address"   : ["notEmpty"],
+            "phone_no"    : ["notEmpty"],
+            "address1"   : ["notEmpty"],
             "suburb"    : ["notEmpty"],
             "state"     : ["notEmpty"],
             "trial"     : [],
             "terms"     : ["isTrue"],
-            "Postcode"  : ["notEmpty", "isNumeric"]
+            "postcode"  : ["notEmpty", "isNumeric"]
         };
-
+console.log(this.validateFields);
+console.log(Object.keys(this.validateRules));
         this.validateFields = Object.keys(this.validateRules);
 
         this.events();
@@ -36216,13 +36217,21 @@ if ($('#stripekey').length > 0) {
             }
         }
     };
+
+console.log('here?');
     SubscribeForm.prototype.submit = function(event) 
     {
+
+        console.log('submit?');
+
         var self = this;
         event.preventDefault();
         var validated = self.validate();
+        console.log('validate?');
         self.render(true);
+        console.log(validated);
         if (!validated) return;
+        console.log('validated');
 
         $('#card-errors').text('');
         // var userdata = $('#listingForm').serializeArray();
@@ -36239,6 +36248,7 @@ if ($('#stripekey').length > 0) {
             $('#card-errors').text('Password fields do not match.');
             return;
         }
+        console.log('password good');
 
         modal.render("spinner", "Authorising payment");
         stripe.createToken(card).then(function(result) {
