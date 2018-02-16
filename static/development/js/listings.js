@@ -605,6 +605,7 @@ var ListingForm = function() {};
     ListingForm.prototype.saveImage = function(r, data)
     {
         var newImageId = r.media.media_id;
+        data.media_id = newImageId;
         var mediaids = [];
         if (this.data.media_ids != "") {
             mediaids = this.data.media_ids.split(',');
