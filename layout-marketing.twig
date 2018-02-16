@@ -119,9 +119,11 @@
 							{% endif %}
 							<p class="usercount">{{uc|replace({ '10001': '20+' })}} Users</p>
 							<p class="price">${{val|number_format(2, '.', ',')}} ({{plan.currency|raw}}) per {{plan.period}}</p>
+{# 							//trial button. this will probably be turned on again at some point
 							<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan={{plan.guid}}&amp;trial=true">
 								<p class="centerBlock _btn _btn--blue _btn__subscribe">14-DAY FREE TRIAL</p>
 							</a>
+ #}
 							<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan={{plan.guid}}">
 								<p class="centerBlock _btn _btn--red _btn__subscribe">SUBSCRIBE NOW</p>
 							</a>
@@ -129,40 +131,6 @@
 					</div>
 					
 			    {% endfor %}
-
-{# 				<div class="col-sm-3 subscriptionCard">
-					<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan=2">
-						<div class="card">
-							<h3>Small Business</h3>
-							<p class="usercount">9 Users</p>
-							<p class="price">$99.90/month</p>
-							<p class="subnow">SUBSCRIBE NOW</p>
-						</div>
-					</a>
-				</div>
-				<div class="col-sm-3 subscriptionCard">
-					<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan=3">
-						<div class="card">
-							<h3>Medium Business</h3>
-							<p class="usercount">10+ Users</p>
-							<p class="price">$199.90/month</p>
-							<p class="subnow">SUBSCRIBE NOW</p>
-						</div>
-					</a>
-				</div>
-				<div class="col-sm-3 subscriptionCard">
-					<a href="{{networkData.defaultBlogUrl}}/subscription?plan=4">
-						<div class="card">
-							<h3>Large Business</h3>
-							<p class="usercount">20+ users <br />
-								Live news screens</p>
-							<p class="price">$399.90/month</p>
-							<p class="subnow">SUBSCRIBE NOW</p>
-						</div>
-					</a>
-				</div>
- #}
-
 
 			</div>
 		</section>
