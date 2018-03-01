@@ -162,6 +162,10 @@ window.templates.signinFormTmpl =
     <input id="loginName" class="" type="text" name="username" placeholder="Username or email" value="" /> \
     <input id="loginPass" class="" type="password" name="password" placeholder="Password" value="" /> \
     \
+    <div class="remember"> \
+        <p class="layout" data-layout="forgot" class="">Forgot password</p> \
+    </div> \
+    \
     <div class="message active hide"> \
         <div class="account-modal__error_text">Invalid Username or Password</div> \
     </div> \
