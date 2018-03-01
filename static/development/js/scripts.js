@@ -165,6 +165,26 @@ var adScroll = function() {
         navText: ["",""]
     });   
 
+    $('#batch-add').on('click', function(e) {
+        var input = $('#batch-user-input').val();
+        var send = JSON.parse( input );
+        var url = _appJsConfig.baseHttpPath + '/api/user/batch-add';
+
+        return $.ajax({
+            type: 'post',
+            url: url,
+            dataType: 'json',
+            data: send
+        }).done(function(r) {
+            console.log(r);
+            alert("Users added");
+
+        }).fail(function(r) {
+            console.log(r);
+            alert(r.responseText);
+        });        
+
+    });
 
 
 

@@ -33356,14 +33356,6 @@ window.templates.signinFormTmpl =
     <input id="loginName" class="" type="text" name="username" placeholder="Username or email" value="" /> \
     <input id="loginPass" class="" type="password" name="password" placeholder="Password" value="" /> \
     \
-    <div class="remember"> \
-        <div> \
-            <input type="checkbox" id="remember" class="" name="rememberMe" /> \
-            <label for="remember" class="">Keep me logged in.</label> \
-        </div> \
-        <p class="layout" data-layout="forgot" class="">Forgot password</p> \
-    </div> \
-    \
     <div class="message active hide"> \
         <div class="account-modal__error_text">Invalid Username or Password</div> \
     </div> \
@@ -35108,6 +35100,7 @@ var ListingForm = function() {};
     ListingForm.prototype.saveImage = function(r, data)
     {
         var newImageId = r.media.media_id;
+        data.media_id = newImageId;
         var mediaids = [];
         if (this.data.media_ids != "") {
             mediaids = this.data.media_ids.split(',');
@@ -35881,6 +35874,26 @@ var adScroll = function() {
         navText: ["",""]
     });   
 
+    $('#batch-add').on('click', function(e) {
+        var input = $('#batch-user-input').val();
+        var send = JSON.parse( input );
+        var url = _appJsConfig.baseHttpPath + '/api/user/batch-add';
+
+        return $.ajax({
+            type: 'post',
+            url: url,
+            dataType: 'json',
+            data: send
+        }).done(function(r) {
+            console.log(r);
+            alert("Users added");
+
+        }).fail(function(r) {
+            console.log(r);
+            alert(r.responseText);
+        });        
+
+    });
 
 
 

@@ -330,7 +330,12 @@
                     </div>
                 {% endif %}
 
-
+                {% if _User.isAdminUser() %}
+                    <div class="add-batch-users" style="display:none;">
+                        <textarea id="batch-user-input"></textarea>
+                        <button id="batch-add">Add</button>
+                    </div>
+                {% endif %}
 
 
                 {% set hasJobListings = jobListingsArr | length > 0 %}
