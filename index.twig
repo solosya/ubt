@@ -176,6 +176,9 @@
                     {% elseif blogNetworkNameIs == 'frank australia'  %}
                         {% set Curr1 = 'AUD' %}
                         {% set Curr2 = 'NZD' %}
+                    {% elseif blogNetworkNameIs == 'frank uk'  %}
+                        {% set Curr1 = 'GBP' %}
+                        {% set Curr2 = 'EUR' %}
                     {% else %}
                         {% set Curr1 = 'USD' %}
                         {% set Curr2 = 'EUR' %}
