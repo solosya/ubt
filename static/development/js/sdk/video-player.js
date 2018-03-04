@@ -27,7 +27,7 @@
             pauseOtherPlayers: true
         };
         var opts = $.extend({}, defaults, options);
-        // return this.click(function (e) {
+        return this.click(function (e) {
             var feat = $('.featured')[0]
             e.preventDefault();
             e.stopPropagation();
@@ -156,6 +156,6 @@
                 //     }
                 // });
             }
-        // });
+        });
     };
 }(jQuery));
