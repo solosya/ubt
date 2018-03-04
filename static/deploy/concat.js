@@ -27658,8 +27658,9 @@ jQuery.fn.liScroll = function(settings) {
                             mozallowfullscreen\
                             style="width: 100%; height: 100%; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px;"></iframe>\
                         </div></div>';
-                    $('.featured')[0].innerHTML = content;    
+                       
                 }
+                $('.featured')[0].innerHTML = content; 
             }
             
             if (typeof url !== 'undefined' && url !== "") {
@@ -27667,25 +27668,25 @@ jQuery.fn.liScroll = function(settings) {
                 console.log("moo");
                 console.log(this);
 
-                $.fancybox({
-                    type: opts.type,
-                    scrolling: opts.scrolling,
-                    fitToView: opts.fitToView,
-                    autoSize: opts.autoSize,
-                    maxWidth: opts.maxWidth,
-                    aspectRatio: opts.aspectRatio,
-                    helpers: {
-                        overlay: {
-                            locked: false
-                        }
-                    },
-                    beforeLoad: function () {
-                        this.content = content; //"<video class ='videoPlayer' src='" + url + "' poster='" + poster + "' width='" + opts.width + "' height='" + opts.height + "' controls='controls' preload='none' ></video>";
-                        this.title = caption;
-                        this.width = opts.width;
-                        this.height = opts.height;
-                    },
-                    afterShow: function () {
+                // $.fancybox({
+                //     type: opts.type,
+                //     scrolling: opts.scrolling,
+                //     fitToView: opts.fitToView,
+                //     autoSize: opts.autoSize,
+                //     maxWidth: opts.maxWidth,
+                //     aspectRatio: opts.aspectRatio,
+                //     helpers: {
+                //         overlay: {
+                //             locked: false
+                //         }
+                //     },
+                //     beforeLoad: function () {
+                //         this.content = content; //"<video class ='videoPlayer' src='" + url + "' poster='" + poster + "' width='" + opts.width + "' height='" + opts.height + "' controls='controls' preload='none' ></video>";
+                //         this.title = caption;
+                //         this.width = opts.width;
+                //         this.height = opts.height;
+                //     },
+                //     afterShow: function () {
 
 
                         if (source.trim() !== 'brightcove'){
@@ -27719,14 +27720,14 @@ jQuery.fn.liScroll = function(settings) {
                                 }
                             });
                         }
-                    },
-                    beforeClose: function () {
-                        if (_isPlaying && navigator.userAgent.match(/msie [6-8]/i)) {
-                            _player.remove();
-                            _isPlaying = false;
-                        }
-                    }
-                });
+                //    },
+                //     beforeClose: function () {
+                //         if (_isPlaying && navigator.userAgent.match(/msie [6-8]/i)) {
+                //             _player.remove();
+                //             _isPlaying = false;
+                //         }
+                //     }
+                // });
             }
         });
     };
