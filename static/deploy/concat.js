@@ -27664,6 +27664,7 @@ jQuery.fn.liScroll = function(settings) {
             
             if (typeof url !== 'undefined' && url !== "") {
                 var _player, _isPlaying = false;
+                console.log("moo");
                 console.log(this);
 
                 $.fancybox({
