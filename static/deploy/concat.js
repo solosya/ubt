@@ -27582,9 +27582,9 @@ jQuery.fn.liScroll = function(settings) {
             scrolling: "no",
             fitToView: false,
             autoSize: false,
-            width: 650,
-            height: 460,
-            maxWidth: "90%",
+            width: "100%",
+            height: "100%",
+            // maxWidth: "90%",
             aspectRatio: true,
             startVolume: 0.8,
             loop: false,
@@ -27620,7 +27620,7 @@ jQuery.fn.liScroll = function(settings) {
                     } else {
                         url = $(elem).data('url');
                     }
-                    content = "<video width='" + feat.width + "' height='" + feat.height + "' class='videoPlayer' controls='controls' preload='none'><source type='video/youtube' src='" + url + "' /></video>";
+                    content = "<video width='" + opts.width + "' height='" + opts.height + "' class='videoPlayer' controls='controls' preload='none'><source type='video/youtube' src='" + url + "' /></video>";
                 }
                 else if (source.trim() === 'vimeo') {
                     if (videoId !== "" && typeof videoId !== "undefined") {
@@ -27693,8 +27693,8 @@ jQuery.fn.liScroll = function(settings) {
                         if (source.trim() !== 'brightcove'){
 
                             new MediaElementPlayer('.videoPlayer', {
-                                defaultVideoWidth: feat.width,
-                                defaultVideoHeight: feat.height,
+                                defaultVideoWidth: this.width,
+                                defaultVideoHeight: this.height,
                                 startVolume: opts.startVolume,
                                 loop: opts.loop,
                                 enableAutosize: opts.enableAutosize,
