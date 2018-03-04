@@ -27,8 +27,8 @@
             pauseOtherPlayers: true
         };
         var opts = $.extend({}, defaults, options);
-        return this.click(function (e) {
-
+        // return this.click(function (e) {
+            var feat = $('.featured')[0]
             e.preventDefault();
             e.stopPropagation();
             var elem = $(this);
@@ -46,7 +46,7 @@
                     } else {
                         url = $(elem).data('url');
                     }
-                    content = "<video width='" + opts.width + "' height='" + opts.height + "' class='videoPlayer' controls='controls' preload='none'><source type='video/youtube' src='" + url + "' /></video>";
+                    content = "<video width='" + feat.width + "' height='" + feat.height + "' class='videoPlayer' controls='controls' preload='none'><source type='video/youtube' src='" + url + "' /></video>";
                 }
                 else if (source.trim() === 'vimeo') {
                     if (videoId !== "" && typeof videoId !== "undefined") {
@@ -91,7 +91,7 @@
             
             if (typeof url !== 'undefined' && url !== "") {
                 var _player, _isPlaying = true;
-                var feat = $('.featured')[0]
+
                 console.log("moo");
                 console.log(feat);
 
@@ -156,6 +156,6 @@
                 //     }
                 // });
             }
-        });
+        // });
     };
 }(jQuery));
