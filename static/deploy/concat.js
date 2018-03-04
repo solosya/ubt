@@ -27665,8 +27665,9 @@ jQuery.fn.liScroll = function(settings) {
             
             if (typeof url !== 'undefined' && url !== "") {
                 var _player, _isPlaying = true;
+                var feat = $('.featured')[0]
                 console.log("moo");
-                console.log(this);
+                console.log(feat);
 
                 // $.fancybox({
                 //     type: opts.type,
@@ -27689,37 +27690,37 @@ jQuery.fn.liScroll = function(settings) {
                 //     afterShow: function () {
 
 
-                        // if (source.trim() !== 'brightcove'){
+                        if (source.trim() !== 'brightcove'){
 
-                        //     new MediaElementPlayer('.videoPlayer', {
-                        //         defaultVideoWidth: this.width,
-                        //         defaultVideoHeight: this.height,
-                        //         startVolume: opts.startVolume,
-                        //         loop: opts.loop,
-                        //         enableAutosize: opts.enableAutosize,
-                        //         features: opts.features,
-                        //         alwaysShowControls: opts.alwaysShowControls,
-                        //         iPadUseNativeControls: opts.iPadUseNativeControls,
-                        //         iPhoneUseNativeControls: opts.iPhoneUseNativeControls,
-                        //         AndroidUseNativeControls: opts.AndroidUseNativeControls,
-                        //         alwaysShowHours: opts.alwaysShowHours,
-                        //         showTimecodeFrameCount: opts.showTimecodeFrameCount,
-                        //         framesPerSecond: opts.framesPerSecond,
-                        //         enableKeyboard: opts.enableKeyboard,
-                        //         pauseOtherPlayers: opts.pauseOtherPlayers,
-                        //         success: function (mediaElement, domObject) {
-                        //             _player = mediaElement;
-                        //             _player.load();
-                        //             _player.play();
-                        //             _player.addEventListener('playing', function () {
-                        //                 _isPlaying = true;
-                        //             }, false);
-                        //             if (source.trim() == 'vimeo') { alert();
-                        //                 $('.mejs-controls').remove();
-                        //             }
-                        //         }
-                        //     });
-                        // }
+                            new MediaElementPlayer('.videoPlayer', {
+                                defaultVideoWidth: feat.width,
+                                defaultVideoHeight: feat.height,
+                                startVolume: opts.startVolume,
+                                loop: opts.loop,
+                                enableAutosize: opts.enableAutosize,
+                                features: opts.features,
+                                alwaysShowControls: opts.alwaysShowControls,
+                                iPadUseNativeControls: opts.iPadUseNativeControls,
+                                iPhoneUseNativeControls: opts.iPhoneUseNativeControls,
+                                AndroidUseNativeControls: opts.AndroidUseNativeControls,
+                                alwaysShowHours: opts.alwaysShowHours,
+                                showTimecodeFrameCount: opts.showTimecodeFrameCount,
+                                framesPerSecond: opts.framesPerSecond,
+                                enableKeyboard: opts.enableKeyboard,
+                                pauseOtherPlayers: opts.pauseOtherPlayers,
+                                success: function (mediaElement, domObject) {
+                                    _player = mediaElement;
+                                    _player.load();
+                                    _player.play();
+                                    _player.addEventListener('playing', function () {
+                                        _isPlaying = true;
+                                    }, false);
+                                    if (source.trim() == 'vimeo') { alert();
+                                        $('.mejs-controls').remove();
+                                    }
+                                }
+                            });
+                        }
                 //    },
                 //     beforeClose: function () {
                 //         if (_isPlaying && navigator.userAgent.match(/msie [6-8]/i)) {
