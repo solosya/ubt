@@ -78,7 +78,7 @@
 
                     content = 
                         '<div style="display: block; position: relative; max-width: 100%;"><div style="padding-top: 56.25%;">\
-                            <iframe src="//players.brightcove.net/'+accountID+'/'+playerID+'_default/index.html?videoId='+videoId+'" \
+                            <iframe src="//players.brightcove.net/'+accountID+'/'+playerID+'_default/index.html?videoId='+videoId+'&playsinline" \
                             allowfullscreen\
                             webkitallowfullscreen\
                             mozallowfullscreen\
@@ -90,7 +90,7 @@
             }
             
             if (typeof url !== 'undefined' && url !== "") {
-                var _player, _isPlaying = false;
+                var _player, _isPlaying = true;
                 console.log("moo");
                 console.log(this);
 
@@ -115,37 +115,37 @@
                 //     afterShow: function () {
 
 
-                        if (source.trim() !== 'brightcove'){
+                        // if (source.trim() !== 'brightcove'){
 
-                            new MediaElementPlayer('.videoPlayer', {
-                                defaultVideoWidth: this.width,
-                                defaultVideoHeight: this.height,
-                                startVolume: opts.startVolume,
-                                loop: opts.loop,
-                                enableAutosize: opts.enableAutosize,
-                                features: opts.features,
-                                alwaysShowControls: opts.alwaysShowControls,
-                                iPadUseNativeControls: opts.iPadUseNativeControls,
-                                iPhoneUseNativeControls: opts.iPhoneUseNativeControls,
-                                AndroidUseNativeControls: opts.AndroidUseNativeControls,
-                                alwaysShowHours: opts.alwaysShowHours,
-                                showTimecodeFrameCount: opts.showTimecodeFrameCount,
-                                framesPerSecond: opts.framesPerSecond,
-                                enableKeyboard: opts.enableKeyboard,
-                                pauseOtherPlayers: opts.pauseOtherPlayers,
-                                success: function (mediaElement, domObject) {
-                                    _player = mediaElement;
-                                    _player.load();
-                                    _player.play();
-                                    _player.addEventListener('playing', function () {
-                                        _isPlaying = true;
-                                    }, false);
-                                    if (source.trim() == 'vimeo') { alert();
-                                        $('.mejs-controls').remove();
-                                    }
-                                }
-                            });
-                        }
+                        //     new MediaElementPlayer('.videoPlayer', {
+                        //         defaultVideoWidth: this.width,
+                        //         defaultVideoHeight: this.height,
+                        //         startVolume: opts.startVolume,
+                        //         loop: opts.loop,
+                        //         enableAutosize: opts.enableAutosize,
+                        //         features: opts.features,
+                        //         alwaysShowControls: opts.alwaysShowControls,
+                        //         iPadUseNativeControls: opts.iPadUseNativeControls,
+                        //         iPhoneUseNativeControls: opts.iPhoneUseNativeControls,
+                        //         AndroidUseNativeControls: opts.AndroidUseNativeControls,
+                        //         alwaysShowHours: opts.alwaysShowHours,
+                        //         showTimecodeFrameCount: opts.showTimecodeFrameCount,
+                        //         framesPerSecond: opts.framesPerSecond,
+                        //         enableKeyboard: opts.enableKeyboard,
+                        //         pauseOtherPlayers: opts.pauseOtherPlayers,
+                        //         success: function (mediaElement, domObject) {
+                        //             _player = mediaElement;
+                        //             _player.load();
+                        //             _player.play();
+                        //             _player.addEventListener('playing', function () {
+                        //                 _isPlaying = true;
+                        //             }, false);
+                        //             if (source.trim() == 'vimeo') { alert();
+                        //                 $('.mejs-controls').remove();
+                        //             }
+                        //         }
+                        //     });
+                        // }
                 //    },
                 //     beforeClose: function () {
                 //         if (_isPlaying && navigator.userAgent.match(/msie [6-8]/i)) {
