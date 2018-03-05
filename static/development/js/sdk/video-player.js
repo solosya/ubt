@@ -139,7 +139,7 @@
                                     _player.load();
                                     _player.play();
                                     _player.addEventListener('playing', function () {
-                                        _isPlaying = false;
+                                        _isPlaying = true;
                                     }, false);
                                     if (source.trim() == 'vimeo') { alert();
                                         $('.mejs-controls').remove();
