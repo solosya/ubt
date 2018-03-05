@@ -27583,7 +27583,7 @@ jQuery.fn.liScroll = function(settings) {
             fitToView: false,
             autoSize: false,
             width: "100%",
-            height: "90%",
+            height: "100%",
             // maxWidth: "90%",
             aspectRatio: true,
             startVolume: 0.8,
