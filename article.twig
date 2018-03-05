@@ -50,7 +50,12 @@
 
                      {% if image.type == 'video' %} 
                          <figure class="featured">
-                            <div class="video-space"></div>
+                            <div class="video-space video-overlay video-player"
+                            data-source="{{image.source}}" 
+                            data-video-id="{{image.videoId}}" 
+                            data-url="{{mediaUrl}}" 
+                            data-poster="{{image.path}}" 
+                            data-caption="{{article.title | raw}}"></div>
                      {% else %}
                          <figure class="featured">
                             <img src="{{articleImg}}" class="img-responsive">

@@ -29,10 +29,9 @@
         var opts = $.extend({}, defaults, options);
         if ($('.video-space')[0] !== undefined) {
             var feat = $('.featured')[0]
-            // var vidSpc = $('.video-space')[0]
-            // e.preventDefault();
-            // e.stopPropagation();
-            var elem = $(this);
+            // vidSpc.preventDefault();
+            // vidSpc.stopPropagation();
+            var elem = $('.video-space')[0];
             var source = elem.data('source');
             var poster = elem.data('poster');
             var caption = elem.data('caption');
