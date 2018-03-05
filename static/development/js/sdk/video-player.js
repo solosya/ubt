@@ -32,7 +32,9 @@
             // vidSpc.preventDefault();
             // vidSpc.stopPropagation();
             console.log("splat");
-            var elem = $('.video-space')[0];
+            console.log(feat);
+            var elem = ($('.video-space')[0]);
+            console.log(elem);
             var source = elem.data('source');
             console.log(source);
             var poster = elem.data('poster');
