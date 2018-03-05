@@ -48,21 +48,26 @@
             {% for image in article.media %}
                 {% set articleImg = _Media.getMediaUrl(image,1094, 515, {'crop': 'fill', 'gravity': 'auto'} ) %}
 
+                <figure class="featured">
+                     <img src="{{articleImg}}" class="img-responsive">
                      {% if image.type == 'video' %} 
-                         <figure class="featured">
-                            <div class="video-space video-overlay video-player"
+                         {% set mediaUrl = "" %}
+                         {% if image.media.isSystemVideo == 'TRUE'%}
+                             {% set mediaUrl = _Media.getMediaVideoUrl(image.media, 0, 0,{resource_type: 'video', format: 'mp4'})  %}
+                         {% endif %}
+                         <a href="javascript:void(0)" 
+                            itemprop="video" 
+                            class="video-overlay video-player" 
                             data-source="{{image.source}}" 
                             data-video-id="{{image.videoId}}" 
                             data-url="{{mediaUrl}}" 
                             data-poster="{{image.path}}" 
-                            data-caption="{{article.title | raw}}"></div>
-                     {% else %}
-                         <figure class="featured">
-                            <img src="{{articleImg}}" class="img-responsive">
+                            data-caption="{{article.title | raw}}">
+                         </a>
+                     {% endif %}
                      <figcaption>
                          <p>{{image.caption}}</p>
                      </figcaption>
-                     {% endif %}
                 </figure>
             {% endfor %}
 

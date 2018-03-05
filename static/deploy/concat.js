@@ -27601,11 +27601,11 @@ jQuery.fn.liScroll = function(settings) {
             pauseOtherPlayers: true
         };
         var opts = $.extend({}, defaults, options);
-        if ($('.video-space')[0] !== undefined) {
+        return this.click(function (e) {
             var feat = $('.featured')[0]
-            // vidSpc.preventDefault();
-            // vidSpc.stopPropagation();
-            var elem = $('.video-space')[0];
+            e.preventDefault();
+            e.stopPropagation();
+            var elem = $(this);
             var source = elem.data('source');
             var poster = elem.data('poster');
             var caption = elem.data('caption');
@@ -27620,7 +27620,7 @@ jQuery.fn.liScroll = function(settings) {
                     } else {
                         url = $(elem).data('url');
                     }
-                    content = "<video width='" + opts.width + "' height='" + opts.height + "' class='videoPlayer' controls='controls' preload='none'><source type='video/youtube' src='" + url + "' /></video>";
+                    content = "<video width='" + feat.width + "' height='" + feat.height + "' class='videoPlayer' controls='controls' preload='none'><source type='video/youtube' src='" + url + "' /></video>";
                 }
                 else if (source.trim() === 'vimeo') {
                     if (videoId !== "" && typeof videoId !== "undefined") {
@@ -27693,8 +27693,8 @@ jQuery.fn.liScroll = function(settings) {
                         if (source.trim() !== 'brightcove'){
 
                             new MediaElementPlayer('.videoPlayer', {
-                                defaultVideoWidth: this.width,
-                                defaultVideoHeight: this.height,
+                                defaultVideoWidth: feat.width,
+                                defaultVideoHeight: feat.height,
                                 startVolume: opts.startVolume,
                                 loop: opts.loop,
                                 enableAutosize: opts.enableAutosize,
@@ -27730,7 +27730,7 @@ jQuery.fn.liScroll = function(settings) {
                 //     }
                 // });
             }
-        };
+        });
     };
 }(jQuery));
 /*!
