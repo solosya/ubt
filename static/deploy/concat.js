@@ -27603,8 +27603,9 @@ jQuery.fn.liScroll = function(settings) {
         var opts = $.extend({}, defaults, options);
         if ($('.video-space')[0] !== undefined) {
             var feat = $('.featured')[0]
-            e.preventDefault();
-            e.stopPropagation();
+            // var vidSpc = $('.video-space')[0]
+            // e.preventDefault();
+            // e.stopPropagation();
             var elem = $(this);
             var source = elem.data('source');
             var poster = elem.data('poster');
