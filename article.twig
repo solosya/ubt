@@ -49,7 +49,7 @@
                 {% set articleImg = _Media.getMediaUrl(image,1094, 515, {'crop': 'fill', 'gravity': 'auto'} ) %}
 
                     {% if image.type == 'video' %} 
-                        <figure class="featured">
+                        <figure class="featured featured__video">
                             <div class="video-space video-overlay video-player"
                             data-source="{{image.source}}" 
                             data-video-id="{{image.videoId}}" 

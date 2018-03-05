@@ -20,6 +20,9 @@
 			@media screen and (max-width: $sm-break-down){
 				height:190px;
 			}
+			&.featured__video {
+				height:100%;
+			}
 
 			> a {
 				position:absolute;
