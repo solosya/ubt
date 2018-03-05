@@ -32,6 +32,9 @@
             // vidSpc.preventDefault();
             // vidSpc.stopPropagation();
             var elem = $('.video-space')[0];
+            console.log("splat");
+            console.log(feat);
+            console.log(elem);
             var source = elem.data('source');
             var poster = elem.data('poster');
             var caption = elem.data('caption');
@@ -86,13 +89,15 @@
                         </div></div>';
                        
                 }
+                console.log("pop");
+                console.log(content);
                 $('.featured')[0].innerHTML = content; 
             }
             
             if (typeof url !== 'undefined' && url !== "") {
                 var _player, _isPlaying = true;
 
-                console.log("moo");
+                
                 console.log(feat);
 
                 // $.fancybox({
@@ -156,6 +161,6 @@
                 //     }
                 // });
             }
-        };
+        }
     };
 }(jQuery));
