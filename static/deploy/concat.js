@@ -27602,13 +27602,18 @@ jQuery.fn.liScroll = function(settings) {
         };
         var opts = $.extend({}, defaults, options);
         return this.click(function (e) {
-
+            console.log(e);
             e.preventDefault();
             e.stopPropagation();
             var elem = $(this);
+            console.log(elem);
+            console.log("hur-dur");
             var source = elem.data('source');
             var poster = elem.data('poster');
             var caption = elem.data('caption');
+            console.log(source);
+            console.log(poster);
+            console.log(caption);
             var url, content;
 
             if (source.trim() !== 'undefined' && source.trim() !== "") {
