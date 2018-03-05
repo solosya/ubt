@@ -18,7 +18,7 @@
             features: ['playpause', 'progress', 'current', 'duration', 'tracks', 'volume', 'fullscreen'],
             alwaysShowControls: false,
             iPadUseNativeControls: false,
-            iPhoneUseNativeControls: false,
+            iPhoneUseNativeControls: true,
             AndroidUseNativeControls: false,
             alwaysShowHours: false,
             showTimecodeFrameCount: false,
@@ -80,7 +80,7 @@
                             allowfullscreen\
                             webkitallowfullscreen\
                             mozallowfullscreen\
-                            style="width: 100%; height: 100%; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px;"></iframe>\
+                            style="width: 100%; height: 100%; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px;border-width:0;"></iframe>\
                         </div></div>';
                        
                 }
@@ -89,7 +89,7 @@
             }
             
             if (typeof url !== 'undefined' && url !== "") {
-                var _player, _isPlaying = true;
+                var _player, _isPlaying = false;
 
                 
             
@@ -138,7 +138,7 @@
                                     _player.load();
                                     _player.play();
                                     _player.addEventListener('playing', function () {
-                                        _isPlaying = true;
+                                        _isPlaying = false;
                                     }, false);
                                     if (source.trim() == 'vimeo') { alert();
                                         $('.mejs-controls').remove();
