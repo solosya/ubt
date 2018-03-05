@@ -42,7 +42,7 @@
 
             if (source.trim() !== 'undefined' && source.trim() !== "") {
                 var videoId = elem.data('video-id');
-
+                console.log(videoId);
                 if (source.trim() === 'youtube') {
                     if (videoId !== "" && typeof videoId !== "undefined") {
                         url = "https://www.youtube.com/watch?v=" + videoId;
@@ -50,6 +50,8 @@
                         url = $(elem).data('url');
                     }
                     content = "<video width='" + opts.width + "' height='" + opts.height + "' class='videoPlayer' controls='controls' preload='none'><source type='video/youtube' src='" + url + "' /></video>";
+                    console.log(content);
+                    console.log('lol');
                 }
                 else if (source.trim() === 'vimeo') {
                     if (videoId !== "" && typeof videoId !== "undefined") {
@@ -89,16 +91,15 @@
                         </div></div>';
                        
                 }
-                console.log("pop");
-                console.log(content);
-                $('.featured')[0].innerHTML = content; 
+                $('.featured')[0].innerHTML = content;
+                console.log(content); 
             }
             
             if (typeof url !== 'undefined' && url !== "") {
                 var _player, _isPlaying = true;
 
                 
-                console.log(feat);
+            
 
                 // $.fancybox({
                 //     type: opts.type,
