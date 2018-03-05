@@ -1,16 +1,39 @@
 .owl-shep-theme .owl-nav {
     position:absolute;
-    top: 230px;
-    // margin-left: -50px;
+    // top: 42%;
     width: 100%;
-  -webkit-tap-highlight-color: transparent; }
+    -webkit-tap-highlight-color: transparent;
+}
+
+.owl-carousel__base .owl-nav {
+    position:absolute;
+    height:0px;
+    top: 50%;
+    width: 100%;
+    margin-top: -30px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.owl-carousel__base .owl-stage-outer .owl-stage .owl-item figure figcaption p {
+  @media screen and (max-width: $sm-break-down) {
+    font-size:rem(12);
+    line-height: rem(14);
+  }
+}
+
   .owl-shep-theme .owl-nav .owl-next {
-    background-image: url('../icons/pointer-arrow-right.svg');
+    background-image: url('../icons/pointer-arrow-left.svg');
+    transform-origin: center;
+    transform: rotate(180deg);
     float:right;
+    margin-right:15px;
   }
   .owl-shep-theme .owl-nav .owl-prev {
     background-image: url('../icons/pointer-arrow-left.svg');
+    margin-left:15px;
   }
+
+     
 
   .owl-shep-theme .owl-item img {
     max-height:500px;
@@ -18,7 +41,6 @@
 
   .owl-thumbs {
     overflow:hidden;
-    // overflow-y:hidden;
     white-space:nowrap;
     .owl-thumb-item {
       &.active {
@@ -30,21 +52,22 @@
   .owl-shep-theme .owl-nav [class*='owl-'] {
     color: #FFF;
     font-size: 14px;
-    margin: 5px;
-    padding: 4px 7px;
-    // background:green;
+    background-color:rgba(0,0,0,0.65);
     background-repeat: no-repeat;
-    background-size: contain;
-    // background: red;
-    height:27px;
-    width:14px;
+    background-position:center;
+    background-size:13px;;
     display: inline-block;
-    cursor: pointer; }
+    cursor: pointer; 
+    padding: 20px;
+    border-radius: 50%;
+  }
 
-    .owl-shep-theme .owl-nav [class*='owl-']:hover {
-      background: #869791;
-      color: #FFF;
-      text-decoration: none; }
+    // .owl-shep-theme .owl-nav [class*='owl-']:hover {
+    //   // background: #869791;
+    //   color: #FFF;
+    //   text-decoration: none;
+
+    // }
   .owl-shep-theme .owl-nav .disabled {
     opacity: 0.5;
     cursor: default; }
