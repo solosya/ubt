@@ -32,13 +32,14 @@
             // vidSpc.preventDefault();
             // vidSpc.stopPropagation();
             var elem = $('.video-space')[0];
-            console.log("splat");
-            console.log(feat);
-            console.log(elem);
             var source = elem.data('source');
             var poster = elem.data('poster');
             var caption = elem.data('caption');
             var url, content;
+            console.log("splat");
+            console.log(source);
+            console.log(poster);
+            console.log(caption);
 
             if (source.trim() !== undefined && source.trim() !== "") {
                 var videoId = elem.data('video-id');
