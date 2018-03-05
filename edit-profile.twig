@@ -1,9 +1,7 @@
 {{ set(this, 'title', 'Edit Profile') }}
 
 
-{{this.registerJs("Acme.UserProfileController.Load().init();")}}
 {{this.registerJs("(function(){
-    console.log('intercom!');
     var w=window;
     var ic=w.Intercom;
     if(typeof ic==='function'){
@@ -20,13 +18,11 @@
         };
         w.Intercom=i;
         function l(){
-            console.log('calling l'); 
             var s=d.createElement('script');
             s.type='text/javascript';
             s.async=true;
             s.src='https://widget.intercom.io/widget/zxwsoz9f';
             var x=d.getElementsByTagName('script')[0];
-            console.log(x);
             x.parentNode.insertBefore(s,x);
         }
         if(w.attachEvent){
@@ -36,6 +32,8 @@
         }
     }
 })()")}}
+
+
 {% set networkData = _Network.getNetworkData() %}
 {% set blogData = _Blog.getBlog() %}
 {% set jobsBlogId = blogData.additionalInfo['joblistingsid'] %}
@@ -53,6 +51,17 @@
     {% set jobListingsArr = _User.getUserArticles(user.guid, 0, 1000, {'blogs':[jobsBlogId], 'status': '-1'}) %}
     {% set propListingsArr = _User.getUserArticles(user.guid, 0, 1000, {'blogs':[propBlogId], 'status': '-1'}) %}
 {% endif %}
+
+{{this.registerJs("Acme.UserProfileController.Load().init();")}}
+
+{{this.registerJs("Acme.usercard = new Acme.Usercard();")}}
+
+
+                                                     {# renders the card    fetch-limit      fetch-offset    infinite scroll #}
+                                                     {#            ↑             ↑                 ↑            ↑            #}
+{{this.registerJs("Acme.userFeed = new Acme.View.userFeed(Acme.usercard, 2, 2, false, null, Acme.UserProfileController);")}}
+
+
 
 
 {% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
@@ -134,7 +143,7 @@
 
 
                 {% if pwstats.userManager == true %}
-                    {% set managedUers = _User.getPaywallManagedUsers() %}
+                    {% set managedUers = _User.getPaywallManagedUsers({"limit": 20}) %}
 
                     <div class="profile-section">
                        
@@ -299,10 +308,11 @@
                             <div id="user_profile" class="col-md-12">
                                 
                                 <ul id="mangedUsers" class="managed-users">
+                                
                                 {% if managedUers|length == 0 %} 
-                                <div id="nousers" class="empty-listing">
-                                    <p>You have no current users.</p>
-                                </div>
+                                    <div id="nousers" class="empty-listing">
+                                        <p>You have no current users.</p>
+                                    </div>
                                 {% else %}
                                  
                                     {% for user in managedUers %}
@@ -319,11 +329,26 @@
                                             <a class="j-edit userdetails__button userdetails__button--edit u-float-right"></a>
                                             <p class="j-email userdetails__email u-float-right">{{user.email}}</p>
                                         </li>
-
                                     {% endfor %}
+
                                 {% endif %}
+
                                 </ul>
                             </div>
+                            
+                            {% if pwstats['user_count'] > 20 %} 
+                                {{ this.render('partials/ajaxarticles.twig', {
+                                    offset          : 20,
+                                    limit           : 10,
+                                    label           : "Show more",
+                                    loadtype        : "user",
+                                    name            : "user-load",
+                                    card_class      : "userdetails",
+                                    cardTemplate    : "managed_user",
+                                    container       : "mangedUsers"
+                                }) | raw }}
+                            {% endif %}
+
                             <a id="createUserErrorMessage"></a>
                         </div>
 
