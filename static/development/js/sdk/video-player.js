@@ -31,21 +31,16 @@
             var feat = $('.featured')[0];
             // vidSpc.preventDefault();
             // vidSpc.stopPropagation();
-            console.log("splat");
-            console.log(feat);
-            var elem = ($('.video-space')[0]);
+            var elem = ($(this));
             console.log(elem);
             var source = elem.data('source');
-            console.log(source);
             var poster = elem.data('poster');
-            console.log(poster);
             var caption = elem.data('caption');
-            console.log(caption);
             var url, content;
             if (source.trim() !== undefined && source.trim() !== "") {
                 var videoId = elem.data('video-id');
-                console.log(videoId);
                 console.log("splattoo");
+
                 if (source.trim() === 'youtube') {
                     if (videoId !== "" && typeof videoId !== undefined) {
                         url = "https://www.youtube.com/watch?v=" + videoId;
@@ -53,8 +48,6 @@
                         url = $(elem).data('url');
                     }
                     content = "<video width='" + opts.width + "' height='" + opts.height + "' class='videoPlayer' controls='controls' preload='none'><source type='video/youtube' src='" + url + "' /></video>";
-                    console.log(content);
-                    console.log('lol');
                 }
                 else if (source.trim() === 'vimeo') {
                     if (videoId !== "" && typeof videoId !== "undefined") {
