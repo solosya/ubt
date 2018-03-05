@@ -32,15 +32,12 @@
             // vidSpc.preventDefault();
             // vidSpc.stopPropagation();
             var elem = ($(this));
-            console.log(elem);
             var source = elem.data('source');
             var poster = elem.data('poster');
             var caption = elem.data('caption');
             var url, content;
             if (source.trim() !== undefined && source.trim() !== "") {
                 var videoId = elem.data('video-id');
-                console.log("splattoo");
-
                 if (source.trim() === 'youtube') {
                     if (videoId !== "" && typeof videoId !== undefined) {
                         url = "https://www.youtube.com/watch?v=" + videoId;
