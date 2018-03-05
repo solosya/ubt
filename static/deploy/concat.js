@@ -27605,8 +27605,8 @@ jQuery.fn.liScroll = function(settings) {
             var feat = $('.featured')[0];
             // vidSpc.preventDefault();
             // vidSpc.stopPropagation();
-            var elem = $('.video-space')[0];
             console.log("splat");
+            var elem = $('.video-space')[0];
             var source = elem.data('source');
             console.log(source);
             var poster = elem.data('poster');
