@@ -48,8 +48,8 @@
             {% for image in article.media %}
                 {% set articleImg = _Media.getMediaUrl(image,1094, 515, {'crop': 'fill', 'gravity': 'auto'} ) %}
 
-                     {% if image.type == 'video' %} 
-                         <figure class="featured">
+                    {% if image.type == 'video' %} 
+                        <figure class="featured">
                             <div class="video-space video-overlay video-player"
                             data-source="{{image.source}}" 
                             data-video-id="{{image.videoId}}" 
@@ -59,14 +59,14 @@
                             <figcaption>
                                <p>{{image.caption}}</p>
                             </figcaption>
-                     {% else %}
-                         <figure class="featured">
+                    {% else %}
+                        <figure class="featured">
                             <img src="{{articleImg}}" class="img-responsive">
-                     <figcaption>
-                         <p>{{image.caption}}</p>
-                     </figcaption>
-                     {% endif %}
-                </figure>
+                            <figcaption>
+                                <p>{{image.caption}}</p>
+                            </figcaption>
+                    {% endif %}
+                        </figure>
             {% endfor %}
 
         {% if carousel %}

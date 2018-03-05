@@ -75,7 +75,7 @@
                     opts.height = (opts.width * 9)/16;
 
                     content = 
-                        '<div style="display: block; position: relative; max-width: 100%;"><div style="padding-top: 56.25%;">\
+                        '<div style="display: block; position: relative; max-width: 100%;max-height: 100%;"><div style="padding-top: 56.25%;">\
                             <iframe src="//players.brightcove.net/'+accountID+'/'+playerID+'_default/index.html?videoId='+videoId+'&playsinline" \
                             allowfullscreen\
                             webkitallowfullscreen\

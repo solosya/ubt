@@ -27606,15 +27606,12 @@ jQuery.fn.liScroll = function(settings) {
             // vidSpc.preventDefault();
             // vidSpc.stopPropagation();
             var elem = ($(this));
-            console.log(elem);
             var source = elem.data('source');
             var poster = elem.data('poster');
             var caption = elem.data('caption');
             var url, content;
             if (source.trim() !== undefined && source.trim() !== "") {
                 var videoId = elem.data('video-id');
-                console.log("splattoo");
-
                 if (source.trim() === 'youtube') {
                     if (videoId !== "" && typeof videoId !== undefined) {
                         url = "https://www.youtube.com/watch?v=" + videoId;
@@ -27652,7 +27649,7 @@ jQuery.fn.liScroll = function(settings) {
                     opts.height = (opts.width * 9)/16;
 
                     content = 
-                        '<div style="display: block; position: relative; max-width: 100%;"><div style="padding-top: 56.25%;">\
+                        '<div style="display: block; position: relative; max-width: 100%;max-height: 100%;"><div style="padding-top: 56.25%;">\
                             <iframe src="//players.brightcove.net/'+accountID+'/'+playerID+'_default/index.html?videoId='+videoId+'&playsinline" \
                             allowfullscreen\
                             webkitallowfullscreen\
