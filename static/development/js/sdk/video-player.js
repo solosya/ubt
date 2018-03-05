@@ -28,7 +28,7 @@
         };
         var opts = $.extend({}, defaults, options);
         if ($('.video-space')[0] !== undefined) {
-            var feat = $('.featured')[0]
+            var feat = $('.featured')[0];
             // vidSpc.preventDefault();
             // vidSpc.stopPropagation();
             var elem = $('.video-space')[0];
