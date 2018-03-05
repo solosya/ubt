@@ -27601,7 +27601,7 @@ jQuery.fn.liScroll = function(settings) {
             pauseOtherPlayers: true
         };
         var opts = $.extend({}, defaults, options);
-        if ($('.video-space')[0] !== undefined) {
+        if ($('.video-space')[0] !== 'undefined') {
             var feat = $('.featured')[0];
             // vidSpc.preventDefault();
             // vidSpc.stopPropagation();
