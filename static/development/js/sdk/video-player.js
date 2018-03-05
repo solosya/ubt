@@ -27,13 +27,10 @@
             pauseOtherPlayers: true
         };
         var opts = $.extend({}, defaults, options);
-        console.log($(this));
         return this.click(function (e) {
-            console.log("hur-dur-dee");
             e.preventDefault();
             e.stopPropagation();
             var elem = $(this);
-            console.log(elem);
             var source = elem.data('source');
             var poster = elem.data('poster');
             var caption = elem.data('caption');
