@@ -27583,7 +27583,7 @@ jQuery.fn.liScroll = function(settings) {
             fitToView: false,
             autoSize: false,
             width: "100%",
-            height: "100%",
+            height: "90%",
             // maxWidth: "90%",
             aspectRatio: true,
             startVolume: 0.8,
@@ -27664,7 +27664,7 @@ jQuery.fn.liScroll = function(settings) {
             }
             
             if (typeof url !== 'undefined' && url !== "") {
-                var _player, _isPlaying = false;
+                var _player, _isPlaying = true;
 
                 console.log("moo");
                 console.log(feat);
