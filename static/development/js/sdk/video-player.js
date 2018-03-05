@@ -27,7 +27,7 @@
             pauseOtherPlayers: true
         };
         var opts = $.extend({}, defaults, options);
-        if ($('.video-space')[0] !== 'undefined') {
+        if ($('.video-space')[0] !== undefined) {
             var feat = $('.featured')[0];
             // vidSpc.preventDefault();
             // vidSpc.stopPropagation();
@@ -40,11 +40,12 @@
             var caption = elem.data('caption');
             var url, content;
 
-            if (source.trim() !== 'undefined' && source.trim() !== "") {
+            if (source.trim() !== undefined && source.trim() !== "") {
                 var videoId = elem.data('video-id');
                 console.log(videoId);
+                console.log("splattoo");
                 if (source.trim() === 'youtube') {
-                    if (videoId !== "" && typeof videoId !== "undefined") {
+                    if (videoId !== "" && typeof videoId !== undefined) {
                         url = "https://www.youtube.com/watch?v=" + videoId;
                     } else {
                         url = $(elem).data('url');
