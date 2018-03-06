@@ -18,7 +18,7 @@
             features: ['playpause', 'progress', 'current', 'duration', 'tracks', 'volume', 'fullscreen'],
             alwaysShowControls: false,
             iPadUseNativeControls: false,
-            iPhoneUseNativeControls: true,
+            iPhoneUseNativeControls: false,
             AndroidUseNativeControls: false,
             alwaysShowHours: false,
             showTimecodeFrameCount: false,
@@ -136,11 +136,11 @@
                                 success: function (mediaElement, domObject) {
                                     _player = mediaElement;
                                     _player.load();
-                                    _player.play();
+                                    // _player.play();
                                     _player.addEventListener('playing', function () {
                                         _isPlaying = false;
                                     }, false);
-                                    if (source.trim() == 'vimeo') { alert();
+                                    if ((source.trim() == 'vimeo') || (source.trim() == 'youtube')) { alert();
                                         $('.mejs-controls').remove();
                                     }
                                 }
