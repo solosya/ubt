@@ -15,10 +15,10 @@
             startVolume: 0.8,
             loop: false,
             enableAutosize: true,
-            features: ['playpause', 'progress', 'current', 'duration', 'tracks', 'volume', 'fullscreen'],
-            alwaysShowControls: false,
-            iPadUseNativeControls: false,
-            iPhoneUseNativeControls: false,
+            features: ['playpause', 'progress', 'current', 'duration', 'volume', 'fullscreen'],
+            alwaysShowControls: true,
+            iPadUseNativeControls: true,
+            iPhoneUseNativeControls: true,
             AndroidUseNativeControls: false,
             alwaysShowHours: false,
             showTimecodeFrameCount: false,
@@ -140,7 +140,7 @@
                                     _player.addEventListener('playing', function () {
                                         _isPlaying = false;
                                     }, false);
-                                    if ((source.trim() == 'vimeo') || (source.trim() == 'youtube')) { alert();
+                                    if ((source.trim() == 'vimeo')) { alert();
                                         $('.mejs-controls').remove();
                                     }
                                 }
