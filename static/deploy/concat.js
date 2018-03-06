@@ -27589,10 +27589,10 @@ jQuery.fn.liScroll = function(settings) {
             startVolume: 0.8,
             loop: false,
             enableAutosize: true,
-            features: ['playpause', 'progress', 'current', 'duration', 'volume', 'fullscreen'],
-            alwaysShowControls: true,
-            iPadUseNativeControls: true,
-            iPhoneUseNativeControls: true,
+            features: ['playpause', 'progress', 'current', 'duration', 'tracks', 'volume', 'fullscreen'],
+            alwaysShowControls: false,
+            iPadUseNativeControls: false,
+            iPhoneUseNativeControls: false,
             AndroidUseNativeControls: false,
             alwaysShowHours: false,
             showTimecodeFrameCount: false,
@@ -27663,7 +27663,7 @@ jQuery.fn.liScroll = function(settings) {
             }
             
             if (typeof url !== 'undefined' && url !== "") {
-                var _player, _isPlaying = false;
+                var _player, _isPlaying = true;
 
                 
             
@@ -27712,7 +27712,7 @@ jQuery.fn.liScroll = function(settings) {
                                     _player.load();
                                     // _player.play();
                                     _player.addEventListener('playing', function () {
-                                        _isPlaying = false;
+                                        _isPlaying = true;
                                     }, false);
                                     if ((source.trim() == 'vimeo')) { alert();
                                         $('.mejs-controls').remove();
