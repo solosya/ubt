@@ -65,6 +65,19 @@
     } %}
 
 
+    {% set totalstring = "" %}
+    {% set totals = (article.total is defined) ? article.total : false %}
+    {% if totals and _User.isAdminUser() %}
+        {% set totalstring = "Viewed " ~ totals.view ~ " times" %}
+        {% set totalstring = totalstring ~ " Published " ~ params.publishDate %}
+
+    {% endif %}
+
+
+
+
+
+
     <div class="{{containerClass}}" data-title="{{ articleTitle | raw }}">
 
         <a  href="{{article.url}}" 
@@ -79,7 +92,8 @@
             data-blogguid="{{article.blog.guid}}"
             data-social="0"
             data-article-image="{{params.articleImg}}" 
-            data-article-text="{{Helper.htmlToText(article.title, -1) | raw | escape('html')}}">
+            data-article-text="{{Helper.htmlToText(article.title, -1) | raw | escape('html')}}"
+            title="{{totalstring}}">
 
             <article class="{{lightbox}} {{params.figureClass}}">
 
