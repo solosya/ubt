@@ -23,9 +23,10 @@
     {% set propListingsArr = _User.getUserArticles(user.guid, 0, 1000, {'blogs':[propBlogId], 'status': '-1'}) %}
 {% endif %}
 
-{# {{this.registerJs("console.log( Acme.UserProfileController );")}}
 {{this.registerJs("console.log( 'whikkch' );")}}
- #}
+
+{{this.registerJs("console.log( Acme.UserProfileController );")}}
+
 {{this.registerJs("Acme.userController = new Acme.UserProfileController();")}}
 
 {{this.registerJs("Acme.usercard = new Acme.Usercard();")}}
