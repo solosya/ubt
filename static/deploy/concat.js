@@ -26763,12 +26763,19 @@ jQuery.fn.liScroll = function(settings) {
         if (options.blogid) {
             requestData['blogguid'] = options.blogid;
         }
+
+        if (options.loadtype == 'user') {
+            var url = _appJsConfig.appHostName + '/api/'+options.loadtype+'/load-more-managed';
+            var requestType = 'get';
+        }
+
+
         if (options.search) {
             requestData['meta_info'] = options.search;
             var url = _appJsConfig.appHostName + '/'+options.loadtype;
             var requestType = 'get';
         }
-
+        console.log(options);
         return $.ajax({
             type: requestType,
             url: url,
@@ -33273,6 +33280,20 @@ window.templates.managed_user =
 <a class="j-edit userdetails__button userdetails__button--edit u-float-right"></a> \
 <p class="j-email  userdetails__email u-float-right">{{useremail}}</p>';
 
+Acme.managed_user = 
+'<li id="{{id}}" class="userdetails"> \
+    <div class="u-float-left"> \
+        <p class="userdetails__name"> \
+            <span class="j-firstname">{{firstname}}</span> \
+            <span class="j-lastname">{{lastname}}</span> \
+        </p> \
+        <p class="j-username userdetails__username">{{username}}</p> \
+    </div>\
+    <a class="j-delete userdetails__button userdetails__button--delete u-float-right"></a> \
+    <a class="j-edit userdetails__button userdetails__button--edit u-float-right"></a> \
+    <p class="j-email  userdetails__email u-float-right">{{email}}</p> \
+</li>';
+
 
 window.templates.carousel_item = 
 '<div class="carousel-tray__item" style="background-image:url( {{imagePath}} )"> \
@@ -33739,19 +33760,8 @@ var socialPostPopupTemplate =
                     '</div>'+
     '</div>'+
  '</div>'   ;   
-Acme.View.articleFeed = function(cardModel, limit, offset, infinite, failText) {
-    this.cardModel = cardModel;
-    this.offset    = offset || 0;
-    this.limit     = limit || 10;
-    this.infinite  = infinite || false;
-    this.waypoint  = false;
-    this.options   = {};
-    this.elem      = $('.loadMoreArticles');
-    this.failText  = failText || null;
-    this.events();
-};
-
-Acme.View.articleFeed.prototype.fetch = function()
+Acme.Feed = function() {};
+Acme.Feed.prototype.fetch = function()
 {
     var self = this;
     self.elem.html("Please wait...");
@@ -33776,13 +33786,57 @@ Acme.View.articleFeed.prototype.fetch = function()
     }
 
     $.fn.Ajax_LoadBlogArticles(self.options).done(function(data) {
-
+        // console.log(data);
         if (data.success == 1) {
             self.render(data);
         }
     });
 };
 
+Acme.Feed.prototype.events = function() 
+{
+    var self = this;
+    console.log(self.elem);
+    self.elem.unbind().on('click', function(e) {
+        e.preventDefault();
+        console.log('clicked');
+        self.fetch();
+    });
+
+
+    if (this.infinite && this.offset >= this.limit) {
+        self.waypoint = new Waypoint({
+            element: self.elem,
+            offset: '80%',
+            handler: function (direction) {
+                if (direction == 'down') {
+                    self.fetch();
+                }
+            }
+        });
+    }
+};
+
+
+
+
+
+
+Acme.View.articleFeed = function(feedModel, limit, offset, infinite, failText)
+{
+    this.feedModel = feedModel;
+    this.offset    = offset || 0;
+    this.limit     = limit || 10;
+    this.infinite  = infinite || false;
+    this.waypoint  = false;
+    this.options   = {};
+    this.elem      = $('.loadMoreArticles');
+    this.failText  = failText || null;
+    this.events();
+};
+
+Acme.View.articleFeed.prototype = new Acme.Feed();
+Acme.View.articleFeed.constructor = Acme.View.articleFeed;
 
 Acme.View.articleFeed.prototype.render = function(data) 
 {
@@ -33814,7 +33868,7 @@ Acme.View.articleFeed.prototype.render = function(data)
         html = ["<p>" + self.failText + "</p>"];
     } else {
         for (var i in data.articles) {
-            html.push( self.cardModel.renderCard(data.articles[i], cardClass, template) );
+            html.push( self.feedModel.renderCard(data.articles[i], cardClass, template) );
         }
     }
 
@@ -33838,27 +33892,91 @@ Acme.View.articleFeed.prototype.render = function(data)
 };
 
 
-Acme.View.articleFeed.prototype.events = function() 
+
+
+
+Acme.View.userFeed = function(feedModel, limit, offset, infinite, failText, controller)
 {
+    this.feedModel = feedModel;
+    this.controller = controller || null;
+    this.offset    = offset || 0;
+    this.limit     = limit || 10;
+    this.infinite  = infinite || false;
+    this.waypoint  = false;
+    this.options   = {};
+    this.elem      = $('.loadMoreArticles');
+    this.failText  = failText || null;
+    console.log(this.controller);
+    this.events();
+};
+
+Acme.View.userFeed.prototype = new Acme.Feed();
+Acme.View.userFeed.constructor = Acme.View.userFeed;
+
+Acme.View.userFeed.prototype.render = function(data) 
+{
+    console.log(data);
     var self = this;
-    self.elem.unbind().on('click', function(e) {
-        e.preventDefault();
-        self.fetch();
+    var cardClass  =   self.elem.data('card-class'),
+        template   =   self.elem.data('card-template') || null,
+        label      =   self.elem.data('button-label')  || "Load more",
+        ads_on     =   self.elem.data('ads')           || null,
+        rendertype =   self.elem.data('rendertype')    || null;
+
+    self.elem.html(label);
+
+    (data.users.length < self.options.limit) 
+        ? self.elem.css('display', 'none')
+        : self.elem.show();
+
+    // add counts to the dom for next request
+    self.elem.data('offset', (self.options.offset + self.options.limit));
+
+    var html = [];
+    if (ads_on == "yes") {
+        html.push( window.templates.ads_infinite );
+    }
+
+
+    if (data.users.length === 0 && self.failText) {
+        html = ["<p>" + self.failText + "</p>"];
+    } else {
+        for (var i in data.users) {
+            html.push( self.feedModel.render(data.users[i], cardClass, template) );
+        }
+    }
+
+    (rendertype === "write")
+        ? self.options.container.empty().append( html.join('') )
+        : self.options.container.append( html.join('') );
+        
+    if (self.waypoint) {
+        (data.users.length < self.options.limit)
+            ? self.waypoint.disable()
+            : self.waypoint.enable();
+    }
+    console.log(this.controller);
+    this.controller.userEvents();
+
+    $(".card .content > p, .card h2").dotdotdot();     
+    // $('.video-player').videoPlayer();
+    $("div.lazyload").lazyload({
+        effect: "fadeIn"
     });
 
-
-    if (this.infinite && this.offset >= this.limit) {
-        self.waypoint = new Waypoint({
-            element: self.elem,
-            offset: '80%',
-            handler: function (direction) {
-                if (direction == 'down') {
-                    self.fetch();
-                }
-            }
-        });
-    }
+    self.elem.data('rendertype', '');
 };
+
+
+Acme.Usercard = function(){};
+Acme.Usercard.prototype.render = function(user, cardClass, template, type)
+{
+    var self = this;
+    var template = (template) ? Acme[template] : Acme.systemCardTemplate;
+    userTemplate = Handlebars.compile(template);
+    return userTemplate(user);
+}
+
 
 
 var AuthController = (function ($) {
@@ -36500,104 +36618,223 @@ UserArticlesController.Load = (function ($) {
 
 
 
+Acme.UserProfileController = function()
+{
+    this.csrfToken = $('meta[name="csrf-token"]').attr("content");
+    this.events();
+    this.userEvents();
+    this.listingEvents();
+};
 
-// Acme.UserProfileController = (function ($) {
-//     return {
-//         load: function () {
-//             Acme.UserProfileController.Load.init();
-//         }
-//     };
-// }(jQuery));
+
+Acme.UserProfileController.prototype.deleteUser = function(e) {
+    var user = $(e.target).closest('li');
+    var userid = user.attr("id");
+    var requestData = { 
+        id: userid, 
+        _csrf: this.csrfToken
+    };
+
+    return $.ajax({
+        type: 'post',
+        url: _appJsConfig.baseHttpPath + '/user/delete-managed-user',
+        dataType: 'json',
+        data: requestData,
+        success: function (data, textStatus, jqXHR) {
+            if (data.success == 1) {
+                user.remove();
+                $('#addManagedUser').removeClass('hidden');
+                var usertxt = $('.profile-section__users-left').text();
+                var usercount = usertxt.split(" ");
+                var total = usercount[2];
+                usercount = parseInt(usercount[0]);
+                $('.profile-section__users-left').text((usercount - 1) + " of " + total + " used.");
+            } else {
+                var text = '';
+                for (var key in data.error) {
+                    text = text + data.error[key] + " ";
+                } 
+                $('#createUserErrorMessage').text(text);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+             $('#createUserErrorMessage').text(textStatus);
+        },
+    });
+};
+
+Acme.UserProfileController.prototype.renderUser = function(parent, data) {
+    var userTemp = Handlebars.compile(window.templates.managed_user);
+    var html = userTemp(data);
+    parent.empty().append(html);
+};
 
 
-Acme.UserProfileController = {};
 
-Acme.UserProfileController.Load = function () {
-    var csrfToken = $('meta[name="csrf-token"]').attr("content");
+Acme.UserProfileController.prototype.userEvents = function() 
+{
+    var self = this;
 
-    var deleteUser = function(e) {
-        var user = $(e.target).closest('li');
-        var userid = user.attr("id");
-        var requestData = { 
-            id: userid, 
-            _csrf: csrfToken
+    $('.j-edit').unbind().on('click', function(e) {
+
+        var listelem = $(e.target).closest('li');
+        var userid          = listelem.attr("id");
+
+        function getUserData(func) {
+            return {
+                firstname: listelem.find('.j-firstname')[func](), 
+                lastname:  listelem.find('.j-lastname')[func](), 
+                username:  listelem.find('.j-username')[func](), 
+                useremail: listelem.find('.j-email')[func](),
+            };
         };
 
-        return $.ajax({
-            type: 'post',
-            url: _appJsConfig.baseHttpPath + '/user/delete-managed-user',
-            dataType: 'json',
-            data: requestData,
-            success: function (data, textStatus, jqXHR) {
-                if (data.success == 1) {
-                    user.remove();
-                    $('#addManagedUser').removeClass('hidden');
-                    var usertxt = $('.profile-section__users-left').text();
-                    var usercount = usertxt.split(" ");
-                    var total = usercount[2];
-                    usercount = parseInt(usercount[0]);
-                    $('.profile-section__users-left').text((usercount - 1) + " of " + total + " used.");
-                } else {
-                    var text = '';
-                    for (var key in data.error) {
-                        text = text + data.error[key] + " ";
-                    } 
-                    $('#createUserErrorMessage').text(text);
-                }
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                // console.log(textStatus);
-                // console.log(jqXHR.responseText);
-                 $('#createUserErrorMessage').text(textStatus);
-            },
-        });
-    };
-
-    var renderUser = function(parent, data) {
-        var userTemp = Handlebars.compile(window.templates.managed_user);
+        var data = getUserData("text");
+        var userTemp = Handlebars.compile(window.templates.edit_user);
         var html = userTemp(data);
-        parent.empty().append(html);
-    };
+        listelem.empty().append(html);
 
-    var userEvents = function() {
-        $('.j-edit').unbind().on('click', function(e) {
-            var listelem = $(e.target).closest('li');
-            var userid          = listelem.attr("id");
+        $('#cancelUserCreate').on('click', function(e) {
+            self.renderUser(listelem, data);
+            self.userEvents();
+        });
 
-            function getUserData(func) {
-                return {
-                    firstname: listelem.find('.j-firstname')[func](), 
-                    lastname:  listelem.find('.j-lastname')[func](), 
-                    username:  listelem.find('.j-username')[func](), 
-                    useremail: listelem.find('.j-email')[func](),
-                };
+        $('#saveUser').on('click', function(e) {
+            var requestData = getUserData("val");
+            requestData.id = userid;
+            requestData._csrf = this.csrfToken;
+            $.ajax({
+                type: 'post',
+                url: _appJsConfig.baseHttpPath + '/user/edit-managed-profile',
+                dataType: 'json',
+                data: requestData,
+                success: function (data, textStatus, jqXHR) {
+                    if (data.success == 1) {
+                        self.renderUser(listelem, requestData);
+                        $('#addManagedUser').removeClass('hidden');
+                        $('#createUserErrorMessage').text('');   
+                    } else {
+                        var text = '';
+                        for (var key in data.error) {
+                            text = text + data.error[key] + " ";
+                        } 
+                        $('#createUserErrorMessage').text(text);
+                    }
+                    self.userEvents();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                     $('#createUserErrorMessage').text(textStatus);
+                },
+            });        
+        });
+    });  
+
+    $('.j-delete').unbind().on('click', function(e) {
+        Acme.SigninView.render("userPlanChange", "Are you sure you want to delete this user?")
+            .done(function() {
+                self.deleteUser(e);
+            });
+    });   
+};
+
+
+
+
+Acme.UserProfileController.prototype.events = function () 
+{
+    var self = this;
+
+    $('#addManagedUser').on('click', function(e) {
+        e.preventDefault()
+        var userTemp = Handlebars.compile(window.templates.create_user);
+        var data = {
+            firstname: "First name", 
+            lastname:  "Last name", 
+            username:  "Username", 
+            useremail: "Email",
+        };
+
+        var html = '<li id="newUser" class="user-editor">' + userTemp(data) + '</li>';
+
+        $('#mangedUsers').append(html);
+        $('#newuserfirstname').focus();
+        $('#addManagedUser').addClass('hidden');
+        $('#nousers').addClass('hidden');
+        
+        $('#saveUser').on('click', function(e) {
+            $('#user-editor-buttons').addClass('spinner');
+            var requestData = { 
+                firstname: $('#newuserfirstname').val(), 
+                lastname:  $('#newuserlastname').val(), 
+                username:  $('#newuserusername').val(), 
+                useremail: $('#newuseruseremail').val(),
+                _csrf: this.csrfToken
             };
 
-            var data = getUserData("text");
-            var userTemp = Handlebars.compile(window.templates.edit_user);
-            var html = userTemp(data);
-            listelem.empty().append(html);
+            $.ajax({
+                type: 'post',
+                url: _appJsConfig.baseHttpPath + '/user/create-paywall-managed-user',
+                dataType: 'json',
+                data: requestData,
+                success: function (data, textStatus, jqXHR) {
+                    $('#user-editor-buttons').removeClass('spinner');
 
-            $('#cancelUserCreate').on('click', function(e) {
-                renderUser(listelem, data);
-                userEvents();
-            });
+                    if (data.success == 1) {
+                        location.reload(false);             
+                    } else {
+                        var text = '';
+                        for (var key in data.error) {
+                            text = text + data.error[key] + " ";
+                        } 
+                        $('#createUserErrorMessage').text(text);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $('#user-editor-buttons').removeClass('spinner');
+                    $('#createUserErrorMessage').text(textStatus);
+                },
+            });        
+        });
 
-            $('#saveUser').on('click', function(e) {
-                var requestData = getUserData("val");
-                requestData.id = userid;
-                requestData._csrf = csrfToken;
+        $('#cancelUserCreate').on('click', function(e) {
+            $('#newUser').remove();
+            $('#addManagedUser').removeClass('hidden');
+            $('#createUserErrorMessage').text('');
+        });
+    });
+
+
+
+    $('#cancelAccount').on('click', function(e) {
+
+        var listelem = $(e.target).closest('li');
+        var userid = listelem.attr("id");
+
+        var status = 'cancelled';
+        message = "Are you sure you want to cancel your plan?"
+        if ($(e.target).text() == 'Restart Subscription') {
+            message = "Do you want to re activate your plan? You will be billed on the next payment date."
+            status = 'paid'
+        }
+        var requestData = { 
+            status: status, 
+            _csrf: this.csrfToken, 
+        };
+
+
+
+        Acme.SigninView.render("userPlanChange", message)
+            .done(function() {
+                $('#dialog').parent().remove();
+                
                 $.ajax({
                     type: 'post',
-                    url: _appJsConfig.baseHttpPath + '/user/edit-managed-profile',
+                    url: _appJsConfig.baseHttpPath + '/user/paywall-account-sataus',
                     dataType: 'json',
                     data: requestData,
                     success: function (data, textStatus, jqXHR) {
                         if (data.success == 1) {
-                            // console.log('success');
-                            renderUser(listelem, requestData);
-                            $('#addManagedUser').removeClass('hidden');
-                            $('#createUserErrorMessage').text('');   
+                            window.location.reload(false);             
                         } else {
                             var text = '';
                             for (var key in data.error) {
@@ -36605,247 +36842,101 @@ Acme.UserProfileController.Load = function () {
                             } 
                             $('#createUserErrorMessage').text(text);
                         }
-                        userEvents();
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
-                        // console.log(textStatus);
-                        // console.log(jqXHR.responseText);
+
                          $('#createUserErrorMessage').text(textStatus);
                     },
                 });        
-            });
-        });  
-
-        $('.j-delete').unbind().on('click', function(e) {
-            Acme.SigninView.render("userPlanChange", "Are you sure you want to delete this user?")
-                .done(function() {
-                    deleteUser(e);
-                });
-        });   
-    };
+            }); 
+    });       
 
 
+    $('.j-setplan').on('click', function(e) {
+
+        var listelem = $(e.target);
+        if (!listelem.hasClass('j-setplan')) {
+            listelem = $(e.target.parentNode);
+        }
+        var planusers = Number(listelem.find('#planusercount').val());
+        var usercount = Number(listelem.find('#currentusers').val());
 
 
-    var attachEvents = function () {
+        var requestData = { 
+            planid: listelem.find('#planid').val(), 
+            _csrf: listelem.find('#_csrf').text(), 
+        };
 
-        $('#addManagedUser').on('click', function(e) {
-            e.preventDefault()
-            var userTemp = Handlebars.compile(window.templates.create_user);
-            var data = {
-                firstname: "First name", 
-                lastname:  "Last name", 
-                username:  "Username", 
-                useremail: "Email",
-            };
+        if (Number(usercount) <= Number(planusers)) {
+            var newcost = listelem.find('#plancost').val();
+            var oldcost = listelem.find('#currentcost').val();
+            var newdays = listelem.find('#planperiod').val();
+            var olddays = listelem.find('#currentperiod').val();
+            if (newdays == 'week')  {newdays = 7;}
+            if (newdays == 'month') {newdays = 30;}
+            if (newdays == 'year')  {newdays = 365;}
+            if (olddays == 'week')  {olddays = 7;}
+            if (olddays == 'month') {olddays = 30;}
+            if (olddays == 'year')  {olddays = 365;}
+            var newplandailycost = newcost/newdays;
+            var plandailycost = oldcost/olddays;
+            var expDate = listelem.find('#expdate').val();
 
-            var html = '<li id="newUser" class="user-editor">' + userTemp(data) + '</li>';
+            var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+            var firstDate = new Date();
+            var secondDate = new Date(expDate.split('-')[0],expDate.split('-')[1]-1,expDate.split('-')[2]);
 
-            $('#mangedUsers').append(html);
-            $('#newuserfirstname').focus();
-            $('#addManagedUser').addClass('hidden');
-            $('#nousers').addClass('hidden');
-            
-            $('#saveUser').on('click', function(e) {
-                $('#user-editor-buttons').addClass('spinner');
-                var requestData = { 
-                    firstname: $('#newuserfirstname').val(), 
-                    lastname:  $('#newuserlastname').val(), 
-                    username:  $('#newuserusername').val(), 
-                    useremail: $('#newuseruseremail').val(),
-                    _csrf: csrfToken
-                };
+            var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
 
-                $.ajax({
-                    type: 'post',
-                    url: _appJsConfig.baseHttpPath + '/user/create-paywall-managed-user',
-                    dataType: 'json',
-                    data: requestData,
-                    success: function (data, textStatus, jqXHR) {
-                        $('#user-editor-buttons').removeClass('spinner');
-
-                        if (data.success == 1) {
-                            location.reload(false);             
-                        } else {
-                            var text = '';
-                            for (var key in data.error) {
-                                text = text + data.error[key] + " ";
-                            } 
-                            $('#createUserErrorMessage').text(text);
-                        }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        // console.log(textStatus);
-                        // console.log(jqXHR.responseText);
-                        $('#user-editor-buttons').removeClass('spinner');
-                        $('#createUserErrorMessage').text(textStatus);
-                    },
-                });        
-            });
-
-            $('#cancelUserCreate').on('click', function(e) {
-                $('#newUser').remove();
-                $('#addManagedUser').removeClass('hidden');
-                $('#createUserErrorMessage').text('');
-            });
-        });
-
-  
-
-        $('#cancelAccount').on('click', function(e) {
-
-            var listelem = $(e.target).closest('li');
-            var userid = listelem.attr("id");
-
-            var status = 'cancelled';
-            message = "Are you sure you want to cancel your plan?"
-            if ($(e.target).text() == 'Restart Subscription') {
-                message = "Do you want to re activate your plan? You will be billed on the next payment date."
-                status = 'paid'
+            var msg = "";
+            if ((newplandailycost-plandailycost) * diffDays > 0) {
+                msg = " This will cost $" + Math.round((newplandailycost-plandailycost) * diffDays);
+                msg = msg.replace(/(.+)(\d\d)$/g, "$1.$2");
             }
-            var requestData = { 
-                status: status, 
-                _csrf: csrfToken, 
-            };
-
-
-
-            Acme.SigninView.render("userPlanChange", message)
+            Acme.SigninView.render("userPlanChange", "Are you sure you want to change plan?" + msg)
                 .done(function() {
                     $('#dialog').parent().remove();
                     
                     $.ajax({
                         type: 'post',
-                        url: _appJsConfig.baseHttpPath + '/user/paywall-account-sataus',
+                        url: _appJsConfig.baseHttpPath + '/user/change-paywall-plan',
                         dataType: 'json',
                         data: requestData,
                         success: function (data, textStatus, jqXHR) {
                             if (data.success == 1) {
-                                location.reload(false);             
+                                window.location.reload();
                             } else {
-                                var text = '';
-                                for (var key in data.error) {
-                                    text = text + data.error[key] + " ";
-                                } 
-                                $('#createUserErrorMessage').text(text);
+                                $('#dialog').parent().remove();
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            // console.log(textStatus);
-                            console.log(jqXHR.responseText);
                              $('#createUserErrorMessage').text(textStatus);
                         },
                     });        
                 }); 
-     
-        });       
 
-
-        $('.j-setplan').on('click', function(e) {
-
-            var listelem = $(e.target);
-            if (!listelem.hasClass('j-setplan')) {
-                listelem = $(e.target.parentNode);
-            }
-            var planusers = Number(listelem.find('#planusercount').val());
-            var usercount = Number(listelem.find('#currentusers').val());
-
-
-            var requestData = { 
-                planid: listelem.find('#planid').val(), 
-                _csrf: listelem.find('#_csrf').text(), 
-            };
-
-            if (Number(usercount) <= Number(planusers)) {
-                var newcost = listelem.find('#plancost').val();
-                var oldcost = listelem.find('#currentcost').val();
-                var newdays = listelem.find('#planperiod').val();
-                var olddays = listelem.find('#currentperiod').val();
-                if (newdays == 'week') {newdays = 7;}
-                if (newdays == 'month') {newdays = 30;}
-                if (newdays == 'year') {newdays = 365;}
-                if (olddays == 'week') {olddays = 7;}
-                if (olddays == 'month') {olddays = 30;}
-                if (olddays == 'year') {olddays = 365;}
-                var newplandailycost = newcost/newdays;
-                var plandailycost = oldcost/olddays;
-                var expDate = listelem.find('#expdate').val();
-
-                var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
-                var firstDate = new Date();
-                var secondDate = new Date(expDate.split('-')[0],expDate.split('-')[1]-1,expDate.split('-')[2]);
-
-                var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
-                // var remainingplandays = 10;
-                // console.log(diffDays);
-                // console.log((newplandailycost-plandailycost) * diffDays);
-                // console.log(firstDate.getFullYear() +'-'+firstDate.getMonth()+1 + '-' + firstDate.getDate()  )
-                // console.log(secondDate.getFullYear() +'-'+secondDate.getMonth()+1 + '-' + secondDate.getDate()  )
-                var msg = "";
-                if ((newplandailycost-plandailycost) * diffDays > 0) {
-                    msg = " This will cost $" + Math.round((newplandailycost-plandailycost) * diffDays);
-                    msg = msg.replace(/(.+)(\d\d)$/g, "$1.$2");
-                }
-                Acme.SigninView.render("userPlanChange", "Are you sure you want to change plan?" + msg)
-                    .done(function() {
-                        $('#dialog').parent().remove();
-                        
-                        $.ajax({
-                            type: 'post',
-                            url: _appJsConfig.baseHttpPath + '/user/change-paywall-plan',
-                            dataType: 'json',
-                            data: requestData,
-                            success: function (data, textStatus, jqXHR) {
-                                if (data.success == 1) {
-                                    window.location.reload();
-                                } else {
-                                    $('#dialog').parent().remove();
-                                }
-                            },
-                            error: function (jqXHR, textStatus, errorThrown) {
-                                // console.log(textStatus);
-                                // console.log(jqXHR.responseText);
-                                 $('#createUserErrorMessage').text(textStatus);
-                            },
-                        });        
-                    }); 
-
-            } else {
-                Acme.SigninView.render("userPlan", "You have too many users to change to that plan.");
-            }
-        });
-
-    };
-
-
-    var listingEvents = function() {
-        $('.j-deleteListing').unbind().on('click', function(e) {
-            var listing = $(e.target).closest('a.card');
-            var id      = listing.data("guid");
-            Acme.SigninView.render("userPlanChange", "Are you sure you want to delete this listing?")
-                .done(function() {
-                    Acme.server.create('/api/article/delete-user-article', {"articleguid": id}).done(function(r) {
-                        listing.remove();
-                    }).fail(function(r) {
-                        console.log(r);
-                    });
-                });
-        });  
-    };
-
-
-
-    return {
-        init: function () {
-            attachEvents();
-            userEvents();
-            listingEvents();
+        } else {
+            Acme.SigninView.render("userPlan", "You have too many users to change to that plan.");
         }
-    };
-    
-};
-// Acme.UserProfileController.Load().init();
+    });
 
+};
+
+
+Acme.UserProfileController.prototype.listingEvents = function() {
+    $('.j-deleteListing').unbind().on('click', function(e) {
+        var listing = $(e.target).closest('a.card');
+        var id      = listing.data("guid");
+        Acme.SigninView.render("userPlanChange", "Are you sure you want to delete this listing?")
+            .done(function() {
+                Acme.server.create('/api/article/delete-user-article', {"articleguid": id}).done(function(r) {
+                    listing.remove();
+                }).fail(function(r) {
+                    // console.log(r);
+                });
+            });
+    });  
+};
 
 (function ($) {
 
