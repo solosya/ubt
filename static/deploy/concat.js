@@ -33968,7 +33968,9 @@ Acme.View.userFeed.prototype.render = function(data)
 };
 
 
-Acme.Usercard = function(){};
+Acme.Usercard = function(){
+    console.log('creating usercard');
+};
 Acme.Usercard.prototype.render = function(user, cardClass, template, type)
 {
     var self = this;
