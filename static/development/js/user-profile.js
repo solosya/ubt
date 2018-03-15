@@ -1,3 +1,6 @@
+(function ($) {
+
+
 Acme.UserProfileController = function()
 {
     this.csrfToken = $('meta[name="csrf-token"]').attr("content");
@@ -317,5 +320,5 @@ Acme.UserProfileController.prototype.listingEvents = function() {
             });
     });  
 };
-
-Acme.userController = new Acme.UserProfileController();
+}(jQuery));
+// Acme.userController = new Acme.UserProfileController();
