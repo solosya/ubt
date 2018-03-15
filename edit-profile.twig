@@ -1,37 +1,7 @@
 {{ set(this, 'title', 'Edit Profile') }}
 
 
-{{this.registerJs("(function(){
-    var w=window;
-    var ic=w.Intercom;
-    if(typeof ic==='function'){
-        ic('reattach_activator');
-        ic('update',intercomSettings);
-    }else{
-        var d=document;
-        var i=function(){
-            i.c(arguments)
-        };
-        i.q=[];
-        i.c=function(args){
-            i.q.push(args)
-        };
-        w.Intercom=i;
-        function l(){
-            var s=d.createElement('script');
-            s.type='text/javascript';
-            s.async=true;
-            s.src='https://widget.intercom.io/widget/zxwsoz9f';
-            var x=d.getElementsByTagName('script')[0];
-            x.parentNode.insertBefore(s,x);
-        }
-        if(w.attachEvent){
-            w.attachEvent('onload',l);
-        }else{
-            w.addEventListener('load',l,false);
-        }
-    }
-})()")}}
+
 
 
 {% set networkData = _Network.getNetworkData() %}
@@ -53,8 +23,9 @@
     {% set propListingsArr = _User.getUserArticles(user.guid, 0, 1000, {'blogs':[propBlogId], 'status': '-1'}) %}
 {% endif %}
 
-{{this.registerJs("console.log( Acme.UserProfileController );")}}
-
+{# {{this.registerJs("console.log( Acme.UserProfileController );")}}
+{{this.registerJs("console.log( 'whikkch' );")}}
+ #}
 {{this.registerJs("Acme.userController = new Acme.UserProfileController();")}}
 
 {{this.registerJs("Acme.usercard = new Acme.Usercard();")}}
@@ -180,7 +151,7 @@
                                                 {# {% if (date(pwstats['expiry_date']) > date(now) ) %} #}
                                                 <a  id='cancelAccount' style="cursor:hand; cursor:pointer;" class="text-button u-float-right u-margin-top-25">Restart Subscription</a>
                                                 {# {% else %}  #}
-                                                <sapn  class="u-float-right profile-section__users-left">All data will be removed 30 days after last payment date.</span>
+                                                <span  class="u-float-right profile-section__users-left">All data will be removed 30 days after last payment date.</span>
                                                 {# {% endif %}  #}
                                             {% else %} 
                                                 <a  id='cancelAccount' style="cursor:hand; cursor:pointer;" class="text-button u-float-right u-margin-top-25">Cancel Subscription</a>
@@ -452,10 +423,42 @@
         </div>
     </div>
 
-
-
-
 </main>
+
+
+{{this.registerJs("(function(){
+    var w=window;
+    var ic=w.Intercom;
+    if(typeof ic==='function'){
+        ic('reattach_activator');
+        ic('update',intercomSettings);
+    }else{
+        var d=document;
+        var i=function(){
+            i.c(arguments)
+        };
+        i.q=[];
+        i.c=function(args){
+            i.q.push(args)
+        };
+        w.Intercom=i;
+        function l(){
+            var s=d.createElement('script');
+            s.type='text/javascript';
+            s.async=true;
+            s.src='https://widget.intercom.io/widget/zxwsoz9f';
+            var x=d.getElementsByTagName('script')[0];
+            x.parentNode.insertBefore(s,x);
+        }
+        if(w.attachEvent){
+            w.attachEvent('onload',l);
+        }else{
+            w.addEventListener('load',l,false);
+        }
+    }
+})()")}}
+
+
 
 <script>
   window.intercomSettings = {
