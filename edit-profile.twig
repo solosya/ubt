@@ -23,20 +23,17 @@
     {% set propListingsArr = _User.getUserArticles(user.guid, 0, 1000, {'blogs':[propBlogId], 'status': '-1'}) %}
 {% endif %}
 
-{{this.registerJs("Acme.usercard = new Acme.Usercard();")}}
+{# {{this.registerJs("Acme.usercard = new Acme.Usercard();")}}
+ #}
 
 
-{{this.registerJs("console.log( 'whikkch' );")}}
-
-{{this.registerJs("console.log( Acme.UserProfileController );", 5)}}
-
-{{this.registerJs("Acme.userController = new Acme.UserProfileController();", 5)}}
+{# {{this.registerJs("Acme.userController = new Acme.UserProfileController();")}} #}
 
 
 
                                                  {# renders the card    fetch-limit  fetch-offset    infinite scroll            #}
                                                  {#            ↑             ↑          ↑            ↑                          #}
-{{this.registerJs("Acme.userFeed = new Acme.View.userFeed(Acme.usercard, " ~ userLimit ~ ",     20,         false,          null, Acme.userController);", 5)}}
+{# {{this.registerJs("Acme.userFeed = new Acme.View.userFeed(Acme.usercard, " ~ userLimit ~ ",     20,         false,          null, Acme.userController);")}} #}
 
 
 
