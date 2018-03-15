@@ -46,14 +46,14 @@
 {% set pwstats = _User.getPaywallStats(true) %}
 {% set plans = _Network.getNetworkData()['paywallPlans'] %}
 
-{% set userLimit = 2 %}
+{% set userLimit = 20 %}
 {% set user = _User.getUser() %}
 {% if user %} 
     {% set jobListingsArr = _User.getUserArticles(user.guid, 0, 1000, {'blogs':[jobsBlogId], 'status': '-1'}) %}
     {% set propListingsArr = _User.getUserArticles(user.guid, 0, 1000, {'blogs':[propBlogId], 'status': '-1'}) %}
 {% endif %}
 
-{{this.registerJs("Acme.UserProfileController.Load().init();")}}
+{{this.registerJs("Acme.userController = new Acme.UserProfileController;")}}
 
 {{this.registerJs("Acme.usercard = new Acme.Usercard();")}}
 
