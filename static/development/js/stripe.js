@@ -35,7 +35,10 @@ if ($('#stripekey').length > 0) {
     var card = elements.create('card', {style: style});
 
     // Add an instance of the card Element into the `card-element` <div>
-    card.mount('#card-element');
+    var cardElement = document.getElementById('card-element');
+    if (cardElement != null) {
+        card.mount('#card-element');
+    }
 
     // Handle real-time validation errors from the card Element.
     card.addEventListener('change', function(event) {
@@ -96,33 +99,18 @@ if ($('#stripekey').length > 0) {
     SubscribeForm.prototype.submit = function(event) 
     {
 
-        console.log('submit?');
-
         var self = this;
         event.preventDefault();
         var validated = self.validate();
-        console.log('validate?');
         self.render(true);
-        console.log(validated);
         if (!validated) return;
-        console.log('validated');
 
         $('#card-errors').text('');
-        // var userdata = $('#listingForm').serializeArray();
-        // console.log(userdata);
-        // console.log(self.data);
-        // $.each(userdata, function(i, val) {
-
-        //     if (val.value == '') {
-        //         $('#card-errors').text('Please fill out the '+ val.name + ' field.');
-        //         return;
-        //     }
-        // });
         if ( $('#password').val() !== $('#verifypassword').val() ) {
             $('#card-errors').text('Password fields do not match.');
             return;
         }
-        console.log('password good');
+
 
         modal.render("spinner", "Authorising payment");
         stripe.createToken(card).then(function(result) {
