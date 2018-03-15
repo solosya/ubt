@@ -61,16 +61,15 @@ if ($('#stripekey').length > 0) {
             "firstname" : ["notEmpty"], 
             "lastname"  : ["notEmpty"], 
             "email"     : ["notEmpty"],
-            "phone_no"    : ["notEmpty"],
-            "address1"   : ["notEmpty"],
+            "phone_no"  : ["notEmpty"],
+            "address1"  : ["notEmpty"],
             "suburb"    : ["notEmpty"],
             "state"     : ["notEmpty"],
             "trial"     : [],
             "terms"     : ["isTrue"],
             "postcode"  : ["notEmpty", "isNumeric"]
         };
-console.log(this.validateFields);
-console.log(Object.keys(this.validateRules));
+
         this.validateFields = Object.keys(this.validateRules);
 
         this.events();
@@ -93,7 +92,7 @@ console.log(Object.keys(this.validateRules));
         }
     };
 
-console.log('here?');
+
     SubscribeForm.prototype.submit = function(event) 
     {
 
