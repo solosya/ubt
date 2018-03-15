@@ -317,3 +317,5 @@ Acme.UserProfileController.prototype.listingEvents = function() {
             });
     });  
 };
+
+Acme.userController = new Acme.UserProfileController();

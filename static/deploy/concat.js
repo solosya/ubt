@@ -36939,6 +36939,8 @@ Acme.UserProfileController.prototype.listingEvents = function() {
     });  
 };
 
+Acme.userController = new Acme.UserProfileController();
+
 (function ($) {
 
     Acme.Locations = function(){
