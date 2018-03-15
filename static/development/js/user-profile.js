@@ -8,9 +8,9 @@
 // }(jQuery));
 
 
-Acme.UserProfileController = {};
+Acme.UserProfileController = function(){};
 
-Acme.UserProfileController.Load = function () {
+Acme.UserProfileController.prototype.Load = function () {
     var csrfToken = $('meta[name="csrf-token"]').attr("content");
 
     var deleteUser = function(e) {

@@ -15,12 +15,19 @@
         if (options.blogid) {
             requestData['blogguid'] = options.blogid;
         }
+
+        if (options.loadtype == 'user') {
+            var url = _appJsConfig.appHostName + '/api/'+options.loadtype+'/load-more-managed';
+            var requestType = 'get';
+        }
+
+
         if (options.search) {
             requestData['meta_info'] = options.search;
             var url = _appJsConfig.appHostName + '/'+options.loadtype;
             var requestType = 'get';
         }
-
+        console.log(options);
         return $.ajax({
             type: requestType,
             url: url,

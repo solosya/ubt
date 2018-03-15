@@ -34,8 +34,10 @@ Acme.Feed.prototype.fetch = function()
 Acme.Feed.prototype.events = function() 
 {
     var self = this;
+    console.log(self.elem);
     self.elem.unbind().on('click', function(e) {
         e.preventDefault();
+        console.log('clicked');
         self.fetch();
     });
 
@@ -142,6 +144,7 @@ Acme.View.userFeed = function(feedModel, limit, offset, infinite, failText, cont
     this.options   = {};
     this.elem      = $('.loadMoreArticles');
     this.failText  = failText || null;
+    console.log(this.controller);
     this.events();
 };
 
@@ -150,6 +153,7 @@ Acme.View.userFeed.constructor = Acme.View.userFeed;
 
 Acme.View.userFeed.prototype.render = function(data) 
 {
+    console.log(data);
     var self = this;
     var cardClass  =   self.elem.data('card-class'),
         template   =   self.elem.data('card-template') || null,
@@ -189,7 +193,7 @@ Acme.View.userFeed.prototype.render = function(data)
             ? self.waypoint.disable()
             : self.waypoint.enable();
     }
-
+    console.log(this.controller);
     this.controller.userEvents();
 
     $(".card .content > p, .card h2").dotdotdot();     
