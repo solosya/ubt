@@ -35842,7 +35842,7 @@ $('document').ready(function() {
     var articleAd = $('#articleAdScroll');
     var articleTopAd = $('#articleTopAdScroll');
 
-    $('.video-player').videoPlayer();
+    // $('.video-player').videoPlayer();
     
     $("img.lazyload").lazyload({
         effect : "fadeIn"
@@ -36930,7 +36930,7 @@ Acme.UserProfileController.prototype.listingEvents = function() {
     });  
 };
 }(jQuery));
-// Acme.userController = new Acme.UserProfileController();
+
 
 (function ($) {
 
