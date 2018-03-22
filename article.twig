@@ -49,8 +49,15 @@
                 {% set articleImg = _Media.getMediaUrl(image,1094, 515, {'crop': 'fill', 'gravity': 'auto'} ) %}
 
                 <figure class="featured">
-                    <img src="{{articleImg}}" class="{{galleryStyle}}-featured-image__img">
                     
+                    {% if image.type == 'image' %} 
+
+                        <img src="{{articleImg}}" class="{{galleryStyle}}-featured-image__img">
+
+                    {% endif %}
+
+
+
                     {% if image.type == 'video' %} 
                         
                         {% set mediaUrl = "" %}
