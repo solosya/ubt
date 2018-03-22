@@ -130,17 +130,17 @@
                         }
                     }
                     &.video {
-                        > .content{
-                            > h2{
-                                color:color(black);
-                            }
+                        padding-bottom: 0;
+                        > h2{
+                            color:color(black);
+                            margin-top: 0;
+                        }
 
-                            > p.excerpt {
-                                height:30px;
-                                font-size: rem(11);
-                                line-height: 1.363;
-                                display:block;
-                            }
+                        > p.excerpt {
+                            height:30px;
+                            font-size: rem(11);
+                            line-height: 1.363;
+                            display:block;
                         }
                     }
                 }
@@ -252,8 +252,10 @@
                     }
                     &.video {
                         > .content{
+                            padding-bottom: 0;
                             > h2{
                                 color:color(black);
+                                margin-top: 0;
                             }
 
                             > p.excerpt {
