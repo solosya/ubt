@@ -217,21 +217,22 @@
                             height:30px;
                         }
                     }
-                }
-                &.video {
-                    
-                    > .content{
-                        padding-bottom: 0;
+                    &.video {
+                        
+                        > .content{
+                            padding-bottom: 0;
 
-                        > h2 {
-                            margin-top:0;
-                            color:color(black);
-                        }
-                        >p.excerpt {
-                            display:block;
+                            > h2 {
+                                margin-top:0;
+                                color:color(black);
+                            }
+                            >p.excerpt {
+                                display:block;
+                            }
                         }
                     }
                 }
+
             }
 
         }
