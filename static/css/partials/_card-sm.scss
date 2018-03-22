@@ -129,6 +129,20 @@
                             line-height: 1.363;
                         }
                     }
+                    &.video {
+                        > .content{
+                            > h2{
+                                color:color(black);
+                            }
+
+                            > p.excerpt {
+                                height:30px;
+                                font-size: rem(11);
+                                line-height: 1.363;
+                                display:block;
+                            }
+                        }
+                    }
                 }
             }   
         }
@@ -234,6 +248,20 @@
                             margin-top:10px;
                             margin-bottom: 22px;
                             height:100px;
+                        }
+                    }
+                    &.video {
+                        > .content{
+                            > h2{
+                                color:color(black);
+                            }
+
+                            > p.excerpt {
+                                margin-top:10px;
+                                margin-bottom: 22px;
+                                height:100px;
+                                display:block;
+                            }
                         }
                     }
                 }
