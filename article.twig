@@ -49,38 +49,45 @@
                 {% set articleImg = _Media.getMediaUrl(image,1094, 515, {'crop': 'fill', 'gravity': 'auto'} ) %}
 
                 <figure class="featured">
-                     <img src="{{articleImg}}" class="img-responsive">
-                     
-
-                    {# <pre>
-                        {{dump(image)}}
-                    </pre> #}
-                     {% if image.type == 'video' %} 
-                         {% set mediaUrl = "" %}
-                         
-                         {% if image.isSystemVideo == 'TRUE'%}
-                             {% set mediaUrl = _Media.getMediaVideoUrl(image, 0, 0,{resource_type: 'video', format: 'mp4'})  %}
-                         {% endif %}
-
-
-
-                         {# <a href="javascript:void(0)" 
-                            itemprop        = "video" 
-                            class           = "video-overlay video-player" 
-                            data-source     = "{{image.source}}" 
-                            data-video-id   = "{{image.videoId}}" 
-                            data-url        = "{{mediaUrl}}" 
-                            data-poster     = "{{image.path}}" 
-                            data-caption    = "{{article.title | raw}}">
+                    <img src="{{articleImg}}" class="{{galleryStyle}}-featured-image__img">
+                    
+                    {% if image.type == 'video' %} 
                         
-                         </a> #}
-                        <video controls class="article-video" poster="{{image.path}}">
-                            <source src="{{mediaUrl}}" type="video/mp4"/>
-                        </video>
+                        {% set mediaUrl = "" %}
+                        
+                        {% if image.isSystemVideo == 'TRUE'%}
+                            
+                            {% set mediaUrl = _Media.getMediaVideoUrl(image, 0, 0,{resource_type: 'video', format: 'mp4'})  %}
+
+                            <video controls class="article-video" poster="{{image.path}}">
+                                <source src="{{mediaUrl}}" type="video/mp4"/>
+                            </video>
+                        
+                        {% endif %}
+
+                        {% if image.source == 'youtube' %}
+                            {% set mediaUrl = "https://www.youtube.com/embed/" ~ image.videoId  %}
+                        
+                        {% elseif image.source == 'vimeo' %}
+                            {% set mediaUrl = "http://player.vimeo.com/video/" ~ image.videoId  %}
+                        
+                        {% elseif image.source == 'brightcove' %}
+                            {% set videoId      = image.videoId | split("::")[0]  %}
+                            {% set accountID    = image.videoId | split("::")[1]  %}
+                            {% set playerID     = image.videoId | split("::")[2]  %}
+                            {% set mediaUrl = "//players.brightcove.net/" ~ accountID ~ "/" ~ playerID ~ "_default/index.html?videoId=" ~ videoId ~ "&playsinline"  %}
+                        {% endif %}
 
 
-                     {% endif %}
-                     
+                        <iframe src="{{mediaUrl}}" 
+                            allowfullscreen
+                            webkitallowfullscreen
+                            mozallowfullscreen
+                            style="width: 100%; height: 100%; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px;">
+                        </iframe>
+
+                        
+                    {% endif %}
                      
 
                      <figcaption>

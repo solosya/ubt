@@ -1,8 +1,5 @@
 .article-video {
     top: 0;
-    // left: 0;
-    // right: 0;
-    // bottom: 0;
     z-index: 8;
     display: block;
     cursor: pointer;
@@ -13,15 +10,8 @@
     -webkit-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
     background: rgba(0, 0, 0, 0.3) none repeat scroll 0 0;
-    background:white;
+    background:black;
     width: 100%;
     height: 100%;
 
-}
-
-.article-video__player {
-    background:white;
-    width: 100%;
-    height: 100%;
-    // object-fit:cover;  
 }
