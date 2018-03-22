@@ -66,10 +66,10 @@
                         {% endif %}
 
                         {% if image.source == 'youtube' %}
-                            {% set mediaUrl = "https://www.youtube.com/embed/" ~ image.videoId  %}
+                            {% set mediaUrl = "//www.youtube.com/embed/" ~ image.videoId  %}
                         
                         {% elseif image.source == 'vimeo' %}
-                            {% set mediaUrl = "http://player.vimeo.com/video/" ~ image.videoId  %}
+                            {% set mediaUrl = "//player.vimeo.com/video/" ~ image.videoId  %}
                         
                         {% elseif image.source == 'brightcove' %}
                             {% set videoId      = image.videoId | split("::")[0]  %}
