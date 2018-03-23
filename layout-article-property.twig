@@ -9,7 +9,7 @@
 
 {% set articleImg = false %}
 {% if article.media|length > 0 %}
-    {% set articleImg = _Media.getMediaUrl(article.media[0],1094, 515, {'crop': 'fill', 'gravity': 'auto'} ) %}
+    {% set articleImg = true %}
 {% endif %}
 
 {% set publishDate = _AppHelper.getDefaultTimezoneDateTime(article.publishedDateTime, 'j M Y') %}
@@ -48,47 +48,40 @@
     <article class="job-listings-main">
 
         <div class="row page-content">
+
             <div class="col-md-8">
+
                 <div class="row">
+                    
                     <div class="col-md-12">
+                        
+                        
+                        {# *********************************************************
+
+                                           MAIN IMAGE/GALLERY
+
+                        ********************************************************* #}
+                        
                         {% if articleImg %} 
 
+                            <div class="gallery-container relative">
 
-                            <div id="owl-thumbnails" class="owl-carousel owl-shep-theme" data-slider-id="1">
-                                {% for image in article.media %}
-                                    {% set articleImg = _Media.getMediaUrl(image,1094, 515, {'crop': 'fill', 'gravity': 'auto'} ) %}
+                                {% if article.media|length > 0 %}
+                                    {% set imageFeature = featured == 'image' ? true : false %}
+                                    {{this.render('partials/gallery.twig', {
+                                        media: article.media,
+                                        default: imageFeature
+                                    }) | raw}}
+                                {% endif %}
 
-                                    <figure class="propertyImages" data-hash="{{loop.index}}">
-                                        <img src="{{articleImg}}" class="img-responsive">
-                                        {% if image.type == 'video' %} 
-                                            {% set mediaUrl = "" %}
-                                            {% if image.media.isSystemVideo == 'TRUE'%}
-                                                {% set mediaUrl = _Media.getMediaVideoUrl(image, 0, 0,{resource_type: 'video', format: 'mp4'})  %}
-                                            {% endif %}
+                            </div> 
 
-                                            <a  href="javascript:void(0)" 
-                                                itemprop="video" 
-                                                class="video-overlay video-player" 
-                                                data-source="{{image.source}}" 
-                                                data-video-id="{{image.videoId}}" 
-                                                data-url="{{mediaUrl}}" 
-                                                data-poster="{{image.path}}" 
-                                                data-caption="{{article.title | raw}}">
-                                                
-                                                <div class="icons">
-                                                   <div class="icon"><i class="fa fa-play"></i></div>
-                                                </div>
-                                            </a>
-                                        {% endif %}
-                                        <figcaption>
-                                            <p>{{image.caption}}</p>
-                                        </figcaption>
-                                    </figure>
-                                {% endfor %}
-                            </div>
                          {% endif %}
                     </div>
-                </div>
+
+                </div> <!-- row -->
+
+
 
                 <div class="row">        
 
@@ -96,23 +89,42 @@
 
                         <div class="content-wrapper">
 
+
+
+                        {# *********************************************************
+
+                                           ARTICLE INFO
+
+                        ********************************************************* #}
+
                             <div class="content-block-top">
                                 
                                 <time datetime="{{publishedDate}}">{{article.publishedDate}}</time>
+                                
                                 <p class="pricerange">${{ article.additionalInfo.pricerange | preg_replace("/\\$/", '')}}</p>
 
                                 <h1>{{ quotes.smarten(article.title) }}</h1>
                                 
                                 <p class="contracttype">{{ article.additionalInfo.contracttype }}</p>
-                                {# <p class="type">Salary ${{ article.additionalInfo.type }}</p> #}
 
-                            </div><!--content-block-top-->
+                            </div>
+
+
+
+
+
+                        {# *********************************************************
+
+                                           ARTICLE CONTENT
+
+                        ********************************************************* #}
+
 
                             <div class="article_content">
                                 {{ article.content | _resizeImages({'width': 500}) | raw }}
-                            </div><!-- .content-->
-                        </div><!-- .content-->
+                            </div>
 
+                        </div>
                     </div>
 
 
