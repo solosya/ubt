@@ -16,11 +16,11 @@
 
 
 
-<div id="{{owl}}" class="owl-gallery-{{type}} {{owlClass}} {{defaultClass}}">
+<div id="{{owl}}" class="article-gallery owl-gallery-{{type}} {{owlClass}} {{defaultClass}}">
     {% for image in media %}
         {% set articleImg = _Media.getMediaUrl(image,1094, 515, {'crop': 'fill', 'gravity': 'auto'} ) %}
 
-            <figure class="article-image__featured">
+            <figure class="article-gallery__image">
                 
                 {% if image.type == 'image' %} 
 
@@ -71,7 +71,7 @@
                 
 
                 <figcaption>
-                    <p class="article-image__caption">{{image.caption}}</p>
+                    <p class="article-gallery__caption">{{image.caption}}</p>
                 </figcaption>
 
                 

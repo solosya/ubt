@@ -1,0 +1,19 @@
+.article-gallery {
+
+}
+
+.article-gallery__image {
+
+}
+.article-gallery__caption {
+    margin-top: 10px;
+    font-size: rem(14);
+    color: color(lightgrey);
+    font-family: $font-family-serif;
+
+    @media screen and (max-width: $sm-break) {
+        font-size: rem(11);
+        line-height: 1.45;
+
+    }
+}
