@@ -5,6 +5,12 @@
 .article-gallery__image {
 
 }
+
+.article-gallery__img {
+    width:100%;
+    object-fit: cover;
+}
+
 .article-gallery__caption {
     margin-top: 10px;
     font-size: rem(14);
