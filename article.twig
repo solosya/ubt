@@ -6,15 +6,13 @@
 {% set blogInfo = _Blog.getBlog() %}
 {% set networkData = _Network.getNetworkData() %}
 
-{% set carousel = false %}
-{% if article.media|length > 1 %}
-    {% set carousel = true %}
+
+{% set articleImg = false %}
+{% if article.media|length > 0 %}
+    {% set articleImg = true %}
 {% endif %}
 
-{# {% set articleImg = false %}
-{% if article.media|length > 0 %}
-    {% set articleImg = _Media.getMediaUrl(article.media[0],1094, 515, {'crop': 'fill', 'gravity': 'auto'} ) %}
-{% endif %} #}
+
 
 {% set profileImg = false %}
 {% if article.createdBy['media'] is defined and article.createdBy['media']['path'] and article.createdBy['displayName'] != "AAP Newswire" %}
@@ -31,82 +29,39 @@
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
 
 
-{# {% set view = _Article.paywallViewCount() %} #}
+
+
+
+
 
 <main id="main" class="article_container" role="main">
-
-
 
     <article class="article-main">
 
 
 
-        {% if carousel %}
-            <div id="owl-thumbnails" class="owl-carousel owl-shep-theme owl-carousel__base" data-slider-id="1">
+
+        {# *********************************************************
+
+                            MAIN IMAGE/GALLERY
+
+        ********************************************************* #}
+
+        {% if articleImg %} 
+
+            <div class="gallery-container relative">
+
+                {% if article.media|length > 0 %}
+                    {% set imageFeature = featured == 'image' ? true : false %}
+                    {{this.render('partials/gallery.twig', {
+                        media: article.media,
+                        default: imageFeature
+                    }) | raw}}
+                {% endif %}
+
+            </div> 
+
         {% endif %}
-
-            {% for image in article.media %}
-                {% set articleImg = _Media.getMediaUrl(image,1094, 515, {'crop': 'fill', 'gravity': 'auto'} ) %}
-
-                <figure class="featured">
-                    
-                    {% if image.type == 'image' %} 
-
-                        <img src="{{articleImg}}" class="{{galleryStyle}}-featured-image__img">
-
-                    {% endif %}
-
-
-
-                    {% if image.type == 'video' %} 
-                        
-                        {% set mediaUrl = "" %}
-                        
-                        {% if image.isSystemVideo == 'TRUE'%}
-                            
-                            {% set mediaUrl = _Media.getMediaVideoUrl(image, 0, 0,{resource_type: 'video', format: 'mp4'})  %}
-
-                            <video controls class="article-video" poster="{{image.path}}">
-                                <source src="{{mediaUrl}}" type="video/mp4"/>
-                            </video>
-                        
-                        {% endif %}
-
-                        {% if image.source == 'youtube' %}
-                            {% set mediaUrl = "//www.youtube.com/embed/" ~ image.videoId  %}
-                        
-                        {% elseif image.source == 'vimeo' %}
-                            {% set mediaUrl = "//player.vimeo.com/video/" ~ image.videoId  %}
-                        
-                        {% elseif image.source == 'brightcove' %}
-                            {% set videoId      = image.videoId | split("::")[0]  %}
-                            {% set accountID    = image.videoId | split("::")[1]  %}
-                            {% set playerID     = image.videoId | split("::")[2]  %}
-                            {% set mediaUrl = "//players.brightcove.net/" ~ accountID ~ "/" ~ playerID ~ "_default/index.html?videoId=" ~ videoId ~ "&playsinline"  %}
-                        {% endif %}
-
-
-                        <iframe src="{{mediaUrl}}" 
-                            allowfullscreen
-                            webkitallowfullscreen
-                            mozallowfullscreen
-                            style="width: 100%; height: 100%; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px;">
-                        </iframe>
-
-                        
-                    {% endif %}
-                     
-
-                     <figcaption>
-                         <p>{{image.caption}}</p>
-                     </figcaption>
-                </figure>
-            {% endfor %}
-
-        {% if carousel %}
-            </div>
-        {% endif %}
-
 
 
 
@@ -119,6 +74,13 @@
                     <div class="col-md-8">
                         <div class="content-wrapper">
 
+
+
+                        {# *********************************************************
+
+                                           ARTICLE INFO
+
+                        ********************************************************* #}
 
                             <div class="content-block-top">
 
@@ -141,12 +103,33 @@
 
                             </div><!--content-block-top-->
 
+
+
+
+
+
+                        {# *********************************************************
+
+                                           ARTICLE CONTENT
+
+                        ********************************************************* #}
+
+
                             <div class="article_content">
                                 {{ article.content | _resizeImages({'width': 500}) | raw }}
                             </div><!-- .content-->
                         </div><!-- .content-->
 
                     </div>
+
+
+
+
+
+
+
+
+
 
 
                     <div class="col-md-4">

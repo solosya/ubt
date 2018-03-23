@@ -1,0 +1,80 @@
+{% set type = type is defined ? type : "image" %}
+{% set galleryStyle = galleryStyle is defined ? galleryStyle  : "article" %}
+{% set owl      = '' %}
+{% set owlClass = '' %}
+
+
+
+
+{% if ( media | length > 1 ) %}
+    {% set owl = "owl-gallery-" ~ type %}
+    {% set owlClass = 'owl-carousel owl-shep-theme owl-carousel__base'%}
+{% endif %}
+
+
+{% set defaultClass = default is defined and default == true ? "default" : "" %}
+
+
+
+<div id="{{owl}}" class="owl-gallery-{{type}} {{owlClass}} {{defaultClass}}">
+    {% for image in media %}
+        {% set articleImg = _Media.getMediaUrl(image,1094, 515, {'crop': 'fill', 'gravity': 'auto'} ) %}
+
+            <figure class="article-image__featured">
+                
+                {% if image.type == 'image' %} 
+
+                    <img src="{{articleImg}}" class="{{galleryStyle}}-featured-image__img">
+
+                {% endif %}
+
+
+
+                {% if image.type == 'video' %} 
+                    
+                    {% set mediaUrl = "" %}
+                    
+                    {% if image.isSystemVideo == 'TRUE'%}
+                        
+                        {% set mediaUrl = _Media.getMediaVideoUrl(image, 0, 0,{resource_type: 'video', format: 'mp4'})  %}
+
+                        <video controls class="article-video" poster="{{image.path}}">
+                            <source src="{{mediaUrl}}" type="video/mp4"/>
+                        </video>
+                    
+                    {% else %}
+
+                        {% if image.source == 'youtube' %}
+                            {% set mediaUrl = "//www.youtube.com/embed/" ~ image.videoId  %}
+                        
+                        {% elseif image.source == 'vimeo' %}
+                            {% set mediaUrl = "//player.vimeo.com/video/" ~ image.videoId  %}
+                        
+                        {% elseif image.source == 'brightcove' %}
+                            {% set videoId      = image.videoId | split("::")[0]  %}
+                            {% set accountID    = image.videoId | split("::")[1]  %}
+                            {% set playerID     = image.videoId | split("::")[2]  %}
+                            {% set mediaUrl = "//players.brightcove.net/" ~ accountID ~ "/" ~ playerID ~ "_default/index.html?videoId=" ~ videoId ~ "&playsinline"  %}
+                        {% endif %}
+
+
+                        <iframe src="{{mediaUrl}}" 
+                            allowfullscreen
+                            webkitallowfullscreen
+                            mozallowfullscreen
+                            style="width: 100%; height: 100%; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px;">
+                         </iframe>
+     
+                    {% endif %}
+
+                {% endif %}
+                
+
+                <figcaption>
+                    <p class="article-image__caption">{{image.caption}}</p>
+                </figcaption>
+
+                
+            </figure>
+    {% endfor %}
+</div>

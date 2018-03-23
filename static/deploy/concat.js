@@ -35985,7 +35985,20 @@ var adScroll = function() {
     }), 750);
 
 
-    $("#owl-thumbnails").owlCarousel({
+    // $("#owl-thumbnails").owlCarousel({
+    //     items: 1,
+    //     thumbs: true,
+    //     thumbsPrerendered: true,
+    //     URLhashListener:true,
+    //     startPosition: 'URLHash',
+    //     pagination: true,
+    //     dots: false,
+    //     nav: true,
+    //     navText: ["",""]
+    // });   
+
+
+    $("#owl-gallery-image").owlCarousel({
         items: 1,
         thumbs: true,
         thumbsPrerendered: true,
@@ -35996,6 +36009,8 @@ var adScroll = function() {
         nav: true,
         navText: ["",""]
     });   
+
+
 
     $('#batch-add').on('click', function(e) {
         var input = $('#batch-user-input').val();
