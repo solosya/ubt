@@ -373,7 +373,7 @@
                     {% for i in 0..1 if sections[majorLoc].feed.articles[majorCount] %}
                         {{this.render('partials/_single-article.twig', {
                             article: sections[majorLoc].feed.articles[majorCount], 
-                            position: (articleCount+1),
+                            position: (majorCount+1),
                             imageSuppress: true,
                             containerClass: 'card-sm-short card-sm-short-tablet card-sm-mobile'
                         }) | raw}}
@@ -396,16 +396,16 @@
 
                 <div class="col-sm-12 section-header">
                     <h2 class="section-header__title">
-                        <a class="section-header__link" href="{{sections[minorloc].link}}">{{minorLocTitle}}</a>
+                        <a class="section-header__link" href="{{sections[minorLoc].link}}">{{minorLocTitle}}</a>
                     </h2>
-                    <p class="section-header__description">{{sections[minorloc].description}}</p>
+                    <p class="section-header__description">{{sections[minorLoc].description}}</p>
                 </div>
 
 
                 <div class="col-sm-6">
-                    {% if sections[minorloc].feed.articles[minorCount] %}
+                    {% if sections[minorLoc].feed.articles[minorCount] %}
                         {{this.render('partials/_single-article.twig', {
-                            article: sections[minorloc].feed.articles[minorCount], 
+                            article: sections[minorLoc].feed.articles[minorCount], 
                             imageSize: {width: 640, height: 420},
                             containerClass: 'card-md-full card-md-full-tablet card-md-full-mobile'
                         }) | raw}}
@@ -415,9 +415,9 @@
 
                 <div class="col-sm-6">
                     <div class="row">
-                        {% if sections[minorloc].feed.articles[minorCount] %}
+                        {% if sections[minorLoc].feed.articles[minorCount] %}
                             {{this.render('partials/_single-article.twig', {
-                                article: sections[minorloc].feed.articles[minorCount], 
+                                article: sections[minorLoc].feed.articles[minorCount], 
                                 imageSize: {width: 198, height: 141},
                                 containerClass: "col-sm-12 card-rec  card-rec-tablet card-rec-mobile"
                             }) | raw}}
@@ -429,10 +429,10 @@
 
 
                     <div class="row">
-                        {% for i in 0..1 if sections[minorloc].feed.articles[minorCount] %}
+                        {% for i in 0..1 if sections[minorLoc].feed.articles[minorCount] %}
                             <div class="col-sm-6">
                                 {{this.render('partials/_single-article.twig', {
-                                    article: sections[minorloc].feed.articles[minorCount], 
+                                    article: sections[minorLoc].feed.articles[minorCount], 
                                     imageSize: {width: 198, height: 141},
                                     containerClass: "card-sm-full card-sm-full-tablet community"
                                 }) | raw}}
