@@ -344,7 +344,7 @@
 
 
                 <div class="col-sm-6">
-                    {% for i in 0..2 if sections['majorLoc'].feed.articles[majorCount] %}
+                    {% for i in 0..2 if sections[majorLoc].feed.articles[majorCount] %}
                         {{this.render('partials/_single-article.twig', {
                             article: sections[majorLoc].feed.articles[majorCount], 
                             position: (articleCount+1),
