@@ -384,7 +384,7 @@
 
 
 
-        {% if sections['new zealand'].feed.articles|length > 0 and ((networkData.title | lower) == 'frank australia' or (networkData.title | lower) == 'frank nz') %}
+        {% if sections['new zealand'].feed.articles|length > 0 and ((networkData.title | lower) != 'frank uk') %}
             {% set nzCount = 0 %}
             
             <section class="row section">
@@ -504,7 +504,7 @@
         {% endif %}
 
         {% if (networkData.title | lower) == 'frank uk'  %}
-            
+
             {% if sections['uk'].feed.articles|length > 0 %}
                 {% set ukCount = 0 %}
 
