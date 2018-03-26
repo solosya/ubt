@@ -75,6 +75,16 @@
                 "feed": "",
                 "link": "",
                 "description": ""
+            },
+            "uk" : {
+                "feed": "",
+                "link": "",
+                "description": ""
+            },
+            "europe" : {
+                "feed": "",
+                "link": "",
+                "description": ""
             }
         }
     %}
@@ -305,7 +315,7 @@
 
 
 
-        {% if sections['australia'].feed.articles|length > 0 and (networkData.title | lower) != 'frank nz' %}
+        {% if sections['australia'].feed.articles|length > 0 and (networkData.title | lower) == 'frank australia' %}
             {% set australiaCount = 0 %}
 
             <section class="row section australia">
@@ -374,7 +384,7 @@
 
 
 
-        {% if sections['new zealand'].feed.articles|length > 0 %}
+        {% if sections['new zealand'].feed.articles|length > 0 and ((networkData.title | lower) == 'frank australia' or (networkData.title | lower) == 'frank nz') %}
             {% set nzCount = 0 %}
             
             <section class="row section">
@@ -493,6 +503,123 @@
             </section>
         {% endif %}
 
+        {% if (networkData.title | lower) == 'frank uk'  %}
+            
+            {% if sections['uk'].feed.articles|length > 0 %}
+                {% set ukCount = 0 %}
+
+                <section class="row section">
+
+
+                    <div class="col-sm-12 section-header">
+                        <h2 class="section-header__title">
+                            <a class="section-header__link" href="{{sections['uk'].link}}">United Kingdom</a>
+                        </h2>
+                        <p class="section-header__description">{{sections['uk'].description}}</p>
+                    </div>
+
+
+                    <div class="col-sm-6">
+                        {% if sections['uk'].feed.articles[ukCount] %}
+                            {{this.render('partials/_single-article.twig', {
+                                article: sections['uk'].feed.articles[ukCount], 
+                                imageSize: {width: 640, height: 420},
+                                containerClass: 'card-md-full card-md-full-tablet card-md-full-mobile'
+                            }) | raw}}
+                            {% set ukCount = (dev) ? ukCount : ukCount + 1 %}
+                        {% endif %}
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="row">
+                            {% if sections['uk'].feed.articles[ukCount] %}
+                                {{this.render('partials/_single-article.twig', {
+                                    article: sections['uk'].feed.articles[ukCount], 
+                                    imageSize: {width: 198, height: 141},
+                                    containerClass: "col-sm-12 card-rec  card-rec-tablet card-rec-mobile"
+                                }) | raw}}
+
+                                {% set ukCount = (dev) ? ukCount : ukCount + 1 %}
+                            {% endif %}
+                        </div>
+
+
+
+                        <div class="row">
+                            {% for i in 0..1 if sections['uk'].feed.articles[ukCount] %}
+                                <div class="col-sm-6">
+                                    {{this.render('partials/_single-article.twig', {
+                                        article: sections['uk'].feed.articles[ukCount], 
+                                        imageSize: {width: 198, height: 141},
+                                        containerClass: "card-sm-full card-sm-full-tablet community"
+                                    }) | raw}}
+                                </div>
+                                {% set ukCount = (dev) ? ukCount : ukCount + 1 %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </section>
+            {% endif %}
+
+            {% if sections['europe'].feed.articles|length > 0 %}
+                {% set europeCount = 0 %}
+
+                <section class="row section">
+
+
+                    <div class="col-sm-12 section-header">
+                        <h2 class="section-header__title">
+                            <a class="section-header__link" href="{{sections['europe'].link}}">Europe</a>
+                        </h2>
+                        <p class="section-header__description">{{sections['europe'].description}}</p>
+                    </div>
+
+
+                    <div class="col-sm-6">
+                        {% if sections['europe'].feed.articles[europeCount] %}
+                            {{this.render('partials/_single-article.twig', {
+                                article: sections['europe'].feed.articles[europeCount], 
+                                imageSize: {width: 640, height: 420},
+                                containerClass: 'card-md-full card-md-full-tablet card-md-full-mobile'
+                            }) | raw}}
+                            {% set europeCount = (dev) ? europeCount : europeCount + 1 %}
+                        {% endif %}
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="row">
+                            {% if sections['europe'].feed.articles[europeCount] %}
+                                {{this.render('partials/_single-article.twig', {
+                                    article: sections['europe'].feed.articles[europeCount], 
+                                    imageSize: {width: 198, height: 141},
+                                    containerClass: "col-sm-12 card-rec  card-rec-tablet card-rec-mobile"
+                                }) | raw}}
+
+                                {% set europeCount = (dev) ? europeCount : europeCount + 1 %}
+                            {% endif %}
+                        </div>
+
+
+
+                        <div class="row">
+                            {% for i in 0..1 if sections['europe'].feed.articles[europeCount] %}
+                                <div class="col-sm-6">
+                                    {{this.render('partials/_single-article.twig', {
+                                        article: sections['europe'].feed.articles[europeCount], 
+                                        imageSize: {width: 198, height: 141},
+                                        containerClass: "card-sm-full card-sm-full-tablet community"
+                                    }) | raw}}
+                                </div>
+                                {% set europeCount = (dev) ? europeCount : europeCount + 1 %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </section>
+            {% endif %}
+
+        {% endif %}
 
 
 
