@@ -34679,42 +34679,47 @@ var listingSalary = ["30k", "40k", "50k", "60k", "70k", "80k", "100k", "120k", "
 
 var workType = ["Casual", "Part time", "Full time"];
 
-var propertyList = [
-    { 'label': "Industrial / Warehouse", 'value': "Industrial / Warehouse"},
-    { 'label': "Residential", 'value': "Residential"},
-    { 'label': "Offices", 'value': "Offices"},
-    { 'label': "Development / Land", 'value': "Development / Land"},
-    { 'label': "Hotel / Leisure", 'value': "Hotel / Leisure"},
-    { 'label': "Medical / Consulting", 'value': "Medical / Consulting"},
-    { 'label': "Serviced Offices", 'value': "Serviced Offices"},
-    { 'label': "Parking / Car Space", 'value': "Parking / Car Space"},
-    { 'label': "Rural / Farming", 'value': "Rural / Farming"},
-    { 'label': "Showrooms / Bulky Goods", 'value': "Showrooms / Bulky Goods"},
-    { 'label': "Retail", 'value': "Retail"},
-    { 'label': "Other", 'value': "Other"}
-];
-
-var propertyListUK = [
-    { 'label': "House", 'value': "House"},
-    { 'label': "Flat / Apartment", 'value': "Flat / Apartment"},
-    { 'label': "Commercial", 'value': "Commercial"},
-    { 'label': "Office", 'value': "Office"},
-    { 'label': "Retail", 'value': "Retail"},
-    { 'label': "Land", 'value': "Land"},
-    { 'label': "Other", 'value': "Other"}
-];
-
-var contractList = [
-    { 'label': "For Sale", 'value': "For Sale"},
-    { 'label': "For Lease", 'value': "For Lease"}
-];
-
-var contractListUK = [
-    { 'label': "For Sale", 'value': "For Sale"},
-    { 'label': "For Rent", 'value': "For Rent"}
-];
-
 var domain = _appJsConfig.appHostName.split('.').reverse()[0];
+
+console.log(domain);
+
+if (domain == 'uk') {
+    var propertyList = [
+        { 'label': "House", 'value': "House"},
+        { 'label': "Flat / Apartment", 'value': "Flat / Apartment"},
+        { 'label': "Commercial", 'value': "Commercial"},
+        { 'label': "Office", 'value': "Office"},
+        { 'label': "Retail", 'value': "Retail"},
+        { 'label': "Land", 'value': "Land"},
+        { 'label': "Other", 'value': "Other"}
+    ];
+
+    var contractList = [
+        { 'label': "For Sale", 'value': "For Sale"},
+        { 'label': "For Rent", 'value': "For Rent"}
+    ];
+} else {
+    var propertyList = [
+        { 'label': "Industrial / Warehouse", 'value': "Industrial / Warehouse"},
+        { 'label': "Residential", 'value': "Residential"},
+        { 'label': "Offices", 'value': "Offices"},
+        { 'label': "Development / Land", 'value': "Development / Land"},
+        { 'label': "Hotel / Leisure", 'value': "Hotel / Leisure"},
+        { 'label': "Medical / Consulting", 'value': "Medical / Consulting"},
+        { 'label': "Serviced Offices", 'value': "Serviced Offices"},
+        { 'label': "Parking / Car Space", 'value': "Parking / Car Space"},
+        { 'label': "Rural / Farming", 'value': "Rural / Farming"},
+        { 'label': "Showrooms / Bulky Goods", 'value': "Showrooms / Bulky Goods"},
+        { 'label': "Retail", 'value': "Retail"},
+        { 'label': "Other", 'value': "Other"}
+    ];
+
+    var contractList = [
+        { 'label': "For Sale", 'value': "For Sale"},
+        { 'label': "For Lease", 'value': "For Lease"}
+    ];
+}
+
 var regionList = listingRegions[domain] || listingRegions["test"];
 
 
@@ -35088,8 +35093,6 @@ var ListingForm = function() {};
         this.menus = {};
 
         var regionSetting = $('#regionSelect');
-
-        console.log(regionSetting);
 
         this.menus.regionMenu = new Acme.listMenu({
                     'parent'        : $('#regionSelect'),
