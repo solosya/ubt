@@ -34659,6 +34659,13 @@ var listingRegions = {
         "Victoria",
         "Western Australia"
     ],
+    "uk" : [
+        "England",
+        "Ireland",
+        "Scotland",
+        "Wales",
+        "Other"
+    ],
     "test" : [
         "New York",
         "Bangkok",
@@ -34687,9 +34694,24 @@ var propertyList = [
     { 'label': "Other", 'value': "Other"}
 ];
 
+var propertyListUK = [
+    { 'label': "House", 'value': "House"},
+    { 'label': "Flat / Apartment", 'value': "Flat / Apartment"},
+    { 'label': "Commercial", 'value': "Commercial"},
+    { 'label': "Office", 'value': "Office"},
+    { 'label': "Retail", 'value': "Retail"},
+    { 'label': "Land", 'value': "Land"},
+    { 'label': "Other", 'value': "Other"}
+];
+
 var contractList = [
     { 'label': "For Sale", 'value': "For Sale"},
     { 'label': "For Lease", 'value': "For Lease"}
+];
+
+var contractListUK = [
+    { 'label': "For Sale", 'value': "For Sale"},
+    { 'label': "For Rent", 'value': "For Rent"}
 ];
 
 var domain = _appJsConfig.appHostName.split('.').reverse()[0];
@@ -35064,6 +35086,10 @@ var ListingForm = function() {};
     ListingForm.prototype.addPulldowns = function() 
     {
         this.menus = {};
+
+        var regionSetting = $('#regionSelect');
+
+        console.log(regionSetting);
 
         this.menus.regionMenu = new Acme.listMenu({
                     'parent'        : $('#regionSelect'),
