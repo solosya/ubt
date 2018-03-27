@@ -34698,6 +34698,8 @@ if (domain == 'uk') {
         { 'label': "For Sale", 'value': "For Sale"},
         { 'label': "For Rent", 'value': "For Rent"}
     ];
+    var forLease = 'Rent';
+    var forRegion = 'Country';
 } else {
     var propertyList = [
         { 'label': "Industrial / Warehouse", 'value': "Industrial / Warehouse"},
@@ -34718,6 +34720,8 @@ if (domain == 'uk') {
         { 'label': "For Sale", 'value': "For Sale"},
         { 'label': "For Lease", 'value': "For Lease"}
     ];
+     var forLease = 'Lease';
+     var forRegion = 'Region';
 }
 
 var regionList = listingRegions[domain] || listingRegions["test"];
@@ -34815,7 +34819,7 @@ Acme.saleTypeSearchView = function() {
         this.regionMenu = new Acme.listMenu({
             'parent'        : this.container,
             'list'          : contractList,
-            'defaultSelect' : {"label": 'Buy/Lease'},
+            'defaultSelect' : {"label": 'Buy/'+forLease},
             'name'          : 'saleSelect',
             'key'           : 'saleSelect',
             'allowClear'    : true
@@ -35097,7 +35101,7 @@ var ListingForm = function() {};
         this.menus.regionMenu = new Acme.listMenu({
                     'parent'        : $('#regionSelect'),
                     'list'          : regionList,
-                    'defaultSelect' : {"label": 'Region*'},
+                    'defaultSelect' : {"label": forRegion+'*'},
                     'name'          : 'region',
                     'key'           : 'extendedData.region',
                     'class'         : 'formPulldowns'
@@ -35116,7 +35120,7 @@ var ListingForm = function() {};
         this.menus.buyMenu = new Acme.listMenu({
                     'parent'        : $('#buySelect'),
                     'list'          : contractList,
-                    'defaultSelect' : {"label": 'For sale/lease'},
+                    'defaultSelect' : {"label": 'For sale/'+forLease},
                     'name'          : 'contracttype',
                     'key'           : 'extendedData.contracttype',
                     'class'         : 'formPulldowns'
