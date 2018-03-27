@@ -34681,8 +34681,6 @@ var workType = ["Casual", "Part time", "Full time"];
 
 var domain = _appJsConfig.appHostName.split('.').reverse()[0];
 
-console.log(domain);
-
 if (domain == 'uk') {
     var propertyList = [
         { 'label': "House", 'value': "House"},
@@ -34698,7 +34696,7 @@ if (domain == 'uk') {
         { 'label': "For Sale", 'value': "For Sale"},
         { 'label': "For Rent", 'value': "For Rent"}
     ];
-    var forLease = 'Rent';
+    var forLease = 'rent';
     var forRegion = 'Country';
 } else {
     var propertyList = [
@@ -34720,7 +34718,7 @@ if (domain == 'uk') {
         { 'label': "For Sale", 'value': "For Sale"},
         { 'label': "For Lease", 'value': "For Lease"}
     ];
-     var forLease = 'Lease';
+     var forLease = 'lease';
      var forRegion = 'Region';
 }
 
@@ -35095,8 +35093,6 @@ var ListingForm = function() {};
     ListingForm.prototype.addPulldowns = function() 
     {
         this.menus = {};
-
-        var regionSetting = $('#regionSelect');
 
         this.menus.regionMenu = new Acme.listMenu({
                     'parent'        : $('#regionSelect'),
