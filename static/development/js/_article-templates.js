@@ -48,8 +48,10 @@ Handlebars.registerHelper('returnCurr', function() {
     var domain = _appJsConfig.appHostName.split('.').reverse()[0];
     console.log(domain);
     if (domain === 'uk') {
+        console.log('£');
         return '£';
     } else{
+        console.log('$');
         return '$';
     }
 });
