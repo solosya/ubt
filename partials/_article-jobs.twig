@@ -4,9 +4,16 @@
 {% set salaryPrefix = "" %}
 {% set salary = "" %}
 
+{% if (networkData.title | lower) == 'frank uk' %}
+    {% set forCurr = "£" %}
+{% else %}
+    {% set forCurr = "$" %}
+{% endif %}
+
+
 {% if salaryType == 1 %}
     {% set salaryPrefix = "Salary " %}
-    {% set salary = "$" ~ article.additionalInfo.salaryfrom %}
+    {% set salary = forCurr ~ article.additionalInfo.salaryfrom %}
     {% if article.additionalInfo.salaryto %}
         {% set salaryPrefix = salaryPrefix ~ "range " %}
         {% set salary = salary ~ " - " ~ article.additionalInfo.salaryto %}
@@ -14,7 +21,7 @@
 
 {% elseif salaryType == 2 %}
     {% set salaryPrefix = "Hourly rate " %}
-    {% set salary = "$" ~ article.additionalInfo.hourlyrate %}
+    {% set salary = forCurr ~ article.additionalInfo.hourlyrate %}
 
 {% elseif salaryType == 3 %}
     {% set salaryPrefix = "Commission" %}

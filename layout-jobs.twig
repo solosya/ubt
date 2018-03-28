@@ -77,6 +77,7 @@
                             position: (articleCount+1),
                             template: 'jobs',
                             imageSuppress: true,
+                            networkData: networkData,
                             containerClass: 'card-rec-jobs card-rec-jobs-tablet card-rec-jobs-mobile'
                         }) | raw}}
                         {% set articleCount = (dev) ? articleCount : articleCount + 1 %}

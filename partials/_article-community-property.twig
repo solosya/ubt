@@ -1,5 +1,10 @@
 {% import "quotes.twig" as quotes %}
 
+{% if (networkData.title | lower) == 'frank uk' %}
+    {% set forCurr = "£" %}
+{% else %}
+    {% set forCurr = "$" %}
+{% endif %}
 
 
 {% if (article.hasMedia == 'TRUE' or article.hasPreviewMedia == 'TRUE') and params.imageSuppress == 'false' %}
@@ -13,7 +18,7 @@
 
 <div class="content">
     <p class="region">{{ article.additionalInfo.region }}</p>
-    <h1 class="price">${{ article.additionalInfo.pricerange | preg_replace("/\\$/", '')}}</h1>
+    <h1 class="price">{{ forCurr }}{{ article.additionalInfo.pricerange | preg_replace("/(\\$|\\£)/", '')}}</h1>
     
     <h2>{{ params.articleTitle }}</h2>  
 </div>

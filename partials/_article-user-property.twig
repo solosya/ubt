@@ -5,6 +5,12 @@
     {% set status = "Pending Approval" %}
 {% endif %}
 
+{% if (networkData.title | lower) == 'frank uk' %}
+    {% set forCurr = "£" %}
+{% else %}
+    {% set forCurr = "$" %}
+{% endif %}
+
 
 {% if (article.hasMedia == 'TRUE' or article.hasPreviewMedia == 'TRUE') and params.imageSuppress == 'false' %}
     <figure class="{{params.figureClass}}">
@@ -25,6 +31,6 @@
     <p class="propertyType">{{ article.additionalInfo.type }}</p>
     <div>
         <p class="contracttype">{{ article.additionalInfo.contracttype }}</p>
-        <p class="price">${{ article.additionalInfo.pricerange | preg_replace("/\\$/", '')}}</p>
+        <p class="price">{{ forCurr }}{{ article.additionalInfo.pricerange | preg_replace("/(\\$|\\£)/", '')}}</p>
     </div>
 </div>
