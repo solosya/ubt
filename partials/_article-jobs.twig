@@ -44,7 +44,7 @@
     <p class="salary">{{salary | raw}}</p>
 
     <p class="excerpt">{{ quotes.smarten(article.excerpt | raw) }}</p>
-    <p class="location">{{ article.additionalInfo.region }}</p>
+    <p class="location">{% if article.additionalInfo.location != "" %}{{ article.additionalInfo.location }}, {% endif %}{{ article.additionalInfo.region }}</p>
                         
 {#     <div class="author">
         <img src="{{params.profileImg}}" class="img-circle">

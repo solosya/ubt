@@ -63,7 +63,7 @@
                             <div class="row">
                                 <div class="col-sm-8">
                                     <input type="text" class="articleExtendedData" name="extendedData.company" id="company" value="" placeholder="Company name*">
-                                    <input type="text" class="articleExtendedData" name="extendedData.website" id="website" value="" placeholder="Company website">
+                                    <input type="text" class="articleExtendedData" name="extendedData.website" id="website" value="" placeholder="Website">
                                     <input type="text" class="articleExtendedData" name="extendedData.contactname" id="contactname" value="" placeholder="Contact name*">
                                 </div>
                                 <div class="col-sm-4 hidden-xs">
@@ -83,6 +83,8 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <input type="email" class="articleExtendedData" name="extendedData.contactemail" id="contactemail" value="" placeholder="Contact email*">
+
+                                    <input type="text" class="articleExtendedData" name="extendedData.contactphone" id="contactphone" value="" placeholder="Contact phone number">
 
                                     <input type="text" class="" name="title" id="title" value="" placeholder="Job title*">
                                     <div id="worktypeSelect" class="propertyListingSelect"></div>
@@ -155,6 +157,8 @@
                                     <button class="_btn _btn--red" type="submit" id="listingFormSubmit">SUBMIT</button>
                                     <button class="_btn _btn--red" type="reset"  id="listingFormClear">CLEAR</button>
                                     <button class="_btn _btn--gray" type="button"  id="listingFormDelete" style="display:none;">DELETE</button>
+
+                                    <a href="{{networkData.defaultBlogUrl}}/@job-listings" class="section-header__description" style="color:#ae232c;">Cancel and return to employment listings</a>
                                 </div>
                             </div>
                         </form>

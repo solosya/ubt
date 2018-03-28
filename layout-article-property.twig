@@ -109,7 +109,7 @@
                                 
                                 <p class="pricerange">{{ forCurr }}{{ article.additionalInfo.pricerange | preg_replace("/(\\$|\\£)/", '')}}</p>
 
-                                <h1>{{ quotes.smarten(article.title) }}{# {% if (networkData.title | lower) == 'frank uk' %} #}, {{ article.additionalInfo.location }}, {{ article.additionalInfo.region }}{# {% endif %} #}</h1>
+                                <h1>{{ quotes.smarten(article.title) }} {% if article.additionalInfo.location != '' %}, {{ article.additionalInfo.location }}, {{ article.additionalInfo.region }}{% endif %}</h1>
                                 
                                 <p class="contracttype">{{ article.additionalInfo.contracttype }}</p>
 
