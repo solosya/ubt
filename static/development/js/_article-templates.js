@@ -10,7 +10,7 @@ Handlebars.registerHelper('splitShift', function(text) {
 
 Handlebars.registerHelper('fixPrice', function(text) {
     if (!text) return "";
-    return text.replace(/\$/g, "");
+    return text.replace(/(\$|£)/g, "");
 });
 
 Handlebars.registerHelper('draftStatus', function(text, date) {
@@ -21,21 +21,36 @@ Handlebars.registerHelper('draftStatus', function(text, date) {
 Handlebars.registerHelper('formatSalary', function(salaryType, salaryTo, salaryFrom, hourlyRate) {
     var salaryPrefix = "";
     var salary = "";
+    var domain = _appJsConfig.appHostName.split('.').reverse()[0];
+    if (domain === 'uk') {
+        var forCurr = '£';
+    } else{
+        var forCurr = '$';
+    }
     if (salaryType === "1") {
         salaryPrefix = "Salary ";
-        salary = "$" + salaryFrom;
+        salary = forCurr + salaryFrom;
         if (salaryTo) {
             salaryPrefix = salaryPrefix + "range ";
             salary = salary + " - " + salaryTo;
         }
     } else if (salaryType == 2) {
         salaryPrefix = "Hourly rate ";
-        salary = "$" + hourlyRate;
+        salary = forCurr + hourlyRate;
     } else if (salaryType == 3) {
         salaryPrefix = "Commission";
     }
 
     return salaryPrefix + salary
+});
+
+Handlebars.registerHelper('returnCurr', function() {
+    var domain = _appJsConfig.appHostName.split('.').reverse()[0];
+    if (domain === 'uk') {
+        return '£';
+    } else{
+        return '$';
+    }
 });
 
 
@@ -318,7 +333,7 @@ Acme.propertyListingCardTemplate =
             </div> \
             \
             <div class="property__left"> \
-                <h1 class="price">${{ fixPrice additionalInfo.pricerange }}</h1> \
+                <h1 class="price">{{ returnCurr }}{{ fixPrice additionalInfo.pricerange }}</h1> \
                 <h2>{{ title }}</h2> \
             </div> \
             \

@@ -57,13 +57,13 @@ var listingRegions = {
         "Ballarat"
     ]
 }
-var listingSalary = ["30k", "40k", "50k", "60k", "70k", "80k", "100k", "120k", "150k", "200k", "200k+"];
-
 var workType = ["Casual", "Part time", "Full time"];
 
 var domain = _appJsConfig.appHostName.split('.').reverse()[0];
 
 if (domain == 'uk') {
+    var listingSalary = ["10k","20k","30k", "40k", "50k", "60k", "70k", "80k", "90k","100k","150k+"];
+
     var propertyList = [
         { 'label': "House", 'value': "House"},
         { 'label': "Flat / Apartment", 'value': "Flat / Apartment"},
@@ -80,7 +80,9 @@ if (domain == 'uk') {
     ];
     var forLease = 'rent';
     var forRegion = 'Country';
+    var forCurr = "£"
 } else {
+    var listingSalary = ["30k", "40k", "50k", "60k", "70k", "80k", "100k", "120k", "150k", "200k", "200k+"];
     var propertyList = [
         { 'label': "Industrial / Warehouse", 'value': "Industrial / Warehouse"},
         { 'label': "Residential", 'value': "Residential"},
@@ -102,6 +104,7 @@ if (domain == 'uk') {
     ];
      var forLease = 'lease';
      var forRegion = 'Region';
+     var forCurr = "$"
 }
 
 var regionList = listingRegions[domain] || listingRegions["test"];
@@ -507,7 +510,7 @@ var ListingForm = function() {};
         this.menus.SalaryFromMenu = new Acme.listMenu({
                     'parent'        : $('#salarySelectFrom'),
                     'list'          : listingSalary,
-                    'defaultSelect' : {"label": 'Salary range from $'},
+                    'defaultSelect' : {"label": 'Salary range from '+forCurr},
                     'name'          : 'salaryfrom',
                     'key'           : 'extendedData.salaryfrom',
                     'class'         : 'formPulldowns'
@@ -516,7 +519,7 @@ var ListingForm = function() {};
         this.menus.SalaryToMenu = new Acme.listMenu({
                     'parent'        : $('#salarySelectTo'),
                     'list'          : listingSalary,
-                    'defaultSelect' : {"label": 'to $'},
+                    'defaultSelect' : {"label": 'to '+forCurr},
                     'name'          : 'salaryto',
                     'key'           : 'extendedData.salaryto',
                     'class'         : 'formPulldowns'
