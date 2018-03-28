@@ -11,13 +11,19 @@
     </figure>
 {% endif %}
 
+{% if (networkData.title | lower) == 'frank uk' %}
+    {% set forCurr = "£" %}
+{% else %}
+    {% set forCurr = "$" %}
+{% endif %}
+
 <div class="content">
     <div class="cat-time">
         <time datetime="{{params.publishDate}}">{{params.publishDate}}</time>
     </div>
 
     <div class="property__left">
-        <h1 class="price">${{ article.additionalInfo.pricerange | preg_replace("/\\$/", '')}}</h1>
+        <h1 class="price">{{ forCurr }}{{ article.additionalInfo.pricerange | preg_replace("/(\\$|\\£)/", '')}}</h1>
         <h2>{{ params.articleTitle }}</h2>
     </div>
 

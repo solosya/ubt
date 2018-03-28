@@ -31,6 +31,6 @@
     <p class="propertyType">{{ article.additionalInfo.type }}</p>
     <div>
         <p class="contracttype">{{ article.additionalInfo.contracttype }}</p>
-        <p class="price">{{forCurr}}{{ article.additionalInfo.pricerange | preg_replace("/(\\$|\\£)/", '')}}</p>
+        <p class="price">{{ forCurr }}{{ article.additionalInfo.pricerange | preg_replace("/(\\$|\\£)/", '')}}</p>
     </div>
 </div>
