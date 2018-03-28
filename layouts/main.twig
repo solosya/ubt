@@ -9,7 +9,6 @@
 {% set pageClass     = _Page.getBodyClass() %}
 {% set pageTypeClass = blogData.type %}
 {% set blogName      = blogData.title %}
-{# {% set layout        = blogData.layout %} #}
 {% set layout        = _Page.getLayoutName() %}
 
 {% set showPaywall = false %}
@@ -33,14 +32,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
     <meta http-equiv="Accept-CH" content="DPR, Viewport-Width, Width">
-    <!-- {{blogName | lower}} -->
-    <!-- {{blogName | lower}} -->
-    
-    <!-- {{_AppHelper.getParsedUrl().path | raw}} -->
-    <!-- {{_AppHelper.getForgotPasswordUrl() | raw}} -->
-    <!-- {{blogData['showPaywall'] | raw}} -->
-
-
 
     <link rel="profile" href="https://gmpg.org/xfn/11">
     <title>{{ this.title }}</title>
@@ -56,7 +47,6 @@
     <link rel="apple-touch-icon" sizes="57x57" href="{{networkData.templatePath}}/static/icons/frank_homescreen icon_red_57x57.png" />
     <link rel="apple-touch-icon" sizes="72x72" href="{{networkData.templatePath}}/static/icons/frank_homescreen icon_red_72x72.png" />
     <link rel="apple-touch-icon" sizes="144x144" href="{{networkData.templatePath}}/static/icons/frank_homescreen icon_red_144x144.png" />
-    {# <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7018996/6322372/css/fonts.css" />     #}
     
     {% set primaryFont = networkData['styling']['fonts']['primaryFont'] %}
     {% set secFont = networkData['styling']['fonts']['secondaryFont'] %}
@@ -80,9 +70,6 @@
         <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=_1_b0ac593" type="text/css" media="all">
 
     {% else %}
-{#             <link type="text/css" rel="stylesheet" href="{{networkData.templatePath}}/static/css/jquery.fancybox.css?ver=2" />
-        <link type="text/css" rel="stylesheet" href="{{networkData.templatePath}}/static/css/animate.css?ver=1" />
-        <link type="text/css" rel="stylesheet" href="{{networkData.templatePath}}/static/css/mediaelementplayer.css?ver=1" /> #}
 
         <link rel='stylesheet' href='{{networkData.templatePath}}/static/css/concat.css?ver=666' type='text/css' media='all' />
     {% endif %}
@@ -92,7 +79,6 @@
             <link href="{{_AppHelper.getAssetsStaticPath()}}/dist/vendors/ContentBox/box/box.css" rel="stylesheet" type="text/css" />
             <link href="{{_AppHelper.getAssetsStaticPath()}}/dist/vendors/ContentBox/contentbuilder/contentbuilder.css" rel="stylesheet" type="text/css" />
             <link href="{{_AppHelper.getAssetsStaticPath()}}/dist/vendors/ContentBox/contentbox/contentbox.css" rel="stylesheet" type="text/css" />
-            {# <link rel="stylesheet" href="{{networkData.templatePath}}/static/css/contentbox-breakup.css?rel=1495603036977" type="text/css" media="all" /> #}
     {% endif %}
 
     <script src="https://js.stripe.com/v3/"></script>
@@ -132,19 +118,26 @@
 
 
 
-    {% if blogData.settings['GoogleAnalyticsID'] is  defined  and  blogData.settings['GoogleAnalyticsID'] is not empty %}
-        <!-- Google Analytics -->
+
+    {% set googleAnalyitcsId = ''%}
+    {% if networkData.thirdPartyIntegrations['googleAnalytics']['id'] is defined and  networkData.thirdPartyIntegrations['googleAnalytics']['id'] is not empty  %}
+        {% set googleAnalyitcsId = networkData.thirdPartyIntegrations['googleAnalytics']['id'] %}
+    {% endif %}
+
+    {% if googleAnalyitcsId is defined and googleAnalyitcsId is not empty%}
+        <!-- Google Analytics u -->
         <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-        ga('create', '{{blogData.settings['GoogleAnalyticsID']}}', 'auto');
+        ga('create', '{{googleAnalyitcsId}}', 'auto');
         ga('send', 'pageview');
         </script>
         <!-- End Google Analytics -->
     {% endif %}
+
 
     {{ this.head() }}
 
@@ -185,7 +178,6 @@
         pageClass: blogName,
     }) | raw }}
 
-    {# {{ this.render('partials/account_modal.twig', {network: networkData}) | raw }} #}
 
     {{ this.render('partials/_javascript.twig', {
         networkData: networkData
