@@ -35075,6 +35075,9 @@ var ListingForm = function() {};
         "delete image" : function(data, topic) {
             return this.deleteImage(data);
         },
+        "extendedData.city" : function(data, topic) {
+            this.updateData(data);
+        },
         "extendedData.region" : function(data, topic) {
             this.updateData(data);
         },

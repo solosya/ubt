@@ -24,8 +24,10 @@
 
 {% if (networkData.title | lower) == 'frank uk' %}
     {% set forCurr = "£" %}
+    {% set forRegi = "Country" %}
 {% else %}
     {% set forCurr = "$" %}
+    {% set forRegi = "Region" %}
 {% endif %}
 
 {% set salaryType = article.additionalInfo.salary %}
@@ -157,7 +159,7 @@
                                 <td class="value">{{article.additionalInfo.location}}</td>
                             </tr>
                             <tr>
-                                <td class="label">Region</td>
+                                <td class="label">{{ forRegi }}</td>
                                 <td class="value">{{article.additionalInfo.region}}</td>
                             </tr>
                             <tr>

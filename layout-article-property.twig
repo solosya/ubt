@@ -23,8 +23,10 @@
 
 {% if (networkData.title | lower) == 'frank uk' %}
     {% set forCurr = "£" %}
+    {% set forMeas = "ft" %}
 {% else %}
     {% set forCurr = "$" %}
+    {% set forMeas = "m" %}
 {% endif %}
 
 
@@ -107,7 +109,7 @@
                                 
                                 <p class="pricerange">{{ forCurr }}{{ article.additionalInfo.pricerange | preg_replace("/(\\$|\\£)/", '')}}</p>
 
-                                <h1>{{ quotes.smarten(article.title) }}</h1>
+                                <h1>{{ quotes.smarten(article.title) }}{# {% if (networkData.title | lower) == 'frank uk' %} #}, {{ article.additionalInfo.city }}, {{ article.additionalInfo.region }}{# {% endif %} #}</h1>
                                 
                                 <p class="contracttype">{{ article.additionalInfo.contracttype }}</p>
 
@@ -148,11 +150,11 @@
                                     <td class="value">{{article.additionalInfo.availability}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="label">Land area m&sup2;</td>
+                                    <td class="label">Land area {{ forMeas }}&sup2;</td>
                                     <td class="value">{{article.additionalInfo.landarea}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="label">Floor area m&sup2;</td>
+                                    <td class="label">Floor area {{ forMeas }}&sup2;</td>
                                     <td class="value">{{article.additionalInfo.floorarea}}</td>
                                 </tr>
                             </table>
