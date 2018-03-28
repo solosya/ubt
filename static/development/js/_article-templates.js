@@ -46,6 +46,7 @@ Handlebars.registerHelper('formatSalary', function(salaryType, salaryTo, salaryF
 
 Handlebars.registerHelper('returnCurr', function() {
     var domain = _appJsConfig.appHostName.split('.').reverse()[0];
+    console.log(domain);
     if (domain === 'uk') {
         return '£';
     } else{
@@ -372,7 +373,7 @@ Acme.userPropertyCardTemplate =
             <p class="propertyType">{{ additionalInfo.type }}</p> \
             <div> \
                 <p class="contracttype">{{ additionalInfo.contracttype }}</p> \
-                <p class="price">${{ fixPrice additionalInfo.pricerange }}</p> \
+                <p class="price">{{ returnCurr }}{{ fixPrice additionalInfo.pricerange }}</p> \
             </div> \
         </div>' +
     cardTemplateBottom;
@@ -396,7 +397,7 @@ Acme.propertyCardTemplate =
             <p class="propertyType">{{ additionalInfo.type }}</p> \
             <div> \
                 <p class="contracttype">{{ additionalInfo.contracttype }}</p> \
-                <p class="price">${{ fixPrice additionalInfo.pricerange }}</p> \
+                <p class="price">{{ returnCurr }}{{ fixPrice additionalInfo.pricerange }}</p> \
             </div> \
         </div>' +
     cardTemplateBottom;
@@ -416,7 +417,7 @@ Acme.communityPropertyCardTemplate =
         \
         <div class="content"> \
             <p class="region">{{ additionalInfo.region }}</p> \
-            <h1 class="price">${{ fixPrice additionalInfo.pricerange }}</h1> \
+            <h1 class="price">{{ returnCurr }}{{ fixPrice additionalInfo.pricerange }}</h1> \
             <h2>{{ params.articleTitle }}</h2> \
         </div>' +
     cardTemplateBottom;
