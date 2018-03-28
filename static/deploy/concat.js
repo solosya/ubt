@@ -35178,7 +35178,8 @@ var ListingForm = function() {};
 
         title.val(this.data.title);
         content.val(this.data.content);
-        console.log(this.data.content);
+        console.log('rendering');
+        console.log(this.data);
         this.clearInlineErrors();
 
         for (key in this.data.extendedData) {
@@ -35212,7 +35213,7 @@ var ListingForm = function() {};
 
             if (key === 'city') {
                 console.log(this.data.extendedData[key]);
-                
+
                 $('#'+key).val(this.data.extendedData[key]);
                 continue;
             }
@@ -35314,7 +35315,7 @@ var ListingForm = function() {};
             this.data.media_ids = '-1';
         }
 
-        console.log(this.data.media_ids, this.data.media_id);
+        // console.log(this.data.media_ids, this.data.media_id);
         Acme.PubSub.publish('update_state', {'closeConfirm': ''});
 
     };
@@ -35327,7 +35328,7 @@ var ListingForm = function() {};
         }
 
         this.data.theme_layout_name = this.layout;
-        console.log(this.data);
+        // console.log(this.data);
         Acme.server.create('/api/article/create', this.data).done(function(r) {
             $('#listingFormClear').click();
             Acme.PubSub.publish('update_state', {'confirm': r});
@@ -35370,7 +35371,7 @@ var ListingForm = function() {};
                     outer.addClass("spinner");
 
                     Acme.server.create('/api/article/save-image', postdata).done(function(r) {
-                        console.log(r);
+                        // console.log(r);
                         if (self.saveImage(r, data) ) {
                             outer.removeClass("spinner");
                             inner.show();
@@ -35680,6 +35681,7 @@ Acme.listingViewClass = function() {
                         for (d in r.additionalInfo) {
                             extendedData[d] = r.additionalInfo[d];
                         }
+                        console.log(extendedData);
                         data['extendedData'] = extendedData;
                     }
 
