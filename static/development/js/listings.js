@@ -439,9 +439,6 @@ var ListingForm = function() {};
         "delete image" : function(data, topic) {
             return this.deleteImage(data);
         },
-        "extendedData.city" : function(data, topic) {
-            this.updateData(data);
-        },
         "extendedData.region" : function(data, topic) {
             this.updateData(data);
         },
@@ -545,7 +542,7 @@ var ListingForm = function() {};
 
         title.val(this.data.title);
         content.val(this.data.content);
-
+        console.log(this.data.content);
         this.clearInlineErrors();
 
         for (key in this.data.extendedData) {
@@ -574,6 +571,13 @@ var ListingForm = function() {};
             }
             if (key === 'worktype') {
                 this.menus.workType.select(this.data.extendedData[key]);
+                continue;
+            }
+
+            if (key === 'city') {
+                console.log(this.data.extendedData[key]);
+                
+                $('#'+key).val(this.data.extendedData[key]);
                 continue;
             }
 
@@ -687,7 +691,7 @@ var ListingForm = function() {};
         }
 
         this.data.theme_layout_name = this.layout;
-        // console.log(this.data);
+        console.log(this.data);
         Acme.server.create('/api/article/create', this.data).done(function(r) {
             $('#listingFormClear').click();
             Acme.PubSub.publish('update_state', {'confirm': r});
