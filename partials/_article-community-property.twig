@@ -17,7 +17,7 @@
 {% endif %}
 
 <div class="content">
-    <p class="region">{{ article.additionalInfo.region }}</p>
+    <p class="region">{% if article.additionalInfo.location != "" %}{{ article.additionalInfo.location }}, {% endif %}{{ article.additionalInfo.region }}</p>
     <h1 class="price">{{ forCurr }}{{ article.additionalInfo.pricerange | preg_replace("/(\\$|\\£)/", '')}}</h1>
     
     <h2>{{ params.articleTitle }}</h2>  
