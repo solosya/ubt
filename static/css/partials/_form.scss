@@ -72,10 +72,9 @@ main.listingForm, main.eventForm {
                     border: 1px solid #E5E5E5;
                 }
             }
-            div.backlink {
+            > div > div > div.backlink {
                 margin-bottom:12px;
                 margin-top: 10px;
-                float: right;
                 a{
                     font-size:rem(14);
                     font-style:italic;
