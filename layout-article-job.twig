@@ -22,7 +22,11 @@
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
 
 
-
+{% if (networkData.title | lower) == 'frank uk' %}
+    {% set forCurr = "£" %}
+{% else %}
+    {% set forCurr = "$" %}
+{% endif %}
 
 {% set salaryType = article.additionalInfo.salary %}
 {% set salaryPrefix = "" %}
@@ -30,7 +34,7 @@
 
 {% if salaryType == 1 %}
     {% set salaryPrefix = "Annual salary " %}
-    {% set salary = "$" ~ article.additionalInfo.salaryfrom %}
+    {% set salary = forCurr ~ article.additionalInfo.salaryfrom %}
     {% if article.additionalInfo.salaryto %}
         {% set salaryPrefix = salaryPrefix ~ "range " %}
         {% set salary = salary ~ " - " ~ article.additionalInfo.salaryto %}
@@ -38,7 +42,7 @@
 
 {% elseif salaryType == 2 %}
     {% set salaryPrefix = "Hourly rate " %}
-    {% set salary = "$" ~ article.additionalInfo.hourlyrate %}
+    {% set salary = forCurr ~ article.additionalInfo.hourlyrate %}
 
 {% elseif salaryType == 3 %}
     {% set salaryPrefix = "Commission" %}
@@ -51,6 +55,12 @@
 {% set company = article.additionalInfo.company %}
 {% if article.additionalInfo.website %}
     {% set company = company ~ " | " ~ article.additionalInfo.website %}
+{% endif %}
+
+{% if (networkData.title | lower) == 'frank uk' %}
+    {% set forCurr = "£" %}
+{% else %}
+    {% set forCurr = "$" %}
 {% endif %}
 
 

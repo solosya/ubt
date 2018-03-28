@@ -21,7 +21,11 @@
 {% set articleCount = 0 %}
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
 
-
+{% if (networkData.title | lower) == 'frank uk' %}
+    {% set forCurr = "£" %}
+{% else %}
+    {% set forCurr = "$" %}
+{% endif %}
 
 
 <main id="main" class="container-fluid site-main" role="main">
@@ -101,7 +105,7 @@
                                 
                                 <time datetime="{{publishedDate}}">{{article.publishedDate}}</time>
                                 
-                                <p class="pricerange">${{ article.additionalInfo.pricerange | preg_replace("/\\$/", '')}}</p>
+                                <p class="pricerange">{{ forCurr }}{{ article.additionalInfo.pricerange | preg_replace("/(\\$|\\£)/", '')}}</p>
 
                                 <h1>{{ quotes.smarten(article.title) }}</h1>
                                 
