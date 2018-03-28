@@ -140,7 +140,7 @@ Acme.regionSearchView = function() {
         this.regionMenu = new Acme.listMenu({
             'parent'        : this.container,
             'list'          : regionList,
-            'defaultSelect' : {"label": 'Select region'},
+            'defaultSelect' : {"label": 'Select '+forRegion},
             'name'          : 'regionSelect',
             'key'           : 'regionSelect',
             'allowClear'    : true
