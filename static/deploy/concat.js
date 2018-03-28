@@ -35178,8 +35178,8 @@ var ListingForm = function() {};
 
         title.val(this.data.title);
         content.val(this.data.content);
-        console.log('rendering');
-        console.log(this.data);
+        // console.log('rendering');
+        // console.log(this.data);
         this.clearInlineErrors();
 
         for (key in this.data.extendedData) {
@@ -35212,7 +35212,7 @@ var ListingForm = function() {};
             }
 
             if (key === 'city') {
-                console.log(this.data.extendedData[key]);
+                // console.log(this.data.extendedData[key]);
 
                 $('#'+key).val(this.data.extendedData[key]);
                 continue;
@@ -35681,7 +35681,7 @@ Acme.listingViewClass = function() {
                         for (d in r.additionalInfo) {
                             extendedData[d] = r.additionalInfo[d];
                         }
-                        console.log(extendedData);
+                        // console.log(extendedData);
                         data['extendedData'] = extendedData;
                     }
 
@@ -35821,8 +35821,8 @@ Acme.Confirm = function(template, parent, layouts) {
             }
 
             if ($elem.data('role') === 'deleteImage') {
-                console.log('you want to delete an image???');
-                console.log(self.data);
+                // console.log('you want to delete an image???');
+                // console.log(self.data);
                 Acme.PubSub.publish("update_state", {'delete image': self.data });
 
                 // $elem.addClass("spinner");
@@ -35856,9 +35856,9 @@ Acme.confirmView = new Acme.Confirm('modal', 'signin', layouts);
             this.render("delete", "Warning", { msg: "Are you sure you want to permanently delete this listing?", role:"delete"});
         },
         "confirmDeleteImage" : function(data, topic) {
-            console.log(data, topic);
+            // console.log(data, topic);
             this.data = data;
-            console.log(this.data);
+            // console.log(this.data);
             this.render("delete", "Warning", 
                 {
                      msg: "Are you sure you want to permanently delete this image?", 
