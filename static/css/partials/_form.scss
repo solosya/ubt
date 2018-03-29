@@ -72,29 +72,6 @@ main.listingForm, main.eventForm {
                     border: 1px solid #E5E5E5;
                 }
             }
-            .backlink {
-                margin-bottom:12px;
-                margin-top: 10px;
-                float: right;
-                a{
-                    font-size:rem(14);
-                    font-style:italic;
-                    text-decoration:none;
-                    color:color(red);
-                    &:before {
-                        content:'';
-                        display:block;
-                        width:7px;
-                        height:15px;
-                        background: url('../icons/red-arrow-left.svg');
-                        background-repeat: no-repeat;
-                        background-size:contain;
-                        margin-right: 8px;
-                        margin-top: 4px;
-                        float:left;
-                    }
-                }
-            }
         }
 
 
@@ -325,7 +302,29 @@ main.listingForm, main.eventForm {
             font-size: rem(14);
             color:color(dark);
         }
+        .backlink {
+            margin-bottom:12px;
+            margin-top: 10px;
+            float: right;
+            a{
+                font-size:rem(14);
+                font-style:italic;
+                text-decoration:none;
+                color:color(red);
+                &:before {
+                    content:'';
+                    display:block;
+                    width:7px;
+                    height:15px;
+                    background: url('../icons/red-arrow-left.svg');
+                    background-repeat: no-repeat;
+                    background-size:contain;
+                    margin-right: 8px;
+                    margin-top: 4px;
+                    float:left;
+                }
+            }
+        }
     }
-
 }
 
