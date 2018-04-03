@@ -61,7 +61,35 @@
             <div class="col-sm-12 col-md-offset-1 col-md-6">
 
                 <div class="listing-filter-menu listing-filter-menu@sm row">
-                    <div id="regionSelect" 
+
+                    {% if (networkData.title | lower) == 'frank uk' %}
+                        <div id="regionSelect" 
+                         class="col-sm-6 
+                                listing-filter-menu__item 
+                                listing-filter-menu__item@md 
+                                listing-filter-menu__item@sm 
+                                listing-filter-menu__item--first@md 
+                                regionSelect"></div>
+
+                    <input type="text" class="col-sm-6" name="location" id="location" value="" placeholder="City/Town">
+
+                    <div id="typeSelect" 
+                         class="col-sm-6 
+                                listing-filter-menu__item 
+                                listing-filter-menu__item@md 
+                                listing-filter-menu__item@sm 
+                                typeSelect" ></div>
+
+                    <div id="saleSelect" 
+                         class="col-sm-6 
+                                listing-filter-menu__item 
+                                listing-filter-menu__item@md 
+                                listing-filter-menu__item@sm 
+                                saleSelect" ></div>
+
+                    <a class="col-sm-1 listing-filter-menu__link" id="searchButton" href="#" style="padding-left:0;">Search</a>
+                    {% else %}
+                        <div id="regionSelect" 
                          class="col-sm-4 
                                 listing-filter-menu__item 
                                 listing-filter-menu__item@md 
@@ -84,6 +112,7 @@
                                 saleSelect" ></div>
 
                     <a class="col-sm-1 listing-filter-menu__link" id="searchButton" href="#" style="padding-left:0;">Search</a>
+                    {% endif %}
                 </div>
             </div>
 

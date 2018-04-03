@@ -230,6 +230,10 @@ Acme.searchCollectionClass = function(blogId)
     Acme.searchCollectionClass.prototype.subscriptions = Acme.PubSub.subscribe({
         'Acme.searchCollection.listener' : [ "update_state" ]
     });
+    var forLoc = $('#location').content;
+    console.log('herewego');
+    console.log(data);
+    console.log(forLoc);
     Acme.searchCollectionClass.prototype.listeners = {
         "region" : function(data) {
             if (data.region === "") {
@@ -237,6 +241,13 @@ Acme.searchCollectionClass = function(blogId)
                 return;
             }
             this.searchTerms['region'] = data.region;
+        },
+        "location" : function(data) {
+            if (data.location === "") {
+                delete this.searchTerms['location'];
+                return;
+            }
+            this.searchTerms['location'] = data.location;
         },
         "type" : function(data) {
             if (data.type === "") {
