@@ -34911,14 +34911,15 @@ Acme.searchCollectionClass = function(blogId)
             console.log('herewego');
             console.log(forLoc);
             if (forLoc.value != "" ){
+
                 this.searchTerms['location'] = forLoc.value;
             }
-
+            console.log(searchTerms);
             for (search in this.searchTerms) {
                 searchTerms.push( search + ":" + this.searchTerms[search]);
             }
             var searchString = searchTerms.join(",");
-
+            console.log(searchString);
             if (searchString) {
                 return loader.data('loadtype', 'api/search')
                              .data('rendertype', 'write')
@@ -34933,7 +34934,7 @@ Acme.searchCollectionClass = function(blogId)
                          .data('offset', '0')
                          .data('non-pinned-offset', '0')
                          .click();
-
+            console.log(params);
             return params;
         },
     };
