@@ -239,13 +239,13 @@ Acme.searchCollectionClass = function(blogId)
             }
             this.searchTerms['region'] = data.region;
         },
-        "location" : function(data) {
-            if (data.location === "") {
-                delete this.searchTerms['location'];
-                return;
-            }
-            this.searchTerms['location'] = data.location;
-        },
+        // "location" : function(data) {
+        //     if (data.location === "") {
+        //         delete this.searchTerms['location'];
+        //         return;
+        //     }
+        //     this.searchTerms['location'] = data.location;
+        // },
         "type" : function(data) {
             if (data.type === "") {
                 delete this.searchTerms['type'];
@@ -277,6 +277,7 @@ Acme.searchCollectionClass = function(blogId)
             // console.log(forLoc);
             function setLocationForSearch(data) {
                  console.log(data);
+                 console.log(data.value);
                 if (data.value === undefined) {
                     return;
                 }
