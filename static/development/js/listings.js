@@ -277,7 +277,9 @@ Acme.searchCollectionClass = function(blogId)
             // console.log(forLoc);
             function setLocationForSearch(data) {
                  console.log(data);
-                 console.log(data.value);
+                 console.log(data[0]);
+                 var valyew = data[0].value;
+                 console.log(data[0].value);
                 if (data.value === undefined) {
                     return;
                 }
