@@ -265,15 +265,16 @@ Acme.searchCollectionClass = function(blogId)
             var loader = $('#article-load');
 
             
-            console.log(searchTerms);
+            // console.log(searchTerms);
             for (search in this.searchTerms) {
                 searchTerms.push( search + ":" + this.searchTerms[search]);
             }
+            console.log("pre-location");
              console.log(searchTerms);
             var forLoc = $('#location');
 
             console.log('herewego');
-            console.log(forLoc);
+            // console.log(forLoc);
             function setLocationForSearch(data) {
                  console.log(data);
                 if (data.value === undefined) {
@@ -284,6 +285,7 @@ Acme.searchCollectionClass = function(blogId)
             setLocationForSearch(forLoc);
 
             var searchString = searchTerms.join(",");
+            console.log("post-location");
             console.log(searchString);
             if (searchString) {
                 return loader.data('loadtype', 'api/search')
