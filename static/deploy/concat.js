@@ -34918,10 +34918,10 @@ Acme.searchCollectionClass = function(blogId)
             console.log('herewego');
             console.log(forLoc);
             function setLocationForSearch(data) {
-                if (data.location === "") {
+                if (data.value === "") {
                     return;
                 }
-                this.searchTerms.push("locations:"+data.location);
+                searchTerms.push("locations:"+data.value);
             }
             setLocationForSearch(forLoc);
 
