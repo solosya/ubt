@@ -275,7 +275,8 @@ Acme.searchCollectionClass = function(blogId)
             console.log('herewego');
             console.log(forLoc);
             function setLocationForSearch(data) {
-                if (data.value === "") {
+                 console.log(data.value);
+                if (data.value === undefined) {
                     return;
                 }
                 searchTerms.push("locations:"+data.value);
