@@ -230,12 +230,9 @@ Acme.searchCollectionClass = function(blogId)
     Acme.searchCollectionClass.prototype.subscriptions = Acme.PubSub.subscribe({
         'Acme.searchCollection.listener' : [ "update_state" ]
     });
-    var forLoc = $('#location').content;
-    console.log('herewego');
-    console.log(forLoc);
+   
     Acme.searchCollectionClass.prototype.listeners = {
         "region" : function(data) {
-            console.log(data);
             if (data.region === "") {
                 delete this.searchTerms['region'];
                 return;
@@ -292,6 +289,12 @@ Acme.searchCollectionClass = function(blogId)
     };
 
 $('#searchButton').on('click', function(e) {
+    var forLoc = $('#location');
+    console.log('herewego');
+    console.log(forLoc);
+    if (forLoc.contents != "" ){
+        self.data.location = forLoc.contents;
+    }
     e.preventDefault();
     Acme.PubSub.publish('update_state', {'fetch': self});
 });
