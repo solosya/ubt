@@ -34919,10 +34919,9 @@ Acme.searchCollectionClass = function(blogId)
             console.log(forLoc);
             function setLocationForSearch(data) {
                 if (data.location === "") {
-                    delete this.searchTerms['location'];
                     return;
                 }
-                this.searchTerms['location'] = data.location;
+                this.searchTerms.push("locations:"+data.location);
             }
             setLocationForSearch(forLoc);
 
