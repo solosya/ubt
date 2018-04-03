@@ -33246,13 +33246,20 @@ Handlebars.registerHelper('formatSalary', function(salaryType, salaryTo, salaryF
 
 Handlebars.registerHelper('returnCurr', function() {
     var domain = _appJsConfig.appHostName.split('.').reverse()[0];
-    console.log(domain);
     if (domain === 'uk') {
-        console.log('£');
         return '£';
     } else{
-        console.log('$');
         return '$';
+    }
+});
+
+Handlebars.registerHelper('returnLoc', function(location, region) {
+    var domain = _appJsConfig.appHostName.split('.').reverse()[0];
+    //console.log(domain);
+    if (domain === 'uk') {
+        return location +', ' + region;
+    } else {
+        return region;
     }
 });
 
@@ -33494,7 +33501,7 @@ Acme.jobCardTemplate =
             <p class="company">{{{ additionalInfo.company }}}</p> \
             <p class="salary">{{{ formatSalary additionalInfo.salary additionalInfo.salaryto additionalInfo.salaryfrom additionalInfo.hourlyrate}}}</p> \
             <p class="excerpt">{{{ excerpt }}}</p> \
-            <p class="location">{{ additionalInfo.region }}</p> \
+            <p class="location">{{ returnLoc additionalInfo.location additionalInfo.region }}</p> \
             \
         </div>' + 
     cardTemplateBottom;
@@ -33541,14 +33548,14 @@ Acme.propertyListingCardTemplate =
             </div> \
             \
             <div class="property__right"> \
-                <p class="region">{{ additionalInfo.region }}</p> \
+                <p class="region">{{ returnLoc additionalInfo.location additionalInfo.region }}</p> \
                 <p class="excerpt">{{{ excerpt }}}</p> \
             </div> \
             <div class="listing-type"> \
                 <img class="listing-type__img" src="'+_appJsConfig.templatePath +'/static/icons/property/{{ splitShift additionalInfo.type }}.svg"> \
                 <p class="listing-type__attribute listing-type__attribute--type">{{ additionalInfo.type }}</p> \
                 <p class="listing-type__attribute listing-type__attribute--contract">{{ additionalInfo.contracttype }}</p> \
-                <p class="region__below">{{ additionalInfo.region }}</p> \
+                <p class="region__below">{{ returnLoc additionalInfo.location additionalInfo.region }}</p> \
             </div> \
         </div>' +
     cardTemplateBottom;
@@ -33618,7 +33625,7 @@ Acme.communityPropertyCardTemplate =
         {{/if}} \
         \
         <div class="content"> \
-            <p class="region">{{ additionalInfo.region }}</p> \
+            <p class="region">{{ returnLoc additionalInfo.location additionalInfo.region }}</p> \
             <h1 class="price">{{ returnCurr }}{{ fixPrice additionalInfo.pricerange }}</h1> \
             <h2>{{ params.articleTitle }}</h2> \
         </div>' +
