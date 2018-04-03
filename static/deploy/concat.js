@@ -34907,10 +34907,11 @@ Acme.searchCollectionClass = function(blogId)
             var searchTerms = [];
             var loader = $('#article-load');
 
-            var forLoc = $('#location');
+            var forLoc = $('#location')[0];
+
             console.log('herewego');
             console.log(forLoc);
-            if (forLoc.value != "" ){
+            if (forLoc.value != undefined ){
 
                 this.searchTerms['location'] = forLoc.value;
             }
