@@ -34911,10 +34911,14 @@ Acme.searchCollectionClass = function(blogId)
 
             console.log('herewego');
             console.log(forLoc);
-            if (forLoc.value != undefined ){
-
-                this.searchTerms['location'] = forLoc.value;
+            function setLocationForSearch(data) {
+                if (data.location === "") {
+                    delete this.searchTerms['location'];
+                    return;
+                }
+                this.searchTerms['location'] = data.location;
             }
+            setLocationForSearch(forLoc);
             console.log(searchTerms);
             for (search in this.searchTerms) {
                 searchTerms.push( search + ":" + this.searchTerms[search]);
