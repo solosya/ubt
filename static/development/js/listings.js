@@ -276,17 +276,13 @@ Acme.searchCollectionClass = function(blogId)
             console.log('herewego');
             // console.log(forLoc);
             function setLocationForSearch(data) {
-                 console.log(data);
-                 console.log(data[0]);
-                 var valyew = data[0].value;
-                 console.log(data[0].value);
-                if (data.value === undefined) {
+                if (data[0].value === undefined) {
                     return;
                 }
-                searchTerms.push("locations:"+data.value);
+                searchTerms.push("locations:"+data[0].value);
             }
             setLocationForSearch(forLoc);
-
+            console.log(searchString);
             var searchString = searchTerms.join(",");
             console.log("post-location");
             console.log(searchString);
