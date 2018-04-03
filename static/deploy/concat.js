@@ -34907,6 +34907,12 @@ Acme.searchCollectionClass = function(blogId)
             var searchTerms = [];
             var loader = $('#article-load');
 
+            
+            console.log(searchTerms);
+            for (search in this.searchTerms) {
+                searchTerms.push( search + ":" + this.searchTerms[search]);
+            }
+             console.log(searchTerms);
             var forLoc = $('#location');
 
             console.log('herewego');
@@ -34919,10 +34925,7 @@ Acme.searchCollectionClass = function(blogId)
                 this.searchTerms['location'] = data.location;
             }
             setLocationForSearch(forLoc);
-            console.log(searchTerms);
-            for (search in this.searchTerms) {
-                searchTerms.push( search + ":" + this.searchTerms[search]);
-            }
+
             var searchString = searchTerms.join(",");
             console.log(searchString);
             if (searchString) {
