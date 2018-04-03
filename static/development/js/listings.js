@@ -232,10 +232,10 @@ Acme.searchCollectionClass = function(blogId)
     });
     var forLoc = $('#location').content;
     console.log('herewego');
-    console.log(data);
     console.log(forLoc);
     Acme.searchCollectionClass.prototype.listeners = {
         "region" : function(data) {
+            console.log(data);
             if (data.region === "") {
                 delete this.searchTerms['region'];
                 return;
