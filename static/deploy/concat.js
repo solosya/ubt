@@ -34907,6 +34907,13 @@ Acme.searchCollectionClass = function(blogId)
             var searchTerms = [];
             var loader = $('#article-load');
 
+            var forLoc = $('#location').value;
+            console.log('herewego');
+            console.log(forLoc);
+            if (forLoc.value != "" ){
+                this.searchTerms['location'] = forLoc.value;
+            }
+
             for (search in this.searchTerms) {
                 searchTerms.push( search + ":" + this.searchTerms[search]);
             }
@@ -34932,12 +34939,6 @@ Acme.searchCollectionClass = function(blogId)
     };
 
 $('#searchButton').on('click', function(e) {
-    var forLoc = $('#location');
-    console.log('herewego');
-    console.log(forLoc);
-    // if (forLoc.contents != undefined ){
-    //     self.data.location = forLoc.contents;
-    // }
     e.preventDefault();
     Acme.PubSub.publish('update_state', {'fetch': self});
 });
