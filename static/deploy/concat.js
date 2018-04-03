@@ -36219,7 +36219,8 @@ Acme.Signin.prototype.handle = function(e) {
             $.each($('#loginForm').serializeArray(), function () {
                 formData[this.name] = this.value;
             });
-
+            // rememberMe sets flag to store login for 30 days in cookie
+            formData['rememberMe'] = 1;
             Acme.server.create('/api/auth/login', formData).done(function(r) {
                 // console.log(r);
                 if (r.success === 1) {
