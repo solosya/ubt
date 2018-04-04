@@ -261,10 +261,14 @@ Acme.searchCollectionClass = function(blogId)
                 searchTerms.push( search + ":" + this.searchTerms[search]);
             }        
             function setLocationForSearch(data) {
-                if (data === undefined || data[0].value === "") {
-                    return;
+                if (data != undefined) {
+                    if (data[0].value === "") {
+                        return;
+                    }
+                    searchTerms.push("location:"+data[0].value);
+                } else {
+                    return
                 }
-                searchTerms.push("location:"+data[0].value);
             }
             setLocationForSearch($('#location'));
             var searchString = searchTerms.join(",");
