@@ -34882,13 +34882,6 @@ Acme.searchCollectionClass = function(blogId)
             }
             this.searchTerms['region'] = data.region;
         },
-        // "location" : function(data) {
-        //     if (data.location === "") {
-        //         delete this.searchTerms['location'];
-        //         return;
-        //     }
-        //     this.searchTerms['location'] = data.location;
-        // },
         "type" : function(data) {
             if (data.type === "") {
                 delete this.searchTerms['type'];
@@ -34906,28 +34899,13 @@ Acme.searchCollectionClass = function(blogId)
         "fetch" :  function() {
             var searchTerms = [];
             var loader = $('#article-load');
-
-            console.log('before');
-
             console.log(this.searchTerms);
-            console.log(searchTerms);
             for (search in this.searchTerms) {
                 console.log(search);
                 searchTerms.push( search + ":" + this.searchTerms[search]);
             }
-            
-            console.log(searchTerms);            
-            // function setLocationForSearch(data) {
-            //     if (data[0].value === "") {
-            //         return;
-            //     }
-            //     searchTerms.push("location:"+data[0].value);
-            // }
-            // setLocationForSearch($('#location'));
-            console.log(searchTerms);
             var searchString = searchTerms.join(",");
-            console.log("post-location");
-            console.log(searchString);
+            
             if (searchString) {
                 return loader.data('loadtype', 'api/search')
                              .data('rendertype', 'write')
