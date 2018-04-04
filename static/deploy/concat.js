@@ -34899,13 +34899,18 @@ Acme.searchCollectionClass = function(blogId)
         "fetch" :  function() {
             var searchTerms = [];
             var loader = $('#article-load');
-            console.log(this.searchTerms);
+            console.log(searchTerms);
             for (search in this.searchTerms) {
-                console.log(search);
                 searchTerms.push( search + ":" + this.searchTerms[search]);
+            }        
+            function setLocationForSearch(data) {
+                if (data[0].value === "") {
+                    return;
+                }
+                searchTerms.push("location:"+data[0].value);
             }
+            setLocationForSearch($('#location'));
             var searchString = searchTerms.join(",");
-            
             if (searchString) {
                 return loader.data('loadtype', 'api/search')
                              .data('rendertype', 'write')
@@ -34920,7 +34925,6 @@ Acme.searchCollectionClass = function(blogId)
                          .data('offset', '0')
                          .data('non-pinned-offset', '0')
                          .click();
-            console.log(params);
             return params;
         },
     };
