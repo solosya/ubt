@@ -274,13 +274,13 @@ Acme.searchCollectionClass = function(blogId)
             }
             
             console.log(searchTerms);            
-            function setLocationForSearch(data) {
-                if (data[0].value === "") {
-                    return;
-                }
-                searchTerms.push("location:"+data[0].value);
-            }
-            setLocationForSearch($('#location'));
+            // function setLocationForSearch(data) {
+            //     if (data[0].value === "") {
+            //         return;
+            //     }
+            //     searchTerms.push("location:"+data[0].value);
+            // }
+            // setLocationForSearch($('#location'));
             console.log(searchTerms);
             var searchString = searchTerms.join(",");
             console.log("post-location");
