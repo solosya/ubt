@@ -34904,7 +34904,8 @@ Acme.searchCollectionClass = function(blogId)
                 searchTerms.push( search + ":" + this.searchTerms[search]);
             }        
             function setLocationForSearch(data) {
-                if (data != undefined) {
+                console.log(data);
+                if (data[0] != undefined) {
                     if (data[0].value === "") {
                         return;
                     }
