@@ -34907,25 +34907,24 @@ Acme.searchCollectionClass = function(blogId)
             var searchTerms = [];
             var loader = $('#article-load');
 
-            
-            // console.log(searchTerms);
+            console.log('before');
+
+            console.log(this.searchTerms);
+            console.log(searchTerms);
             for (search in this.searchTerms) {
+                console.log(search);
                 searchTerms.push( search + ":" + this.searchTerms[search]);
             }
-            console.log("pre-location");
-             console.log(searchTerms);
-            var forLoc = $('#location');
-
-            console.log('herewego');
-            // console.log(forLoc);
+            
+            console.log(searchTerms);            
             function setLocationForSearch(data) {
-                if (data[0].value === undefined) {
+                if (data[0].value === "") {
                     return;
                 }
-                searchTerms.push("locations:"+data[0].value);
+                searchTerms.push("location:"+data[0].value);
             }
-            setLocationForSearch(forLoc);
-            console.log(searchString);
+            setLocationForSearch($('#location'));
+            console.log(searchTerms);
             var searchString = searchTerms.join(",");
             console.log("post-location");
             console.log(searchString);
