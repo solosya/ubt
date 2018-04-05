@@ -2,7 +2,6 @@
 
     Acme.Locations = function(){
         this.country = _appJsConfig.appHostName.split('.').reverse()[0];
-        this.country = 'uk';
         this.data = this.getLocations(this.country);
         this.regional = this.getLocations(this.country + '-regional');
     };
