@@ -14,7 +14,9 @@ Handlebars.registerHelper('fixPrice', function(text) {
 });
 
 Handlebars.registerHelper('draftStatus', function(text, date) {
-    if (!text || !date) return "";
+    if (!text && !date) return "";
+    if (!text) return "Posted " + date;
+    if (!date) return "Pending Approval";
     return text.toLowerCase() === 'draft' ? "Pending Approval" : "Posted " + date; 
 });
 
@@ -374,9 +376,9 @@ Acme.userPropertyCardTemplate =
         \
         <div class="content"> \
             <div class="cat-time"> \
-                <time datetime="{{publishDate}}">{{publishDate}}</time> \
+                <time datetime="{{publishDate}}">{{ draftStatus articleStatus publishDate }}</time> \
             </div> \
-            <h2>{{ title }}</h2> \
+            <h2>{{ title }}, {{ returnLoc additionalInfo.location additionalInfo.region }}</h2> \
             <p class="propertyType">{{ additionalInfo.type }}</p> \
             <div> \
                 <p class="contracttype">{{ additionalInfo.contracttype }}</p> \
@@ -398,10 +400,10 @@ Acme.propertyCardTemplate =
         \
         <div class="content"> \
             <div class="cat-time"> \
-                <time datetime="{{publishDate}}">{{publishDate}}</time> \
+                <time datetime="{{publishDate}}">{{ draftStatus articleStatus publishDate }}</time> \
                 <div class="j-deleteListing edit"></div> \
             </div> \
-            <h2 class="title">{{ title }}</h2> \
+            <h2 class="title">{{ title }}, {{ returnLoc additionalInfo.location additionalInfo.region }}</h2> \
             <p class="propertyType">{{ additionalInfo.type }}</p> \
             <div> \
                 <p class="contracttype">{{ additionalInfo.contracttype }}</p> \
