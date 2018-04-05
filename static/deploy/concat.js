@@ -33214,9 +33214,6 @@ Handlebars.registerHelper('fixPrice', function(text) {
 });
 
 Handlebars.registerHelper('draftStatus', function(text, date) {
-    console.log("status:");
-    console.log(text);
-     console.log(date);
     if (!text && !date) return "";
     if (!text) return "Posted " + date;
     if (!date) return "Pending Approval";
