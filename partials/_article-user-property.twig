@@ -26,7 +26,7 @@
         <time datetime="{{params.publishDate}}">{{status}}</time>
         <div class="j-deleteListing edit"></div>
     </div>
-    <h2 class="title">{{ params.articleTitle }}</h2>
+    <h2 class="title">{{ params.articleTitle }}, {% if article.additionalInfo.location != "" and (networkData.title | lower) == 'frank uk' %}{{ article.additionalInfo.location }}, {% endif %}{{ article.additionalInfo.region }}</h2>
     <p class="propertyType">{{ article.additionalInfo.type }}</p>
     <div>
         <p class="contracttype">{{ article.additionalInfo.contracttype }}</p>

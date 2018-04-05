@@ -33574,9 +33574,9 @@ Acme.userPropertyCardTemplate =
         \
         <div class="content"> \
             <div class="cat-time"> \
-                <time datetime="{{publishDate}}">{{publishDate}}</time> \
+                <time datetime="{{publishDate}}">{{ draftstatus article.status publishDate }}</time> \
             </div> \
-            <h2>{{ title }}</h2> \
+            <h2>{{ title }}, {{ returnLoc additionalInfo.location additionalInfo.region }}</h2> \
             <p class="propertyType">{{ additionalInfo.type }}</p> \
             <div> \
                 <p class="contracttype">{{ additionalInfo.contracttype }}</p> \
