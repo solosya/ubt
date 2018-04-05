@@ -376,7 +376,7 @@ Acme.userPropertyCardTemplate =
         \
         <div class="content"> \
             <div class="cat-time"> \
-                <time datetime="{{publishDate}}">{{ draftStatus article.status publishDate }}</time> \
+                <time datetime="{{publishDate}}">{{ draftStatus articleStatus publishDate }}</time> \
             </div> \
             <h2>{{ title }}, {{ returnLoc additionalInfo.location additionalInfo.region }}</h2> \
             <p class="propertyType">{{ additionalInfo.type }}</p> \
@@ -400,7 +400,7 @@ Acme.propertyCardTemplate =
         \
         <div class="content"> \
             <div class="cat-time"> \
-                <time datetime="{{publishDate}}">{{ draftStatus article.status publishDate }}</time> \
+                <time datetime="{{publishDate}}">{{ draftStatus articleStatus publishDate }}</time> \
                 <div class="j-deleteListing edit"></div> \
             </div> \
             <h2 class="title">{{ title }}, {{ returnLoc additionalInfo.location additionalInfo.region }}</h2> \
