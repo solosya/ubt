@@ -33600,10 +33600,10 @@ Acme.propertyCardTemplate =
         \
         <div class="content"> \
             <div class="cat-time"> \
-                <time datetime="{{publishDate}}">{{publishDate}}</time> \
+                <time datetime="{{publishDate}}">{{ draftstatus article.status publishDate }}</time> \
                 <div class="j-deleteListing edit"></div> \
             </div> \
-            <h2 class="title">{{ title }}</h2> \
+            <h2 class="title">{{ title }}, {{ returnLoc additionalInfo.location additionalInfo.region }}</h2> \
             <p class="propertyType">{{ additionalInfo.type }}</p> \
             <div> \
                 <p class="contracttype">{{ additionalInfo.contracttype }}</p> \
