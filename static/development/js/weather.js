@@ -2,12 +2,52 @@
 
     Acme.Locations = function(){
         this.country = _appJsConfig.appHostName.split('.').reverse()[0];
+        this.country = 'uk';
         this.data = this.getLocations(this.country);
         this.regional = this.getLocations(this.country + '-regional');
     };
     Acme.Locations.prototype.getLocations = function(country) 
     {
         switch (country) {
+            case 'uk':
+                Acme.State.Country = 'GB';
+                return [
+                    'GB/London',
+                    'GB/Birmingham',
+                    'GB/Glasgow',
+                    'GB/Liverpool',
+                    'GB/Bristol',
+                    'GB/Manchester',
+                    'GB/Sheffield',
+                    'GB/Leeds',
+                    'GB/Edinburgh',
+                    'GB/Leicester'
+                ];
+                break;
+            
+            case 'uk-regional':
+                return [
+                    'GB/Aberdeen', 
+                    'GB/Middlesbrough', 
+                    'GB/York', 
+                    'GB/Hull', 
+                    'GB/Chester', 
+                    'GB/Nottingham', 
+                    'GB/Peterborough', 
+                    'GB/Norwich', 
+                    'GB/Cambridge', 
+                    'GB/Ipswich', 
+                    'GB/Swansea', 
+                    'GB/Cardiff', 
+                    'GB/Bristol', 
+                    'GB/Reading', 
+                    'GB/Canterbury', 
+                    'GB/Southampton', 
+                    'GB/Burgess%20Hill', 
+                    'GB/Plymouth'
+                ];
+                break;
+
             case 'nz':
                 Acme.State.Country = 'NZ';
                 return [

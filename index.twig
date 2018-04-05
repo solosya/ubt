@@ -5,24 +5,6 @@
 
 {{this.registerJs("CardController();")}}
 
-{% set templatePath = "window.Acme.templatePath = '" ~ networkData.templatePath ~ "';" %}
-{{this.registerJs( templatePath )}}
-
-{% set weatherJs = 
-
-    " var locations = new Acme.Locations();
-      var location = localStorage.getItem('city');
-      var alllocations = locations.data.concat(locations.regional);
-      console.log(alllocations);
-      var selectedLocation = alllocations.filter(function(l) {
-         return l == location;
-      })[0] || locations.data[0];
-
-      Acme.weather_model = new Acme.Weather();
-      Acme.weather_model.fetch(selectedLocation, 'localweather');
-      Acme.weather_view = new Acme.WeatherHeader_View({'container': $('#weather'), locations: locations});" %}
-
-{{this.registerJs( weatherJs )}}
 
 
 {% set limit = 15 %}
