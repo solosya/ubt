@@ -33496,13 +33496,11 @@ Acme.jobCardTemplate =
         '<div class="content"> \
             <div class="cat-time"> \
                 <time datetime="{{publishDate}}">{{publishDate}}</time> \
+                <div class="j-deleteListing edit"></div> \
             </div> \
-            <h2>{{{ title }}}</h2>\
+            <h2 class="title">{{{ title }}}</h2> \
             <p class="company">{{{ additionalInfo.company }}}</p> \
-            <p class="salary">{{{ formatSalary additionalInfo.salary additionalInfo.salaryto additionalInfo.salaryfrom additionalInfo.hourlyrate}}}</p> \
             <p class="excerpt">{{{ excerpt }}}</p> \
-            <p class="location">{{ returnLoc additionalInfo.location additionalInfo.region }}</p> \
-            \
         </div>' + 
     cardTemplateBottom;
 
@@ -33601,8 +33599,9 @@ Acme.propertyCardTemplate =
         <div class="content"> \
             <div class="cat-time"> \
                 <time datetime="{{publishDate}}">{{publishDate}}</time> \
+                <div class="j-deleteListing edit"></div> \
             </div> \
-            <h2>{{ title }}</h2> \
+            <h2 class="title">{{ title }}</h2> \
             <p class="propertyType">{{ additionalInfo.type }}</p> \
             <div> \
                 <p class="contracttype">{{ additionalInfo.contracttype }}</p> \
@@ -35716,7 +35715,7 @@ Acme.listingViewClass = function() {
     Acme.listingViewClass.prototype.render = function()
     {
         var container = this.container.main;
-        var cardClass = "card-form-"+this.type+"-listing listingCard";
+        var cardClass = "card-form-"+this.type+"-listing card-form-"+this.type+"-listing-tablet card-form-"+this.type+"-listing-mobile listingCard";
 
         var html = "";
         for (var i=0;i<this.data.length;i++) {

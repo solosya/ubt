@@ -1073,7 +1073,7 @@ Acme.listingViewClass = function() {
     Acme.listingViewClass.prototype.render = function()
     {
         var container = this.container.main;
-        var cardClass = "card-form-"+this.type+"-listing listingCard";
+        var cardClass = "card-form-"+this.type+"-listing card-form-"+this.type+"-listing-tablet card-form-"+this.type+"-listing-mobile listingCard";
 
         var html = "";
         for (var i=0;i<this.data.length;i++) {
