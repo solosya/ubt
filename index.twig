@@ -12,7 +12,7 @@
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
 
-{% set recentArticles = _Article.getRecentArticles({'limit': 5}) %}
+{% set recentArticles = _Article.getRecentArticles({'limit': 5, 'scope': 'network'}) %}
 {% set events = _Event.getEvents() %}
 
 
