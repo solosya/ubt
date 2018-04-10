@@ -36,7 +36,6 @@
     {
         this.date = new Date();
         this.datetime = this.date.toISOString().substring(0, 16);
-        console.log('tick');
         this.render();
     }
 

@@ -9,11 +9,6 @@
 {{this.registerJs('$("#screenTicker").liScroll({travelocity:.07});')}}
 
 
-{% set weatherJs = 
-    " var locations = new Acme.Locations();
-      Acme.weather_model = new Acme.Weather();
-      Acme.weather_model.fetch(locations.data[0], 'localweather');
-      Acme.weather_view = new Acme.WeatherScreen_View({'container': $('#screenweather'), locations: locations});" %}
 
 {{this.registerJs( weatherJs )}}
 

@@ -213,8 +213,9 @@
 
         Acme.weather_model = new Acme.Weather();
         Acme.weather_model.fetch(selectedLocation, 'localweather');
-        Acme.weather_view = new Acme.WeatherHeader_View({'container': $('#weather'), locations: locations});" %}
-
+        Acme.weather_view = new Acme.WeatherHeader_View({'container': $('#weather'), locations: locations});
+        Acme.weather_screen_view = new Acme.WeatherScreen_View({'container': $('#screenweather'), locations: locations});
+    " %}
     {{this.registerJs( weatherJs )}}
 
 

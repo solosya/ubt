@@ -320,12 +320,16 @@
         this.locations = config.locations || null;
 
         this.subscriptions = Acme.PubSub.subscribe({
-            'Acme.weather_view.listener' : ["state_changed"]
+            'Acme.weather_screen_view.listener' : ["state_changed"]
         });
         this.listeners = {
             "localweather" : function(data) {
                 this.localdata = data.localweather.data;
                 return this.render();
+            },
+            "nationalweather" : function(data) {
+                this.nationaldata = data.nationalweather.data;
+                return this.renderNational();
             }
         };
         this.template = '<div id="location" class="location"> \
