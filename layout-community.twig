@@ -13,7 +13,7 @@
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
 
-{% set events = _Event.getEvents() %}
+{% set events = _Event.getEvents({'limit': 7}) %}
 
 {% set sections =  {
         "job listings": {

@@ -34536,6 +34536,7 @@ Card.prototype.events = function()
 (function ($) {
 
     Acme.Clock = function() {
+        var self = this;
         this.date = new Date();
         this.datetime = this.date.toISOString().substring(0, 16);
         this.monthNames = [
@@ -34548,9 +34549,13 @@ Card.prototype.events = function()
             "Monday", "Tuesday", "Wednesday",
             "Thursday", "Friday", "Saturday", "Sunday"
         ];
+        this.container = document.getElementById('screentime');
+        this.render();
+        setInterval( function() {
+            self.tick();
+        }, 10000 );
     };
-    // Acme.Signin.prototype = {};
-    // Acme.Signin.constructor = Acme.Signin;
+
     Acme.Clock.prototype.formatTo12hrTime = function() 
     {
       var hours = this.date.getHours();
@@ -34562,6 +34567,13 @@ Card.prototype.events = function()
       return hours + '.' + minutes + ampm;
     };
 
+    Acme.Clock.prototype.tick = function() 
+    {
+        this.date = new Date();
+        this.datetime = this.date.toISOString().substring(0, 16);
+        console.log('tick');
+        this.render();
+    }
 
     Acme.Clock.prototype.formatDate = function() 
     {
@@ -34578,10 +34590,9 @@ Card.prototype.events = function()
     
     Acme.Clock.prototype.render = function()
     {
-        var field = document.getElementById('screentime');
-        if (field) {
-            field.setAttribute('datetime', this.datetime);
-            field.innerHTML = this.formatDate();
+        if (this.container) {
+            this.container.setAttribute('datetime', this.datetime);
+            this.container.innerHTML = this.formatDate();
         }
     }
 
