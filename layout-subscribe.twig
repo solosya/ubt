@@ -90,7 +90,7 @@
 				    <form class="" method="post" action="" id="listingForm">
 			    		<p class="form-section-label">Your information</p>
 
-		                <input type="text" class="articleExtendedData" name="username" id="username" value="" placeholder="User Name">
+		                <input type="text" class="articleExtendedData" name="username" id="username" value="" placeholder="Username">
 		                <p class="form-section-note">Username must be at least five characters long and contain no spaces or special characters</p>
 
 		                <input type="text" class="articleExtendedData" name="firstname" id="firstname" value="" placeholder="First name">
@@ -103,8 +103,12 @@
 		                <input type="email" class="" name="email" id="email" value="" placeholder="Email">
 		                <input type="text" class="articleExtendedData" name="phone_no" id="phone_no" value="" placeholder="Mobile">
 		                <input type="text" class="articleExtendedData" name="address1" id="address1" value="" placeholder="Address">
-		                <input type="text" class="articleExtendedData" name="suburb" id="suburb" value="" placeholder="Suburb">
+						<input type="text" class="articleExtendedData" name="suburb" id="suburb" value="" placeholder="Suburb">
+						{% if plan.currency == "GBP" %}
+		                <input type="text" class="articleExtendedData" name="state" id="state" value="" placeholder="City/Town">
+						{% else %}
 		                <input type="text" class="articleExtendedData" name="state" id="state" value="" placeholder="State">
+			            {% endif %}
 		                <input type="text" class="articleExtendedData" name="postcode" id="postcode" value="" placeholder="Postcode">
 			            
 			            <input type="hidden" class="" name="planid" id="planid" value="{{plan.guid}}">
@@ -185,7 +189,7 @@
 							{% endif %}
 
 							<p>{{uc|replace({ '10001': '20+' })}} users</p>
-							<h4>${{val|number_format(2, '.', ',')}} ({{plan.currency|raw}})/{{plan.period}}</h4>
+							<h4>{{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{val|number_format(2, '.', ',')}} ({{plan.currency|raw}})/{{plan.period}}</h4>
 							<img src="{{networkData.templatePath}}/static/images/market-screens.png?v=4">
 							<p class="red-label u-margin-top-40">What's included in your subscription:</p>
 							<ul class="features-list">
