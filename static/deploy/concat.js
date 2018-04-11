@@ -32893,7 +32893,7 @@ jQuery(document).ready(function () {
         Acme.modal.prototype = new Acme.listen();
 
         Acme.modal.prototype.render = function(layout, title, data) {
-            console.log('renderingt confirm in base');
+
             if (title) {
                 this.data['title'] = title;
             }
@@ -32909,7 +32909,7 @@ jQuery(document).ready(function () {
         };
         Acme.modal.prototype.renderLayout = function(layout, data) {
             var data = data || {};
-            console.log(data);
+
             var tmp = Handlebars.compile(window.templates[this.layouts[layout]]);
             var layout = tmp(data);
             // var layout = window.templates[this.layouts[layout]];
@@ -32927,7 +32927,7 @@ jQuery(document).ready(function () {
         Acme.modal.prototype.handle = function(e) {
             var $elem = $(e.target);
 
-            if (!$elem.is('input')) {
+            if (!$elem.is('input') && !$elem.is('a')) {
                 e.preventDefault();
             }
 
@@ -33413,6 +33413,7 @@ window.templates.signinFormTmpl =
     \
     <button id="signinBtn" type="submit" class="_btn _btn--red signin">SIGN IN</button> \
     \
+    <p class="u-no-margin u-margin-top-15 faq">Trouble signing in? <a class="faq__link" href="login-faq">Read our FAQ</a></p> \
     <script>$("#loginName").on("input", function() {window.scrollBy(0,1);window.scrollBy(0,-1);})</script>\
 </form>';
 
@@ -36233,6 +36234,7 @@ Acme.Signin.prototype.handle = function(e) {
 
     if ( $elem.is('a') ) {
         if ($elem.hasClass('close')) {
+            e.preventDefault();
             $('body').removeClass("active");
             this.closeWindow();
         }
@@ -36251,10 +36253,10 @@ Acme.Signin.prototype.handle = function(e) {
             // rememberMe sets flag to store login for 30 days in cookie
             formData['rememberMe'] = 1;
             Acme.server.create('/api/auth/login', formData).done(function(r) {
-                // console.log(r);
+
                 if (r.success === 1) {
                     window.location.href = location.origin;
-                    // location.reload();
+
                 } else {
                     $elem.text("Sign in")
                          .removeClass('spinner');
