@@ -148,24 +148,33 @@
                     <div class="col-md-4 details-padding">
                         <div class="job-details">
                             <table>
-                                {% if article.additionalInfo.floorarea %}
+                                {% if article.additionalInfo.type %}
                                     <tr>
                                         <td class="label">Property type</td>
                                         <td class="value">{{article.additionalInfo.type}}</td>
                                     </tr>
                                 {% endif %}
-                                <tr>
-                                    <td class="label">Available</td>
-                                    <td class="value">{{article.additionalInfo.availability}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="label">Land area {{ forMeas }}&sup2;</td>
-                                    <td class="value">{{article.additionalInfo.landarea}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="label">Floor area {{ forMeas }}&sup2;</td>
-                                    <td class="value">{{article.additionalInfo.floorarea}}</td>
-                                </tr>
+                                
+                                {% if article.additionalInfo.availability %}
+                                    <tr>
+                                        <td class="label">Available</td>
+                                        <td class="value">{{article.additionalInfo.availability}}</td>
+                                    </tr>
+                                {% endif %}
+
+                                {% if article.additionalInfo.landarea %}
+                                    <tr>
+                                        <td class="label">Land area {{ forMeas }}&sup2;</td>
+                                        <td class="value">{{article.additionalInfo.landarea}}</td>
+                                    </tr>
+                                {% endif %}
+
+                                {% if article.additionalInfo.floorarea %}
+                                    <tr>
+                                        <td class="label">Floor area {{ forMeas }}&sup2;</td>
+                                        <td class="value">{{article.additionalInfo.floorarea}}</td>
+                                    </tr>
+                                {% endif %}
                             </table>
                         </div>
 

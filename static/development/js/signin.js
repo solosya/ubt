@@ -18,6 +18,7 @@ Acme.Signin.prototype.handle = function(e) {
 
     if ( $elem.is('a') ) {
         if ($elem.hasClass('close')) {
+            e.preventDefault();
             $('body').removeClass("active");
             this.closeWindow();
         }
@@ -36,10 +37,10 @@ Acme.Signin.prototype.handle = function(e) {
             // rememberMe sets flag to store login for 30 days in cookie
             formData['rememberMe'] = 1;
             Acme.server.create('/api/auth/login', formData).done(function(r) {
-                // console.log(r);
+
                 if (r.success === 1) {
                     window.location.href = location.origin;
-                    // location.reload();
+
                 } else {
                     $elem.text("Sign in")
                          .removeClass('spinner');

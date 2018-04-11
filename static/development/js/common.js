@@ -551,7 +551,7 @@
         Acme.modal.prototype = new Acme.listen();
 
         Acme.modal.prototype.render = function(layout, title, data) {
-            console.log('renderingt confirm in base');
+
             if (title) {
                 this.data['title'] = title;
             }
@@ -567,7 +567,7 @@
         };
         Acme.modal.prototype.renderLayout = function(layout, data) {
             var data = data || {};
-            console.log(data);
+
             var tmp = Handlebars.compile(window.templates[this.layouts[layout]]);
             var layout = tmp(data);
             // var layout = window.templates[this.layouts[layout]];
@@ -585,7 +585,7 @@
         Acme.modal.prototype.handle = function(e) {
             var $elem = $(e.target);
 
-            if (!$elem.is('input')) {
+            if (!$elem.is('input') && !$elem.is('a')) {
                 e.preventDefault();
             }
 

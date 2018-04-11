@@ -426,10 +426,22 @@
                 }
             }
 
-            .dialogContent {
-                p {
-                    margin-bottom: 40px;
-                }
+            // .dialogContent {
+            //     p {
+            //         margin-bottom: 40px;
+            //     }
+            // }
+
+
+            .faq {
+                font-size:rem(12);
+                color:color(lightgrey);
+                font-style:italic;
+            }
+
+            .faq__link {
+                color:color(lightgrey);
+                text-decoration: underline;
             }
 
             form {

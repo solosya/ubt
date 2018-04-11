@@ -13,13 +13,12 @@
 
 {% set showPaywall = false %}
 
-
 {# Pages don't have a blogName so class has to be used #}
 {% if   blogName  | lower               != "subscribe"                      and
         blogName  | lower               != 'screen'                         and 
         pageClass | lower               != 'page page-terms-of-use'         and 
         pageClass | lower               != 'page page-faq'                  and 
-        pageClass | lower               != 'page page-log-in-faqs'          and 
+        pageClass | lower               != 'page page-login-faq'            and 
         _AppHelper.getParsedUrl().path  != _AppHelper.getEditProfileUrl()   and 
         _AppHelper.getParsedUrl().path  != _AppHelper.getEditProfileUrl()   and 
         _AppHelper.getParsedUrl().path  != "/auth/verify-email-thanks"      and 
@@ -76,7 +75,7 @@
 
     {% if _AppHelper.getApplicationEnv() == 'PROD'%}
 
-        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=_1_b0ac607" type="text/css" media="all">
+        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=016399a6" type="text/css" media="all">
 
     {% else %}
 
@@ -202,6 +201,7 @@
 
 
     {% set templatePath = "window.Acme.templatePath = '" ~ networkData.templatePath ~ "';" %}
+    
     {{this.registerJs( templatePath )}}
 
     {% set weatherJs =  " 
