@@ -33413,7 +33413,7 @@ window.templates.signinFormTmpl =
     \
     <button id="signinBtn" type="submit" class="_btn _btn--red signin">SIGN IN</button> \
     \
-    <p class="u-no-margin u-margin-top-15 faq">Trouble signing in? <a class="faq__link" href="login-faq">Read our FAQ</a></p> \
+    <p class="u-no-margin u-margin-top-15 faq">Trouble signing in? <a class="faq__link" href="'+_appJsConfig.baseHttpPath +'/login-faq">Read our FAQ</a></p> \
     <script>$("#loginName").on("input", function() {window.scrollBy(0,1);window.scrollBy(0,-1);})</script>\
 </form>';
 
@@ -36350,6 +36350,7 @@ Acme.SigninView = new Acme.Signin('modal', 'signin', layouts);
 
 
 $('#header_login_link').on('click', function() {
+    console.log(_appJsConfig);
     Acme.SigninView.render("signin", "Sign in");
 });
 $('#body_login_link').on('click', function() {
