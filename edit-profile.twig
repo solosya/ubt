@@ -116,6 +116,8 @@
 
 
                 {% if pwstats.userManager == true %}
+
+
                     {% set managedUsers = _User.getPaywallManagedUsers({"limit": userLimit}) %}
                     {% set managedUserCount = managedUsers | length %}   
                     
@@ -137,7 +139,7 @@
                                         <label class="mobLabel" for="currentplan">Current Plan</label>
                                         <div class="inline-inputs">
                                             <label for="currentplan">Current Plan</label>
-                                            <input type="text" id="currentplan" class="form-control" value="{{pwstats['name']}}: {{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{ pwstats['plan_value']/100}} per {{pwstats['period']}}" disabled="disabled">
+                                            <input type="text" id="currentplan" class="form-control" value="{{pwstats['name']}}: {{pwstats['currency']|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{ pwstats['plan_value']/100}} per {{pwstats['period']}}" disabled="disabled">
                                         </div>
 
                                         <label class="mobLabel" for="currentplan">Plan Status</label>
