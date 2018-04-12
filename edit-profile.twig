@@ -116,6 +116,8 @@
 
 
                 {% if pwstats.userManager == true %}
+
+
                     {% set managedUsers = _User.getPaywallManagedUsers({"limit": userLimit}) %}
                     {% set managedUserCount = managedUsers | length %}   
                     
@@ -137,7 +139,7 @@
                                         <label class="mobLabel" for="currentplan">Current Plan</label>
                                         <div class="inline-inputs">
                                             <label for="currentplan">Current Plan</label>
-                                            <input type="text" id="currentplan" class="form-control" value="{{pwstats['name']}}: ${{ pwstats['plan_value']/100}} per {{pwstats['period']}}" disabled="disabled">
+                                            <input type="text" id="currentplan" class="form-control" value="{{pwstats['name']}}: {{pwstats['currency']|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{ pwstats['plan_value']/100}} per {{pwstats['period']}}" disabled="disabled">
                                         </div>
 
                                         <label class="mobLabel" for="currentplan">Plan Status</label>
@@ -247,7 +249,7 @@
                                 <div class="j-setplan plans__item" style="cursor:hand; cursor:pointer;">
                                     <h3 class="plans__name">{{plan.name}}</h3>
                                     <p class="plans__usercount">{{uc|replace({ '10001': '20+' })}} Users</p>
-                                    <p class="plans__price">${{val|number_format(2, '.', ',')}}({{plan.currency|raw}})<br />
+                                    <p class="plans__price">{{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{val|number_format(2, '.', ',')}}({{plan.currency|raw}})<br />
                                                             per {{plan.period}}</p>
 
                                     <input type="hidden" id="planid"        value="{{plan.guid}}">
