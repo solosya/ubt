@@ -1,3 +1,5 @@
+{% set footermenu = _Menu.get({'menuType': 'footer'}) %}
+
 <!--footer-->
 <footer class="site-footer" data-blogGuid="{{blog.guid}}">
     <div class="index_container">        
@@ -16,11 +18,10 @@
                 <h2>TRUSTED SOURCES. GLOBAL STORIES.</h2>
             </div>
 
-            {% set menuItems = blog.blogFooterMenu %}
 
             <div class="col-sm-12 hidden-sm hidden-md hidden-lg">
                 <ul class="footer-section-links">
-                {% for menu in menuItems %}
+                {% for menu in footermenu %}
                     <li><a href="{{menu.link}}">{{menu.blogTitle}}</a></li>
                 {% endfor %}
                 </ul>
@@ -33,8 +34,8 @@
                 <img src="{{networkData.templatePath}}/static/images/ubt-logo.png">
 
                 <ul class="footer-links">
-                    {% set menuItems = blog.blogFooterMenu %}
-                    {% for parentItem in menuItems  %}
+
+                    {% for parentItem in footermenu  %}
 
                        {% set activeClass = (parentItem.link == _AppHelper.getServerUrl()) ? 'active' : ''%}
                        {% set externalClass = (parentItem.isExternal) ? 'external-link' : '' %}
@@ -57,10 +58,7 @@
 
 
 
-{#                 <ul class="footer-links">
-                     <li><a href="#">TERMS OF USE</a></li
-                    ><li><a href="#">FAQ</a></li>
-                </ul> #}
+
                 {% if (networkData.title | lower) == 'frank uk' %}
                     <p> <a href="mailto:info.uk@ubteam.com">info.uk@ubteam.com</a>  | T:&nbsp;+44&nbsp;3&nbsp;300&nbsp;555&nbsp;500 </p>
                     <p class="copyright">Copyright © UBT Marketing Pty Ltd 2018</p>

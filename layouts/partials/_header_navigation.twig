@@ -1,5 +1,14 @@
 {% set logo = networkData.templatePath~'/static/images/logo.svg'%}
-{% set userData = _User.getPaywallStats(false)  %}
+
+{% set userData = []  %}
+{% if not _User.isGuest() %}
+
+    {% set userData = _User.getPaywallStats(false)  %}
+
+    {% set headermenu = _Menu.get({'menuType': 'header'}) %}
+
+{% endif %}
+
 {% if networkData.logoMedia | length > 0 %}
     {% set logo = _Media.getMediaUrl(networkData.logoMedia, 290, 80, {'crop': 'fit'} )%}
 {% endif %}
@@ -92,7 +101,7 @@
                                 <ul id="menu-primary-menu" class="menu mobile">
 
                                     {% if not _User.isGuest() %}
-                                        {% set menuItems = blog.blogHeaderMenu %}
+                                        {% set menuItems = headermenu %}
                                         {% for parentItem in menuItems  %}
 
                                             {% set activeClass = (parentItem.link == _AppHelper.getServerUrl()) ? 'active' : ''%}
@@ -185,7 +194,9 @@
                             <div class="menuContainer">
 
                                 <ul id="menu-primary-menu" class="menu">
-                                    {% set menuItems = blog.blogHeaderMenu %}
+                                {% if not _User.isGuest() %}
+
+                                    {% set menuItems = headermenu %}
                                     {% for parentItem in menuItems  %}
 
                                        {% set activeClass = (parentItem.link == _AppHelper.getServerUrl()) ? 'active' : ''%}
@@ -207,6 +218,7 @@
                                         </li>
 
                                     {% endfor %}
+                                {% endif %}
                                 </ul>
                             </div>
                         </nav>
@@ -218,53 +230,7 @@
         </div><!-- .container-->  
 
 
-
-
-
-
-
-
-
-
-
-                
-
-
-
-
-
-    {#  _____________________________________________________
-
-                            PROFILE WINDOW
-        _____________________________________________________  #}
-
-
-        <div id="header__menu">
-            <div class="profile__menu">
-                 {% if user.profileMedia.id != '' %}
-                        {% set profileImg = _Media.getMediaUrl(user.profileMedia, 80, 80, {radius: 'max', gravity: 'face', 'crop': 'thumb', type: 'user'}) %}
-                    {% else %}
-                        {% set profileImg = networkData.templatePath ~ "/static/images/icons/profile.svg" %}
-                    {% endif %}
-              <div class="profile__menu-image" style="background-image: url({{ profileImg }})"></div>
-              <div class="profile__menu-content">
-                <div class="profile__menu-name">{{ (user.firstname ~" "~ user.lastname) | truncate(15) | title}}</div>
-                <div class="profile__menu-email">{{user.email | truncate(23)}}</div>
-                <a href="{{_AppHelper.buildUrl('user/my-news')}}" class="profile__menu-button">My News</a>
-              </div>
-              <ul class="profile__menu-navigation">
-                  {% if _User.isAdminUser() %}
-                      <li><a class="profile__menu-navigation-link" href="https://{{networkData.defaultDomain['domain']}}/admin" target="_blank">Admin</a></li>
-                  {% endif %}
-                  <li><a class="profile__menu-navigation-link" href="{{blogUrl}}/profile/{{user.username}}">View Profile</a></li>
-                  <li><a class="profile__menu-navigation-link" href="https://{{networkData.defaultDomain['domain']}}/user/edit-profile">Settings</a></li>
-                  <li><a class="profile__menu-navigation-link" href="{{_AppHelper.getLogoffUrl()}}">Sign Out</a></li>
-              </ul>
-            </div>
-        </div>
-
-
-    </div><!-- .site-header-main -->
+    </div>
 </header>
 
 

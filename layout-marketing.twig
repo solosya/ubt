@@ -1,8 +1,7 @@
-{% set networkData = _Network.getNetworkData() %}
 {% set plans = networkData['paywallPlans'] %}
 
-{# {{this.registerJs("var signin = new Acme.Signin('signinForm', '#signin');")}}
- #}
+{{this.registerJs("var signin = new Acme.Signin('signinForm', '#signin');")}}
+ 
 
 <main id="main" class="site-main" role="main">
 	<div class="container-fluid">
@@ -30,9 +29,7 @@
 						<p>Subscribe from just 65c per day</p>
 
 
-{# 						<h1>News that matters&nbsp;to&nbsp;you</h1>
-						<p>Coming soon</p>
- #}						<a id="" href="#subscriptions" class="_btn">SUBSCRIBE NOW</a>
+						<a id="" href="#subscriptions" class="_btn">SUBSCRIBE NOW</a>
  						<a id="body_login_link" class="hidden-xs hidden-sm" style="background:#337ab7;margin-left:25px;padding:15px 45px;cursor:pointer;">SIGN IN</a>
 					</div>
 				</div>
@@ -89,13 +86,6 @@
 
 
 	<div class="container-fluid">
-{# 		<section class="row cost">
-			<div class="col-sm-12">
-				<a href="#" class="_btn _btn--red _btn__register j-register">REGISTER YOUR INTEREST</a>
-				<p>Billed monthly</p>
-			</div>
-		</section>
- #}
 
 
 		<a name="subscriptions"></a>
@@ -119,6 +109,7 @@
 							{% endif %}
 							<p class="usercount">{{uc|replace({ '10001': '20+' })}} Users</p>
 							<p class="price">{{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{val|number_format(2, '.', ',')}} ({{plan.currency|raw}})<br> per {{plan.period}}</p>
+
 {# 							//trial button. this will probably be turned on again at some point
 							<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan={{plan.guid}}&amp;trial=true">
 								<p class="centerBlock _btn _btn--blue _btn__subscribe">14-DAY FREE TRIAL</p>
