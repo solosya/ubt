@@ -36482,6 +36482,7 @@ if ($('#stripekey').length > 0) {
 
         modal.render("spinner", "Authorising payment");
         stripe.createToken(card).then(function(result) {
+            console.log(result);
             if (result.error) {
                 modal.closeWindow();
                 // Inform the user if there was an error
@@ -36547,7 +36548,7 @@ if ($('#stripekey').length > 0) {
             data: formdata,
             dataType: 'json',
             success: function(data) {
-
+                console.log(data);
                 if(data.success) {
                     $('#card-errors').text('Completed successfully.');
                 } else {
@@ -37024,6 +37025,7 @@ Acme.UserProfileController.prototype.events = function ()
 
 Acme.UserProfileController.prototype.listingEvents = function() {
     $('.j-deleteListing').unbind().on('click', function(e) {
+        e.preventDefault();
         var listing = $(e.target).closest('a.card');
         var id      = listing.data("guid");
         Acme.SigninView.render("userPlanChange", "Are you sure you want to delete this listing?")
