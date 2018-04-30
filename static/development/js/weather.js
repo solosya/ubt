@@ -106,6 +106,7 @@
                     'Australia/Bendigo',
                     'Australia/Albury',
                     'Australia/Toowoomba',
+                    'Australia/Warrnambool'
                 ];
                 break;
 
