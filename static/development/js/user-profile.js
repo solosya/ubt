@@ -308,6 +308,7 @@ Acme.UserProfileController.prototype.events = function ()
 
 Acme.UserProfileController.prototype.listingEvents = function() {
     $('.j-deleteListing').unbind().on('click', function(e) {
+        e.preventDefault();
         var listing = $(e.target).closest('a.card');
         var id      = listing.data("guid");
         Acme.SigninView.render("userPlanChange", "Are you sure you want to delete this listing?")
