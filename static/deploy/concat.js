@@ -35265,6 +35265,7 @@ var ListingForm = function() {};
     {
         // console.log('rendering image array');
         var imageArray = $('#imageArray');
+        console.log(imageArray.children().length, images.length);
         if ( imageArray.children().length != images.length ) {
             var html = "";
             var temp = Handlebars.compile(window.templates.carousel_item); 
