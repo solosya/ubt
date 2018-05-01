@@ -35385,7 +35385,7 @@ var ListingForm = function() {};
             data[elemid] = elem.val();
             self.updateData(data);
             var validated = self.validate([elemid]);
-            // self.render();
+            self.render();
         });
 
 
