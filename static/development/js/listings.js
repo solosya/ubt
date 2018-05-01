@@ -256,12 +256,12 @@ Acme.searchCollectionClass = function(blogId)
         "fetch" :  function() {
             var searchTerms = [];
             var loader = $('#article-load');
-            console.log(searchTerms);
+
             for (search in this.searchTerms) {
                 searchTerms.push( search + ":" + this.searchTerms[search]);
             }        
             function setLocationForSearch(data) {
-                console.log(data);
+
                 if (data[0] != undefined) {
                     if (data[0].value === "") {
                         return;
@@ -553,8 +553,7 @@ var ListingForm = function() {};
 
         title.val(this.data.title);
         content.val(this.data.content);
-        // console.log('rendering');
-        // console.log(this.data);
+
         this.clearInlineErrors();
 
         for (key in this.data.extendedData) {
@@ -602,6 +601,7 @@ var ListingForm = function() {};
             $('#listingFormSubmit').text('UPDATE');
             $('#listingFormDelete').show();
         }
+
         if (this.data.mediaData){
             this.renderImageThumbs(this.data.mediaData);
         }
@@ -610,14 +610,18 @@ var ListingForm = function() {};
     {
         // console.log('rendering image array');
         var imageArray = $('#imageArray');
-        var html = "";
-        var temp = Handlebars.compile(window.templates.carousel_item); 
-
-        for (var i=0;i<images.length;i++) {
-            var imagePath = images[i].url || images[i].path;
-            html += temp({"imagePath": imagePath, 'imageid' : images[i].media_id});
+        if (imageArray.children().length == 0 )
+        {
+            var html = "";
+            var temp = Handlebars.compile(window.templates.carousel_item); 
+    
+            for (var i=0;i<images.length;i++) {
+                var imagePath = images[i].url || images[i].path;
+                html += temp({"imagePath": imagePath, 'imageid' : images[i].media_id});
+            }
+            imageArray.append(html);
+    
         }
-        imageArray.append(html);
     };
     ListingForm.prototype.clear = function() 
     {
@@ -726,7 +730,7 @@ var ListingForm = function() {};
             data[elemid] = elem.val();
             self.updateData(data);
             var validated = self.validate([elemid]);
-            self.render();
+            // self.render();
         });
 
 
