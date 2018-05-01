@@ -223,7 +223,8 @@ main.listingForm, main.eventForm {
             cursor:pointer;
             border-radius:6px;
             padding:12px;
-
+            position:relative;
+            
             > div {
                 text-align:center;
                 height:100%;
