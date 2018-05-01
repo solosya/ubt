@@ -35261,12 +35261,12 @@ var ListingForm = function() {};
             this.renderImageThumbs(this.data.mediaData);
         }
     };
-    ListingForm.prototype.renderImageThumbs = function(images) 
+    ListingForm.prototype.renderImageThumbs = function(images, addImage) 
     {
         // console.log('rendering image array');
         var imageArray = $('#imageArray');
         console.log(imageArray.children().length, images.length);
-        if ( imageArray.children().length != images.length ) {
+        if ( imageArray.children().length != images.length  || addImage) {
             var html = "";
             var temp = Handlebars.compile(window.templates.carousel_item); 
     
@@ -35324,7 +35324,7 @@ var ListingForm = function() {};
         this.data.media_ids = mediaids.join(',');
         this.data.media_id = mediaids[0];
 
-        this.renderImageThumbs([data]);
+        this.renderImageThumbs([data], true);
         return true;
     }
     ListingForm.prototype.deleteImage = function(data) 
