@@ -24,7 +24,6 @@ Acme.Feed.prototype.fetch = function()
     }
 
     $.fn.Ajax_LoadBlogArticles(self.options).done(function(data) {
-        // console.log(data);
         if (data.success == 1) {
             self.render(data);
         }
@@ -34,10 +33,8 @@ Acme.Feed.prototype.fetch = function()
 Acme.Feed.prototype.events = function() 
 {
     var self = this;
-    console.log(self.elem);
     self.elem.unbind().on('click', function(e) {
         e.preventDefault();
-        console.log('clicked');
         self.fetch();
     });
 
@@ -60,11 +57,12 @@ Acme.Feed.prototype.events = function()
 
 
 
-Acme.View.articleFeed = function(feedModel, limit, offset, infinite, failText)
+Acme.View.articleFeed = function(feedModel, limit, offset, infinite, failText, controller)
 {
     this.feedModel = feedModel;
     this.offset    = offset || 0;
     this.limit     = limit || 10;
+    this.controller= controller || null;
     this.infinite  = infinite || false;
     this.waypoint  = false;
     this.options   = {};
@@ -127,6 +125,7 @@ Acme.View.articleFeed.prototype.render = function(data)
     });
 
     self.elem.data('rendertype', '');
+    this.feedModel.events();
 };
 
 
@@ -144,7 +143,6 @@ Acme.View.userFeed = function(feedModel, limit, offset, infinite, failText, cont
     this.options   = {};
     this.elem      = $('.loadMoreArticles');
     this.failText  = failText || null;
-    console.log(this.controller);
     this.events();
 };
 
@@ -153,7 +151,6 @@ Acme.View.userFeed.constructor = Acme.View.userFeed;
 
 Acme.View.userFeed.prototype.render = function(data) 
 {
-    console.log(data);
     var self = this;
     var cardClass  =   self.elem.data('card-class'),
         template   =   self.elem.data('card-template') || null,
@@ -193,7 +190,7 @@ Acme.View.userFeed.prototype.render = function(data)
             ? self.waypoint.disable()
             : self.waypoint.enable();
     }
-    console.log(this.controller);
+
     this.controller.userEvents();
 
     $(".card .content > p, .card h2").dotdotdot();     
@@ -207,7 +204,6 @@ Acme.View.userFeed.prototype.render = function(data)
 
 
 Acme.Usercard = function(){
-    console.log('creating usercard');
 };
 Acme.Usercard.prototype.render = function(user, cardClass, template, type)
 {
