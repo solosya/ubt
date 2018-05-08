@@ -6,7 +6,7 @@
 {{this.registerJs("Acme.searchFeed = new Acme.View.articleFeed(Acme.cards);")}}
 
 
-{% set limit = 9 %}
+{% set limit = 18 %}
 {% set articlesArr  = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles     = articlesArr.articles %}
 {% set firstCount = articles | length %}
