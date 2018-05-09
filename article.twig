@@ -21,9 +21,9 @@
 
 {% set publishDate = _AppHelper.getDefaultTimezoneDateTime(article.publishDate, 'F, Y') %}
 
-{% set articles = _Article.getPopularArticles({ limit: 10, excludeArticleIds : article.id }) %}
-{% set popularArticles = _Article.getPopularArticles({ limit: 5, sortBy: 'VIEWS', blogId: article.blog.id, type: 'article' }) %}
-{% set suggestedArticles = _Article.getPopularArticles({ limit: 3, sortBy: 'VIEWS' }) %}
+{# {% set articles = _Article.getPopularArticles({ limit: 10, excludeArticleIds : article.id }) %} #}
+{% set popularArticles = _Article.getPopularArticles({ limit: 3, blogId: article.blog.id, type: 'article' }) %}
+{% set suggestedArticles = _Article.getPopularArticles({ limit: 3 }) %}
 
 {% set articleCount = 0 %}
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
@@ -180,7 +180,7 @@
 
             <div class="row related-articles">
                 <div class="col-md-12">
-                    <h1>RELATED ARTICLES</h1>
+                    <h1>POPULAR ARTICLES</h1>
                 </div>
 
                 {% for i in 0..2 if popularArticles[i] %}
