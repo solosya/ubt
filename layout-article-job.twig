@@ -15,7 +15,6 @@
 {% set publishDate = _AppHelper.getDefaultTimezoneDateTime(article.publishedDateTime, 'j M Y') %}
 {% set listingClose = _AppHelper.getDefaultTimezoneDateTime(article.additionalInfo.listingclose, 'j M Y') %}
 
-{% set articles = _Article.getPopularArticles({ limit: 10, excludeArticleIds : article.id }) %}
 
 
 {% set articleCount = 0 %}
