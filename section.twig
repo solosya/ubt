@@ -6,7 +6,7 @@
 {{this.registerJs("Acme.searchFeed = new Acme.View.articleFeed(Acme.cards);")}}
 
 
-{% set limit = 14 %}
+{% set limit = 15 %}
 {% set articlesArr  = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles     = articlesArr.articles %}
 {% set firstCount = articles | length %}
@@ -52,7 +52,7 @@
                 {% endif %}
 
 
-                {% for i in 0..9 if articles[articleCount] %}
+                {% for i in 0..10 if articles[articleCount] %}
                     {{this.render('partials/_single-article.twig', {
                         article: articles[articleCount], 
                         position: (articleCount+1),
