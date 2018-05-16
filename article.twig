@@ -2,6 +2,7 @@
 {{ set(this, 'title', article.title) }}
 
 {{ this.registerLinkTag({rel:'amphtml', href:_AppHelper.getServerUrl(false)~'?amp=1'}) }}
+{{this.registerJs("Acme.lightbox = new Acme.Article();")}}
 
 {% set blogInfo = _Blog.getBlog() %}
 {% set networkData = _Network.getNetworkData() %}
@@ -89,7 +90,7 @@
                                 {% if _User.isAdminUser() %}
                                     <br />
                                     <a href="{{article.editUrl}}" target="_blank" class="_btn _btn--red u-block centerText u-margin-bottom-25">Edit article</a>
-                                    <a href="#" data-id="{{article.id}}" target="_blank" class="_btn _btn--red u-block centerText u-margin-bottom-25">Lightbox article</a>
+                                    <a href="#" id="LightboxArticlePageBtn" data-id="{{article.id}}" target="_blank" class="_btn _btn--red u-block centerText u-margin-bottom-25">Lightbox article</a>
                                 {% endif %}
 
                                 <h1>{{ quotes.smarten(article.title) }}</h1>

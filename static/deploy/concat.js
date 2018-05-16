@@ -33787,6 +33787,50 @@ var socialPostPopupTemplate =
                     '</div>'+
     '</div>'+
  '</div>'   ;   
+Acme.Article = function() {
+    this.events();
+};
+
+
+Acme.Article.prototype.lightbox = function(articleId)
+{
+    var csrfToken = $('meta[name="csrf-token"]').attr("content");
+    var url = '/api/article/get-article';
+    var payload = {articleId: articleId, _csrf: csrfToken}
+    console.log(payload);
+    Acme.server.fetch(_appJsConfig.appHostName + url, payload)
+    .then(function(data) {
+        
+        data.templatePath = _appJsConfig.templatePath;
+
+        var articleTemplate = Handlebars.compile(socialPostPopupTemplate);
+        var article = articleTemplate(data);
+        $('.modal').html(article);
+
+        setTimeout(function () {
+            $('.modal').modal('show');
+        }, 500);
+
+    });
+}
+
+
+Acme.Article.prototype.events = function() {
+    var self = this;
+    $('#LightboxArticlePageBtn').on('click', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        console.log($(e.target));
+        var id = $(e.target).data('id');
+        console.log(id);
+        self.lightbox(id);
+        return;
+    });
+    
+};
+
+
+
 Acme.Feed = function() {};
 Acme.Feed.prototype.fetch = function()
 {
@@ -34323,10 +34367,7 @@ Card.prototype.bindSocialUpdatePost = function ()
 Card.prototype.lightbox = function(elem, isRequestSent)
 {
     var csrfToken = $('meta[name="csrf-token"]').attr("content");
-    console.log(elem);
     var isSocial = elem.data('social');
-    console.log(isSocial);
-    console.log(elem.data('id'));
     
     if (isSocial) {
         var url = '/api/social/get-social-post';
@@ -34338,7 +34379,7 @@ Card.prototype.lightbox = function(elem, isRequestSent)
         var articleId = elem.data('id');
         var payload = {articleId: articleId, _csrf: csrfToken}
     }
-    console.log(payload);
+
     if (!isRequestSent) {
 
         $.ajax({
@@ -34385,7 +34426,6 @@ Card.prototype.BindLightboxArticleBtn = function()
     var self = this;
 
     $('.LightboxArticleBtn').on('click', function (e) {
-        console.log('clickedcliecked');
         e.stopPropagation();
         e.preventDefault();
         var parentElement = $(this).parent().parent();
@@ -34673,15 +34713,15 @@ Card.prototype.events = function()
 
 
 }(jQuery));
-var BlogConrtoller = (function ($) {
+var BlogController = (function ($) {
     return {
         blog: function() {
-            BlogConrtoller.Blog.init();
+            BlogController.Blog.init();
         }
     };
 }(jQuery));
 
-BlogConrtoller.Blog = (function ($) {
+BlogController.Blog = (function ($) {
     var attachEvents = function () {
 
         //attach follow blog
