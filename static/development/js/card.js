@@ -210,10 +210,7 @@ Card.prototype.bindSocialUpdatePost = function ()
 Card.prototype.lightbox = function(elem, isRequestSent)
 {
     var csrfToken = $('meta[name="csrf-token"]').attr("content");
-    console.log(elem);
     var isSocial = elem.data('social');
-    console.log(isSocial);
-    console.log(elem.data('id'));
     
     if (isSocial) {
         var url = '/api/social/get-social-post';
@@ -225,7 +222,7 @@ Card.prototype.lightbox = function(elem, isRequestSent)
         var articleId = elem.data('id');
         var payload = {articleId: articleId, _csrf: csrfToken}
     }
-    console.log(payload);
+
     if (!isRequestSent) {
 
         $.ajax({
@@ -272,7 +269,6 @@ Card.prototype.BindLightboxArticleBtn = function()
     var self = this;
 
     $('.LightboxArticleBtn').on('click', function (e) {
-        console.log('clickedcliecked');
         e.stopPropagation();
         e.preventDefault();
         var parentElement = $(this).parent().parent();

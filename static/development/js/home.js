@@ -1,12 +1,12 @@
-var BlogConrtoller = (function ($) {
+var BlogController = (function ($) {
     return {
         blog: function() {
-            BlogConrtoller.Blog.init();
+            BlogController.Blog.init();
         }
     };
 }(jQuery));
 
-BlogConrtoller.Blog = (function ($) {
+BlogController.Blog = (function ($) {
     var attachEvents = function () {
 
         //attach follow blog
