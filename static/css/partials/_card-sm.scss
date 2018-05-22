@@ -67,11 +67,15 @@
 
 
             &.article.without__image {
+                height: 190px;
                 > article {
                     .content {
+                        > h2 {
+                            max-height:54px;
+                        }
                         p.excerpt {
                             max-height:286px;
-                            font-size: rem(15);
+                            font-size: rem(13);
                             line-height: 1.73;
 
                         }
