@@ -398,7 +398,8 @@
                                         {{this.render('partials/_single-article.twig', {
                                             article: propListingsArr[articleCount], 
                                             template: 'user-property',
-                                            containerClass: "card-profile-property card-profile-property-tablet card-profile-property-mobile"
+                                            containerClass: "card-profile-property card-profile-property-tablet card-profile-property-mobile",
+                                            networkData: networkData
                                         }) | raw}}
                                         {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
 

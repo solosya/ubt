@@ -92,11 +92,16 @@
 
 
 .card-sm-full{
+    // we should not be using this for both desktop and mobile bad bad
     @media screen and (max-width: $sm-break-down), (min-width: $mmd-break) {
         @include card-sm-full-base();
 
         margin-bottom: 24px;
         padding-bottom: 30px;
+        // because now we have to do this
+        @media screen and (min-width: $mmd-break) {
+            padding-bottom: 0;
+        }
 
         a.card {
             height:210px;
