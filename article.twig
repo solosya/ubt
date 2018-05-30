@@ -93,15 +93,64 @@
                                     {# <a href="#" id="LightboxArticlePageBtn" data-id="{{article.id}}" target="_blank" class="_btn _btn--red u-block centerText u-margin-bottom-25">Lightbox article</a> #}
                                 {% endif %}
 
-                                <h1>{{ quotes.smarten(article.title) }}</h1>
-                                {% if profileImg %}
-                                    <img class="author-photo" src="{{ profileImg }}" alt="Author photo">
-                                {% endif %}
-                                <p class="author">{{ article.createdBy['displayName'] }}</p>
 
-                                {% if article.createdBy['bio'] != null and article.createdBy['displayName'] != "AAP Newswire" %} 
-                                    <p class="author_bio">{{ article.createdBy['bio'] }}</p>
-                                {% endif %}   
+
+
+                                <h1>{{ quotes.smarten(article.title) }}</h1>
+
+
+
+                                <div class="row">
+                                    {% set authorCount = 1 %}
+                                    {% set colSpan = '12' %}
+
+                                    {% if article['createdBy']['coauthors'] %}
+                                        {% set authorCount = authorCount + article['createdBy']['coauthors'] | length %}
+                                    {% endif %}
+
+                                    {% if authorCount == 2 or authorCount == 4 %}
+                                        {% set colSpan = '6' %}
+                                    {% elseif authorCount == 3 %}
+                                        {% set colSpan = '4' %}        
+                                    {% endif %}
+
+
+
+                                    <div class="col-sm-{{colSpan}} article-author media">
+                                        {% if profileImg %}
+                                            <img class="article-author__photo media__img" src="{{ profileImg }}" alt="Author photo">
+                                        {% endif %}
+
+                                        <div class="media__body article-author__media-body">
+                                            <p class="article-author__name">{{ article.createdBy['displayName'] }}</p>
+
+                                            {% if article.createdBy['bio'] != null and article.createdBy['displayName'] != "AAP Newswire" %} 
+                                                <p class="article-author__bio">{{ article.createdBy['bio'] }}</p>
+                                            {% endif %}  
+                                        </div>
+                                    </div>
+
+
+
+                                    {% if article['createdBy']['coauthors'] %}
+                                        {% for author in article['createdBy']['coauthors'] %}
+                                            <div class="col-sm-{{colSpan}} article-author media">
+                                                {% if author['media']['path'] %}
+                                                    <img class="article-author__photo media__img" src="{{ _Media.getMediaUrl(author['media'], 100, 100, {radius: 'max', gravity: 'face', 'crop': 'thumb', type: 'user'}) }}" alt="Author photo">
+                                                {% endif %}
+
+                                                <div class="media__body article-author__media-body">
+                                                    <p class="article-author__name">{{ author['displayName'] }}</p>
+
+                                                    {% if author['bio'] != null and author['displayName'] != "AAP Newswire" %} 
+                                                        <p class="article-author__bio">{{ author['bio'] }}</p>
+                                                    {% endif %}  
+                                                </div>
+                                            </div>
+
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
 
                             </div><!--content-block-top-->
 

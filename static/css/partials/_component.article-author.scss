@@ -1,0 +1,32 @@
+.article-author {
+
+}
+
+.article-author__media-body {
+    overflow:initial;
+}
+
+.article-author__name {
+    font-family: $font-family-serif;
+    font-size: rem(14);
+    color: color(red);
+    position: relative;
+    margin-top:10px;
+    margin-bottom:0;
+    &:before {
+        content:'By ';
+    }
+}
+
+.article-author__photo {
+    // float:left;
+    margin-right:10px;
+}
+
+.article-author__bio {
+    font-family: $font-family-serif;
+    font-size: rem(14);
+    color: #97999c;
+    // margin-top: -7px;
+    line-height:1.4;
+}
