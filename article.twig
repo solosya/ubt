@@ -136,7 +136,7 @@
                                         {% for author in article['createdBy']['coauthors'] %}
                                             <div class="col-sm-{{colSpan}} article-author media">
                                                 {% if author['media']['path'] %}
-                                                    <img class="article-author__photo media__img" src="{{ _Media.getMediaUrl(author['media'], 100, 100, {radius: 'max', gravity: 'face', 'crop': 'thumb', type: 'user'}) }}" alt="Author photo">
+                                                    <img class="article-author__photo media__img" src="{{ _Media.getMediaUrl(author['media'], 54, 54, {radius: 'max', gravity: 'face', 'crop': 'thumb', type: 'user'}) }}" alt="Author photo">
                                                 {% endif %}
 
                                                 <div class="media__body article-author__media-body">
