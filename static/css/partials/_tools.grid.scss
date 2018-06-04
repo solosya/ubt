@@ -15,7 +15,7 @@
     }
 }
 
-@media #{$media-desktop} {
+@media #{$media-desktop-up} {
     .three-cols {
         .col-md-1, .col-sm-1, .col-lg-1 {
             width: 33.3333%;

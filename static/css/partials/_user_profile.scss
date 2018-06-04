@@ -33,6 +33,17 @@
     }
 }
 
+.cancel-account {
+    font-style: italic;
+    @media #{$media-desktop-up} {
+        margin-top: -62px;
+    }
+}
+
+.update-details {
+    font-style: italic;
+}
+
 
 .user_profile {
 
