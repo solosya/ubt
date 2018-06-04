@@ -171,7 +171,7 @@ Acme.propertyTypeSearchView = function() {
         this.regionMenu = new Acme.listMenu({
             'parent'        : this.container,
             'list'          : propertyList,
-            'defaultSelect' : {"label": 'Type of property*'},
+            'defaultSelect' : {"label": 'Type of property'},
             'name'          : 'typeSelect',
             'key'           : 'typeSelect',
             'allowClear'    : true
@@ -202,7 +202,7 @@ Acme.saleTypeSearchView = function() {
         this.regionMenu = new Acme.listMenu({
             'parent'        : this.container,
             'list'          : contractList,
-            'defaultSelect' : {"label": 'Buy/'+forLease+'*'},
+            'defaultSelect' : {"label": 'Buy/'+forLease},
             'name'          : 'saleSelect',
             'key'           : 'saleSelect',
             'allowClear'    : true
@@ -502,7 +502,7 @@ var ListingForm = function() {};
         this.menus.propertyMenu = new Acme.listMenu({
                     'parent'        : $('#propertySelect'),
                     'list'          : propertyList,
-                    'defaultSelect' : {"label": 'Type of property'},
+                    'defaultSelect' : {"label": 'Type of property*'},
                     'name'          : 'type',
                     'key'           : 'extendedData.type',
                     'class'         : 'formPulldowns'
@@ -512,7 +512,7 @@ var ListingForm = function() {};
         this.menus.buyMenu = new Acme.listMenu({
                     'parent'        : $('#buySelect'),
                     'list'          : contractList,
-                    'defaultSelect' : {"label": 'For sale/'+forLease},
+                    'defaultSelect' : {"label": 'For sale/'+forLease+'*'},
                     'name'          : 'contracttype',
                     'key'           : 'extendedData.contracttype',
                     'class'         : 'formPulldowns'
