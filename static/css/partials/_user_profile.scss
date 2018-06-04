@@ -35,8 +35,11 @@
 
 .cancel-account {
     font-style: italic;
-    @media #{$media-desktop-up} {
+    @media #{$media-iPad-to-desktop} {
         margin-top: -62px;
+    }
+    @media #{$media-mobile} {
+        margin-top: -130px;
     }
 }
 
