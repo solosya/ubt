@@ -1,6 +1,32 @@
 .managed-users {
     padding:0;
     margin:0;
+    margin-bottom:20px;
+}
+.managed-users-search {
+    padding:0;
+    margin:0;
+}
+.managed-users-search__field {
+    padding:0;
+    margin:0;
+}
+.managed-users-search__button {
+    padding:0;
+    margin:0;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background:none;
+    border:none;
+    color:color(red);
+    font-size: rem(14);
+    font-style: italic;
+}
+
+.managed-users-search__button-clear {
+    display:none;
+    color:rgb(38, 81, 127);
 }
 
 

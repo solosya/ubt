@@ -16,7 +16,7 @@
 {% set pwstats = _User.getPaywallStats(true) %}
 {% set plans = _Network.getNetworkData()['paywallPlans'] %}
 
-{% set userLimit = 2 %}
+{% set userLimit = 20 %}
 {% set user = _User.getUser() %}
 {% if user %} 
     {% set jobListingsArr = _User.getUserArticles(user.guid, 0, 1000, {'blogs':[jobsBlogId], 'status': '-1'}) %}
@@ -284,7 +284,7 @@
                         </div>
 
                         {% if pwstats['user_count'] > userLimit and managedUserCount == userLimit %} 
-                            <div id="menu-search" class="managed-users-search">
+                            <div id="menu-search" class="managed-users-search u-margin-bottom-20">
                                 <form method="get" id="managed-user-search" action="">
                                     <div style="position:relative">
                                         <input type="search" class="managed-users-search__field" name="s" id="managed-user-search-field" placeholder="Find a user" required="">

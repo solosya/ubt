@@ -94,7 +94,6 @@ Acme.UserProfileController.prototype.fetchUsers = function(params)
 
 Acme.UserProfileController.prototype.fetch = function(params, url) 
 {
-    console.log('fetching users');
     var url = _appJsConfig.appHostName + '/api/user/'+ url;
     return Acme.server.fetch(url, params);
 };
@@ -190,6 +189,7 @@ Acme.UserProfileController.prototype.events = function ()
     $('#user-search-clear').on('click', function(e) {
         e.preventDefault();
         self.fetchUsers();
+        $('#managed-user-search-field').val('');
         $('#user-search-submit').show();
         $('#user-search-clear').hide();
     });
