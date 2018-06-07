@@ -52,6 +52,15 @@ Acme.UserProfileController.prototype.renderUser = function(parent, data) {
     parent.empty().append(html);
 };
 
+Acme.UserProfileController.prototype.search = function(params) 
+{   
+    var self = this;
+    this.fetch(params, 'search-managed-users').done(function(data) {
+        self.render(data);
+    });
+};
+
+
 
 
 Acme.UserProfileController.prototype.userEvents = function() 
@@ -327,15 +336,6 @@ Acme.UserProfileController.prototype.events = function ()
 
 };
 
-
-
-Acme.UserProfileController.prototype.search = function(params) 
-{   
-    var self = this;
-    this.fetch(params, 'search-managed-users').done(function(data) {
-        self.render(data);
-    });
-};
 
 
 
