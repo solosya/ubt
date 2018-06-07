@@ -280,6 +280,28 @@
                             <a id="addManagedUser" style="z-index:1000;" class="text-button text-button--italic u-float-right{% if managedUsers|length >= pwstats['user_count'] %} hidden{% endif %}">+ Add users</a>
                         </div>
 
+                        {% if pwstats['user_count'] > userLimit and managedUserCount == userLimit %} 
+                            <div id="menu-search" class="managed-users-search">
+                                <form method="get" id="managed-user-search" action="">
+                                    <div style="position:relative">
+                                        <input type="text" class="managed-users-search__field" name="s" id="managed-user-search-field" placeholder="Search" required="">
+                                        <button class="managed-users-search__button" type="submit" id="user-search-submit">
+                                            Search
+                                        </button>
+                                        <button class="managed-users-search__button managed-users-search__button-clear" type="submit" id="user-search-clear">
+                                            Clear search
+                                        </button>
+
+                                    </div>
+                                </form>
+                            </div>
+                        {% endif %}
+
+
+
+
+
+
                         <div class="row">
                             <div id="user_profile" class="col-md-12">
                                 
