@@ -113,15 +113,8 @@
                         </div>
                     </div>
 
-                    {# <h1>hello world</h1>
 
-
-                                <pre>
-                                    {{dump(pwstats)}}
-                                </pre> #}
-
-
-                {% if pwstats.userManager == false %}
+                {% if pwstats.userManager == true %}
 
 
                     {% set managedUsers = _User.getPaywallManagedUsers({"limit": userLimit}) %}
