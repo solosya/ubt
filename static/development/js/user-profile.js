@@ -46,10 +46,34 @@ Acme.UserProfileController.prototype.deleteUser = function(e) {
     });
 };
 
-Acme.UserProfileController.prototype.renderUser = function(parent, data) {
-    var userTemp = Handlebars.compile(window.templates.managed_user);
-    var html = userTemp(data);
+Acme.UserProfileController.prototype.renderUser = function(parent, data, template) {
+
+    var userTemp = template ? Handlebars.compile(template) : Handlebars.compile(window.templates.managed_user);
+    if (data.constructor != Array) {
+        data = [data];
+    }
+    var html = '';
+    for (var i = 0; i < data.length; i++) {
+        html += userTemp(data[i]);
+    }
+    // console.log(html);
     parent.empty().append(html);
+};
+
+Acme.UserProfileController.prototype.render = function(data) 
+{
+    var self = this;
+    var users = [];
+    for (var i=0; i< data.users.length; i++) {
+        users.push({
+            firstname: data.users[i].firstname, 
+            lastname:  data.users[i].lastname, 
+            username:  data.users[i].username, 
+            useremail: data.users[i].email,
+        });
+    }
+    self.renderUser(($('#mangedUsers')), users, Acme.managed_user);
+    self.userEvents();
 };
 
 Acme.UserProfileController.prototype.search = function(params) 
