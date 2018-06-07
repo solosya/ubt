@@ -127,6 +127,28 @@ Acme.UserProfileController.prototype.events = function ()
 {
     var self = this;
 
+
+    $('#managed-user-search').on('submit', function(e) {
+        e.preventDefault();
+        var search = {};
+        $.each($(this).serializeArray(), function(i, field) {
+            search[field.name] = field.value;
+        });
+        self.search(search);
+        $('#user-search-submit').hide();
+        $('#user-search-clear').show();
+
+    });
+
+    $('#user-search-clear').on('click', function(e) {
+        e.preventDefault();
+        self.fetchUsers();
+        $('#user-search-submit').show();
+        $('#user-search-clear').hide();
+    });
+
+
+
     $('#addManagedUser').on('click', function(e) {
         e.preventDefault()
         var userTemp = Handlebars.compile(window.templates.create_user);
@@ -304,6 +326,17 @@ Acme.UserProfileController.prototype.events = function ()
     });
 
 };
+
+
+
+Acme.UserProfileController.prototype.search = function(params) 
+{   
+    var self = this;
+    this.fetch(params, 'search-managed-users').done(function(data) {
+        self.render(data);
+    });
+};
+
 
 
 Acme.UserProfileController.prototype.listingEvents = function() {
