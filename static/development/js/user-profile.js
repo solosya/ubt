@@ -60,6 +60,20 @@ Acme.UserProfileController.prototype.search = function(params)
     });
 };
 
+Acme.UserProfileController.prototype.fetchUsers = function(params) 
+{   
+    var self = this;
+    this.fetch(params, 'load-more-managed').done(function(data) {
+        self.render(data);
+    });
+};
+
+Acme.UserProfileController.prototype.fetch = function(params, url) 
+{
+    console.log('fetching users');
+    var url = _appJsConfig.appHostName + '/api/user/'+ url;
+    return Acme.server.fetch(url, params);
+};
 
 
 
@@ -70,7 +84,7 @@ Acme.UserProfileController.prototype.userEvents = function()
     $('.j-edit').unbind().on('click', function(e) {
 
         var listelem = $(e.target).closest('li');
-        var userid          = listelem.attr("id");
+        var userid = listelem.attr("id");
 
         function getUserData(func) {
             return {

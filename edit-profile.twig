@@ -16,7 +16,7 @@
 {% set pwstats = _User.getPaywallStats(true) %}
 {% set plans = _Network.getNetworkData()['paywallPlans'] %}
 
-{% set userLimit = 20 %}
+{% set userLimit = 2 %}
 {% set user = _User.getUser() %}
 {% if user %} 
     {% set jobListingsArr = _User.getUserArticles(user.guid, 0, 1000, {'blogs':[jobsBlogId], 'status': '-1'}) %}
@@ -113,9 +113,15 @@
                         </div>
                     </div>
 
+                    {# <h1>hello world</h1>
 
 
-                {% if pwstats.userManager == true %}
+                                <pre>
+                                    {{dump(pwstats)}}
+                                </pre> #}
+
+
+                {% if pwstats.userManager == false %}
 
 
                     {% set managedUsers = _User.getPaywallManagedUsers({"limit": userLimit}) %}
@@ -271,9 +277,6 @@
 
 
 
-
-
-
                     <div class="profile-section">
                         <div class="profile-section__header">
                             <p class="profile-section__heading">My Users <span class="profile-section__users-left">{{managedUsers|length}} of {{pwstats['user_count']}} used.</span></p>
@@ -306,7 +309,6 @@
                             <div id="user_profile" class="col-md-12">
                                 
                                 <ul id="mangedUsers" class="managed-users">
-                                
                                 {% if managedUsers|length == 0 %} 
                                     <div id="nousers" class="empty-listing">
                                         <p>You have no current users.</p>
