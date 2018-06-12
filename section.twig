@@ -66,13 +66,15 @@
 
                 {% if articles|length >= limit %}
                     {{ this.render('partials/ajaxarticles.twig', {
-                        offset          : limit,
-                        limit           : limit,
+                        ads             : "no",
                         name            : "section-load",
+                        limit           : limit,
+                        offset          : limit,
+                        imgwidth        : "200",
+                        imgheight       : "140",
+                        container       : "mainAjaxArticles",
                         non_pinned      : articlesArr.existingNonPinnedCount, 
                         card_class      : "col-sm-12 card-rec card-rec-tablet card-rec-mobile no-padding",
-                        container       : "mainAjaxArticles",
-                        ads             : "no",
                         buttonClass     : "infinite"
                     }) | raw }}
                 {% endif %}

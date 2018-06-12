@@ -33915,6 +33915,10 @@ Acme.View.articleFeed.prototype.render = function(data)
         template   =   self.elem.data('card-template') || null,
         label      =   self.elem.data('button-label')  || "Load more",
         ads_on     =   self.elem.data('ads')           || null,
+
+        imgWidth   =   self.elem.data('imgwidth')      || null,
+        imgHeight  =   self.elem.data('imgheight')     || null,
+
         rendertype =   self.elem.data('rendertype')    || null;
 
     self.elem.html(label);
@@ -33937,6 +33941,7 @@ Acme.View.articleFeed.prototype.render = function(data)
         html = ["<p>" + self.failText + "</p>"];
     } else {
         for (var i in data.articles) {
+            data.articles[i].imageOptions = {'width': imgWidth, 'height': imgHeight};
             html.push( self.feedModel.renderCard(data.articles[i], cardClass, template) );
         }
     }
@@ -36882,10 +36887,56 @@ Acme.UserProfileController.prototype.deleteUser = function(e) {
     });
 };
 
-Acme.UserProfileController.prototype.renderUser = function(parent, data) {
-    var userTemp = Handlebars.compile(window.templates.managed_user);
-    var html = userTemp(data);
+Acme.UserProfileController.prototype.renderUser = function(parent, data, template) {
+
+    var userTemp = template ? Handlebars.compile(template) : Handlebars.compile(window.templates.managed_user);
+    if (data.constructor != Array) {
+        data = [data];
+    }
+    var html = '';
+    for (var i = 0; i < data.length; i++) {
+        html += userTemp(data[i]);
+    }
+    // console.log(html);
     parent.empty().append(html);
+};
+
+Acme.UserProfileController.prototype.render = function(data) 
+{
+    var self = this;
+    var users = [];
+    for (var i=0; i< data.users.length; i++) {
+        users.push({
+            firstname: data.users[i].firstname, 
+            lastname:  data.users[i].lastname, 
+            username:  data.users[i].username, 
+            useremail: data.users[i].email,
+        });
+    }
+    self.renderUser(($('#mangedUsers')), users, Acme.managed_user);
+    self.userEvents();
+};
+
+Acme.UserProfileController.prototype.search = function(params) 
+{   
+    var self = this;
+    this.fetch(params, 'search-managed-users').done(function(data) {
+        self.render(data);
+    });
+};
+
+Acme.UserProfileController.prototype.fetchUsers = function(params) 
+{   
+    var self = this;
+    this.fetch(params, 'load-more-managed').done(function(data) {
+        self.render(data);
+    });
+};
+
+Acme.UserProfileController.prototype.fetch = function(params, url) 
+{
+    var url = _appJsConfig.appHostName + '/api/user/'+ url;
+    return Acme.server.fetch(url, params);
 };
 
 
@@ -36897,7 +36948,7 @@ Acme.UserProfileController.prototype.userEvents = function()
     $('.j-edit').unbind().on('click', function(e) {
 
         var listelem = $(e.target).closest('li');
-        var userid          = listelem.attr("id");
+        var userid = listelem.attr("id");
 
         function getUserData(func) {
             return {
@@ -36962,6 +37013,29 @@ Acme.UserProfileController.prototype.userEvents = function()
 Acme.UserProfileController.prototype.events = function () 
 {
     var self = this;
+
+
+    $('#managed-user-search').on('submit', function(e) {
+        e.preventDefault();
+        var search = {};
+        $.each($(this).serializeArray(), function(i, field) {
+            search[field.name] = field.value;
+        });
+        self.search(search);
+        $('#user-search-submit').hide();
+        $('#user-search-clear').show();
+
+    });
+
+    $('#user-search-clear').on('click', function(e) {
+        e.preventDefault();
+        self.fetchUsers();
+        $('#managed-user-search-field').val('');
+        $('#user-search-submit').show();
+        $('#user-search-clear').hide();
+    });
+
+
 
     $('#addManagedUser').on('click', function(e) {
         e.preventDefault()
@@ -37140,6 +37214,8 @@ Acme.UserProfileController.prototype.events = function ()
     });
 
 };
+
+
 
 
 Acme.UserProfileController.prototype.listingEvents = function() {

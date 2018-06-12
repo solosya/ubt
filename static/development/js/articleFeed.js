@@ -82,6 +82,10 @@ Acme.View.articleFeed.prototype.render = function(data)
         template   =   self.elem.data('card-template') || null,
         label      =   self.elem.data('button-label')  || "Load more",
         ads_on     =   self.elem.data('ads')           || null,
+
+        imgWidth   =   self.elem.data('imgwidth')      || null,
+        imgHeight  =   self.elem.data('imgheight')     || null,
+
         rendertype =   self.elem.data('rendertype')    || null;
 
     self.elem.html(label);
@@ -104,6 +108,7 @@ Acme.View.articleFeed.prototype.render = function(data)
         html = ["<p>" + self.failText + "</p>"];
     } else {
         for (var i in data.articles) {
+            data.articles[i].imageOptions = {'width': imgWidth, 'height': imgHeight};
             html.push( self.feedModel.renderCard(data.articles[i], cardClass, template) );
         }
     }

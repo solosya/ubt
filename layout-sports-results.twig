@@ -40,11 +40,11 @@
             <div class="col-sm-offset-1 col-sm-6">
 
                 <div id="sports-results">
-                    {% for i in 0..4 if articles[articleCount] %}
+                    {% for i in 0..9 if articles[articleCount] %}
                         {{this.render('partials/_single-article.twig', {
                             article: articles[articleCount], 
                             position: (articleCount+1),
-                            imageSize: {width: 217, height: 231},
+                            imageSize: {width: 217, height: 152},
                             containerClass: 'card-rec-sport card-rec-sport-tablet card-rec-sport-mobile'
                         }) | raw}}
                         {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
@@ -54,12 +54,14 @@
 
                 {% if articles|length >= limit %}
                     {{ this.render('partials/ajaxarticles.twig', {
-                        offset          : limit,
-                        limit           : limit,
                         name            : "section-load",
+                        limit           : limit,
+                        offset          : limit,
+                        imgwidth        : "217",
+                        imgheight       : "152",
+                        container       : "mainAjaxArticles",
                         non_pinned      : articlesArr.existingNonPinnedCount, 
                         card_class      : "col-sm-12 card-rec-sport card-rec-sport-tablet card-rec-sport-mobile no-padding",
-                        container       : "mainAjaxArticles",
                         buttonClass     : "infinite"
                     }) | raw }}
                 {% endif %}
