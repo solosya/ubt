@@ -134,10 +134,13 @@ Acme.regionSearchView = function() {
                 "region": data.regionSelect
             }
             Acme.PubSub.publish('update_state', data);
+        },
+        "clear" : function(data) {
+            this.menu.reset();
         }
     };
     Acme.regionSearchView.prototype.render = function() {
-        this.regionMenu = new Acme.listMenu({
+        this.menu = new Acme.listMenu({
             'parent'        : this.container,
             'list'          : regionList,
             'defaultSelect' : {"label": 'Select '+forRegion},
@@ -149,6 +152,11 @@ Acme.regionSearchView = function() {
     Acme.regionSearchView.prototype.reset = function() {
         this.menu.reset();
     };
+
+
+
+
+
 
 Acme.propertyTypeSearchView = function() {
     this.container = $('#typeSelect');
@@ -165,10 +173,13 @@ Acme.propertyTypeSearchView = function() {
                 "type": data.typeSelect
             };
             Acme.PubSub.publish('update_state', data);
+        },
+        "clear" : function(data) {
+            this.menu.reset();
         }
     };
     Acme.propertyTypeSearchView.prototype.render = function() {
-        this.regionMenu = new Acme.listMenu({
+        this.menu = new Acme.listMenu({
             'parent'        : this.container,
             'list'          : propertyList,
             'defaultSelect' : {"label": 'Type of property'},
@@ -180,6 +191,10 @@ Acme.propertyTypeSearchView = function() {
     Acme.propertyTypeSearchView.prototype.reset = function() {
         this.menu.reset();
     };
+
+
+
+
 
 Acme.saleTypeSearchView = function() {
     this.container = $('#saleSelect');
@@ -196,10 +211,13 @@ Acme.saleTypeSearchView = function() {
                 "contracttype": data.saleSelect
             };
             Acme.PubSub.publish('update_state', data);
+        },
+        "clear" : function(data) {
+            this.menu.reset();
         }
     };
     Acme.saleTypeSearchView.prototype.render = function() {
-        this.regionMenu = new Acme.listMenu({
+        this.menu = new Acme.listMenu({
             'parent'        : this.container,
             'list'          : contractList,
             'defaultSelect' : {"label": 'Buy/'+forLease},
@@ -253,6 +271,9 @@ Acme.searchCollectionClass = function(blogId)
             }
             this.searchTerms['contracttype'] = data.contracttype;
         },
+        "clear" : function(data) {
+            this.searchTerms = {};
+        },
         "fetch" :  function() {
             var searchTerms = [];
             var loader = $('#article-load');
@@ -296,6 +317,13 @@ $('#searchButton').on('click', function(e) {
     Acme.PubSub.publish('update_state', {'fetch': self});
 });
 
+$('#clearButton').on('click', function(e) {
+    e.preventDefault();
+    Acme.PubSub.publish('update_state', {'clear': self})
+        .done(function() {
+            Acme.PubSub.publish('update_state', {'fetch': self});
+        });
+});
 
 
 
