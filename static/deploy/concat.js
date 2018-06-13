@@ -33385,7 +33385,7 @@ window.templates.subscribeTerms =  '<p>Please agree to the terms of use</p><div>
 
 window.templates.userPlanMessage = 
 '<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
-     <button id="cancelbutton" class="_btn close">OK</button> \
+     <button id="cancelbutton" class="_btn _btn--red close">OK</button> \
 </form>';
 
 window.templates.userPlanOkCancel = 
@@ -37228,6 +37228,7 @@ Acme.UserProfileController.prototype.events = function ()
                                 window.location.reload();
                             } else {
                                 $('#dialog').parent().remove();
+                                Acme.SigninView.render("userPlan", data.error);
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
