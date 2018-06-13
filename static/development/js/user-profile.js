@@ -359,6 +359,7 @@ Acme.UserProfileController.prototype.events = function ()
                                 window.location.reload();
                             } else {
                                 $('#dialog').parent().remove();
+                                Acme.SigninView.render("userPlan", data.error);
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
