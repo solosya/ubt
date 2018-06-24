@@ -115,14 +115,21 @@
 								<p class="centerBlock _btn _btn--blue _btn__subscribe">14-DAY FREE TRIAL</p>
 							</a>
  #}
-							<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan={{plan.guid}}">
-								<p class="centerBlock _btn _btn--red _btn__subscribe">SUBSCRIBE NOW</p>
+
+							<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan={{plan.guid}}&amp;trial=true">
+								<p class="centerBlock _btn _btn--red _btn__subscribe">
+									<span>SUBSCRIBE NOW</span>
+									<span class="btn_trial">Your subscription includes a <br />14-day free trial period</span>
+								</p>
 							</a>
 						</div>
 					</div>
 					
 			    {% endfor %}
 
+
+				<a class="subscribe__link" href="mailto:franknews@aap.com.au"><p class="subscribe__contact">Need a package tailored to your business? Contact us.</p></a>
+				<p class="subscribe__payment-info">Please note: Your payment method will be charged at the end of the 14-day free trial period unless cancelled prior.</p>
 			</div>
 		</section>
 
