@@ -42,7 +42,19 @@
 
 
 ._btn__subscribe {
-    // padding-top:10px;
+    padding:10px 5px;
+    width:190px;
+    height:auto;
+    line-height:1.2;
+    >span {
+        display:block;
+        text-align: center;
+    }
+    >.btn_trial {
+        margin-top:5px;
+        font-size:rem(12);
+        font-weight:400;
+    }
 }
 
 
