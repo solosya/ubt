@@ -350,6 +350,7 @@
             
                 @media screen and (max-width: $sm-break-down) {
                     margin-bottom: 30px;
+                    padding: 18px 0;
                 }
 
 
@@ -362,17 +363,29 @@
                     color: color(red);
                     margin-bottom:20px;
                     height: 66px;
+                     @media #{$media-mobile} {
+                        height:31px;
+                        margin-bottom:0;
+                        font-size: rem(24);
+                     }
                 }
                 p.usercount {
                     font-size: rem(22);
                     margin-bottom:61px;
-
+                    @media #{$media-mobile} {
+                         margin-bottom:0;
+                         font-size: rem(18);
+                    }
                 }
                 p.price {
                     font-size: rem(26);
                     color: color(darkblue);
                     margin-bottom:18px;
                     font-weight:700;
+                    @media #{$media-mobile} {
+                        font-size: rem(19);
+                        margin-bottom:0;
+                    }
                 }
                 p.subnow {
                     font-size: rem(14);

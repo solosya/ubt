@@ -108,7 +108,7 @@
 								{% set val = 19.90 %}
 							{% endif %}
 							<p class="usercount">{{uc|replace({ '10001': '20+' })}} Users</p>
-							<p class="price">{{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{val|number_format(2, '.', ',')}} ({{plan.currency|raw}})<br> per {{plan.period}}</p>
+							<p class="price">{{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{val|number_format(2, '.', ',')}} ({{plan.currency|raw}})<br class="hidden-xs"> per {{plan.period}}</p>
 
 {# 							//trial button. this will probably be turned on again at some point
 							<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan={{plan.guid}}&amp;trial=true">
