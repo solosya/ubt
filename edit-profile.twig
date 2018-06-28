@@ -19,8 +19,8 @@
 {% set userLimit = 20 %}
 {% set user = _User.getUser() %}
 {% if user %} 
-    {% set jobListingsArr = _User.getUserArticles(user.guid, 0, 1000, {'blogs':[jobsBlogId], 'status': '-1'}) %}
-    {% set propListingsArr = _User.getUserArticles(user.guid, 0, 1000, {'blogs':[propBlogId], 'status': '-1'}) %}
+    {% set jobListingsArr = _User.getUserArticles(user.guid, 0, 20, {'blogs':[jobsBlogId], 'status': '-1'}) %}
+    {% set propListingsArr = _User.getUserArticles(user.guid, 0, 20, {'blogs':[propBlogId], 'status': '-1'}) %}
 {% endif %}
 
 {{this.registerJs("Acme.usercard = new Acme.Usercard();")}}
