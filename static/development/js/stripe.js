@@ -70,7 +70,7 @@ if ($('#stripekey').length > 0) {
             "state"     : ["notEmpty"],
             "trial"     : [],
             "terms"     : ["isTrue"],
-            "postcode"  : ["notEmpty", "isNumeric"]
+            "postcode"  : ["notEmpty"]
         };
 
         this.validateFields = Object.keys(this.validateRules);

@@ -35204,7 +35204,7 @@ Acme.Validators = {
         return !input ? false : true;
     },
     'isNumeric' : function(n) {
-        var ret = !isNaN(parseFloat(n)) && isFinite(n);
+        // var ret = !isNaN(parseFloat(n)) && isFinite(n);
         return !isNaN(parseFloat(n)) && isFinite(n);
     },
     'isTrue' : function(data) {
@@ -36590,7 +36590,7 @@ if ($('#stripekey').length > 0) {
             "state"     : ["notEmpty"],
             "trial"     : [],
             "terms"     : ["isTrue"],
-            "postcode"  : ["notEmpty", "isNumeric"]
+            "postcode"  : ["notEmpty"]
         };
 
         this.validateFields = Object.keys(this.validateRules);
