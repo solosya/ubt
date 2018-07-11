@@ -78,7 +78,10 @@ body.layout-jobs, body.layout-property, body.layout-events {
 
             &.nz, &.australia {
                 padding-left:0;
-                text-align:right
+                text-align:right;
+                &.listing-filter-menu__link__clear {
+                    margin-left: -15px;
+                }
             }
             &.uk {
                 position: absolute;
