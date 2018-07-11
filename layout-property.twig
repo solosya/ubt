@@ -1,6 +1,7 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
 {% set networkData = _Network.getNetworkData() %}
 {% set blogData    = _Blog.getBlog() %}
+{% set site        = networkData.title | lower | split(" ")[1]%}
 
 
 
@@ -92,8 +93,8 @@
                                 listing-filter-menu__item@sm 
                                 saleSelect" style="margin-bottom:15px;" ></div>
 
-                    <a class="col-sm-2 listing-filter-menu__link" id="clearButton" href="#" style="padding-left:0;position: absolute;bottom: 10px;right: 65px;">Clear results</a>
-                    <a class="col-sm-1 listing-filter-menu__link" id="searchButton" href="#" style="padding-left:0;position: absolute;bottom: 10px;right: 15px;">Search</a>
+                    <a class="col-sm-2 listing-filter-menu__link {{site}} listing-filter-menu__link__clear" id="clearButton" href="#" style="">Clear results</a>
+                    <a class="col-sm-1 listing-filter-menu__link {{site}} listing-filter-menu__link__search" id="searchButton" href="#">Search</a>
                     
 
                     {% else %}
