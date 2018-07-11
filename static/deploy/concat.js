@@ -35098,6 +35098,7 @@ $('#clearButton').on('click', function(e) {
         .done(function() {
             Acme.PubSub.publish('update_state', {'fetch': self});
         });
+    $('#location').val("");
 });
 
 
