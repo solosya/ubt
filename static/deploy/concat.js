@@ -26623,7 +26623,7 @@ jQuery.fn.liScroll = function(settings) {
             $(elem).on('click', function(e){
                 e.preventDefault();
 
-                var articleId = parseInt($(elem).data('id'));
+                var articleId = $(elem).data('id');
                 var position = parseInt($(elem).data('position'));
                 var existingStatus = $(elem).data('status');
                 var isSocial = $(elem).data('social');
@@ -34566,10 +34566,10 @@ Card.prototype.initDroppable = function()
 
             //get positions
             var sourcePosition      = sourceObj.data('position');
-            var sourcePostId        = parseInt(sourceObj.data('id'));
+            var sourcePostId        = sourceObj.data('id');
             var sourceIsSocial      = parseInt(sourceObj.data('social'));
             var destinationPosition = destObject.data('position');
-            var destinationPostId   = parseInt(destObject.data('id'));
+            var destinationPostId   = destObject.data('id');
             var destinationIsSocial = parseInt(destObject.data('social'));
 
             var swappedDestinationElement = sourceObj.clone().removeAttr('style').insertAfter( destObject );
@@ -37210,7 +37210,7 @@ Acme.UserProfileController.prototype.events = function ()
             var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
 
             var msg = "";
-            if ((newplandailycost-plandailycost) * diffDays > 0) {
+            if ((newplandailycost-plandailycost) * diffDays >= 0) {
                 msg = " This will cost $" + Math.round((newplandailycost-plandailycost) * diffDays);
                 msg = msg.replace(/(.+)(\d\d)$/g, "$1.$2");
             }

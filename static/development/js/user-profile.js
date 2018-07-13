@@ -341,7 +341,7 @@ Acme.UserProfileController.prototype.events = function ()
             var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
 
             var msg = "";
-            if ((newplandailycost-plandailycost) * diffDays > 0) {
+            if ((newplandailycost-plandailycost) * diffDays >= 0) {
                 msg = " This will cost $" + Math.round((newplandailycost-plandailycost) * diffDays);
                 msg = msg.replace(/(.+)(\d\d)$/g, "$1.$2");
             }

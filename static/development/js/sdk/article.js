@@ -16,7 +16,7 @@
             $(elem).on('click', function(e){
                 e.preventDefault();
 
-                var articleId = parseInt($(elem).data('id'));
+                var articleId = $(elem).data('id');
                 var position = parseInt($(elem).data('position'));
                 var existingStatus = $(elem).data('status');
                 var isSocial = $(elem).data('social');

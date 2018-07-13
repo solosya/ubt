@@ -104,12 +104,14 @@
 		                <input type="text" class="articleExtendedData" name="phone_no" id="phone_no" value="" placeholder="Mobile">
 		                <input type="text" class="articleExtendedData" name="address1" id="address1" value="" placeholder="Address">
 						<input type="text" class="articleExtendedData" name="suburb" id="suburb" value="" placeholder="Suburb">
+						
 						{% if plan.currency == "GBP" %}
-		                <input type="text" class="articleExtendedData" name="state" id="state" value="" placeholder="City/Town">
+		                	<input type="text" class="articleExtendedData" name="state" id="state" value="" placeholder="City/Town">
 						{% else %}
-		                <input type="text" class="articleExtendedData" name="state" id="state" value="" placeholder="State">
+		                	<input type="text" class="articleExtendedData" name="state" id="state" value="" placeholder="State">
 			            {% endif %}
-		                <input type="text" class="articleExtendedData" name="postcode" id="postcode" value="" placeholder="Postcode">
+		                
+						<input type="text" class="articleExtendedData" name="postcode" id="postcode" value="" placeholder="Postcode">
 			            
 			            <input type="hidden" class="" name="planid" id="planid" value="{{plan.guid}}">
 			            {# <input type="hidden" class="" name="trial" id="trial" value="{{trial}}"> #}
@@ -120,6 +122,7 @@
 			            	<input type="checkbox" class="" onclick="return false;" value="true" id="trial" name="trial" checked> 
 			            	<label>Include 14 day trial period</label>
 			            {% endif %} #}
+
 			            <br /><input type="checkbox" class="" id="terms" name="terms"> 
 			            <label>I agree to the frank <a href="{{networkData.defaultBlogUrl}}/terms-of-use" target="_blank">Terms of Use</a></label>
  						<p class="form-section-label u-margin-top-40">Payment details</p>
