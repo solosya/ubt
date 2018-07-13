@@ -319,6 +319,7 @@ $('#searchButton').on('click', function(e) {
 
 $('#clearButton').on('click', function(e) {
     e.preventDefault();
+    $('#location').val("");
     Acme.PubSub.publish('update_state', {'clear': self})
         .done(function() {
             Acme.PubSub.publish('update_state', {'fetch': self});

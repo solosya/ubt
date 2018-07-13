@@ -76,6 +76,27 @@ body.layout-jobs, body.layout-property, body.layout-events {
             font-style:italic;
             margin-top:15px;
 
+            &.nz, &.australia {
+                padding-left:0;
+                text-align:right;
+                &.listing-filter-menu__link__clear {
+                    margin-left: -15px;
+                }
+            }
+            &.uk {
+                position: absolute;
+                bottom: -10px;
+                padding-left:0;
+           
+                &.listing-filter-menu__link__clear {
+                    right: 65px;
+                }
+                &.listing-filter-menu__link__search {
+                    right: 15px;
+                } 
+            }
+
+
         }
 
     }
