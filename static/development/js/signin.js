@@ -134,7 +134,6 @@ Acme.SigninView = new Acme.Signin('modal', 'signin', layouts);
 
 
 $('#header_login_link').on('click', function() {
-    console.log(_appJsConfig);
     Acme.SigninView.render("signin", "Sign in");
 });
 $('#body_login_link').on('click', function() {

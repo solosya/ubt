@@ -214,7 +214,7 @@ Acme.UserProfileController.prototype.events = function ()
         $('#nousers').addClass('hidden');
         
         $('#saveUser').on('click', function(e) {
-            $('#user-editor-buttons').addClass('spinner');
+            $('#createUserErrorMessage').text("");
             var requestData = { 
                 firstname: $('#newuserfirstname').val(), 
                 lastname:  $('#newuserlastname').val(), 
@@ -222,6 +222,22 @@ Acme.UserProfileController.prototype.events = function ()
                 useremail: $('#newuseruseremail').val(),
                 _csrf: this.csrfToken
             };
+            console.log('saving new user');
+            if (!requestData['username']) {
+                $('#createUserErrorMessage').text("You must supply a username");
+                return;
+            }
+            if (!requestData['lastname']) {
+                $('#createUserErrorMessage').text("You must supply a last name");
+                return;
+            }
+            
+            if (!requestData['useremail']) {
+                $('#createUserErrorMessage').text("You must supply an email address");
+                return;
+            }
+            
+            $('#user-editor-buttons').addClass('spinner');
 
             $.ajax({
                 type: 'post',
