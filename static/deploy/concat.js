@@ -33360,7 +33360,7 @@ window.templates.modal =
     <div id="dialog"> \
         <div class="centerContent" style="scrolling == unusable position:fixed element"> \
             <div class="head"> \
-                <h2>{{title}}</h2> \
+                <h2>{{{title}}}</h2> \
                 <a class="close" href="#"></a> \
             </div> \
             <div class="dialogContent" id="dialogContent" style="scrolling == unusable position:fixed element"></div> \
@@ -37226,8 +37226,13 @@ Acme.UserProfileController.prototype.events = function ()
             var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
 
             var msg = "";
+            var currencySymbol = "&dollar;";
+            if (Acme.State.Country == 'GB') {
+                currencySymbol = "&pound;";
+            }
+
             if ((newplandailycost-plandailycost) * diffDays >= 0) {
-                msg = " This will cost $" + Math.round((newplandailycost-plandailycost) * diffDays);
+                msg = " This will cost " + currencySymbol + Math.round((newplandailycost-plandailycost) * diffDays);
                 msg = msg.replace(/(.+)(\d\d)$/g, "$1.$2");
             }
             Acme.SigninView.render("userPlanChange", "Are you sure you want to change plan?" + msg)

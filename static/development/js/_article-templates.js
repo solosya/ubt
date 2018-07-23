@@ -160,7 +160,7 @@ window.templates.modal =
     <div id="dialog"> \
         <div class="centerContent" style="scrolling == unusable position:fixed element"> \
             <div class="head"> \
-                <h2>{{title}}</h2> \
+                <h2>{{{title}}}</h2> \
                 <a class="close" href="#"></a> \
             </div> \
             <div class="dialogContent" id="dialogContent" style="scrolling == unusable position:fixed element"></div> \
