@@ -35194,6 +35194,7 @@ Acme.Form = function(validators, rules) {
                 }
             }
         }
+        console.log(this.errorFields);
         return validated;
     };
 
@@ -36584,10 +36585,8 @@ if ($('#stripekey').length > 0) {
             "firstname" : ["notEmpty"], 
             "lastname"  : ["notEmpty"], 
             "email"     : ["notEmpty"],
-            "phone_no"  : ["notEmpty"],
             "address1"  : ["notEmpty"],
-            "suburb"    : ["notEmpty"],
-            "state"     : ["notEmpty"],
+            "city"      : ["notEmpty"],
             "trial"     : [],
             "terms"     : ["isTrue"],
             "postcode"  : ["notEmpty"]
@@ -36618,22 +36617,27 @@ if ($('#stripekey').length > 0) {
 
     SubscribeForm.prototype.submit = function(event) 
     {
-
+        console.log('submitting');
         var self = this;
         event.preventDefault();
         var validated = self.validate();
         self.render(true);
-        if (!validated) return;
-
+        if (!validated) {
+            console.log('not validated');
+            return;
+        }
         $('#card-errors').text('');
         if ( $('#password').val() !== $('#verifypassword').val() ) {
+            console.log('problem');
             $('#card-errors').text('Password fields do not match.');
             return;
         }
 
+        console.log('no card errors');
 
         modal.render("spinner", "Authorising payment");
         stripe.createToken(card).then(function(result) {
+            console.log('created token');
 
             if (result.error) {
                 modal.closeWindow();
@@ -36641,6 +36645,7 @@ if ($('#stripekey').length > 0) {
                 var errorElement = document.getElementById('card-errors');
                 errorElement.textContent = result.error.message;
             } else {
+
                 // Send the token to your server
                 subscribe.data['stripetoken'] = result.token.id;
                 subscribe.data['planid'] = $('#planid').val();
