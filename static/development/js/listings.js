@@ -419,6 +419,7 @@ Acme.Form = function(validators, rules) {
                 }
             }
         }
+        console.log(this.errorFields);
         return validated;
     };
 
