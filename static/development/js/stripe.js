@@ -114,7 +114,7 @@ if ($('#stripekey').length > 0) {
 
         modal.render("spinner", "Authorising payment");
         stripe.createToken(card).then(function(result) {
-            console.log(result);
+
             if (result.error) {
                 modal.closeWindow();
                 // Inform the user if there was an error
@@ -180,7 +180,7 @@ if ($('#stripekey').length > 0) {
             data: formdata,
             dataType: 'json',
             success: function(data) {
-                console.log(data);
+
                 if(data.success) {
                     $('#card-errors').text('Completed successfully.');
                 } else {
