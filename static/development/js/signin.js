@@ -39,7 +39,6 @@ Acme.Signin.prototype.handle = function(e) {
             Acme.server.create('/api/auth/login', formData).done(function(r) {
 
                 if (r.success === 1) {
-                    console.log(window.location);
                     window.location.href = location.href;
 
                 } else {
