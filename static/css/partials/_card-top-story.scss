@@ -6,6 +6,12 @@
     counter-increment: my-badass-counter;
 }
 
+.top-stories--na {
+    padding-bottom:23px;
+    border-bottom:1px solid #97999c;
+}
+
+
 .card-top-story{
     &:before {
         float:left;

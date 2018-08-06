@@ -18,6 +18,8 @@
 
 {% set userLimit = 20 %}
 {% set user = _User.getUser() %}
+
+
 {% if user %} 
     {% set jobListingsArr = _User.getUserArticles(user.guid, 0, 20, {'blogs':[jobsBlogId], 'status': '-1'}) %}
     {% set propListingsArr = _User.getUserArticles(user.guid, 0, 20, {'blogs':[propBlogId], 'status': '-1'}) %}
@@ -93,6 +95,7 @@
                                     <input type="text" id="email" class="form-control" name="email" value="{{user.email}}" placeholder="email@domain.com" >
                                 </div>
 
+
                                 <label class="mobLabel" for="password">Password</label>
                                 <div class="inline-inputs">
                                     <label for="password">Password</label>
@@ -105,6 +108,36 @@
                                     <input type="password" id="verifypassword" class="form-control" name="verifypassword" placeholder="verify password" >
                                 </div>
                                 
+
+
+                                <label class="mobLabel" for="address1">Street address</label>
+                                <div class="inline-inputs">
+                                    <label for="address1">Street address</label>
+                                    <input type="text" id="address1" class="form-control" name="address1" value="{{user.address1}}" placeholder="Street address" >
+                                </div>
+
+                                <label class="mobLabel" for="address2">Street address 2</label>
+                                <div class="inline-inputs">
+                                    <label for="address2">Street address 2</label>
+                                    <input type="text" id="address2" class="form-control" name="address2" value="{{user.address2}}" placeholder="Street address line 2 (optional)" >
+                                </div>
+
+                                <label class="mobLabel" for="city">City / Town</label>
+                                <div class="inline-inputs">
+                                    <label for="city">City / Town</label>
+                                    <input type="text" id="city" class="form-control" name="city" value="{{user.city}}" placeholder="City / Town" >
+                                </div>
+
+
+                                <label class="mobLabel" for="postcode">ZIP / Postcode</label>
+                                <div class="inline-inputs">
+                                    <label for="postcode">ZIP / Postcode</label>
+                                    <input type="text" id="postcode" class="form-control" name="postcode" value="{{user.postcode}}" placeholder="Postcode" >
+                                </div>
+
+
+
+
                                 <div class="button-full">
                                     <button type="submit" class="text-button u-float-right u-margin-top-25 update-details">Update Details</button>
                                 </div>
