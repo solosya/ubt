@@ -80,6 +80,20 @@
             "description": "",
             "limit": 6
         },
+        "usa" : {
+            "title": "USA",
+            "feed": "",
+            "link": "",
+            "description": "",
+            "limit": 4
+        },
+        "canada" : {
+            "title": "Canada",
+            "feed": "",
+            "link": "",
+            "description": "",
+            "limit": 4
+        },
         "europe" : {
             "title": "Europe",
             "feed": "",
@@ -116,6 +130,10 @@
 {% elseif blogNetworkNameIs == 'frank nz'  %}
 
     {% set sectionOrder = ["new zealand", "australia"] | merge(sectionOrder ) %}
+
+{% elseif blogNetworkNameIs == 'frank usa'  %}
+
+    {% set sectionOrder = ["usa", "canada"] | merge(sectionOrder ) %}
 
 {% else %}
 
