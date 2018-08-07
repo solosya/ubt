@@ -90,47 +90,65 @@
 				    <form class="" method="post" action="" id="listingForm">
 			    		<p class="form-section-label">Your information</p>
 
-
-		                <input type="text" class="articleExtendedData" name="firstname" id="firstname" value="" placeholder="First name">
-		                <input type="text" class="articleExtendedData" name="lastname" id="lastname" value="" placeholder="Last name">
 		                <input type="text" class="articleExtendedData" name="username" id="username" value="" placeholder="Username">
 		                <p class="form-section-note">Username must be at least five characters long and contain no spaces or special characters</p>
 
+		                <input type="text" class="articleExtendedData" name="firstname" id="firstname" value="" placeholder="First name">
+		                <input type="text" class="articleExtendedData" name="lastname" id="lastname" value="" placeholder="Last name">
 
 		                <input type="password" class="" name="password" id="password" value="" placeholder="Password">
-  		                <p class="form-section-note">Passwords must be at least five characters long and contain no spaces </p>
-						<input type="password" class="" name="verifypassword" id="verifypassword" value="" placeholder="Password verify">
+		                <input type="password" class="" name="verifypassword" id="verifypassword" value="" placeholder="Password verify">
 
 
 		                <input type="email" class="" name="email" id="email" value="" placeholder="Email">
-		                {# <input type="text" class="articleExtendedData" name="phone_no" id="phone_no" value="" placeholder="Mobile"> #}
-		                <input type="text" class="articleExtendedData" name="address1" id="address1" value="" placeholder="Street address">
-		                <input type="text" class="articleExtendedData" name="address2" id="address2" value="" placeholder="Street address line 2 (optional)">
-						<input type="text" class="articleExtendedData" name="city" id="city" value="" placeholder="City / Town">
+		                <input type="text" class="articleExtendedData" name="phone_no" id="phone_no" value="" placeholder="Mobile">
+		                <input type="text" class="articleExtendedData" name="address1" id="address1" value="" placeholder="Address">
+						<input type="text" class="articleExtendedData" name="suburb" id="suburb" value="" placeholder="Suburb">
 						
-						{# {% if plan.currency == "GBP" %}
+						{% if plan.currency == "GBP" %}
 		                	<input type="text" class="articleExtendedData" name="state" id="state" value="" placeholder="City/Town">
 						{% else %}
 		                	<input type="text" class="articleExtendedData" name="state" id="state" value="" placeholder="State">
-			            {% endif %} #}
+			            {% endif %}
 		                
-						<input type="text" class="articleExtendedData" name="postcode" id="postcode" value="" placeholder="Zip / Postcode">
+						<input type="text" class="articleExtendedData" name="postcode" id="postcode" value="" placeholder="Postcode">
 			            
 			            <input type="hidden" class="" name="planid" id="planid" value="{{plan.guid}}">
 			            {# <input type="hidden" class="" name="trial" id="trial" value="{{trial}}"> #}
 
 			            <div id="countrySelect" class="countrySelect"></div> 
 
-			            {% if trial %}
+			            {# {% if trial %}
 			            	<input type="checkbox" class="" onclick="return false;" value="true" id="trial" name="trial" checked> 
 			            	<label>Include 14 day trial period</label>
-			            {% endif %}
+			            {% endif %} #}
 
 			            <br /><input type="checkbox" class="" id="terms" name="terms"> 
 			            <label>I agree to the frank <a href="{{networkData.defaultBlogUrl}}/terms-of-use" target="_blank">Terms of Use</a></label>
  						<p class="form-section-label u-margin-top-40">Payment details</p>
-
-				    
+{# 		                <fieldset>
+		                    <div class="inline">
+		                        <input type="radio" name="extendedData.salary" id="paymentType1" class="articleExtendedData" value="1" checked="checked" />
+		                        <label for="paymentType1">Credit card</label>
+		                    </div>
+		                    <div class="inline">
+		                        <input type="radio" name="extendedData.salary" id="paymentType2" class="articleExtendedData" value="2" />
+		                        <label for="paymentType2">Pay Pal</label>
+		                    </div>
+		                    <div class="inline">
+		                        <input type="radio" name="extendedData.salary" id="paymentType3" class="articleExtendedData" value="3" />
+		                        <label for="paymentType3">Bank deposit</label>
+		                    </div>
+		                </fieldset>
+ #}
+ {# 		                <input type="text" class="articleExtendedData" name="cardname" id="cardname" value="" placeholder="Name on card">
+		                <input type="text" class="articleExtendedData" name="cardnumber" id="cardnumber" value="" placeholder="Credit card number">
+		                <input type="text" class="articleExtendedData" name="expiry" id="expiry" value="" placeholder="Expiry date">
+		                <input type="text" class="articleExtendedData" name="ccv" id="ccv" value="" placeholder="ccv">
+ #}		                
+{# 			            <button class="_btn" type="submit" id="listingFormSubmit">SUBSCRIBE</button>
+		                <button class="_btn" type="reset"  id="listingFormClear">CLEAR</button>
+ #}				    
 					</form>
 
 					<form action="/charge" method="post" id="payment-form">
