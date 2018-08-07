@@ -130,7 +130,16 @@
                     "name": "propertylistingsid",
                     "label": "Property listings blog id",
                     "type": "inputbox"
-                }
+                },
+                {
+    				"label": "Trial period",
+    				"type": "radio",
+    				"name": "trial",
+    				"options": {
+                        "on": "on",
+                        "off": "off"
+    				}
+    			}
             ]
         }
     }

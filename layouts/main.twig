@@ -10,11 +10,7 @@
 {% set pageTypeClass = blogData.type %}
 {% set blogName      = blogData.title %}
 {% set layout        = _Page.getLayoutName() %}
-{% set site          = networkData.title | lower | split(" ")%}
-{% if site | length > 1 %}
-    {% set site = site[1] %}
-{% endif %}
-
+{% set site          = networkData.title | lower %}
 
 {% set showPaywall = false %}
 {% set url = _AppHelper.getParsedUrl().path %}
@@ -37,7 +33,9 @@
 
 
 {# {% if _AppHelper.getApplicationEnv() != 'PROD'%}
-    {% set showPaywall = false %}
+    {% set showPaywall = true %}
+    {% set layout = "layout-marketing" %}
+
 {% endif %} #}
 
 

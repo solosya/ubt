@@ -1,4 +1,12 @@
-{% set plans = networkData['paywallPlans'] %}
+{% set plans 		= networkData['paywallPlans'] %}
+{% set blogData		= _Blog.getBlog() %}
+{% set blogName      = blogData.title %}
+
+
+{% set trial = false %}
+{% if blogData['additionalInfo']['trial'] is defined and blogData['additionalInfo']['trial'] == 'on' %}
+	{% set trial = true %}
+{% endif %}
 
 {{this.registerJs("var signin = new Acme.Signin('signinForm', '#signin');")}}
  
@@ -110,17 +118,24 @@
 								<p class="usercount">{{uc|replace({ '10001': '20+' })}} Users</p>
 								<p class="price">{{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{val|number_format(2, '.', ',')}} ({{plan.currency|raw}})<br class="hidden-xs"> per {{plan.period}}</p>
 
-	{# 							//trial button. this will probably be turned on again at some point
-								<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan={{plan.guid}}&amp;trial=true">
-									<p class="centerBlock _btn _btn--blue _btn__subscribe">14-DAY FREE TRIAL</p>
-								</a>
-	 #}
+								
+								{# {% if trial %}
+									<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan={{plan.guid}}&amp;trial=true">
+										<p class="centerBlock _btn _btn--blue _btn__subscribe">14-DAY FREE TRIAL</p>
+									</a>
+								{% endif %} #}
 
+								{% set planUrl = networkData.defaultBlogUrl ~ '/@subscribe?plan=' ~ plan.guid %}
+								{% if trial %}
+									{% set planUrl = networkData.defaultBlogUrl ~ '/@subscribe?plan=' ~ plan.guid ~ '&trial=true'%}
+								{% endif %}
 
-								<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan={{plan.guid}}">
+								<a href="{{planUrl}}">
 									<p class="centerBlock _btn _btn--red _btn__subscribe">
 										<span>SUBSCRIBE NOW</span>
-										{# <span class="btn_trial">Your subscription includes a <br />14-day free trial period</span> #}
+										{% if trial %}
+											<span class="btn_trial">Your subscription includes a <br />14-day free trial period</span>
+										{% endif %}
 									</p>
 								</a>
 							</div>
@@ -132,7 +147,10 @@
 
 			</div>
 			<a class="subscribe__link" href="mailto:franknews@aap.com.au"><p class="subscribe__contact">Need a package tailored to your business? Contact us.</p></a>
-			{# <p class="subscribe__payment-info">Please note: Your payment method will be charged at the end of the 14-day free trial period unless cancelled prior.</p> #}
+
+			{% if trial %}
+				<p class="subscribe__payment-info">Please note: Your payment method will be charged at the end of the 14-day free trial period unless cancelled prior.</p>
+			{% endif %}
 
 		</section>
 
