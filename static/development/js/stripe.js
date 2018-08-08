@@ -54,21 +54,21 @@ if ($('#stripekey').length > 0) {
 
     var SubscribeForm = function() {
         this.data = {
-
+            "country_id" : null,
         };
 
         this.errorFields = [];
 
         this.validateRules = {
-            "username"  : ["notEmpty"], 
-            "firstname" : ["notEmpty"], 
-            "lastname"  : ["notEmpty"], 
-            "email"     : ["notEmpty"],
-            "address1"  : ["notEmpty"],
-            "city"      : ["notEmpty"],
-            "trial"     : [],
-            "terms"     : ["isTrue"],
-            "postcode"  : ["notEmpty"]
+            "username"      : ["notEmpty"], 
+            "firstname"     : ["notEmpty"], 
+            "lastname"      : ["notEmpty"], 
+            "email"         : ["notEmpty"],
+            "address1"      : ["notEmpty"],
+            "trial"         : [],
+            "country_id"    : ['notEmpty'],
+            "terms"         : ["isTrue"],
+            "postcode"      : ["notEmpty"]
         };
 
         this.validateFields = Object.keys(this.validateRules);
@@ -77,10 +77,18 @@ if ($('#stripekey').length > 0) {
 
         this.data['trial'] = $('#trial').is(":checked");
 
+        this.addMenu();
     };
 
     SubscribeForm.prototype = new Acme.Form(Acme.Validators);
     SubscribeForm.constructor = SubscribeForm;
+    SubscribeForm.prototype.listeners =  {
+        "country" : function(data) {
+            this.data.country_id = data.country_id || null;
+            var validated = this.validate(['country_id']);
+            this.render();
+        }
+    };
     SubscribeForm.prototype.render = function(checkTerms) 
     {
         this.clearInlineErrors();
@@ -92,31 +100,60 @@ if ($('#stripekey').length > 0) {
             }
         }
     };
-
-
+    SubscribeForm.prototype.addMenu = function(event) 
+    {
+        console.log('adding menu');
+        this.menu = new Acme.listMenu({
+            'parent'        : $('#countrySelect'),
+            'defaultSelect' : {"label": 'Select Country'},
+            'name'          : 'country_id',
+            'key'           : 'country_id',
+            'allowClear'    : true,
+            'callback'      : this.listeners.country.bind(this),
+            'list'   : [ 
+                {'label': "Argentina",      'value' : 10},
+                {'label': "Australia",      'value' : 13},
+                {'label': "Barbados",       'value' : 18},
+                {'label': "Canada",         'value' : 38},
+                {'label': "France",         'value' : 75},
+                {'label': "Germany",        'value' : 57},
+                {'label': "Ireland",        'value' : 102},
+                {'label': "Italy",          'value' : 110},
+                {'label': "Jamaica",        'value' : 112},
+                {'label': "Netherlands",    'value' : 166},
+                {'label': "New Zealand",    'value' : 171},
+                {'label': "Saint Vincent \
+                           and the \
+                           Grenadines",     'value' : 237},
+                {'label': "Spain",          'value' : 68},
+                {'label': "Sweden",         'value' : 197},
+                {'label': "Switzerland",    'value' : 43},
+                {'label': "Trinidad and \
+                           Tobago",         'value' : 226},
+                {'label': "UK",             'value' : 77},
+                {'label': "US",             'value' : 233},
+                {'label': "Other",          'value' : -1},
+            ],
+        }).init().render();
+    };
     SubscribeForm.prototype.submit = function(event) 
     {
-        console.log('submitting');
         var self = this;
         event.preventDefault();
         var validated = self.validate();
         self.render(true);
         if (!validated) {
-            console.log('not validated');
             return;
         }
         $('#card-errors').text('');
         if ( $('#password').val() !== $('#verifypassword').val() ) {
-            console.log('problem');
             $('#card-errors').text('Password fields do not match.');
             return;
         }
 
-        console.log('no card errors');
 
         modal.render("spinner", "Authorising payment");
         stripe.createToken(card).then(function(result) {
-            console.log('created token');
 
             if (result.error) {
                 modal.closeWindow();
