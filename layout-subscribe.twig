@@ -121,10 +121,10 @@
 
 			            <div id="countrySelect" class="countrySelect"></div> 
 
-			            {# {% if trial %}
+			            {% if trial %}
 			            	<input type="checkbox" class="" onclick="return false;" value="true" id="trial" name="trial" checked> 
 			            	<label>Include 14 day trial period</label>
-			            {% endif %} #}
+			            {% endif %}
 
 			            <br /><input type="checkbox" class="" id="terms" name="terms"> 
 			            <label>I agree to the frank <a href="{{networkData.defaultBlogUrl}}/terms-of-use" target="_blank">Terms of Use</a></label>
@@ -146,7 +146,10 @@
 					    <div id="card-errors" class="card-errors" role="alert"></div>
 					  </div>
 
-					  {# <button id="subscribe-trial" class="_btn _btn--red u-margin-top-25">SIGN UP FOR A 14 DAY TRIAL</button> #}
+			        {# {% if trial %}
+					  	<button id="subscribe-trial" class="_btn _btn--red u-margin-top-25">SIGN UP FOR A 14 DAY TRIAL</button>
+					{% endif %} #}
+
 					  <button id="subscribe" class="_btn _btn--red u-margin-top-25 u-margin-bottom-25">SUBSCRIBE</button>
 					</form>
 
