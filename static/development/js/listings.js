@@ -49,12 +49,14 @@ var listingRegions = {
         "Other"
     ],
     "test" : [
-        "New York",
-        "Bangkok",
-        "Healsville",
-        "Paris",
-        "London",
-        "Ballarat"
+        "United States",
+        "Canada",
+        "England",
+        "Ireland",
+        "Northern Ireland",
+        "Scotland",
+        "Wales",
+        "Other"
     ]
 }
 var workType = ["Casual", "Part time", "Full time"];

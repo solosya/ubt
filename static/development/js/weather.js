@@ -8,6 +8,28 @@
     Acme.Locations.prototype.getLocations = function(country) 
     {
         switch (country) {
+            case 'usa':
+                Acme.State.Country = 'USA';
+                return [
+                    'USA/New%20York%20City',
+                    'USA/Boston',
+                    'USA/Columbus',
+                    'USA/Knoxville',
+                    'USA/Chicago',
+                    'USA/Minneapolis',
+                    'USA/San%20Antonio',
+                    'USA/San%20Francisco',
+                    'USA/Seattle'
+                ];
+            case 'canada':
+                Acme.State.Country = 'Canada';
+                return [
+                    'Canada/Montreal',
+                    'Canada/Edmonton',
+                    'Canada/Toronto',
+                    'Canada/Winnipeg',
+                    'Canada/Vancouver'
+                ];
             case 'uk':
                 Acme.State.Country = 'GB';
                 return [
