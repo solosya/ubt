@@ -83,7 +83,7 @@ if (domain == 'uk') {
     var forLease = 'rent';
     var forRegion = 'Country';
     var forCurr = "£"
-} else if (domain == 'global' || domain = 'events') {
+} else if (domain == 'global' || domain == 'events') {
     var listingSalary = ["20k", "30k", "40k", "50k", "60k", "70k", "90k", "120k", "150k", "200k", "200k+"];
     var propertyList = [
         { 'label': "Industrial / Warehouse", 'value': "Industrial / Warehouse"},
