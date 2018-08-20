@@ -42,20 +42,51 @@ var listingRegions = {
         "Western Australia"
     ],
     "uk" : [
-        "England",
+        "Argentina",
+        "Australia",
+        "Barbados",
+        "Canada",
+        "France",
+        "Germany",
         "Ireland",
-        "Scotland",
-        "Wales",
+        "Italy",
+        "Jamaica",
+        "Netherlands",
+        "New Zealand",
+        "Saint Vincent \
+        and the \
+        Grenadines",
+        "Spain",
+        "Sweden",
+        "Switzerland",
+        "Trinidad and \
+        Tobago",
+        "UK",
+        "US",
         "Other"
     ],
     "test" : [
-        "United States",
+        "Argentina",
+        "Australia",
+        "Barbados",
         "Canada",
-        "England",
+        "France",
+        "Germany",
         "Ireland",
-        "Northern Ireland",
-        "Scotland",
-        "Wales",
+        "Italy",
+        "Jamaica",
+        "Netherlands",
+        "New Zealand",
+        "Saint Vincent \
+        and the \
+        Grenadines",
+        "Spain",
+        "Sweden",
+        "Switzerland",
+        "Trinidad and \
+        Tobago",
+        "UK",
+        "US",
         "Other"
     ]
 }

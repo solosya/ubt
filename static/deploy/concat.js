@@ -33231,7 +33231,9 @@ Handlebars.registerHelper('formatSalary', function(salaryType, salaryTo, salaryF
     var domain = _appJsConfig.appHostName.split('.').reverse()[0];
     if (domain === 'uk') {
         var forCurr = '£';
-    } else{
+    } else if (domain == 'global'){
+        return 'US$';
+    } else {
         var forCurr = '$';
     }
     if (salaryType === "1") {
@@ -33255,7 +33257,9 @@ Handlebars.registerHelper('returnCurr', function() {
     var domain = _appJsConfig.appHostName.split('.').reverse()[0];
     if (domain === 'uk') {
         return '£';
-    } else{
+    } else if (domain == 'global'){
+        return 'US$';
+    } else {
         return '$';
     }
 });
@@ -33263,7 +33267,7 @@ Handlebars.registerHelper('returnCurr', function() {
 Handlebars.registerHelper('returnLoc', function(location, region) {
     var domain = _appJsConfig.appHostName.split('.').reverse()[0];
     //console.log(domain);
-    if (domain === 'uk') {
+    if (domain != 'au' && domain != 'nz') {
         return location +', ' + region;
     } else {
         return region;
@@ -34822,20 +34826,51 @@ var listingRegions = {
         "Western Australia"
     ],
     "uk" : [
-        "England",
+        "Argentina",
+        "Australia",
+        "Barbados",
+        "Canada",
+        "France",
+        "Germany",
         "Ireland",
-        "Scotland",
-        "Wales",
+        "Italy",
+        "Jamaica",
+        "Netherlands",
+        "New Zealand",
+        "Saint Vincent \
+        and the \
+        Grenadines",
+        "Spain",
+        "Sweden",
+        "Switzerland",
+        "Trinidad and \
+        Tobago",
+        "UK",
+        "US",
         "Other"
     ],
     "test" : [
-        "United States",
+        "Argentina",
+        "Australia",
+        "Barbados",
         "Canada",
-        "England",
+        "France",
+        "Germany",
         "Ireland",
-        "Northern Ireland",
-        "Scotland",
-        "Wales",
+        "Italy",
+        "Jamaica",
+        "Netherlands",
+        "New Zealand",
+        "Saint Vincent \
+        and the \
+        Grenadines",
+        "Spain",
+        "Sweden",
+        "Switzerland",
+        "Trinidad and \
+        Tobago",
+        "UK",
+        "US",
         "Other"
     ]
 }
