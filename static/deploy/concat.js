@@ -34863,6 +34863,30 @@ if (domain == 'uk') {
     var forLease = 'rent';
     var forRegion = 'Country';
     var forCurr = "£"
+} else if (domain == 'global' || domain = 'events') {
+    var listingSalary = ["20k", "30k", "40k", "50k", "60k", "70k", "90k", "120k", "150k", "200k", "200k+"];
+    var propertyList = [
+        { 'label': "Industrial / Warehouse", 'value': "Industrial / Warehouse"},
+        { 'label': "Residential", 'value': "Residential"},
+        { 'label': "Offices", 'value': "Offices"},
+        { 'label': "Development / Land", 'value': "Development / Land"},
+        { 'label': "Hotel / Leisure", 'value': "Hotel / Leisure"},
+        { 'label': "Medical / Consulting", 'value': "Medical / Consulting"},
+        { 'label': "Serviced Offices", 'value': "Serviced Offices"},
+        { 'label': "Parking / Car Space", 'value': "Parking / Car Space"},
+        { 'label': "Rural / Farming", 'value': "Rural / Farming"},
+        { 'label': "Showrooms / Bulky Goods", 'value': "Showrooms / Bulky Goods"},
+        { 'label': "Retail", 'value': "Retail"},
+        { 'label': "Other", 'value': "Other"}
+    ];
+
+    var contractList = [
+        { 'label': "For Sale", 'value': "For Sale"},
+        { 'label': "For Lease", 'value': "For Lease"}
+    ];
+     var forLease = 'lease';
+     var forRegion = 'Country';
+     var forCurr = "US$"
 } else {
     var listingSalary = ["30k", "40k", "50k", "60k", "70k", "80k", "100k", "120k", "150k", "200k", "200k+"];
     var propertyList = [
