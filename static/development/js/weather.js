@@ -8,27 +8,41 @@
     Acme.Locations.prototype.getLocations = function(country) 
     {
         switch (country) {
-            case 'usa':
-                Acme.State.Country = 'USA';
+            case 'global':
+                Acme.State.Country = 'global';
                 return [
-                    'USA/New%20York%20City',
-                    'USA/Boston',
-                    'USA/Columbus',
-                    'USA/Knoxville',
-                    'USA/Chicago',
-                    'USA/Minneapolis',
-                    'USA/San%20Antonio',
-                    'USA/San%20Francisco',
-                    'USA/Seattle'
+                    'global/New%20York%20City',
+                    'global/Boston',
+                    'global/Chicago',
+                    'global/Columbus',
+                    'global/Edmonton',
+                    'global/Knoxville',
+                    'global/Minneapolis',
+                    'global/Montreal',
+                    'global/San%20Antonio',
+                    'global/San%20Francisco',
+                    'global/Seattle',
+                    'global/Toronto',
+                    'global/Vancouver',
+                    'global/Winnipeg'
                 ];
-            case 'canada':
-                Acme.State.Country = 'Canada';
+            case 'events':
+                Acme.State.Country = 'global';
                 return [
-                    'Canada/Montreal',
-                    'Canada/Edmonton',
-                    'Canada/Toronto',
-                    'Canada/Winnipeg',
-                    'Canada/Vancouver'
+                    'global/New%20York%20City',
+                    'global/Boston',
+                    'global/Chicago',
+                    'global/Columbus',
+                    'global/Edmonton',
+                    'global/Knoxville',
+                    'global/Minneapolis',
+                    'global/Montreal',
+                    'global/San%20Antonio',
+                    'global/San%20Francisco',
+                    'global/Seattle',
+                    'global/Toronto',
+                    'global/Vancouver',
+                    'global/Winnipeg'
                 ];
             case 'uk':
                 Acme.State.Country = 'GB';
@@ -146,16 +160,22 @@
                 ];
 
             default:
-                Acme.State.Country = 'Australia';
+                Acme.State.Country = 'global';
                 return [
-                    'Australia/Sydney',
-                    'Australia/Melbourne',
-                    'Australia/Brisbane',
-                    'Australia/Perth',
-                    'Australia/Adelaide',
-                    'Australia/Hobart',
-                    'Australia/Canberra',
-                    'Australia/Darwin',
+                    'global/New%20York%20City',
+                    'global/Boston',
+                    'global/Chicago',
+                    'global/Columbus',
+                    'global/Edmonton',
+                    'global/Knoxville',
+                    'global/Minneapolis',
+                    'global/Montreal',
+                    'global/San%20Antonio',
+                    'global/San%20Francisco',
+                    'global/Seattle',
+                    'global/Toronto',
+                    'global/Vancouver',
+                    'global/Winnipeg'
                 ];
         }
     };

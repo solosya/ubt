@@ -62,7 +62,7 @@ var listingRegions = {
         "Trinidad and \
         Tobago",
         "UK",
-        "US",
+        "USA",
         "Other"
     ],
     "test" : [
@@ -86,7 +86,7 @@ var listingRegions = {
         "Trinidad and \
         Tobago",
         "UK",
-        "US",
+        "USA",
         "Other"
     ]
 }
@@ -344,6 +344,7 @@ Acme.searchCollectionClass = function(blogId)
                     if (data[0].value === "") {
                         return;
                     }
+                    
                     searchTerms.push("location:"+data[0].value);
                 } else {
                     return
