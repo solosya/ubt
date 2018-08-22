@@ -5,9 +5,11 @@
 
 {% set plan = false %}
 {% set trial = false %}
+{% set trialPeriod = '14' %} {# 14 days is default in the platform #}
 
 {% set url = _AppHelper.getParsedUrl() %}
 {% set params = url['query'] %}
+
 {% for k, p in params %}
 
 	{% if k == 'plan' %}
@@ -19,8 +21,9 @@
 	{% endif %}
 
 	{% if k == 'trial' %}
-		{% if p == 'true' %}
+		{% if p == 'true' and plan['trial_status'] == '1' %}
 			{% set trial = true %}
+			{% set trialPeriod = plan['trial_period'] %}
 		{% endif %}
 	{% endif %}
 
@@ -71,10 +74,10 @@
 
 					{% if trial %}
 						<div class="trial">
-							<h2 class="trial__header">Start your 14-day free trial now</h2>
+							<h2 class="trial__header">Start your {{trialPeriod}}-day free trial now</h2>
 
 							<p class="trial__text">
-								A 14-day free trial requires registration with a valid credit card. After 14 days, 
+								A {{trialPeriod}}-day free trial requires registration with a valid credit card. After {{trialPeriod}} days, 
 								your credit card will be charged for your chosen subscription unless you cancel 
 								not less than two days before the end of the free period. Subscriptions are billed 
 								monthly.
@@ -123,7 +126,7 @@
 
 			            {% if trial %}
 			            	<input type="checkbox" class="" onclick="return false;" value="true" id="trial" name="trial" checked> 
-			            	<label>Include 14 day trial period</label>
+			            	<label>Include {{plan.trial_period}} day trial period</label>
 			            {% endif %}
 
 			            <br /><input type="checkbox" class="" id="terms" name="terms"> 

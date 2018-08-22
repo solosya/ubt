@@ -36587,15 +36587,15 @@ if ($('#stripekey').length > 0) {
         this.errorFields = [];
 
         this.validateRules = {
-            "username"      : ["notEmpty"], 
+            // "username"      : ["notEmpty"], 
             "firstname"     : ["notEmpty"], 
             "lastname"      : ["notEmpty"], 
             "email"         : ["notEmpty"],
-            "address1"      : ["notEmpty"],
+            // "address1"      : ["notEmpty"],
             "trial"         : [],
             "country_id"    : ['notEmpty'],
             "terms"         : ["isTrue"],
-            "postcode"      : ["notEmpty"]
+            // "postcode"      : ["notEmpty"]
         };
 
         this.validateFields = Object.keys(this.validateRules);
@@ -36678,6 +36678,9 @@ if ($('#stripekey').length > 0) {
             return;
         }
 
+        if (!this.data['username']) {
+            this.data['username'] = Math.floor(100000000 + Math.random() * 90000000000000);
+        }
 
         modal.render("spinner", "Authorising payment");
         stripe.createToken(card).then(function(result) {
