@@ -112,7 +112,7 @@
 								{% if val == 19.89 %}
 									{% set val = 19.90 %}
 								{% endif %}
-								<p class="usercount">{{uc|replace({ '10001': '20+' })}} Users</p>
+								<p class="usercount">{{uc|replace({ '10001': '21+' })}} Users</p>
 								<p class="price">{{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{val|number_format(2, '.', ',')}} ({{plan.currency|raw}})<br class="hidden-xs"> per {{plan.period}}</p>
 
 								
