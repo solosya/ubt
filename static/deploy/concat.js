@@ -36691,7 +36691,7 @@ if ($('#stripekey').length > 0) {
     };
     SubscribeForm.prototype.addMenu = function(event) 
     {
-        console.log('adding menu');
+
         this.menu = new Acme.listMenu({
             'parent'        : $('#countrySelect'),
             'defaultSelect' : {"label": 'Select Country'},
@@ -36704,6 +36704,7 @@ if ($('#stripekey').length > 0) {
                 {'label': "Australia",      'value' : 13},
                 {'label': "Barbados",       'value' : 18},
                 {'label': "Canada",         'value' : 38},
+                {'label': "Denmark",        'value' : 59},
                 {'label': "France",         'value' : 75},
                 {'label': "Germany",        'value' : 57},
                 {'label': "Ireland",        'value' : 102},
