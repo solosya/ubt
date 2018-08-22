@@ -29,14 +29,14 @@
 
 
     <div class="property__right">
-        <p class="region">{% if article.additionalInfo.location != "" and (networkData.title | lower) == 'frank uk' %}{{ article.additionalInfo.location }}, {% endif %}{{ article.additionalInfo.region }}</p>
+        <p class="region">{% if article.additionalInfo.location != "" %}{{ article.additionalInfo.location }}, {% endif %}{{ article.additionalInfo.region }}</p>
         <p class="excerpt">{{ quotes.smarten(article.excerpt | raw) }}</p>
     </div>
     <div class="listing-type">
         <img class="listing-type__img" src="{{networkData.templatePath}}/static/icons/property/{{ article.additionalInfo.type | split(" ")[0] | lower }}.svg?ver=update">
         <p class="listing-type__attribute listing-type__attribute--type">{{ article.additionalInfo.type }}</p>
         <p class="listing-type__attribute listing-type__attribute--contract">{{ article.additionalInfo.contracttype }}</p>
-        <p class="region__below">{% if article.additionalInfo.location != "" and (networkData.title | lower) == 'frank uk' %}{{ article.additionalInfo.location }}, {% endif %}{{ article.additionalInfo.region }}</p>
+        <p class="region__below">{% if article.additionalInfo.location != "" %}{{ article.additionalInfo.location }}, {% endif %}{{ article.additionalInfo.region }}</p>
     </div>
 
 </div>

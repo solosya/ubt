@@ -33231,7 +33231,9 @@ Handlebars.registerHelper('formatSalary', function(salaryType, salaryTo, salaryF
     var domain = _appJsConfig.appHostName.split('.').reverse()[0];
     if (domain === 'uk') {
         var forCurr = '£';
-    } else{
+    } else if (domain == 'global'){
+        return 'US$';
+    } else {
         var forCurr = '$';
     }
     if (salaryType === "1") {
@@ -33255,7 +33257,9 @@ Handlebars.registerHelper('returnCurr', function() {
     var domain = _appJsConfig.appHostName.split('.').reverse()[0];
     if (domain === 'uk') {
         return '£';
-    } else{
+    } else if (domain == 'global'){
+        return 'US$';
+    } else {
         return '$';
     }
 });
@@ -33263,7 +33267,7 @@ Handlebars.registerHelper('returnCurr', function() {
 Handlebars.registerHelper('returnLoc', function(location, region) {
     var domain = _appJsConfig.appHostName.split('.').reverse()[0];
     //console.log(domain);
-    if (domain === 'uk') {
+    if (domain != 'au' && domain != 'nz') {
         return location +', ' + region;
     } else {
         return region;
@@ -34822,19 +34826,52 @@ var listingRegions = {
         "Western Australia"
     ],
     "uk" : [
-        "England",
+        "Argentina",
+        "Australia",
+        "Barbados",
+        "Canada",
+        "France",
+        "Germany",
         "Ireland",
-        "Scotland",
-        "Wales",
+        "Italy",
+        "Jamaica",
+        "Netherlands",
+        "New Zealand",
+        "Saint Vincent \
+        and the \
+        Grenadines",
+        "Spain",
+        "Sweden",
+        "Switzerland",
+        "Trinidad and \
+        Tobago",
+        "UK",
+        "USA",
         "Other"
     ],
     "test" : [
-        "New York",
-        "Bangkok",
-        "Healsville",
-        "Paris",
-        "London",
-        "Ballarat"
+        "Argentina",
+        "Australia",
+        "Barbados",
+        "Canada",
+        "France",
+        "Germany",
+        "Ireland",
+        "Italy",
+        "Jamaica",
+        "Netherlands",
+        "New Zealand",
+        "Saint Vincent \
+        and the \
+        Grenadines",
+        "Spain",
+        "Sweden",
+        "Switzerland",
+        "Trinidad and \
+        Tobago",
+        "UK",
+        "USA",
+        "Other"
     ]
 }
 var workType = ["Casual", "Part time", "Full time"];
@@ -34861,6 +34898,30 @@ if (domain == 'uk') {
     var forLease = 'rent';
     var forRegion = 'Country';
     var forCurr = "£"
+} else if (domain == 'global' || domain == 'events') {
+    var listingSalary = ["20k", "30k", "40k", "50k", "60k", "70k", "90k", "120k", "150k", "200k", "200k+"];
+    var propertyList = [
+        { 'label': "Industrial / Warehouse", 'value': "Industrial / Warehouse"},
+        { 'label': "Residential", 'value': "Residential"},
+        { 'label': "Offices", 'value': "Offices"},
+        { 'label': "Development / Land", 'value': "Development / Land"},
+        { 'label': "Hotel / Leisure", 'value': "Hotel / Leisure"},
+        { 'label': "Medical / Consulting", 'value': "Medical / Consulting"},
+        { 'label': "Serviced Offices", 'value': "Serviced Offices"},
+        { 'label': "Parking / Car Space", 'value': "Parking / Car Space"},
+        { 'label': "Rural / Farming", 'value': "Rural / Farming"},
+        { 'label': "Showrooms / Bulky Goods", 'value': "Showrooms / Bulky Goods"},
+        { 'label': "Retail", 'value': "Retail"},
+        { 'label': "Other", 'value': "Other"}
+    ];
+
+    var contractList = [
+        { 'label': "For Sale", 'value': "For Sale"},
+        { 'label': "For Lease", 'value': "For Lease"}
+    ];
+     var forLease = 'lease';
+     var forRegion = 'Country';
+     var forCurr = "US$"
 } else {
     var listingSalary = ["30k", "40k", "50k", "60k", "70k", "80k", "100k", "120k", "150k", "200k", "200k+"];
     var propertyList = [
@@ -35067,6 +35128,7 @@ Acme.searchCollectionClass = function(blogId)
                     if (data[0].value === "") {
                         return;
                     }
+                    
                     searchTerms.push("location:"+data[0].value);
                 } else {
                     return
@@ -37347,6 +37409,42 @@ Acme.UserProfileController.prototype.listingEvents = function() {
     Acme.Locations.prototype.getLocations = function(country) 
     {
         switch (country) {
+            case 'global':
+                Acme.State.Country = 'global';
+                return [
+                    'global/New%20York%20City',
+                    'global/Boston',
+                    'global/Chicago',
+                    'global/Columbus',
+                    'global/Edmonton',
+                    'global/Knoxville',
+                    'global/Minneapolis',
+                    'global/Montreal',
+                    'global/San%20Antonio',
+                    'global/San%20Francisco',
+                    'global/Seattle',
+                    'global/Toronto',
+                    'global/Vancouver',
+                    'global/Winnipeg'
+                ];
+            case 'events':
+                Acme.State.Country = 'global';
+                return [
+                    'global/New%20York%20City',
+                    'global/Boston',
+                    'global/Chicago',
+                    'global/Columbus',
+                    'global/Edmonton',
+                    'global/Knoxville',
+                    'global/Minneapolis',
+                    'global/Montreal',
+                    'global/San%20Antonio',
+                    'global/San%20Francisco',
+                    'global/Seattle',
+                    'global/Toronto',
+                    'global/Vancouver',
+                    'global/Winnipeg'
+                ];
             case 'uk':
                 Acme.State.Country = 'GB';
                 return [
@@ -37463,16 +37561,22 @@ Acme.UserProfileController.prototype.listingEvents = function() {
                 ];
 
             default:
-                Acme.State.Country = 'Australia';
+                Acme.State.Country = 'global';
                 return [
-                    'Australia/Sydney',
-                    'Australia/Melbourne',
-                    'Australia/Brisbane',
-                    'Australia/Perth',
-                    'Australia/Adelaide',
-                    'Australia/Hobart',
-                    'Australia/Canberra',
-                    'Australia/Darwin',
+                    'global/New%20York%20City',
+                    'global/Boston',
+                    'global/Chicago',
+                    'global/Columbus',
+                    'global/Edmonton',
+                    'global/Knoxville',
+                    'global/Minneapolis',
+                    'global/Montreal',
+                    'global/San%20Antonio',
+                    'global/San%20Francisco',
+                    'global/Seattle',
+                    'global/Toronto',
+                    'global/Vancouver',
+                    'global/Winnipeg'
                 ];
         }
     };
