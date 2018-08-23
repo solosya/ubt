@@ -6,9 +6,12 @@
 
 {% if (networkData.title | lower) == 'frank uk' %}
     {% set forCurr = "£" %}
+{% elseif (networkData.title | lower) == 'frank usa' or (networkData.title | lower) == 'frank global' %}
+    {% set forCurr = "US$" %}
 {% else %}
     {% set forCurr = "$" %}
 {% endif %}
+
 
 
 {% if salaryType == 1 %}
