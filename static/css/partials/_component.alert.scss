@@ -1,0 +1,22 @@
+.alert-danger {
+    background-color: #ae232c;
+    height: 40px;
+    line-height: 1.5;
+    padding: 8px 15px;
+    color: #FFF;
+    button {
+        position: absolute;
+        right: 30px;
+        border: none;
+        background-color: #ae232c;
+    }
+    h4{
+        margin: 0;
+        ul{
+            padding: 0;
+            li{
+                display: block;
+            }
+        }
+    }
+}
