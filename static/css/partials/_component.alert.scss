@@ -2,9 +2,9 @@
 .user_profile_section{
     .alert-danger, .alert-success {
         background-color: #ae232c;
-        height: 30px;
+        min-height: 30px;
         line-height: 1.2;
-        padding: 8px 15px;
+        padding: 3px 15px;
         color: #FFF;
         button {
             position: absolute;
@@ -24,6 +24,7 @@
                     font-family: $base-font-family;
                     font-style: italic;  
                     font-weight: 200;
+                    margin: 5px 0;
                 }
             }
         }
