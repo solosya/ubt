@@ -266,6 +266,23 @@
                 }
             }   
         }
+        &.card-main-2col-NA{
+            border: solid 0.8px #979797;
+            a.card {
+                border: none;
+                >article {
+                    >figure{
+                        margin-bottom: 0;
+                    }
+                    >.content  {
+                        padding: 20px;
+                        p.excerpt{
+                            margin-bottom: 0;
+                        } 
+                    }
+                }
+            }
+        }
     }
 }
 
