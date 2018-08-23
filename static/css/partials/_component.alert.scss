@@ -1,21 +1,29 @@
-.alert-danger {
-    background-color: #ae232c;
-    height: 40px;
-    line-height: 1.5;
-    padding: 8px 15px;
-    color: #FFF;
-    button {
-        position: absolute;
-        right: 30px;
-        border: none;
+
+.user_profile_section{
+    .alert-danger, .alert-success {
         background-color: #ae232c;
-    }
-    h4{
-        margin: 0;
-        ul{
-            padding: 0;
-            li{
-                display: block;
+        height: 30px;
+        line-height: 1.2;
+        padding: 8px 15px;
+        color: #FFF;
+        button {
+            position: absolute;
+            right: 30px;
+            border: none;
+            background-color: #ae232c;
+            font-size: rem(14);
+        }
+        h4{
+            margin: 0;
+            ul{
+                padding: 0;
+                li{
+                    display: block;
+                    font-size: rem(14);
+                    font-family: $base-font-family;
+                    font-style: italic;  
+                    font-weight: 200;
+                }
             }
         }
     }
