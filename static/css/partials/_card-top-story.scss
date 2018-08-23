@@ -110,10 +110,26 @@
     }
 }
 
-.top-stories__final {
-     border-bottom:1px solid #97999c;
-     margin-bottom: 0;
-     padding-bottom: 32px;
+
+.card-top-story__NA {
+    @media #{$media-desktop-up} {
+        a.card {
+            > article {
+                > .content{
+                    > h2{
+                        height: 38px
+                    }
+
+                }
+            }
+        }
+        margin-bottom: 10px;
+    }
+    &.top-stories__final {
+        margin-bottom: 0;
+        padding-bottom:34px;
+        border-bottom: 1px solid #97999c;
+    }
 }
 
 
