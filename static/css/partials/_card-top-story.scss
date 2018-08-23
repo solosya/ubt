@@ -8,7 +8,7 @@
 
 .top-stories--na {
     padding-bottom:23px;
-    border-bottom:1px solid #97999c;
+   
 }
 
 
@@ -108,6 +108,12 @@
             }
         }
     }
+}
+
+.top-stories__final {
+     border-bottom:1px solid #97999c;
+     margin-bottom: 0;
+     padding-bottom: 32px;
 }
 
 

@@ -96,13 +96,13 @@
             
             <div class="col-sm-3 top-stories top-stories--na">
                 <h2 class="panel-header">TOP STORIES</h2>
-
+                {% set topSettings = ["","","","","",""," top-stories__final"] %}
                 {% for i in 0..6 if popularArticles|length > 0 %}
                     {{this.render('partials/_single-article.twig', {
                         article: popularArticles[i], 
                         imageSuppress: true,
                         swap: 'false',
-                        containerClass: "card-top-story card-top-story-dt card-top-story-tablet card-top-story-mobile"
+                        containerClass: "card-top-story card-top-story-dt card-top-story-tablet card-top-story-mobile" ~ topSettings[i]
                     }) | raw}}
                 {% endfor %}
             </div>
@@ -152,7 +152,7 @@
 
                 <div class="advert">
                     <div id='blockAd1'></div>
-                    <script>loadNextAd(invSpace,'blockAd1','mRec',mRecSize,mRecMap)</script>
+                    <script>loadNextAd(invSpace,'blockAd1','mRec',mRecSize,mRecMap);</script>
                 </div>
 
 
@@ -174,7 +174,7 @@
 
                 <div id='articleAdScroll' class="advert lockad">
                     <div id='hPage1'></div>
-                    <script>loadNextAd(invSpace,'hPage1','hpage',hPageSize,hPageMap)</script>
+                    <script>loadNextAd(invSpace,'hPage1','hpage',hPageSize,hPageMap);</script>
                 </div>
 
             </div>

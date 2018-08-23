@@ -37262,9 +37262,9 @@ Acme.UserProfileController.prototype.events = function ()
         var userid = listelem.attr("id");
 
         var status = 'cancelled';
-        message = "Are you sure you want to cancel your plan?"
+        message = "Are you sure? Click OK to deactivate your subscription to frank."
         if ($(e.target).text() == 'Restart Subscription') {
-            message = "Do you want to re activate your plan? You will be billed on the next payment date."
+            message = "Click OK to reactivate your plan. Your credit card will be charged on the next payment date."
             status = 'paid'
         }
         var requestData = { 

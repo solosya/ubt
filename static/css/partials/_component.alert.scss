@@ -8,7 +8,8 @@
         color: #FFF;
         button {
             position: absolute;
-            right: 30px;
+            right: 25px;
+            top: 6.5px;
             border: none;
             background-color: #ae232c;
             font-size: rem(14);
@@ -25,6 +26,13 @@
                     font-weight: 200;
                 }
             }
+        }
+        p{
+            display: block;
+            font-size: rem(14);
+            font-family: $base-font-family;
+            font-style: italic;  
+            font-weight: 200;
         }
     }
 }
