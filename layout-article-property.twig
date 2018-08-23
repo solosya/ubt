@@ -21,6 +21,9 @@
 {% if (networkData.title | lower) == 'frank uk' %}
     {% set forCurr = "£" %}
     {% set forMeas = "ft" %}
+{% elseif (networkData.title | lower) == 'frank usa' or (networkData.title | lower) == 'frank global' %}
+    {% set forCurr = "US$" %}
+    {% set forMeas = "ft" %}
 {% else %}
     {% set forCurr = "$" %}
     {% set forMeas = "m" %}
