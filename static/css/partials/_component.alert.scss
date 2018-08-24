@@ -1,0 +1,39 @@
+
+.user_profile_section{
+    .alert-danger, .alert-success {
+        background-color: #ae232c;
+        min-height: 30px;
+        line-height: 1.2;
+        padding: 3px 15px;
+        color: #FFF;
+        button {
+            position: absolute;
+            right: 25px;
+            top: 6.5px;
+            border: none;
+            background-color: #ae232c;
+            font-size: rem(14);
+        }
+        h4{
+            margin: 0;
+            ul{
+                padding: 0;
+                li{
+                    display: block;
+                    font-size: rem(14);
+                    font-family: $base-font-family;
+                    font-style: italic;  
+                    font-weight: 200;
+                    margin: 5px 0;
+                }
+            }
+        }
+        p{
+            display: block;
+            font-size: rem(14);
+            font-family: $base-font-family;
+            font-style: italic;  
+            font-weight: 200;
+        }
+    }
+}

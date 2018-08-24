@@ -124,7 +124,6 @@
         @include card-10-base();
 
         margin-bottom: 20px;
-
         a.card {
             @include card-image-left(80px, 82px);
             height:102px;

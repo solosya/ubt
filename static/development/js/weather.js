@@ -9,40 +9,40 @@
     {
         switch (country) {
             case 'global':
-                Acme.State.Country = 'global';
+                Acme.State.Country = 'America';
                 return [
-                    'global/New%20York%20City',
-                    'global/Boston',
-                    'global/Chicago',
-                    'global/Columbus',
-                    'global/Edmonton',
-                    'global/Knoxville',
-                    'global/Minneapolis',
-                    'global/Montreal',
-                    'global/San%20Antonio',
-                    'global/San%20Francisco',
-                    'global/Seattle',
-                    'global/Toronto',
-                    'global/Vancouver',
-                    'global/Winnipeg'
+                    'America/New%20York',
+                    'America/Boston',
+                    'America/Chicago',
+                    'America/Columbus',
+                    'America/Edmonton',
+                    'America/Knoxville',
+                    'America/Minneapolis',
+                    'America/Montreal',
+                    'America/San%20Antonio',
+                    'America/San%20Francisco',
+                    'America/Seattle',
+                    'America/Toronto',
+                    'America/Vancouver',
+                    'America/Winnipeg'
                 ];
             case 'events':
-                Acme.State.Country = 'global';
+                Acme.State.Country = 'America';
                 return [
-                    'global/New%20York%20City',
-                    'global/Boston',
-                    'global/Chicago',
-                    'global/Columbus',
-                    'global/Edmonton',
-                    'global/Knoxville',
-                    'global/Minneapolis',
-                    'global/Montreal',
-                    'global/San%20Antonio',
-                    'global/San%20Francisco',
-                    'global/Seattle',
-                    'global/Toronto',
-                    'global/Vancouver',
-                    'global/Winnipeg'
+                    'America/New%20York',
+                    'America/Boston',
+                    'America/Chicago',
+                    'America/Columbus',
+                    'America/Edmonton',
+                    'America/Knoxville',
+                    'America/Minneapolis',
+                    'America/Montreal',
+                    'America/San%20Antonio',
+                    'America/San%20Francisco',
+                    'America/Seattle',
+                    'America/Toronto',
+                    'America/Vancouver',
+                    'America/Winnipeg'
                 ];
             case 'uk':
                 Acme.State.Country = 'GB';
@@ -160,22 +160,22 @@
                 ];
 
             default:
-                Acme.State.Country = 'global';
+                Acme.State.Country = 'America';
                 return [
-                    'global/New%20York%20City',
-                    'global/Boston',
-                    'global/Chicago',
-                    'global/Columbus',
-                    'global/Edmonton',
-                    'global/Knoxville',
-                    'global/Minneapolis',
-                    'global/Montreal',
-                    'global/San%20Antonio',
-                    'global/San%20Francisco',
-                    'global/Seattle',
-                    'global/Toronto',
-                    'global/Vancouver',
-                    'global/Winnipeg'
+                    'America/New%20York%20City',
+                    'America/Boston',
+                    'America/Chicago',
+                    'America/Columbus',
+                    'America/Edmonton',
+                    'America/Knoxville',
+                    'America/Minneapolis',
+                    'America/Montreal',
+                    'America/San%20Antonio',
+                    'America/San%20Francisco',
+                    'America/Seattle',
+                    'America/Toronto',
+                    'America/Vancouver',
+                    'America/Winnipeg'
                 ];
         }
     };
