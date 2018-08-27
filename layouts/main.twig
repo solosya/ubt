@@ -80,7 +80,7 @@
 
     {% if _AppHelper.getApplicationEnv() == 'PROD'%}
 
-        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=75840f9fa" type="text/css" media="all">
+        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=5d31d5a9" type="text/css" media="all">
 
     {% else %}
 
@@ -157,7 +157,7 @@
 </head>
 
 
-<body class="{{ pageTypeClass }} {{ layout }} {{ pageClass }}">
+<body class="{{ pageTypeClass }} {{ layout }} {{ pageClass }}" data-temp="{pageClass}">
     {{ this.beginBody() }}
 
       

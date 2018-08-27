@@ -24,6 +24,9 @@
 {% if (networkData.title | lower) == 'frank uk' %}
     {% set forCurr = "£" %}
     {% set forRegi = "Country" %}
+{% elseif (networkData.title | lower) == 'frank usa' or (networkData.title | lower) == 'frank global' %}
+    {% set forCurr = "US$" %}
+    {% set forRegi = "Country" %}
 {% else %}
     {% set forCurr = "$" %}
     {% set forRegi = "Region" %}
@@ -56,12 +59,6 @@
 {% set company = article.additionalInfo.company %}
 {% if article.additionalInfo.website %}
     {% set company = company ~ " | " ~ article.additionalInfo.website %}
-{% endif %}
-
-{% if (networkData.title | lower) == 'frank uk' %}
-    {% set forCurr = "£" %}
-{% else %}
-    {% set forCurr = "$" %}
 {% endif %}
 
 

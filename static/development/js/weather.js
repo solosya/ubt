@@ -8,6 +8,42 @@
     Acme.Locations.prototype.getLocations = function(country) 
     {
         switch (country) {
+            case 'global':
+                Acme.State.Country = 'America';
+                return [
+                    'America/New%20York',
+                    'America/Boston',
+                    'America/Chicago',
+                    'America/Columbus',
+                    'America/Edmonton',
+                    'America/Knoxville',
+                    'America/Minneapolis',
+                    'America/Montreal',
+                    'America/San%20Antonio',
+                    'America/San%20Francisco',
+                    'America/Seattle',
+                    'America/Toronto',
+                    'America/Vancouver',
+                    'America/Winnipeg'
+                ];
+            case 'events':
+                Acme.State.Country = 'America';
+                return [
+                    'America/New%20York',
+                    'America/Boston',
+                    'America/Chicago',
+                    'America/Columbus',
+                    'America/Edmonton',
+                    'America/Knoxville',
+                    'America/Minneapolis',
+                    'America/Montreal',
+                    'America/San%20Antonio',
+                    'America/San%20Francisco',
+                    'America/Seattle',
+                    'America/Toronto',
+                    'America/Vancouver',
+                    'America/Winnipeg'
+                ];
             case 'uk':
                 Acme.State.Country = 'GB';
                 return [
@@ -124,16 +160,22 @@
                 ];
 
             default:
-                Acme.State.Country = 'Australia';
+                Acme.State.Country = 'America';
                 return [
-                    'Australia/Sydney',
-                    'Australia/Melbourne',
-                    'Australia/Brisbane',
-                    'Australia/Perth',
-                    'Australia/Adelaide',
-                    'Australia/Hobart',
-                    'Australia/Canberra',
-                    'Australia/Darwin',
+                    'America/New%20York%20City',
+                    'America/Boston',
+                    'America/Chicago',
+                    'America/Columbus',
+                    'America/Edmonton',
+                    'America/Knoxville',
+                    'America/Minneapolis',
+                    'America/Montreal',
+                    'America/San%20Antonio',
+                    'America/San%20Francisco',
+                    'America/Seattle',
+                    'America/Toronto',
+                    'America/Vancouver',
+                    'America/Winnipeg'
                 ];
         }
     };

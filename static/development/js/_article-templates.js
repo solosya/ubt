@@ -26,7 +26,9 @@ Handlebars.registerHelper('formatSalary', function(salaryType, salaryTo, salaryF
     var domain = _appJsConfig.appHostName.split('.').reverse()[0];
     if (domain === 'uk') {
         var forCurr = '£';
-    } else{
+    } else if (domain == 'global'){
+        return 'US$';
+    } else {
         var forCurr = '$';
     }
     if (salaryType === "1") {
@@ -50,7 +52,9 @@ Handlebars.registerHelper('returnCurr', function() {
     var domain = _appJsConfig.appHostName.split('.').reverse()[0];
     if (domain === 'uk') {
         return '£';
-    } else{
+    } else if (domain == 'global'){
+        return 'US$';
+    } else {
         return '$';
     }
 });
@@ -58,7 +62,7 @@ Handlebars.registerHelper('returnCurr', function() {
 Handlebars.registerHelper('returnLoc', function(location, region) {
     var domain = _appJsConfig.appHostName.split('.').reverse()[0];
     //console.log(domain);
-    if (domain === 'uk') {
+    if (domain != 'au' && domain != 'nz') {
         return location +', ' + region;
     } else {
         return region;

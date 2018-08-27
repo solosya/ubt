@@ -21,6 +21,9 @@
 {% if (networkData.title | lower) == 'frank uk' %}
     {% set forCurr = "£" %}
     {% set forMeas = "ft" %}
+{% elseif (networkData.title | lower) == 'frank usa' or (networkData.title | lower) == 'frank global' %}
+    {% set forCurr = "US$" %}
+    {% set forMeas = "ft" %}
 {% else %}
     {% set forCurr = "$" %}
     {% set forMeas = "m" %}
@@ -107,7 +110,7 @@
                                 <p class="pricerange">{{ forCurr }}{{ article.additionalInfo.pricerange | preg_replace("/(\\$|\\£)/", '')}}</p>
 
                                 <h1>{{ quotes.smarten(article.title) }}
-                                    {% if article.additionalInfo.location != '' and networkData.title | lower == 'frank uk' %}
+                                    {% if article.additionalInfo.location != '' %}
                                         , {{ article.additionalInfo.location }} 
                                         
                                         {% if article.additionalInfo.region | lower != 'other' %}

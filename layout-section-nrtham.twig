@@ -20,7 +20,7 @@
 {% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
 
-{% set popularArticles = _Article.getPopularArticles({'limit': 8, 'scope': 'network'}) %}
+{% set popularArticles = _Article.getPopularArticles({'limit': 7, 'scope': 'network'}) %}
 
 
     <main id="main" class="container-fluid channel-main" role="main" data-article-limit="{{limit}}" data-article-count="{{articles | length}}">
@@ -46,7 +46,7 @@
                         article: articles[articleCount], 
                         position: (articleCount+1),
                         imageSize: {width: 640, height: 309},
-                        containerClass: 'card-10'
+                        containerClass: 'card-10 card-main-2col-tablet card-main-2col-mobile card-main-2col-NA'
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 {% endif %}
@@ -56,6 +56,7 @@
 
         <section class="row u-desktop-margin-bottom-80">
 
+        {% for i in 0..2 if articles[articleCount] %}
             <div class="col-sm-3">
                 {% if articles[articleCount] %}
                     {{this.render('partials/_single-article.twig', {
@@ -67,49 +68,27 @@
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 {% endif %}
             </div>
-
-
-            <div class="col-sm-3">
-                {% if articles[articleCount] %}
-                    {{this.render('partials/_single-article.twig', {
-                        article: articles[articleCount], 
-                        imageSize: {width: 330, height: 235},
-                        containerClass: "card-sm card-sm-tablet card-sm-mobile"
-                    }) | raw}}
-
-                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                {% endif %}
-            </div>
-
-
-            <div class="col-sm-3">
-                {% if articles[articleCount] %}
-                    {{this.render('partials/_single-article.twig', {
-                        article: articles[articleCount], 
-                        imageSize: {width: 330, height: 235},
-                        containerClass: "card-sm card-sm-tablet card-sm-mobile"
-                    }) | raw}}
-
-                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                {% endif %}
-            </div>
+        {% endfor %}
             
             <div class="col-sm-3 top-stories top-stories--na">
                 <h2 class="panel-header">TOP STORIES</h2>
-
-                {% for i in 0..7 if popularArticles|length > 0 %}
+                {% set topSettings = ["","","","","",""," top-stories__final"] %}
+                {% for i in 0..6 if popularArticles|length > 0 %}
                     {{this.render('partials/_single-article.twig', {
                         article: popularArticles[i], 
                         imageSuppress: true,
                         swap: 'false',
-                        containerClass: "card-top-story card-top-story-dt card-top-story-tablet card-top-story-mobile"
+                        containerClass: "card-top-story card-top-story-dt card-top-story-tablet card-top-story-mobile card-top-story__NA" ~ topSettings[i]
                     }) | raw}}
                 {% endfor %}
             </div>
 
         </section>
 
-
+        <div class="advert visible-xs-block" style="margin-left: -10px;">
+            <div id='tabAd1'></div>
+            <script>loadNextAd(invSpace,'tabAd1','mBan',mOnlySize,mOnlyMap);</script>
+        </div>
 
         
         <section class="row u-desktop-margin-top-80">
@@ -152,7 +131,7 @@
 
                 <div class="advert">
                     <div id='blockAd1'></div>
-                    <script>loadNextAd(invSpace,'blockAd1','mRec',mRecSize,mRecMap)</script>
+                    <script>loadNextAd(invSpace,'blockAd1','mRec',mRecSize,mRecMap);</script>
                 </div>
 
 
@@ -172,9 +151,9 @@
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 {% endfor %}
 
-                <div id='articleAdScroll' class="advert lockad">
+                <div id='articleAdScroll' class="advert lockad visible-md-block visible-lg-block">
                     <div id='hPage1'></div>
-                    <script>loadNextAd(invSpace,'hPage1','hpage',hPageSize,hPageMap)</script>
+                    <script>loadNextAd(invSpace,'hPage1','hpage',hPageSize,hPageMap);</script>
                 </div>
 
             </div>

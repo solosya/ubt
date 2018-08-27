@@ -3,10 +3,6 @@
 {% set blogName      = blogData.title %}
 
 
-{% set trial = false %}
-{% if blogData['additionalInfo']['trial'] is defined and blogData['additionalInfo']['trial'] == 'on' %}
-	{% set trial = true %}
-{% endif %}
 
 {{this.registerJs("var signin = new Acme.Signin('signinForm', '#signin');")}}
  
@@ -106,7 +102,8 @@
 
 
 			    {% for plan in plans %}
-			    	
+
+
 						<div class="col-sm-3 subscriptionCard">
 							<div class="card">
 								<h3>{{plan.name}}</h3>
@@ -115,7 +112,7 @@
 								{% if val == 19.89 %}
 									{% set val = 19.90 %}
 								{% endif %}
-								<p class="usercount">{{uc|replace({ '10001': '20+' })}} Users</p>
+								<p class="usercount">{{uc|replace({ '10001': '21+' })}} Users</p>
 								<p class="price">{{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{val|number_format(2, '.', ',')}} ({{plan.currency|raw}})<br class="hidden-xs"> per {{plan.period}}</p>
 
 								
@@ -126,15 +123,15 @@
 								{% endif %} #}
 
 								{% set planUrl = networkData.defaultBlogUrl ~ '/@subscribe?plan=' ~ plan.guid %}
-								{% if trial %}
+								{% if plan.trial_status == "1" %}
 									{% set planUrl = networkData.defaultBlogUrl ~ '/@subscribe?plan=' ~ plan.guid ~ '&trial=true'%}
 								{% endif %}
 
 								<a href="{{planUrl}}">
 									<p class="centerBlock _btn _btn--red _btn__subscribe">
 										<span>SUBSCRIBE NOW</span>
-										{% if trial %}
-											<span class="btn_trial">Your subscription includes a <br />14-day free trial period</span>
+										{% if plan.trial_status == "1" %}
+											<span class="btn_trial">Your subscription includes a <br />{{plan.trial_period}}-day free trial period</span>
 										{% endif %}
 									</p>
 								</a>

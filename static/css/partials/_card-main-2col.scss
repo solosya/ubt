@@ -58,6 +58,7 @@
                         float:left;
                         width:48%;
                         font-size:rem(25);
+                        line-height: 1.2;
                     }
 
                     > p.excerpt {
@@ -264,6 +265,23 @@
                     }
                 }
             }   
+        }
+        &.card-main-2col-NA{
+            border: solid 0.8px #979797;
+            a.card {
+                border: none;
+                >article {
+                    >figure{
+                        margin-bottom: 0;
+                    }
+                    >.content  {
+                        padding: 20px;
+                        p.excerpt{
+                            margin-bottom: 0;
+                        } 
+                    }
+                }
+            }
         }
     }
 }

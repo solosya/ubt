@@ -33231,7 +33231,9 @@ Handlebars.registerHelper('formatSalary', function(salaryType, salaryTo, salaryF
     var domain = _appJsConfig.appHostName.split('.').reverse()[0];
     if (domain === 'uk') {
         var forCurr = '£';
-    } else{
+    } else if (domain == 'global'){
+        return 'US$';
+    } else {
         var forCurr = '$';
     }
     if (salaryType === "1") {
@@ -33255,7 +33257,9 @@ Handlebars.registerHelper('returnCurr', function() {
     var domain = _appJsConfig.appHostName.split('.').reverse()[0];
     if (domain === 'uk') {
         return '£';
-    } else{
+    } else if (domain == 'global'){
+        return 'US$';
+    } else {
         return '$';
     }
 });
@@ -33263,7 +33267,7 @@ Handlebars.registerHelper('returnCurr', function() {
 Handlebars.registerHelper('returnLoc', function(location, region) {
     var domain = _appJsConfig.appHostName.split('.').reverse()[0];
     //console.log(domain);
-    if (domain === 'uk') {
+    if (domain != 'au' && domain != 'nz') {
         return location +', ' + region;
     } else {
         return region;
@@ -34822,19 +34826,52 @@ var listingRegions = {
         "Western Australia"
     ],
     "uk" : [
-        "England",
+        "Argentina",
+        "Australia",
+        "Barbados",
+        "Canada",
+        "France",
+        "Germany",
         "Ireland",
-        "Scotland",
-        "Wales",
+        "Italy",
+        "Jamaica",
+        "Netherlands",
+        "New Zealand",
+        "Saint Vincent \
+        and the \
+        Grenadines",
+        "Spain",
+        "Sweden",
+        "Switzerland",
+        "Trinidad and \
+        Tobago",
+        "UK",
+        "USA",
         "Other"
     ],
     "test" : [
-        "New York",
-        "Bangkok",
-        "Healsville",
-        "Paris",
-        "London",
-        "Ballarat"
+        "Argentina",
+        "Australia",
+        "Barbados",
+        "Canada",
+        "France",
+        "Germany",
+        "Ireland",
+        "Italy",
+        "Jamaica",
+        "Netherlands",
+        "New Zealand",
+        "Saint Vincent \
+        and the \
+        Grenadines",
+        "Spain",
+        "Sweden",
+        "Switzerland",
+        "Trinidad and \
+        Tobago",
+        "UK",
+        "USA",
+        "Other"
     ]
 }
 var workType = ["Casual", "Part time", "Full time"];
@@ -34861,6 +34898,30 @@ if (domain == 'uk') {
     var forLease = 'rent';
     var forRegion = 'Country';
     var forCurr = "£"
+} else if (domain == 'global' || domain == 'events') {
+    var listingSalary = ["20k", "30k", "40k", "50k", "60k", "70k", "90k", "120k", "150k", "200k", "200k+"];
+    var propertyList = [
+        { 'label': "Industrial / Warehouse", 'value': "Industrial / Warehouse"},
+        { 'label': "Residential", 'value': "Residential"},
+        { 'label': "Offices", 'value': "Offices"},
+        { 'label': "Development / Land", 'value': "Development / Land"},
+        { 'label': "Hotel / Leisure", 'value': "Hotel / Leisure"},
+        { 'label': "Medical / Consulting", 'value': "Medical / Consulting"},
+        { 'label': "Serviced Offices", 'value': "Serviced Offices"},
+        { 'label': "Parking / Car Space", 'value': "Parking / Car Space"},
+        { 'label': "Rural / Farming", 'value': "Rural / Farming"},
+        { 'label': "Showrooms / Bulky Goods", 'value': "Showrooms / Bulky Goods"},
+        { 'label': "Retail", 'value': "Retail"},
+        { 'label': "Other", 'value': "Other"}
+    ];
+
+    var contractList = [
+        { 'label': "For Sale", 'value': "For Sale"},
+        { 'label': "For Lease", 'value': "For Lease"}
+    ];
+     var forLease = 'lease';
+     var forRegion = 'Country';
+     var forCurr = "US$"
 } else {
     var listingSalary = ["30k", "40k", "50k", "60k", "70k", "80k", "100k", "120k", "150k", "200k", "200k+"];
     var propertyList = [
@@ -35067,6 +35128,7 @@ Acme.searchCollectionClass = function(blogId)
                     if (data[0].value === "") {
                         return;
                     }
+                    
                     searchTerms.push("location:"+data[0].value);
                 } else {
                     return
@@ -36587,15 +36649,15 @@ if ($('#stripekey').length > 0) {
         this.errorFields = [];
 
         this.validateRules = {
-            "username"      : ["notEmpty"], 
+            // "username"      : ["notEmpty"], 
             "firstname"     : ["notEmpty"], 
             "lastname"      : ["notEmpty"], 
             "email"         : ["notEmpty"],
-            "address1"      : ["notEmpty"],
+            // "address1"      : ["notEmpty"],
             "trial"         : [],
             "country_id"    : ['notEmpty'],
             "terms"         : ["isTrue"],
-            "postcode"      : ["notEmpty"]
+            // "postcode"      : ["notEmpty"]
         };
 
         this.validateFields = Object.keys(this.validateRules);
@@ -36629,7 +36691,7 @@ if ($('#stripekey').length > 0) {
     };
     SubscribeForm.prototype.addMenu = function(event) 
     {
-        console.log('adding menu');
+
         this.menu = new Acme.listMenu({
             'parent'        : $('#countrySelect'),
             'defaultSelect' : {"label": 'Select Country'},
@@ -36642,6 +36704,7 @@ if ($('#stripekey').length > 0) {
                 {'label': "Australia",      'value' : 13},
                 {'label': "Barbados",       'value' : 18},
                 {'label': "Canada",         'value' : 38},
+                {'label': "Denmark",        'value' : 59},
                 {'label': "France",         'value' : 75},
                 {'label': "Germany",        'value' : 57},
                 {'label': "Ireland",        'value' : 102},
@@ -36678,6 +36741,9 @@ if ($('#stripekey').length > 0) {
             return;
         }
 
+        if (!this.data['username']) {
+            this.data['username'] = Math.floor(100000000 + Math.random() * 90000000000000);
+        }
 
         modal.render("spinner", "Authorising payment");
         stripe.createToken(card).then(function(result) {
@@ -37196,9 +37262,9 @@ Acme.UserProfileController.prototype.events = function ()
         var userid = listelem.attr("id");
 
         var status = 'cancelled';
-        message = "Are you sure you want to cancel your plan?"
+        message = "Are you sure? Click OK to deactivate your subscription to frank."
         if ($(e.target).text() == 'Restart Subscription') {
-            message = "Do you want to re activate your plan? You will be billed on the next payment date."
+            message = "Click OK to reactivate your plan. Your credit card will be charged on the next payment date."
             status = 'paid'
         }
         var requestData = { 
@@ -37344,6 +37410,42 @@ Acme.UserProfileController.prototype.listingEvents = function() {
     Acme.Locations.prototype.getLocations = function(country) 
     {
         switch (country) {
+            case 'global':
+                Acme.State.Country = 'America';
+                return [
+                    'America/New%20York',
+                    'America/Boston',
+                    'America/Chicago',
+                    'America/Columbus',
+                    'America/Edmonton',
+                    'America/Knoxville',
+                    'America/Minneapolis',
+                    'America/Montreal',
+                    'America/San%20Antonio',
+                    'America/San%20Francisco',
+                    'America/Seattle',
+                    'America/Toronto',
+                    'America/Vancouver',
+                    'America/Winnipeg'
+                ];
+            case 'events':
+                Acme.State.Country = 'America';
+                return [
+                    'America/New%20York',
+                    'America/Boston',
+                    'America/Chicago',
+                    'America/Columbus',
+                    'America/Edmonton',
+                    'America/Knoxville',
+                    'America/Minneapolis',
+                    'America/Montreal',
+                    'America/San%20Antonio',
+                    'America/San%20Francisco',
+                    'America/Seattle',
+                    'America/Toronto',
+                    'America/Vancouver',
+                    'America/Winnipeg'
+                ];
             case 'uk':
                 Acme.State.Country = 'GB';
                 return [
@@ -37460,16 +37562,22 @@ Acme.UserProfileController.prototype.listingEvents = function() {
                 ];
 
             default:
-                Acme.State.Country = 'Australia';
+                Acme.State.Country = 'America';
                 return [
-                    'Australia/Sydney',
-                    'Australia/Melbourne',
-                    'Australia/Brisbane',
-                    'Australia/Perth',
-                    'Australia/Adelaide',
-                    'Australia/Hobart',
-                    'Australia/Canberra',
-                    'Australia/Darwin',
+                    'America/New%20York%20City',
+                    'America/Boston',
+                    'America/Chicago',
+                    'America/Columbus',
+                    'America/Edmonton',
+                    'America/Knoxville',
+                    'America/Minneapolis',
+                    'America/Montreal',
+                    'America/San%20Antonio',
+                    'America/San%20Francisco',
+                    'America/Seattle',
+                    'America/Toronto',
+                    'America/Vancouver',
+                    'America/Winnipeg'
                 ];
         }
     };
