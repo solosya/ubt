@@ -49,40 +49,21 @@
                 return [
                     'GB/London',
                     'GB/Birmingham',
-                    'GB/Glasgow',
-                    'GB/Liverpool',
-                    'GB/Bristol',
-                    'GB/Manchester',
-                    'GB/Sheffield',
-                    'GB/Leeds',
+                    'GB/Cardiff',
+                    'GB/Dublin',
                     'GB/Edinburgh',
-                    'GB/Leicester'
+                    'GB/Glasgow',
+                    'GB/Leeds',
+                    'GB/Liverpool',
+                    'GB/Manchester',
+                    'GB/Newcastle',
+                    'GB/Norwich',
+                    'GB/Nottingham',
+                    'GB/Sheffield',
+                    'GB/Southampton',
+                    'GB/St%20Austell'
                 ];
                 break;
-            
-            case 'uk-regional':
-                return [
-                    'GB/Aberdeen', 
-                    'GB/Middlesbrough', 
-                    'GB/York', 
-                    'GB/Hull', 
-                    'GB/Chester', 
-                    'GB/Nottingham', 
-                    'GB/Peterborough', 
-                    'GB/Norwich', 
-                    'GB/Cambridge', 
-                    'GB/Ipswich', 
-                    'GB/Swansea', 
-                    'GB/Cardiff', 
-                    'GB/Bristol', 
-                    'GB/Reading', 
-                    'GB/Canterbury', 
-                    'GB/Southampton', 
-                    'GB/Burgess%20Hill', 
-                    'GB/Plymouth'
-                ];
-                break;
-
             case 'nz':
                 Acme.State.Country = 'NZ';
                 return [
