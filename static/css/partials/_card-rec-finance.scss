@@ -106,26 +106,29 @@
 
     &:first-of-type {
         a.card {
-            > article {
-                > .content {
-                    > h2 {
-                        &:before {
-                            content: 'Read the analysis';
-                            display: inline-block;
-                            position: absolute;
-                            right: 0px;
-                            font-family: $font-family-serif;
-                            font-style: italic;
-                            font-weight: normal;
-                            color: color(darkblue);
-                            pointer-events: auto;
-                            text-transform: initial;
-                            font-size: rem(13);
-                            top: 3px;
-                        }
-                    }
-                }
+            @media #{$media-desktop-up}{
+                height: 290px;
             }
+            // > article {
+            //     > .content {
+            //         > h2 {
+            //             &:before {
+            //                 content: 'Read the analysis';
+            //                 display: inline-block;
+            //                 position: absolute;
+            //                 right: 0px;
+            //                 font-family: $font-family-serif;
+            //                 font-style: italic;
+            //                 font-weight: normal;
+            //                 color: color(darkblue);
+            //                 pointer-events: auto;
+            //                 text-transform: initial;
+            //                 font-size: rem(13);
+            //                 top: 3px;
+            //             }
+            //         }
+            //     }
+            // }
         }
     }
 
