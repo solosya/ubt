@@ -97,10 +97,12 @@
 			<div class="container-fluid">
 				<div class="col-sm-12 section-title">
 					<h1>Trusted sources. Global stories</h1>
-					<p>Choose the subscription that's right for you</p>
-					{% if 'uk' in networkData.title | lower %}
-						<p>All subscription prices include VAT</p>
-					{% endif %}
+					<p>Choose the subscription that's right for you
+						{% if 'uk' in networkData.title | lower %}
+							<br/>All subscription prices include VAT
+						{% endif %}
+					</p>
+					
 				</div>
 
 
