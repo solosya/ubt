@@ -24,6 +24,7 @@
         pageClass | lower               != 'page page-login-faq'            and 
         url                             != _AppHelper.getEditProfileUrl()   and 
         url                             != "/auth/verify-email-thanks"      and 
+        url                             != "/auth/reset-thanks"             and 
         url                             != _AppHelper.getResetPasswordUrl() and 
         blogData['showPaywall']         == true %}
 
