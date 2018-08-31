@@ -37545,7 +37545,7 @@ Acme.UserProfileController.prototype.listingEvents = function() {
             default:
                 Acme.State.Country = 'America';
                 return [
-                    'America/New%20York%20City',
+                    'America/New%20York',
                     'America/Boston',
                     'America/Chicago',
                     'America/Columbus',
