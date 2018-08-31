@@ -37466,6 +37466,26 @@ Acme.UserProfileController.prototype.listingEvents = function() {
                     'GB/St%20Austell'
                 ];
                 break;
+            case 'uk-regional':
+                Acme.State.Country = 'GB';
+                return [
+                    'GB/London',
+                    'GB/Birmingham',
+                    'GB/Cardiff',
+                    'GB/Dublin',
+                    'GB/Edinburgh',
+                    'GB/Glasgow',
+                    'GB/Leeds',
+                    'GB/Liverpool',
+                    'GB/Manchester',
+                    'GB/Newcastle',
+                    'GB/Norwich',
+                    'GB/Nottingham',
+                    'GB/Sheffield',
+                    'GB/Southampton',
+                    'GB/St%20Austell'
+                ];
+                break;
             case 'nz':
                 Acme.State.Country = 'NZ';
                 return [
