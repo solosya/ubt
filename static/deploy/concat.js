@@ -37467,23 +37467,8 @@ Acme.UserProfileController.prototype.listingEvents = function() {
                 ];
                 break;
             case 'uk-regional':
-                Acme.State.Country = 'GB';
                 return [
-                    'GB/London',
-                    'GB/Birmingham',
-                    'GB/Cardiff',
-                    'GB/Dublin',
-                    'GB/Edinburgh',
-                    'GB/Glasgow',
-                    'GB/Leeds',
-                    'GB/Liverpool',
-                    'GB/Manchester',
-                    'GB/Newcastle',
-                    'GB/Norwich',
-                    'GB/Nottingham',
-                    'GB/Sheffield',
-                    'GB/Southampton',
-                    'GB/St%20Austell'
+                    'GB/London'
                 ];
                 break;
             case 'nz':
@@ -37735,10 +37720,11 @@ Acme.UserProfileController.prototype.listingEvents = function() {
 
             Acme.SigninView.render("default_weather", "Set default city");
             var locations = new Acme.Locations();
+            console.log("locations",self.locations.data,locations.getLocations(locations.country +'-regional'));
             if (locations.getLocations(locations.country +'-regional')[0] !=  self.locations.data[0] ) {
                 var locations = self.locations.data.concat(locations.getLocations(locations.country +'-regional'));
             } else {
-                locations = self.locations.data
+                locations = self.locations.data;
             }
             
             Acme.WeatherSelector = new Acme.listMenu({
