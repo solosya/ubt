@@ -37715,8 +37715,12 @@ Acme.UserProfileController.prototype.listingEvents = function() {
 
             Acme.SigninView.render("default_weather", "Set default city");
             var locations = new Acme.Locations();
-            var locations = self.locations.data.concat(locations.getLocations(locations.country +'-regional'));
-
+            if (locations.getLocations(locations.country +'-regional')[0] !=  self.locations.data[0] ) {
+                var locations = self.locations.data.concat(locations.getLocations(locations.country +'-regional'));
+            } else {
+                locations = self.locations.data
+            }
+            
             Acme.WeatherSelector = new Acme.listMenu({
                         'parent'        : $('#weather-dropdown'),
                         'list'          : locations.map(function(l) {
@@ -37755,7 +37759,7 @@ Acme.UserProfileController.prototype.listingEvents = function() {
             },
             "nationalweather" : function(data) {
                 this.nationaldata = data.nationalweather.data;
-                return this.renderNational();
+                return this.render();
             }
         };
         this.template = '<div id="location" class="location"> \
