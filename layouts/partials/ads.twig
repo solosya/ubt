@@ -4,14 +4,16 @@
   googletag.cmd = googletag.cmd || [];
 </script>
 
- 
-{% set blogNetworkName = (networkData.title | lower) %}
-{% if blogNetworkName == 'frank nz' %}
-    {% set adPlace = 'Frank_NZ' %}
-{% elseif blogNetworkName == 'frank uk' %}
-    {% set adPlace = 'Frank_UK' %}
-{% else %}
-    {% set adPlace = 'Frank_AU' %}
+{% set blogAdSelect = [
+  "frank Australia" : "Frank_AU",
+  "frank nz"        : "Frank_NZ",
+  "frank uk"        : "Frank_UK",
+  "frank global"    : "Frank_US"
+  ] %} 
+{% set adPlace = blogAdSelect[networkData.title | lower] %}
+
+{% if adPlace == '' %}
+    {% set adPlace = 'Frank_US' %}
 {% endif %}
 
 {% set dfpAcct = '21651851619' %}
