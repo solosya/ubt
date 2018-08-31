@@ -37720,7 +37720,7 @@ Acme.UserProfileController.prototype.listingEvents = function() {
 
             Acme.SigninView.render("default_weather", "Set default city");
             var locations = new Acme.Locations();
-            console.log("locations",self.locations.data,locations.getLocations(locations.country +'-regional'));
+            // console.log("locations",self.locations.data,locations.getLocations(locations.country +'-regional'));
             if (locations.getLocations(locations.country +'-regional')[0] !=  self.locations.data[0] ) {
                 var locations = self.locations.data.concat(locations.getLocations(locations.country +'-regional'));
             } else {
