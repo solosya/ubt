@@ -27,7 +27,7 @@
             var url = _appJsConfig.appHostName + '/'+options.loadtype;
             var requestType = 'get';
         }
-        console.log(options);
+
         return $.ajax({
             type: requestType,
             url: url,
