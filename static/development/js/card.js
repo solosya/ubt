@@ -4,6 +4,7 @@ var CardController = function() {
 
 var Card = function() {
     this.events();
+    this.interval = null;
 };
 
 Card.prototype.renderScreenCards = function(options, data) 
@@ -27,12 +28,15 @@ Card.prototype.renderScreenCards = function(options, data)
     $('.video-player').videoPlayer();
 };
 
+
+
+
 Card.prototype.screen = function() 
 {
     var self = this;
 
     var btn = $('.loadMoreArticles');
-    var pageRefreshInterval = 60000 * 5;
+    var pageRefreshInterval = 60000 * 10;
 
     var currentScreen = 0;
     var articleCount = 0;
@@ -41,7 +45,7 @@ Card.prototype.screen = function()
         'screens' : [
             {
                 style: "screen-card card-lg-screen",
-                limit: 1,
+                limit: 15,
                 logo: "large-logo"
             }
         ],
@@ -50,7 +54,9 @@ Card.prototype.screen = function()
         'count': 20
     };
 
-    var run = function() {
+
+
+    var runContinous = function() {
 
                             // 1 minute * amount of minutes
         var numberOfScreens = options.screens.length;
@@ -58,34 +64,54 @@ Card.prototype.screen = function()
         if (currentScreen > numberOfScreens) {
             currentScreen = 1;
         }
-        var screenOption = currentScreen-1;
+
         options.currentScreen   = currentScreen;
         options.loadtype        = "home";
-        options.limit           = options.screens[screenOption].limit;
-        options.cardClass       = options.screens[screenOption].style;
+        options.limit           = options.screens[currentScreen-1].limit;
+        options.cardClass       = options.screens[currentScreen-1].style;
         if (articleCount >= options.count) {
             articleCount = 0;
         }
 
-        options.offset = articleCount;
-        options.nonPinnedOffset = articleCount;
-
+        // options.offset = articleCount;
+        // options.nonPinnedOffset = articleCount;
+        console.log(options);
         $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
             if (data.articles.length == 0 ) {
                 articleCount = 0;
                 return;
             }
-            articleCount = articleCount + data.articles.length;
+            // articleCount = articleCount + data.articles.length;
 
             if (data.success == 1) {
-                self.renderScreenCards(options, data);
+
+                if (self.interval) {
+                    console.log(self.interval);
+                    clearInterval(self.interval);
+                }
+
+                self.interval = setInterval( function() {
+                    var article = data.articles[articleCount];
+                    console.log(article);
+                    articleCount++;
+                    self.renderScreenCards(options, { 'articles': [ article ] });
+                    if (articleCount >= data.articles.length) {
+                        console.log('reseting article count');
+                        articleCount = 0;
+                    }
+                } , 10000 );
+            
+                for(var i=0; i<data.articles.length; i++) {
+                    self.renderScreenCards(options, data);
+                }
             }
         });
     }
 
-    run();
 
-    setInterval( run, 10000 ); 
+    runContinous();
+
+    setInterval( runContinous, 300000 ); //300000
     setInterval( function() {
         location.reload(false);
     } , pageRefreshInterval );
