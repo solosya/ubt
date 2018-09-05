@@ -243,7 +243,8 @@
                 '<div class="weather-date">' + 
                     '<h1>Weather</h1>' + 
                     '<p>{{date}}</p>' + 
-                    '<i id="default_weather">Set default city</i>' +
+                    '<i id="default_weather">Set default city</i><br />' +
+                    '<i id="scale_weather">Set Fahrenheit/Celsius</i>' +
                 '</div>' + 
                 '<div id="weather-panels"><div id="panel-containter"></div></div>'
             ,
@@ -278,14 +279,18 @@
     {
         var local = this.localdata[0];
         var name = local.location.split('/')[1];
-        var weatherTmp = Handlebars.compile(this.templates.localWeather); 
+        var weatherTmp = Handlebars.compile(this.templates.localWeather);
+        var temp = local.temperature;
+        if  (localStorage.getItem('temp-scale') == 'F') {
+            temp = (local.temperature * 1.8) + 32;
+        }
         this.container.html(
             weatherTmp( {
                 "name": name + '-local', 
                 "icon": local.icon,
                 "location": name,
                 "description" : local.description,
-                "temp" : Math.round(local.temperature)
+                "temp" : Math.round(temp)
             }
         ));
     };
@@ -303,13 +308,17 @@
         
         national.forEach(function(l) {
             var name = l.location.split('/')[1];
+            var temp = local.temperature;
+            if  (localStorage.getItem('temp-scale') == 'F') {
+                temp = (l.temperature * 1.8) + 32;
+            }
             $('#panel-containter').append(
                 weatherPanel({
                     "name" : name,
                     "icon": l.icon,
                     "location": name,
                     "description" : l.description,
-                    "temp" : Math.round(l.temperature)
+                    "temp" : Math.round(temp)
                 }
             ));
         });
@@ -335,7 +344,16 @@
                         'name'          : 'city',
                         'key'           : 'city'
             }).init().render();            
-        });           
+        }); 
+
+        $('#scale_weather').on('click', function(e) {
+            if (localStorage.getItem('temp-scale') != 'F') {
+                localStorage.setItem('temp-scale', 'F'); 
+            } else {
+                localStorage.setItem('temp-scale', 'C');
+            }
+            location.reload();          
+        });             
     };
     Acme.WeatherHeader_View.prototype.events = function()
     {
@@ -380,12 +398,16 @@
     {
         var local = this.localdata[0];
         var name = local.location.split('/')[1];
-        var weatherTmp = Handlebars.compile(this.template); 
+        var weatherTmp = Handlebars.compile(this.template);
+        var temp = local.temperature;
+        if  (localStorage.getItem('temp-scale') == 'F') {
+            temp = (local.temperature * 1.8) + 32;
+        }
         this.container.html(
             weatherTmp( {
                 "city": name,
                 "country" : local.description,
-                "temp" : Math.round(local.temperature)
+                "temp" : Math.round(temp)
             }
         ));
     };

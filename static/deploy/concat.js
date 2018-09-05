@@ -34175,6 +34175,7 @@ var CardController = function() {
 
 var Card = function() {
     this.events();
+    this.interval = null;
 };
 
 Card.prototype.renderScreenCards = function(options, data) 
@@ -34198,12 +34199,15 @@ Card.prototype.renderScreenCards = function(options, data)
     $('.video-player').videoPlayer();
 };
 
+
+
+
 Card.prototype.screen = function() 
 {
     var self = this;
 
     var btn = $('.loadMoreArticles');
-    var pageRefreshInterval = 60000 * 5;
+    var pageRefreshInterval = 60000 * 10;
 
     var currentScreen = 0;
     var articleCount = 0;
@@ -34212,7 +34216,7 @@ Card.prototype.screen = function()
         'screens' : [
             {
                 style: "screen-card card-lg-screen",
-                limit: 1,
+                limit: 15,
                 logo: "large-logo"
             }
         ],
@@ -34221,7 +34225,9 @@ Card.prototype.screen = function()
         'count': 20
     };
 
-    var run = function() {
+
+
+    var runContinous = function() {
 
                             // 1 minute * amount of minutes
         var numberOfScreens = options.screens.length;
@@ -34229,34 +34235,54 @@ Card.prototype.screen = function()
         if (currentScreen > numberOfScreens) {
             currentScreen = 1;
         }
-        var screenOption = currentScreen-1;
+
         options.currentScreen   = currentScreen;
         options.loadtype        = "home";
-        options.limit           = options.screens[screenOption].limit;
-        options.cardClass       = options.screens[screenOption].style;
+        options.limit           = options.screens[currentScreen-1].limit;
+        options.cardClass       = options.screens[currentScreen-1].style;
         if (articleCount >= options.count) {
             articleCount = 0;
         }
 
-        options.offset = articleCount;
-        options.nonPinnedOffset = articleCount;
-
+        // options.offset = articleCount;
+        // options.nonPinnedOffset = articleCount;
+        console.log(options);
         $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
             if (data.articles.length == 0 ) {
                 articleCount = 0;
                 return;
             }
-            articleCount = articleCount + data.articles.length;
+            // articleCount = articleCount + data.articles.length;
 
             if (data.success == 1) {
-                self.renderScreenCards(options, data);
+
+                if (self.interval) {
+                    console.log(self.interval);
+                    clearInterval(self.interval);
+                }
+
+                self.interval = setInterval( function() {
+                    var article = data.articles[articleCount];
+                    console.log(article);
+                    articleCount++;
+                    self.renderScreenCards(options, { 'articles': [ article ] });
+                    if (articleCount >= data.articles.length) {
+                        console.log('reseting article count');
+                        articleCount = 0;
+                    }
+                } , 10000 );
+            
+                for(var i=0; i<data.articles.length; i++) {
+                    self.renderScreenCards(options, data);
+                }
             }
         });
     }
 
-    run();
 
-    setInterval( run, 10000 ); 
+    runContinous();
+
+    setInterval( runContinous, 300000 ); //300000
     setInterval( function() {
         location.reload(false);
     } , pageRefreshInterval );
@@ -37628,7 +37654,8 @@ Acme.UserProfileController.prototype.listingEvents = function() {
                 '<div class="weather-date">' + 
                     '<h1>Weather</h1>' + 
                     '<p>{{date}}</p>' + 
-                    '<i id="default_weather">Set default city</i>' +
+                    '<i id="default_weather">Set default city</i><br />' +
+                    '<i id="scale_weather">Set Fahrenheit/Celsius</i>' +
                 '</div>' + 
                 '<div id="weather-panels"><div id="panel-containter"></div></div>'
             ,
@@ -37663,14 +37690,18 @@ Acme.UserProfileController.prototype.listingEvents = function() {
     {
         var local = this.localdata[0];
         var name = local.location.split('/')[1];
-        var weatherTmp = Handlebars.compile(this.templates.localWeather); 
+        var weatherTmp = Handlebars.compile(this.templates.localWeather);
+        var temp = local.temperature;
+        if  (localStorage.getItem('temp-scale') == 'F') {
+            temp = (local.temperature * 1.8) + 32;
+        }
         this.container.html(
             weatherTmp( {
                 "name": name + '-local', 
                 "icon": local.icon,
                 "location": name,
                 "description" : local.description,
-                "temp" : Math.round(local.temperature)
+                "temp" : Math.round(temp)
             }
         ));
     };
@@ -37688,13 +37719,17 @@ Acme.UserProfileController.prototype.listingEvents = function() {
         
         national.forEach(function(l) {
             var name = l.location.split('/')[1];
+            var temp = local.temperature;
+            if  (localStorage.getItem('temp-scale') == 'F') {
+                temp = (l.temperature * 1.8) + 32;
+            }
             $('#panel-containter').append(
                 weatherPanel({
                     "name" : name,
                     "icon": l.icon,
                     "location": name,
                     "description" : l.description,
-                    "temp" : Math.round(l.temperature)
+                    "temp" : Math.round(temp)
                 }
             ));
         });
@@ -37720,7 +37755,16 @@ Acme.UserProfileController.prototype.listingEvents = function() {
                         'name'          : 'city',
                         'key'           : 'city'
             }).init().render();            
-        });           
+        }); 
+
+        $('#scale_weather').on('click', function(e) {
+            if (localStorage.getItem('temp-scale') != 'F') {
+                localStorage.setItem('temp-scale', 'F'); 
+            } else {
+                localStorage.setItem('temp-scale', 'C');
+            }
+            location.reload();          
+        });             
     };
     Acme.WeatherHeader_View.prototype.events = function()
     {
@@ -37765,12 +37809,16 @@ Acme.UserProfileController.prototype.listingEvents = function() {
     {
         var local = this.localdata[0];
         var name = local.location.split('/')[1];
-        var weatherTmp = Handlebars.compile(this.template); 
+        var weatherTmp = Handlebars.compile(this.template);
+        var temp = local.temperature;
+        if  (localStorage.getItem('temp-scale') == 'F') {
+            temp = (local.temperature * 1.8) + 32;
+        }
         this.container.html(
             weatherTmp( {
                 "city": name,
                 "country" : local.description,
-                "temp" : Math.round(local.temperature)
+                "temp" : Math.round(temp)
             }
         ));
     };
