@@ -34207,8 +34207,10 @@ Card.prototype.screen = function()
     var self = this;
 
     var btn = $('.loadMoreArticles');
-    var pageRefreshInterval = 60000 * 10;
-
+    var blogFetchInterval       = 300000 // 5 minutes
+    var pageRefreshInterval     = 60000 * 10; // 10 minutes
+    var articleRenderInterval   = 10000; // 10 seconds
+    
     var currentScreen = 0;
     var articleCount = 0;
 
@@ -34216,7 +34218,7 @@ Card.prototype.screen = function()
         'screens' : [
             {
                 style: "screen-card card-lg-screen",
-                limit: 15,
+                limit: 20,
                 logo: "large-logo"
             }
         ],
@@ -34240,41 +34242,39 @@ Card.prototype.screen = function()
         options.loadtype        = "home";
         options.limit           = options.screens[currentScreen-1].limit;
         options.cardClass       = options.screens[currentScreen-1].style;
+        articleCount            = 1;
+
         if (articleCount >= options.count) {
             articleCount = 0;
         }
 
         // options.offset = articleCount;
         // options.nonPinnedOffset = articleCount;
-        console.log(options);
+
         $.fn.Ajax_LoadBlogArticles(options).done(function(data) {
             if (data.articles.length == 0 ) {
                 articleCount = 0;
                 return;
             }
-            // articleCount = articleCount + data.articles.length;
 
             if (data.success == 1) {
 
                 if (self.interval) {
-                    console.log(self.interval);
                     clearInterval(self.interval);
                 }
 
                 self.interval = setInterval( function() {
                     var article = data.articles[articleCount];
-                    console.log(article);
+
                     articleCount++;
                     self.renderScreenCards(options, { 'articles': [ article ] });
                     if (articleCount >= data.articles.length) {
-                        console.log('reseting article count');
                         articleCount = 0;
                     }
-                } , 10000 );
-            
-                for(var i=0; i<data.articles.length; i++) {
-                    self.renderScreenCards(options, data);
-                }
+                } , articleRenderInterval );
+                
+                self.renderScreenCards(options, { 'articles': [ data.articles[0] ] });
+
             }
         });
     }
@@ -34282,7 +34282,7 @@ Card.prototype.screen = function()
 
     runContinous();
 
-    setInterval( runContinous, 300000 ); //300000
+    // setInterval( runContinous, blogFetchInterval ); //300000
     setInterval( function() {
         location.reload(false);
     } , pageRefreshInterval );
