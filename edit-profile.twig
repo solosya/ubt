@@ -30,8 +30,6 @@
 
 {{this.registerJs("Acme.userController = new Acme.UserProfileController();")}}
 
-
-
                                                  {# renders the card    fetch-limit  fetch-offset    infinite scroll            #}
                                                  {#            ↑             ↑          ↑            ↑                          #}
 {{this.registerJs("Acme.userFeed = new Acme.View.userFeed(Acme.usercard, " ~ userLimit ~ ",     20,         false,          null, Acme.userController);")}}
@@ -173,9 +171,29 @@
                 {% if pwstats.userManager == true %}
 
 
-                    {% set managedUsers = _User.getPaywallManagedUsers({"limit": userLimit}) %}
-                    {% set managedUserCount = managedUsers | length %}   
+                    {# {% set managedUsers = _User.getPaywallManagedUsers({"limit": userLimit}) %}
+                    {% set managedUserCount = managedUsers | length %}    #}
                     
+                    {% set managedUsersObj = _User.getPaywallManagedUsers({"limit": userLimit}) %}
+
+                    {% set managedUserScreenCount = managedUsersObj | length %}
+
+                    {% set managedUsers = managedUsersObj %}
+                    {% if managedUsersObj['users'] is defined %}
+                        {% set managedUsers = managedUsersObj['users'] %}
+                        {% set managedUserScreenCount = managedUsers | length %}
+
+                    {% endif %}
+
+
+                    {% set managedUserCount = managedUsers | length %}
+                    {% if managedUsersObj['totalCount'] is defined %}
+                        {% set managedUserCount = managedUsersObj['totalCount'] %}
+                    {% endif %}
+
+
+
+
                     <div class="profile-section">
                        
                        <div class="profile-section__header">
@@ -328,11 +346,11 @@
 
                     <div class="profile-section">
                         <div class="profile-section__header">
-                            <p class="profile-section__heading">My Users <span class="profile-section__users-left">{{managedUsers|length}} of {{pwstats['user_count']}} used.</span></p>
+                            <p class="profile-section__heading">My Users <span class="profile-section__users-left">{{managedUserCount}} of {{pwstats['user_count']}} used.</span></p>
                             <a id="addManagedUser" style="z-index:1000;" class="text-button text-button--italic u-float-right{% if managedUsers|length >= pwstats['user_count'] %} hidden{% endif %}">+ Add users</a>
                         </div>
 
-                        {% if pwstats['user_count'] > userLimit and managedUserCount == userLimit %} 
+                        {% if pwstats['user_count'] > userLimit and managedUserCount >= userLimit %} 
                             <div id="menu-search" class="managed-users-search u-margin-bottom-20">
                                 <form method="get" id="managed-user-search" action="">
                                     <div style="position:relative">
@@ -385,7 +403,7 @@
                                 </ul>
                             </div>
                             
-                            {% if pwstats['user_count'] > userLimit and managedUserCount == userLimit %} 
+                            {% if pwstats['user_count'] > userLimit and managedUserScreenCount >= userLimit %} 
                                 {{ this.render('partials/ajaxarticles.twig', {
                                     limit           : userLimit,
                                     label           : "Show more",
