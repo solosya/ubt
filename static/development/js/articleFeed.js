@@ -157,6 +157,9 @@ Acme.View.userFeed.constructor = Acme.View.userFeed;
 Acme.View.userFeed.prototype.render = function(data) 
 {
     var self = this;
+
+    var users = data.users.users || data.users;
+
     var cardClass  =   self.elem.data('card-class'),
         template   =   self.elem.data('card-template') || null,
         label      =   self.elem.data('button-label')  || "Load more",
@@ -165,7 +168,7 @@ Acme.View.userFeed.prototype.render = function(data)
 
     self.elem.html(label);
 
-    (data.users.length < self.options.limit) 
+    (users.length < self.options.limit) 
         ? self.elem.css('display', 'none')
         : self.elem.show();
 
@@ -178,11 +181,11 @@ Acme.View.userFeed.prototype.render = function(data)
     }
 
 
-    if (data.users.length === 0 && self.failText) {
+    if (users.length === 0 && self.failText) {
         html = ["<p>" + self.failText + "</p>"];
     } else {
-        for (var i in data.users) {
-            html.push( self.feedModel.render(data.users[i], cardClass, template) );
+        for (var i in users) {
+            html.push( self.feedModel.render(users[i], cardClass, template) );
         }
     }
 
@@ -191,7 +194,7 @@ Acme.View.userFeed.prototype.render = function(data)
         : self.options.container.append( html.join('') );
         
     if (self.waypoint) {
-        (data.users.length < self.options.limit)
+        (users.length < self.options.limit)
             ? self.waypoint.disable()
             : self.waypoint.enable();
     }
