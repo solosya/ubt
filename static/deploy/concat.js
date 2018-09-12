@@ -26751,7 +26751,7 @@ jQuery.fn.liScroll = function(settings) {
     $.fn.Ajax_LoadBlogArticles = function(options){
         var requestType = 'post';
         var url = _appJsConfig.baseHttpPath + '/home/load-articles';
-        console.trace();
+
         var requestData = { 
             offset      : options.offset, 
             limit       : options.limit, 
@@ -37434,6 +37434,7 @@ Acme.UserProfileController.prototype.listingEvents = function() {
                     'America/Knoxville',
                     'America/Minneapolis',
                     'America/Montreal',
+                    'America/Portland',
                     'America/San%20Antonio',
                     'America/San%20Francisco',
                     'America/Seattle',
@@ -37452,6 +37453,7 @@ Acme.UserProfileController.prototype.listingEvents = function() {
                     'America/Knoxville',
                     'America/Minneapolis',
                     'America/Montreal',
+                    'America/Portland',
                     'America/San%20Antonio',
                     'America/San%20Francisco',
                     'America/Seattle',
@@ -37571,6 +37573,7 @@ Acme.UserProfileController.prototype.listingEvents = function() {
                     'America/Knoxville',
                     'America/Minneapolis',
                     'America/Montreal',
+                    'America/Portland',
                     'America/San%20Antonio',
                     'America/San%20Francisco',
                     'America/Seattle',
