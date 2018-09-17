@@ -24141,9 +24141,9 @@ return hooks;
                 }
                 if (d === undefined || d === null) {
                     if (tzEnabled) {
-                        returnMoment = moment().tz(options.timeZone).startOf('d');
+                        returnMoment = moment().tz(options.timeZone).hour(9).minute(0);
                     } else {
-                        returnMoment = moment().startOf('d');
+                        returnMoment = moment().hour(9).minute(0);
                     }
                 } else {
                     if (tzEnabled) {
@@ -35852,7 +35852,11 @@ Acme.EventForm = function(blogId)
             var data = {};
             data[e.target.id] = e.date.format('YYYY-MM-DD HH:mm');
             if(data['start_date'] || data['end_date']) {
-                $('#end_date').data("DateTimePicker").minDate(e.date);
+                if(data['start_date'] && e.date.hour() == 9 && e.date.minute() == 0) {
+                        $('#end_date').data("DateTimePicker").minDate(e.date.hour(16).minute(59));
+                    } else {
+                         $('#end_date').data("DateTimePicker").minDate(e.date);
+                    }
                 Acme.PubSub.publish("update_state", data);
             }
         });

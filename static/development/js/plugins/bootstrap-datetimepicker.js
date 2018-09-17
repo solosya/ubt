@@ -145,9 +145,9 @@
                 }
                 if (d === undefined || d === null) {
                     if (tzEnabled) {
-                        returnMoment = moment().tz(options.timeZone).startOf('d');
+                        returnMoment = moment().tz(options.timeZone).hour(9).minute(0);
                     } else {
-                        returnMoment = moment().startOf('d');
+                        returnMoment = moment().hour(9).minute(0);
                     }
                 } else {
                     if (tzEnabled) {
