@@ -35854,7 +35854,7 @@ Acme.EventForm = function(blogId)
             if(data['start_date'] || data['end_date']) {
                 if(data['start_date'] && e.date.hour() == 9 && e.date.minute() == 0) {
                         $('#end_date').data("DateTimePicker").minDate(e.date.hour(16).minute(59));
-                    } else {
+                    } else if (data['start_date']) {
                          $('#end_date').data("DateTimePicker").minDate(e.date);
                     }
                 Acme.PubSub.publish("update_state", data);
