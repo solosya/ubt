@@ -60,21 +60,17 @@
                 line-height: 1.2;
                 color:  color(black);
                 font-family: $font-family-serif;
-                
-                // @media screen and (max-width: $sm-break) {
-                //     font-size: rem(24);
-                //     margin-bottom: 15px;
-                // }
             }
 
             p.company {
                 margin:0;
                 font-size: rem(13);
                 font-weight:600;
+                margin-top: 20px;
             }
             p.salary {
-                font-size: rem(14);
-                margin-top: 14px;
+                font-size: rem(13);
+                font-weight:600;
                 color:color(darkblue);
             }
 

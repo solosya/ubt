@@ -58,7 +58,7 @@
 
 {% set company = article.additionalInfo.company %}
 {% if article.additionalInfo.website %}
-    {% set company = company ~ " | " ~ article.additionalInfo.website %}
+    {% set company = company ~ "&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;" ~ article.additionalInfo.website %}
 {% endif %}
 
 
