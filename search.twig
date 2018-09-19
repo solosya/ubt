@@ -2,7 +2,6 @@
 
 {# {{this.registerJs("CardController();")}} #}
 {{this.registerJs("Acme.cards = CardController();")}}
-{{this.registerJs("Acme.searchFeed = new Acme.View.articleFeed(Acme.cards);")}}
 
 {% set limit = 18 %}
 {% set articles = _Search.searchArticles({'limit': limit, 'offset': 0, 'search': search}) %}
@@ -51,7 +50,7 @@
                         name            : "section-load",
                         limit           : limit,
                         offset          : limit,
-                        searchTerm      : search,
+                        searchterm      : search,
                         loadtype        : "api/search",
                         imgheight       : "215",
                         container       : "mainAjaxArticles",
