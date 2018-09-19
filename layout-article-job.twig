@@ -57,9 +57,7 @@
 
 
 {% set company = article.additionalInfo.company %}
-{% if article.additionalInfo.website %}
-    {% set company = company ~ "&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;" ~ article.additionalInfo.website %}
-{% endif %}
+
 
 
 <main id="main" class="container-fluid site-main" role="main">
@@ -126,7 +124,8 @@
                             
                             <h1>{{ quotes.smarten(article.title) }}</h1>
                             
-                            <p class="company">{{ company }}</p>
+                            <p class="company">{{ company }}{% if article.additionalInfo.website %}
+    &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{{article.additionalInfo.website }}{% endif %}</p>
                             <p class="salary">{{salary}}</p>
 
                         </div><!--content-block-top-->
