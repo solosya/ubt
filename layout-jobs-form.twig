@@ -27,7 +27,7 @@
     {% set userArticlesArr = _User.getUserArticles(user.guid, 0, limit, {'blogs':[jobsBlogId], 'status': '-1'}) %}
 {% endif %}
 
-{{dump(userArticlesArr[2])}}
+{{dump(userArticlesArr[0])}}
 
 
 {% if (networkData.title | lower) == 'frank uk' %}
