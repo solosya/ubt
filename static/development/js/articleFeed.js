@@ -20,13 +20,10 @@ Acme.Feed.prototype.fetch = function()
         'search'            :   self.elem.data('searchterm')    || null,
     };
     if (self.options.search != null) {
-        console.log(self.options);
-        console.log(self.elem.data);
         self.options.blogid = self.elem.data("blogid"); // search takes an id instead of a guid
     }
 
     $.fn.Ajax_LoadBlogArticles(self.options).done(function(data) {
-        console.log(data);
         if (data.success == 1) {
             self.render(data);
         }

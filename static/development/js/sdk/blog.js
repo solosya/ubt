@@ -24,6 +24,7 @@
 
         if (options.search) {
             requestData['meta_info'] = options.search;
+            requestData['s'] = options.search;
             var url = _appJsConfig.appHostName + '/'+options.loadtype;
             var requestType = 'get';
         }
