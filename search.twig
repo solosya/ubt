@@ -4,7 +4,7 @@
 {{this.registerJs("Acme.cards = CardController();")}}
 
 {% set limit = 18 %}
-{% set articles = _Search.searchArticles({'limit': limit, 'offset': 0, 'search': search}) %}
+{% set articles = _Search.searchArticles({'limit': limit, 'offset': 0, 'search': search, 'sortBy': 'published'}) %}
 {% set networkData = _Network.getNetworkData() %}
 {% set firstCount = articles | length %}
 
@@ -48,9 +48,9 @@
                     {{ this.render('partials/ajaxarticles.twig', {
                         ads             : "no",
                         name            : "section-load",
-                        limit           : limit,
+                        limit           : 9,
                         offset          : limit,
-                        searchterm      : search,
+                        searchTerm      : search,
                         loadtype        : "api/search",
                         imgheight       : "215",
                         container       : "mainAjaxArticles",
