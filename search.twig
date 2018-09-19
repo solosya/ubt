@@ -1,11 +1,18 @@
 {{ set(this, 'title', 'Search - ' ~ search) }}
 
-{{this.registerJs("CardController();")}}
+{# {{this.registerJs("CardController();")}} #}
+{{this.registerJs("Acme.cards = CardController();")}}
+{{this.registerJs("Acme.searchFeed = new Acme.View.articleFeed(Acme.cards);")}}
 
 {% set limit = 18 %}
 {% set articles = _Search.searchArticles({'limit': limit, 'offset': 0, 'search': search}) %}
 {% set networkData = _Network.getNetworkData() %}
+{% set firstCount = articles | length %}
 
+
+                                                     {# renders the card    fetch-limit      fetch-offset    infinite scroll #}
+                                                     {#            ↑             ↑                 ↑            ↑            #}
+{{this.registerJs("Acme.searchFeed = new Acme.View.articleFeed(Acme.cards, " ~ limit ~ ", " ~ firstCount ~ ", true);")}}
 
 
 
@@ -42,11 +49,10 @@
                     {{ this.render('partials/ajaxarticles.twig', {
                         ads             : "no",
                         name            : "section-load",
-                        limit           : 12,
+                        limit           : limit,
                         offset          : limit,
                         searchTerm      : search,
                         loadtype        : "api/search",
-                        imgwidth        : "200",
                         imgheight       : "215",
                         container       : "mainAjaxArticles",
                         non_pinned      : articlesArr.existingNonPinnedCount, 
