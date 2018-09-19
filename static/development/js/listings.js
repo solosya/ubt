@@ -1120,7 +1120,7 @@ Acme.listingViewClass = function() {
                 var articleId = card.data('id');
                 var status = card.data('status');
                 Acme.server.fetch('/api/article/get-article?articleId='+articleId+"&status="+status).done(function(r) {
-
+                    console.log(r);
                     var data = {
                         'id': r.id,
                         'guid':r.guid,
@@ -1130,7 +1130,7 @@ Acme.listingViewClass = function() {
                         'content': r.content,
                         'mediaData':r.media
                     };
-                    console.log(r.media);
+                    console.log(data);
                     var mediaids = [];
                     if (r.media) {
                         for (var i=0;i<r.media.length;i++) {
