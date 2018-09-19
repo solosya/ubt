@@ -180,7 +180,7 @@
                 <div  id="userListings" class="">
                     
                     {% for article in userArticlesArr %}
-                        {{dump(article)}}
+                        
                         {{this.render('partials/_single-article.twig', {
                             article: article, 
                             position: loop.index,
