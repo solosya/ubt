@@ -35943,13 +35943,15 @@ Acme.listingViewClass = function() {
                         'content': r.content,
                         'mediaData':r.media
                     };
+                    console.log(r.media);
                     var mediaids = [];
-                    for (var i=0;i<r.media.length;i++) {
-                        mediaids.push(r.media[i].media_id);
+                    if (r.media) {
+                        for (var i=0;i<r.media.length;i++) {
+                            mediaids.push(r.media[i].media_id);
+                        }
+                        data.media_id = mediaids[0];
+                        data.media_ids = mediaids.join(',');
                     }
-                    data.media_id = mediaids[0];
-                    data.media_ids = mediaids.join(',');
-
                     if (r.additionalInfo) {
                         var extendedData = {};
                         for (d in r.additionalInfo) {
