@@ -38,19 +38,19 @@
                     {% endfor %}
                 </div><!-- .row-->
 
-
-
                 {% if articles|length >= limit %}
-                {{ this.render('partials/ajaxarticles.twig', {
-                    limit       : limit, 
-                    label       : "Show more",
-                    non_pinned  : articlesArr.existingNonPinnedCount, 
-                    card_class  : "col-sm-4 card-sm card-sm-tablet",
-                    container   : "mainAjaxArticles",
-                    loadtype    : "search",
-                    searchTerm  : search,
-                    buttonClass     : "infinite"
-                }) | raw }}
+                    {{ this.render('partials/ajaxarticles.twig', {
+                        ads             : "no",
+                        name            : "section-load",
+                        limit           : 12,
+                        offset          : limit,
+                        imgwidth        : "200",
+                        imgheight       : "140",
+                        container       : "mainAjaxArticles",
+                        non_pinned      : articlesArr.existingNonPinnedCount, 
+                        card_class      : "col-sm-4 card-sm card-sm-tablet",
+                        buttonClass     : "infinite"
+                    }) | raw }}
                 {% endif %}
 
 
