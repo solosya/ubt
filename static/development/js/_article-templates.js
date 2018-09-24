@@ -127,9 +127,10 @@ Acme.managed_user =
 
 
 window.templates.carousel_item = 
-'<div class="carousel-tray__item" style="background-image:url( {{imagePath}} )"> \
+'<li class="carousel-tray__item swap-images"> \
     <span data-id="{{imageid}}" class="carousel-tray__delete"></span> \
-</div>';
+    <img class="carousel-tray__img" src="{{imagePath}}" /> \
+</li>';
 
 window.templates.ads_infinite = 
 '<div class="advert"> \

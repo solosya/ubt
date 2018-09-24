@@ -33333,9 +33333,10 @@ Acme.managed_user =
 
 
 window.templates.carousel_item = 
-'<div class="carousel-tray__item" style="background-image:url( {{imagePath}} )"> \
+'<li class="carousel-tray__item swap-images"> \
     <span data-id="{{imageid}}" class="carousel-tray__delete"></span> \
-</div>';
+    <img class="carousel-tray__img" src="{{imagePath}}" /> \
+</li>';
 
 window.templates.ads_infinite = 
 '<div class="advert"> \
@@ -35525,7 +35526,8 @@ var ListingForm = function() {};
                 html += temp({"imagePath": imagePath, 'imageid' : images[i].media_id});
             }
             imageArray.append(html);
-    
+            this.initSortable();
+
         }
     };
     ListingForm.prototype.clear = function() 
@@ -35620,9 +35622,52 @@ var ListingForm = function() {};
             console.log(r);
         });
     };
+
+    ListingForm.prototype.initSortable = function()
+    {
+        var self = this;
+
+        $( "#imageArray" ).sortable({
+            self: self,
+            axis: "x", // only sort horizontal
+            update: function(e, ui) {
+                var data = {
+                    articleGuid: self.data.guid,
+                    images: []
+                };
+                var container = $(e.target);
+
+                var images = container.children();
+                images.each(function(i,e) {
+                    var id = $(e).find('span').data('id');
+                    data.images.push(id);
+                });
+
+                Acme.server.create('/api/article/reorder-article-media', data).done(function(r) {
+                    if (r.success == 1) {
+                        images.css({outline: '0 solid rgba(167, 237, 52, 1)' })
+                        images.animate({
+                            "outlineWidth": 4
+                        }, 100).animate({
+                            "outlineWidth": 0
+                        }, 100, function() {
+                            $(this).removeAttr('style');
+                        });
+                    }
+                });
+            }
+        });
+
+    };
+    
+
+
+
     ListingForm.prototype.events = function() 
     {
         var self = this;
+
+
         $('input, textarea').on("change", function(e) {
             e.stopPropagation();
             e.preventDefault();
