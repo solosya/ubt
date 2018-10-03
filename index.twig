@@ -1,4 +1,8 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
+
+{% cache 'indexCache' 300 %}
+
+
 {% set networkData = _Network.getNetworkData() %}
 {% set blogNetworkNameIs = networkData.title | lower %}
 
@@ -700,14 +704,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
     </main><!-- .site-main -->
+
+    {% endcache %}
