@@ -311,7 +311,8 @@
         
         national.forEach(function(l) {
             var name = l.location.split('/')[1];
-            var temp = local.temperature;
+            var temp = l.temperature;
+
             if  (localStorage.getItem('temp-scale') == 'F') {
                 temp = (l.temperature * 1.8) + 32;
             }
