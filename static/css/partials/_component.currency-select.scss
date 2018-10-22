@@ -1,8 +1,3 @@
-
-.nothinghow {
-    height:200px;
-}
-
 .currency-select {
     margin: auto;
     width: 500px;
@@ -11,12 +6,15 @@
     &__radio-group {
         width:49%;
         display:inline-block;
-    }
+
+        @media #{$media-mobile} {
+            margin:auto;
+            display:block;
+        }
+}
 
     &__radio-input {
         display:none;
-    }
-    &__nothing {
     }
 
     &__label {
