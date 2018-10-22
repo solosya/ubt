@@ -23,6 +23,7 @@
                 $("#au_plans").show();
 
             }           
+            console.log('this is stupid');
             
         });
     
