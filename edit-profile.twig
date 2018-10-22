@@ -1,9 +1,5 @@
 {{ set(this, 'title', 'Edit Profile') }}
 
-
-
-
-
 {% set networkData = _Network.getNetworkData() %}
 {% set blogData = _Blog.getBlog() %}
 {% set jobsBlogId = blogData.additionalInfo['joblistingsid'] %}
@@ -16,6 +12,20 @@
 {% set pwstats = _User.getPaywallStats(true) %}
 {% set plans = _Network.getNetworkData()['paywallPlans'] %}
 
+{% set currency_plans = [] %}
+
+{# separate plans by currency #}
+{# User should only see plans in the currency they originally signed up for #}
+{% for plan in plans %}
+	{% if plan.currency | lower == pwstats['currency'] | lower %}
+		{% set currency_plans = currency_plans|merge([plan]) %}
+	{% endif %}
+{% endfor %}
+
+
+
+
+
 {% set userLimit = 20 %}
 {% set user = _User.getUser() %}
 
@@ -26,7 +36,6 @@
 {% endif %}
 
 {{this.registerJs("Acme.usercard = new Acme.Usercard();")}}
-
 
 {{this.registerJs("Acme.userController = new Acme.UserProfileController();")}}
 
@@ -309,7 +318,7 @@
 
                             <div class="plans">
 
-                            {% for plan in plans %}
+                            {% for plan in currency_plans %}
                                 {% if plan.guid != pwstats['plan_guid'] or (pwstats['status'] != 'paid' and pwstats['status'] != 'trial') %}
                                 
                                 {% set uc = plan.user_count + 1 %}
