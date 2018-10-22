@@ -1,0 +1,52 @@
+.currency-select {
+    margin: auto;
+    width: 500px;
+    margin-bottom:40px;
+
+    &__radio-group {
+        width:49%;
+        display:inline-block;
+    }
+
+    &__radio-input {
+        display:none;
+    }
+
+    &__label {
+        position:relative;
+        cursor:pointer;
+        padding-left: 3rem;
+    }
+
+    &__radio-button {
+        height:32px;
+        width:32px;
+        border: 1px solid #d8d8d8;
+        border-radius: 50%;
+        display:inline-block;
+        position:absolute;
+        top:7px;
+        left:0;
+
+        &:after {
+            content: "";
+            display:block;
+            height: 12px;
+            width: 12px;
+            border-radius:50%;
+            position:absolute;
+            background-color:#d8d8d8;
+            top:50%;
+            left:50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    &__radio-input:checked ~ &__label &__radio-button {
+        &:after {
+            background-color:#ae232c;
+        }
+
+    }
+
+}

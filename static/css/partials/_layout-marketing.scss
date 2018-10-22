@@ -1,3 +1,20 @@
+
+.marketing__section-header {
+    font-family: $font-family-serif;
+    font-size: rem(40);
+    text-align:center;
+    font-weight:700;
+    @media screen and (max-width: $mmd-break) {
+        font-size: rem(40);
+    }
+    @media screen and (max-width: $sm-break-down) {
+        font-size: rem(32);
+    }
+}
+
+
+
+
 .layout-marketing, body.auth.login {
 
     .site-header {
@@ -34,103 +51,10 @@
         margin-top:0;
     }
 
-    .market-header {
-        height:172px;
-        position:relative;
-
-        > img {
-            position:absolute;
-            left:0;
-            top:55px;
-            @media screen and (max-width: $mmd-break) {
-                width:91px;
-                height:32px;
-                left:20px;
-            }
-
-            @media screen and (max-width: $sm-break) {
-                width:73px;
-                height:26px;
-                display:block;
-                margin:auto;
-                position:static;
-            }
-
-        }
-
-
-        > div {
-            text-align:center;
-            width:350px;
-            margin: 0 auto;
-            margin-top:25px;
-
-            @media screen and (max-width: $mmd-break) {
-                width: 265px;
-            }
-            @media screen and (max-width: $sm-break) {
-                width: 189px;
-            }
-
-           p {
-                border-top:1px solid black;
-                padding-top:10px;
-                font-size: rem(17);
-                margin-top:20px;
-
-                @media screen and (max-width: $mmd-break) {
-                    font-size: rem(11);
-                    margin-top:0;
-                }
-                @media screen and (max-width: $sm-break) {
-                    font-size: rem(9);
-                }
+    
 
 
 
-            }
-            
-        }
-        .frankheader{
-            @media screen and (max-width: $sm-break) {
-                float: right;
-            }
-            img.frankHeader__img {
-                @media screen and (max-width: $mmd-break) {
-                    width:129px;
-                }
-                @media screen and (max-width: $sm-break) {
-                    width:104px;
-                }
-
-            }
-        }
-        .ubt-logo {
-            @media screen and (max-width: $sm-break) {
-                float: left;
-                margin-top: 55px; 
-                width: 90px;
-                height: 31px;
-            }
-        }
-
-    }
-
-    .section-title {
-        >h1 {
-            font-family: $font-family-serif;
-            font-size: rem(40);
-            text-align:center;
-            font-weight:700;
-            @media screen and (max-width: $mmd-break) {
-                font-size: rem(40);
-            }
-            @media screen and (max-width: $sm-break-down) {
-                font-size: rem(32);
-            }
-
-        }
-    }
 
     .three-card {
         margin-top:55px;
@@ -174,373 +98,52 @@
         }
     }
 
-    .market-hero {
-        height:566px;
-        margin-bottom:70px;
-        // background:yellow;
-        // background-image: linear-gradient(to left, rgba(0, 0, 0, 0.0), #000000), url('../images/market-hand_crop.png');
-        // background-image: linear-gradient(to left, rgba(0, 45, 86, 0.0), #193046), url('../images/market-hand_crop.png');
-        background-image: linear-gradient(to right, #193046 17%, rgba(0, 0, 0, 0.0) 100%) , url('../images/market-hand_crop3.png');
+    // .cost {
 
-        // background: url('../images/market-hand.png');
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: right;
+    //     text-align:center;
+    //     overflow:auto;
+    //     padding-bottom: 90px;
+    //     border-bottom:1px solid color(border);
+    //     h2 {
+    //         font-family:$font-family-serif;
+    //         font-size: rem(40);
+    //         font-weight:700;
+    //         color:color(darkblue);
+    //         margin-bottom:41px;
+    //     }
+    //     p {
+    //         margin-top:25px;
+    //         font-size:rem(12);
+    //         color:color(lightgrey);
+    //     }
 
-        @media screen and (max-width: $mmd-break-down) {
-            height:400px;
-        }
-
-        @media screen and (max-width: $sm-break-down) {
-            height:300px;
-            background-size: cover;
-            margin-bottom:25px;
-
-        }
-
-        .content {
-            width:581px;
-            padding-top:185px;
-            @media screen and (max-width: $mmd-break-down) {
-                padding-top:120px;
-            }
-            @media screen and (max-width: $sm-break-down) {
-                width:100%;
-                padding-top:140px;
-            }
-
-            h1 {
-                line-height: 0.88;
-                font-family: $font-family-serif;
-                font-size: rem(64);
-                font-weight:700;
-                color:white;
-                margin-bottom:25px;
-                @media screen and (max-width: $mmd-break-down) {
-                    font-size: rem(47);
-                    width:335px;
-                }
-
-                @media screen and (max-width: $sm-break-down) {
-                    font-size: rem(36);
-                    width:262px;
-                    margin-top: -25px;
-                }
-            }
-             p{
-                font-family:$base-font-family;
-                font-size: rem(30);
-                color:white;
-                margin-bottom:45px;
-                @media screen and (max-width: $mmd-break-down) {
-                    font-size: rem(17);
-
-                }
-                @media screen and (max-width: $sm-break-down) {
-                    font-size: rem(14);
-                    width:250px;
-                    margin-bottom:15px;
-                    font-weight: 200;
-                }
-             }
-             a {
-                background: color(red);
-                color:white;
-                font-size:rem(14);
-                padding:15px 10px;
-                @media screen and (max-width: $mmd-break-down) {
-                    font-size:rem(11);
-                    padding:11px 8px;
-                    width: 113px;
+    // }
 
 
-                }
+}
 
-                @media screen and (max-width: $sm-break-down) {
-                    font-size:rem(9);
-                    padding:8px 15px;
-                    width: 113px;
-                }
+.marketing-subscriptions {
 
-             }
-        }
-    }
-
-    .essential-news {
-        margin:93px 0;
-        padding-top:70px;
-        padding-bottom: 40px;
-        background: color(marketgrey);
-        
-        .screenImage {
-            max-width:100%;
-        }
-
-        h3 {
-            color:color(red);
-            font-size:rem(22);
-            margin-bottom:20px;
-        }
-
-        p {
-            margin-top:18px;
-            margin-bottom:60px;
-            text-align: center;
-            font-size:rem(24);
-        }
-
-        ul {
-            padding:20px;
-            > li {
-                font-size:rem(20);
-                line-height: 1.4;
-                margin-bottom:20px;
-            }
-        }
-
-        p.disclaimer {
-            font-size: rem(10);
-            font-weight: 300;
-            margin: 0px;
-            padding-left: 20px;
-            text-align: left;
-        }
-    }
-
-    .cost {
-
-        text-align:center;
-        overflow:auto;
-        padding-bottom: 90px;
-        border-bottom:1px solid color(border);
-        h2 {
-            font-family:$font-family-serif;
-            font-size: rem(40);
-            font-weight:700;
-            color:color(darkblue);
-            margin-bottom:41px;
-        }
-        p {
-            margin-top:25px;
-            font-size:rem(12);
-            color:color(lightgrey);
-        }
-
-    }
-
-    .subscription {
-        margin-top:90px;
-
-        .section-title {
-            p{
-                margin-top:18px;
-                margin-bottom:50px;
-                text-align: center;
-                font-size:rem(24);
-            }
-        }
-
-        .subscriptionCard {
-            @media #{$media-mobile} {
-                padding-left: 0;
-                padding-right: 0;
-            }
-            .card {
-                padding:37px 0;
-                margin-bottom:35px;
-                text-align:center;
-                background: color(marketgrey);
-            
-                @media screen and (max-width: $sm-break-down) {
-                    margin-bottom: 30px;
-                    padding: 18px 0;
-                }
-
-
-                > h3 {
-                    font-family: $font-family-serif;
-                    padding:0;
-                    margin:0;
-                    font-size: rem(30);
-                    font-weight:700;
-                    color: color(red);
-                    margin-bottom:20px;
-                    height: 66px;
-                     @media #{$media-mobile} {
-                        height:31px;
-                        margin-bottom:0;
-                        font-size: rem(24);
-                     }
-                }
-                p.usercount {
-                    font-size: rem(22);
-                    margin-bottom:61px;
-                    @media #{$media-mobile} {
-                         margin-bottom:10px;
-                         font-size: rem(18);
-                    }
-                }
-                p.price {
-                    font-size: rem(26);
-                    color: color(darkblue);
-                    margin-bottom:18px;
-                    font-weight:700;
-                    @media #{$media-mobile} {
-                        font-size: rem(19);
-                        margin-bottom:15px;
-                    }
-                }
-                p.subnow {
-                    font-size: rem(14);
-                    color: color(red);
-                    font-weight:700;
-                }
-            }
-
-            // &:last-child {
-            //     p.usercount {
-            //         margin-bottom:31px;
-            //     }
-            // }
-        }
-
+    &__description {
+        margin-top:18px;
+        margin-bottom:50px;
+        text-align: center;
+        font-size:rem(24);
     }
 }
 
 
-#signin {
-    position:fixed;top:0;width:100%;height:100%;z-index:1001;background: rgba(0,0,0,0.5);
-    #dialog {
-        margin: auto auto;
-        min-width:468px;
-        // min-height:240px;
-        background:white;
-        padding:30px;
-        border-radius:3px;
-        @media screen and (max-width: $sm-break-down) {
-            min-width:auto;
-            margin-top: 10px;
-        }
-
-        > div {
-            position:relative;margin:auto;
-        
-            .head {
-                overflow:auto;
-                padding-bottom:11px;
-                border-bottom:1px solid color(lightgrey);
-                margin-bottom: 20px;
-                h2 {
-                    float: left;
-                    font-size: rem(15);
-                    font-weight:600;
-                    margin-right:20px;
-                }
-                >a {
-                    display:block;
-                    float:right;
-                    height:30px;
-                    width:30px;
-                    background:url("../icons/cross.svg");
-                    background-repeat:no-repeat;
-
-                }
-            }
-
-            // .dialogContent {
-            //     p {
-            //         margin-bottom: 40px;
-            //     }
-            // }
-
-
-            .faq {
-                font-size:rem(12);
-                color:color(lightgrey);
-                font-style:italic;
-            }
-
-            .faq__link {
-                color:color(lightgrey);
-                text-decoration: underline;
-            }
-
-            form {
-                input[type=text], input[type=password], input[type=email] {
-                    display:block;
-                    border:none;
-                    height: 44px;
-                    padding: 7px;
-                    width:100%;
-                    margin-bottom:12px;
-                    padding-left:15px;
-                    border-radius:6px;
-                    border: 1px solid color(lightergrey);
-                    background:white;
-
-
-                    &::placeholder {
-                        font-size: rem(14);
-                        color:color(lightgrey);
-                    }
-                    &::-webkit-input-placeholder {
-                        font-size: rem(14);
-                        color:color(lightgrey);
-                    }
-                    &::-moz-placeholder { /* Firefox 19+ */
-                        font-size: rem(14);
-                        color:color(lightgrey);
-                    }
-                    &:-ms-input-placeholder { /* IE 10+ */
-                        font-size: rem(14);
-                        color:color(lightgrey);
-                    }
-                    &:-moz-placeholder { /* Firefox 18- */
-                        font-size: rem(14);
-                        color:color(lightgrey);
-                    }
-
-                    &:disabled {
-                        padding: 0px !important;
-                        border: none;
-                    }
-                }
-
-                .remember {
-                    overflow:auto;
-                    >div {
-                        float:left;
-                        @media screen and (max-width: $sm-break-down) {
-                            float:none
-                        }
-
-
-                        label {
-                            font-size:rem(12);
-                            color:color(lightgrey);
-                            font-weight:normal;
-                        }
-                    }
-                    >p.layout {
-                        float:right;
-                        font-size:rem(12);
-                        color:color(lightgrey);
-                        font-style:italic;
-                        
-                        @media screen and (max-width: $sm-break-down) {
-                            float:none
-                        }
-
-                        &:hover {
-                            cursor:pointer;
-                        }
-                    }
-
-                }
-            }
-        }
-    }
+.ui_plans {
+    @include subscription-gradientafter;
+    position:relative;
 }
+.au_plans {
+    display:none;
+}
+.us_plans {
+    display:none;
+}
+
 
 .subscribe__link {
     color:black;

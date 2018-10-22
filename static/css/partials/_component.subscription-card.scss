@@ -1,0 +1,57 @@
+.subscription-card {
+    @media #{$media-mobile} {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .card {
+        padding:37px 0;
+        margin-bottom:35px;
+        text-align:center;
+        background: color(marketgrey);
+    
+        @media screen and (max-width: $sm-break-down) {
+            margin-bottom: 30px;
+            padding: 18px 0;
+        }
+
+
+        > h3 {
+            font-family: $font-family-serif;
+            padding:0;
+            margin:0;
+            font-size: rem(30);
+            font-weight:700;
+            color: color(red);
+            margin-bottom:20px;
+            height: 66px;
+             @media #{$media-mobile} {
+                height:31px;
+                margin-bottom:0;
+                font-size: rem(24);
+             }
+        }
+        p.usercount {
+            font-size: rem(22);
+            margin-bottom:61px;
+            @media #{$media-mobile} {
+                 margin-bottom:10px;
+                 font-size: rem(18);
+            }
+        }
+        p.price {
+            font-size: rem(26);
+            color: color(darkblue);
+            margin-bottom:18px;
+            font-weight:700;
+            @media #{$media-mobile} {
+                font-size: rem(19);
+                margin-bottom:15px;
+            }
+        }
+        p.subnow {
+            font-size: rem(14);
+            color: color(red);
+            font-weight:700;
+        }
+    }
+}
