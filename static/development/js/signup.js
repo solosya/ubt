@@ -13,7 +13,7 @@
             $("#ui_plans").hide();
 
             var elem = $(e.target);
-            console.log(elem.val());
+            // console.log(elem.val());
             if (elem.val() == 'usd') {
                 $("#au_plans").hide();
                 $("#us_plans").show();
@@ -23,7 +23,6 @@
                 $("#au_plans").show();
 
             }           
-            console.log('this is stupid');
             
         });
     
