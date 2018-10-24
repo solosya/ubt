@@ -135,14 +135,14 @@
 
     {% set sectionOrder = ["new zealand", "australia"] | merge(sectionOrder ) %}
 
-{% elseif blogNetworkNameIs == 'frank global'  %}
-
-    {% set sectionOrder = ["usa", "canada"] | merge(sectionOrder ) %}
-
-{% else %}
+{% elseif blogNetworkNameIs == 'frank australia'  %}
 
     {% set sectionOrder = ["australia", "new zealand"] | merge(sectionOrder ) %}
 
+{% else %}
+
+    {% set sectionOrder = ["australia", "new zealand", "usa", "canada"] | merge(sectionOrder ) %}
+        
 {% endif %}
 
 
