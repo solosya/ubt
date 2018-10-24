@@ -91,13 +91,6 @@
             "description": "",
             "limit": 6
         },
-        "canada" : {
-            "title": "Canada",
-            "feed": "",
-            "link": "",
-            "description": "",
-            "limit": 4
-        },
         "europe" : {
             "title": "Europe",
             "feed": "",
@@ -125,7 +118,7 @@
 
 
 {# First set a common order then add site order to beginning #}
-{% set sectionOrder = ["world", "business", "videos", "community"] %}
+{% set sectionOrder = ["world", "videos", "community"] %}
 
 {% if blogNetworkNameIs == 'frank uk' %}
 
@@ -133,15 +126,11 @@
 
 {% elseif blogNetworkNameIs == 'frank nz'  %}
 
-    {% set sectionOrder = ["new zealand", "australia"] | merge(sectionOrder ) %}
-
-{% elseif blogNetworkNameIs == 'frank australia'  %}
-
-    {% set sectionOrder = ["australia", "new zealand"] | merge(sectionOrder ) %}
+    {% set sectionOrder = ["new zealand", "australia", "usa"] | merge(sectionOrder ) %}
 
 {% else %}
 
-    {% set sectionOrder = ["australia", "new zealand", "usa", "canada"] | merge(sectionOrder ) %}
+    {% set sectionOrder = ["australia", "new zealand", "usa"] | merge(sectionOrder ) %}
         
 {% endif %}
 
@@ -475,13 +464,72 @@
 
             </section>
         {% endif %}
+        {% set x = 2 %}
+        {% if blogNetworkNameIs != 'frank uk' %}
+            {% set sectionFeed = sections[ sectionOrder[x] ] %}
+            {% if sectionFeed.feed.articles|length > 0 %}
+                {% set sectionCount = 0 %}
+
+                <section class="row section">
+
+
+                    <div class="col-sm-12 section-header">
+                        <h2 class="section-header__title">
+                            <a class="section-header__link" href="{{sectionFeed.link}}">{{sectionFeed.title}}</a>
+                        </h2>
+                        <p class="section-header__description">{{sectionFeed.description}}</p>
+                    </div>
+
+
+                    <div class="col-sm-6">
+                        {% if sectionFeed.feed.articles[sectionCount] %}
+                            {{this.render('partials/_single-article.twig', {
+                                article: sectionFeed.feed.articles[sectionCount], 
+                                imageSize: {width: 640, height: 420},
+                                containerClass: 'card-md-full card-md-full-tablet card-md-full-mobile'
+                            }) | raw}}
+                            {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
+                        {% endif %}
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="row">
+                            {% if sectionFeed.feed.articles[sectionCount] %}
+                                {{this.render('partials/_single-article.twig', {
+                                    article: sectionFeed.feed.articles[sectionCount], 
+                                    imageSize: {width: 198, height: 141},
+                                    containerClass: "col-sm-12 card-rec  card-rec-tablet card-rec-mobile"
+                                }) | raw}}
+
+                                {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
+                            {% endif %}
+                        </div>
+
+
+
+                        <div class="row">
+                            {% for i in 0..1 if sectionFeed.feed.articles[sectionCount] %}
+                                <div class="col-sm-6">
+                                    {{this.render('partials/_single-article.twig', {
+                                        article: sectionFeed.feed.articles[sectionCount], 
+                                        imageSize: {width: 198, height: 141},
+                                        containerClass: "card-sm-full card-sm-full-tablet community"
+                                    }) | raw}}
+                                </div>
+                                {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </section>
+            {% endif %}
+            {% x = x + 1 %}
+        {% endif %}
 
 
 
 
-
-
-        {% set sectionFeed = sections[ sectionOrder[2] ] %}
+        {# {% set sectionFeed = sections[ sectionOrder[x] ] %}
         {% if sectionFeed.feed.articles|length > 0 %}
             {% set sectionCount = 0 %}
 
@@ -534,6 +582,7 @@
             </section>
         {% endif %}
 
+        {% x = x + 1 %} #}
 
 
 
@@ -544,8 +593,7 @@
 
 
 
-
-        {% set sectionFeed = sections[ sectionOrder[3] ] %}
+        {% set sectionFeed = sections[ sectionOrder[x] ] %}
         {% if sectionFeed.feed.articles|length > 0 %}
             {% set sectionCount = 0 %}
 
@@ -599,12 +647,12 @@
             </section>
         {% endif %}
 
+        {% x = x + 1 %}
 
 
 
 
-
-        {% set sectionFeed = sections[ sectionOrder[4] ] %}
+        {% set sectionFeed = sections[ sectionOrder[x] ] %}
         {% if sectionFeed.feed.articles|length > 0 %}
             {% set sectionCount = 0 %}
 
@@ -634,6 +682,7 @@
             </section>
         {% endif %}
 
+        {% x = x + 1 %}
 
 
 
@@ -645,8 +694,7 @@
 
 
 
-
-        {% set sectionFeed = sections[ sectionOrder[5] ] %}
+        {% set sectionFeed = sections[ sectionOrder[x] ] %}
         {% if sectionFeed.feed.articles|length > 0 %}
             {% set sectionCount = 0 %}
 
