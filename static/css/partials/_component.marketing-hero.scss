@@ -45,47 +45,51 @@
                 width:335px;
             }
 
-            @media screen and (max-width: $sm-break-down) {
-                font-size: rem(36);
+            @media #{$media-mobile} {
+                font-size: rem(42);
                 width:262px;
-                margin-top: -25px;
+                margin-top: -95px;
+                margin-bottom:45px;
+                line-height:1;
             }
         }
-            p{
+
+
+        p {
             font-family:$base-font-family;
             font-size: rem(30);
             color:white;
             margin-bottom:45px;
-            @media screen and (max-width: $mmd-break-down) {
-                font-size: rem(17);
 
+            @media #{$media-iPad} {
+                font-size: rem(17);
             }
-            @media screen and (max-width: $sm-break-down) {
+            @media #{$media-mobile} {
                 font-size: rem(14);
                 width:250px;
                 margin-bottom:15px;
                 font-weight: 200;
             }
-            }
-            a {
+        }
+        
+        a {
             background: color(red);
             color:white;
             font-size:rem(14);
             padding:15px 10px;
-            @media screen and (max-width: $mmd-break-down) {
+
+            @media #{$media-iPad} {
                 font-size:rem(11);
                 padding:11px 8px;
                 width: 113px;
-
-
             }
 
-            @media screen and (max-width: $sm-break-down) {
-                font-size:rem(9);
+            @media #{$media-mobile} {
+                font-size:rem(11);
                 padding:8px 15px;
                 width: 113px;
             }
 
-            }
+        }
     }
 }

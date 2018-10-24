@@ -19,6 +19,9 @@
         margin-bottom:60px;
         text-align: center;
         font-size:rem(24);
+        @media #{$media-mobile} {
+            font-size:rem(19);
+        }
     }
 
     ul {

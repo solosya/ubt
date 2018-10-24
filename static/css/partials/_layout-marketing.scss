@@ -7,8 +7,8 @@
     @media screen and (max-width: $mmd-break) {
         font-size: rem(40);
     }
-    @media screen and (max-width: $sm-break-down) {
-        font-size: rem(32);
+    @media #{$media-mobile} {
+        font-size: rem(27);
     }
 }
 
@@ -30,7 +30,7 @@
                     li {
                         margin: 0 40px;
                     }
-                    @media screen and (max-width: $sm-break-down) {
+                    @media #{$media-mobile} {
                         padding-top: 14px;
                         font-size: 11px;
                     }
@@ -129,6 +129,9 @@
         margin-bottom:50px;
         text-align: center;
         font-size:rem(24);
+        @media #{$media-mobile} {
+            font-size:16px;
+        }
     }
 }
 
@@ -136,6 +139,12 @@
 .ui_plans {
     @include subscription-gradientafter;
     position:relative;
+    
+    @media #{$media-mobile} {
+        height:200px;
+        overflow:hidden;
+    }
+
 }
 .au_plans {
     display:none;

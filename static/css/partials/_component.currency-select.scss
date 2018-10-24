@@ -8,7 +8,7 @@
         display:inline-block;
 
         @media #{$media-mobile} {
-            margin:auto;
+            // margin:auto;
             display:block;
         }
 }
