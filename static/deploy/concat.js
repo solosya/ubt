@@ -34857,49 +34857,17 @@ var listingRegions = {
         "Western Australia"
     ],
     "uk" : [
-        "Argentina",
         "Australia",
-        "Barbados",
         "Canada",
-        "France",
-        "Germany",
-        "Ireland",
-        "Italy",
-        "Jamaica",
-        "Netherlands",
         "New Zealand",
-        "Saint Vincent \
-        and the \
-        Grenadines",
-        "Spain",
-        "Sweden",
-        "Switzerland",
-        "Trinidad and \
-        Tobago",
         "UK",
         "USA",
         "Other"
     ],
     "test" : [
-        "Argentina",
         "Australia",
-        "Barbados",
         "Canada",
-        "France",
-        "Germany",
-        "Ireland",
-        "Italy",
-        "Jamaica",
-        "Netherlands",
         "New Zealand",
-        "Saint Vincent \
-        and the \
-        Grenadines",
-        "Spain",
-        "Sweden",
-        "Switzerland",
-        "Trinidad and \
-        Tobago",
         "UK",
         "USA",
         "Other"
