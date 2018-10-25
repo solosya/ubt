@@ -17,8 +17,8 @@
 {% set articles = articlesArr.articles %}
 
 {% set recentArticles = _Article.getRecentArticles({'limit': 5, 'scope': 'network'}) %}
-{% set events = _Event.getEvents() %}
-
+{% set date = date() %}
+{% set events = _Event.getEvents({"limit": 5, "start_date": date.date | split(" ")[0]}) %}
 
 <!-- used to index each article as we loop over throughout the template -->
 {% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
