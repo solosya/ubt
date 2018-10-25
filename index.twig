@@ -359,7 +359,7 @@
                     {% for i in 0..2 if sectionFeed.feed.articles[sectionCount] %}
                         {{this.render('partials/_single-article.twig', {
                             article: sectionFeed.feed.articles[sectionCount], 
-                            position: (articleCount+1),
+                            position: (sectionCount+1),
                             imageSize: {width: 198, height: 141},
                             containerClass: 'card-rec card-rec-tablet card-rec-mobile'
                         }) | raw}}
