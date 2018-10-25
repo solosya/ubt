@@ -13,7 +13,7 @@
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
 
-{% set events = _Event.getEvents({'limit': 7}) %}
+{% set events = _Event.getEvents({'limit': 7, "start_date": date.date | split(" ")[0]}) %}
 
 {% set sections =  {
         "job listings": {
@@ -118,7 +118,7 @@
         <div class="row">
             <div class="advert banner hidden-sm hidden-md hidden-lg">
                 <div id='moBanner2'></div>
-                <script>loadNextAd(invSpace,'moBanner2','mob-banner',mOnlySize,mOnlyMap)</script>
+                <script>loadNextAd(invSpace,'moBanner2','mob-banner',mOnlySize,mOnlyMap);</script>
             </div>
             <div class="advert banner hidden-xs" style="margin-left: 9.5%;margin-right: 9.5%;">
                 <a href="mailto:franknews@ubteam.com">

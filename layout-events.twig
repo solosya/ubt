@@ -16,7 +16,8 @@
 {# {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
  #}
-{% set articles = _Event.getEvents({'limit': limit, 'offset': 0}) %}
+ {% set date = date() %}
+{% set articles = _Event.getEvents({'limit': limit, 'offset': 0, "start_date": date.date | split(" ")[0]}) %}
 
 <!-- used to index each article as we loop over throughout the template -->
 {% set articleCount = 0 %}
