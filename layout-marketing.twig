@@ -21,7 +21,7 @@
 
 
 {% set ui_plans = aus | slice(0,4) %}
-{% set gbp_plans = gbp | slice(0,4) %}
+
 
 
 
@@ -135,7 +135,7 @@
 
 				{% if 'uk' in networkData.title | lower %}
 					<div  id="ui_plans" class="row">
-						{% for plan in gbp_plans %}
+						{% for plan in gbp %}
 
 							<div class="col-sm-3 subscription-card">
 								<div class="card">
