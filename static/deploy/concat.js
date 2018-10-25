@@ -33831,7 +33831,7 @@ Acme.Article.prototype.events = function() {
     $('#LightboxArticlePageBtn').on('click', function (e) {
         e.stopPropagation();
         e.preventDefault();
-        console.log($(e.target));
+        // console.log($(e.target));
         var id = $(e.target).data('id');
         console.log(id);
         self.lightbox(id);
@@ -33839,6 +33839,7 @@ Acme.Article.prototype.events = function() {
     });
     
 };
+
 
 
 
