@@ -14,10 +14,14 @@
 	{% if plan.currency | lower == 'aud' %}
 		{% set aus = aus|merge([plan]) %}
 	{% endif %}
+	{% if plan.currency | lower == 'gbp' %}
+		{% set gbp = gbp|merge([plan]) %}
+	{% endif %}
 {% endfor %}
 
 
 {% set ui_plans = aus | slice(0,4) %}
+{% set gbp_plans = gbp | slice(0,4) %}
 
 
 
@@ -131,7 +135,7 @@
 
 				{% if 'uk' in networkData.title | lower %}
 					<div  id="ui_plans" class="row">
-						{% for plan in ui_plans %}
+						{% for plan in gbp_plans %}
 
 							<div class="col-sm-3 subscription-card">
 								<div class="card">
