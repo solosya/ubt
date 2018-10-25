@@ -118,165 +118,207 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<h1 class="marketing__section-header">Trusted sources. Global stories</h1>
-						<p class="marketing-subscriptions__description">Choose the subscription that's right for you. Please select a currency to view subscription options: 
+						<p class="marketing-subscriptions__description">Choose the subscription that's right for you 
 							{% if 'uk' in networkData.title | lower %}
-								<br/>All subscription prices include VAT
+								:<br/>All subscription prices include VAT
+							{% else %}
+								. Please select a currency to view subscription options:
 							{% endif %}
 						</p>
 						
 					</div>
 				</div>
 
+				{% if 'uk' in networkData.title | lower %}
+					<div  id="ui_plans" class="row">
+						{% for plan in ui_plans %}
 
-				<div id="currency-select" class="currency-select u-margin-bottom-40">
-					<form id="currency-form">
+							<div class="col-sm-3 subscription-card">
+								<div class="card">
+									<h3>{{plan.name}}</h3>
+									{% set uc = plan.user_count + 1 %}
+									{% set val = plan.plan_value / 100 %}
+									{% if val == 19.89 %}
+										{% set val = 19.90 %}
+									{% endif %}
+									<p class="usercount">{{uc|replace({ '10001': '21+' })}} Users</p>
+									<p class="price">{{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{val|number_format(2, '.', ',')}} ({{plan.currency|raw}})<br class="hidden-xs"> per {{plan.period}}</p>
+
+									
+									{# {% if trial %}
+										<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan={{plan.guid}}&amp;trial=true">
+											<p class="centerBlock _btn _btn--blue _btn__subscribe">14-DAY FREE TRIAL</p>
+										</a>
+									{% endif %} #}
+
+									{% set planUrl = networkData.defaultBlogUrl ~ '/@subscribe?plan=' ~ plan.guid %}
+									{# {% if plan.trial_status == "1" %}
+										{% set planUrl = networkData.defaultBlogUrl ~ '/@subscribe?plan=' ~ plan.guid ~ '&trial=true'%}
+									{% endif %} #}
+
+									<a href="{{planUrl}}">
+										<p class="centerBlock _btn _btn--red _btn__subscribe">
+											<span>SUBSCRIBE NOW</span>
+											{# {% if plan.trial_status == "1" %}
+												<span class="btn_trial">Your subscription includes a <br />{{plan.trial_period}}-day free trial period</span>
+											{% endif %} #}
+										</p>
+									</a>
+								</div>
+							</div>
+					    {% endfor %}
+					</div>
+				{% else %}
+					<div id="currency-select" class="currency-select u-margin-bottom-40">
+						<form id="currency-form">
+							
+							<div class="currency-select__radio-group">
+								<input class="currency-select__radio-input" id="usd" type="radio" name="currency" value="usd">
+								<label class="currency-select__label" for="usd">
+									<span class="currency-select__radio-button"></span>
+									<img src="{{networkData.templatePath}}/static/images/us_dollars.png">
+								</label>
+							</div>
+
+							<div class="currency-select__radio-group">
+								<input class="currency-select__radio-input" id="aud" type="radio" name="currency" value="aud">
+								<label  class="currency-select__label" for="aud">
+									<span class="currency-select__radio-button"></span>
+									<img src="{{networkData.templatePath}}/static/images/australian_dollars.png">
+								</label>
+							</div>
 						
-						<div class="currency-select__radio-group">
-							<input class="currency-select__radio-input" id="usd" type="radio" name="currency" value="usd">
-							<label class="currency-select__label" for="usd">
-								<span class="currency-select__radio-button"></span>
-								<img src="{{networkData.templatePath}}/static/images/us_dollars.png">
-							</label>
-						</div>
-
-						<div class="currency-select__radio-group">
-							<input class="currency-select__radio-input" id="aud" type="radio" name="currency" value="aud">
-							<label  class="currency-select__label" for="aud">
-								<span class="currency-select__radio-button"></span>
-								<img src="{{networkData.templatePath}}/static/images/australian_dollars.png">
-							</label>
-						</div>
-					
-					</form>
-				</div>
-
-
-
-
-
-
-				<div  id="ui_plans" class="row ui_plans">
-				{% for plan in ui_plans %}
-
-					<div class="col-sm-3 subscription-card">
-						<div class="card">
-							<h3>{{plan.name}}</h3>
-							{% set uc = plan.user_count + 1 %}
-							{% set val = plan.plan_value / 100 %}
-							{% if val == 19.89 %}
-								{% set val = 19.90 %}
-							{% endif %}
-							<p class="usercount">{{uc|replace({ '10001': '21+' })}} Users</p>
-							<p class="price">{{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{val|number_format(2, '.', ',')}} ({{plan.currency|raw}})<br class="hidden-xs"> per {{plan.period}}</p>
-
-							
-							{# {% if trial %}
-								<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan={{plan.guid}}&amp;trial=true">
-									<p class="centerBlock _btn _btn--blue _btn__subscribe">14-DAY FREE TRIAL</p>
-								</a>
-							{% endif %} #}
-
-							{% set planUrl = networkData.defaultBlogUrl ~ '/@subscribe?plan=' ~ plan.guid %}
-							{# {% if plan.trial_status == "1" %}
-								{% set planUrl = networkData.defaultBlogUrl ~ '/@subscribe?plan=' ~ plan.guid ~ '&trial=true'%}
-							{% endif %} #}
-
-							<a href="{{planUrl}}">
-								<p class="centerBlock _btn _btn--red _btn__subscribe">
-									<span>SUBSCRIBE NOW</span>
-									{# {% if plan.trial_status == "1" %}
-										<span class="btn_trial">Your subscription includes a <br />{{plan.trial_period}}-day free trial period</span>
-									{% endif %} #}
-								</p>
-							</a>
-						</div>
+						</form>
 					</div>
-			    {% endfor %}
-				</div>
 
 
 
 
 
 
-				<div  id="au_plans" class="au_plans row">
-				{% for plan in aus %}
+					<div  id="ui_plans" class="row ui_plans">
+					{% for plan in ui_plans %}
 
-					<div class="col-sm-3 subscription-card">
-						<div class="card">
-							<h3>{{plan.name}}</h3>
-							{% set uc = plan.user_count + 1 %}
-							{% set val = plan.plan_value / 100 %}
-							{% if val == 19.89 %}
-								{% set val = 19.90 %}
-							{% endif %}
-							<p class="usercount">{{uc|replace({ '10001': '21+' })}} Users</p>
-							<p class="price">{{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{val|number_format(2, '.', ',')}} ({{plan.currency|raw}})<br class="hidden-xs"> per {{plan.period}}</p>
+						<div class="col-sm-3 subscription-card">
+							<div class="card">
+								<h3>{{plan.name}}</h3>
+								{% set uc = plan.user_count + 1 %}
+								{% set val = plan.plan_value / 100 %}
+								{% if val == 19.89 %}
+									{% set val = 19.90 %}
+								{% endif %}
+								<p class="usercount">{{uc|replace({ '10001': '21+' })}} Users</p>
+								<p class="price">{{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{val|number_format(2, '.', ',')}} ({{plan.currency|raw}})<br class="hidden-xs"> per {{plan.period}}</p>
 
-							
-							{# {% if trial %}
-								<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan={{plan.guid}}&amp;trial=true">
-									<p class="centerBlock _btn _btn--blue _btn__subscribe">14-DAY FREE TRIAL</p>
+								
+								{# {% if trial %}
+									<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan={{plan.guid}}&amp;trial=true">
+										<p class="centerBlock _btn _btn--blue _btn__subscribe">14-DAY FREE TRIAL</p>
+									</a>
+								{% endif %} #}
+
+								{% set planUrl = networkData.defaultBlogUrl ~ '/@subscribe?plan=' ~ plan.guid %}
+								{# {% if plan.trial_status == "1" %}
+									{% set planUrl = networkData.defaultBlogUrl ~ '/@subscribe?plan=' ~ plan.guid ~ '&trial=true'%}
+								{% endif %} #}
+
+								<a href="{{planUrl}}">
+									<p class="centerBlock _btn _btn--red _btn__subscribe">
+										<span>SUBSCRIBE NOW</span>
+										{# {% if plan.trial_status == "1" %}
+											<span class="btn_trial">Your subscription includes a <br />{{plan.trial_period}}-day free trial period</span>
+										{% endif %} #}
+									</p>
 								</a>
-							{% endif %} #}
-
-							{% set planUrl = networkData.defaultBlogUrl ~ '/@subscribe?plan=' ~ plan.guid %}
-							{# {% if plan.trial_status == "1" %}
-								{% set planUrl = networkData.defaultBlogUrl ~ '/@subscribe?plan=' ~ plan.guid ~ '&trial=true'%}
-							{% endif %} #}
-
-							<a href="{{planUrl}}">
-								<p class="centerBlock _btn _btn--red _btn__subscribe">
-									<span>SUBSCRIBE NOW</span>
-									{# {% if plan.trial_status == "1" %}
-										<span class="btn_trial">Your subscription includes a <br />{{plan.trial_period}}-day free trial period</span>
-									{% endif %} #}
-								</p>
-							</a>
+							</div>
 						</div>
+				    {% endfor %}
 					</div>
-			    {% endfor %}
-				</div>
 
 
-				<div id="us_plans" class="us_plans row">
-			    {% for plan in usd %}
 
-					<div class="col-sm-3 subscription-card">
-						<div class="card">
-							<h3>{{plan.name}}</h3>
-							{% set uc = plan.user_count + 1 %}
-							{% set val = plan.plan_value / 100 %}
-							{% if val == 19.89 %}
-								{% set val = 19.90 %}
-							{% endif %}
-							<p class="usercount">{{uc|replace({ '10001': '21+' })}} Users</p>
-							<p class="price">{{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{val|number_format(2, '.', ',')}} ({{plan.currency|raw}})<br class="hidden-xs"> per {{plan.period}}</p>
 
-							
-							{# {% if trial %}
-								<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan={{plan.guid}}&amp;trial=true">
-									<p class="centerBlock _btn _btn--blue _btn__subscribe">14-DAY FREE TRIAL</p>
+
+
+					<div  id="au_plans" class="au_plans row">
+					{% for plan in aus %}
+
+						<div class="col-sm-3 subscription-card">
+							<div class="card">
+								<h3>{{plan.name}}</h3>
+								{% set uc = plan.user_count + 1 %}
+								{% set val = plan.plan_value / 100 %}
+								{% if val == 19.89 %}
+									{% set val = 19.90 %}
+								{% endif %}
+								<p class="usercount">{{uc|replace({ '10001': '21+' })}} Users</p>
+								<p class="price">{{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{val|number_format(2, '.', ',')}} ({{plan.currency|raw}})<br class="hidden-xs"> per {{plan.period}}</p>
+
+								
+								{# {% if trial %}
+									<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan={{plan.guid}}&amp;trial=true">
+										<p class="centerBlock _btn _btn--blue _btn__subscribe">14-DAY FREE TRIAL</p>
+									</a>
+								{% endif %} #}
+
+								{% set planUrl = networkData.defaultBlogUrl ~ '/@subscribe?plan=' ~ plan.guid %}
+								{# {% if plan.trial_status == "1" %}
+									{% set planUrl = networkData.defaultBlogUrl ~ '/@subscribe?plan=' ~ plan.guid ~ '&trial=true'%}
+								{% endif %} #}
+
+								<a href="{{planUrl}}">
+									<p class="centerBlock _btn _btn--red _btn__subscribe">
+										<span>SUBSCRIBE NOW</span>
+										{# {% if plan.trial_status == "1" %}
+											<span class="btn_trial">Your subscription includes a <br />{{plan.trial_period}}-day free trial period</span>
+										{% endif %} #}
+									</p>
 								</a>
-							{% endif %} #}
-
-							{% set planUrl = networkData.defaultBlogUrl ~ '/@subscribe?plan=' ~ plan.guid %}
-							{# {% if plan.trial_status == "1" %}
-								{% set planUrl = networkData.defaultBlogUrl ~ '/@subscribe?plan=' ~ plan.guid ~ '&trial=true'%}
-							{% endif %} #}
-
-							<a href="{{planUrl}}">
-								<p class="centerBlock _btn _btn--red _btn__subscribe">
-									<span>SUBSCRIBE NOW</span>
-									{# {% if plan.trial_status == "1" %}
-										<span class="btn_trial">Your subscription includes a <br />{{plan.trial_period}}-day free trial period</span>
-									{% endif %} #}
-								</p>
-							</a>
+							</div>
 						</div>
+				    {% endfor %}
 					</div>
-			    {% endfor %}
-				</div>
+
+
+					<div id="us_plans" class="us_plans row">
+				    {% for plan in usd %}
+
+						<div class="col-sm-3 subscription-card">
+							<div class="card">
+								<h3>{{plan.name}}</h3>
+								{% set uc = plan.user_count + 1 %}
+								{% set val = plan.plan_value / 100 %}
+								{% if val == 19.89 %}
+									{% set val = 19.90 %}
+								{% endif %}
+								<p class="usercount">{{uc|replace({ '10001': '21+' })}} Users</p>
+								<p class="price">{{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{val|number_format(2, '.', ',')}} ({{plan.currency|raw}})<br class="hidden-xs"> per {{plan.period}}</p>
+
+								
+								{# {% if trial %}
+									<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan={{plan.guid}}&amp;trial=true">
+										<p class="centerBlock _btn _btn--blue _btn__subscribe">14-DAY FREE TRIAL</p>
+									</a>
+								{% endif %} #}
+
+								{% set planUrl = networkData.defaultBlogUrl ~ '/@subscribe?plan=' ~ plan.guid %}
+								{# {% if plan.trial_status == "1" %}
+									{% set planUrl = networkData.defaultBlogUrl ~ '/@subscribe?plan=' ~ plan.guid ~ '&trial=true'%}
+								{% endif %} #}
+
+								<a href="{{planUrl}}">
+									<p class="centerBlock _btn _btn--red _btn__subscribe">
+										<span>SUBSCRIBE NOW</span>
+										{# {% if plan.trial_status == "1" %}
+											<span class="btn_trial">Your subscription includes a <br />{{plan.trial_period}}-day free trial period</span>
+										{% endif %} #}
+									</p>
+								</a>
+							</div>
+						</div>
+				    {% endfor %}
+					</div>
+				{% endif %}
 
 
 
