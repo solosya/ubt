@@ -83,7 +83,7 @@
 
     {% if _AppHelper.getApplicationEnv() == 'PROD'%}
 
-        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=fd2268e9" type="text/css" media="all">
+        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=a540da23" type="text/css" media="all">
 
     {% else %}
 
@@ -213,7 +213,7 @@
         
         {{this.registerJs( templatePath )}}
 
-        {% set weatherJs =  " 
+        {% set weatherJs =  "
             var locations = new Acme.Locations();
             var location = localStorage.getItem('city');
 

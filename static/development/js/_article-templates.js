@@ -256,13 +256,15 @@ window.templates.forgotFormTmpl =
 window.templates.defaultWeatherTmpl = 
 '<form name="registerForm" id="registerForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
     \
+    <div id="country-dropdown"></div>\
+    \
     <div id="weather-dropdown"></div>\
     \
     <div class="message active hide"> \
         <div class="account-modal__error_text">Done!</div> \
     </div> \
     \
-    <button id="signinBtn" type="submit" class="_btn _btn--red default-weather">Set as Default</button> \
+    <button id="signinBtn" type="submit" class="_btn _btn--red default-weather">Close</button> \
 </form>';
 
 

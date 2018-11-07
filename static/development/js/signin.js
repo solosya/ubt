@@ -91,18 +91,14 @@
             }
 
             if ($elem.hasClass('default-weather')) {
-                var newDefault = Acme.State.Country + '/' + Acme.State.City;
-
-                localStorage.setItem('city', newDefault);
                 function close() {
 
-                    Acme.PubSub.publish("update_state", {'localweather': newDefault });                
-
                     self.closeWindow();
+                    location.reload();
+                    
                 };
                 setTimeout(close, 500);            
-            }     
-
+            }
 
             if ($elem.hasClass('close')) {
                 $('body').removeClass("active");

@@ -1,0 +1,42 @@
+.default-weather__select {
+	font-family: $font-family-sans-serif;
+	height: 23px;
+	position: absolute;
+    right: 20px;
+    bottom: -8px;
+}
+
+.default-weather__text {
+	font-size: 14px;
+  	font-weight: 600;
+  	border-right: 1px #d8d8d8 solid;
+  	color: #ae232c;
+  	margin-right: 13px;
+  	padding-right: 13px;
+  	display: inline-block;
+}
+
+#default_weather{ 
+	&.default-weather__link {
+
+		font-size: 14px;
+	  	font-weight: 600;
+		display: inline-block;
+		color: #002d56;
+		&:after {
+			content: "";
+			float: right;
+			background-image: url(../icons/select-circle.svg);
+			height: 15px;
+			width: 15px;
+			background-repeat: no-repeat;
+			margin-left: 15px;
+    		margin-top: 2px;
+		}
+	}
+}
+
+// .default-weather__pulldown{
+// 	margin-bottom: 40px;
+
+// }

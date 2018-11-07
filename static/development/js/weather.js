@@ -1,14 +1,19 @@
 (function ($) {
 
-    Acme.Locations = function(){
-        this.country = _appJsConfig.appHostName.split('.').reverse()[0];
-        this.data = this.getLocations(this.country);
-        this.regional = this.getLocations(this.country + '-regional');
+    Acme.Locations = function(country){
+        if (!country) {
+          country = localStorage.getItem("weather-country");   
+        }
+        if (!country) { 
+            country = 'default';
+        }
+        this.data = this.getLocations(country);
+        this.regional = this.getLocations(country + '-regional');
     };
     Acme.Locations.prototype.getLocations = function(country) 
     {
         switch (country) {
-            case 'global':
+            case 'USA':
                 Acme.State.Country = 'America';
                 return [
                     'America/New%20York',
@@ -27,26 +32,7 @@
                     'America/Vancouver',
                     'America/Winnipeg'
                 ];
-            case 'events':
-                Acme.State.Country = 'America';
-                return [
-                    'America/New%20York',
-                    'America/Boston',
-                    'America/Chicago',
-                    'America/Columbus',
-                    'America/Edmonton',
-                    'America/Knoxville',
-                    'America/Minneapolis',
-                    'America/Montreal',
-                    'America/Portland',
-                    'America/San%20Antonio',
-                    'America/San%20Francisco',
-                    'America/Seattle',
-                    'America/Toronto',
-                    'America/Vancouver',
-                    'America/Winnipeg'
-                ];
-            case 'uk':
+            case 'United Kingdom':
                 Acme.State.Country = 'GB';
                 return [
                     'GB/London',
@@ -66,12 +52,12 @@
                     'GB/St%20Austell'
                 ];
                 break;
-            case 'uk-regional':
+            case 'United Kingdom-regional':
                 return [
                     'GB/London'
                 ];
                 break;
-            case 'nz':
+            case 'New Zealand':
                 Acme.State.Country = 'NZ';
                 return [
                     'NZ/Auckland',
@@ -87,7 +73,7 @@
                 break;
 
 
-            case 'nz-regional':
+            case 'New Zealand-regional':
                 return [
                     'NZ/Kaitaia',
                     'NZ/Kerikeri',
@@ -110,7 +96,7 @@
                 break;
 
 
-            case 'au-regional':
+            case 'Australia-regional':
                 return [
                     'Australia/Launceston',
                     'Australia/Albany',
@@ -134,7 +120,7 @@
                 ];
                 break;
 
-            case 'au':
+            case 'Australia':
                 Acme.State.Country = 'Australia';
                 return [
                     'Australia/Sydney',
@@ -151,20 +137,6 @@
                 Acme.State.Country = 'America';
                 return [
                     'America/New%20York',
-                    'America/Boston',
-                    'America/Chicago',
-                    'America/Columbus',
-                    'America/Edmonton',
-                    'America/Knoxville',
-                    'America/Minneapolis',
-                    'America/Montreal',
-                    'America/Portland',
-                    'America/San%20Antonio',
-                    'America/San%20Francisco',
-                    'America/Seattle',
-                    'America/Toronto',
-                    'America/Vancouver',
-                    'America/Winnipeg'
                 ];
         }
     };
@@ -189,6 +161,9 @@
             },
             "city": function(data) {
                 Acme.State.City = data.city;
+            },
+            "country": function(data) {
+                Acme.State.Country = data.country;
             }
         };
     };
@@ -271,6 +246,12 @@
                     '<p class="location">{{location}}</p>' + 
                     '<p class="description">{{description}}</p>' +
                 '</div>'
+            ,
+            "weatherSelect" :
+                '<div class="default-weather__select">' +
+                    '<div class="default-weather__text">WEATHER</div>' + 
+                    '<div id="default_weather" class="default-weather__link">SELECT LOCATION</div>' +
+                '</div>'
         };
 
         this.events();
@@ -280,9 +261,15 @@
 
     Acme.WeatherHeader_View.prototype.renderLocal = function()
     {
+        var country = localStorage.getItem("weather-country"); 
         var local = this.localdata[0];
         var name = local.location.split('/')[1];
-        var weatherTmp = Handlebars.compile(this.templates.localWeather);
+        console.log(country);
+        if (!country){
+            var weatherTmp = Handlebars.compile(this.templates.weatherSelect);
+        } else {
+            var weatherTmp = Handlebars.compile(this.templates.localWeather);
+        }
         var temp = local.temperature;
         if  (localStorage.getItem('temp-scale') == 'F') {
             temp = (local.temperature * 1.8) + 32;
@@ -296,59 +283,132 @@
                 "temp" : Math.round(temp)
             }
         ));
+        if (!country){
+            return this.renderNational();
+        }
     };
     Acme.WeatherHeader_View.prototype.renderNational = function()
     {
+        var country = localStorage.getItem("weather-country");
         var self = this;
         var local = this.localdata[0];
         var national = this.nationaldata;
         var dropdown = Handlebars.compile(this.templates.dropdown); 
-        var weatherPanel = Handlebars.compile(this.templates.weatherPanel); 
+        var weatherPanel = Handlebars.compile(this.templates.weatherPanel);
 
-        $('.show-weather').toggleClass('flip');
-        $('.weather-dropdown').toggleClass('hidden')
-                              .html(dropdown({'date': local.date}));
+        if (!country){
+
+        } else {
+            $('.show-weather').toggleClass('flip');
+            $('.weather-dropdown').toggleClass('hidden')
+                                  .html(dropdown({'date': local.date}));
         
-        national.forEach(function(l) {
-            var name = l.location.split('/')[1];
-            var temp = l.temperature;
+        
+            national.forEach(function(l) {
+                var name = l.location.split('/')[1];
+                var temp = l.temperature;
 
-            if  (localStorage.getItem('temp-scale') == 'F') {
-                temp = (l.temperature * 1.8) + 32;
-            }
-            $('#panel-containter').append(
-                weatherPanel({
-                    "name" : name,
-                    "icon": l.icon,
-                    "location": name,
-                    "description" : l.description,
-                    "temp" : Math.round(temp)
+                if  (localStorage.getItem('temp-scale') == 'F') {
+                    temp = (l.temperature * 1.8) + 32;
                 }
-            ));
-        });
+                $('#panel-containter').append(
+                    weatherPanel({
+                        "name" : name,
+                        "icon": l.icon,
+                        "location": name,
+                        "description" : l.description,
+                        "temp" : Math.round(temp)
+                    }
+                ));
+            });
+        }
 
         $('#default_weather').on('click', function(e) {
+            var countries = ['Australia','New Zealand','United Kingdom','USA']
 
-            Acme.SigninView.render("default_weather", "Set default city");
-            var locations = new Acme.Locations();
-            // console.log("locations",self.locations.data,locations.getLocations(locations.country +'-regional'));
-            if (locations.getLocations(locations.country +'-regional')[0] !=  self.locations.data[0] ) {
-                var locations = self.locations.data.concat(locations.getLocations(locations.country +'-regional'));
+            Acme.SigninView.render("default_weather", "Select default weather location");
+            if (localStorage.getItem("weather-country")) {
+                var locations = new Acme.Locations(localStorage.getItem("weather-country"));
+                if (locations.regional[0] !=  locations.data[0] ) {
+                    var locations = locations.data.concat(locations.regional);
+                
+                } else {
+                    locations = locations.data;
+                }
+                    
+                Acme.CountrySelector = new Acme.listMenu({
+                    'parent'        : $('#country-dropdown'),
+                    'list'          : countries,
+                    'class'         : 'country-pulldown u-margin-bottom-30',
+                    'defaultSelect' : {"label": localStorage.getItem("weather-country")},
+                    'name'          : 'country-weather',
+                    'key'           : 'country'
+                }).init().render();
+
+                Acme.WeatherSelector = new Acme.listMenu({
+                    'parent'        : $('#weather-dropdown'),
+                    'list'          : locations.map(function(l) {
+                        return l.split('/')[1].replace('%20', ' ');
+                    }),
+                    'class'         : 'weather-pulldown u-no-margin-top',
+                    'defaultSelect' : {"label": 'Select city'},
+                    'name'          : 'city-weather',
+                    'key'           : 'city'
+                }).init().render();
             } else {
-                locations = self.locations.data;
+                Acme.CountrySelector = new Acme.listMenu({
+                    'parent'        : $('#country-dropdown'),
+                    'list'          : countries,
+                    'class'         : 'country-pulldown u-margin-bottom-30',
+                    'defaultSelect' : {"label": 'Select country'},
+                    'name'          : 'country-weather',
+                    'key'           : 'country'
+                }).init().render();
             }
+
+            $('#country-weather > .Acme-pulldown__list > li').on('click', function(e) {
+                var countrySelect = this.innerText;
+                // console.log(this,countrySelect);
+                localStorage.setItem('weather-country', countrySelect);
+                var locations = new Acme.Locations(localStorage.getItem("weather-country"));
+                if (locations.regional[0] !=  locations.data[0] ) {
+                    var locations = locations.data.concat(locations.regional);
+                
+                } else {
+                    locations = locations.data;
+                }
+               $('.weather-pulldown').remove(); 
+                Acme.WeatherSelector = new Acme.listMenu({
+                    'parent'        : $('#weather-dropdown'),
+                    'list'          : locations.map(function(l) {
+                        return l.split('/')[1].replace('%20', ' ');
+                    }),
+                    'class'         : 'weather-pulldown u-no-margin-top',
+                    'defaultSelect' : {"label": 'Select city'},
+                    'name'          : 'city-weather',
+                    'key'           : 'city'
+                }).init().render();
+
+                $('#city-weather > .Acme-pulldown__list > li').on('click', function(e) {
+                    var locations = new Acme.Locations(localStorage.getItem("weather-country"));
+                    var citySelect = this.innerText;
+                    var citySet = Acme.State.Country + '/' + citySelect.replace(' ', '%20');
+                    localStorage.setItem('city', citySet);
+                });
+
+            });
+
+            $('#city-weather > .Acme-pulldown__list > li').on('click', function(e) {
+                var locations = new Acme.Locations(localStorage.getItem("weather-country"));
+                var citySelect = this.innerText;
+                var citySet = Acme.State.Country + '/' + citySelect.replace(' ', '%20');
+                localStorage.setItem('city', citySet);
+            });
             
-            Acme.WeatherSelector = new Acme.listMenu({
-                        'parent'        : $('#weather-dropdown'),
-                        'list'          : locations.map(function(l) {
-                            return l.split('/')[1].replace('%20', ' ');
-                        }),
-                        'class'         : 'weather-pulldown',
-                        'defaultSelect' : {"label": 'Select default city'},
-                        'name'          : 'city',
-                        'key'           : 'city'
-            }).init().render();            
-        }); 
+            
+        });
+
+
 
         $('#scale_weather').on('click', function(e) {
             if (localStorage.getItem('temp-scale') != 'F') {
@@ -415,6 +475,8 @@
             }
         ));
     };
+
+
 
 
 }(jQuery));
