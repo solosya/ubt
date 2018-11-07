@@ -36,7 +36,10 @@
 	}
 }
 
-// .default-weather__pulldown{
-// 	margin-bottom: 40px;
+.default-weather__pulldown{
+	.Acme-pulldown__selected-item {
+		text-align: left;
+		padding-left: 15px;
+	}
 
-// }
+}

@@ -339,7 +339,7 @@
                 Acme.CountrySelector = new Acme.listMenu({
                     'parent'        : $('#country-dropdown'),
                     'list'          : countries,
-                    'class'         : 'country-pulldown u-margin-bottom-30',
+                    'class'         : 'country-pulldown u-margin-bottom-30 default-weather__pulldown',
                     'defaultSelect' : {"label": localStorage.getItem("weather-country")},
                     'name'          : 'country-weather',
                     'key'           : 'country'
@@ -350,7 +350,7 @@
                     'list'          : locations.map(function(l) {
                         return l.split('/')[1].replace('%20', ' ');
                     }),
-                    'class'         : 'weather-pulldown u-no-margin-top',
+                    'class'         : 'weather-pulldown u-no-margin-top default-weather__pulldown',
                     'defaultSelect' : {"label": 'Select city'},
                     'name'          : 'city-weather',
                     'key'           : 'city'
@@ -359,7 +359,7 @@
                 Acme.CountrySelector = new Acme.listMenu({
                     'parent'        : $('#country-dropdown'),
                     'list'          : countries,
-                    'class'         : 'country-pulldown u-margin-bottom-30',
+                    'class'         : 'country-pulldown u-margin-bottom-30 default-weather__pulldown',
                     'defaultSelect' : {"label": 'Select country'},
                     'name'          : 'country-weather',
                     'key'           : 'country'
@@ -383,7 +383,7 @@
                     'list'          : locations.map(function(l) {
                         return l.split('/')[1].replace('%20', ' ');
                     }),
-                    'class'         : 'weather-pulldown u-no-margin-top',
+                    'class'         : 'weather-pulldown u-no-margin-top default-weather__pulldown',
                     'defaultSelect' : {"label": 'Select city'},
                     'name'          : 'city-weather',
                     'key'           : 'city'
