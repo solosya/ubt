@@ -37712,7 +37712,7 @@ Acme.UserProfileController.prototype.listingEvents = function() {
                 '</div>'
             ,
             "weatherSelect" :
-                '<div class="default-weather__select">' +
+                '<div class="default-weather__select visible-sm-block visible-md-block visible-lg-block">' +
                     '<div class="default-weather__text">WEATHER</div>' + 
                     '<div id="default_weather" class="default-weather__link">SELECT LOCATION</div>' +
                 '</div>'
