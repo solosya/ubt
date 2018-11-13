@@ -29,6 +29,15 @@
                     li {
                         margin: 0 40px;
                         padding-top: 10px;
+                        &.menu-item__username{
+                             padding-top: 0;
+                        }
+                        &.menu-item{
+                           padding-top: 0;
+                           &.menu-item__overdue{
+                                padding-top: 10px;
+                           }
+                        }
                     }
                     @media #{$media-mobile} {
                         padding-top: 14px;
