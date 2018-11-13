@@ -118,22 +118,23 @@
 
 		<a name="subscriptions"></a>
 		
-		<section class="row marketing-subscriptions u-margin-top-90">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-sm-12">
-						<h1 class="marketing__section-header">Trusted sources. Global stories</h1>
-						<p class="marketing-subscriptions__description">
-							{% if 'uk' in networkData.title | lower %}
-								Choose the subscription that's right for you:<br/>All subscription prices include VAT
-							{% else %}
-								Choose the subscription that's right for you. Please select a currency to view subscription options:
-							{% endif %}
-						</p>
-						
+		{% if _User.isGuest() %}
+			<section class="row marketing-subscriptions u-margin-top-90">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12">
+							<h1 class="marketing__section-header">Trusted sources. Global stories</h1>
+							<p class="marketing-subscriptions__description">
+								{% if 'uk' in networkData.title | lower %}
+									Choose the subscription that's right for you:<br/>All subscription prices include VAT
+								{% else %}
+									Choose the subscription that's right for you. Please select a currency to view subscription options:
+								{% endif %}
+							</p>
+							
+						</div>
 					</div>
-				</div>
-				{% if _User.isGuest() %}
+				
 					{% if 'uk' in networkData.title | lower %}
 						<div  id="ui_plans" class="row">
 							{% for plan in gbp %}
@@ -331,10 +332,10 @@
 					<p class="subscribe__payment-info">Please note: Your payment method will be charged at the end of the 14-day free trial period unless cancelled prior.</p>
 				{% endif %}
 
-			{% endif %}
+			
 
-		</section>
-
+			</section>
+		{% endif %}
 	</div>
 
 </main>
