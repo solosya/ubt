@@ -42,7 +42,13 @@
                         <li class="menu-item">Trial period - you will be billed on {{ userData.expiry_date }}
                     {% endif %}
                     <li>{{ (user.firstname ~" "~ user.lastname) | truncate(15) | title}} </li>
-                    <li class="menu-item"><a href="{{networkData.defaultBlogUrl}}/user/edit-profile">MY ACCOUNT</a></li>
+                    {# {% set date = date() %}
+                    {% set expiry = date(userData.expiry_date) %} #}    
+                    {% if date() > date(userData.expiry_date) %}
+                        <li class="menu-item menu-item__overdue"><a href="{{networkData.defaultBlogUrl}}/user/edit-profile">MY ACCOUNT -<i> Account overdue {{userData.expiry_date}}</i></a></li>
+                    {% else %}
+                         <li class="menu-item"><a href="{{networkData.defaultBlogUrl}}/user/edit-profile">MY ACCOUNT {{userData.expiry_date}}  {{date(userData.expiry_date)|date("Y-m-d")}}</a></li>
+                    {% endif %}    
                     <li class="menu-item"><a href="{{_AppHelper.getLogoffUrl()}}">SIGN OUT</a></li>
                     <li class="menu-item-search">SEARCH</li>
                     <li class="menu-item-search glass">
