@@ -32,10 +32,13 @@
                         &.menu-item__username{
                              padding-top: 0;
                         }
+                        &.menu-item-search{
+                             padding-top: 0;
+                        }
                         &.menu-item{
                            padding-top: 0;
                            &.menu-item__overdue{
-                                padding-top: 10px;
+                                padding-top: 11px;
                            }
                         }
                     }
