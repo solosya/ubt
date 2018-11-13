@@ -57,15 +57,15 @@
 
         p {
             font-family:$base-font-family;
-            font-size: rem(30);
+            font-size: rem(24);
             color:white;
             margin-bottom:45px;
 
             @media #{$media-iPad} {
-                font-size: rem(17);
+                font-size: rem(15);
             }
             @media #{$media-mobile} {
-                font-size: rem(14);
+                font-size: rem(12);
                 width:250px;
                 margin-bottom:15px;
                 font-weight: 200;
