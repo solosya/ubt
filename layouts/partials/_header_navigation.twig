@@ -4,6 +4,7 @@
 {% if not _User.isGuest() %}
 
     {% set userData = _User.getPaywallStats(false)  %}
+    
 
     {% set headermenu = _Menu.get({'menuType': 'header'}) %}
 
