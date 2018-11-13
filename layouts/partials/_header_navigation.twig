@@ -45,7 +45,7 @@
                     {# {% set date = date() %}
                     {% set expiry = date(userData.expiry_date) %} #}    
                     {% if date() > date(userData.expiry_date) %}
-                        <li class="menu-item menu-item__overdue"><a href="{{networkData.defaultBlogUrl}}/user/edit-profile">MY ACCOUNT -<i> Account overdue {{userData.expiry_date}}</i></a></li>
+                        <li class="menu-item menu-item__overdue"><a href="{{networkData.defaultBlogUrl}}/user/edit-profile">MY ACCOUNT –<i> Account overdue</i></a></li>
                     {% else %}
                          <li class="menu-item"><a href="{{networkData.defaultBlogUrl}}/user/edit-profile">MY ACCOUNT {{userData.expiry_date}}  {{date(userData.expiry_date)|date("Y-m-d")}}</a></li>
                     {% endif %}    
