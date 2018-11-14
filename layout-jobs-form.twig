@@ -30,9 +30,9 @@
 
 
 {% if (networkData.title | lower) == 'frank uk' %}
-    {% set forCurr = "£" %}
+    {% set forCurr = "" %}
 {% else %}
-    {% set forCurr = "$" %}
+    {% set forCurr = "" %}
 {% endif %}
 
 <!-- used to index each article as we loop over throughout the template -->
@@ -126,7 +126,7 @@
 
                                         <div id="hourlyRateInputs" class="row" style="display:none;">
                                             <div class="col-sm-3">
-                                                <input type="text" class="articleExtendedData" name="extendedData.hourlyrate" id="hourlyrate" value="" placeholder="{{ forCurr }} per hour">
+                                                <input type="text" class="articleExtendedData" name="extendedData.hourlyrate" id="hourlyrate" value="" placeholder="per hour">
                                             </div>
                                         </div>                    
 

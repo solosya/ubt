@@ -10,7 +10,7 @@ Handlebars.registerHelper('splitShift', function(text) {
 
 Handlebars.registerHelper('fixPrice', function(text) {
     if (!text) return "";
-    return text.replace(/(\$|£)/g, "");
+    return text;
 });
 
 Handlebars.registerHelper('draftStatus', function(text, date) {
@@ -26,10 +26,8 @@ Handlebars.registerHelper('formatSalary', function(salaryType, salaryTo, salaryF
     var domain = _appJsConfig.appHostName.split('.').reverse()[0];
     if (domain === 'uk') {
         var forCurr = '£';
-    } else if (domain == 'global'){
-        return 'US$';
     } else {
-        var forCurr = '$';
+        var forCurr = '';
     }
     if (salaryType === "1") {
         salaryPrefix = "Salary ";
@@ -52,21 +50,14 @@ Handlebars.registerHelper('returnCurr', function() {
     var domain = _appJsConfig.appHostName.split('.').reverse()[0];
     if (domain === 'uk') {
         return '£';
-    } else if (domain == 'global'){
-        return 'US$';
     } else {
-        return '$';
+        return '';
     }
 });
 
 Handlebars.registerHelper('returnLoc', function(location, region) {
-    var domain = _appJsConfig.appHostName.split('.').reverse()[0];
-    //console.log(domain);
-    if (domain != 'au' && domain != 'nz') {
+    
         return location +', ' + region;
-    } else {
-        return region;
-    }
 });
 
 
