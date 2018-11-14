@@ -27,10 +27,7 @@
 {% if user %}                                                                  {# 117 is properties listings blog id #}
     {% set userArticlesArr = _User.getUserArticles(user.guid, 0, limit, {'blogs':[jobsBlogId], 'status': '-1'}) %}
 {% endif %}
-{% set siteVar = false %}
-{% if (networkData.title | lower) != 'frank australia' and (networkData.title | lower) != 'frank nz' %}
-    {% set siteVar = true %}
-{% endif %}
+
 
 
 
@@ -70,9 +67,9 @@
                                     <div id="propertySelect" class="propertyListingSelect"></div>
                                     <input type="text" class="" name="title" id="title" value="" placeholder="Address*">
 
-                                    {% if siteVar %}
-                                        <input type="text" class="articleExtendedData" name="extendedData.location" id="location" value="" placeholder="City/Town">
-                                    {% endif %}
+                                    
+                                    <input type="text" class="articleExtendedData" name="extendedData.location" id="location" value="" placeholder="City/Town">
+                                    
 
                                     <div id="regionSelect" class="propertyListingSelect"></div>
                                     <div id="buySelect" class="propertyListingSelect"></div>
@@ -80,13 +77,10 @@
 
                                     <input type="text" class="articleExtendedData" name="extendedData.pricerange" id="pricerange" value="" placeholder="Price*">
                                     <input type="text" class="articleExtendedData" name="extendedData.availability" id="availability" value="" placeholder="Date Available">
-                                    {% if siteVar %}
-                                        <input type="text" class="articleExtendedData" name="extendedData.landarea" id="landarea" value="" placeholder="Land area ft&sup2;">
-                                        <input type="text" class="articleExtendedData" name="extendedData.floorarea" id="floorarea" value="" placeholder="Floor area ft&sup2;">
-                                    {% else %}
-                                        <input type="text" class="articleExtendedData" name="extendedData.landarea" id="landarea" value="" placeholder="Land area m&sup2;">
-                                        <input type="text" class="articleExtendedData" name="extendedData.floorarea" id="floorarea" value="" placeholder="Floor area m&sup2;">
-                                    {% endif %}
+                                    
+                                    <input type="text" class="articleExtendedData" name="extendedData.landarea" id="landarea" value="" placeholder="Land area">
+                                    <input type="text" class="articleExtendedData" name="extendedData.floorarea" id="floorarea" value="" placeholder="Floor area">
+                                    
                                     <div style="position:relative"> <!-- this div anchors datepicker to top of input if at bottom of screen -->
                                     </div>
                                     <input type="text" class="articleExtendedData" name="extendedData.company" id="company" value="" placeholder="Agency or Company name">

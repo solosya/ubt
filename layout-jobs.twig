@@ -56,8 +56,7 @@
         <section class="row">
             <div class="col-sm-12 col-md-offset-1 col-md-6">
                 <div class="row">
-                    {% if (networkData.title | lower) == 'frank uk' %}
-                    {# {% if (networkData.title | lower) == 'shepparton' %} #}
+                    
                         <div class="col-sm-6">
                             <div class="listing-filter-menu">
                                 <div id="regionSelect" class="regionSelect"></div>
@@ -71,17 +70,7 @@
                         <a class="col-sm-2 col-sm-push-9 listing-filter-menu__link" id="clearButton" href="#" style="padding-left:0;text-align:right">Clear results</a>
                         <a class="col-sm-1 col-sm-push-9 listing-filter-menu__link" id="searchButton" href="#" style="padding-left:0;text-align:right">Search</a>
 
-                    {% else %}
-
-                        <div class="col-sm-10 col-md-12">
-                            <div class="listing-filter-menu">
-                                <div id="regionSelect" class="regionSelect"></div>
-                            </div>
-                        </div>
-
-                        <a class="col-sm-2 col-sm-push-9 listing-filter-menu__link" id="clearButton" href="#" style="padding-left:0;text-align:right">Clear results</a>
-                        <a class="col-sm-1 col-sm-push-9 listing-filter-menu__link" id="searchButton" href="#" style="padding-left:0;text-align:right">Search</a>
-                    {% endif %}
+                    
 
                 </div>
             </div>

@@ -26,12 +26,6 @@
 {% set articleCount = 0 %}
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
 
- {% set siteVar = false %}
-{% if (networkData.title | lower) != 'frank australia' and (networkData.title | lower) != 'frank nz' %}
-    {% set siteVar = true %}
-{% endif %}
-
-
 
     <main id="main" class="container-fluid site-main {{networkData.title | lower}}" role="main">
         
@@ -68,7 +62,7 @@
 
                 <div class="listing-filter-menu listing-filter-menu@sm row">
 
-                    {% if siteVar %}
+                    
                         <div id="regionSelect" 
                          class="col-sm-6 
                                 listing-filter-menu__item 
@@ -101,33 +95,6 @@
                     <a class="col-sm-2 listing-filter-menu__link {{site}} listing-filter-menu__link__clear" id="clearButton" href="#" style="">Clear results</a>
                     <a class="col-sm-1 listing-filter-menu__link {{site}} listing-filter-menu__link__search" id="searchButton" href="#">Search</a>
                     
-
-                    {% else %}
-                        <div id="regionSelect" 
-                         class="col-sm-4 
-                                listing-filter-menu__item 
-                                listing-filter-menu__item@md 
-                                listing-filter-menu__item@sm 
-                                listing-filter-menu__item--first@md 
-                                regionSelect"></div>
-
-                    <div id="typeSelect" 
-                         class="col-sm-4 
-                                listing-filter-menu__item 
-                                listing-filter-menu__item@md 
-                                listing-filter-menu__item@sm 
-                                typeSelect" ></div>
-
-                    <div id="saleSelect" 
-                         class="col-sm-4 
-                                listing-filter-menu__item 
-                                listing-filter-menu__item@md 
-                                listing-filter-menu__item@sm 
-                                saleSelect" ></div>
-
-                    <a class="col-sm-2 col-sm-push-9 listing-filter-menu__link {{site}} listing-filter-menu__link__clear" id="clearButton" href="#">Clear results</a>
-                    <a class="col-sm-1 col-sm-push-9 listing-filter-menu__link {{site}} listing-filter-menu__link__search" id="searchButton" href="#">Search</a>
-                    {% endif %}
                 </div>
             </div>
 
