@@ -81,7 +81,6 @@ if (domain == 'uk') {
     ];
     var forLease = 'rent';
     var forRegion = 'Country';
-    var forCurr = ""
 } else if (domain == 'global' || domain == 'events') {
     var listingSalary = ["20k", "30k", "40k", "50k", "60k", "70k", "90k", "120k", "150k", "200k", "200k+"];
     var propertyList = [
@@ -105,7 +104,6 @@ if (domain == 'uk') {
     ];
      var forLease = 'lease';
      var forRegion = 'Country';
-     var forCurr = ""
 } else {
     var listingSalary = ["30k", "40k", "50k", "60k", "70k", "80k", "100k", "120k", "150k", "200k", "200k+"];
     var propertyList = [
@@ -129,7 +127,6 @@ if (domain == 'uk') {
     ];
      var forLease = 'lease';
      var forRegion = 'Region';
-     var forCurr = ""
 }
 
 var regionList = listingRegions[domain] || listingRegions["test"];
@@ -583,7 +580,7 @@ var ListingForm = function() {};
         this.menus.SalaryFromMenu = new Acme.listMenu({
                     'parent'        : $('#salarySelectFrom'),
                     'list'          : listingSalary,
-                    'defaultSelect' : {"label": 'Salary range from '+forCurr},
+                    'defaultSelect' : {"label": 'Salary range from '},
                     'name'          : 'salaryfrom',
                     'key'           : 'extendedData.salaryfrom',
                     'class'         : 'formPulldowns'
@@ -592,7 +589,7 @@ var ListingForm = function() {};
         this.menus.SalaryToMenu = new Acme.listMenu({
                     'parent'        : $('#salarySelectTo'),
                     'list'          : listingSalary,
-                    'defaultSelect' : {"label": 'to '+forCurr},
+                    'defaultSelect' : {"label": 'to '},
                     'name'          : 'salaryto',
                     'key'           : 'extendedData.salaryto',
                     'class'         : 'formPulldowns'

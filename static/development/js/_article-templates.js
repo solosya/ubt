@@ -8,11 +8,6 @@ Handlebars.registerHelper('splitShift', function(text) {
   return text.split(" ")[0].toLowerCase();
 });
 
-Handlebars.registerHelper('fixPrice', function(text) {
-    if (!text) return "";
-    return text;
-});
-
 Handlebars.registerHelper('draftStatus', function(text, date) {
     if (!text && !date) return "";
     if (!text) return "Posted " + date;
@@ -24,35 +19,22 @@ Handlebars.registerHelper('formatSalary', function(salaryType, salaryTo, salaryF
     var salaryPrefix = "";
     var salary = "";
     var domain = _appJsConfig.appHostName.split('.').reverse()[0];
-    if (domain === 'uk') {
-        var forCurr = '£';
-    } else {
-        var forCurr = '';
-    }
+    
     if (salaryType === "1") {
         salaryPrefix = "Salary ";
-        salary = forCurr + salaryFrom;
+        salary = salaryFrom;
         if (salaryTo) {
             salaryPrefix = salaryPrefix + "range ";
             salary = salary + " - " + salaryTo;
         }
     } else if (salaryType == 2) {
         salaryPrefix = "Hourly rate ";
-        salary = forCurr + hourlyRate;
+        salary = hourlyRate;
     } else if (salaryType == 3) {
         salaryPrefix = "Commission";
     }
 
     return salaryPrefix + salary
-});
-
-Handlebars.registerHelper('returnCurr', function() {
-    var domain = _appJsConfig.appHostName.split('.').reverse()[0];
-    if (domain === 'uk') {
-        return '£';
-    } else {
-        return '';
-    }
 });
 
 Handlebars.registerHelper('returnLoc', function(location, region) {
@@ -342,7 +324,7 @@ Acme.propertyListingCardTemplate =
             </div> \
             \
             <div class="property__left"> \
-                <h1 class="price">{{ returnCurr }}{{ fixPrice additionalInfo.pricerange }}</h1> \
+                <h1 class="price">{{ additionalInfo.pricerange }}</h1> \
                 <h2>{{ title }}</h2> \
             </div> \
             \
@@ -381,7 +363,7 @@ Acme.userPropertyCardTemplate =
             <p class="propertyType">{{ additionalInfo.type }}</p> \
             <div> \
                 <p class="contracttype">{{ additionalInfo.contracttype }}</p> \
-                <p class="price">{{ returnCurr }}{{ fixPrice additionalInfo.pricerange }}</p> \
+                <p class="price">{{ additionalInfo.pricerange }}</p> \
             </div> \
         </div>' +
     cardTemplateBottom;
@@ -406,7 +388,7 @@ Acme.propertyCardTemplate =
             <p class="propertyType">{{ additionalInfo.type }}</p> \
             <div> \
                 <p class="contracttype">{{ additionalInfo.contracttype }}</p> \
-                <p class="price">{{ returnCurr }}{{ fixPrice additionalInfo.pricerange }}</p> \
+                <p class="price">{{ additionalInfo.pricerange }}</p> \
             </div> \
         </div>' +
     cardTemplateBottom;
@@ -426,7 +408,7 @@ Acme.communityPropertyCardTemplate =
         \
         <div class="content"> \
             <p class="region">{{ returnLoc additionalInfo.location additionalInfo.region }}</p> \
-            <h1 class="price">{{ returnCurr }}{{ fixPrice additionalInfo.pricerange }}</h1> \
+            <h1 class="price">{{ additionalInfo.pricerange }}</h1> \
             <h2>{{ params.articleTitle }}</h2> \
         </div>' +
     cardTemplateBottom;
