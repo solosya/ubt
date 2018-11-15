@@ -6,11 +6,7 @@
 
 {% if salaryType == 1 %}
     {% set salaryPrefix = "Salary " %}
-    {% set salary = article.additionalInfo.salaryfrom %}
-    {% if article.additionalInfo.salaryto %}
-        {% set salaryPrefix = salaryPrefix ~ "range " %}
-        {% set salary = salary ~ " - " ~ article.additionalInfo.salaryto %}
-    {% endif %}
+    {% set salary = article.additionalInfo.hourlyrate %}
 
 {% elseif salaryType == 2 %}
     {% set salaryPrefix = "Hourly rate " %}

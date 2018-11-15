@@ -33221,7 +33221,7 @@ Handlebars.registerHelper('draftStatus', function(text, date) {
     return text.toLowerCase() === 'draft' ? "Pending Approval" : "Posted " + date; 
 });
 
-Handlebars.registerHelper('formatSalary', function(salaryType, salaryTo, salaryFrom, hourlyRate) {
+Handlebars.registerHelper('formatSalary', function(salaryType, hourlyRate) {
     var salaryPrefix = "";
     var salary = "";
     var domain = _appJsConfig.appHostName.split('.').reverse()[0];
@@ -34850,8 +34850,6 @@ var workType = ["Casual", "Part time", "Full time"];
 var domain = _appJsConfig.appHostName.split('.').reverse()[0];
 
 if (domain == 'uk') {
-    var listingSalary = ["10k","20k","30k", "40k", "50k", "60k", "70k", "80k", "90k","100k","150k+"];
-
     var propertyList = [
         { 'label': "House", 'value': "House"},
         { 'label': "Flat / Apartment", 'value': "Flat / Apartment"},
@@ -34869,7 +34867,6 @@ if (domain == 'uk') {
     var forLease = 'rent';
     var forRegion = 'Country';
 } else if (domain == 'global' || domain == 'events') {
-    var listingSalary = ["20k", "30k", "40k", "50k", "60k", "70k", "90k", "120k", "150k", "200k", "200k+"];
     var propertyList = [
         { 'label': "Industrial / Warehouse", 'value': "Industrial / Warehouse"},
         { 'label': "Residential", 'value': "Residential"},
@@ -34892,7 +34889,6 @@ if (domain == 'uk') {
      var forLease = 'lease';
      var forRegion = 'Country';
 } else {
-    var listingSalary = ["30k", "40k", "50k", "60k", "70k", "80k", "100k", "120k", "150k", "200k", "200k+"];
     var propertyList = [
         { 'label': "Industrial / Warehouse", 'value': "Industrial / Warehouse"},
         { 'label': "Residential", 'value': "Residential"},
@@ -35299,12 +35295,6 @@ var ListingForm = function() {};
         "extendedData.type" : function(data, topic) {
             this.updateData(data);
         },
-        "extendedData.salaryfrom" : function(data, topic) {
-            this.updateData(data);
-        },
-        "extendedData.salaryto" : function(data, topic) {
-            this.updateData(data);
-        },
         "extendedData.worktype" : function(data, topic) {
             this.updateData(data);
         },
@@ -35364,24 +35354,6 @@ var ListingForm = function() {};
                     'class'         : 'formPulldowns'
         }).init().render();
 
-        this.menus.SalaryFromMenu = new Acme.listMenu({
-                    'parent'        : $('#salarySelectFrom'),
-                    'list'          : listingSalary,
-                    'defaultSelect' : {"label": 'Salary range from '},
-                    'name'          : 'salaryfrom',
-                    'key'           : 'extendedData.salaryfrom',
-                    'class'         : 'formPulldowns'
-        }).init().render();
-
-        this.menus.SalaryToMenu = new Acme.listMenu({
-                    'parent'        : $('#salarySelectTo'),
-                    'list'          : listingSalary,
-                    'defaultSelect' : {"label": 'to '},
-                    'name'          : 'salaryto',
-                    'key'           : 'extendedData.salaryto',
-                    'class'         : 'formPulldowns'
-        }).init().render();
-
         this.menus.workType = new Acme.listMenu({
                     'parent'        : $('#worktypeSelect'),
                     'list'          : workType,
@@ -35417,14 +35389,6 @@ var ListingForm = function() {};
             }
             if (key === 'salary') {
                 $('#'+key+this.data.extendedData[key]).prop("checked", true);
-            }
-            if (key === 'salaryfrom') {
-                this.menus.SalaryFromMenu.select(this.data.extendedData[key]);
-                continue;
-            }
-            if (key === 'salaryto') {
-                this.menus.SalaryToMenu.select(this.data.extendedData[key]);
-                continue;
             }
             if (key === 'worktype') {
                 this.menus.workType.select(this.data.extendedData[key]);

@@ -15,7 +15,7 @@ Handlebars.registerHelper('draftStatus', function(text, date) {
     return text.toLowerCase() === 'draft' ? "Pending Approval" : "Posted " + date; 
 });
 
-Handlebars.registerHelper('formatSalary', function(salaryType, salaryTo, salaryFrom, hourlyRate) {
+Handlebars.registerHelper('formatSalary', function(salaryType, hourlyRate) {
     var salaryPrefix = "";
     var salary = "";
     var domain = _appJsConfig.appHostName.split('.').reverse()[0];

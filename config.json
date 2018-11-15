@@ -26,16 +26,6 @@
                     "type": "inputbox"
                 },
                 {
-                    "name": "salaryfrom",
-                    "label": "salaryfrom",
-                    "type": "inputbox"
-                },
-                {
-                    "name": "salaryto",
-                    "label": "salaryto",
-                    "type": "inputbox"
-                },
-                {
                     "name": "hourlyrate",
                     "label": "Hourly Rate",
                     "type": "inputbox"
