@@ -227,17 +227,7 @@
 
             
         }
-        .navbar-global-mobile {
-            background-image: url(../images/going-global-mobile.svg);
-            background-repeat: no-repeat;
-            background-size: 289px;
-            background-position: right;
-            width: 100%;
-            height: 55px;
-            float: right;
-            margin-right: 20px;
-            margin-top: -20px;
-        }
+        
 
         .navbar-right {
             margin-top:25px;
@@ -334,4 +324,16 @@
         background-color: transparent;
         border: 0;
     }
+}
+
+.navbar-global-mobile {
+    background-image: url(../images/going-global-mobile.svg);
+    background-repeat: no-repeat;
+    background-size: 285px;
+    background-position: right;
+    width: 100%;
+    height: 54px;
+    float: right;
+    margin-top: -20px;
+    margin-right: 20px;
 }

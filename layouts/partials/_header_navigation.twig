@@ -238,7 +238,9 @@
 
         </div><!-- .container-->  
         {% if 'nz' in networkData.title | lower or 'au' in networkData.title | lower or 'test' in networkData.title | lower %}
-            <a class="navbar-global-mobile visible-xs-block" href="{{networkData.defaultBlogUrl}}/@going-global"></a>
+            <div class="visible-xs-block u-margin-bottom-60">
+                <a class="navbar-global-mobile u-margin-bottom-20" href="{{networkData.defaultBlogUrl}}/@going-global"></a>
+            </div>
         {% endif %}
     </div>
 </header>
