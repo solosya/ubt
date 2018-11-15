@@ -81,8 +81,10 @@
                             rel="Home" tabindex="-1" 
                             title="Home">
                         </a>
-
-
+                        {% if 'nz' in networkData.title | lower or 'au' in networkData.title | lower or 'test' in networkData.title | lower %}
+                            
+                            <a class="navbar-global visible-sm-block visible-md-block visible-lg-block" href="{{networkData.defaultBlogUrl}}/@going-global"></a>
+                        {% endif %}
 
                         <nav id="sb-custom-menu" class="sb-custom-menu">
 
@@ -235,8 +237,9 @@
             </div>  
 
         </div><!-- .container-->  
-
-
+        {% if 'nz' in networkData.title | lower or 'au' in networkData.title | lower or 'test' in networkData.title | lower %}
+            <a class="navbar-global-mobile visible-xs-block" href="{{networkData.defaultBlogUrl}}/@going-global"></a>
+        {% endif %}
     </div>
 </header>
 

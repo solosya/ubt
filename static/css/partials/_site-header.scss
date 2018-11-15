@@ -207,6 +207,38 @@
             }
         }
 
+        .navbar-global {
+            display: inline-block;
+            position: absolute;
+            background-image: url(../images/going-global.svg);
+            background-repeat: no-repeat;
+            @media #{$media-desktop-up}{
+                margin: -6px 0 0 40%;
+                width: 350px;
+                height: 66px;
+                background-size: 350px;    
+            }
+            @media #{$media-iPad}{
+                margin: 0 0 0 30%;
+                width: 260px;
+                height: 50px;
+                background-size: 260px;    
+            }
+
+            
+        }
+        .navbar-global-mobile {
+            background-image: url(../images/going-global-mobile.svg);
+            background-repeat: no-repeat;
+            background-size: 289px;
+            background-position: right;
+            width: 100%;
+            height: 55px;
+            float: right;
+            margin-right: 20px;
+            margin-top: -20px;
+        }
+
         .navbar-right {
             margin-top:25px;
             // @media screen and (max-width: $mobile-break){
