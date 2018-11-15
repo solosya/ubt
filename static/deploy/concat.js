@@ -33228,11 +33228,7 @@ Handlebars.registerHelper('formatSalary', function(salaryType, salaryTo, salaryF
     
     if (salaryType === "1") {
         salaryPrefix = "Salary ";
-        salary = salaryFrom;
-        if (salaryTo) {
-            salaryPrefix = salaryPrefix + "range ";
-            salary = salary + " - " + salaryTo;
-        }
+        salary = hourlyRate;
     } else if (salaryType == 2) {
         salaryPrefix = "Hourly rate ";
         salary = hourlyRate;
