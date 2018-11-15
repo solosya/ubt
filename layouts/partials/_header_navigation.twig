@@ -43,8 +43,6 @@
                         <li class="menu-item">Trial period - you will be billed on {{ userData.expiry_date }}
                     {% endif %}
                     <li class="menu-item__username">{{ (user.firstname ~" "~ user.lastname) | truncate(15) | title}} </li>
-                    {# {% set date = date() %}
-                    {% set expiry = date(userData.expiry_date) %} #}    
                     {% if date() > date(userData.expiry_date) %}
                         <li class="menu-item menu-item__overdue"><a href="{{networkData.defaultBlogUrl}}/user/edit-profile">MY ACCOUNT –<i> Account overdue</i></a></li>
                     {% else %}
@@ -83,7 +81,7 @@
                         </a>
                         {% if 'nz' in networkData.title | lower or 'au' in networkData.title | lower or 'test' in networkData.title | lower %}
                             
-                            <a class="navbar-global visible-sm-block visible-md-block visible-lg-block" href="{{networkData.defaultBlogUrl}}/@going-global"></a>
+                            <a class="navbar-global visible-sm-block visible-md-block visible-lg-block" href="{{networkData.defaultBlogUrl}}/2018/11/15/323391/frank-is-going-global"></a>
                         {% endif %}
 
                         <nav id="sb-custom-menu" class="sb-custom-menu">
@@ -239,7 +237,7 @@
         </div><!-- .container-->  
         {% if 'nz' in networkData.title | lower or 'au' in networkData.title | lower or 'test' in networkData.title | lower %}
             <div class="visible-xs-block u-margin-bottom-60">
-                <a class="navbar-global-mobile u-margin-bottom-20" href="{{networkData.defaultBlogUrl}}/@going-global"></a>
+                <a class="navbar-global-mobile u-margin-bottom-20" href="{{networkData.defaultBlogUrl}}/2018/11/15/323391/frank-is-going-global"></a>
             </div>
         {% endif %}
     </div>
