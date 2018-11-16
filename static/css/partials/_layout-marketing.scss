@@ -31,9 +31,15 @@
                         padding-top: 10px;
                         &.menu-item__username{
                              padding-top: 0;
+                             @media #{$media-mobile} {
+                                display: none
+                             }
                         }
                         &.menu-item-search{
                              padding-top: 0;
+                             @media #{$media-mobile} {
+                                display: none
+                             }
                         }
                         &.menu-item{
                            padding-top: 0;
@@ -43,8 +49,20 @@
                         }
                     }
                     @media #{$media-mobile} {
-                        padding-top: 14px;
+                        // padding-top: 14px;
                         font-size: 11px;
+                        background:#337ab7;
+                        background-color: #002d56;
+                        li {
+                           margin: 0;
+                           &.menu-item{
+                               margin-left: 15px;
+                               &.menu-item__overdue{
+                                    margin: 0;
+                               }
+                            } 
+                        }
+
                     }
                 }
             }
