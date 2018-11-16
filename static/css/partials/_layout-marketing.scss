@@ -53,15 +53,14 @@
                         font-size: 11px;
                         
                         li {
-                           margin: 0;
-                           &.menu-item{
-                               margin-left: 15px;
-                               &.menu-item__overdue{
-                                    margin: 0;
-                               }
+                           margin: 0 15px;
+                            &.menu-item__overdue{
+                                margin: 0;
                             }
                             &.menu-item__signout{
                                 background-color: #002d56;
+                                margin: 0;
+                                margin-left: 15px;
                             }
                         }
 
