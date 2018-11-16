@@ -51,8 +51,7 @@
                     @media #{$media-mobile} {
                         padding-top: 0;
                         font-size: 11px;
-                        background:#337ab7;
-                        background-color: #002d56;
+                        
                         li {
                            margin: 0;
                            &.menu-item{
@@ -60,7 +59,10 @@
                                &.menu-item__overdue{
                                     margin: 0;
                                }
-                            } 
+                            }
+                            &.menu-item_signout{
+                                background-color: #002d56;
+                            }
                         }
 
                     }
