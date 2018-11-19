@@ -34788,64 +34788,9 @@ Acme.Controller.JobFormPage = function (blogid) {
 (function ($) {
 
 
-var listingRegions = {
-    "nz" : [
-        "Auckland",
-        "Bay of Plenty",
-        "Canterbury",
-        "Christchurch",
-        "Coromandel",
-        "Dunedin",
-        "Eastland",
-        "Fiordland",
-        "Hawke's Bay",
-        "Manawatu",
-        "Marlborough",
-        "Mt Cook",
-        "Nelson",
-        "Northland",
-        "Otago",
-        "Queenstown",
-        "Rotorua",
-        "Ruapehu",
-        "Southland",
-        "Taranaki",
-        "Taupo",
-        "Waikato",
-        "Wairarapa",
-        "Wanaka",
-        "Wanganui",
-        "Wellington",
-        "West Coast"
-    ],
-    "au" : [
-        "ACT",
-        "New South Wales",
-        "Northern Territory",
-        "Queensland",
-        "South Australia",
-        "Tasmania",
-        "Victoria",
-        "Western Australia"
-    ],
-    "uk" : [
-        "Australia",
-        "Canada",
-        "New Zealand",
-        "UK",
-        "USA",
-        "Other"
-    ],
-    "test" : [
-        "Australia",
-        "Canada",
-        "New Zealand",
-        "UK",
-        "USA",
-        "Other"
-    ]
-}
+var regionList = ["Australia","Canada","New Zealand","UK","USA","Other"]
 var workType = ["Casual", "Part time", "Full time"];
+var forRegion = 'Country';
 
 var domain = _appJsConfig.appHostName.split('.').reverse()[0];
 
@@ -34865,29 +34810,7 @@ if (domain == 'uk') {
         { 'label': "For Rent", 'value': "For Rent"}
     ];
     var forLease = 'rent';
-    var forRegion = 'Country';
-} else if (domain == 'global' || domain == 'events') {
-    var propertyList = [
-        { 'label': "Industrial / Warehouse", 'value': "Industrial / Warehouse"},
-        { 'label': "Residential", 'value': "Residential"},
-        { 'label': "Offices", 'value': "Offices"},
-        { 'label': "Development / Land", 'value': "Development / Land"},
-        { 'label': "Hotel / Leisure", 'value': "Hotel / Leisure"},
-        { 'label': "Medical / Consulting", 'value': "Medical / Consulting"},
-        { 'label': "Serviced Offices", 'value': "Serviced Offices"},
-        { 'label': "Parking / Car Space", 'value': "Parking / Car Space"},
-        { 'label': "Rural / Farming", 'value': "Rural / Farming"},
-        { 'label': "Showrooms / Bulky Goods", 'value': "Showrooms / Bulky Goods"},
-        { 'label': "Retail", 'value': "Retail"},
-        { 'label': "Other", 'value': "Other"}
-    ];
-
-    var contractList = [
-        { 'label': "For Sale", 'value': "For Sale"},
-        { 'label': "For Lease", 'value': "For Lease"}
-    ];
-     var forLease = 'lease';
-     var forRegion = 'Country';
+    
 } else {
     var propertyList = [
         { 'label': "Industrial / Warehouse", 'value': "Industrial / Warehouse"},
@@ -34909,12 +34832,7 @@ if (domain == 'uk') {
         { 'label': "For Lease", 'value': "For Lease"}
     ];
      var forLease = 'lease';
-     var forRegion = 'Region';
 }
-
-var regionList = listingRegions[domain] || listingRegions["test"];
-
-
 
 
 
@@ -35061,6 +34979,7 @@ Acme.searchCollectionClass = function(blogId)
                 return;
             }
             this.searchTerms['region'] = data.region;
+            console.log(data.region);
         },
         "type" : function(data) {
             if (data.type === "") {
@@ -35068,6 +34987,7 @@ Acme.searchCollectionClass = function(blogId)
                 return;
             }
             this.searchTerms['type'] = data.type;
+            console.log(data.type);
         },
         "contracttype" : function(data) {
             if (data.contracttype === "") {
@@ -35085,9 +35005,10 @@ Acme.searchCollectionClass = function(blogId)
 
             for (search in this.searchTerms) {
                 searchTerms.push( search + ":" + this.searchTerms[search]);
-            }        
+            }   
+            console.log(searchTerms);    
             function setLocationForSearch(data) {
-
+                console.log(data); 
                 if (data[0] != undefined) {
                     if (data[0].value === "") {
                         return;
@@ -35101,6 +35022,7 @@ Acme.searchCollectionClass = function(blogId)
             setLocationForSearch($('#location'));
             var searchString = searchTerms.join(",");
             if (searchString) {
+                console.log(searchString); 
                 return loader.data('loadtype', 'api/search')
                              .data('rendertype', 'write')
                              .data('searchterm', searchString)

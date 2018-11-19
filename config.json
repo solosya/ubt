@@ -77,7 +77,7 @@
                 },
                 {
                     "name": "region",
-                    "label": "region",
+                    "label": "Country",
                     "type": "inputbox"
                 },
                 {
