@@ -192,7 +192,6 @@ Acme.searchCollectionClass = function(blogId)
                 return;
             }
             this.searchTerms['region'] = data.region;
-            console.log(data.region);
         },
         "type" : function(data) {
             if (data.type === "") {
@@ -200,7 +199,6 @@ Acme.searchCollectionClass = function(blogId)
                 return;
             }
             this.searchTerms['type'] = data.type;
-            console.log(data.type);
         },
         "contracttype" : function(data) {
             if (data.contracttype === "") {
@@ -219,9 +217,7 @@ Acme.searchCollectionClass = function(blogId)
             for (search in this.searchTerms) {
                 searchTerms.push( search + ":" + this.searchTerms[search]);
             }   
-            console.log(searchTerms);    
             function setLocationForSearch(data) {
-                console.log(data); 
                 if (data[0] != undefined) {
                     if (data[0].value === "") {
                         return;
@@ -235,7 +231,6 @@ Acme.searchCollectionClass = function(blogId)
             setLocationForSearch($('#location'));
             var searchString = searchTerms.join(",");
             if (searchString) {
-                console.log(searchString); 
                 return loader.data('loadtype', 'api/search')
                              .data('rendertype', 'write')
                              .data('searchterm', searchString)
@@ -249,12 +244,14 @@ Acme.searchCollectionClass = function(blogId)
                          .data('offset', '0')
                          .data('non-pinned-offset', '0')
                          .click();
+            console.log('params: ',params); 
             return params;
         },
     };
 
 $('#searchButton').on('click', function(e) {
     e.preventDefault();
+    console.log('self: ',self); 
     Acme.PubSub.publish('update_state', {'fetch': self});
 });
 
