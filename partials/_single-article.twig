@@ -192,9 +192,8 @@
 
                 <div class="content">
                     <div class="category {{social.source}}">{{social.source}}</div>
-                    if
-
-                    <time datetime="">{{_AppHelper.getDateTimeBasedOnTimezone(social.publishDate, 'F d, g.ia')}}</time>
+                    
+                    <time datetime="{{_AppHelper.getDateTimeBasedOnTimezone(social.publishDate, 'F d, Y')}}">{{_AppHelper.getDateTimeBasedOnTimezone(social.publishDate, 'F d, Y')}}</time>
 
                     <p id="updateSocial{{article.socialId}}" data-update="0">
                         {{ quotes.smarten(social.content  | raw) }}
