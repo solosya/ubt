@@ -33839,7 +33839,6 @@ Acme.Feed.prototype.fetch = function()
 
     if (self.options.search != null) {
         self.options.blogid = self.elem.data("blogid"); // search takes an id instead of a guid
-        console.log('search:',self.options.search)
     }
 
     $.fn.Ajax_LoadBlogArticles(self.options).done(function(data) {
@@ -35021,16 +35020,13 @@ Acme.searchCollectionClass = function(blogId)
             }
             setLocationForSearch($('#location'));
             var searchString = searchTerms.join(",");
-            console.log('searchString:',searchString);
             if (searchString) {
-                var params = loader.data('loadtype', 'api/search')
+                return loader.data('loadtype', 'api/search')
                              .data('rendertype', 'write')
                              .data('searchterm', searchString)
                              .data('offset', '0')
                              .data('non-pinned-offset', '0')
-                             .click();
-                console.log('params: ',params); 
-                return params;      
+                             .click();  
             }
             var params = loader.data('loadtype', '')
                          .data('rendertype', 'write')
@@ -35038,14 +35034,12 @@ Acme.searchCollectionClass = function(blogId)
                          .data('offset', '0')
                          .data('non-pinned-offset', '0')
                          .click();
-            console.log('params: ',params); 
             return params;
         },
     };
 
 $('#searchButton').on('click', function(e) {
     e.preventDefault();
-    console.log('self: ',self); 
     Acme.PubSub.publish('update_state', {'fetch': self});
 });
 

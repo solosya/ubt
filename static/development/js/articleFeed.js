@@ -22,7 +22,6 @@ Acme.Feed.prototype.fetch = function()
 
     if (self.options.search != null) {
         self.options.blogid = self.elem.data("blogid"); // search takes an id instead of a guid
-        console.log('search:',self.options.search)
     }
 
     $.fn.Ajax_LoadBlogArticles(self.options).done(function(data) {
