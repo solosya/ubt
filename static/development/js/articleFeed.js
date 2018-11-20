@@ -19,12 +19,15 @@ Acme.Feed.prototype.fetch = function()
         'loadtype'          :   self.elem.data('loadtype')      || "home",
         'search'            :   self.elem.data('searchterm')    || null,
     };
+
     if (self.options.search != null) {
         self.options.blogid = self.elem.data("blogid"); // search takes an id instead of a guid
+        console.log('search:',self.options.search)
     }
 
     $.fn.Ajax_LoadBlogArticles(self.options).done(function(data) {
         if (data.success == 1) {
+            console.log('data:',data);
             self.render(data);
         }
     });
