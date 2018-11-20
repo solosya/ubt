@@ -26776,7 +26776,7 @@ jQuery.fn.liScroll = function(settings) {
             var url = _appJsConfig.appHostName + '/'+options.loadtype;
             var requestType = 'get';
         }
-        console.log('url:',url);
+        console.log('url:',url,requestData);
 
         return $.ajax({
             type: requestType,
