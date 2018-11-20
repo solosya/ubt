@@ -23,11 +23,18 @@
 
 
         if (options.search) {
-            requestData['meta_info'] = options.search;
-            requestData['s'] = options.search;
+            var refinedSearch = options.search;
+            if (refinedSearch.indexOf(",listingquery") >= 0) {
+                refinedSearch = refinedSearch.replace(",listingquery","");
+                requestData['meta_info'] = refinedSearch;
+            } else{
+                requestData['s'] = refinedSearch;
+            }
             var url = _appJsConfig.appHostName + '/'+options.loadtype;
             var requestType = 'get';
         }
+
+
         console.log('url:',url,requestData);
 
         return $.ajax({

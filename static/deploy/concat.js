@@ -26771,11 +26771,18 @@ jQuery.fn.liScroll = function(settings) {
 
 
         if (options.search) {
-            requestData['meta_info'] = options.search;
-            requestData['s'] = options.search;
+            var refinedSearch = options.search;
+            if (refinedSearch.indexOf(",listingquery") >= 0) {
+                refinedSearch = refinedSearch.replace(",listingquery","");
+                requestData['meta_info'] = refinedSearch;
+            } else{
+                requestData['s'] = refinedSearch;
+            }
             var url = _appJsConfig.appHostName + '/'+options.loadtype;
             var requestType = 'get';
         }
+
+
         console.log('url:',url,requestData);
 
         return $.ajax({
@@ -35021,6 +35028,7 @@ Acme.searchCollectionClass = function(blogId)
             setLocationForSearch($('#location'));
             var searchString = searchTerms.join(",");
             if (searchString) {
+                searchString = searchString +",listingquery";
                 return loader.data('loadtype', 'api/search')
                              .data('rendertype', 'write')
                              .data('searchterm', searchString)

@@ -231,6 +231,7 @@ Acme.searchCollectionClass = function(blogId)
             setLocationForSearch($('#location'));
             var searchString = searchTerms.join(",");
             if (searchString) {
+                searchString = searchString +",listingquery";
                 return loader.data('loadtype', 'api/search')
                              .data('rendertype', 'write')
                              .data('searchterm', searchString)
