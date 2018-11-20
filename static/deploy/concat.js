@@ -26781,10 +26781,6 @@ jQuery.fn.liScroll = function(settings) {
             var url = _appJsConfig.appHostName + '/'+options.loadtype;
             var requestType = 'get';
         }
-
-
-        console.log('url:',url,requestData);
-
         return $.ajax({
             type: requestType,
             url: url,
@@ -33850,7 +33846,6 @@ Acme.Feed.prototype.fetch = function()
 
     $.fn.Ajax_LoadBlogArticles(self.options).done(function(data) {
         if (data.success == 1) {
-            console.log('data:',data);
             self.render(data);
         }
     });
