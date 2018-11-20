@@ -35017,6 +35017,7 @@ Acme.searchCollectionClass = function(blogId)
             }
             setLocationForSearch($('#location'));
             var searchString = searchTerms.join(",");
+            console.log('searchString:',searchString);
             if (searchString) {
                 return loader.data('loadtype', 'api/search')
                              .data('rendertype', 'write')
