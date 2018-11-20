@@ -35019,12 +35019,14 @@ Acme.searchCollectionClass = function(blogId)
             var searchString = searchTerms.join(",");
             console.log('searchString:',searchString);
             if (searchString) {
-                return loader.data('loadtype', 'api/search')
+                var params = loader.data('loadtype', 'api/search')
                              .data('rendertype', 'write')
                              .data('searchterm', searchString)
                              .data('offset', '0')
                              .data('non-pinned-offset', '0')
                              .click();
+                console.log('params: ',params); 
+                return params;      
             }
             var params = loader.data('loadtype', '')
                          .data('rendertype', 'write')
