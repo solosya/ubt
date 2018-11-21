@@ -15,6 +15,12 @@
 {% set showPaywall = false %}
 {% set url = _AppHelper.getParsedUrl().path %}
 
+{% set redir = _Page.setHttpRedirects(
+    {
+        '|publish.events/.*|': 'franknews.global/',
+    }, true)
+%}
+
 {# Pages don't have a blogName so class has to be used #}
 {% if   not _User.isAdminUser()                                             and
         blogName  | lower               != "subscribe"                      and
@@ -40,6 +46,7 @@
     {% set layout = "layout-marketing" %}
 
 {% endif %} #}
+
 
 
 
