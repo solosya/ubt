@@ -4,7 +4,7 @@
   googletag.cmd = googletag.cmd || [];
 </script>
 
-{% set blogAdSelect = {
+{# {% set blogAdSelect = {
   "frank australia" : "Frank_AU",
   "frank nz"        : "Frank_NZ",
   "frank uk"        : "Frank_UK",
@@ -14,12 +14,22 @@
 
 {% if adPlace == '' %}
     {% set adPlace = 'Frank_US' %}
-{% endif %}
+{% endif %} #}
 
 {% set dfpAcct = '21651851619' %}
 
 <script>
- 
+  var country = localStorage.getItem("weather-country");
+  if (country == 'United Kingdom') {
+    var invSpace = "Frank_UK";
+  } else if (country == 'New Zealand') {
+    var invSpace = "Frank_NZ";
+  } else if (country == 'Australia') {
+     var invSpace = 'Frank_AU';
+  } else {
+    var invSpace = 'Frank_US';
+  }
+
   blogName = '{{blogNetworkName}}'
 
   googletag.cmd.push(function() {         
@@ -30,8 +40,7 @@
                 
             });
 
-  var invSpace = '{{adPlace}}';
-  var vidInvSpace = '{{adPlace}}_vp';
+  var vidInvSpace = invSpace + '_vp';
   var bannerSize = [[970,90],[728,90],[320,50],[300,50]];
   var bannerMap = [[[1025,0],[970,90]],[[768,0],[728,90]],[[360,0],[320,50]],[[0,0],[300,50]]];
   var sBannerSize = [[728,90],[320,50],[300,50]];
@@ -64,7 +73,7 @@
     googletag.cmd.push(function() {
       var slot = googletag.defineSlot('/{{dfpAcct}}/'+blogAd, sizes, slotName).setTargeting().defineSizeMapping(mapping).addService(googletag.pubads());
       googletag.display(slotName);
-      googletag.pubads().refresh([slot]);
+      //googletag.pubads().refresh([slot]);
     });
   }
 
