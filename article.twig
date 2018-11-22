@@ -19,7 +19,7 @@
 {% if article.createdBy['media'] is defined and article.createdBy['media']['path'] and article.createdBy['displayName'] != "AAP Newswire" %}
     {% set profileImg = _Media.getMediaUrl(article.createdBy['media'], 54, 54, {radius: 'max', gravity: 'face', 'crop': 'thumb', type: 'user'}) %}
 {% endif %}
-
+{% set publishedDateTime =  (article.publishedDateTime is defined) ? article.publishedDateTime : article.publishDateTime %}
 {% set publishDate = _AppHelper.getDefaultTimezoneDateTime(article.publishDate, 'F, Y') %}
 {% set timeOnly = _AppHelper.getRelativeTime(publishedDateTime) ~ " ago" %}
 {% set publishedAgo = _AppHelper.getSecondsSincePublished(publishedDateTime) %}
