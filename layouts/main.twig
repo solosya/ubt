@@ -23,6 +23,12 @@
     {% set theTest = 'redirecting' %}
 {% endif %}
 
+{% set redir = _Page.setHttpRedirects(
+        {
+            '|^/@australia.*|': 'https://www.franknews.global/@au',
+            '|^/@new-zealand.*|': 'https://www.franknews.global/@nz',
+        }, false) 
+%}
 
 {% set showPaywall = false %}
 {% set url = _AppHelper.getParsedUrl().path %}
