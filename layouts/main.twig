@@ -4,6 +4,13 @@
 
 {{ use('yii/web/JqueryAsset') }} 
 {{ register_jquery_asset() }}
+
+{% set redir = _Page.setHttpRedirects(
+    {
+        '|https://www.publish.events/.*|': 'https://franknews.global',
+    }, true) 
+%}
+
 {% set networkData   = _Network.getNetworkData() %}
 {% set blogData      = _Blog.getBlog() %}
 {% set pageClass     = _Page.getBodyClass() %}
@@ -15,11 +22,7 @@
 {% set showPaywall = false %}
 {% set url = _AppHelper.getParsedUrl().path %}
 
-{% set redir = _Page.setHttpRedirects(
-    {
-        '|publish.events/.*|': 'franknews.global/',
-    }, true)
-%}
+
 
 {# Pages don't have a blogName so class has to be used #}
 {% if   not _User.isAdminUser()                                             and
