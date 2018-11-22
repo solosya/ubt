@@ -12,7 +12,6 @@
 {% set blogName      = blogData.title %}
 {% set layout        = _Page.getLayoutName() %}
 {% set site          = networkData.title | lower %}
-{% set theTest = 'not-redirecting' %}
 
 {% if 'article' not in pageClass and (site == 'frank australia' or site == 'frank nz' or site == 'frank test')  %}
     {% set redir = _Page.setHttpRedirects(
@@ -26,7 +25,6 @@
             '|^/.*|': 'https://www.franknews.global',
         }, true) 
     %}
-    {% set theTest = 'redirecting' %}   
 {% endif %}
 
 
@@ -182,7 +180,7 @@
 </head>
 
 
-<body class="{{ pageTypeClass }} {{ layout }} {{ pageClass }} {{theTest}} {{site}}" data-temp="{{pageClass}}">
+<body class="{{ pageTypeClass }} {{ layout }} {{ pageClass }}" data-temp="{{pageClass}}">
     {{ this.beginBody() }}
 
       
