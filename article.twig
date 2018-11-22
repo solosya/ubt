@@ -21,6 +21,11 @@
 {% endif %}
 
 {% set publishDate = _AppHelper.getDefaultTimezoneDateTime(article.publishDate, 'F, Y') %}
+{% set timeOnly = _AppHelper.getRelativeTime(publishedDateTime) ~ " ago" %}
+{% if publishedAgo < 86400 %}
+    {# {% set publishDate = _AppHelper.getRelativeTime(publishedDateTime) ~ " ago" %} #}
+    {% set publishDate = timeOnly %}
+{% endif %}
 
 {# {% set articles = _Article.getPopularArticles({ limit: 10, excludeArticleIds : article.id }) %} #}
 {% set popularArticles = _Article.getPopularArticles({ limit: 3, blogId: article.blog.id, interval: 168 }) %}
