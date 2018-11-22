@@ -22,7 +22,7 @@
 
 
 {% set publishedDateTime =  (article.publishedDateTime is defined) ? article.publishedDateTime : article.publishDateTime %}
-{% set publishDate = _AppHelper.getDefaultTimezoneDateTime(article.publishDate, 'F d, Y') %}
+{% set publishDate = _AppHelper.getDefaultTimezoneDateTime(article.publishedDateTime, 'F d, Y') %}
 {% set timeOnly = _AppHelper.getRelativeTime(publishedDateTime) ~ " ago" %}
 {% set publishedAgo = _AppHelper.getSecondsSincePublished(publishedDateTime) %}
 {% if publishedAgo < 86400 %}
