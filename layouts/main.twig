@@ -14,21 +14,22 @@
 {% set site          = networkData.title | lower %}
 {% set theTest = 'not-redirecting' %}
 
-{% if 'article' not in pageClass and (site == 'frank australia' or site == 'frank nz' or site == 'frank test')  %}    
+{% if 'article' not in pageClass and (site == 'frank australia' or site == 'frank nz' or site == 'frank test')  %}
+    {% set redir = _Page.setHttpRedirects(
+        {
+            '|^/@australia.*|': 'https://www.franknews.global/@au',
+            '|^/@new-zealand.*|': 'https://www.franknews.global/@nz',
+        }, false) 
+    %}    
     {% set redir = _Page.setHttpRedirects(
         {
             '|^/.*|': 'https://www.franknews.global',
         }, true) 
     %}
-    {% set theTest = 'redirecting' %}
+    {% set theTest = 'redirecting' %}   
 {% endif %}
 
-{% set redir = _Page.setHttpRedirects(
-        {
-            '|^/@australia.*|': 'https://www.franknews.global/@au',
-            '|^/@new-zealand.*|': 'https://www.franknews.global/@nz',
-        }, false) 
-%}
+
 
 {% set showPaywall = false %}
 {% set url = _AppHelper.getParsedUrl().path %}
