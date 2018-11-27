@@ -34200,13 +34200,13 @@ Card.prototype.screen = function()
         'screens' : [
             {
                 style: "screen-card card-lg-screen",
-                limit: 20,
+                limit: 10,
                 logo: "large-logo"
             }
         ],
         'container': $( '#'+btn.data('container') ),
         'currentScreen': currentScreen,
-        'count': 20
+        'count': 10
     };
 
 
