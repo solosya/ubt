@@ -102,6 +102,13 @@
     color: #000000;
 }
 
+.business-section__benefitslist {
+    margin: 93px 0;
+    padding-top: 70px;
+    padding-bottom: 40px;
+    background: rgba(216,216,216,.3);
+}
+
 .business-section__header {
   font-family: $font-family-serif;
   font-size: 50px;
@@ -135,6 +142,7 @@
     color: #000000;
     padding-bottom: 10px;
     border-bottom: 2px #979797 solid;
+    margin-top: 20px;
 }
 
 .business-section__text {
@@ -142,4 +150,13 @@
     font-size: 19px;
     line-height: 1.47;
     color: #000000;
+    margin-top: 15px;
+}
+
+
+
+.layout-bus-marketing {
+    .mainHeader{
+        display: none;
+    }
 }

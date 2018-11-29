@@ -77,12 +77,13 @@
 
 
 
-	<section class="row essential-news u-mobile-no-margin-bottom">
+	<section class="row business-section__benefitslist u-mobile-no-margin-bottom">
 		<div class="container-fluid">
 			<div class="col-sm-12">
 				<h1 class="business-section__header">Benefits of a business package</h1>
 				<p class="business-section__itals">Your time is valuable. Our business subscriptions provide the most relevant news to you and your staff.</p>
 			</div>
+
 			<div class="col-sm-4 col-md-2 col-md-offset-1">
 				<h2 class="business-section__subhead">LIVE SCREEN</h2>
 				<p class="business-section__headtext">Live screen newsfeed for your reception area </p>
@@ -91,6 +92,7 @@
 			<div class="col-sm-8 centerContent">
 				<img class="screenImage" src="{{networkData.templatePath}}/static/images/market-screens.png?v=6"></img>
 			</div>
+			
 			<div class="col-sm-6 col-md-2">
 				<img class="screenImage" src="{{networkData.templatePath}}/static/images/business-pdf.png"></img>
 			</div>
@@ -136,7 +138,7 @@
 					</div>
 				
 					{% if 'uk' in networkData.title | lower %}
-						<div  id="ui_plans" class="row">
+						<div  id="ui_plans" class="row u-desktop-center-9-cols">
 							{% for plan in gbp %}
 
 								<div class="col-sm-3 subscription-card">
@@ -202,7 +204,7 @@
 
 
 
-						<div  id="ui_plans" class="row ui_plans">
+						<div  id="ui_plans" class="row ui_plans u-desktop-center-9-cols">
 						{% for plan in ui_plans %}
 
 							<div class="col-sm-3 subscription-card">
@@ -246,7 +248,7 @@
 
 
 
-						<div  id="au_plans" class="au_plans row">
+						<div  id="au_plans" class="au_plans row u-desktop-center-9-cols">
 						{% for plan in aus %}
 
 							<div class="col-sm-3 subscription-card">
@@ -286,7 +288,7 @@
 						</div>
 
 
-						<div id="us_plans" class="us_plans row">
+						<div id="us_plans" class="us_plans row u-desktop-center-9-cols">
 					    {% for plan in usd %}
 
 							<div class="col-sm-3 subscription-card">
