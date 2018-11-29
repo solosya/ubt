@@ -120,6 +120,10 @@ div[class*="col-sm"] {
     .u-mobile-margin-top-20 { margin-top: 20px; }
     .u-mobile-margin-top-15 { margin-top: 15px; }
     .u-mobile-margin-top-10 { margin-top: 10px; }
+    .u-mobile-no-margins {
+        margin-left: 0;
+        margin-right: 0;
+    }
 
 }
 @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
@@ -153,7 +157,10 @@ div[class*="col-sm"] {
     .u-desktop-float-left { float:left; }
     .u-desktop-float-right { float:right; }
     .u-desktop-clear-both { clear:both; }
-    .u-desktop-center-9-cols {margin-left:12.5%}
+    .u-desktop-center-9-cols {
+        margin-left: 12.5%;
+        margin-right: 12.5%;
+    }
 
 
     .u-desktop-no-margin-top {margin-top:0!important;}

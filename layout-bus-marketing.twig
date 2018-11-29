@@ -55,7 +55,7 @@
 					<div class="content">
 
 						<h1>Business subscriptions</h1>
-						<p class="visible-sm-block visible-md-block visible-lg-block">frank offers a range of business packages to suit your company's needs.</p>
+						<p class="visible-sm-block visible-md-block visible-lg-block">frank offers a range of <br class="visible-xs-block" />business packages to suit <br class="visible-xs-block" />your company's needs.</p>
 
 						{% if _User.isGuest() %}
 							<a id="" href="#subscriptions" class="_btn">SUBSCRIBE NOW</a>
@@ -80,23 +80,23 @@
 	<section class="row business-section__benefitslist u-mobile-no-margin-bottom">
 		<div class="container-fluid">
 
-			<div class="col-sm-12">
-				<h1 class="business-section__header">Benefits of a business package</h1>
-				<p class="business-section__itals">Your time is valuable. Our business subscriptions provide the most relevant news to you and your staff.</p>
+			<div class="col-sm-12 u-mobile-no-padding">
+				<h1 class="business-section__header">Benefits of a <br class="visible-xs-block" />business package</h1>
+				<p class="business-section__itals">Your time is valuable. <br class="visible-xs-block" />Our business subscriptions provide <br class="visible-xs-block" />the most relevant news to you <br class="visible-xs-block" />and your staff.</p>
 			</div>
 			<div class="u-desktop-margin-top-60 col-sm-12">
-				<div class="col-sm-4 col-md-3">
+				<div class="col-sm-4 col-md-3 business-section__live">
 					<h2 class="business-section__subhead">LIVE SCREEN</h2>
 					<p class="business-section__headtext">Live screen newsfeed for your reception area </p>
 					<p class="business-section__text">The live screen is a great addition to any place of business. Click on the image to see a small version  of what can be broadcast on  your big screens 24 hours a day, keeping your customers engaged, informed and impressed. </p>
 				</div>
-				<div class="col-sm-8 centerContent business-section__video">
+				<div class="col-sm-8 centerContent business-section__video u-mobile-no-padding">
 					<video controls="" class="o" poster="https://res.cloudinary.com/cognitives/image/upload/c_fill,dpr_auto,f_auto,fl_lossy,g_face,h_1280,q_auto,w_2288/oi1d0n8v9duznu9z3wxh" style="max-height:500px;">
 	                    <source src="https://res.cloudinary.com/cognitives/video/upload/gtchvchyyynl05srd9la.mp4" type="video/mp4">
 	                </video>
 				</div>
 			</div>
-			<div class="u-desktop-margin-top-60 col-sm-12">
+			<div class="u-desktop-margin-top-60 col-sm-12 u-mobile-no-padding">
 				<div class="col-sm-6 col-md-2">
 					<img class="business-section__pdf" src="{{networkData.templatePath}}/static/images/business-pdf.png"></img>
 				</div>
@@ -130,7 +130,7 @@
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-sm-12">
-							<h1 class="marketing__section-header">Trusted sources. Global stories</h1>
+							<h1 class="marketing__section-header">Trusted sources. <br class="visible-xs-block" />Global stories</h1>
 							<p class="marketing-subscriptions__description">
 								{% if 'uk' in networkData.title | lower %}
 									Choose the subscription that's right for you:<br/>All subscription prices include VAT
@@ -146,7 +146,7 @@
 						<div  id="ui_plans" class="row u-desktop-center-9-cols">
 							{% for plan in gbp %}
 
-								<div class="col-sm-3 subscription-card">
+								<div class="col-sm-4 subscription-card">
 									<div class="card">
 										<h3>{{plan.name}}</h3>
 										{% set uc = plan.user_count + 1 %}
@@ -212,7 +212,7 @@
 						<div  id="ui_plans" class="row ui_plans u-desktop-center-9-cols">
 						{% for plan in ui_plans %}
 
-							<div class="col-sm-3 subscription-card">
+							<div class="col-sm-4 subscription-card">
 								<div class="card">
 									<h3>{{plan.name}}</h3>
 									{% set uc = plan.user_count + 1 %}
@@ -256,7 +256,7 @@
 						<div  id="au_plans" class="au_plans row u-desktop-center-9-cols">
 						{% for plan in aus %}
 
-							<div class="col-sm-3 subscription-card">
+							<div class="col-sm-4 subscription-card">
 								<div class="card">
 									<h3>{{plan.name}}</h3>
 									{% set uc = plan.user_count + 1 %}
@@ -296,7 +296,7 @@
 						<div id="us_plans" class="us_plans row u-desktop-center-9-cols">
 					    {% for plan in usd %}
 
-							<div class="col-sm-3 subscription-card">
+							<div class="col-sm-4 subscription-card">
 								<div class="card">
 									<h3>{{plan.name}}</h3>
 									{% set uc = plan.user_count + 1 %}
