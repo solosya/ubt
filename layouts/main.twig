@@ -13,7 +13,7 @@
 {% set layout        = _Page.getLayoutName() %}
 {% set site          = networkData.title | lower %}
 
-{% if 'article' not in pageClass and 'screen' not in layout and (site == 'frank australia' or site == 'frank nz' or site == 'frank test')  %}
+{% if 'article' not in pageClass and 'screen' not in layout and (site == 'frank australia' or site == 'frank nz')  %}
     {% set redir = _Page.setHttpRedirects(
         {
             '|^/@australia.*|': 'https://www.franknews.global/@au',
