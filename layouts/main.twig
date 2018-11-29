@@ -36,7 +36,7 @@
 
 {# Pages don't have a blogName so class has to be used #}
 {% if   not _User.isAdminUser()                                             and
-        blogName  | lower               != "subscribe"
+        blogName  | lower               != "subscribe"                      and
         blogName  | lower               != "business subscriptions"         and
         blogName  | lower               != 'screen'                         and 
         pageClass | lower               != 'page page-terms-of-use'         and 
