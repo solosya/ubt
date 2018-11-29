@@ -36,7 +36,7 @@
         h1 {
             line-height: 0.88;
             font-family: $font-family-serif;
-            font-size: rem(30);
+            font-size: rem(64);
             font-weight:700;
             color:white;
             margin-bottom:25px;
@@ -46,7 +46,7 @@
             }
 
             @media #{$media-mobile} {
-                font-size: rem(42);
+                font-size: rem(30);
                 width:262px;
                 margin-top: -55px;
                 margin-bottom:25px;
