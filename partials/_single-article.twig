@@ -193,7 +193,7 @@
                 <div class="content">
                     <div class="category {{social.source}}">{{social.source}}</div>
                     
-                    <time datetime="{{_AppHelper.getDefaultTimezoneDateTime(social.publishDateTime, 'F d, h:ia')}}">{{_AppHelper.getDefaultTimezoneDateTime(social.publishDateTime, 'F d, h:ia')}}</time>
+                    <time datetime="{{_AppHelper.getDefaultTimezoneDateTime(social.publishDateTime, 'Ymd H:i:s')}}">{{_AppHelper.getDefaultTimezoneDateTime(social.publishDateTime, 'F d, g:ia')}}</time>
 
                     <p id="updateSocial{{article.socialId}}" data-update="0">
                         {{ quotes.smarten(social.content  | raw) }}
