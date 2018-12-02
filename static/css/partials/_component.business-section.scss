@@ -13,6 +13,8 @@
 
     @media screen and (max-width: $mmd-break-down) {
         height:400px;
+        background-size: cover;
+        background-position: left;
     }
 
     @media screen and (max-width: $sm-break-down) {
@@ -128,6 +130,9 @@
   letter-spacing: 1.2px;
   text-align: center;
   color: #ae232c;
+  @media #{$media-iPad}{
+    font-size: rem(28);
+  }
   @media #{$media-mobile} {
     font-size: rem(26);
   }
@@ -140,6 +145,9 @@
     text-align: center;
     color: #000000;
     margin-top: 15px;
+    @media #{$media-iPad}{
+        font-size: rem(21);
+    }
     @media #{$media-mobile} {
         font-size: rem(18);
     }
@@ -212,8 +220,20 @@
             height: 170px;
         }
     }
+    @media #{$media-iPad} {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 334px;
+        > video {
+            height: 334px;
+        }
+    }
 }
 .business-section__live {
+   @media #{$media-iPad} {
+    margin-top: 350px;
+   }
    @media #{$media-mobile} {
     margin-top: 220px;
    } 
