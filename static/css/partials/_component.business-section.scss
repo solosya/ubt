@@ -223,16 +223,16 @@
     @media #{$media-iPad} {
         position: absolute;
         top: 0;
-        left: 0;
-        height: 334px;
+        left: 20px;
+        height: 350px;
         > video {
-            height: 334px;
+            height: 350px;
         }
     }
 }
 .business-section__live {
    @media #{$media-iPad} {
-    margin-top: 350px;
+    margin-top: 365px;
    }
    @media #{$media-mobile} {
     margin-top: 220px;
