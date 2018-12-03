@@ -93,11 +93,9 @@
 
         img {
             @media screen and (max-width: $mmd-break) {
-                float:left;
-                margin-right:36px;
-                margin-bottom:50px;
+                margin-bottom:10px;
             }
-            @media screen and (max-width: $sm-break) {
+            @media screen and (max-width: $sm-break-down) {
                 float:left;
                 height: 30px;
                 margin-bottom:0;
