@@ -15,7 +15,7 @@
 	{% if plan.currency | lower == 'aud' and 'Business' in plan.name %}
 		{% set aus = aus|merge([plan]) %}
 	{% endif %}
-	{% if plan.currency | lower == 'gbp' %}
+	{% if plan.currency | lower == 'gbp' and 'Business' in plan.name %}
 		{% set gbp = gbp|merge([plan]) %}
 	{% endif %}
 {% endfor %}
