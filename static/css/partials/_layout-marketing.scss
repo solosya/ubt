@@ -87,7 +87,7 @@
     .three-card {
         margin-top:55px;
         text-align:center;
-        @media screen and (max-width: $mmd-break) {
+        @media screen and (max-width: $sm-break-down) {
             text-align:left;
         }
 
