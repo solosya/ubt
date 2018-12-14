@@ -219,11 +219,14 @@
 
 .plans__uk-global {
     @media #{$media-mobile}{
+        font-family:$font-family-sans-serif;
         padding: 0 20px;
         margin: -15px 0 15px 0;
         font-size: rem(15);
         text-align: center;
         width: 100%;
         float: none;
+        font-style: italic;
+        color: rgba(0, 0, 0, 0.75);
     }
 }
