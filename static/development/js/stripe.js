@@ -155,24 +155,32 @@ if ($('#stripekey').length > 0) {
         if (!this.data['username']) {
             this.data['username'] = Math.floor(100000000 + Math.random() * 90000000000000);
         }
+        if ($("#code-redeem").length > 0){
+            modal.render("spinner", "Authorising code");
+            subscribe.data['planid'] = $('#planid').val();
+            subscribe.data['giftcode'] = $('#code-redeem').val();
 
-        modal.render("spinner", "Authorising payment");
-        stripe.createToken(card).then(function(result) {
+            formhandler(subscribe.data, '/auth/paywall-signup');
+        } else {
+            modal.render("spinner", "Authorising payment");
+            stripe.createToken(card).then(function(result) {
 
-            if (result.error) {
-                modal.closeWindow();
-                // Inform the user if there was an error
-                var errorElement = document.getElementById('card-errors');
-                errorElement.textContent = result.error.message;
-            } else {
+                if (result.error) {
+                    modal.closeWindow();
+                    // Inform the user if there was an error
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                } else {
 
-                // Send the token to your server
-                subscribe.data['stripetoken'] = result.token.id;
-                subscribe.data['planid'] = $('#planid').val();
-                formhandler(subscribe.data, '/auth/paywall-signup');
-            }
-        });    
+                    // Send the token to your server
+                    subscribe.data['stripetoken'] = result.token.id;
+                    subscribe.data['planid'] = $('#planid').val();
+                    formhandler(subscribe.data, '/auth/paywall-signup');
+                }
+            });    
+        }
     };
+
     SubscribeForm.prototype.events = function()
     {
         var self = this;
