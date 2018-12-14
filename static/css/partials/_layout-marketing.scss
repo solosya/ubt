@@ -214,4 +214,12 @@
     color: rgba(0, 0, 0, 0.75);
     float: right;
     margin-right: 30px;
+    @media #{$mobile}{
+        padding: 0 20px;
+        margin: -15px 0 15px 0;
+        font-size: rem(15);
+        text-align: center;
+        width: 100%;
+        float: none;
+    }
 }
