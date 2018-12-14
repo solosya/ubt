@@ -143,6 +143,7 @@
 				
 					{% if 'uk' in networkData.title | lower %}
 						<div  id="ui_plans" class="row">
+							<a class="visible-xs-block" href="https://www.franknews.global"><p class="plans__vat-text">Located outside the UK? Click here to sign up at franknews.global</p></a>
 							{% for plan in gbp %}
 
 								<div class="col-sm-3 subscription-card">
@@ -334,7 +335,7 @@
 					{% endif %}
 				</div>
 				{% if 'uk' in networkData.title | lower %}
-					<a class="subscribe__link" href="https://www.franknews.global"><p class="subscribe__contact">Located outside the UK? Click here to sign up at franknews.global</p></a>
+					<a class="subscribe__link" href="https://www.franknews.global"><p class="subscribe__contact visible-sm-block visible-md-block visible-lg-block">Located outside the UK? Click here to sign up at franknews.global</p></a>
 				{% endif %}
 				<a class="subscribe__link" href="mailto:hello@franknews.global"><p class="subscribe__contact"{% if 'uk' in networkData.title | lower %} style="margin-top:0;"{% endif %}>Need a tailored business package, or want to pay annually? Click here to contact us</p></a>
 
