@@ -206,3 +206,11 @@
     font-style: italic;
 
 }
+
+.plans__vat-text {
+    font-family:$font-family-sans-serif;
+    font-size: rem(17);
+    font-style: italic;
+    color: rgba(0, 0, 0, 0.75);
+    float: right;
+}

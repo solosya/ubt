@@ -132,7 +132,7 @@
 							<h1 class="marketing__section-header">Trusted sources. Global stories</h1>
 							<p class="marketing-subscriptions__description">
 								{% if 'uk' in networkData.title | lower %}
-									Choose the subscription that's right for you:<br/>All subscription prices include VAT
+									Choose the subscription that's right for you:
 								{% else %}
 									Choose the subscription that's right for you. Please select a currency to view subscription options:
 								{% endif %}
@@ -179,6 +179,7 @@
 									</div>
 								</div>
 						    {% endfor %}
+						    <p class="plans__vat-text">All subscription prices include VAT</p>
 						</div>
 					{% else %}
 						<div id="currency-select" class="currency-select u-margin-bottom-40">
@@ -332,6 +333,9 @@
 						</div>
 					{% endif %}
 				</div>
+				{% if 'uk' in networkData.title | lower %}
+					<a class="subscribe__link" href="https://www.franknews.global"><p class="subscribe__contact">Located outside the UK? Click here to sign up at franknews.global</p></a>
+				{% endif %}
 				<a class="subscribe__link" href="mailto:hello@franknews.global"><p class="subscribe__contact">Need a tailored business package, or want to pay annually? Click here to contact us</p></a>
 
 				{% if trial %}
