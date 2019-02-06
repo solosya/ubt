@@ -18,7 +18,7 @@
 
 <div id="{{owl}}" class="article-gallery owl-gallery-{{type}} {{owlClass}} {{defaultClass}}">
     {% for image in media %}
-        {% set articleImg = _Media.getMediaUrl(image,1094, 515, {'crop': 'fill', 'gravity': 'auto'} ) %}
+        {% set articleImg = _Media.getMediaUrl(image,1094, 515, {'crop': 'fill', 'gravity': 'faces:auto'} ) %}
 
             <figure class="article-gallery__image">
                 
