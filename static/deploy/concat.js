@@ -36209,9 +36209,9 @@ var adScroll = function() {
 
     $("#testimonials").owlCarousel({
         items: 1,
-        // autoplay:true,
-        // autoplaySpeed:600,
-        // autoplayTimeout:20000,
+        autoplay:true,
+        autoplaySpeed:600,
+        autoplayTimeout:20000,
         // thumbs: true,
         // thumbsPrerendered: true,
         // nav: true,
