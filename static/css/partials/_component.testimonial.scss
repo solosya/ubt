@@ -1,0 +1,23 @@
+.testimonial__carousel{
+	max-width: 1100px;
+	margin: auto;
+}
+
+.testimonial__item{
+	max-width: 1100px;
+}
+
+.testimonial__image{
+	float: left;
+}
+
+.testimonial__text{
+	font-family: $font-family-sans-serif;
+	font-size: 22px;
+	float: left;	
+}
+
+.testimonial__author{
+	font-family: $font-family-serif;
+	font-size: 22px;
+}
