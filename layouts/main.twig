@@ -55,11 +55,11 @@
 {% endif %}
 
 
-{# {% if _AppHelper.getApplicationEnv() != 'PROD'%}
+{% if _AppHelper.getApplicationEnv() != 'PROD'%}
     {% set showPaywall = true %}
     {% set layout = "layout-marketing" %}
 
-{% endif %} #}
+{% endif %}
 
 
 
@@ -104,7 +104,7 @@
 
     {% if _AppHelper.getApplicationEnv() == 'PROD'%}
 
-        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=e09bb589" type="text/css" media="all">
+        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=46203541" type="text/css" media="all">
 
     {% else %}
 
@@ -251,6 +251,14 @@
             Acme.weather_screen_view = new Acme.WeatherScreen_View({'container': $('#screenweather'), locations: locations});
         " %}
         {{this.registerJs( weatherJs )}}
+
+    {{this.registerJs("
+        if (window.location.port !== '80' && !_appJsConfig.appHostName.split(':')[2] ) {
+            console.log('fixing');
+            _appJsConfig.appHostName += ':' + window.location.port;
+        }
+        console.log(_appJsConfig.appHostName);
+    ") }}
 
 
     {% endif %}
