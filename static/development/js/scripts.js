@@ -178,6 +178,7 @@ var adScroll = function() {
         navText: ["",""]
     });   
 
+    console.log('loading owl');
     $("#testimonials").owlCarousel({
         items: 1,
         autoplay:true,
