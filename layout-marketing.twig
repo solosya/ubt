@@ -407,16 +407,25 @@
 						</div>
 					{% endif %}
 				</div>
-				{% if 'uk' in networkData.title | lower %}
-					<a class="subscribe__link" href="https://www.franknews.global"><p class="subscribe__contact visible-sm-block visible-md-block visible-lg-block">Located outside the UK? Click here to sign up at franknews.global</p></a>
-				{% endif %}
-				<a class="subscribe__link" href="mailto:hello@franknews.global"><p class="subscribe__contact"{% if 'uk' in networkData.title | lower %} style="margin-top:0;"{% endif %}>Need a tailored business package, or want to pay annually? Click here to contact us</p></a>
 
 				{% if trial %}
 					<p class="subscribe__payment-info">Please note: Your payment method will be charged at the end of the 14-day free trial period unless cancelled prior.</p>
+					<br />
 				{% endif %}
 
-			
+				<a class="subscribe__link" href="mailto:hello@franknews.global"><p class="subscribe__contact">Need a tailored business package, or want to pay annually? <b style="color:blue;">Click here</b> to contact the frank team</p></a>
+
+				<br />
+
+				<a class="subscribe__link" href="mailto:hello@franknews.global"><p class="subscribe__contact" style="margin-top:0;">Do you have a further question or need support on your existing account? <b style="color:blue;">Click here</b> to contact the frank team</p></a>
+
+				<br />
+
+				{% if 'uk' in networkData.title | lower %}
+					<br />
+
+					<a class="subscribe__link" href="https://www.franknews.global" style="margin-top:0;"><p class="subscribe__contact visible-sm-block visible-md-block visible-lg-block">Located outside the UK? <b style="color:blue;">Click here</b> to sign up at franknews.global</p></a>
+				{% endif %}
 
 			</section>
 		{% endif %}
