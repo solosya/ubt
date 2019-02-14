@@ -55,11 +55,11 @@
 {% endif %}
 
 
-{% if _AppHelper.getApplicationEnv() != 'PROD'%}
+{# {% if _AppHelper.getApplicationEnv() != 'PROD'%}
     {% set showPaywall = true %}
     {% set layout = "layout-marketing" %}
 
-{% endif %}
+{% endif %} #}
 
 
 
@@ -104,7 +104,7 @@
 
     {% if _AppHelper.getApplicationEnv() == 'PROD'%}
 
-        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=46203541" type="text/css" media="all">
+        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=33118ffc_46203541" type="text/css" media="all">
 
     {% else %}
 
