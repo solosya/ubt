@@ -21,6 +21,8 @@
                     top: 50px;
 
                     > time {
+                        margin-left: 0;
+                        padding-left: 0;
                         &:before {
                             content: 'Updated ';
                             text-transform: uppercase;

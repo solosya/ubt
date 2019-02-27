@@ -27,6 +27,11 @@
 {% if article.status is defined and article.status == "draft" %}
     {% set articleStatus = article.status %}
 {% endif %}
+{% if dateHide is defined %}
+    {% set hideDate = dateHide %}
+{% else %}
+    {% set hideDate = false %}
+{% endif %}
 
 
 
@@ -61,7 +66,8 @@
         publishDate:     publishDate,
         articleTitle:    articleTitle,
         profileImg:      _Media.getMediaUrl(article.createdBy['media'], 34, 34, {radius: 'max', gravity: 'face', 'crop': 'thumb', type: 'user'}),
-        imageSuppress:   imageSuppress
+        imageSuppress:   imageSuppress,
+        hideDate : hideDate
     } %}
 
 
@@ -192,9 +198,7 @@
 
                 <div class="content">
                     <div class="category {{social.source}}">{{social.source}}</div>
-                    
-                    <time datetime="{{_AppHelper.getDefaultTimezoneDateTime(social.publishDateTime, 'Ymd H:i:s')}}">{{_AppHelper.getDefaultTimezoneDateTime(social.publishDateTime, 'F d, g:ia')}}</time>
-
+                        <time datetime="{{_AppHelper.getDefaultTimezoneDateTime(social.publishDateTime, 'Ymd H:i:s')}}">{{_AppHelper.getDefaultTimezoneDateTime(social.publishDateTime, 'F d, g:ia')}}</time>
                     <p id="updateSocial{{article.socialId}}" data-update="0">
                         {{ quotes.smarten(social.content  | raw) }}
                     </p>

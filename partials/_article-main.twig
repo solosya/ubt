@@ -14,7 +14,7 @@
 <div class="content">
     <div class="cat-time">
         <p class="category">{{article.label}}</p
-        ><time datetime="{{params.publishDate}}">{{params.publishDate}}</time>
+        >{% if hideDate == false %}<time datetime="{{params.publishDate}}">{{params.publishDate}}</time>{% endif %}
     </div>
 
     <h2>{{ params.articleTitle }}</h2>

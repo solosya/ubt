@@ -10,6 +10,7 @@
 {% set articlesArr  = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles     = articlesArr.articles %}
 {% set firstCount = articles | length %}
+{% set dateHide = true %}
 
                                                      {# renders the card    fetch-limit      fetch-offset    infinite scroll #}
                                                      {#            ↑             ↑                 ↑            ↑            #}
@@ -46,7 +47,8 @@
                         article: articles[articleCount], 
                         position: (articleCount+1),
                         imageSize: {width: 640, height: 309},
-                        containerClass: 'card-main-2col card-main-2col-tablet card-main-2col-mobile'
+                        containerClass: 'card-main-2col card-main-2col-tablet card-main-2col-mobile',
+                        dateHide: dateHide
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 {% endif %}
@@ -57,7 +59,8 @@
                         article: articles[articleCount], 
                         position: (articleCount+1),
                         imageSize: {width: 200, height: 140},
-                        containerClass: 'card-rec card-rec-tablet card-rec-mobile'
+                        containerClass: 'card-rec card-rec-tablet card-rec-mobile',
+                        dateHide: dateHide
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 {% endfor %}
@@ -75,7 +78,8 @@
                         container       : "mainAjaxArticles",
                         non_pinned      : articlesArr.existingNonPinnedCount, 
                         card_class      : "col-sm-12 card-rec card-rec-tablet card-rec-mobile no-padding",
-                        buttonClass     : "infinite"
+                        buttonClass     : "infinite",
+                        dateHide: dateHide
                     }) | raw }}
                 {% endif %}
 
@@ -103,7 +107,8 @@
                         position: (articleCount+1),
                         imageSuppress: images[i],
                         imageSize: {width: 300, height: 185},
-                        containerClass: classes[i]
+                        containerClass: classes[i],
+                        dateHide: dateHide
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 {% endfor %}
