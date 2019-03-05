@@ -190,7 +190,9 @@
                     <div class="row">
 
                         <div class="col-sm-12 col-md-4 trusted">
-                            <h2>TRUSTED SOURCES. GLOBAL STORIES. {{user.groups}}s {{user.group}}a</h2>
+                            {% set groups = _User.getUserGroups %}
+                            <h2>TRUSTED SOURCES. GLOBAL STORIES. {{groups}}s</h2>
+                            }
                         </div>
 
                         <nav class="col-md-8 sb-custom-menu">
@@ -202,7 +204,7 @@
 
                                     {% set menuItems = headermenu %}
                                     {% for parentItem in menuItems  %}
-                                        {% if  parentItem.blogTitle | lower != "community" or "Students" not in user.groups %}
+                                        {% if  parentItem.blogTitle | lower != "community" or "Students" not in groups %}
 
                                        {% set activeClass = (parentItem.link == _AppHelper.getServerUrl()) ? 'active' : ''%}
                                        {% set externalClass = (parentItem.isExternal) ? 'external-link' : '' %}
