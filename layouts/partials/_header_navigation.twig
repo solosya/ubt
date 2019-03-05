@@ -191,8 +191,8 @@
 
                         <div class="col-sm-12 col-md-4 trusted">
                             {% set groups = _User.getUserGroups %}
-                            <h2>TRUSTED SOURCES. GLOBAL STORIES. {{groups}}s</h2>
-                            }
+                            <h2>TRUSTED SOURCES. GLOBAL STORIES. {{groups[0]}}a</h2>
+                            
                         </div>
 
                         <nav class="col-md-8 sb-custom-menu">
@@ -204,7 +204,7 @@
 
                                     {% set menuItems = headermenu %}
                                     {% for parentItem in menuItems  %}
-                                        {% if  parentItem.blogTitle | lower != "community" or "Students" not in groups %}
+                                        {% if  parentItem.blogTitle | lower != "community" or not groups['students'] %}
 
                                        {% set activeClass = (parentItem.link == _AppHelper.getServerUrl()) ? 'active' : ''%}
                                        {% set externalClass = (parentItem.isExternal) ? 'external-link' : '' %}
