@@ -64,9 +64,6 @@
 
 
 
-
-
-
     <div id="mainHeader" class="site-header-main header__navigation showOnScroll">
         
         <div class="container-fluid">
@@ -205,6 +202,7 @@
 
                                     {% set menuItems = headermenu %}
                                     {% for parentItem in menuItems  %}
+                                        {% if  parentItem.blogTitle | lower != "community" and "Students" in user.groups %}
 
                                        {% set activeClass = (parentItem.link == _AppHelper.getServerUrl()) ? 'active' : ''%}
                                        {% set externalClass = (parentItem.isExternal) ? 'external-link' : '' %}
@@ -223,6 +221,7 @@
                                                 {% endif %}
                                             </a>
                                         </li>
+                                    {% endif %}
 
                                     {% endfor %}
                                 {% endif %}

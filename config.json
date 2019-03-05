@@ -132,19 +132,6 @@
     				}
     			}
             ]
-        },
-        "user" : {
-            "extendedAttributes": [
-                {
-                    "label": "School User",
-                    "type": "radio",
-                    "name": "schooluser",
-                    "options": {
-                        "on": "on",
-                        "off": "off"
-                    }
-                }
-            ]
         }
     }
 }
