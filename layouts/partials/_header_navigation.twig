@@ -190,8 +190,8 @@
                     <div class="row">
 
                         <div class="col-sm-12 col-md-4 trusted">
-                            {% set groups = _User.getUserGroups %}
-                            <h2>TRUSTED SOURCES. GLOBAL STORIES. {{groups[0]}}a</h2>
+                            {% set groups = _User.getUserGroups() %}
+                            <h2>TRUSTED SOURCES. GLOBAL STORIES. {{groups}}s</h2>
                             
                         </div>
 
