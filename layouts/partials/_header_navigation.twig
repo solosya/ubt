@@ -190,8 +190,9 @@
                     <div class="row">
 
                         <div class="col-sm-12 col-md-4 trusted">
-                            {% set groups = _User.getUserGroups() %}
-                            <h2>TRUSTED SOURCES. GLOBAL STORIES. {{groups[0]}}a</h2>
+
+                                
+                            <h2>TRUSTED SOURCES. GLOBAL STORIES.</h2>
                             
                         </div>
 
@@ -201,10 +202,11 @@
 
                                 <ul id="menu-primary-menu" class="menu">
                                 {% if not _User.isGuest() %}
-
+                                    
+                                    
                                     {% set menuItems = headermenu %}
                                     {% for parentItem in menuItems  %}
-                                        {% if  parentItem.blogTitle | lower != "community" or not groups['students'] %}
+                                        {% if  parentItem.blogTitle | lower != "community" or 'test' not in userData['name'] %}
 
                                        {% set activeClass = (parentItem.link == _AppHelper.getServerUrl()) ? 'active' : ''%}
                                        {% set externalClass = (parentItem.isExternal) ? 'external-link' : '' %}
@@ -226,6 +228,7 @@
                                     {% endif %}
 
                                     {% endfor %}
+                                   
                                 {% endif %}
                                 </ul>
                             </div>
@@ -242,6 +245,7 @@
             </div>
         {% endif %}
     </div>
+    <h2>{{dump(groups)}}</h2>
 </header>
 
 
