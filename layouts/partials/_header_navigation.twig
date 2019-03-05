@@ -202,7 +202,7 @@
 
                                     {% set menuItems = headermenu %}
                                     {% for parentItem in menuItems  %}
-                                        {% if  parentItem.blogTitle | lower != "community" and "Students" in user.groups %}
+                                        {% if  parentItem.blogTitle | lower != "community" or "Students" not in user.groups %}
 
                                        {% set activeClass = (parentItem.link == _AppHelper.getServerUrl()) ? 'active' : ''%}
                                        {% set externalClass = (parentItem.isExternal) ? 'external-link' : '' %}
