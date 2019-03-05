@@ -192,7 +192,7 @@
                         <div class="col-sm-12 col-md-4 trusted">
 
                                 
-                            <h2>TRUSTED SOURCES. GLOBAL STORIES.</h2>
+                            <h2>TRUSTED SOURCES. GLOBAL STORIES. {{userData.name}}</h2>
                             
                         </div>
 
@@ -206,26 +206,26 @@
                                     
                                     {% set menuItems = headermenu %}
                                     {% for parentItem in menuItems  %}
-                                        {% if  parentItem.blogTitle | lower != "community" or 'test' not in userData['name'] %}
+                                        {% if  parentItem.blogTitle | lower != "community" or 'test' not in userData.name %}
 
-                                       {% set activeClass = (parentItem.link == _AppHelper.getServerUrl()) ? 'active' : ''%}
-                                       {% set externalClass = (parentItem.isExternal) ? 'external-link' : '' %}
+                                           {% set activeClass = (parentItem.link == _AppHelper.getServerUrl()) ? 'active' : ''%}
+                                           {% set externalClass = (parentItem.isExternal) ? 'external-link' : '' %}
 
-                                       <li>
-                                            <a href="{{parentItem.link |raw}}" class="{{activeClass}} {{externalClass}}" {% if parentItem.target != "" %}target="{{parentItem.target}}"{% endif %}>
-                                                {% if parentItem.label != "" %}
-                                                    {{parentItem.label | upper}}
-                                                {% elseif parentItem.blogTitle != "" %}
-                                                    {{parentItem.blogTitle | upper}}
-                                                {% elseif parentItem.pageTitle != "" %}
-                                                    {{parentItem.pageTitle | upper}}
-                                                {% endif %}
-                                                {% if parentItem.children is defined and parentItem.children | length > 0 %}
-                                                    <span class=""></span>
-                                                {% endif %}
-                                            </a>
-                                        </li>
-                                    {% endif %}
+                                           <li>
+                                                <a href="{{parentItem.link |raw}}" class="{{activeClass}} {{externalClass}}" {% if parentItem.target != "" %}target="{{parentItem.target}}"{% endif %}>
+                                                    {% if parentItem.label != "" %}
+                                                        {{parentItem.label | upper}}
+                                                    {% elseif parentItem.blogTitle != "" %}
+                                                        {{parentItem.blogTitle | upper}}
+                                                    {% elseif parentItem.pageTitle != "" %}
+                                                        {{parentItem.pageTitle | upper}}
+                                                    {% endif %}
+                                                    {% if parentItem.children is defined and parentItem.children | length > 0 %}
+                                                        <span class=""></span>
+                                                    {% endif %}
+                                                </a>
+                                            </li>
+                                        {% endif %}
 
                                     {% endfor %}
                                    
