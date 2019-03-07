@@ -38,6 +38,7 @@
 {% if   not _User.isAdminUser()                                             and
         blogName  | lower               != "subscribe"                      and
         blogName  | lower               != "business subscriptions"         and
+        blogName  | lower               != "school subscriptions"           and
         blogName  | lower               != 'screen'                         and 
         pageClass | lower               != 'page page-terms-of-use'         and 
         pageClass | lower               != 'page page-faq'                  and 
