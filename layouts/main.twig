@@ -104,7 +104,7 @@
 
     {% if _AppHelper.getApplicationEnv() == 'PROD'%}
 
-        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=iiiiiiii_55555555" type="text/css" media="all">
+        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=3b094022_46203541" type="text/css" media="all">
 
     {% else %}
 
@@ -252,6 +252,9 @@
         " %}
         {{this.registerJs( weatherJs )}}
 
+    {% endif %}
+
+
     {{this.registerJs("
         if (window.location.port !== '80' && !_appJsConfig.appHostName.split(':')[2] ) {
             console.log('fixing');
@@ -261,7 +264,6 @@
     ") }}
 
 
-    {% endif %}
 
 
 

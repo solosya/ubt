@@ -37155,10 +37155,12 @@ Acme.UserProfileController.prototype.events = function ()
             }
             
             $('#user-editor-buttons').addClass('spinner');
-
+            console.log(_appJsConfig.appHostName);
+            console.log(_appJsConfig.baseHttpPath);
+            
             $.ajax({
                 type: 'post',
-                url: _appJsConfig.baseHttpPath + '/user/create-paywall-managed-user',
+                url: _appJsConfig.appHostName + '/user/create-paywall-managed-user',
                 dataType: 'json',
                 data: requestData,
                 success: function (data, textStatus, jqXHR) {

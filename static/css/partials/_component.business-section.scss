@@ -1,15 +1,6 @@
 .business-section__hero {
     height:566px;
     margin-bottom:70px;
-    // background:yellow;
-    // background-image: linear-gradient(to left, rgba(0, 0, 0, 0.0), #000000), url('../images/market-hand_crop.png');
-    // background-image: linear-gradient(to left, rgba(0, 45, 86, 0.0), #193046), url('../images/market-hand_crop.png');
-    background-image: linear-gradient(to right, #193046 17%, rgba(0, 0, 0, 0.0) 100%) , url('../images/business-hero.png');
-
-    // background: url('../images/market-hand.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: right;
 
     @media screen and (max-width: $mmd-break-down) {
         height:400px;
@@ -95,6 +86,21 @@
         }
     }
 }
+
+.business-section__hero-image {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+.business-section__hero-image--business {
+    background-image: linear-gradient(to right, #193046 17%, rgba(0, 0, 0, 0.0) 100%) , url('../images/business-hero.png');
+}
+
+.business-section__hero-image--school {
+    background-image: linear-gradient(to right, #193046 17%, rgba(0, 0, 0, 0.0) 100%) , url('../images/school-hero.jpg');
+}
+
 
 .business-section__benefits {
     font-family: $font-family-serif;
