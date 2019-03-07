@@ -9,13 +9,13 @@
 
 {# separate plans by currency #}
 {% for plan in plans %}
-	{% if plan.currency | lower == 'usd' and 'Business' in plan.name %}
+	{% if plan.currency | lower == 'usd' and 'School' in plan.name %}
 		{% set usd = usd|merge([plan]) %}
 	{% endif %}
-	{% if plan.currency | lower == 'aud' and 'Business' in plan.name %}
+	{% if plan.currency | lower == 'aud' and 'School' in plan.name %}
 		{% set aus = aus|merge([plan]) %}
 	{% endif %}
-	{% if plan.currency | lower == 'gbp' and 'Business' in plan.name %}
+	{% if plan.currency | lower == 'gbp' and 'School' in plan.name %}
 		{% set gbp = gbp|merge([plan]) %}
 	{% endif %}
 {% endfor %}
@@ -48,14 +48,14 @@
 		</section>
 	</div>
 
-	<section class="business-section__hero business-section__hero-image business-section__hero-image--business">
+	<section class="business-section__hero  business-section__hero-image business-section__hero-image--school">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="content">
 
-						<h1>Business subscriptions</h1>
-						<p class="">frank offers a range of <br class="visible-xs-block" />business packages to suit <br class="visible-xs-block" />your company's needs.</p>
+						<h1>School subscriptions</h1>
+						<p class="">frank news is ideal for <br class="visible-xs-block" />schools looking for a live <br class="visible-xs-block" />news solution for their current affairs teaching.</p>
 
 						{% if _User.isGuest() %}
 							<a id="" href="#subscriptions" class="_btn">SUBSCRIBE NOW</a>
@@ -70,7 +70,7 @@
 
 		<section class="row">
 			<div class="col-sm-12">
-				<h1 class="business-section__benefits">We partner with trusted agencies around the world, delivering quality news to you and your staff.</h1>
+				<h1 class="business-section__benefits">We partner with trusted agencies around the world, delivering quality news to you and your students.</h1>
 			</div>
 		</section>
 	</div>
@@ -81,14 +81,14 @@
 		<div class="container-fluid">
 
 			<div class="col-sm-12 u-mobile-no-padding">
-				<h1 class="business-section__header">Benefits of a <br class="visible-xs-block" />business package</h1>
-				<p class="business-section__itals">Your time is valuable. <br class="visible-xs-block" />Our business subscriptions provide <br class="visible-xs-block" />the most relevant news to you <br class="visible-xs-block" />and your staff.</p>
+				<h1 class="business-section__header">Benefits of a <br class="visible-xs-block" />frank school package</h1>
+				<p class="business-section__itals">Our news service is paywall protected and curated around the clock by experienced subeditors. We understand what's important to the community and appropriate for students.</p>
 			</div>
 			<div class="u-desktop-margin-top-60 col-sm-12 u-mobile-no-padding">
 				<div class="col-sm-12 col-md-3 business-section__live">
 					<h2 class="business-section__subhead">LIVE SCREEN</h2>
-					<p class="business-section__headtext">Live screen newsfeed for your reception area </p>
-					<p class="business-section__text">The live screen is a great addition to any place of business. A rolling feed of major news stories and images can be broadcast on your big screens 24 hours a day, keeping your customers engaged, informed and impressed.</p>
+					<p class="business-section__headtext">Live screen newsfeed for your school's reception area </p>
+					<p class="business-section__text">The live screen is a great addition to any communal or public-facing areas of your school. A rolling feed of major news stories and images can be broadcast on your big screens 24 hours a day, keeping your students, staff and visitors engaged and informed.</p>
 				</div>
 				<div class="col-sm-8 centerContent business-section__video">
 					<video autoplay="" loop="" controls="" class="o" poster="https://res.cloudinary.com/cognitives/image/upload/c_fill,dpr_auto,f_auto,fl_lossy,g_face,h_1280,q_auto,w_2288/oi1d0n8v9duznu9z3wxh" style="max-height:500px;">
@@ -103,23 +103,30 @@
 				<div class="col-sm-6 col-md-offset-1 col-md-3 visible-xs-block visible-lg-block visible-md-block">
 					<h2 class="business-section__subhead">FRANK ANALYSIS</h2>
 					<p class="business-section__headtext">Print out the newsletter for your staff room</p>
-					<p class="business-section__text">The frank analysis daily newsletter is a publication of the highest standard, with only the most important stories carefully selected for relevance to the community. </p>
+					<p class="business-section__text">The frank analysis newsletter is a daily publication of the highest standard, with only the most important stories carefully selected for relevance to its audience. The newsletter is also emailed to all students and staff daily.</p>
 				
 				</div>
 				<div class="col-sm-6 col-md-2">
-					<img class="business-section__listings" src="{{networkData.templatePath}}/static/images/business-listings.png?v=1"></img>
+					<img class="business-section__listings" src="{{networkData.templatePath}}/static/images/managed-users.png"></img>
 				
 				</div>
 				<div class="col-sm-6 col-md-offset-1 col-md-3 visible-sm-block u-tablet-margin-top-30">
 					<h2 class="business-section__subhead">FRANK ANALYSIS</h2>
 					<p class="business-section__headtext">Print out the newsletter for your staff room</p>
-					<p class="business-section__text">The frank analysis daily newsletter is a publication of the highest standard, with only the most important stories carefully selected for relevance to the community. </p>
+					<p class="business-section__text">The frank analysis newsletter is a daily publication of the highest standard, with only the most important stories carefully selected for relevance to its audience. The newsletter is also emailed to all students and staff daily.</p>
 				
 				</div>
+
+				{# <div class="col-sm-6 col-md-offset-1 col-md-3 visible-sm-block u-tablet-margin-top-30">
+					<h2 class="business-section__subhead">MANAGED USERS</h2>
+					<p class="business-section__headtext">Every student and staff member gets their own frank login</p>
+					<p class="business-section__text">Users can access frank at school and at home during school months. With staff and students coming and going each year, it's easy for admins to manage the paywall access list.</p>
+				</div> #}
+
 				<div class="col-sm-6 col-md-offset-1 col-md-3 u-tablet-margin-top-30">
-					<h2 class="business-section__subhead">LISTINGS</h2>
-					<p class="business-section__headtext">Create and search property or job listings</p>
-					<p class="business-section__text">Post your job or property advertisement to the Community section of the website for exposure to a trusted audience.</p>
+					<h2 class="business-section__subhead">MANAGED USERS</h2>
+					<p class="business-section__headtext">Every student and staff member gets their own frank login</p>
+					<p class="business-section__text">Users can access frank at school and at home during school months. With staff and students coming and going each year, it's easy for admins to manage the paywall access list.</p>
 				
 				</div>
 			</div>
