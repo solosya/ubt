@@ -9,6 +9,13 @@
 
 {{this.registerJs("CardController();")}}
 
+{% set userData = []  %}
+{% if not _User.isGuest() %}
+
+    {% set userData = _User.getPaywallStats(false)  %}
+
+{% endif %}
+
 
 
 {% set limit = 15 %}
@@ -111,7 +118,11 @@
 
 
 {# First set a common order then add site order to beginning #}
-{% set sectionOrder = ["world", "videos", "community"] %}
+{% if 'School' not in userData.name %}
+    {% set sectionOrder = ["world", "videos", "community"] %}
+{% else %}
+    {% set sectionOrder = ["world", "videos"] %}
+{% endif %}
 
 {% if blogNetworkNameIs == 'frank uk' %}
 
