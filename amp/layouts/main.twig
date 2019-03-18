@@ -1,5 +1,20 @@
 {% set networkData = _Network.getNetworkData() %}
 {% set blogData = _Blog.getBlog() %}
+
+
+{% if not _User.isAdminUser() and blogData['showPaywall'] == true %}
+
+    {% set redir = _Page.setHttpRedirects(
+        {
+            '|^/.*|': 'https://www.franknews.global',
+        }, false) 
+    %}
+
+{% endif %}
+
+
+
+
 {{ this.beginPage() }}
 <!doctype html>
 <html amp lang="en">
@@ -124,6 +139,7 @@
     <body>
         {{ this.beginBody() }}
         {{ this.render('partials/_header.twig', {network: networkData, blogData: blogData}) | raw }}
+        
         <main id="content" role="main">
             {{ content | raw}}
         </main>
