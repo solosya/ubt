@@ -34,15 +34,6 @@
     %}
 {% endif %}
 
-{% if 'article' not in pageClass and 'School' in userData.name %}
-    {% set redir = _Page.setHttpRedirects(
-        {
-            '|^/@community.*|': networkData.defaultBlogUrl,
-        }, true) 
-    %}
-{% endif %}
-
-
 {% set showPaywall = false %}
 {% set url = _AppHelper.getParsedUrl().path %}
 

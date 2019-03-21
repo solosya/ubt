@@ -25,6 +25,12 @@
     }
 %}
 
+{% set userData = []  %}
+{% if not _User.isGuest() %}
+
+    {% set userData = _User.getPaywallStats(false)  %}
+
+{% endif %}
 
 {% for key, value in sections %}
     {% for blog in networkData.networkBlogs %}
@@ -44,6 +50,8 @@
 
 
 
+{% if 'School' not in userData.name %}
+    
 
 <!-- used to index each article as we loop over throughout the template -->
 {% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
@@ -453,3 +461,5 @@
 
 
     </main><!-- .site-main -->
+
+{% endif %}
