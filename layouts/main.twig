@@ -76,13 +76,6 @@
 
 {% endif %} #}
 
-{% set userData = []  %}
-{% if not _User.isGuest() %}
-
-    {% set userData = _User.getPaywallStats(false)  %}
-
-{% endif %}
-
 
 
 

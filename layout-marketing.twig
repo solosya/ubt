@@ -8,13 +8,13 @@
 
 {# separate plans by currency #}
 {% for plan in plans %}
-	{% if plan.currency | lower == 'usd' %}
+	{% if plan.currency | lower == 'usd' and 'School' not in plan.name %}
 		{% set usd = usd|merge([plan]) %}
 	{% endif %}
-	{% if plan.currency | lower == 'aud' %}
+	{% if plan.currency | lower == 'aud' and 'School' not in plan.name %}
 		{% set aus = aus|merge([plan]) %}
 	{% endif %}
-	{% if plan.currency | lower == 'gbp' %}
+	{% if plan.currency | lower == 'gbp' and 'School' not in plan.name %}
 		{% set gbp = gbp|merge([plan]) %}
 	{% endif %}
 {% endfor %}
