@@ -107,22 +107,22 @@
                                     {% if not _User.isGuest() %}
                                         {% set menuItems = headermenu %}
                                         {% for parentItem in menuItems  %}
+                                            {% if  parentItem.blogTitle | lower != "community" or 'School' not in userData.name %}
+                                                {% set activeClass = (parentItem.link == _AppHelper.getServerUrl()) ? 'active' : ''%}
+                                                {% set externalClass = (parentItem.isExternal) ? 'external-link' : '' %}
 
-                                            {% set activeClass = (parentItem.link == _AppHelper.getServerUrl()) ? 'active' : ''%}
-                                            {% set externalClass = (parentItem.isExternal) ? 'external-link' : '' %}
-
-                                            <li>
-                                                <a href="{{parentItem.link |raw}}" class="{{activeClass}} {{externalClass}}" {% if parentItem.target != "" %}target="{{parentItem.target}}"{% endif %}>
-                                                    {% if parentItem.label != "" %}
-                                                        {{parentItem.label}}
-                                                    {% elseif parentItem.blogTitle != "" %}
-                                                        {{parentItem.blogTitle}}
-                                                    {% elseif parentItem.pageTitle != "" %}
-                                                        {{parentItem.pageTitle}}
-                                                    {% endif %}
-                                                </a>
-                                            </li>
-
+                                                <li>
+                                                    <a href="{{parentItem.link |raw}}" class="{{activeClass}} {{externalClass}}" {% if parentItem.target != "" %}target="{{parentItem.target}}"{% endif %}>
+                                                        {% if parentItem.label != "" %}
+                                                            {{parentItem.label}}
+                                                        {% elseif parentItem.blogTitle != "" %}
+                                                            {{parentItem.blogTitle}}
+                                                        {% elseif parentItem.pageTitle != "" %}
+                                                            {{parentItem.pageTitle}}
+                                                        {% endif %}
+                                                    </a>
+                                                </li>
+                                            {% endif %}
                                         {% endfor %}
                                         <li class=""><a href="{{networkData.defaultBlogUrl}}/user/edit-profile">My Account</a></li>
                                         <li class=""><a href="{{_AppHelper.getLogoffUrl()}}">Sign out</a></li>
@@ -206,7 +206,7 @@
                                     
                                     {% set menuItems = headermenu %}
                                     {% for parentItem in menuItems  %}
-                                        {% if  parentItem.blogTitle | lower != "community" or 'test' not in userData.name %}
+                                        {% if  parentItem.blogTitle | lower != "community" or 'School' not in userData.name %}
 
                                            {% set activeClass = (parentItem.link == _AppHelper.getServerUrl()) ? 'active' : ''%}
                                            {% set externalClass = (parentItem.isExternal) ? 'external-link' : '' %}

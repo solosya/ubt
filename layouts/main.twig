@@ -13,6 +13,13 @@
 {% set layout        = _Page.getLayoutName() %}
 {% set site          = networkData.title | lower %}
 
+{% set userData = []  %}
+{% if not _User.isGuest() %}
+
+    {% set userData = _User.getPaywallStats(false)  %}
+
+{% endif %}
+
 {% if 'article' not in pageClass and 'screen' not in layout and (site == 'frank australia' or site == 'frank nz')  %}
     {% set redir = _Page.setHttpRedirects(
         {
@@ -25,6 +32,13 @@
             '|^/.*|': 'https://www.franknews.global',
         }, true) 
     %}
+    {% if 'School' in userData.name %}
+        {% set redir = _Page.setHttpRedirects(
+            {
+                '|^/@community.*|': networkData.defaultBlogUrl,
+            }, true) 
+        %}
+    {% endif %}
 {% endif %}
 
 
@@ -61,6 +75,13 @@
     {% set layout = "layout-marketing" %}
 
 {% endif %} #}
+
+{% set userData = []  %}
+{% if not _User.isGuest() %}
+
+    {% set userData = _User.getPaywallStats(false)  %}
+
+{% endif %}
 
 
 
