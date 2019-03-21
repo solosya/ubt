@@ -13,7 +13,12 @@
     {% set articleImg = true %}
 {% endif %}
 
+{% set userData = []  %}
+{% if not _User.isGuest() %}
 
+    {% set userData = _User.getPaywallStats(false)  %}
+
+{% endif %}
 
 {% set profileImg = false %}
 {% if article.createdBy['media'] is defined and article.createdBy['media']['path'] and article.createdBy['displayName'] != "AAP Newswire" %}
@@ -198,21 +203,21 @@
                                 <script>loadNextAd(invSpace,'blockAd1','mRec',mRecSize,mRecMap);</script>
                             </div>
 
+                            {% if article.label | lower != 'community' or 'School' not in userData.name %}
+                                <h2>POPULAR ARTICLES</h2>
 
-                            <h2>POPULAR ARTICLES</h2>
+                                
+                                {% set suggestCount = 0 %}
 
-                            
-                            {% set suggestCount = 0 %}
-
-                            {% for i in 0..2 if suggestedArticles[suggestCount] %}
-                                {{this.render('partials/_single-article.twig', {
-                                    article: suggestedArticles[suggestCount], 
-                                    imageSize: {width: 75, height: 63},
-                                    containerClass: 'card-article-suggested'
-                                }) | raw}}
-                                {% set suggestCount = (dev) ? suggestCount : suggestCount + 1 %}
-                            {% endfor %}
-
+                                {% for i in 0..2 if suggestedArticles[suggestCount] %}
+                                    {{this.render('partials/_single-article.twig', {
+                                        article: suggestedArticles[suggestCount], 
+                                        imageSize: {width: 75, height: 63},
+                                        containerClass: 'card-article-suggested'
+                                    }) | raw}}
+                                    {% set suggestCount = (dev) ? suggestCount : suggestCount + 1 %}
+                                {% endfor %}
+                            {% endif %}
 {#                             {% if suggestedArticles[suggestCount] %}
                                 {{this.render('partials/_single-article.twig', {
                                     article: suggestedArticles[suggestCount], 
@@ -233,26 +238,27 @@
             <section class="row">
                 <div class="advert banner">
                     <div id='banerAd2'></div>
-                    <script>loadNextAd(invSpace,'banerAd2','bannerad',bannerSize,bannerMap)</script>
+                    <script>loadNextAd(invSpace,'banerAd2','bannerad',bannerSize,bannerMap);</script>
                 </div>
             </section>
-
-            <div class="row related-articles">
-                <div class="col-md-12">
-                    <h1>POPULAR ARTICLES</h1>
-                </div>
-
-                {% for i in 0..2 if popularArticles[i] %}
-                    <div class="col-md-4">
-                        {{this.render('partials/_single-article.twig', {
-                            article: popularArticles[i], 
-                            imageSize: {width: 300, height: 180},
-                            containerClass: 'card-sm card-sm-mobile'
-                        }) | raw}}
+            {% if article.label | lower != 'community' or 'School' not in userData.name %}
+                <div class="row related-articles">
+                    <div class="col-md-12">
+                        <h1>POPULAR ARTICLES</h1>
                     </div>
-                {% endfor %}
 
-            </div>
+                    {% for i in 0..2 if popularArticles[i] %}
+                        <div class="col-md-4">
+                            {{this.render('partials/_single-article.twig', {
+                                article: popularArticles[i], 
+                                imageSize: {width: 300, height: 180},
+                                containerClass: 'card-sm card-sm-mobile'
+                            }) | raw}}
+                        </div>
+                    {% endfor %}
+
+                </div>
+            {% endif %}
 
 
     </article>
