@@ -32,15 +32,15 @@
             '|^/.*|': 'https://www.franknews.global',
         }, true) 
     %}
-    {% if 'School' in userData.name %}
-        {% set redir = _Page.setHttpRedirects(
-            {
-                '|^/@community.*|': networkData.defaultBlogUrl,
-            }, true) 
-        %}
-    {% endif %}
 {% endif %}
 
+{% if 'School' in userData.name %}
+    {% set redir = _Page.setHttpRedirects(
+        {
+            '|^/@community.*|': networkData.defaultBlogUrl,
+        }, true) 
+    %}
+{% endif %}
 
 
 {% set showPaywall = false %}
