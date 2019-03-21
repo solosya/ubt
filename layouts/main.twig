@@ -34,7 +34,7 @@
     %}
 {% endif %}
 
-{% if 'School' in userData.name %}
+{% if 'article' not in pageClass and 'School' in userData.name %}
     {% set redir = _Page.setHttpRedirects(
         {
             '|^/@community.*|': networkData.defaultBlogUrl,
