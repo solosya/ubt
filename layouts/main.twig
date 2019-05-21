@@ -195,6 +195,7 @@
     {{ this.render('partials/_header_navigation.twig', {
         networkData : networkData, 
         pageClass   : blogName,
+        userData   : userData,
     }) | raw }}
 
     
@@ -219,6 +220,7 @@
     {{ this.render('partials/footer.twig', {
         networkData : networkData, 
         pageClass   : blogName,
+        userData   : userData,
     }) | raw }}
 
 
