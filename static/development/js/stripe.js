@@ -69,8 +69,7 @@ if ($('#stripekey').length > 0) {
             "country_id"    : ['notEmpty'],
             "terms"         : ["isTrue"],
             "postcode"      : ["notEmpty"],
-            "city"          : ["notEmpty"],
-            "countrySelect" : ["notEmpty"],
+            "city"          : ["notEmpty"]
         };
 
         this.validateFields = Object.keys(this.validateRules);
