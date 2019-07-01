@@ -36578,11 +36578,13 @@ if ($('#stripekey').length > 0) {
             "firstname"     : ["notEmpty"], 
             "lastname"      : ["notEmpty"], 
             "email"         : ["notEmpty"],
-            // "address1"      : ["notEmpty"],
+            "address1"      : ["notEmpty"],
             "trial"         : [],
             "country_id"    : ['notEmpty'],
             "terms"         : ["isTrue"],
-            // "postcode"      : ["notEmpty"]
+            "postcode"      : ["notEmpty"],
+            "city"          : ["notEmpty"],
+            "countrySelect" : ["notEmpty"],
         };
 
         this.validateFields = Object.keys(this.validateRules);
