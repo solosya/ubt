@@ -1,10 +1,6 @@
 {% set logo = networkData.templatePath~'/static/images/logo.svg'%}
 
-{% set userData = []  %}
-{% if not _User.isGuest() %}
-
-    {% set userData = _User.getPaywallStats(false)  %}
-
+{% if userData %}
 
     {% set headermenu = _Menu.get({'menuType': 'header'}) %}
 

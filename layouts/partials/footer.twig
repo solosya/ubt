@@ -1,4 +1,7 @@
-{% set footermenu = _Menu.get({'menuType': 'footer'}) %}
+{% if userData %}
+    {% set footermenu = _Menu.get({'menuType': 'footer'}) %}
+{% endif %}
+
 
 <!--footer-->
 <footer class="site-footer" data-blogGuid="{{blog.guid}}">
@@ -36,21 +39,22 @@
                 <ul class="footer-links">
 
                     {% for parentItem in footermenu  %}
+                        {% if  parentItem.blogTitle | lower != "community" or 'School' not in userData.name %}
+                            {% set activeClass = (parentItem.link == _AppHelper.getServerUrl()) ? 'active' : ''%}
+                            {% set externalClass = (parentItem.isExternal) ? 'external-link' : '' %}
 
-                       {% set activeClass = (parentItem.link == _AppHelper.getServerUrl()) ? 'active' : ''%}
-                       {% set externalClass = (parentItem.isExternal) ? 'external-link' : '' %}
-
-                       <li>
-                            <a href="{{parentItem.link |raw}}" class="{{activeClass}} {{externalClass}}" {% if parentItem.target != "" %}target="{{parentItem.target}}"{% endif %}>
-                                {% if parentItem.label != "" %}
-                                    {{parentItem.label | upper}}
-                                {% elseif parentItem.blogTitle != "" %}
-                                    {{parentItem.blogTitle | upper}}
-                                {% elseif parentItem.pageTitle != "" %}
-                                    {{parentItem.pageTitle | upper}}
-                                {% endif %}
-                            </a>
-                        </li>
+                            <li>
+                                <a href="{{parentItem.link |raw}}" class="{{activeClass}} {{externalClass}}" {% if parentItem.target != "" %}target="{{parentItem.target}}"{% endif %}>
+                                    {% if parentItem.label != "" %}
+                                        {{parentItem.label | upper}}
+                                    {% elseif parentItem.blogTitle != "" %}
+                                        {{parentItem.blogTitle | upper}}
+                                    {% elseif parentItem.pageTitle != "" %}
+                                        {{parentItem.pageTitle | upper}}
+                                    {% endif %}
+                                </a>
+                            </li>
+                        {% endif %}
 
                     {% endfor %}
                 </ul>

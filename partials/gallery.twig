@@ -36,8 +36,8 @@
                     
                     {% if image.isSystemVideo == 'TRUE'%}
                         
-                        {% set mediaUrl = _Media.getMediaVideoUrl(image, 0, 0,{resource_type: 'video', format: 'mp4'})  %}
-
+                        {% set mediaUrl = _Media.getMediaVideoUrl(image, 0, 0,{resource_type: 'video', format: 'mp4'}) | replace({'upload/': 'upload/br_2m/'})   %}
+                        
                         <video controls class="article-video" poster="{{image.path}}">
                             <source src="{{mediaUrl}}" type="video/mp4"/>
                         </video>
