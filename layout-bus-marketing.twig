@@ -9,13 +9,13 @@
 
 {# separate plans by currency #}
 {% for plan in plans %}
-	{% if plan.currency | lower == 'usd' and 'Business' in plan.name %}
+	{% if plan.currency | lower == 'usd' and 'Business' in plan.plan_name %}
 		{% set usd = usd|merge([plan]) %}
 	{% endif %}
-	{% if plan.currency | lower == 'aud' and 'Business' in plan.name %}
+	{% if plan.currency | lower == 'aud' and 'Business' in plan.plan_name %}
 		{% set aus = aus|merge([plan]) %}
 	{% endif %}
-	{% if plan.currency | lower == 'gbp' and 'Business' in plan.name %}
+	{% if plan.currency | lower == 'gbp' and 'Business' in plan.plan_name %}
 		{% set gbp = gbp|merge([plan]) %}
 	{% endif %}
 {% endfor %}
@@ -154,7 +154,7 @@
 
 								<div class="col-sm-4 subscription-card">
 									<div class="card">
-										<h3>{{plan.name}}</h3>
+										<h3>{{plan.plan_name}}</h3>
 										{% set uc = plan.user_count + 1 %}
 										{% set val = plan.plan_value / 100 %}
 										{% if val == 19.89 %}
@@ -220,7 +220,7 @@
 
 							<div class="col-sm-4 subscription-card">
 								<div class="card">
-									<h3>{{plan.name}}</h3>
+									<h3>{{plan.plan_name}}</h3>
 									{% set uc = plan.user_count + 1 %}
 									{% set val = plan.plan_value / 100 %}
 									{% if val == 19.89 %}
@@ -264,7 +264,7 @@
 
 							<div class="col-sm-4 subscription-card">
 								<div class="card">
-									<h3>{{plan.name}}</h3>
+									<h3>{{plan.plan_name}}</h3>
 									{% set uc = plan.user_count + 1 %}
 									{% set val = plan.plan_value / 100 %}
 									{% if val == 19.89 %}
@@ -304,7 +304,7 @@
 
 							<div class="col-sm-4 subscription-card">
 								<div class="card">
-									<h3>{{plan.name}}</h3>
+									<h3>{{plan.plan_name}}</h3>
 									{% set uc = plan.user_count + 1 %}
 									{% set val = plan.plan_value / 100 %}
 									{% if val == 19.89 %}
