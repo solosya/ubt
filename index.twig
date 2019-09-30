@@ -89,7 +89,7 @@
             "feed": "",
             "link": "",
             "description": "",
-            "limit": 4
+            "limit": 6
         },
         "europe" : {
             "title": "Europe",
@@ -130,7 +130,7 @@
 
 {% else %}
 
-    {% set sectionOrder = ["australia", "new zealand", "usa", "uk", "europe"] | merge(sectionOrder ) %}
+    {% set sectionOrder = ["australia", "new zealand", "usa", "europe", "uk"] | merge(sectionOrder ) %}
         
 {% endif %}
 
@@ -364,7 +364,7 @@
         {% if blogNetworkNameIs != 'frank uk' %}
             {% set sectionFeed = sections[ sectionOrder[x] ] %}
             {% if sectionFeed.feed.articles|length > 0 %}
-                {{this.render('partials/index/panel-03.twig', {
+                {{this.render('partials/index/panel-01.twig', {
                     sectionFeed : sectionFeed
                 }) | raw}}
             {% endif %}
