@@ -128,13 +128,9 @@
 
     {% set sectionOrder = ["uk", "europe"] | merge(sectionOrder ) %}
 
-{% elseif blogNetworkNameIs == 'frank nz'  %}
-
-    {% set sectionOrder = ["new zealand", "australia", "usa"] | merge(sectionOrder ) %}
-
 {% else %}
 
-    {% set sectionOrder = ["australia", "new zealand", "usa", ] | merge(sectionOrder ) %}
+    {% set sectionOrder = ["australia", "new zealand", "usa", "uk", "europe"] | merge(sectionOrder ) %}
         
 {% endif %}
 
@@ -357,14 +353,12 @@
             }) | raw}}
         {% endif %}
            
-
         {% set sectionFeed = sections[ sectionOrder[1] ] %}
         {% if sectionFeed.feed.articles|length > 0 %}
             {{this.render('partials/index/panel-02.twig', {
                 sectionFeed : sectionFeed
             }) | raw}}
         {% endif %}
-
 
         {% set x = 2 %}
         {% if blogNetworkNameIs != 'frank uk' %}
@@ -375,6 +369,23 @@
                 }) | raw}}
             {% endif %}
             {% set x = x + 1 %}
+
+            {% set sectionFeed = sections[ sectionOrder[x] ] %}
+            {% if sectionFeed.feed.articles|length > 0 %}
+                {{this.render('partials/index/panel-03.twig', {
+                    sectionFeed : sectionFeed
+                }) | raw}}
+            {% endif %}
+            {% set x = x + 1 %}
+
+            {% set sectionFeed = sections[ sectionOrder[x] ] %}
+            {% if sectionFeed.feed.articles|length > 0 %}
+                {{this.render('partials/index/panel-03.twig', {
+                    sectionFeed : sectionFeed
+                }) | raw}}
+            {% endif %}
+            {% set x = x + 1 %}
+
         {% endif %}
 
         {% set sectionFeed = sections[ sectionOrder[x] ] %}
@@ -387,9 +398,6 @@
             
         {% set x = x + 1 %}
 
-
-
-
         {% set sectionFeed = sections[ sectionOrder[x] ] %}
         {% if sectionFeed.feed.articles|length > 0 %}
             {{this.render('partials/index/panel-05.twig', {
@@ -398,15 +406,6 @@
         {% endif %}
 
         {% set x = x + 1 %}
-
-
-
-
-
-
-
-
-
 
         {% if 'School' not in userData.name %}
             {% set sectionFeed = sections[ sectionOrder[x] ] %}
