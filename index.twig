@@ -134,7 +134,7 @@
 
 {% else %}
 
-    {% set sectionOrder = ["australia", "new zealand", "usa"] | merge(sectionOrder ) %}
+    {% set sectionOrder = ["australia", "new zealand", "usa", ] | merge(sectionOrder ) %}
         
 {% endif %}
 
@@ -352,305 +352,39 @@
 
         {% set sectionFeed = sections[ sectionOrder[0] ] %}
         {% if sectionFeed.feed.articles|length > 0 %}
-            {% set sectionCount = 0 %}
-
-
-            <section class="row section">
-
-
-                <div class="col-sm-12 section-header">
-                    <h2 class="section-header__title">
-                        <a class="section-header__link" href="{{sectionFeed.link}}">{{sectionFeed.title}}</a>
-                    </h2>
-                    <p class="section-header__description">{{sectionFeed.description}}</p>
-                </div>
-
-
-                <div class="col-sm-6">
-                    {% for i in 0..2 if sectionFeed.feed.articles[sectionCount] %}
-                        {{this.render('partials/_single-article.twig', {
-                            article: sectionFeed.feed.articles[sectionCount], 
-                            position: (sectionCount+1),
-                            imageSize: {width: 198, height: 141},
-                            containerClass: 'card-rec card-rec-tablet card-rec-mobile'
-                        }) | raw}}
-                        {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
-                    {% endfor %}
-                </div>
-
-                <div class="col-sm-3">
-                    {% if sectionFeed.feed.articles[sectionCount] %}
-                        {{this.render('partials/_single-article.twig', {
-                            article: sectionFeed.feed.articles[sectionCount], 
-                            position: (sectionCount+1),
-                            imageSize: {width: 243, height: 422},
-                            containerClass: "card-md-full card-md-full-tablet card-md-full-mobile"
-                        }) | raw}}
-                        {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
-                    {% endif %}
-                </div>
-
-
-                <div class="col-sm-3">
-
-                    {% for i in 0..1 if sectionFeed.feed.articles[sectionCount] %}
-                        {{this.render('partials/_single-article.twig', {
-                            article: sectionFeed.feed.articles[sectionCount], 
-                            position: (sectionCount+1),
-                            imageSuppress: true,
-                            containerClass: 'card-sm-short card-sm-short-tablet card-sm-mobile'
-                        }) | raw}}
-                        {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
-                    {% endfor %}
-                </div>
-                    <div class="sRec col-sm-3">
-                       <div id='sRecAd4'></div>
-                        <script>loadNextAd(invSpace,'sRecAd4','srec',sRecSize,sRecMap);</script>
-                    </div>
-            </section>
+            {{this.render('partials/index/panel-01.twig', {
+                sectionFeed : sectionFeed
+            }) | raw}}
         {% endif %}
            
 
         {% set sectionFeed = sections[ sectionOrder[1] ] %}
         {% if sectionFeed.feed.articles|length > 0 %}
-            {% set sectionCount = 0 %}
-
-            <section class="row section">
-
-
-                <div class="col-sm-12 section-header">
-                    <h2 class="section-header__title">
-                        <a class="section-header__link" href="{{sectionFeed.link}}">{{sectionFeed.title}}</a>
-                    </h2>
-                    <p class="section-header__description">{{sectionFeed.description}}</p>
-                </div>
-
-
-                <div class="col-sm-6">
-                    {% if sectionFeed.feed.articles[sectionCount] %}
-                        {{this.render('partials/_single-article.twig', {
-                            article: sectionFeed.feed.articles[sectionCount], 
-                            imageSize: {width: 640, height: 420},
-                            containerClass: 'card-md-full card-md-full-tablet card-md-full-mobile'
-                        }) | raw}}
-                        {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
-                    {% endif %}
-                </div>
-
-                <div class="col-sm-6">
-                    <div class="row">
-                        {% if sectionFeed.feed.articles[sectionCount] %}
-                            {{this.render('partials/_single-article.twig', {
-                                article: sectionFeed.feed.articles[sectionCount], 
-                                imageSize: {width: 198, height: 141},
-                                containerClass: "col-sm-12 card-rec  card-rec-tablet card-rec-mobile"
-                            }) | raw}}
-
-                            {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
-                        {% endif %}
-                    </div>
-
-
-
-                    <div class="row">
-                        {% for i in 0..1 if sectionFeed.feed.articles[sectionCount] %}
-                            <div class="col-sm-6">
-                                {{this.render('partials/_single-article.twig', {
-                                    article: sectionFeed.feed.articles[sectionCount], 
-                                    imageSize: {width: 198, height: 141},
-                                    containerClass: "card-sm-full card-sm-full-tablet community"
-                                }) | raw}}
-                            </div>
-                            {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
-                        {% endfor %}
-                    </div>
-                </div>
-
-            </section>
+            {{this.render('partials/index/panel-02.twig', {
+                sectionFeed : sectionFeed
+            }) | raw}}
         {% endif %}
+
+
         {% set x = 2 %}
         {% if blogNetworkNameIs != 'frank uk' %}
             {% set sectionFeed = sections[ sectionOrder[x] ] %}
             {% if sectionFeed.feed.articles|length > 0 %}
-                {% set sectionCount = 0 %}
-
-                <section class="row section">
-
-
-                    <div class="col-sm-12 section-header">
-                        <h2 class="section-header__title">
-                            <a class="section-header__link" href="{{sectionFeed.link}}">{{sectionFeed.title}}</a>
-                        </h2>
-                        <p class="section-header__description">{{sectionFeed.description}}</p>
-                    </div>
-
-
-                    <div class="col-sm-6">
-                        {% if sectionFeed.feed.articles[sectionCount] %}
-                            {{this.render('partials/_single-article.twig', {
-                                article: sectionFeed.feed.articles[sectionCount], 
-                                imageSize: {width: 640, height: 420},
-                                containerClass: 'card-md-full card-md-full-tablet card-md-full-mobile'
-                            }) | raw}}
-                            {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
-                        {% endif %}
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="row">
-                            {% if sectionFeed.feed.articles[sectionCount] %}
-                                {{this.render('partials/_single-article.twig', {
-                                    article: sectionFeed.feed.articles[sectionCount], 
-                                    imageSize: {width: 198, height: 141},
-                                    containerClass: "col-sm-12 card-rec  card-rec-tablet card-rec-mobile"
-                                }) | raw}}
-
-                                {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
-                            {% endif %}
-                        </div>
-
-
-
-                        <div class="row">
-                            {% for i in 0..1 if sectionFeed.feed.articles[sectionCount] %}
-                                <div class="col-sm-6">
-                                    {{this.render('partials/_single-article.twig', {
-                                        article: sectionFeed.feed.articles[sectionCount], 
-                                        imageSize: {width: 198, height: 141},
-                                        containerClass: "card-sm-full card-sm-full-tablet community"
-                                    }) | raw}}
-                                </div>
-                                {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
-                            {% endfor %}
-                        </div>
-                    </div>
-
-                </section>
+                {{this.render('partials/index/panel-03.twig', {
+                    sectionFeed : sectionFeed
+                }) | raw}}
             {% endif %}
             {% set x = x + 1 %}
         {% endif %}
 
-
-
-
-        {# {% set sectionFeed = sections[ sectionOrder[x] ] %}
-        {% if sectionFeed.feed.articles|length > 0 %}
-            {% set sectionCount = 0 %}
-
-            <section class="row section world">
-
-                <div class="col-sm-12 section-header">
-                    <h2 class="section-header__title">
-                        <a class="section-header__link" href="{{sectionFeed.link}}">{{sectionFeed.title}}</a>
-                    </h2>
-                    <p class="section-header__description">{{sectionFeed.description}}</p>
-                </div>
-
-
-                <div class="col-sm-6">
-                    {% if sectionFeed.feed.articles[sectionCount] %}
-                        {{this.render('partials/_single-article.twig', {
-                            article: sectionFeed.feed.articles[sectionCount], 
-                            imageSize: {width: 640, height: 420},
-                            containerClass: 'card-md-full card-md-full-tablet card-md-full-mobile'
-                        }) | raw}}
-                        {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
-                    {% endif %}
-                </div>
-
-                <div class="col-sm-3">
-                    {% if sectionFeed.feed.articles[sectionCount] %}
-                        {{this.render('partials/_single-article.twig', {
-                            article: sectionFeed.feed.articles[sectionCount], 
-                            imageSize: {width: 330, height: 235},
-                            containerClass: "card-sm card-sm-tablet card-sm-mobile"
-                        }) | raw}}
-
-                        {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
-                    {% endif %}
-                </div>
-
-
-                <div class="col-sm-3">
-                    {% if sectionFeed.feed.articles[sectionCount] %}
-                        {{this.render('partials/_single-article.twig', {
-                            article: sectionFeed.feed.articles[sectionCount], 
-                            imageSize: {width: 330, height: 235},
-                            containerClass: "card-sm card-sm-tablet card-sm-mobile"
-                        }) | raw}}
-
-                        {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
-                    {% endif %}
-                </div>
-
-            </section>
-        {% endif %}
-
-        {% x = x + 1 %} #}
-
-
-
-
-
-
-
-
-
-
         {% set sectionFeed = sections[ sectionOrder[x] ] %}
         {% if sectionFeed.feed.articles|length > 0 %}
-            {% set sectionCount = 0 %}
-
-            <section class="row section business">
-
-
-                <div class="col-sm-12 section-header">
-                    <h2 class="section-header__title">
-                        <a class="section-header__link" href="{{sectionFeed.link}}">{{sectionFeed.title}}</a>
-                    </h2>
-                    <p class="section-header__description">{{sectionFeed.description}}</p>
-                </div>
-
-
-                <div class="col-sm-3">
-                    {% for i in 0..1 if sectionFeed.feed.articles[sectionCount] %}
-                        {{this.render('partials/_single-article.twig', {
-                            article: sectionFeed.feed.articles[sectionCount], 
-                            imageSuppress: true,
-                            containerClass: 'card-sm-short card-sm-short-tablet card-sm-mobile'
-                        }) | raw}}
-                        {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
-                    {% endfor %}
-                </div>
-
-                <div class="col-sm-6">
-                    {% for i in 0..2 if sectionFeed.feed.articles[sectionCount] %}
-                        {{this.render('partials/_single-article.twig', {
-                            article: sectionFeed.feed.articles[sectionCount], 
-                            imageSize: {width: 198, height: 141},
-                            containerClass: "card-rec  card-rec-tablet card-rec-mobile"
-                        }) | raw}}
-
-                        {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
-                    {% endfor %}
-                </div>
-
-
-                <div class="col-sm-3">
-                    <div class="finance-widget">
-                        {% for i in 0..1 if sections['finance'].feed.articles[i] %}
-                            {{this.render('partials/_single-article.twig', {
-                                article: sections['finance'].feed.articles[i], 
-                                imageSuppress: true,
-                                containerClass: "card-rec-finance"
-                            }) | raw}}
-                        {% endfor %}
-                    </div>
-                </div>
-
-            </section>
+            {{this.render('partials/index/panel-04.twig', {
+                sectionFeed : sectionFeed,
+                finance : sections['finance']
+            }) | raw}}
         {% endif %}
-
+            
         {% set x = x + 1 %}
 
 
@@ -658,32 +392,9 @@
 
         {% set sectionFeed = sections[ sectionOrder[x] ] %}
         {% if sectionFeed.feed.articles|length > 0 %}
-            {% set sectionCount = 0 %}
-
-            <section class="row section national">
-
-
-                <div class="col-sm-12 section-header">
-                    <h2 class="section-header__title">
-                        <a class="section-header__link" href="{{sectionFeed.link}}">{{sectionFeed.title}}</a>
-                    </h2>
-                    <p class="section-header__description">{{sectionFeed.description}}</p>
-                </div>
-
-
-                {% for i in 0..3 if sectionFeed.feed.articles[i] %}
-                    <div class="col-sm-3">
-                        {{this.render('partials/_single-article.twig', {
-                            article: sectionFeed.feed.articles[sectionCount], 
-                            imageSize: {width: 300, height: 180},
-                            containerClass: 'card-sm-full card-sm-full-tablet'
-                        }) | raw}}
-                        {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
-
-                    </div>
-                {% endfor %}
-
-            </section>
+            {{this.render('partials/index/panel-05.twig', {
+                sectionFeed : sectionFeed
+            }) | raw}}
         {% endif %}
 
         {% set x = x + 1 %}
@@ -700,57 +411,10 @@
         {% if 'School' not in userData.name %}
             {% set sectionFeed = sections[ sectionOrder[x] ] %}
             {% if sectionFeed.feed.articles|length > 0 %}
-                {% set sectionCount = 0 %}
-
-                <section class="row section events">
-
-                    <div class="col-sm-12 section-header">
-                        <h2 class="section-header__title">
-                            <a class="section-header__link" href="{{sectionFeed.link}}">{{sectionFeed.title}}</a>
-                        </h2>
-                        <p class="section-header__description">{{sectionFeed.description}}</p>
-                    </div>
-
-
-                    <div class="col-sm-9" style="position:relative">
-                        {% for i in 0..0 if sectionFeed.feed.articles[sectionCount]  %}
-                            {{this.render('partials/_single-article.twig', {
-                                article: sectionFeed.feed.articles[sectionCount] , 
-                                imageSize: {width: 980, height: 420},
-                                containerClass: 'card-lg-full card-lg-full-tablet card-lg-full-mobile'
-                            }) | raw}}
-                            {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
-                        {% endfor %}
-
-                        <div class="inside">
-                            {% for i in 0..2 if sectionFeed.feed.articles[sectionCount]  %}
-                                {{this.render('partials/_single-article.twig', {
-                                    article: sectionFeed.feed.articles[sectionCount] , 
-                                    imageSuppress: true,
-                                    containerClass: 'card-xs card-xs-tablet card-xs-mobile'
-                                }) | raw}}
-                                {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
-                            {% endfor %}
-                        </div>
-                    </div>
-
-                    <div class="col-sm-3 eventlist">
-                        <h2>EVENTS</h2>
-
-                        {% for i in 0..3 if events[i] %}
-                            {{this.render('partials/_single-event.twig', {
-                                event: events[i], 
-                                imageSize: {width: 60, height: 37},
-                                containerClass: "card-event card-event-tablet card-event-mobile"
-                            }) | raw}}
-                        {% endfor %}
-                    </div>
-                    <div class="advert sRec col-sm-3" style="margin-top:22px;">
-                        <div id='sRecAdcomm'></div>
-                            <script>loadNextAd(invSpace,'sRecAdcomm','srec',sRecSize,sRecMap);</script>
-                        </div>
-
-                </section>
+                {{this.render('partials/index/panel-06.twig', {
+                sectionFeed : sectionFeed,
+                events : events
+            }) | raw}}
             {% endif %}
         {% endif %}
 

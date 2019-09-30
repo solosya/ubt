@@ -1,0 +1,53 @@
+{% set sectionCount = 0 %}
+
+<section class="row section">
+
+
+    <div class="col-sm-12 section-header">
+        <h2 class="section-header__title">
+            <a class="section-header__link" href="{{sectionFeed.link}}">{{sectionFeed.title}}</a>
+        </h2>
+        <p class="section-header__description">{{sectionFeed.description}}</p>
+    </div>
+
+
+    <div class="col-sm-6">
+        {% if sectionFeed.feed.articles[sectionCount] %}
+            {{this.render('../_single-article.twig', {
+                article: sectionFeed.feed.articles[sectionCount], 
+                imageSize: {width: 640, height: 420},
+                containerClass: 'card-md-full card-md-full-tablet card-md-full-mobile'
+            }) | raw}}
+            {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
+        {% endif %}
+    </div>
+
+    <div class="col-sm-6">
+        <div class="row">
+            {% if sectionFeed.feed.articles[sectionCount] %}
+                {{this.render('../_single-article.twig', {
+                    article: sectionFeed.feed.articles[sectionCount], 
+                    imageSize: {width: 198, height: 141},
+                    containerClass: "col-sm-12 card-rec  card-rec-tablet card-rec-mobile"
+                }) | raw}}
+
+                {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
+            {% endif %}
+        </div>
+
+
+
+        <div class="row">
+            {% for i in 0..1 if sectionFeed.feed.articles[sectionCount] %}
+                <div class="col-sm-6">
+                    {{this.render('../_single-article.twig', {
+                        article: sectionFeed.feed.articles[sectionCount], 
+                        imageSize: {width: 198, height: 141},
+                        containerClass: "card-sm-full card-sm-full-tablet community"
+                    }) | raw}}
+                </div>
+                {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
+            {% endfor %}
+        </div>
+    </div>
+</section>

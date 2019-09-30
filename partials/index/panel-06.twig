@@ -1,0 +1,51 @@
+{% set sectionCount = 0 %}
+
+<section class="row section events">
+
+    <div class="col-sm-12 section-header">
+        <h2 class="section-header__title">
+            <a class="section-header__link" href="{{sectionFeed.link}}">{{sectionFeed.title}}</a>
+        </h2>
+        <p class="section-header__description">{{sectionFeed.description}}</p>
+    </div>
+
+
+    <div class="col-sm-9" style="position:relative">
+        {% for i in 0..0 if sectionFeed.feed.articles[sectionCount]  %}
+            {{this.render('../_single-article.twig', {
+                article: sectionFeed.feed.articles[sectionCount] , 
+                imageSize: {width: 980, height: 420},
+                containerClass: 'card-lg-full card-lg-full-tablet card-lg-full-mobile'
+            }) | raw}}
+            {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
+        {% endfor %}
+
+        <div class="inside">
+            {% for i in 0..2 if sectionFeed.feed.articles[sectionCount]  %}
+                {{this.render('../_single-article.twig', {
+                    article: sectionFeed.feed.articles[sectionCount] , 
+                    imageSuppress: true,
+                    containerClass: 'card-xs card-xs-tablet card-xs-mobile'
+                }) | raw}}
+                {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="col-sm-3 eventlist">
+        <h2>EVENTS</h2>
+
+        {% for i in 0..3 if events[i] %}
+            {{this.render('../_single-event.twig', {
+                event: events[i], 
+                imageSize: {width: 60, height: 37},
+                containerClass: "card-event card-event-tablet card-event-mobile"
+            }) | raw}}
+        {% endfor %}
+    </div>
+    <div class="advert sRec col-sm-3" style="margin-top:22px;">
+        <div id='sRecAdcomm'></div>
+            <script>loadNextAd(invSpace,'sRecAdcomm','srec',sRecSize,sRecMap);</script>
+        </div>
+
+</section>

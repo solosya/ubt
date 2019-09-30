@@ -1,0 +1,50 @@
+{% set sectionCount = 0 %}
+
+<section class="row section business">
+
+
+    <div class="col-sm-12 section-header">
+        <h2 class="section-header__title">
+            <a class="section-header__link" href="{{sectionFeed.link}}">{{sectionFeed.title}}</a>
+        </h2>
+        <p class="section-header__description">{{sectionFeed.description}}</p>
+    </div>
+
+
+    <div class="col-sm-3">
+        {% for i in 0..1 if sectionFeed.feed.articles[sectionCount] %}
+            {{this.render('../_single-article.twig', {
+                article: sectionFeed.feed.articles[sectionCount], 
+                imageSuppress: true,
+                containerClass: 'card-sm-short card-sm-short-tablet card-sm-mobile'
+            }) | raw}}
+            {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
+        {% endfor %}
+    </div>
+
+    <div class="col-sm-6">
+        {% for i in 0..2 if sectionFeed.feed.articles[sectionCount] %}
+            {{this.render('../_single-article.twig', {
+                article: sectionFeed.feed.articles[sectionCount], 
+                imageSize: {width: 198, height: 141},
+                containerClass: "card-rec  card-rec-tablet card-rec-mobile"
+            }) | raw}}
+
+            {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
+        {% endfor %}
+    </div>
+
+
+    <div class="col-sm-3">
+        <div class="finance-widget">
+            {% for i in 0..1 if finance.feed.articles[i] %}
+                {{this.render('../_single-article.twig', {
+                    article: finance.feed.articles[i], 
+                    imageSuppress: true,
+                    containerClass: "card-rec-finance"
+                }) | raw}}
+            {% endfor %}
+        </div>
+    </div>
+
+</section>
