@@ -117,5 +117,22 @@ $media-iPad: "screen and (min-width : 768px) and (max-width : 991px)";
 $media-up-to-desktop: "screen and (max-width: 991px)";
 $media-mobile: "screen and (max-width : 767px)";
 
+$desktop-up:            "screen and (min-width : 992px)";
+$desktop-down:          "screen and (max-width : 992px)";
+$desktop:               "screen and (min-width : 992px) and (max-width : 1393px)";
+// $smallDevices:                   "screen and (min-width : 1025px) and (max-width : 1150px)";
+// $ipadPortrait:                   "screen and (max-width : 992px)";
+$phone:                 "screen and (min-width : 200px) and (max-width : 480px)";
+// $iPhoneMedium:                     "screen and (min-width : 481px)  and (max-width : 667px)";
+// $iPhoneLarge:                   "screen and (min-width : 668px)  and (max-width : 767px)";
+$tabletLandscape:       "screen and (min-width : 992px) and (max-width : 1024px)";
+$tablet-up:             "screen and (min-width : 768px)";
+$tablet:                "screen and (min-width : 768px) and (max-width : 991px)";
+$up-to-desktop:         "screen and (max-width : 991px)";
+$bootstrap-sm:          "screen and (min-width : 576px) and (max-width : 767px)";
+$mobile-sm-up:          "screen and (min-width : 576px)";
+$mobile:                "screen and (max-width : 767px)";
+
+
 // Standard transition speed
 $transition: 0.4s;

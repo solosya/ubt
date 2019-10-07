@@ -147,7 +147,7 @@
         <section class="row top-cards">
             
 
-            <div class="col-sm-6 col-sm-push-3">
+            <div class="col-sm-8 col-md-6 col-md-push-3">
                 {% set class = 'card-main card-main-tablet card-main-mobile' %}
                 {% for i in 0..2 if articles[articleCount] %}
 
@@ -163,7 +163,7 @@
             </div>
 
 
-            <div class="col-sm-3 col-sm-pull-6">
+            <div class="col-sm-4 col-md-3 col-md-pull-6">
                 {% set class = ['card-sm-short card-sm-mobile card-sm-short-tablet', 'card-sm card-sm-tablet card-sm-mobile', 'card-sm-short card-sm-mobile card-sm-short-tablet'] %}
                 {% set suppress = [true, false, true] %}
 
@@ -182,52 +182,57 @@
 
 
 
-            <div class="col-sm-3">
-
-                <a target="_blank" href="{{networkData.defaultBlogUrl}}/@analysis" >
-                    <div class="e-edition">
-                        <div>
-                            <p class="icon"></p>
-                            <img src="{{networkData.templatePath}}/static/images/frank-analysis-logo.svg">
-                        </div>
-                        <p class="description">Download the print edition of frank here. <br />The best of global news, updated six days a week.</p>
+            <div class="col-sm-12 col-md-3 u-tablet-margin-top-40">
+                <div class="row">
+                    <div class="col-sm-3 col-md-12">
+                        <a target="_blank" href="{{networkData.defaultBlogUrl}}/@analysis" >
+                            <div class="e-edition">
+                                <div>
+                                    <p class="icon"></p>
+                                    <img src="{{networkData.templatePath}}/static/images/frank-analysis-logo.svg">
+                                </div>
+                                <p class="description">Download the print edition of frank here. <br />The best of global news, updated six days a week.</p>
+                            </div>
+                        </a>
                     </div>
-                </a>
+                    <div class="col-sm-5 col-md-12">
+                        <div class="advert" style="margin-top:0;">
+                            <div id='blockAd1'></div>
+                            <script>loadNextAd(invSpace,'blockAd1','mRec',mRecSize,mRecMap);</script>
+                        </div>
+                    </div>
+                    <hr class="divide visible-md-block visible-lg-block">
 
-                <div class="advert" style="margin-top:0;">
-                    <div id='blockAd1'></div>
-                    <script>loadNextAd(invSpace,'blockAd1','mRec',mRecSize,mRecMap);</script>
+                    {# {% if articles[articleCount] %}
+
+                        {{this.render('partials/_single-article.twig', {
+                            article: articles[articleCount], 
+                            position: (articleCount+1),
+                            imageSize: {width: 330, height: 235},
+                            containerClass: 'card-sm card-sm-tablet card-sm-mobile'
+                        }) | raw}}
+                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                    {% endif %} #}
+                    <div class="col-sm-4 col-md-12">
+                        <div id="id1149b8" class="c-finance-widget"></div>
+
+                        {% if blogNetworkNameIs == 'frank nz' %}
+                            {% set Curr1 = 'NZD' %}
+                            {% set Curr2 = 'AUD' %}
+                        {% elseif blogNetworkNameIs == 'frank australia'  %}
+                            {% set Curr1 = 'AUD' %}
+                            {% set Curr2 = 'NZD' %}
+                        {% elseif blogNetworkNameIs == 'frank uk'  %}
+                            {% set Curr1 = 'GBP' %}
+                            {% set Curr2 = 'EUR' %}
+                        {% else %}
+                            {% set Curr1 = 'USD' %}
+                            {% set Curr2 = 'EUR' %}
+                        {% endif %}
+
+                        <script type="text/javascript" src="//mediatools.hifx.com/widget/compact-converter-widget/id1149b8/?affiliate=HIFX0110780606&amp;sell={{Curr1}}&amp;buy={{Curr2}}&amp;amount=1&amp;brandcolour=bbc614&amp;fontcolour=001f2b"></script>
+                    </div>
                 </div>
-
-                <hr class="divide visible-md-block visible-lg-block">
-
-                {# {% if articles[articleCount] %}
-
-                    {{this.render('partials/_single-article.twig', {
-                        article: articles[articleCount], 
-                        position: (articleCount+1),
-                        imageSize: {width: 330, height: 235},
-                        containerClass: 'card-sm card-sm-tablet card-sm-mobile'
-                    }) | raw}}
-                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                {% endif %} #}
-                <div id="id1149b8" style="padding-left:12%;"></div>
-
-                {% if blogNetworkNameIs == 'frank nz' %}
-                    {% set Curr1 = 'NZD' %}
-                    {% set Curr2 = 'AUD' %}
-                {% elseif blogNetworkNameIs == 'frank australia'  %}
-                    {% set Curr1 = 'AUD' %}
-                    {% set Curr2 = 'NZD' %}
-                {% elseif blogNetworkNameIs == 'frank uk'  %}
-                    {% set Curr1 = 'GBP' %}
-                    {% set Curr2 = 'EUR' %}
-                {% else %}
-                    {% set Curr1 = 'USD' %}
-                    {% set Curr2 = 'EUR' %}
-                {% endif %}
-
-                <script type="text/javascript" src="//mediatools.hifx.com/widget/compact-converter-widget/id1149b8/?affiliate=HIFX0110780606&amp;sell={{Curr1}}&amp;buy={{Curr2}}&amp;amount=1&amp;brandcolour=bbc614&amp;fontcolour=001f2b"></script>
             </div>
 
 
@@ -258,14 +263,14 @@
 
         <section class="row bottom-cards">
             
-            <div class="col-sm-9">
+            <div class="col-sm-12 col-md-9">
                 
                 <div class="row">
                 
 
-                    <div class="col-sm-8 col-sm-push-4">
+                    <div class="col-sm-12 col-md-8 col-md-push-4">
                         <div class="row">
-                            {% set class = 'col-sm-12 card-main-2col card-main-2col-tablet card-main-2col-mobile' %}
+                            {% set class = 'col-sm-6 card-main-2col card-main-2col-tablet card-main-2col-mobile' %}
                             {% set showimages = [false, true, true] %}
 
                             {% for i in 0..2 if articles[articleCount] %}
@@ -286,28 +291,33 @@
 
 
 
-                    <div class="col-sm-4 col-sm-pull-8">
-                        {% if articles[articleCount] %}
-                            {{this.render('partials/_single-article.twig', {
-                                article: articles[articleCount], 
-                                position: (articleCount+1),
-                                imageSize: {width: 300, height: 422},
-                                containerClass: 'card-md-full card-md-full-tablet card-md-full-mobile'
-                            }) | raw}}
-                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                        {% endif %}
+                    <div class="col-sm-12 col-md-4 col-md-pull-8">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-12">
+                                {% if articles[articleCount] %}
+                                    {{this.render('partials/_single-article.twig', {
+                                        article: articles[articleCount], 
+                                        position: (articleCount+1),
+                                        imageSize: {width: 300, height: 422},
+                                        containerClass: 'card-md-full card-md-full-tablet card-md-full-mobile'
+                                    }) | raw}}
+                                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                                {% endif %}
+                            </div>
+                            <div class="col-sm-6 col-md-12">
+                                <div class="row top-stories">
+                                    <h2>LATEST STORIES</h2>
 
-                        <div class="row top-stories">
-                            <h2>LATEST STORIES</h2>
-
-                            {% for i in 0..3 if recentArticles|length > 0 %}
-                                {{this.render('partials/_single-article.twig', {
-                                    article: recentArticles[i], 
-                                    imageSuppress: true,
-                                    swap: 'false',
-                                    containerClass: "card-top-story card-top-story-dt card-top-story-tablet card-top-story-mobile"
-                                }) | raw}}
-                            {% endfor %}
+                                    {% for i in 0..3 if recentArticles|length > 0 %}
+                                        {{this.render('partials/_single-article.twig', {
+                                            article: recentArticles[i], 
+                                            imageSuppress: true,
+                                            swap: 'false',
+                                            containerClass: "card-top-story card-top-story-dt card-top-story-tablet card-top-story-mobile"
+                                        }) | raw}}
+                                    {% endfor %}
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -328,18 +338,21 @@
             </div>
 
 
-            <div class="col-sm-3">
+            <div class="col-sm-12 col-md-3">
+                <div class="row">
 
-                {% for i in 0..3 if articles[articleCount] %}
-
-                    {{this.render('partials/_single-article.twig', {
-                        article: articles[articleCount], 
-                        position: (articleCount+1),
-                        imageSize: {width: 300, height: 180},
-                        containerClass: 'card-sm-full card-sm-full-tablet'
-                    }) | raw}}
-                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                {% endfor %}
+                    {% for i in 0..3 if articles[articleCount] %}
+                        <div class="col-sm-6 col-md-12">
+                            {{this.render('partials/_single-article.twig', {
+                                article: articles[articleCount], 
+                                position: (articleCount+1),
+                                imageSize: {width: 300, height: 180},
+                                containerClass: 'card-sm-full card-sm-full-tablet'
+                            }) | raw}}
+                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
 
         </section>

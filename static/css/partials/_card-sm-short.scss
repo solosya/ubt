@@ -113,6 +113,10 @@
         position:relative;
         margin-bottom: 20px;
 
+        &:last-child>a.card{
+            border-bottom: none;
+        }
+
         a.card {
             border-bottom: 1px solid #97999c;
 
@@ -132,15 +136,15 @@
                     padding: 0;
 
                     > div {
-                        > .category{
-                            border-right:1px solid color(lightgrey);
+                        > time{
+                            border-left:1px solid color(lightgrey);
                         }
                     }
 
                     > h2{
                         font-size: rem(16);
                         margin-top:2px;
-                        height:54px;
+                        height:36px;
                         margin-left:60px;
                         margin-bottom:0;
                         line-height: 1.3;
@@ -204,17 +208,17 @@
                         > h2{
                             font-size: rem(16);
                             margin-left:0;
-                            height:54px;
+                            height:36px;
                             line-height: 1.12;
-
+                            margin-bottom: 4px;
                         }
 
                         > p.excerpt {
                             font-size: rem(11);
                             line-height: 1.36;
                             margin-top:5px;
-                            margin-bottom: 17px;
-                            height:30px;
+                            margin-bottom: 10px;
+                            height: 90px;
                         }
                     }
                     &.video {
