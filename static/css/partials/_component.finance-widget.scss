@@ -1,0 +1,8 @@
+
+.c-finance-widget{
+    padding-left: 12%;
+    @media #{$up-to-desktop}{
+        padding-left: 0;
+
+    }
+}
