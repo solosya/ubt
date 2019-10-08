@@ -80,33 +80,41 @@
                 <h2><span>Horizons</span> – Reports from the regions</h2>
             </div>
 
-            <div class="col-sm-offset-1 col-sm-3">
-                {% for i in 0..2 if articles[articleCount] %}
-                    {{this.render('partials/_single-article.twig', {
-                        article: articles[articleCount], 
-                        position: (articleCount+1),
-                        imageSize: {width: 75, height: 64},
-                        containerClass: 'card-community-suggested card-community-suggested-mobile'
-                    }) | raw}}
-                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                {% endfor %}
+            <div class="col-sm-offset-1 col-sm-5 col-md-3">
+                <div class="row">
+                    {% for i in 0..2 if articles[articleCount] %}
+                        <div class="col-sm-12">
+                            {{this.render('partials/_single-article.twig', {
+                                article: articles[articleCount], 
+                                position: (articleCount+1),
+                                imageSize: {width: 75, height: 64},
+                                containerClass: 'card-community-suggested card-rec-tablet card-community-suggested-mobile'
+                            }) | raw}}
+                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
 
-            <div class="col-sm-3">
-                {% for i in 0..2 if articles[articleCount] %}
-                    {{this.render('partials/_single-article.twig', {
-                        article: articles[articleCount], 
-                        position: (articleCount+1),
-                        imageSize: {width: 75, height: 64},
-                        containerClass: "card-community-suggested card-community-suggested-mobile"
-                    }) | raw}}
+            <div class="col-sm-5 col-md-3">
+                <div class="row">
+                    {% for i in 0..2 if articles[articleCount] %}
+                        <div class="col-sm-12">
+                            {{this.render('partials/_single-article.twig', {
+                                article: articles[articleCount], 
+                                position: (articleCount+1),
+                                imageSize: {width: 75, height: 64},
+                                containerClass: "card-community-suggested card-rec-tablet card-community-suggested-mobile"
+                            }) | raw}}
 
-                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                {% endfor %}
+                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
 
 
-            <div class="col-sm-offset-1 col-sm-3">
+            <div class="col-sm-offset-1 col-sm-10 col-md-3">
                 {% if articles[articleCount] %}
                     {{this.render('partials/_single-article.twig', {
                         article: articles[articleCount], 
@@ -168,11 +176,12 @@
                     </a>
                 </div>
                 <div class="col-sm-12 eventlist" style="padding:0;">
+                    {% set eventlisthide = ['','','',' hidden-sm',' hidden-sm',' hidden-sm',' hidden-sm'] %}
                     {% for i in 0..6 if events[i] %}
                         {{this.render('partials/_single-event.twig', {
                             event: events[i], 
                             imageSize: {width: 60, height: 37},
-                            containerClass: "card-event card-event-tablet card-event-mobile"
+                            containerClass: "card-event card-event-tablet card-event-mobile" ~ eventlisthide[i]
                         }) | raw}}
                     {% endfor %}
                 </div>
@@ -200,24 +209,24 @@
             <div class="col-sm-offset-1 col-sm-10 sevent-cols section-header">
             
                 <div class="row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-12 col-md-3">
                         {% if articles[articleCount] %}
                             {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
                                 position: (articleCount+1),
                                 imageSize: {width: 454, height: 245},
-                                containerClass: 'card-ubt card-community-suggested-mobile'
+                                containerClass: 'card-ubt card-rec-tablet card-community-suggested-mobile'
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                         {% endif %}
                     </div>
 
-                    <div class="col-sm-2">
+                    <div class="col-sm-12 col-md-2">
                         {% if articles[articleCount] %}
                             {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
                                 imageSize: {width: 198, height: 141},
-                                containerClass: "card-community-suggested-full card-community-suggested-mobile"
+                                containerClass: "card-community-suggested-full card-rec-tablet card-community-suggested-mobile"
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                         {% endif %}
@@ -225,19 +234,19 @@
                             {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
                                 imageSize: {width: 198, height: 141},
-                                containerClass: "card-community-suggested-semi card-community-suggested-mobile"
+                                containerClass: "card-community-suggested-semi card-rec-tablet card-community-suggested-mobile"
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                         {% endif %}
                     </div>
 
 
-                    <div class="col-sm-2">
+                    <div class="col-sm-12 col-md-2">
                         {% if articles[articleCount] %}
                             {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
                                 imageSize: {width: 198, height: 141},
-                                containerClass: "card-community-suggested-semi card-community-suggested-mobile"
+                                containerClass: "card-community-suggested-semi card-rec-tablet card-community-suggested-mobile"
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                         {% endif %}
@@ -245,7 +254,7 @@
                             {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
                                 imageSize: {width: 198, height: 141},
-                                containerClass: "card-community-suggested-full card-community-suggested-mobile"
+                                containerClass: "card-community-suggested-full card-rec-tablet card-community-suggested-mobile"
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                         {% endif %}

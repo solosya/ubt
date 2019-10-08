@@ -1,6 +1,6 @@
 {% set sectionCount = 0 %}
 
-<section class="row section">
+<section class="row section" panel="02">
 
 
     <div class="col-sm-12 section-header">
@@ -16,7 +16,7 @@
             {{this.render('../_single-article.twig', {
                 article: sectionFeed.feed.articles[sectionCount], 
                 imageSize: {width: 640, height: 420},
-                containerClass: 'card-md-full card-md-full-tablet card-md-full-mobile'
+                containerClass: 'card-md-full card-main-2col-tablet card-md-full-mobile'
             }) | raw}}
             {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
         {% endif %}
@@ -24,26 +24,25 @@
 
     <div class="col-sm-6">
         <div class="row">
-            {% if sectionFeed.feed.articles[sectionCount] %}
-                {{this.render('../_single-article.twig', {
-                    article: sectionFeed.feed.articles[sectionCount], 
-                    imageSize: {width: 198, height: 141},
-                    containerClass: "col-sm-12 card-rec  card-rec-tablet card-rec-mobile"
-                }) | raw}}
-
-                {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
-            {% endif %}
-        </div>
-
-
-
-        <div class="row">
-            {% for i in 0..1 if sectionFeed.feed.articles[sectionCount] %}
-                <div class="col-sm-6">
+            <div class="col-sm-12">
+                {% if sectionFeed.feed.articles[sectionCount] %}
                     {{this.render('../_single-article.twig', {
                         article: sectionFeed.feed.articles[sectionCount], 
                         imageSize: {width: 198, height: 141},
-                        containerClass: "card-sm-full card-sm-full-tablet community"
+                        containerClass: "card-rec  card-rec-tablet card-rec-mobile border-bottom"
+                    }) | raw}}
+
+                    {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
+                {% endif %}
+            </div>
+            {% set borders = [' border-bottom', ''] %}
+            {% for i in 0..1 if sectionFeed.feed.articles[sectionCount] %}
+                
+                <div class="col-sm-12 col-md-6">
+                    {{this.render('../_single-article.twig', {
+                        article: sectionFeed.feed.articles[sectionCount], 
+                        imageSize: {width: 198, height: 141},
+                        containerClass: "card-sm-full card-rec-tablet community" ~ borders[i]
                     }) | raw}}
                 </div>
                 {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}

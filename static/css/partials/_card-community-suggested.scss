@@ -1,5 +1,5 @@
 .card-community-suggested{
-    // @media screen and (min-width: $sm-break){
+     @media screen and (min-width: $md-break),(max-width: $sm-break) {
         height:122px;
         position:relative;
         margin-bottom: 32px;
@@ -89,10 +89,10 @@
             &.article.without__image {
             }   
         }
-    // }
+     }
 }
 .card-community-suggested-full{
-    @media screen and (min-width: $sm-break){
+    @media screen and (min-width: $md-break){
         height:206px;
         width: 270px;
         position:relative;
@@ -178,7 +178,7 @@
 }
 
 .card-community-suggested-semi{
-    @media screen and (min-width: $sm-break){
+    @media screen and (min-width: $md-break){
         height:206px;
         width: 270px;
         position:relative;

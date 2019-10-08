@@ -93,6 +93,9 @@
         &:last-child>a.card{
             border-bottom: none;
         }
+        &.border-bottom>a.card{
+            border-bottom: 1px solid #97999c;
+        }
 
         a.card {
             @include card-image-left(109px, 78px);

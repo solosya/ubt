@@ -153,9 +153,10 @@
         padding-bottom: 15px;
 
         a.card {
-            //height:90px;
+            height: auto;
             padding-bottom: 0px;
             > article {
+                min-height:155px;
                 > .content{
                     padding: 55px 7px 0 7px;
                   
