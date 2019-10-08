@@ -46,7 +46,7 @@
 
                 > .content{
 
-
+                    
                     > h2{
                         font-family:$font-family-serif;
                         font-size:rem(34);
@@ -101,7 +101,7 @@
         margin-bottom: 20px;
 
         a.card {
-            @include card-image-top(auto, 162px);
+            @include card-image-top(auto, 262px);
 
             > article {
 
@@ -111,7 +111,11 @@
 
 
                 > .content{
-
+                    > div {
+                        >time{
+                            border-left:1px solid color(lightgrey);
+                        }
+                    }
 
                     > h2{
                         font-family:$font-family-serif;

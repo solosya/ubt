@@ -29,7 +29,7 @@
 
 
         <section class="row">
-            <div class="col-sm-offset-1 col-sm-10 section-header">
+            <div class="col-md-offset-1 col-sm-10 section-header">
                 <h2>{{blogData.title}}</h2>
                 <p class="description">
                     {{blogData.shortDescription}}
@@ -41,7 +41,7 @@
         
         <section class="row">
 
-            <div class="col-sm-offset-1 col-sm-6">
+            <div class="col-md-offset-1 col-sm-6">
                 {% if articles[articleCount] %}
                     {{this.render('partials/_single-article.twig', {
                         article: articles[articleCount], 
@@ -88,7 +88,7 @@
 
 
 
-            <div class="col-sm-offset-1 col-sm-3">
+            <div class="col-md-offset-1 col-sm-3">
 
                 <div class="advert">
                     <div id='blockAd1'></div>

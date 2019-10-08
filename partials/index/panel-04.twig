@@ -1,6 +1,6 @@
 {% set sectionCount = 0 %}
 
-<section class="row section business">
+<section class="row section business" panel="04">
 
 
     <div class="col-sm-12 section-header">
@@ -11,18 +11,22 @@
     </div>
 
 
-    <div class="col-sm-3">
-        {% for i in 0..1 if sectionFeed.feed.articles[sectionCount] %}
-            {{this.render('../_single-article.twig', {
-                article: sectionFeed.feed.articles[sectionCount], 
-                imageSuppress: true,
-                containerClass: 'card-sm-short card-sm-short-tablet card-sm-mobile'
-            }) | raw}}
-            {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
-        {% endfor %}
+    <div class="col-sm-12 col-md-3">
+        <div class="row">
+            {% for i in 0..1 if sectionFeed.feed.articles[sectionCount] %}
+                <div class="col-sm-6 col-md-12">
+                    {{this.render('../_single-article.twig', {
+                        article: sectionFeed.feed.articles[sectionCount], 
+                        imageSuppress: true,
+                        containerClass: 'card-sm-short card-sm-short-tablet card-sm-mobile'
+                    }) | raw}}
+                    {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
+                </div>
+            {% endfor %}
+        </div>
     </div>
 
-    <div class="col-sm-6">
+    <div class="col-sm-7">
         {% for i in 0..2 if sectionFeed.feed.articles[sectionCount] %}
             {{this.render('../_single-article.twig', {
                 article: sectionFeed.feed.articles[sectionCount], 
@@ -35,7 +39,7 @@
     </div>
 
 
-    <div class="col-sm-3">
+    <div class="col-sm-5 col-md-3">
         <div class="finance-widget">
             {% for i in 0..1 if finance.feed.articles[i] %}
                 {{this.render('../_single-article.twig', {

@@ -130,12 +130,13 @@
         margin-bottom: 10px;
 
         a.card {
-            @include card-image-top(auto, 162px);
+            @include card-image-top(auto, 210px);
 
             > article {
 
                 > figure{
                     margin-bottom:5px;
+                    height: 210px;
                 }
 
                 
@@ -146,16 +147,16 @@
     
                     > h2{
                         float:left;
-                        width:48%;
+                        width:100%;
                         font-size:rem(15);
                         line-height: 1.2;
                     }
 
                     > p.excerpt {
+                        display: block;
                         font-size:rem(11);
                         float:right;
-                        width:48%;
-                        height:105px;
+                        height:85px;
                         margin-top:4px;
                         max-height:105px;
                         line-height: 1.36;
@@ -167,7 +168,7 @@
 
                     > figure{
                         overflow: hidden;
-                        height:360px;
+                        height:210px;
                         @include gradientafter();
                     }
 
@@ -182,7 +183,7 @@
                         }
 
                         p.excerpt {
-                            display:none;
+                            //display:none;
                         }
 
                     }
