@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    <div class="col-sm-7">
+    <div class="col-sm-7 col-md-6">
         {% for i in 0..2 if sectionFeed.feed.articles[sectionCount] %}
             {{this.render('../_single-article.twig', {
                 article: sectionFeed.feed.articles[sectionCount], 
