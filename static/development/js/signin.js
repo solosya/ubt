@@ -39,7 +39,16 @@
                 Acme.server.create('/api/auth/login', formData).done(function(r) {
 
                     if (r.success === 1) {
-                        window.location.href = location.href;
+                   
+                        // if password reset must return to home page, else 
+                        // get an error when staying on auth endpoint.
+                        if (window.location.pathname === "/auth/reset-thanks") {
+                            window.location.replace(_appJsConfig.appHostName);
+                            return;
+                        }
+
+                        window.location.reload();
+
 
                     } else {
                         $elem.text("Sign in")
