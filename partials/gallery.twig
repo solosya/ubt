@@ -39,11 +39,13 @@
                         {% set mediaUrl = _Media.getMediaVideoUrl(image, 0, 0,{resource_type: 'video',  format: 'h265' }) | replace({'upload/': 'upload/vc_h265/'})  %}
                         {% set mediaUrl2 = _Media.getMediaVideoUrl(image, 0, 0,{resource_type: 'video', format: 'webm'}) | replace({'upload/': 'upload/vc_vp9/'})  %}
                         {% set mediaUrl3 = _Media.getMediaVideoUrl(image, 0, 0,{resource_type: 'video', format: 'mp4' }) | replace({'upload/': 'upload/auto/'})  %}
+                        {% set mediaUrl4 = _Media.getMediaVideoUrl(image, 0, 0,{resource_type: 'video', format: 'ogv' }) | replace({'upload/': 'upload/auto/'})  %}
 
                         <video controls class="article-video" poster="{{articleImg}}">
-                            <source src="{{mediaUrl2}}" type="video/mp4; codecs=hevc" />
-                            <source src="{{mediaUrl}}" type="video/webm" />
+                            <source src="{{mediaUrl}}" type="video/mp4; codecs=hevc" />
+                            <source src="{{mediaUrl2}}" type="video/webm" />
                             <source src="{{mediaUrl3}}" type="video/mp4" />
+                            <source src="{{mediaUrl4}}" type="video/ogg" />
                         </video>
                     
                     {% else %}
