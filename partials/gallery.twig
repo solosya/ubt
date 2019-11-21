@@ -41,9 +41,9 @@
                         {% set mediaUrl3 = _Media.getMediaVideoUrl(image, 0, 0,{resource_type: 'video', format: 'mp4' }) | replace({'upload/': 'upload/auto/'})  %}
 
                         <video controls class="article-video" poster="{{articleImg}}">
-                            <source src="{{mediaUrl2}}" type="video/webm" />
-                            <source src="{{mediaUrl}}" type="video/mp4" />
-                            <source src="{{mediaUrl3}}" type="video/ogg" />
+                            <source src="{{mediaUrl2}}" type="video/mp4; codecs=hevc" />
+                            <source src="{{mediaUrl}}" type="video/webm" />
+                            <source src="{{mediaUrl3}}" type="video/mp4" />
                         </video>
                     
                     {% else %}
