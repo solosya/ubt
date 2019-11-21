@@ -20,7 +20,7 @@
     {% for image in media %}
         {% set articleImg = _Media.getMediaUrl(image,1094, 515, {'crop': 'fill', 'gravity': 'faces:auto'} ) %}
 
-            <figure class="article-gallery__image">
+            <figure class="article-gallery__image" data-update="ll">
                 
                 {% if image.type == 'image' %} 
 
@@ -36,10 +36,14 @@
                     
                     {% if image.isSystemVideo == 'TRUE'%}
                         
-                        {% set mediaUrl = _Media.getMediaVideoUrl(image, 0, 0,{resource_type: 'video', format: 'mp4'}) | replace({'upload/': 'upload/br_2m/'})   %}
-                        
-                        <video controls class="article-video" poster="{{image.path}}">
-                            <source src="{{mediaUrl}}" type="video/mp4"/>
+                        {% set mediaUrl = _Media.getMediaVideoUrl(image, 0, 0,{resource_type: 'video',  format: 'mp4' }) | replace({'upload/': 'upload/br_2m/'})  %}
+                        {% set mediaUrl2 = _Media.getMediaVideoUrl(image, 0, 0,{resource_type: 'video', format: 'webm'}) | replace({'upload/': 'upload/br_2m/'})  %}
+                        {% set mediaUrl3 = _Media.getMediaVideoUrl(image, 0, 0,{resource_type: 'video', format: 'ogv' }) | replace({'upload/': 'upload/br_2m/'})  %}
+
+                        <video controls class="article-video" poster="{{articleImg}}">
+                            <source src="{{mediaUrl2}}" type="video/webm" />
+                            <source src="{{mediaUrl}}" type="video/mp4" />
+                            <source src="{{mediaUrl3}}" type="video/ogg" />
                         </video>
                     
                     {% else %}
