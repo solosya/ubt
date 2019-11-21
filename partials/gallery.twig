@@ -36,9 +36,9 @@
                     
                     {% if image.isSystemVideo == 'TRUE'%}
                         
-                        {% set mediaUrl = _Media.getMediaVideoUrl(image, 0, 0,{resource_type: 'video',  format: 'mp4' }) | replace({'upload/': 'upload/vc_h265/'})  %}
-                        {% set mediaUrl2 = _Media.getMediaVideoUrl(image, 0, 0,{resource_type: 'video', format: 'webm'}) | replace({'upload/': 'upload/vc_vp9/'})  %}
-                        {% set mediaUrl3 = _Media.getMediaVideoUrl(image, 0, 0,{resource_type: 'video', format: 'mp4' }) | replace({'upload/': 'upload/vc_auto/'})  %}
+                        {% set mediaUrl = _Media.getMediaVideoUrl(image, 0, 0,{resource_type: 'video',  format: 'mp4' }) | replace({'upload/': 'upload/q_auto,vc_h265/'})  %}
+                        {% set mediaUrl2 = _Media.getMediaVideoUrl(image, 0, 0,{resource_type: 'video', format: 'webm'}) | replace({'upload/': 'upload/q_auto,vc_vp9/'})  %}
+                        {% set mediaUrl3 = _Media.getMediaVideoUrl(image, 0, 0,{resource_type: 'video', format: 'mp4' }) | replace({'upload/': 'upload/q_auto,vc_auto/'})  %}
 
                         <video controls class="article-video" poster="{{articleImg}}">
                             <source src="{{mediaUrl}}" type="video/mp4; codecs=hevc" />
