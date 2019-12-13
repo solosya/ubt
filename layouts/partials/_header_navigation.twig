@@ -1,8 +1,11 @@
 {% set logo = networkData.templatePath~'/static/images/logo.svg'%}
 
 {% if userData %}
-
-    {% set headermenu = _Menu.get({'menuType': 'header'}) %}
+    {% set headermenu = getCache("headermenu") %}
+    {% if (headermenu is empty) %}
+        {% set headermenu = _Menu.get({'menuType': 'header'}) %}
+        {% set cache = setCache("headermenu", headermenu, 500) %} 
+    {% endif %}
 
 {% endif %}
 
