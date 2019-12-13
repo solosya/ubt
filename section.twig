@@ -1,6 +1,14 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
-{% set networkData = _Network.getNetworkData() %}
 {% set blogData    = _Blog.getBlog() %}
+
+
+
+{% cache 'sectionCache'~blogData['id'] 300 %}
+
+
+{% set networkData = _Network.getNetworkData() %}
+
+
 
 {{this.registerJs("Acme.cards = CardController();")}}
 {{this.registerJs("Acme.searchFeed = new Acme.View.articleFeed(Acme.cards);")}}
@@ -165,3 +173,5 @@
 
 
     </main><!-- .site-main -->
+
+{% endcache %}
