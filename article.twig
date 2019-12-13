@@ -36,8 +36,20 @@
 {% endif %}
 
 {# {% set articles = _Article.getPopularArticles({ limit: 10, excludeArticleIds : article.id }) %} #}
-{% set popularArticles = _Article.getPopularArticles({ limit: 3, blogId: article.blog.id, interval: 168 }) %}
-{% set suggestedArticles = _Article.getPopularArticles({ limit: 3, interval: 168 }) %}
+{# {% set popularArticles = _Article.getPopularArticles({ limit: 3, blogId: article.blog.id, interval: 168 }) %} #}
+{% set popularArticles = getCache("articlePopular"~article.blog.id) %}
+{% if (popularArticles is empty) %}
+    {% set popularArticles = _Article.getPopularArticles({ blogId: article.blog.id, limit: 3, interval: 168 }) %}
+    {% set cache = setCache("articlePopular"~article.blog.id, popularArticles, 500) %} 
+{% endif %}
+
+{# {% set suggestedArticles = _Article.getPopularArticles({ limit: 3, interval: 168 }) %} #}
+
+{% set suggestedArticles = getCache("articleSuggested") %}
+{% if suggestedArticles is empty) %}
+    {% set suggestedArticles = _Article.getPopularArticles({ limit: 3, interval: 168 }) %}
+    {% set cache = setCache("articleSuggested", suggestedArticles, 500) %} 
+{% endif %}
 
 {% set articleCount = 0 %}
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
