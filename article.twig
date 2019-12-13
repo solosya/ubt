@@ -46,7 +46,7 @@
 {# {% set suggestedArticles = _Article.getPopularArticles({ limit: 3, interval: 168 }) %} #}
 
 {% set suggestedArticles = getCache("articleSuggested") %}
-{% if suggestedArticles is empty) %}
+{% if (suggestedArticles is empty) %}
     {% set suggestedArticles = _Article.getPopularArticles({ limit: 3, interval: 168 }) %}
     {% set cache = setCache("articleSuggested", suggestedArticles, 500) %} 
 {% endif %}
