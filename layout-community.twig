@@ -286,18 +286,18 @@
 
 
 
-        <section class="row section listings three-cols">
+        {# <section class="row section listings three-cols">
 
             <div class="col-sm-offset-1 col-sm-10 section-header" data-test="1">
                 <h2 class="section-header__title">Community listings</h2>
-            </div>
+            </div> #}
 
 
-{#             If you don't display this section if there are no listings then you can never get to the listing form
-               unless you know the url #}
+            {#  ------------  If you don't display this section if there are no listings then you can never get to 
+            the listing form unless you know the url ------------ #}
 
             {# {% if sections['property listings'].feed.articles|length > 0 %} #}
-                {% set propertyCount = 0 %}
+                {# {% set propertyCount = 0 %}
                 
                 <div class="col-sm-offset-1 col-sm-10">
                     <div class="row">
@@ -350,11 +350,11 @@
                                 {% set propertyCount = (dev) ? propertyCount : propertyCount + 1 %}
                             {% endfor %}
 
-                        </div>
+                        </div> #}
                     {# {% endif %} #}
-                </div>
+                {# </div>
             </div>
-        </section>
+        </section> #}
 
 
 {#         {% if sections['property listings'].feed.articles|length >= sections['property listings'].limit %}
@@ -379,12 +379,12 @@
  #}
 
 
-        <section class="row section listings three-cols">
-{#             If you don't display this section if there are no listings then you can never get to the listing form
-                unless you know the url #}
+        {# <section class="row section listings three-cols"> #}
+            {#  ------------  If you don't display this section if there are no listings then you can never get to 
+            the listing form unless you know the url ------------ #}
 
             {# {% if sections['job listings'].feed.articles|length > 0 %} #}
-                {% set propertyCount = 0 %}
+                {# {% set propertyCount = 0 %}
 
 
 
@@ -439,11 +439,11 @@
                                 {% set propertyCount = (dev) ? propertyCount : propertyCount + 1 %}
                             {% endfor %}
 
-                        </div>
+                        </div> #}
                     {# {% endif %} #}
-                </div>
+                {# </div>
             </div>
-        </section>
+        </section> #}
 
 
 {#         {% if sections['job listings'].feed.articles|length >= sections['job listings'].limit %}
