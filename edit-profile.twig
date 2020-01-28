@@ -32,10 +32,10 @@
 {% set user = _User.getUser() %}
 
 
-{% if user %} 
+{# {% if user %} 
     {% set jobListingsArr = _User.getUserArticles(user.guid, 0, 20, {'blogs':[jobsBlogId], 'status': '-1'}) %}
     {% set propListingsArr = _User.getUserArticles(user.guid, 0, 20, {'blogs':[propBlogId], 'status': '-1'}) %}
-{% endif %}
+{% endif %} #}
 
 {{this.registerJs("Acme.usercard = new Acme.Usercard();")}}
 
@@ -442,9 +442,11 @@
 
 
 
+                {#  *****************************************************
+                    Property and Jobs listings which are now switched off 
+                    ***************************************************** #}
 
-
-                {% if not schoolPlan %}
+                {# {% if not schoolPlan %}
 
                     {% set hasJobListings = jobListingsArr | length > 0 %}
                     {% set jobLink = (hasJobListings) ? "Edit listings" : "Submit a listing"  %}
@@ -526,7 +528,7 @@
                         </div>
                     </div>
                 
-                {% endif %}
+                {% endif %} #}
 
 
 
