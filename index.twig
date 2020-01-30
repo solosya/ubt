@@ -413,7 +413,7 @@
 
         {% set sectionFeed = sections[ sectionOrder[x] ] %}
         {% if sectionFeed.feed.articles|length > 0 %}
-            {{this.render('partials/index/panel-05.twig', {
+            {{this.render('partials/index/panel-03.twig', {
                 sectionFeed : sectionFeed
             }) | raw}}
         {% endif %}
