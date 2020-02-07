@@ -136,7 +136,9 @@
             default:
                 Acme.State.Country = 'America';
                 return [
-                    'America/New%20York',
+                    'America/Baltimore%20(Maryland)',
+					'America/New%20York',
+					'America/Washington%20DC',
                 ];
         }
     };
