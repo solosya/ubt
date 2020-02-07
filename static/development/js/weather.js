@@ -17,6 +17,7 @@
                 Acme.State.Country = 'America';
                 return [
                     'America/New%20York',
+                    'America/Baltimore%20(Maryland)',
                     'America/Boston',
                     'America/Chicago',
                     'America/Columbus',
@@ -30,6 +31,7 @@
                     'America/Seattle',
                     'America/Toronto',
                     'America/Vancouver',
+					'America/Washington%20DC',
                     'America/Winnipeg'
                 ];
             case 'United Kingdom':
