@@ -37502,11 +37502,19 @@ Acme.UserProfileController.prototype.listingEvents = function() {
         });
         this.listeners = {
             "localweather" : function(data) {
+                var urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.get('weather')){
+                    return this.fetch(urlParams.get('weather'),'localweather');
+                }
                 if (data['localweather']) {
                     return this.fetch(data['localweather'], 'localweather');
                 }
             },
             "nationalweather" : function(data) {
+                var urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.get('weather')){
+                    return this.fetch(urlParams.get('weather'),'nationalweather');
+                }
                 return this.fetch(data['nationalweather'], 'nationalweather');
             },
             "city": function(data) {
