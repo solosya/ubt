@@ -133,6 +133,7 @@
         "spinner"  : 'spinnerTmpl',
         "register" : 'registerTmpl',
         "userPlanChange" : 'userPlanOkCancel',
+        "cancelPlan" : 'userCancelPlan',
         "default_weather" : 'defaultWeatherTmpl',
     }
     Acme.SigninView = new Acme.Signin('modal', 'signin', layouts);

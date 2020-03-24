@@ -61,6 +61,8 @@ div[class*="col-sm"] {
     }
 }
 
+.u-font-bold {font-weight:700}
+
 .u-float-left {float:left;}
 .u-float-right {float:right;}
 .u-block {display:block;}
@@ -92,6 +94,10 @@ div[class*="col-sm"] {
 .u-margin-bottom-20 { margin-bottom: 20px; }
 .u-margin-bottom-15 { margin-bottom: 15px; }
 .u-margin-bottom-10 { margin-bottom: 10px; }
+
+
+
+.u-margin-right-10 { margin-right: 10px; }
 
 
 @media screen and (max-width: $sm-break-down) {

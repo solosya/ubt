@@ -280,10 +280,12 @@ Acme.UserProfileController.prototype.events = function ()
 
         var listelem = $(e.target).closest('li');
         var userid = listelem.attr("id");
-
+        var template = "cancelPlan";
         var status = 'cancelled';
-        message = "Are you sure? Click OK to deactivate your subscription to frank."
+        var message = "";
+        // var message = "Are you sure? Click OK to deactivate your subscription to frank."
         if ($(e.target).text() == 'Restart Subscription') {
+            template = "userPlanChange";
             message = "Click OK to reactivate your plan. Your credit card will be charged on the next payment date."
             status = 'paid'
         }
@@ -294,7 +296,7 @@ Acme.UserProfileController.prototype.events = function ()
 
 
 
-        Acme.SigninView.render("userPlanChange", message)
+        Acme.SigninView.render(template, message)
             .done(function() {
                 $('#dialog').parent().remove();
                 

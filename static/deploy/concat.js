@@ -33379,6 +33379,16 @@ window.templates.userPlanOkCancel =
 </form>';
 
 
+window.templates.userCancelPlan = 
+'<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
+    <p class="u-font-bold">The frank team understands many of our valued <br />subscribers are facing hardship amid the <br />Covid-19 pandemic.</p> \
+    <p>Please email hello@franknews.global to find out<br /> about options for continuing your subscription <br /> during this time.</p> \
+    <p class="u-margin-bottom-25">Do you still wish to cancel your subscription?</p> \
+    <button id="okaybutton" class="_btn _btn--gray okay u-margin-right-10" data-role="okay">YES, CANCEL NOW</button> \
+    <button id="cancelbutton" class="_btn _btn--red close" data-role="cancel">DO NOT CANCEL</button> \
+</form>';
+
+
 
 window.templates.signinFormTmpl = 
 // <script> tag possible ios safari login fix
@@ -36468,6 +36478,7 @@ SearchController.Listing = (function ($) {
         "spinner"  : 'spinnerTmpl',
         "register" : 'registerTmpl',
         "userPlanChange" : 'userPlanOkCancel',
+        "cancelPlan" : 'userCancelPlan',
         "default_weather" : 'defaultWeatherTmpl',
     }
     Acme.SigninView = new Acme.Signin('modal', 'signin', layouts);
@@ -37206,10 +37217,12 @@ Acme.UserProfileController.prototype.events = function ()
 
         var listelem = $(e.target).closest('li');
         var userid = listelem.attr("id");
-
+        var template = "cancelPlan";
         var status = 'cancelled';
-        message = "Are you sure? Click OK to deactivate your subscription to frank."
+        var message = "";
+        // var message = "Are you sure? Click OK to deactivate your subscription to frank."
         if ($(e.target).text() == 'Restart Subscription') {
+            template = "userPlanChange";
             message = "Click OK to reactivate your plan. Your credit card will be charged on the next payment date."
             status = 'paid'
         }
@@ -37220,7 +37233,7 @@ Acme.UserProfileController.prototype.events = function ()
 
 
 
-        Acme.SigninView.render("userPlanChange", message)
+        Acme.SigninView.render(template, message)
             .done(function() {
                 $('#dialog').parent().remove();
                 
