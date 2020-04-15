@@ -36518,13 +36518,21 @@ SearchController.Listing = (function ($) {
             // console.log(elem.val());
             if (elem.val() == 'usd') {
                 $("#au_plans").hide();
+                $("#eu_plans").hide();
                 $("#us_plans").show();
             }
             else if (elem.val() == 'aud') {
                 $("#us_plans").hide();
+                $("#eu_plans").hide();
                 $("#au_plans").show();
 
             }           
+            else if (elem.val() == 'eur') {
+                $("#us_plans").hide();
+                $("#au_plans").hide();
+                $("#eu_plans").show();
+
+            }  
             
         });
     

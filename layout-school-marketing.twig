@@ -18,6 +18,9 @@
 	{% if plan.currency | lower == 'gbp' and 'School' in plan.plan_name %}
 		{% set gbp = gbp|merge([plan]) %}
 	{% endif %}
+	{% if plan.currency | lower == 'eur' and 'School' not in plan.plan_name %}
+		{% set eur = eur|merge([plan]) %}
+	{% endif %}
 {% endfor %}
 
 
@@ -213,7 +216,13 @@
 										<img src="{{networkData.templatePath}}/static/images/australian_dollars2.png">
 									</label>
 								</div>
-							
+								<div class="currency-select__radio-group">
+									<input class="currency-select__radio-input" id="eur" type="radio" name="currency" value="eur">
+									<label  class="currency-select__label" for="eur">
+										<span class="currency-select__radio-button"></span>
+										<img src="{{networkData.templatePath}}/static/images/euros2.png">
+									</label>
+								</div>
 							</form>
 						</div>
 
@@ -308,6 +317,44 @@
 
 						<div id="us_plans" class="us_plans row u-desktop-center-9-cols">
 					    {% for plan in usd %}
+
+							<div class="col-sm-4 subscription-card">
+								<div class="card">
+									<h3>{{plan.plan_name}}</h3>
+									{% set uc = plan.user_count + 1 %}
+									{% set val = plan.plan_value / 100 %}
+									{% if val == 19.89 %}
+										{% set val = 19.90 %}
+									{% endif %}
+									<p class="usercount">{{uc|replace({ '10001': '21+' })}} Users</p>
+									<p class="price">{{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{val|number_format(2, '.', ',')}} ({{plan.currency|raw}})<br class="hidden-xs"> per {{plan.period}}</p>
+
+									
+									{# {% if trial %}
+										<a href="{{networkData.defaultBlogUrl}}/@subscribe?plan={{plan.guid}}&amp;trial=true">
+											<p class="centerBlock _btn _btn--blue _btn__subscribe">14-DAY FREE TRIAL</p>
+										</a>
+									{% endif %} #}
+
+									{% set planUrl = networkData.defaultBlogUrl ~ '/@subscribe?plan=' ~ plan.guid %}
+									{# {% if plan.trial_status == "1" %}
+										{% set planUrl = networkData.defaultBlogUrl ~ '/@subscribe?plan=' ~ plan.guid ~ '&trial=true'%}
+									{% endif %} #}
+
+									<a href="{{planUrl}}">
+										<p class="centerBlock _btn _btn--red _btn__subscribe">
+											<span>SUBSCRIBE NOW</span>
+											{# {% if plan.trial_status == "1" %}
+												<span class="btn_trial">Your subscription includes a <br />{{plan.trial_period}}-day free trial period</span>
+											{% endif %} #}
+										</p>
+									</a>
+								</div>
+							</div>
+					    {% endfor %}
+						</div>
+						<div id="eu_plans" class="eu_plans row u-desktop-center-9-cols">
+					    {% for plan in eur %}
 
 							<div class="col-sm-4 subscription-card">
 								<div class="card">
