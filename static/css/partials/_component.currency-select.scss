@@ -2,6 +2,9 @@
     margin: auto;
     width: 90%;
     margin-bottom:40px;
+    @media #{$media-large-desktop}{
+        padding-left: 150px;
+    }
 
     &__radio-group {
         width:32%;
