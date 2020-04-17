@@ -36,6 +36,28 @@
 {% endfor %}
 
 
+{% if plan != false  %}
+
+{# The first payment is due on DD Month 20XX unless cancelled. #}
+    {% set val = plan.plan_value / 100 %}
+    {% if val == 19.89 %}
+        {% set val = 19.90 %}
+    {% endif %}
+    {% set planPrice = plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"}) ~ val|number_format(2, '.', ',') %}
+
+    {% set frequency = plan.period_count > 1 ? plan.period_count : ""  %}
+
+    {% set planPeriod = plan.period %}
+    {% if plan.period_count > 1 %}
+        {% set planPeriod = plan.period ~ 's' %}
+    {% endif %}
+
+    {% set frequency = frequency ~ " " ~ planPeriod  %}
+{% endif %}
+
+
+
+
 <main id="main" class="site-main listingForm" role="main">
 	<div id="stripekey" class="hidden" >{{networkData['stripe_publishable_key']}}</div>
 	{# <div id="stripekey" class="hidden" >pk_live_0xvvL0i2RAw7vjUbw5xI7L7O</div> #}
@@ -126,18 +148,43 @@
 						<input type="text" class="articleExtendedData" name="postcode" id="postcode" value="" placeholder="Zip / Postcode">
 			            
 			            <input type="hidden" class="" name="planid" id="planid" value="{{plan.guid}}">
-			            {# <input type="hidden" class="" name="trial" id="trial" value="{{trial}}"> #}
+			            <input type="hidden" class="" name="trial" id="trial" value="{{trial}}">
 
 			            <div id="countrySelect" class="countrySelect"></div> 
 
-			            {% if trial %}
-			            	<input type="checkbox" class="" onclick="return false;" value="true" id="trial" name="trial" checked> 
-			            	<label>Include {{plan.trial_period}} day trial period</label>
-			            {% endif %}
+ 						<div class="u-margin-bottom-20"></div>
+                            {% if trial %}
+                                <div class="button-set c-checkbox u-margin-bottom-15">
+                                    <input id="changeterms" name="changeterms" type="checkbox" class="c-checkbox__input validate[required]" /> 
+                                    <label class="c-checkbox__label" for="changeterms">
+                                        <span class="c-checkbox__button"></span>
+                                        I agree to my card being charged {{planPrice}} every {{frequency}} at the end of the {{trialPeriod}}-day free trial period. 
+                                    </Label>
+                                </div>
 
-			            <br /><input type="checkbox" class="" id="terms" name="terms"> 
-			            <label>I agree to the frank <a href="{{networkData.defaultBlogUrl}}/terms-of-use" target="_blank">Terms of Use</a></label>
- 						{% if code %}
+                                <div class="button-set c-checkbox u-margin-bottom-15">
+                                    <input id="cancelterms" name="cancelterms" type="checkbox" class="c-checkbox__input validate[required]" /> 
+                                    <label class="c-checkbox__label" for="cancelterms">
+                                        <span class="c-checkbox__button"></span>
+                                        I understand I can cancel for free before the end of the trial in My Account page, and I will be emailed a payment reminder 7 days before the end of the free trial period. I understand I can cancel my paid subscription at any time in My Account page.
+                                    </label>
+                                </div>
+                            {% endif %}
+
+
+                            <div class="button-set c-checkbox u-margin-bottom-15">
+                                <input id="terms" name="terms" type="checkbox" class="c-checkbox__input validate[required]" />
+                                <label class="c-checkbox__label u-padding-top-3" for="terms">
+                                    <span class="c-checkbox__button"></span>
+                                    I agree to the frank <a href="{{networkData.defaultBlogUrl}}/terms-of-use" target="_blank">Terms of Use</a></strong>
+                                </label>
+                            </div>
+                         
+                         
+                         
+                         
+                         
+                         {% if code %}
 						<p class="form-section-label u-margin-top-40">Redeem Code</p>
 			            {% else %}
 						<p class="form-section-label u-margin-top-40">Payment details</p>
