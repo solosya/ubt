@@ -76,7 +76,15 @@ if ($('#stripekey').length > 0) {
 
         this.events();
 
-        this.data['trial'] = $('#trial').is(":checked");
+        // this.data['trial'] = $('#trial').is(":checked");
+        var trial = $('#trial').val();
+        if (trial == 1) {
+            this.data['trial'] = 'true';
+            this.validateRules['changeterms'] = ["isTrue"];
+            this.validateRules['cancelterms'] = ["isTrue"];
+        }
+
+        this.validateFields = Object.keys(this.validateRules);
 
         this.addMenu();
     };
@@ -95,7 +103,7 @@ if ($('#stripekey').length > 0) {
         this.clearInlineErrors();
         this.addInlineErrors();
         if (checkTerms) {
-            if (!this.data.terms) {
+            if (!this.data.terms || (this.data.trial === 'true' && (!this.data.cancelterms || !this.data.changeterms))) {
                 this.confirmView = new Acme.Confirm('modal', 'signin', {'terms': 'subscribeTerms'});
                 this.confirmView.render("terms", "Terms of use");
             }
