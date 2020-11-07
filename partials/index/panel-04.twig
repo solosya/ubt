@@ -18,6 +18,7 @@
                     {{this.render('../_single-article.twig', {
                         article: sectionFeed.feed.articles[sectionCount], 
                         imageSuppress: true,
+                        swap: 'false',
                         containerClass: 'card-sm-short card-sm-short-tablet card-sm-mobile'
                     }) | raw}}
                     {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
@@ -31,6 +32,7 @@
             {{this.render('../_single-article.twig', {
                 article: sectionFeed.feed.articles[sectionCount], 
                 imageSize: {width: 198, height: 141},
+                swap: 'false',
                 containerClass: "card-rec  card-rec-tablet card-rec-mobile"
             }) | raw}}
 
@@ -45,6 +47,7 @@
                 {{this.render('../_single-article.twig', {
                     article: finance.feed.articles[i], 
                     imageSuppress: true,
+                    swap: 'false',
                     containerClass: "card-rec-finance"
                 }) | raw}}
             {% endfor %}

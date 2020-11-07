@@ -18,6 +18,7 @@
                 article: sectionFeed.feed.articles[sectionCount], 
                 position: (sectionCount+1),
                 imageSize: {width: 198, height: 141},
+                swap: 'false',
                 containerClass: 'card-rec card-rec-tablet card-rec-mobile border-bottom'
             }) | raw}}
             {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
@@ -30,6 +31,7 @@
                 article: sectionFeed.feed.articles[sectionCount], 
                 position: (sectionCount+1),
                 imageSize: {width: 243, height: 422},
+                swap: 'false',
                 containerClass: "card-md-full  card-main-2col-tablet card-md-full-mobile"
             }) | raw}}
             {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
@@ -45,6 +47,7 @@
                         article: sectionFeed.feed.articles[sectionCount], 
                         position: (sectionCount+1),
                         imageSuppress: true,
+                        swap: 'false',
                         containerClass: 'card-sm-short card-sm-short-tablet card-sm-mobile'
                     }) | raw}}
                     {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}

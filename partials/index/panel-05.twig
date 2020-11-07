@@ -16,6 +16,7 @@
             {{this.render('../_single-article.twig', {
                 article: sectionFeed.feed.articles[sectionCount], 
                 imageSize: {width: 300, height: 180},
+                swap: 'false',
                 containerClass: 'card-sm-full card-sm-full-tablet'
             }) | raw}}
             {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}

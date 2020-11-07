@@ -16,6 +16,7 @@
             {{this.render('../_single-article.twig', {
                 article: sectionFeed.feed.articles[sectionCount], 
                 imageSize: {width: 640, height: 420},
+                swap: 'false',
                 containerClass: 'card-md-full card-main-2col-tablet card-md-full-mobile'
             }) | raw}}
             {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
@@ -29,6 +30,7 @@
                     {{this.render('../_single-article.twig', {
                         article: sectionFeed.feed.articles[sectionCount], 
                         imageSize: {width: 198, height: 141},
+                        swap: 'false',
                         containerClass: "card-rec  card-rec-tablet card-rec-mobile border-bottom"
                     }) | raw}}
 
@@ -42,6 +44,7 @@
                     {{this.render('../_single-article.twig', {
                         article: sectionFeed.feed.articles[sectionCount], 
                         imageSize: {width: 198, height: 141},
+                        swap: 'false',
                         containerClass: "card-sm-full card-rec-tablet community" ~ borders[i]
                     }) | raw}}
                 </div>
