@@ -403,6 +403,130 @@ Acme.UserProfileController.prototype.events = function ()
 };
 
 
+Acme.UserProfileController.prototype.checkPaymentIntentStatus = function(client_secret) {
+    console.log('checking user payment status');
+    console.log(client_secret);
+    var self = this;
+    var stripekey = $('#stripekey').html();
+    if (stripekey.length < 1) return;
+
+    var stripe = Stripe(stripekey);
+    var elements = stripe.elements();
+
+    // stripe.retrievePaymentIntent(client_secret).then(function(result) {
+    //     console.log(result);
+    // });
+
+
+
+    // Custom styling can be passed to options when creating an Element.
+    // (Note that this demo uses a wider set of styles than the guide below.)
+    var style = {
+        base: {
+            color: '#fff',
+            lineHeight: '24px',
+            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+            fontSmoothing: 'antialiased',
+            fontSize: '16px',
+            '::placeholder': {
+                color: '#fff'
+            }
+        },
+        invalid: {
+            color: '#fff',
+            iconColor: '#fff'
+        }
+    };
+
+    // Create an instance of the card Element
+    var card = elements.create('card', {style: style});
+
+    // Add an instance of the card Element into the `card-element` <div>
+    var cardElement = document.getElementById('card-element');
+    if (cardElement != null) {
+        card.mount('#card-element');
+    }
+
+    // Handle real-time validation errors from the card Element.
+    card.addEventListener('change', function(event) {
+        var displayError = document.getElementById('card-errors');
+        if (event.error) {
+            displayError.textContent = event.error.message;
+        } else {
+            displayError.textContent = '';
+        }
+    }); 
+
+    var form = document.getElementById('fix-payment-form');
+
+    if (form != null) {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            console.log('charting fix');
+            self.stripeCharge(stripe, card, client_secret);
+        });
+    }
+
+    // stripe.handleCardAction(client_secret).then(function(result) {
+    //     if (result.error) {
+    //         console.log('there was an error', result.error);
+    //       // Show `result.error.message` in payment form
+    //     } else {
+    //         console.log('success');
+
+    //       // The card action has been handled
+    //       // The PaymentIntent can be confirmed again on the server
+    //     //   fetch('/pay', {
+    //     //     method: 'POST',
+    //     //     headers: { 'Content-Type': 'application/json' },
+    //     //     body: JSON.stringify({ payment_intent_id: result.paymentIntent.id })
+    //     //   }).then(function(confirmResult) {
+    //     //     return confirmResult.json();
+    //     //   }).then(handleServerResponse);
+    //     }
+    //   });
+  
+}
+Acme.UserProfileController.prototype.stripeCharge = function(stripe, card, client_secret) {
+
+    var modal = new Acme.Signin('spinner', 'acme-dialog', {"spinner": 'spinnerTmpl'});
+
+    modal.render("spinner", "Attempting payment");
+
+    stripe.confirmCardPayment(client_secret, {
+        payment_method: {
+            card: card,
+            billing_details: {
+                address: {
+                    // city:self.data.city,
+                    // line1:self.data.address1,
+                    // line2:self.data.address2,
+                },
+                name: "jenny Davis",
+                // email: self.data.email
+            }
+        },
+        setup_future_usage: 'off_session'
+    }).then(function(result) {
+        // console.log(result);
+        modal.closeWindow();
+        if (result.error) {
+            var errorElement = document.getElementById('card-errors');
+            errorElement.textContent = result.error.message;
+        } else {
+            // The payment has been processed!
+            if (result.paymentIntent.status === 'succeeded') {
+                console.log('IT WORKED!!!');
+                var paymentForm = document.getElementById('card-errors');
+                modal.render("spinner", "Looks good! It can sometimes take a few minutes");
+                paymentForm.innerHTML = "";
+                // setTimeout(function() {
+                //     location.reload()
+                // }, 3000);
+            }
+        }
+    });
+}
 
 
 Acme.UserProfileController.prototype.listingEvents = function() {

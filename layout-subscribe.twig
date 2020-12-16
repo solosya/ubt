@@ -3,6 +3,17 @@
 {% set plans = networkData['paywallPlans'] %}
 
 
+
+
+
+{% if not _User.isGuest() %}
+    {% set redir = _Page.setHttpRedirects(
+        { '|^/.*|': networkData.defaultBlogUrl ~ '/user/edit-profile', }, false) 
+    %} 
+{% endif %}
+
+
+
 {% set plan = false %}
 {% set trial = false %}
 {% set code = false %}
@@ -112,7 +123,7 @@
 							</p>
 
 							<p class="trial__text trial__text--last">
-								To cancel your trial, visit the My Account section.  For further 
+								To cancel your trial, visit the My Account section. For further 
 								information, please visit the <a href="{{networkData.defaultBlogUrl}}/faq" target="_blank">FAQ</a>.
 							</p>
 						</div>
@@ -124,8 +135,8 @@
 
 		                <input type="text" class="articleExtendedData" name="firstname" id="firstname" value="" placeholder="First name">
 		                <input type="text" class="articleExtendedData" name="lastname" id="lastname" value="" placeholder="Last name">
-		                <input type="text" class="articleExtendedData" name="username" id="username" value="" placeholder="Username">
-		                <p class="form-section-note">Username must be at least five characters long and contain no spaces or special characters</p>
+		                {# <input type="text" class="articleExtendedData" name="username" id="username" value="" placeholder="Username">
+		                <p class="form-section-note">Username must be at least five characters long and contain no spaces or special characters</p> #}
 
 
 		                <input type="password" class="" name="password" id="password" value="" placeholder="Password">

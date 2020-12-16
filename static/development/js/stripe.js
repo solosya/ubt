@@ -161,6 +161,13 @@ if ($('#stripekey').length > 0) {
             return;
         }
 
+        // self.data['login'] = false;
+        self.data['paymentIntent'] = true;
+        self.data['redirect'] = false;
+        console.log(subscribe.data);
+        console.log(self.data);
+        // return;
+        
         if (!this.data['username']) {
             this.data['username'] = Math.floor(100000000 + Math.random() * 90000000000000);
         }
@@ -168,27 +175,94 @@ if ($('#stripekey').length > 0) {
             modal.render("spinner", "Authorising code");
             subscribe.data['planid'] = $('#planid').val();
             subscribe.data['giftcode'] = $('#code-redeem').val();
-
             formhandler(subscribe.data, '/auth/paywall-signup');
         } else {
-            modal.render("spinner", "Authorising payment");
-            stripe.createToken(card).then(function(result) {
-
-                if (result.error) {
-                    modal.closeWindow();
-                    // Inform the user if there was an error
-                    var errorElement = document.getElementById('card-errors');
-                    errorElement.textContent = result.error.message;
-                } else {
-
-                    // Send the token to your server
-                    subscribe.data['stripetoken'] = result.token.id;
-                    subscribe.data['planid'] = $('#planid').val();
-                    formhandler(subscribe.data, '/auth/paywall-signup');
+            modal.render("spinner", "Creating account");
+            subscribe.data['planid'] = $('#planid').val();
+            formhandler(subscribe.data, '/auth/paywall-signup').done( function(r) {
+                console.log(r);
+                var clientSecret = typeof r.client_secret !== 'undefined' && r.client_secret ? r.client_secret : null;
+                if (!clientSecret || r.error) {
+                    return false;
                 }
-            });    
+
+                modal.render("spinner", "Authorising payment");
+                if (!r.trial) {
+                    self.paymentIntent(clientSecret, card);
+                } else {
+                    self.setupIntent(clientSecret, card);
+                }
+            });
         }
     };
+
+    
+    SubscribeForm.prototype.paymentIntent = function(clientSecret, card) {
+        var self = this;
+
+        stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: card,
+                billing_details: {
+                    address: {
+                        city:self.data.city,
+                        line1:self.data.address1,
+                        line2:self.data.address2,
+                    },
+                    name: self.data.firstname + " " + self.data.lastname,
+                    email: self.data.email
+                }
+            },
+            setup_future_usage: 'off_session'
+        }).then(function(result) {
+            console.log(result);
+            if (result.error) {
+                console.log(result.error.message);
+                console.log("redirecting to profile page")
+                window.location.href = location.origin + "/user/edit-profile?signup=true";
+
+            } else {
+
+                // The payment has been processed!
+                if (result.paymentIntent.status === 'succeeded') {
+                    console.log('IT WORKED!!!');
+                    window.location.href = location.origin + "/auth/thank-you";
+                }
+            }
+        });
+    }
+    SubscribeForm.prototype.setupIntent = function(clientSecret, card) {
+        var self = this;
+        console.log("confirming card SETUP");
+        stripe.confirmCardSetup(clientSecret,
+            {
+              payment_method: {
+                card: card,
+                billing_details: {
+                    address: {
+                        city:self.data.city,
+                        line1:self.data.address1,
+                        line2:self.data.address2,
+                    },
+                    name: self.data.firstname + " " + self.data.lastname,
+                    email: self.data.email
+                }
+              },
+            }
+          ).then(function(result) {
+            if (result.error) {
+                console.log(result);
+                console.log(result.error.message);
+                console.log("redirecting to profile page");
+                window.location.href = location.origin + "/user/edit-profile?signup=true";
+            } else {
+              // The setup has succeeded. Display a success message.
+              console.log('IT WORKED!!!');
+              window.location.href = location.origin + "/auth/thank-you";
+
+            }
+          });
+    }
 
     SubscribeForm.prototype.events = function()
     {
@@ -216,8 +290,8 @@ if ($('#stripekey').length > 0) {
 
         if (form != null) {
             form.addEventListener('submit', function(event) {
+                console.log('submitting');
                 self.submit(event);
-
             });
         }
 
@@ -236,24 +310,26 @@ if ($('#stripekey').length > 0) {
     var formhandler = function(formdata, path) {
         var csrfToken = $('meta[name="csrf-token"]').attr("content");
 
-        $.ajax({
+        return $.ajax({
             url: _appJsConfig.appHostName + path,
             type: 'post',
             data: formdata,
             dataType: 'json',
             success: function(data) {
-
+                console.log('success');
                 if(data.success) {
-                    $('#card-errors').text('Completed successfully.');
+                    $('#card-errors').text('Account created...');
+
                 } else {
                     modal.closeWindow();
-
                     var text = ''
                     for (var key in data.error) {
                         text = text + data.error[key] + " ";
                     } 
                     $('#card-errors').text(text);
                 }   
+                modal.closeWindow();
+
             },
             error: function(data) {
                 modal.closeWindow();

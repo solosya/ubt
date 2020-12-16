@@ -51,22 +51,30 @@
         pageClass | lower               != 'page page-stv'                  and 
         pageClass | lower               != 'page page-special-offer'        and 
         pageClass | lower               != 'page page-covid-19'             and 
+        url                             != "/signup"                        and 
         url                             != _AppHelper.getEditProfileUrl()   and 
         url                             != "/auth/verify-email-thanks"      and 
         url                             != "/auth/reset-thanks"             and 
         url                             != _AppHelper.getResetPasswordUrl() and 
         blogData['showPaywall']         == true %}
 
-    {% set showPaywall = true %}
-    {% set layout = "layout-marketing" %}
+    {% set redirect = '/signup' %}
+    
+    {% set pwstats = _User.getPaywallStats() %}
+
+    {% set log = _AppHelper.log(pwstats) %}
+    
+    {% if pwstats.error_data is defined and pswstats.error_data | length > 0 %}
+        {% set redirect = '/user/edit-profile' %}
+    {% endif %}
+
+    {% set redir = _Page.setHttpRedirects(
+        {
+            '|^/.*|': networkData.defaultBlogUrl ~ redirect,
+            
+        }, false) 
+    %} 
 {% endif %}
-
-
-{# {% if _AppHelper.getApplicationEnv() != 'PROD'%}
-    {% set showPaywall = true %}
-    {% set layout = "layout-marketing" %}
-
-{% endif %} #}
 
 
 
@@ -110,10 +118,10 @@
 
 
     {% if _AppHelper.getApplicationEnv() == 'PROD'%}
-        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=aqua-18181818" type="text/css" media="all">
+        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=da9974f6-18181818" type="text/css" media="all">
     {% else %}
 
-        <link rel='stylesheet' href='{{networkData.templatePath}}/static/css/concat.css?ver=666' type='text/css' media='all' />
+        <link rel='stylesheet' href='{{networkData.templatePath}}/static/css/concat.css' type='text/css' media='all' />
     {% endif %}
 
     {% if isPage %}
@@ -201,11 +209,11 @@
 
 
 
-    {% if showPaywall %}
+    {# {% if showPaywall %}
         {{ this.render('/layout-marketing.twig', {networkData: networkData}) | raw }}
-    {% else %}
-        {{ content | raw }}
-    {% endif %}
+    {% else %} #}
+    {{ content | raw }}
+    {# {% endif %} #}
 
 
     <div class="modal" role="dialog">

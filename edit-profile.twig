@@ -4,6 +4,8 @@
 {% set blogData = _Blog.getBlog() %}
 {% set jobsBlogId = blogData.additionalInfo['joblistingsid'] %}
 {% set propBlogId = blogData.additionalInfo['propertylistingsid'] %}
+{% set url = _AppHelper.getParsedUrl %}
+{% set params = url['query'] %}
 
 <!-- Begin User Profile Page -->
 
@@ -11,7 +13,7 @@
 {% set propListingsArr = [] %}
 {% set pwstats = _User.getPaywallStats(true) %}
 {% set plans = _Network.getNetworkData()['paywallPlans'] %}
-
+{% set log = _AppHelper.log(pwstats) %}
 {% set currency_plans = [] %}
 
 {# separate plans by currency #}
@@ -32,6 +34,22 @@
 {% set user = _User.getUser() %}
 
 
+
+
+
+{% set paymentError = false %}
+{% if pwstats.error_data and pwstats.status == "unpaid" or pwstats.status == "trial" %}
+    {% set paymentError = true %}
+{% endif %}
+
+{% set signup = false %}
+{% for k, p in params %}
+    {% if k == 'signup' %}
+        {% if p == 'true' %}
+            {% set signup = true %}
+        {% endif %}
+    {% endif %}
+{% endfor %}
 {# {% if user %} 
     {% set jobListingsArr = _User.getUserArticles(user.guid, 0, 20, {'blogs':[jobsBlogId], 'status': '-1'}) %}
     {% set propListingsArr = _User.getUserArticles(user.guid, 0, 20, {'blogs':[propBlogId], 'status': '-1'}) %}
@@ -63,6 +81,39 @@
                     {{this.render('layouts/partials/messages.twig') | raw}}
 
                     <div class="profile-section profile-section--border">
+
+                        {% set paymentMessage = "" %}
+
+                        {% if paymentError %}
+                            {% if signup %}
+                                {% set paymentMessage = "Your account has been set up, however it looks like there's a problem with payment" %}
+                            {% endif %} 
+                            {% set errorCodes = ["payment_intent_authentication_failure", "setup_intent_authentication_failure"] %}
+                            
+                            {% if pwstats.error_data.code in errorCodes %} 
+                                {% set paymentMessage = "The bank was unable to authorise payment for this card" %}
+                            {% endif %}
+
+                            <div id="fix-payment-form-container" class="payment-fix payment-fix__container">
+                                <h1 class="payment-fix__header">Sorry, something went wrong with your last payment</h1>
+                                <p class="payment-fix__message u-margin-top-10">{{paymentMessage}}</p>
+
+                                <form action="/charge" method="post" id="fix-payment-form">
+                                    <div class="form-row">
+                                        <label class="payment-fix__label" for="card-element">Credit or debit card</label>
+                                        <div id="card-element">
+                                        <!-- a Stripe Element will be inserted here. -->
+                                        </div>
+                                        <!-- Used to display form errors -->
+                                        <div id="card-errors" class="card-errors u-margin-top-10" role="alert"></div>
+                                    </div>
+                                    <button id="fix-submit" class="_btn payment-fix__button u-margin-top-25">Submit</button>
+                                </form>
+                            </div>
+                        {% endif %}
+
+
+
                         <div class="profile-section__header">
                             <p class="profile-section__heading">My details</p>                                    
                             <a class="text-button text-button--italic u-float-right" href="/auth/logoff">Log Out</a> 
@@ -121,7 +172,6 @@
                                         <input type="password" id="password" class="form-control" name="password" placeholder="new password" >
                                         <p class="input-description">Passwords must be at least six characters long and contain no spaces</p>
                                     </div>
-
                                 </div>
 
                                 <label class="mobLabel" for="password">Verify Password</label>
@@ -179,7 +229,7 @@
                     </div>
 
 
-                {% if pwstats.userManager == true %}
+                {% if pwstats.userManager == true and not paymentError %}
 
 
                     {# {% set managedUsers = _User.getPaywallManagedUsers({"limit": userLimit}) %}
@@ -576,8 +626,18 @@
 
 
 <script>
+    // main script is defered so event listener makes sure
+    // defered script is loaded before this runs
+    document.addEventListener("DOMContentLoaded", function() {
+        var Payment = new Acme.UserProfileController();
+        console.log(Payment);
+        Payment.checkPaymentIntentStatus("{{pwstats.error_data.client_secret}}");
+    });
+</script>
+
+<script>
   window.intercomSettings = {
     app_id: "zxwsoz9f"
   };    
 </script>
-<!-- //End User Profile Page -->
+
