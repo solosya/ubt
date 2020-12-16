@@ -36736,7 +36736,7 @@ if ($('#stripekey').length > 0) {
                         if (!clientSecret || r.error) {
                             return false;
                         }
-        
+                        console.log(clientSecret);
                         modal.render("spinner", "Authorising payment");
                         if (!r.trial) {
                             self.paymentIntent(clientSecret, card);
@@ -36776,14 +36776,14 @@ if ($('#stripekey').length > 0) {
             if (result.error) {
                 console.log(result.error.message);
                 console.log("redirecting to profile page")
-                window.location.href = location.origin + "/user/edit-profile?signup=true";
+                // window.location.href = location.origin + "/user/edit-profile?signup=true";
 
             } else {
 
                 // The payment has been processed!
                 if (result.paymentIntent.status === 'succeeded') {
                     console.log('IT WORKED!!!');
-                    window.location.href = location.origin + "/auth/thank-you";
+                    // window.location.href = location.origin + "/auth/thank-you";
                 }
             }
         });
@@ -36811,11 +36811,11 @@ if ($('#stripekey').length > 0) {
                 console.log(result);
                 console.log(result.error.message);
                 console.log("redirecting to profile page");
-                window.location.href = location.origin + "/user/edit-profile?signup=true";
+                // window.location.href = location.origin + "/user/edit-profile?signup=true";
             } else {
               // The setup has succeeded. Display a success message.
               console.log('IT WORKED!!!');
-              window.location.href = location.origin + "/auth/thank-you";
+            //   window.location.href = location.origin + "/auth/thank-you";
 
             }
           });
