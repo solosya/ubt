@@ -38,7 +38,7 @@
 
 
 {% set paymentError = false %}
-{% if pwstats.error_data and pwstats.status == "unpaid" or pwstats.status == "trial" %}
+{% if pwstats.error_data and (pwstats.status == "unpaid" or pwstats.status == "trial") %}
     {% set paymentError = true %}
 {% endif %}
 

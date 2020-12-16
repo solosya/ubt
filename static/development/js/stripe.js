@@ -164,9 +164,7 @@ if ($('#stripekey').length > 0) {
         // self.data['login'] = false;
         self.data['paymentIntent'] = true;
         self.data['redirect'] = false;
-        console.log(subscribe.data);
-        console.log(self.data);
-        // return;
+
         
         if (!this.data['username']) {
             this.data['username'] = Math.floor(100000000 + Math.random() * 90000000000000);
@@ -177,22 +175,39 @@ if ($('#stripekey').length > 0) {
             subscribe.data['giftcode'] = $('#code-redeem').val();
             formhandler(subscribe.data, '/auth/paywall-signup');
         } else {
-            modal.render("spinner", "Creating account");
             subscribe.data['planid'] = $('#planid').val();
-            formhandler(subscribe.data, '/auth/paywall-signup').done( function(r) {
-                console.log(r);
-                var clientSecret = typeof r.client_secret !== 'undefined' && r.client_secret ? r.client_secret : null;
-                if (!clientSecret || r.error) {
-                    return false;
-                }
-
-                modal.render("spinner", "Authorising payment");
-                if (!r.trial) {
-                    self.paymentIntent(clientSecret, card);
+            
+            // tokens are no longer needed, however running createToken() will alert card errors,
+            // and stop the sign up process from continuing. 
+            stripe.createToken(card).then(function(result) {
+                if (result.error) {
+                    modal.closeWindow();
+                    // Inform the user if there was an error
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
                 } else {
-                    self.setupIntent(clientSecret, card);
+                    modal.render("spinner", "Creating account");
+
+                    formhandler(subscribe.data, '/auth/paywall-signup').done( function(r) {
+                        console.log(r);
+                        var clientSecret = typeof r.client_secret !== 'undefined' && r.client_secret ? r.client_secret : null;
+                        if (!clientSecret || r.error) {
+                            return false;
+                        }
+        
+                        modal.render("spinner", "Authorising payment");
+                        if (!r.trial) {
+                            self.paymentIntent(clientSecret, card);
+                        } else {
+                            self.setupIntent(clientSecret, card);
+                        }
+                    });
                 }
-            });
+            });    
+
+            
+            
+            
         }
     };
 
