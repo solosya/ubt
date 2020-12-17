@@ -36783,7 +36783,7 @@ if ($('#stripekey').length > 0) {
                 // The payment has been processed!
                 if (result.paymentIntent.status === 'succeeded') {
                     console.log('IT WORKED!!!');
-                    // window.location.href = location.origin + "/auth/thank-you";
+                    window.location.href = location.origin + "/auth/thank-you";
                 }
             }
         });
@@ -36815,7 +36815,7 @@ if ($('#stripekey').length > 0) {
             } else {
               // The setup has succeeded. Display a success message.
               console.log('IT WORKED!!!');
-            //   window.location.href = location.origin + "/auth/thank-you";
+              window.location.href = location.origin + "/auth/thank-you";
 
             }
           });
