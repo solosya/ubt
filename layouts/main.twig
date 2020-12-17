@@ -64,10 +64,10 @@
 
     {% set log = _AppHelper.log(pwstats) %}
     
-    {# {% if pwstats.error_data is defined and pswstats.error_data | length > 0 %}
-        {# {% set redirect = '/user/edit-profile' %}
-    {% endif %} #}
- #}
+    {% if pwstats.error_data is defined and pswstats.error_data | length > 0 %}
+        {% set redirect = '/user/edit-profile' %}
+    {% endif %}
+
     {% set redir = _Page.setHttpRedirects(
         {
             '|^/.*|': networkData.defaultBlogUrl ~ redirect,
