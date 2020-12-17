@@ -83,7 +83,10 @@
                     <div class="profile-section profile-section--border">
 
                         {% set paymentMessage = "" %}
-
+                        {% if pwstats.error_data %}
+                            <p>{{pswtats.error_data.message}}</p>
+                            <p>{{pswtats.error_data.code}}</p>
+                        {% endif %}
                         {% if paymentError %}
                             {% if signup %}
                                 {% set paymentMessage = "Your account has been set up, however it looks like there's a problem with payment" %}
