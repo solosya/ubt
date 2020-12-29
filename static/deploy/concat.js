@@ -33372,6 +33372,13 @@ window.templates.userPlanMessage =
      <button id="cancelbutton" class="_btn _btn--red close">OK</button> \
 </form>';
 
+window.templates.userPlanAuth = 
+'<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
+    <button id="fix-auth" class="_btn _btn--red">Authenticate</button> \
+    <button id="cancelbutton" class="_btn  close">Cancel</button> \
+</form>';
+
+
 window.templates.userPlanOkCancel = 
 '<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
      <button id="okaybutton" class="_btn _btn--red okay" data-role="okay">OK</button> \
@@ -36348,8 +36355,8 @@ SearchController.Listing = (function ($) {
 
     Acme.Signin = function(template, parent, layouts) {
         this.template = template;
-        this.parentCont = parent;
-        this.layouts = layouts;
+        this.parentCont = parent || null;
+        this.layouts = layouts || null;
         this.parent = Acme.modal.prototype;
     };
     Acme.Signin.prototype = new Acme.modal();
@@ -36471,14 +36478,15 @@ SearchController.Listing = (function ($) {
     };
 
     var layouts = {
-        "signin"   : 'signinFormTmpl',
-        "forgot"   : 'forgotFormTmpl',
-        "expired"  : 'expiredNotice',
-        "userPlan" : 'userPlanMessage',
-        "spinner"  : 'spinnerTmpl',
-        "register" : 'registerTmpl',
-        "userPlanChange" : 'userPlanOkCancel',
-        "cancelPlan" : 'userCancelPlan',
+        "signin"          : 'signinFormTmpl',
+        "forgot"          : 'forgotFormTmpl',
+        "expired"         : 'expiredNotice',
+        "userPlan"        : 'userPlanMessage',
+        "spinner"         : 'spinnerTmpl',
+        "register"        : 'registerTmpl',
+        "cancelPlan"      : 'userCancelPlan',
+        "userPlanAuth"    : 'userPlanAuth',
+        "userPlanChange"  : 'userPlanOkCancel',
         "default_weather" : 'defaultWeatherTmpl',
     }
     Acme.SigninView = new Acme.Signin('modal', 'signin', layouts);
@@ -36729,7 +36737,8 @@ if ($('#stripekey').length > 0) {
                     errorElement.textContent = result.error.message;
                 } else {
                     modal.render("spinner", "Creating account");
-
+                    var profilePage = location.origin + "/user/edit-profile";
+                    var thankYouPage = window.location.origin + "/auth/thank-you";
                     formhandler(subscribe.data, '/auth/paywall-signup').done( function(r) {
                         console.log(r);
                         var clientSecret = typeof r.client_secret !== 'undefined' && r.client_secret ? r.client_secret : null;
@@ -36739,17 +36748,41 @@ if ($('#stripekey').length > 0) {
                         console.log(clientSecret);
                         modal.render("spinner", "Authorising payment");
                         if (!r.trial) {
-                            self.paymentIntent(clientSecret, card);
+                            self.paymentIntent(clientSecret, card).then(function(result) {
+                                if (result.error) {
+                                    // return result.error;
+                                    console.log(result);
+                                    console.log(result.error.message);
+                                    console.log("redirecting to profile page", profilePage);
+                                    window.location.href = profilePage;
+                                    console.log('has it redirected?');
+                                } else {
+                                  // The setup has succeeded. Display a success message.
+                                  console.log('IT WORKED!!!', thankYouPage);
+                                  window.location.href = thankYouPage;
+                                  console.log('has it redirected?');
+                    
+                                }
+                            });
                         } else {
-                            self.setupIntent(clientSecret, card);
+                            self.setupIntent(clientSecret, card).then(function(result) {
+                                if (result.error) {
+                                    // return result.error;
+                                    console.log(result);
+                                    console.log(result.error.message);
+                                    console.log("redirecting to profile page");
+                                    window.location.href = profilePage;
+                                } else {
+                                  // The setup has succeeded. Display a success message.
+                                  console.log('IT WORKED!!!');
+                                  window.location.href = thankYouPage;
+                    
+                                }
+                            });
                         }
                     });
                 }
-            });    
-
-            
-            
-            
+            });
         }
     };
 
@@ -36757,7 +36790,7 @@ if ($('#stripekey').length > 0) {
     SubscribeForm.prototype.paymentIntent = function(clientSecret, card) {
         var self = this;
 
-        stripe.confirmCardPayment(clientSecret, {
+        return stripe.confirmCardPayment(clientSecret, {
             payment_method: {
                 card: card,
                 billing_details: {
@@ -36771,27 +36804,14 @@ if ($('#stripekey').length > 0) {
                 }
             },
             setup_future_usage: 'off_session'
-        }).then(function(result) {
-            console.log(result);
-            if (result.error) {
-                console.log(result.error.message);
-                console.log("redirecting to profile page")
-                // window.location.href = location.origin + "/user/edit-profile?signup=true";
-
-            } else {
-
-                // The payment has been processed!
-                if (result.paymentIntent.status === 'succeeded') {
-                    console.log('IT WORKED!!!');
-                    // window.location.href = location.origin + "/auth/thank-you";
-                }
-            }
         });
     }
+
+
     SubscribeForm.prototype.setupIntent = function(clientSecret, card) {
         var self = this;
         console.log("confirming card SETUP");
-        stripe.confirmCardSetup(clientSecret,
+        return stripe.confirmCardSetup(clientSecret,
             {
               payment_method: {
                 card: card,
@@ -36806,19 +36826,7 @@ if ($('#stripekey').length > 0) {
                 }
               },
             }
-          ).then(function(result) {
-            if (result.error) {
-                console.log(result);
-                console.log(result.error.message);
-                console.log("redirecting to profile page");
-                // window.location.href = location.origin + "/user/edit-profile?signup=true";
-            } else {
-              // The setup has succeeded. Display a success message.
-              console.log('IT WORKED!!!');
-            //   window.location.href = location.origin + "/auth/thank-you";
-
-            }
-          });
+        )
     }
 
     SubscribeForm.prototype.events = function()
@@ -36879,7 +36887,14 @@ if ($('#stripekey').length > 0) {
 
                 } else {
                     modal.closeWindow();
-                    var text = ''
+                    var text = '';
+
+                    if (!Object.prototype.toString.call(data.error) === '[object Array]') {
+                        var err = {
+                            "error": data.error
+                        };
+                        data.error = err;
+                    };
                     for (var key in data.error) {
                         text = text + data.error[key] + " ";
                     } 
@@ -37047,6 +37062,7 @@ UserArticlesController.Load = (function ($) {
 
 Acme.UserProfileController = function()
 {
+    console.log('userprofilecontroller');
     this.csrfToken = $('meta[name="csrf-token"]').attr("content");
     this.events();
     this.userEvents();
@@ -37217,7 +37233,7 @@ Acme.UserProfileController.prototype.userEvents = function()
 Acme.UserProfileController.prototype.events = function () 
 {
     var self = this;
-
+    console.log('running events');
 
     $('#managed-user-search').on('submit', function(e) {
         e.preventDefault();
@@ -37283,8 +37299,6 @@ Acme.UserProfileController.prototype.events = function ()
             }
             
             $('#user-editor-buttons').addClass('spinner');
-            console.log(_appJsConfig.appHostName);
-            console.log(_appJsConfig.baseHttpPath);
             
             $.ajax({
                 type: 'post',
@@ -37347,7 +37361,7 @@ Acme.UserProfileController.prototype.events = function ()
                 
                 $.ajax({
                     type: 'post',
-                    url: _appJsConfig.baseHttpPath + '/user/paywall-account-sataus',
+                    url: _appJsConfig.baseHttpPath + '/user/paywall-account-status',
                     dataType: 'json',
                     data: requestData,
                     success: function (data, textStatus, jqXHR) {
@@ -37371,7 +37385,7 @@ Acme.UserProfileController.prototype.events = function ()
 
 
     $('.j-setplan').on('click', function(e) {
-
+        console.log('clicked changeplan');
         var listelem = $(e.target);
         if (!listelem.hasClass('j-setplan')) {
             listelem = $(e.target.parentNode);
@@ -37390,6 +37404,7 @@ Acme.UserProfileController.prototype.events = function ()
             var oldcost = listelem.find('#currentcost').val();
             var newdays = listelem.find('#planperiod').val();
             var olddays = listelem.find('#currentperiod').val();
+
             if (newdays == 'week')  {newdays = 7;}
             if (newdays == 'month') {newdays = 30;}
             if (newdays == 'year')  {newdays = 365;}
@@ -37397,9 +37412,10 @@ Acme.UserProfileController.prototype.events = function ()
             if (olddays == 'month') {olddays = 30;}
             if (olddays == 'year')  {olddays = 365;}
             var newplandailycost = newcost/newdays;
-            var plandailycost = oldcost/olddays;
-            var expDate = listelem.find('#expdate').val();
 
+            var plandailycost = oldcost/olddays;
+
+            var expDate = listelem.find('#expdate').val();
             var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
             var firstDate = new Date();
             var secondDate = new Date(expDate.split('-')[0],expDate.split('-')[1]-1,expDate.split('-')[2]);
@@ -37416,6 +37432,8 @@ Acme.UserProfileController.prototype.events = function ()
                 msg = " This will cost " + currencySymbol + Math.round((newplandailycost-plandailycost) * diffDays);
                 msg = msg.replace(/(.+)(\d\d)$/g, "$1.$2");
             }
+
+            console.log('creating modal');
             Acme.SigninView.render("userPlanChange", "Are you sure you want to change plan?" + msg)
                 .done(function() {
                     $('#dialog').parent().remove();
@@ -37426,14 +37444,58 @@ Acme.UserProfileController.prototype.events = function ()
                         dataType: 'json',
                         data: requestData,
                         success: function (data, textStatus, jqXHR) {
+                            console.log(data);
                             if (data.success == 1) {
                                 window.location.reload();
                             } else {
                                 $('#dialog').parent().remove();
-                                Acme.SigninView.render("userPlan", data.error);
+                                var text = "";
+                                if (Object.prototype.toString.call(data.error) !== '[object Array]') {
+                                    var err = [data.error];
+                                    data.error = err;
+                                };
+                                for (var key in data.error) {
+                                    text = text + data.error[key] + " ";
+                                } 
+
+                                Acme.SigninView.render("userPlanAuth", text).then(function(r) {
+                                    var auth = document.getElementById('fix-auth');
+                                    auth.addEventListener('click', function(event) {
+                                        console.log('fidget');
+                                        stripe.confirmCardPayment(data.error_data.client_secret, {
+                                            'payment_method': data.error_data.payment_id
+                                        })
+                                        .then(function(result) {
+                                            if (result.error) {
+                                                modal.render("spinner", "Authorisation failed. Refreshing page...");
+                                            } else {
+                                                modal.render("spinner", "Sucess! Refreshing page...");
+                                            }
+                                            console.log(result);
+                                            setTimeout(function() {
+                                                window.location.reload();
+                                                return false;
+                                            }, 2000);
+                                
+                                          // Handle result.error or result.paymentIntent
+                                        });
+                                    });  
+                                
+                                });
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus);
+                            // if (!Object.prototype.toString.call(data.error) === '[object Array]') {
+                            //     var err = {
+                            //         "error": data.error
+                            //     };
+                            //     data.error = err;
+                            // };
+                            // for (var key in data.error) {
+                            //     text = text + data.error[key] + " ";
+                            // } 
+        
                              $('#createUserErrorMessage').text(textStatus);
                         },
                     });        
@@ -37447,22 +37509,24 @@ Acme.UserProfileController.prototype.events = function ()
 };
 
 
-Acme.UserProfileController.prototype.checkPaymentIntentStatus = function(client_secret) {
+
+
+
+Acme.StripePayment = function(){};
+Acme.StripePayment.prototype.checkPaymentIntentStatus = function(client_secret, intent_id, payment_method_id) {
     console.log('checking user payment status');
     console.log(client_secret);
+    console.log(intent_id);
+    console.log(payment_method_id);
     var self = this;
     var stripekey = $('#stripekey').html();
     if (stripekey.length < 1) return;
 
     var stripe = Stripe(stripekey);
     var elements = stripe.elements();
+    var modal = new Acme.Signin('spinner', 'acme-dialog', {"spinner": 'spinnerTmpl'});
 
-    // stripe.retrievePaymentIntent(client_secret).then(function(result) {
-    //     console.log(result);
-    // });
-
-
-
+    
     // Custom styling can be passed to options when creating an Element.
     // (Note that this demo uses a wider set of styles than the guide below.)
     var style = {
@@ -37502,75 +37566,148 @@ Acme.UserProfileController.prototype.checkPaymentIntentStatus = function(client_
     }); 
 
     var form = document.getElementById('fix-payment-form');
+    var trial = form.getAttribute('data-trial');
+
+
+    var reqResult = function(result) {
+
+        if (result.error) {
+
+            modal.render("spinner", "Authorization error");
+
+            console.log(result);
+            setTimeout(function() {
+                window.location.reload();
+                return false;
+            }, 2000);
+            return false;
+
+        } else {
+          // The setup has succeeded. Display a success message.
+          modal.render("spinner", "Looks good!  One sec while we refresh the page...");
+
+            setTimeout(function() {
+                // window.location.reload();
+                  window.location.href = location.origin;
+                return false;
+            }, 2000);
+            return false;
+
+        }
+    }
 
     if (form != null) {
         form.addEventListener('submit', function(event) {
             event.preventDefault();
-            console.log('charting fix');
-            self.stripeCharge(stripe, card, client_secret);
+            modal.render("spinner", "Attempting to authorize card");
+            stripe.createToken(card).then(function(result) {
+                console.log(result);
+
+                if (result.error) {
+                    modal.closeWindow();
+                    // Inform the user if there was an error
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                    return;
+                }
+
+
+
+
+                if (trial === 1) {
+                    Acme.server.fetch(_appJsConfig.appHostName + '/api/paywall/new-stripe-setup-intent?trial=' + trial).then(function(r) {
+                        console.log(r);
+                        stripe.confirmCardSetup(r.client_secret, {
+                            payment_method: {
+                                card: card,
+                            },
+                        }).then(reqResult(r));
+                
+                    }).fail(function(r) {
+                        modal.closeWindow();
+                    });
+
+                    return;
+                }
+
+                Acme.server.fetch(_appJsConfig.appHostName + '/api/paywall/new-stripe-payment-intent').then(function(r) {
+
+                    stripe.confirmCardPayment(r.client_secret, {
+                        payment_method: {
+                            card: card,
+                        },
+                    }).then(function(b){
+                        console.log(b);
+                        reqResult(b);
+                    });
+                });
+            });
         });
     }
+    var auth = document.getElementById('fix-auth-renewal');
+    auth.addEventListener('click', function(event) {
+        console.log('fodgettte');
+        modal.render("spinner", "Authorizing card");
 
-    // stripe.handleCardAction(client_secret).then(function(result) {
-    //     if (result.error) {
-    //         console.log('there was an error', result.error);
-    //       // Show `result.error.message` in payment form
-    //     } else {
-    //         console.log('success');
-
-    //       // The card action has been handled
-    //       // The PaymentIntent can be confirmed again on the server
-    //     //   fetch('/pay', {
-    //     //     method: 'POST',
-    //     //     headers: { 'Content-Type': 'application/json' },
-    //     //     body: JSON.stringify({ payment_intent_id: result.paymentIntent.id })
-    //     //   }).then(function(confirmResult) {
-    //     //     return confirmResult.json();
-    //     //   }).then(handleServerResponse);
-    //     }
-    //   });
-  
-}
-Acme.UserProfileController.prototype.stripeCharge = function(stripe, card, client_secret) {
-
-    var modal = new Acme.Signin('spinner', 'acme-dialog', {"spinner": 'spinnerTmpl'});
-
-    modal.render("spinner", "Attempting payment");
-
-    stripe.confirmCardPayment(client_secret, {
-        payment_method: {
-            card: card,
-            billing_details: {
-                address: {
-                    // city:self.data.city,
-                    // line1:self.data.address1,
-                    // line2:self.data.address2,
-                },
-                name: "jenny Davis",
-                // email: self.data.email
+        var secret = event.target.dataset.clientSecret;
+        console.log(event.target);
+        var paymentId = event.target.dataset.paymentId;
+        console.log(secret);
+        console.log(paymentId);
+        stripe.confirmCardPayment(secret, {
+            'payment_method': paymentId
+        })
+        .then(function(result) {
+            if (result.error) {
+                modal.render("spinner", "Authorisation failed. Refreshing page...");
+            } else {
+                modal.render("spinner", "Sucess! Refreshing page...");
             }
-        },
-        setup_future_usage: 'off_session'
-    }).then(function(result) {
-        // console.log(result);
-        modal.closeWindow();
-        if (result.error) {
-            var errorElement = document.getElementById('card-errors');
-            errorElement.textContent = result.error.message;
-        } else {
-            // The payment has been processed!
-            if (result.paymentIntent.status === 'succeeded') {
-                console.log('IT WORKED!!!');
-                var paymentForm = document.getElementById('card-errors');
-                modal.render("spinner", "Looks good! It can sometimes take a few minutes");
-                paymentForm.innerHTML = "";
-                // setTimeout(function() {
-                //     location.reload()
-                // }, 3000);
-            }
-        }
-    });
+            console.log(result);
+            setTimeout(function() {
+                window.location.reload();
+                return false;
+            }, 2000);
+
+          // Handle result.error or result.paymentIntent
+        });
+    }); 
 }
+
+
+
+
+// Acme.UserProfileController.prototype.stripeCharge = function(stripe, card, client_secret) {
+
+//     var modal = new Acme.Signin('spinner', 'acme-dialog', {"spinner": 'spinnerTmpl'});
+
+//     modal.render("spinner", "Attempting payment");
+
+//     stripe.confirmCardPayment(client_secret, {
+//         payment_method: {
+//             card: card,
+//         },
+//         setup_future_usage: 'off_session'
+//     }).then(function(result) {
+//         // console.log(result);
+//         modal.closeWindow();
+//         if (result.error) {
+//             var errorElement = document.getElementById('card-errors');
+//             errorElement.textContent = result.error.message;
+//         } else {
+//             // The payment has been processed!
+//             if (result.paymentIntent.status === 'succeeded') {
+//                 console.log('IT WORKED!!!');
+//                 var paymentForm = document.getElementById('card-errors');
+//                 modal.render("spinner", "Looks good! It can sometimes take a few minutes");
+//                 paymentForm.innerHTML = "";
+//                 // setTimeout(function() {
+//                 //     location.reload()
+//                 // }, 3000);
+//             }
+//         }
+//     });
+// }
 
 
 Acme.UserProfileController.prototype.listingEvents = function() {
