@@ -15,9 +15,7 @@
 
 {% set userData = []  %}
 {% if not _User.isGuest() %}
-
     {% set userData = _User.getPaywallStats(false)  %}
-
 {% endif %}
 
 {% if 'article' not in pageClass and 'screen' not in layout and (site == 'frank australia' or site == 'frank nz')  %}
@@ -38,6 +36,10 @@
 {% set url = _AppHelper.getParsedUrl().path %}
 
 
+{% set pwstats = _User.getPaywallStats() %}
+{# {% set log = _AppHelper.log(pwstats) %} #}
+
+{% set redirect = false %}
 
 {# Pages don't have a blogName so class has to be used #}
 {% if   not _User.isAdminUser()                                             and
@@ -59,15 +61,16 @@
         blogData['showPaywall']         == true %}
 
     {% set redirect = '/signup' %}
-    
-    {% set pwstats = _User.getPaywallStats() %}
 
-    {% set log = _AppHelper.log(pwstats) %}
-    
-    {% if pwstats.error_data is defined and pswstats.error_data | length > 0 %}
-        {% set redirect = '/user/edit-profile' %}
-    {% endif %}
+{% endif %}
 
+
+{% if pwstats.error_data is defined and pwstats.error_data | length > 0 %}
+    {% set redirect = '/user/edit-profile' %}
+{% endif %}
+
+
+{% if redirect and url != redirect %}
     {% set redir = _Page.setHttpRedirects(
         {
             '|^/.*|': networkData.defaultBlogUrl ~ redirect,
@@ -75,7 +78,6 @@
         }, false) 
     %} 
 {% endif %}
-
 
 
 
@@ -118,7 +120,7 @@
 
 
     {% if _AppHelper.getApplicationEnv() == 'PROD'%}
-        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=da9974f6-18181818" type="text/css" media="all">
+        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=1789b7fe-18181818" type="text/css" media="all">
     {% else %}
 
         <link rel='stylesheet' href='{{networkData.templatePath}}/static/css/concat.css' type='text/css' media='all' />

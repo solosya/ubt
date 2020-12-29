@@ -12,8 +12,9 @@
 {% set jobListingsArr = [] %}
 {% set propListingsArr = [] %}
 {% set pwstats = _User.getPaywallStats(true) %}
+
 {% set plans = _Network.getNetworkData()['paywallPlans'] %}
-{% set log = _AppHelper.log(pwstats) %}
+{# {% set log = _AppHelper.log(pwstats) %} #}
 {% set currency_plans = [] %}
 
 {# separate plans by currency #}
@@ -36,24 +37,52 @@
 
 
 
-
+{% set signup = pwstats.status == "pending" ? true : false %}
+{% set stripeError = pwstats.error_data | length > 0 %}
+{% set confirmPayment = false %} 
 {% set paymentError = false %}
-{% if pwstats.error_data and (pwstats.status == "unpaid" or pwstats.status == "trial") %}
-    {% set paymentError = true %}
+{% set paymentPending = pwstats.payment_data | length > 0 ? true : false %}
+
+
+
+{% if paymentPending and (pwstats.status == "pending" or pwstats.status == "unpaid") %}
+    {% set StripeCheck = _Paywall.getCheckoutStripeIntent({"client_secret" : pwstats.payment_data.intent_id, "type" : pwstats.payment_data.type}) %}
+    {% set pwstats = _User.getPaywallStats(true, false, {'cache' : false}) %}
 {% endif %}
 
-{% set signup = false %}
-{% for k, p in params %}
-    {% if k == 'signup' %}
-        {% if p == 'true' %}
-            {% set signup = true %}
-        {% endif %}
+
+
+{% if stripeError %}
+    {% if pwstats.error_data.type == 'plan change' %}
+        {% set StripeCheck = _Paywall.getPlanChangeStripeIntent({"client_secret" : pwstats.error_data.id}) %}
+        {% set pwstats = _User.getPaywallStats(true, false, {'cache' : false}) %}
     {% endif %}
-{% endfor %}
+
+    {% if pwstats.error_data.type == 'renewal' %}
+        {% set StripeCheck = _Paywall.getRenewalStripeIntent({"client_secret" : pwstats.error_data.id}) %}
+        {% if StripeCheck.intent == false %}
+            {% set paymentError = true %}
+            {% set confirmPayment = true %}
+        {% endif %}
+        {% set pwstats = _User.getPaywallStats(true, false, {'cache' : false}) %}
+    {% endif %}
+
+
+    {% if pwstats.status == "unpaid" or pwstats.status == "trial" %}
+        {% set paymentError = true %}
+    {% endif %}
+
+{% endif %}
+
+
+
+
 {# {% if user %} 
     {% set jobListingsArr = _User.getUserArticles(user.guid, 0, 20, {'blogs':[jobsBlogId], 'status': '-1'}) %}
     {% set propListingsArr = _User.getUserArticles(user.guid, 0, 20, {'blogs':[propBlogId], 'status': '-1'}) %}
 {% endif %} #}
+
+
 
 {{this.registerJs("Acme.usercard = new Acme.Usercard();")}}
 
@@ -78,30 +107,43 @@
         <div class="user_profile_section">
             <div class="row">
                 <div class="col-sm-12">
+
                     {{this.render('layouts/partials/messages.twig') | raw}}
 
                     <div class="profile-section profile-section--border">
 
+
                         {% set paymentMessage = "" %}
-                        {% if pwstats.error_data %}
-                            <p>{{pwstats.error_data.message}}</p>
+                        {# {% if pwstats.error_data %}
+                            <p>{{pwstats.error_data.errorMessage}}</p>
                             <p>{{pwstats.error_data.code}}</p>
-                        {% endif %}
+                        {% endif %} #}
                         {% if paymentError %}
                             {% if signup %}
-                                {% set paymentMessage = "Your account has been set up, however it looks like there's a problem with payment" %}
+                                {% set paymentMessage = "Your account has been set up, however it looks like there's a problem with your card. " %}
                             {% endif %} 
                             {% set errorCodes = ["payment_intent_authentication_failure", "setup_intent_authentication_failure"] %}
                             
-                            {% if pwstats.error_data.code in errorCodes %} 
+                            {% if pwstats.error_data.code == errorCodes[0] %} 
                                 {% set paymentMessage = "The bank was unable to authorise payment for this card" %}
                             {% endif %}
 
-                            <div id="fix-payment-form-container" class="payment-fix payment-fix__container">
-                                <h1 class="payment-fix__header">Sorry, something went wrong with your last payment</h1>
-                                <p class="payment-fix__message u-margin-top-10">{{paymentMessage}}</p>
+                            {% if pwstats.error_data.code == errorCodes[1] %} 
+                                {% set paymentMessage = paymentMessage ~ "The bank was unable to authorise the card you've chosen for future payments upon completion of your trial period. " %}
+                                {% set paymentMessage = paymentMessage ~ " Try entering card details below to try again." %}
+                            {% endif %}
 
-                                <form action="/charge" method="post" id="fix-payment-form">
+
+
+                            <div id="fix-payment-form-container" class="payment-fix payment-fix__container">
+                                <h1 class="payment-fix__header">Sorry, something went wrong when authorizing your card for payment</h1>
+                                <p class="payment-fix__message u-margin-top-10">{{paymentMessage}}</p>
+                                
+                                {% if confirmPayment %}
+                                    <div id="fix-auth-renewal" data-client-secret="{{pwstats.error_data.client_secret}}" data-payment-id="{{pwstats.error_data.payment_id}}" class="_btn payment-fix__button">Confirm card</div>
+                                {% endif %}
+
+                                <form action="/charge" method="post" id="fix-payment-form" data-trial={{pwstats.payment_data.trial}}>
                                     <div class="form-row">
                                         <label class="payment-fix__label" for="card-element">Credit or debit card</label>
                                         <div id="card-element">
@@ -632,9 +674,10 @@
     // main script is defered so event listener makes sure
     // defered script is loaded before this runs
     document.addEventListener("DOMContentLoaded", function() {
-        var Payment = new Acme.UserProfileController();
+        var Payment = new Acme.StripePayment();
         console.log(Payment);
-        Payment.checkPaymentIntentStatus("{{pwstats.error_data.client_secret}}");
+        //Payment.checkPaymentIntentStatus("{{pwstats.error_data.client_secret}}", "{{pwstats.error_data.id}}");
+        Payment.checkPaymentIntentStatus("{{pwstats.payment_data.client_secret}}", "{{pwstats.payment_data.intent_id}}", "{{pwstats.error_data.payment_method_id}}");
     });
 </script>
 

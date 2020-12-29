@@ -187,7 +187,8 @@ if ($('#stripekey').length > 0) {
                     errorElement.textContent = result.error.message;
                 } else {
                     modal.render("spinner", "Creating account");
-
+                    var profilePage = location.origin + "/user/edit-profile";
+                    var thankYouPage = window.location.origin + "/auth/thank-you";
                     formhandler(subscribe.data, '/auth/paywall-signup').done( function(r) {
                         console.log(r);
                         var clientSecret = typeof r.client_secret !== 'undefined' && r.client_secret ? r.client_secret : null;
@@ -197,17 +198,41 @@ if ($('#stripekey').length > 0) {
                         console.log(clientSecret);
                         modal.render("spinner", "Authorising payment");
                         if (!r.trial) {
-                            self.paymentIntent(clientSecret, card);
+                            self.paymentIntent(clientSecret, card).then(function(result) {
+                                if (result.error) {
+                                    // return result.error;
+                                    console.log(result);
+                                    console.log(result.error.message);
+                                    console.log("redirecting to profile page", profilePage);
+                                    window.location.href = profilePage;
+                                    console.log('has it redirected?');
+                                } else {
+                                  // The setup has succeeded. Display a success message.
+                                  console.log('IT WORKED!!!', thankYouPage);
+                                  window.location.href = thankYouPage;
+                                  console.log('has it redirected?');
+                    
+                                }
+                            });
                         } else {
-                            self.setupIntent(clientSecret, card);
+                            self.setupIntent(clientSecret, card).then(function(result) {
+                                if (result.error) {
+                                    // return result.error;
+                                    console.log(result);
+                                    console.log(result.error.message);
+                                    console.log("redirecting to profile page");
+                                    window.location.href = profilePage;
+                                } else {
+                                  // The setup has succeeded. Display a success message.
+                                  console.log('IT WORKED!!!');
+                                  window.location.href = thankYouPage;
+                    
+                                }
+                            });
                         }
                     });
                 }
-            });    
-
-            
-            
-            
+            });
         }
     };
 
@@ -215,7 +240,7 @@ if ($('#stripekey').length > 0) {
     SubscribeForm.prototype.paymentIntent = function(clientSecret, card) {
         var self = this;
 
-        stripe.confirmCardPayment(clientSecret, {
+        return stripe.confirmCardPayment(clientSecret, {
             payment_method: {
                 card: card,
                 billing_details: {
@@ -229,27 +254,14 @@ if ($('#stripekey').length > 0) {
                 }
             },
             setup_future_usage: 'off_session'
-        }).then(function(result) {
-            console.log(result);
-            if (result.error) {
-                console.log(result.error.message);
-                console.log("redirecting to profile page")
-                // window.location.href = location.origin + "/user/edit-profile?signup=true";
-
-            } else {
-
-                // The payment has been processed!
-                if (result.paymentIntent.status === 'succeeded') {
-                    console.log('IT WORKED!!!');
-                    // window.location.href = location.origin + "/auth/thank-you";
-                }
-            }
         });
     }
+
+
     SubscribeForm.prototype.setupIntent = function(clientSecret, card) {
         var self = this;
         console.log("confirming card SETUP");
-        stripe.confirmCardSetup(clientSecret,
+        return stripe.confirmCardSetup(clientSecret,
             {
               payment_method: {
                 card: card,
@@ -264,19 +276,7 @@ if ($('#stripekey').length > 0) {
                 }
               },
             }
-          ).then(function(result) {
-            if (result.error) {
-                console.log(result);
-                console.log(result.error.message);
-                console.log("redirecting to profile page");
-                // window.location.href = location.origin + "/user/edit-profile?signup=true";
-            } else {
-              // The setup has succeeded. Display a success message.
-              console.log('IT WORKED!!!');
-            //   window.location.href = location.origin + "/auth/thank-you";
-
-            }
-          });
+        )
     }
 
     SubscribeForm.prototype.events = function()
@@ -337,7 +337,14 @@ if ($('#stripekey').length > 0) {
 
                 } else {
                     modal.closeWindow();
-                    var text = ''
+                    var text = '';
+
+                    if (!Object.prototype.toString.call(data.error) === '[object Array]') {
+                        var err = {
+                            "error": data.error
+                        };
+                        data.error = err;
+                    };
                     for (var key in data.error) {
                         text = text + data.error[key] + " ";
                     } 
