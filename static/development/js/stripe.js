@@ -190,27 +190,25 @@ if ($('#stripekey').length > 0) {
                     var profilePage = location.origin + "/user/edit-profile";
                     var thankYouPage = window.location.origin + "/auth/thank-you";
                     formhandler(subscribe.data, '/auth/paywall-signup').done( function(r) {
-                        console.log(r);
+                        // console.log(r);
                         var clientSecret = typeof r.client_secret !== 'undefined' && r.client_secret ? r.client_secret : null;
                         if (!clientSecret || r.error) {
                             return false;
                         }
-                        console.log(clientSecret);
-                        modal.render("spinner", "Authorising payment");
+
+                        modal.render("spinner", "Authenticating payment");
                         if (!r.trial) {
                             self.paymentIntent(clientSecret, card).then(function(result) {
                                 if (result.error) {
                                     // return result.error;
                                     console.log(result);
-                                    console.log(result.error.message);
-                                    console.log("redirecting to profile page", profilePage);
+                                    // console.log(result.error.message);
+                                    // console.log("redirecting to profile page", profilePage);
                                     window.location.href = profilePage;
-                                    console.log('has it redirected?');
                                 } else {
                                   // The setup has succeeded. Display a success message.
-                                  console.log('IT WORKED!!!', thankYouPage);
+                                //   console.log('IT WORKED!!!', thankYouPage);
                                   window.location.href = thankYouPage;
-                                  console.log('has it redirected?');
                     
                                 }
                             });
@@ -219,12 +217,11 @@ if ($('#stripekey').length > 0) {
                                 if (result.error) {
                                     // return result.error;
                                     console.log(result);
-                                    console.log(result.error.message);
-                                    console.log("redirecting to profile page");
+                                    // console.log(result.error.message);
+                                    // console.log("redirecting to profile page");
                                     window.location.href = profilePage;
                                 } else {
                                   // The setup has succeeded. Display a success message.
-                                  console.log('IT WORKED!!!');
                                   window.location.href = thankYouPage;
                     
                                 }
@@ -260,7 +257,7 @@ if ($('#stripekey').length > 0) {
 
     SubscribeForm.prototype.setupIntent = function(clientSecret, card) {
         var self = this;
-        console.log("confirming card SETUP");
+
         return stripe.confirmCardSetup(clientSecret,
             {
               payment_method: {

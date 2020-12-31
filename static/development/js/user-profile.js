@@ -408,7 +408,7 @@ Acme.UserProfileController.prototype.events = function ()
                                         })
                                         .then(function(result) {
                                             if (result.error) {
-                                                modal.render("spinner", "Authorisation failed. Refreshing page...");
+                                                modal.render("spinner", "Authentication failed. Refreshing page...");
                                             } else {
                                                 modal.render("spinner", "Sucess! Refreshing page...");
                                             }
@@ -514,7 +514,7 @@ Acme.StripePayment.prototype.checkPaymentIntentStatus = function(client_secret, 
 
         if (result.error) {
 
-            modal.render("spinner", "Authorization error");
+            modal.render("spinner", "Authentication error");
 
             console.log(result);
             setTimeout(function() {
@@ -540,7 +540,7 @@ Acme.StripePayment.prototype.checkPaymentIntentStatus = function(client_secret, 
     if (form != null) {
         form.addEventListener('submit', function(event) {
             event.preventDefault();
-            modal.render("spinner", "Attempting to authorize card");
+            modal.render("spinner", "Attempting to authenticate card");
             stripe.createToken(card).then(function(result) {
                 console.log(result);
 
@@ -601,7 +601,7 @@ Acme.StripePayment.prototype.checkPaymentIntentStatus = function(client_secret, 
     var auth = document.getElementById('fix-auth-renewal');
     auth.addEventListener('click', function(event) {
         console.log('fodgettte');
-        modal.render("spinner", "Authorizing card");
+        modal.render("spinner", "Authenticating card...");
 
         var secret = event.target.dataset.clientSecret;
         console.log(event.target);
@@ -613,7 +613,7 @@ Acme.StripePayment.prototype.checkPaymentIntentStatus = function(client_secret, 
         })
         .then(function(result) {
             if (result.error) {
-                modal.render("spinner", "Authorisation failed. Refreshing page...");
+                modal.render("spinner", "Authentication failed. Refreshing page...");
             } else {
                 modal.render("spinner", "Sucess! Refreshing page...");
             }

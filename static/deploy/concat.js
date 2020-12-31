@@ -36740,27 +36740,25 @@ if ($('#stripekey').length > 0) {
                     var profilePage = location.origin + "/user/edit-profile";
                     var thankYouPage = window.location.origin + "/auth/thank-you";
                     formhandler(subscribe.data, '/auth/paywall-signup').done( function(r) {
-                        console.log(r);
+                        // console.log(r);
                         var clientSecret = typeof r.client_secret !== 'undefined' && r.client_secret ? r.client_secret : null;
                         if (!clientSecret || r.error) {
                             return false;
                         }
-                        console.log(clientSecret);
-                        modal.render("spinner", "Authorising payment");
+
+                        modal.render("spinner", "Authenticating payment");
                         if (!r.trial) {
                             self.paymentIntent(clientSecret, card).then(function(result) {
                                 if (result.error) {
                                     // return result.error;
                                     console.log(result);
-                                    console.log(result.error.message);
-                                    console.log("redirecting to profile page", profilePage);
+                                    // console.log(result.error.message);
+                                    // console.log("redirecting to profile page", profilePage);
                                     window.location.href = profilePage;
-                                    console.log('has it redirected?');
                                 } else {
                                   // The setup has succeeded. Display a success message.
-                                  console.log('IT WORKED!!!', thankYouPage);
+                                //   console.log('IT WORKED!!!', thankYouPage);
                                   window.location.href = thankYouPage;
-                                  console.log('has it redirected?');
                     
                                 }
                             });
@@ -36769,12 +36767,11 @@ if ($('#stripekey').length > 0) {
                                 if (result.error) {
                                     // return result.error;
                                     console.log(result);
-                                    console.log(result.error.message);
-                                    console.log("redirecting to profile page");
+                                    // console.log(result.error.message);
+                                    // console.log("redirecting to profile page");
                                     window.location.href = profilePage;
                                 } else {
                                   // The setup has succeeded. Display a success message.
-                                  console.log('IT WORKED!!!');
                                   window.location.href = thankYouPage;
                     
                                 }
@@ -36810,7 +36807,7 @@ if ($('#stripekey').length > 0) {
 
     SubscribeForm.prototype.setupIntent = function(clientSecret, card) {
         var self = this;
-        console.log("confirming card SETUP");
+
         return stripe.confirmCardSetup(clientSecret,
             {
               payment_method: {
@@ -37467,7 +37464,7 @@ Acme.UserProfileController.prototype.events = function ()
                                         })
                                         .then(function(result) {
                                             if (result.error) {
-                                                modal.render("spinner", "Authorisation failed. Refreshing page...");
+                                                modal.render("spinner", "Authentication failed. Refreshing page...");
                                             } else {
                                                 modal.render("spinner", "Sucess! Refreshing page...");
                                             }
@@ -37573,7 +37570,7 @@ Acme.StripePayment.prototype.checkPaymentIntentStatus = function(client_secret, 
 
         if (result.error) {
 
-            modal.render("spinner", "Authorization error");
+            modal.render("spinner", "Authentication error");
 
             console.log(result);
             setTimeout(function() {
@@ -37599,7 +37596,7 @@ Acme.StripePayment.prototype.checkPaymentIntentStatus = function(client_secret, 
     if (form != null) {
         form.addEventListener('submit', function(event) {
             event.preventDefault();
-            modal.render("spinner", "Attempting to authorize card");
+            modal.render("spinner", "Attempting to authenticate card");
             stripe.createToken(card).then(function(result) {
                 console.log(result);
 
@@ -37660,7 +37657,7 @@ Acme.StripePayment.prototype.checkPaymentIntentStatus = function(client_secret, 
     var auth = document.getElementById('fix-auth-renewal');
     auth.addEventListener('click', function(event) {
         console.log('fodgettte');
-        modal.render("spinner", "Authorizing card");
+        modal.render("spinner", "Authenticating card...");
 
         var secret = event.target.dataset.clientSecret;
         console.log(event.target);
@@ -37672,7 +37669,7 @@ Acme.StripePayment.prototype.checkPaymentIntentStatus = function(client_secret, 
         })
         .then(function(result) {
             if (result.error) {
-                modal.render("spinner", "Authorisation failed. Refreshing page...");
+                modal.render("spinner", "Authentication failed. Refreshing page...");
             } else {
                 modal.render("spinner", "Sucess! Refreshing page...");
             }
