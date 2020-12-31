@@ -66,7 +66,14 @@
 
 
 {% if pwstats.error_data is defined and pwstats.error_data | length > 0 %}
-    {% set redirect = '/user/edit-profile' %}
+
+    {# When attemping a plan change, if there is a card error, we need to remove the error
+    so users aren't always redirected back to the my account page #}
+    {% if pwstats.error_data.type == 'plan change' %}
+        {% set StripeCheck = _Paywall.getPlanChangeStripeIntent({"client_secret" : pwstats.error_data.id}) %}
+    {% else %}
+        {% set redirect = '/user/edit-profile' %}
+    {% endif %}
 {% endif %}
 
 
@@ -120,7 +127,7 @@
 
 
     {% if _AppHelper.getApplicationEnv() == 'PROD'%}
-        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=1789b7fe-18181818" type="text/css" media="all">
+        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=b43675da-18181818" type="text/css" media="all">
     {% else %}
 
         <link rel='stylesheet' href='{{networkData.templatePath}}/static/css/concat.css' type='text/css' media='all' />

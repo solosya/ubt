@@ -37567,7 +37567,7 @@ Acme.StripePayment.prototype.checkPaymentIntentStatus = function(client_secret, 
 
     var form = document.getElementById('fix-payment-form');
     var trial = form.getAttribute('data-trial');
-
+    var renewal = form.getAttribute('data-renewal');
 
     var reqResult = function(result) {
 
@@ -37587,8 +37587,8 @@ Acme.StripePayment.prototype.checkPaymentIntentStatus = function(client_secret, 
           modal.render("spinner", "Looks good!  One sec while we refresh the page...");
 
             setTimeout(function() {
-                // window.location.reload();
-                  window.location.href = location.origin;
+                window.location.reload();
+                //   window.location.href = location.origin;
                 return false;
             }, 2000);
             return false;
@@ -37613,7 +37613,21 @@ Acme.StripePayment.prototype.checkPaymentIntentStatus = function(client_secret, 
 
 
 
+                if (renewal) {
+                    console.log('doing renewal');
+                    stripe.confirmCardPayment(renewal, {
+                        payment_method: {
+                            card: card,
+                        },
+                    }).then(function(b){
+                        console.log(b);
+                        reqResult(b);
+                    });
+                    return;
+                }
 
+
+                // if failure happend during checkout a new intent is created
                 if (trial === 1) {
                     Acme.server.fetch(_appJsConfig.appHostName + '/api/paywall/new-stripe-setup-intent?trial=' + trial).then(function(r) {
                         console.log(r);
@@ -37631,7 +37645,6 @@ Acme.StripePayment.prototype.checkPaymentIntentStatus = function(client_secret, 
                 }
 
                 Acme.server.fetch(_appJsConfig.appHostName + '/api/paywall/new-stripe-payment-intent').then(function(r) {
-
                     stripe.confirmCardPayment(r.client_secret, {
                         payment_method: {
                             card: card,

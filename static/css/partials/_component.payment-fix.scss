@@ -15,18 +15,28 @@
     }
     &__message {
         color:white;
-    }
 
+        &--light {
+            font-weight:300;
+        }
+    }
+    &__link {
+        color:white;
+        text-decoration: underline;
+    }
     &__label {
         color:white !important;
         font-weight:300 !important;
     }
     &__button {
+        display:flex;
+        justify-content:center;
         background: white;
         color:black;
         &:hover {
             background: #ebfcff;
         }
+        cursor: pointer;
     }
 
 }

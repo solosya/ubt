@@ -53,6 +53,10 @@
 
 
 {% if stripeError %}
+
+    {% set renewal_id = false %}
+
+
     {% if pwstats.error_data.type == 'plan change' %}
         {% set StripeCheck = _Paywall.getPlanChangeStripeIntent({"client_secret" : pwstats.error_data.id}) %}
         {% set pwstats = _User.getPaywallStats(true, false, {'cache' : false}) %}
@@ -63,6 +67,8 @@
         {% if StripeCheck.intent == false %}
             {% set paymentError = true %}
             {% set confirmPayment = true %}
+            {% set renewal_id = pwstats.error_data.client_secret %}
+
         {% endif %}
         {% set pwstats = _User.getPaywallStats(true, false, {'cache' : false}) %}
     {% endif %}
@@ -75,7 +81,7 @@
 {% endif %}
 
 
-
+{# {% set log = _AppHelper.log(pwstats) %} #}
 
 {# {% if user %} 
     {% set jobListingsArr = _User.getUserArticles(user.guid, 0, 20, {'blogs':[jobsBlogId], 'status': '-1'}) %}
@@ -93,6 +99,8 @@
 {{this.registerJs("Acme.userFeed = new Acme.View.userFeed(Acme.usercard, " ~ userLimit ~ ",     20,         false,          null, Acme.userController);")}}
 
 
+{# {% set paymentError = true %}
+{% set confirmPayment = false %} #}
 
 
 {% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
@@ -125,27 +133,36 @@
                             {% set errorCodes = ["payment_intent_authentication_failure", "setup_intent_authentication_failure"] %}
                             
                             {% if pwstats.error_data.code == errorCodes[0] %} 
-                                {% set paymentMessage = "The bank was unable to authorise payment for this card" %}
+                                {% set paymentMessage = "The bank was unable to authenticate payment for this card" %}
                             {% endif %}
 
                             {% if pwstats.error_data.code == errorCodes[1] %} 
-                                {% set paymentMessage = paymentMessage ~ "The bank was unable to authorise the card you've chosen for future payments upon completion of your trial period. " %}
+                                {% set paymentMessage = paymentMessage ~ "The bank was unable to authenticate the card you've chosen for future payments upon completion of your trial period. " %}
                                 {% set paymentMessage = paymentMessage ~ " Try entering card details below to try again." %}
                             {% endif %}
 
 
 
                             <div id="fix-payment-form-container" class="payment-fix payment-fix__container">
-                                <h1 class="payment-fix__header">Sorry, something went wrong when authorizing your card for payment</h1>
+                                <h1 class="payment-fix__header">Sorry, something went wrong when authenticating your card for payment</h1>
+                                <p class="payment-fix__message u-margin-top-20">Due to new <a class="payment-fix__link" href="https://stripe.com/en-au/payments/strong-customer-authentication">Strong Customer Authentication (SCA)</a> regulations, your bank is asking for your card to be authenticated.</p>
+
                                 <p class="payment-fix__message u-margin-top-10">{{paymentMessage}}</p>
                                 
+                                
+                                {% set cardUpdateMessage = "Update your credit or debit card details here:" %}
                                 {% if confirmPayment %}
-                                    <div id="fix-auth-renewal" data-client-secret="{{pwstats.error_data.client_secret}}" data-payment-id="{{pwstats.error_data.payment_id}}" class="_btn payment-fix__button">Confirm card</div>
+                                    <div class="u-margin-top-20">
+                                        <p class="payment-fix__message payment-fix__message--light">Click here to authenticate your currently saved card.</p>
+                                        <div id="fix-auth-renewal" data-client-secret="{{pwstats.error_data.client_secret}}" data-payment-id="{{pwstats.error_data.payment_id}}" class="_btn payment-fix__button u-margin-bottom-20">Authenticate card</div>
+                                    </div>
+                                    {% set cardUpdateMessage = "Or you can update your credit or debit card details here:" %}
                                 {% endif %}
 
-                                <form action="/charge" method="post" id="fix-payment-form" data-trial={{pwstats.payment_data.trial}}>
+
+                                <form action="/charge" method="post" id="fix-payment-form" data-renewal="{{renewal_id}}" data-trial={{pwstats.payment_data.trial}}>
                                     <div class="form-row">
-                                        <label class="payment-fix__label" for="card-element">Credit or debit card</label>
+                                        <label class="payment-fix__label" for="card-element">{{cardUpdateMessage}}</label>
                                         <div id="card-element">
                                         <!-- a Stripe Element will be inserted here. -->
                                         </div>
