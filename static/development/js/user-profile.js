@@ -456,6 +456,14 @@ Acme.StripePayment.prototype.checkPaymentIntentStatus = function(client_secret, 
     console.log(client_secret);
     console.log(intent_id);
     console.log(payment_method_id);
+
+    var cardElement = document.getElementById('fix-card-element');
+    if (!cardElement) {
+        return;
+    }
+
+
+
     var self = this;
     var stripekey = $('#stripekey').html();
     if (stripekey.length < 1) return;
@@ -488,10 +496,7 @@ Acme.StripePayment.prototype.checkPaymentIntentStatus = function(client_secret, 
     var card = elements.create('card', {style: style});
 
     // Add an instance of the card Element into the `card-element` <div>
-    var cardElement = document.getElementById('card-element');
-    if (cardElement != null) {
-        card.mount('#card-element');
-    }
+    card.mount('#fix-card-element');
 
     // Handle real-time validation errors from the card Element.
     card.addEventListener('change', function(event) {
