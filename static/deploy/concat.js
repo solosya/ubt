@@ -37279,7 +37279,6 @@ Acme.UserProfileController.prototype.events = function ()
                 useremail: $('#newuseruseremail').val(),
                 _csrf: this.csrfToken
             };
-            console.log('saving new user');
             if (!requestData['username']) {
                 $('#createUserErrorMessage').text("You must supply a username");
                 return;
@@ -37381,7 +37380,6 @@ Acme.UserProfileController.prototype.events = function ()
 
 
     $('.j-setplan').on('click', function(e) {
-        console.log('clicked changeplan');
         var listelem = $(e.target);
         if (!listelem.hasClass('j-setplan')) {
             listelem = $(e.target.parentNode);
@@ -37439,7 +37437,7 @@ Acme.UserProfileController.prototype.events = function ()
                         dataType: 'json',
                         data: requestData,
                         success: function (data, textStatus, jqXHR) {
-                            console.log(data);
+                            // console.log(data);
                             if (data.success == 1) {
                                 window.location.reload();
                             } else {
@@ -37479,7 +37477,7 @@ Acme.UserProfileController.prototype.events = function ()
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            console.log(textStatus);
+                            // console.log(textStatus);
                             // if (!Object.prototype.toString.call(data.error) === '[object Array]') {
                             //     var err = {
                             //         "error": data.error
@@ -37508,10 +37506,10 @@ Acme.UserProfileController.prototype.events = function ()
 
 Acme.StripePayment = function(){};
 Acme.StripePayment.prototype.checkPaymentIntentStatus = function(client_secret, intent_id, payment_method_id) {
-    console.log('checking user payment status');
-    console.log(client_secret);
-    console.log(intent_id);
-    console.log(payment_method_id);
+    // console.log('checking user payment status 2');
+    // console.log(client_secret);
+    // console.log(intent_id);
+    // console.log(payment_method_id);
 
     var cardElement = document.getElementById('fix-card-element');
     if (!cardElement) {
@@ -37581,7 +37579,6 @@ Acme.StripePayment.prototype.checkPaymentIntentStatus = function(client_secret, 
 
             modal.render("spinner", "Authentication error");
 
-            console.log(result);
             setTimeout(function() {
                 window.location.reload();
                 return false;
@@ -37607,7 +37604,6 @@ Acme.StripePayment.prototype.checkPaymentIntentStatus = function(client_secret, 
             event.preventDefault();
             modal.render("spinner", "Attempting to authenticate card");
             stripe.createToken(card).then(function(result) {
-                console.log(result);
 
                 if (result.error) {
                     modal.closeWindow();
@@ -37620,7 +37616,6 @@ Acme.StripePayment.prototype.checkPaymentIntentStatus = function(client_secret, 
 
 
                 if (renewal) {
-                    console.log('doing renewal');
                     stripe.confirmCardPayment(renewal, {
                         payment_method: {
                             card: card,
@@ -37635,17 +37630,28 @@ Acme.StripePayment.prototype.checkPaymentIntentStatus = function(client_secret, 
 
                 // if failure happend during checkout a new intent is created
                 if (trial === 1) {
-                    Acme.server.fetch(_appJsConfig.appHostName + '/api/paywall/new-stripe-setup-intent?trial=' + trial).then(function(r) {
-                        console.log(r);
-                        stripe.confirmCardSetup(r.client_secret, {
-                            payment_method: {
-                                card: card,
-                            },
-                        }).then(reqResult(r));
+
+                    stripe.confirmCardSetup(client_secret, {
+                        payment_method: {
+                            card: card,
+                        },
+                    }).then(reqResult(r));
+
+
+                    // The below code was used when i initially couldn't get the above code to work.
+                    // Don't think it's needed anymore but leaving just in case
+
+                    // Acme.server.fetch(_appJsConfig.appHostName + '/api/paywall/new-stripe-setup-intent?trial=' + trial).then(function(r) {
+                    //     console.log(r);
+                    //     stripe.confirmCardSetup(r.client_secret, {
+                    //         payment_method: {
+                    //             card: card,
+                    //         },
+                    //     }).then(reqResult(r));
                 
-                    }).fail(function(r) {
-                        modal.closeWindow();
-                    });
+                    // }).fail(function(r) {
+                    //     modal.closeWindow();
+                    // });
 
                     return;
                 }
