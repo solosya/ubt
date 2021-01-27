@@ -1,5 +1,6 @@
-{% set plans 		= networkData['paywallPlans'] %}
-{% set blogData		= _Blog.getBlog() %}
+{% set networkData   = _Network.getNetworkData() %}
+{% set plans 		 = networkData['paywallPlans'] %}
+{% set blogData		 = _Blog.getBlog() %}
 {% set blogName      = blogData.title %}
 	
 {% set aus = [] %}

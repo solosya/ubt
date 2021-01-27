@@ -4,12 +4,15 @@
 {% set blogData = _Blog.getBlog() %}
 {% set jobsBlogId = blogData.additionalInfo['joblistingsid'] %}
 {% set propBlogId = blogData.additionalInfo['propertylistingsid'] %}
+{% set url = _AppHelper.getParsedUrl %}
+{% set params = url['query'] %}
 
 <!-- Begin User Profile Page -->
 
 {% set jobListingsArr = [] %}
 {% set propListingsArr = [] %}
 {% set pwstats = _User.getPaywallStats(true) %}
+
 {% set plans = _Network.getNetworkData()['paywallPlans'] %}
 
 {% set currency_plans = [] %}
@@ -32,10 +35,72 @@
 {% set user = _User.getUser() %}
 
 
+
+{% set signup = pwstats.status == "pending" ? true : false %}
+{% set confirmPayment = false %} 
+{% set authError = false %} 
+{% set paymentError = false %}
+{% set paymentPending = pwstats.payment_data | length > 0 and pwstats.error_data | length == 0 ? true : false %}
+
+{# 'payment_intent_authentication_failure #}
+            {# [code] => card_declined #}
+{# merchant_blacklist
+lost_card
+fraudulent #}
+{% if paymentPending and (signup or pwstats.status == "unpaid") %}
+    {% set StripeCheck = _Paywall.getCheckoutStripeIntent({"client_secret" : pwstats.payment_data.intent_id, "type" : pwstats.payment_data.type}) %}
+    {% set pwstats = _User.getPaywallStats(true, false, {'cache' : false}) %}
+{% endif %}
+
+{% set paymentPending = pwstats.payment_data | length > 0 and pwstats.error_data | length == 0 ? true : false %}
+{% set signup = pwstats.status == "pending" ? true : false %}
+
+
+{% set stripeError = pwstats.error_data | length > 0 %}
+
+
+{% if stripeError %}
+
+    {% set renewal_id = false %}
+
+    {% if pwstats.error_data.code == "payment_intent_authentication_failure" %}
+        {% set authError = true %} 
+    {% endif %}
+
+    {% if pwstats.error_data.type == 'plan change' %}
+        {% set StripeCheck = _Paywall.getPlanChangeStripeIntent({"client_secret" : pwstats.error_data.id}) %}
+        {% set pwstats = _User.getPaywallStats(true, false, {'cache' : false}) %}
+    {% endif %}
+
+
+    {% if pwstats.error_data.type == 'renewal' %}
+        {% set StripeCheck = _Paywall.getRenewalStripeIntent({"client_secret" : pwstats.error_data.id}) %}
+        {% if StripeCheck.intent == false %}
+            {% set paymentError = true %}
+            {% if authError %}
+                {% set confirmPayment = true %}
+            {% endif %}
+            {% set renewal_id = pwstats.error_data.client_secret %}
+
+        {% endif %}
+        {% set pwstats = _User.getPaywallStats(true, false, {'cache' : false}) %}
+    {% endif %}
+
+
+    {% if pwstats.status == "unpaid" or pwstats.status == "trial" %}
+        {% set paymentError = true %}
+    {% endif %}
+
+{% endif %}
+
+
+
 {# {% if user %} 
     {% set jobListingsArr = _User.getUserArticles(user.guid, 0, 20, {'blogs':[jobsBlogId], 'status': '-1'}) %}
     {% set propListingsArr = _User.getUserArticles(user.guid, 0, 20, {'blogs':[propBlogId], 'status': '-1'}) %}
 {% endif %} #}
+
+
 
 {{this.registerJs("Acme.usercard = new Acme.Usercard();")}}
 
@@ -46,6 +111,8 @@
 {{this.registerJs("Acme.userFeed = new Acme.View.userFeed(Acme.usercard, " ~ userLimit ~ ",     20,         false,          null, Acme.userController);")}}
 
 
+{# {% set paymentError = true %}
+{% set confirmPayment = false %} #}
 
 
 {% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
@@ -60,9 +127,82 @@
         <div class="user_profile_section">
             <div class="row">
                 <div class="col-sm-12">
+
                     {{this.render('layouts/partials/messages.twig') | raw}}
 
                     <div class="profile-section profile-section--border">
+
+
+                        {% set paymentMessage = "" %}
+
+                        {% if paymentPending and signup %}
+                            <div id="fix-payment-form-container" class="payment-fix payment-fix__container">
+                                <h1 class="payment-fix__header">We're waiting to confirm the status of your payment method</h1>
+                                <p class="payment-fix__message u-margin-top-20">If you have recieved an alert about a possible payment failure, try 
+                                    refreshing this page, or continue to browse the site, and we'll redirect you back here if any issues regarding your payment method are confirmed.
+                                </p>
+                            </div>
+
+                        {% elseif paymentError %}
+                    
+                            {% if signup %}
+                                {% set paymentMessage = "Your account has been set up, however it looks like there's a problem with your card. " %}
+                            {% endif %} 
+
+                            {% set errorCodes = ["payment_intent_authentication_failure", "setup_intent_authentication_failure"] %}
+                            
+                            {% if pwstats.error_data.code == errorCodes[0] %} 
+                                {% set paymentMessage = "The bank was unable to authenticate payment for this card." %}
+                            {% endif %}
+
+                            {% if pwstats.error_data.code == errorCodes[1] %} 
+                                {% set paymentMessage = paymentMessage ~ "The bank was unable to authenticate the card you've chosen for future payments upon completion of your trial period. " %}
+                                {% set paymentMessage = paymentMessage ~ " Try entering card details below to try again." %}
+                            {% endif %}
+
+
+
+                            {% set paymentHeader = "Sorry, something went wrong when processing your card for payment" %}
+                            {% if authError %}
+                                {% set paymentHeader = "Sorry, something went wrong when authenticating your card for payment" %}
+                            {% endif %}
+
+                            <div id="fix-payment-form-container" class="payment-fix payment-fix__container">
+                                <h1 class="payment-fix__header">{{paymentHeader}}</h1>
+                                {% if authError %}
+                                    <p class="payment-fix__message u-margin-top-20">Due to new <a class="payment-fix__link" href="https://stripe.com/en-au/payments/strong-customer-authentication">Strong Customer Authentication (SCA)</a> regulations, your bank is asking for your card to be authenticated.</p>
+                                {% else %}
+                                    <p class="payment-fix__message u-margin-top-20">{{pwstats.error_data.code}}: {{pwstats.error_data.errorMessage}}</p>
+                                {% endif %}
+                                <p class="payment-fix__message u-margin-top-10">{{paymentMessage}}</p>
+                                
+                                
+                                {% set cardUpdateMessage = "Update your credit or debit card details here:" %}
+                                {% if confirmPayment %}
+                                    <div class="u-margin-top-20">
+                                        <p class="payment-fix__message payment-fix__message--light">Click here to authenticate your currently saved card.</p>
+                                        <div id="fix-auth-renewal" data-client-secret="{{pwstats.error_data.client_secret}}" data-payment-id="{{pwstats.error_data.payment_id}}" class="_btn payment-fix__button u-margin-bottom-20">Authenticate card</div>
+                                    </div>
+                                    {% set cardUpdateMessage = "Or you can update your credit or debit card details here:" %}
+                                {% endif %}
+
+
+                                <form action="/charge" method="post" id="fix-payment-form" data-renewal="{{renewal_id}}" data-trial={{pwstats.payment_data.trial}}>
+                                    <div class="form-row">
+                                        <label class="payment-fix__label" for="card-element">{{cardUpdateMessage}}</label>
+                                        <div id="fix-card-element">
+                                        <!-- a Stripe Element will be inserted here. -->
+                                        </div>
+                                        <!-- Used to display form errors -->
+                                        <div id="card-errors" class="card-errors u-margin-top-10" role="alert"></div>
+                                    </div>
+                                    <button id="fix-submit" class="_btn payment-fix__button u-margin-top-25">Submit</button>
+                                </form>
+                            </div>
+                        {% endif %}
+
+
+
                         <div class="profile-section__header">
                             <p class="profile-section__heading">My details</p>                                    
                             <a class="text-button text-button--italic u-float-right" href="/auth/logoff">Log Out</a> 
@@ -121,7 +261,6 @@
                                         <input type="password" id="password" class="form-control" name="password" placeholder="new password" >
                                         <p class="input-description">Passwords must be at least six characters long and contain no spaces</p>
                                     </div>
-
                                 </div>
 
                                 <label class="mobLabel" for="password">Verify Password</label>
@@ -179,7 +318,8 @@
                     </div>
 
 
-                {% if pwstats.userManager == true %}
+                {% if pwstats.userManager == true  %}
+                {# {% if pwstats.userManager == true and not paymentError %} #}
 
 
                     {# {% set managedUsers = _User.getPaywallManagedUsers({"limit": userLimit}) %}
@@ -576,8 +716,18 @@
 
 
 <script>
+    // main script is defered so event listener makes sure
+    // defered script is loaded before this runs
+    document.addEventListener("DOMContentLoaded", function() {
+        var Payment = new Acme.StripePayment();
+        //Payment.checkPaymentIntentStatus("{{pwstats.error_data.client_secret}}", "{{pwstats.error_data.id}}");
+        Payment.checkPaymentIntentStatus("{{pwstats.payment_data.client_secret}}", "{{pwstats.payment_data.intent_id}}", "{{pwstats.error_data.payment_method_id}}");
+    });
+</script>
+
+<script>
   window.intercomSettings = {
     app_id: "zxwsoz9f"
   };    
 </script>
-<!-- //End User Profile Page -->
+

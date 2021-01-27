@@ -161,6 +161,11 @@ if ($('#stripekey').length > 0) {
             return;
         }
 
+        // self.data['login'] = false;
+        self.data['paymentIntent'] = true;
+        self.data['redirect'] = false;
+
+        
         if (!this.data['username']) {
             this.data['username'] = Math.floor(100000000 + Math.random() * 90000000000000);
         }
@@ -168,27 +173,108 @@ if ($('#stripekey').length > 0) {
             modal.render("spinner", "Authorising code");
             subscribe.data['planid'] = $('#planid').val();
             subscribe.data['giftcode'] = $('#code-redeem').val();
-
             formhandler(subscribe.data, '/auth/paywall-signup');
         } else {
-            modal.render("spinner", "Authorising payment");
+            subscribe.data['planid'] = $('#planid').val();
+            
+            // tokens are no longer needed, however running createToken() will alert card errors,
+            // and stop the sign up process from continuing. 
             stripe.createToken(card).then(function(result) {
-
                 if (result.error) {
                     modal.closeWindow();
                     // Inform the user if there was an error
                     var errorElement = document.getElementById('card-errors');
                     errorElement.textContent = result.error.message;
                 } else {
+                    modal.render("spinner", "Creating account");
+                    var profilePage = location.origin + "/user/edit-profile";
+                    var thankYouPage = window.location.origin + "/auth/thank-you";
+                    formhandler(subscribe.data, '/auth/paywall-signup').done( function(r) {
+                        // console.log(r);
+                        var clientSecret = typeof r.client_secret !== 'undefined' && r.client_secret ? r.client_secret : null;
+                        if (!clientSecret || r.error) {
+                            return false;
+                        }
 
-                    // Send the token to your server
-                    subscribe.data['stripetoken'] = result.token.id;
-                    subscribe.data['planid'] = $('#planid').val();
-                    formhandler(subscribe.data, '/auth/paywall-signup');
+                        modal.render("spinner", "Authenticating payment");
+                        if (!r.trial) {
+                            self.paymentIntent(clientSecret, card).then(function(result) {
+                                if (result.error) {
+                                    // return result.error;
+                                    console.log(result);
+                                    // console.log(result.error.message);
+                                    // console.log("redirecting to profile page", profilePage);
+                                    window.location.href = profilePage;
+                                } else {
+                                  // The setup has succeeded. Display a success message.
+                                //   console.log('IT WORKED!!!', thankYouPage);
+                                  window.location.href = thankYouPage;
+                    
+                                }
+                            });
+                        } else {
+                            self.setupIntent(clientSecret, card).then(function(result) {
+                                if (result.error) {
+                                    // return result.error;
+                                    console.log(result);
+                                    // console.log(result.error.message);
+                                    // console.log("redirecting to profile page");
+                                    window.location.href = profilePage;
+                                } else {
+                                  // The setup has succeeded. Display a success message.
+                                  window.location.href = thankYouPage;
+                    
+                                }
+                            });
+                        }
+                    });
                 }
-            });    
+            });
         }
     };
+
+    
+    SubscribeForm.prototype.paymentIntent = function(clientSecret, card) {
+        var self = this;
+
+        return stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: card,
+                billing_details: {
+                    address: {
+                        city:self.data.city,
+                        line1:self.data.address1,
+                        line2:self.data.address2,
+                    },
+                    name: self.data.firstname + " " + self.data.lastname,
+                    email: self.data.email
+                }
+            },
+            setup_future_usage: 'off_session'
+        });
+    }
+
+
+    SubscribeForm.prototype.setupIntent = function(clientSecret, card) {
+        var self = this;
+
+        return stripe.confirmCardSetup(clientSecret,
+            {
+              payment_method: {
+                card: card,
+                billing_details: {
+                    address: {
+                        city:self.data.city,
+                        line1:self.data.address1,
+                        line2:self.data.address2,
+                    },
+                    name: self.data.firstname + " " + self.data.lastname,
+                    email: self.data.email
+                }
+              },
+            }
+        )
+    }
 
     SubscribeForm.prototype.events = function()
     {
@@ -216,8 +302,8 @@ if ($('#stripekey').length > 0) {
 
         if (form != null) {
             form.addEventListener('submit', function(event) {
+                console.log('submitting');
                 self.submit(event);
-
             });
         }
 
@@ -236,24 +322,33 @@ if ($('#stripekey').length > 0) {
     var formhandler = function(formdata, path) {
         var csrfToken = $('meta[name="csrf-token"]').attr("content");
 
-        $.ajax({
+        return $.ajax({
             url: _appJsConfig.appHostName + path,
             type: 'post',
             data: formdata,
             dataType: 'json',
             success: function(data) {
-
+                console.log('success');
                 if(data.success) {
-                    $('#card-errors').text('Completed successfully.');
+                    $('#card-errors').text('Account created...');
+
                 } else {
                     modal.closeWindow();
+                    var text = '';
 
-                    var text = ''
+                    if (!Object.prototype.toString.call(data.error) === '[object Array]') {
+                        var err = {
+                            "error": data.error
+                        };
+                        data.error = err;
+                    };
                     for (var key in data.error) {
                         text = text + data.error[key] + " ";
                     } 
                     $('#card-errors').text(text);
                 }   
+                modal.closeWindow();
+
             },
             error: function(data) {
                 modal.closeWindow();

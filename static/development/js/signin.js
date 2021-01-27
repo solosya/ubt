@@ -3,8 +3,8 @@
 
     Acme.Signin = function(template, parent, layouts) {
         this.template = template;
-        this.parentCont = parent;
-        this.layouts = layouts;
+        this.parentCont = parent || null;
+        this.layouts = layouts || null;
         this.parent = Acme.modal.prototype;
     };
     Acme.Signin.prototype = new Acme.modal();
@@ -126,14 +126,15 @@
     };
 
     var layouts = {
-        "signin"   : 'signinFormTmpl',
-        "forgot"   : 'forgotFormTmpl',
-        "expired"  : 'expiredNotice',
-        "userPlan" : 'userPlanMessage',
-        "spinner"  : 'spinnerTmpl',
-        "register" : 'registerTmpl',
-        "userPlanChange" : 'userPlanOkCancel',
-        "cancelPlan" : 'userCancelPlan',
+        "signin"          : 'signinFormTmpl',
+        "forgot"          : 'forgotFormTmpl',
+        "expired"         : 'expiredNotice',
+        "userPlan"        : 'userPlanMessage',
+        "spinner"         : 'spinnerTmpl',
+        "register"        : 'registerTmpl',
+        "cancelPlan"      : 'userCancelPlan',
+        "userPlanAuth"    : 'userPlanAuth',
+        "userPlanChange"  : 'userPlanOkCancel',
         "default_weather" : 'defaultWeatherTmpl',
     }
     Acme.SigninView = new Acme.Signin('modal', 'signin', layouts);

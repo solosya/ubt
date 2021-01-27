@@ -15,9 +15,7 @@
 
 {% set userData = []  %}
 {% if not _User.isGuest() %}
-
     {% set userData = _User.getPaywallStats(false)  %}
-
 {% endif %}
 
 {% if 'article' not in pageClass and 'screen' not in layout and (site == 'frank australia' or site == 'frank nz')  %}
@@ -38,6 +36,9 @@
 {% set url = _AppHelper.getParsedUrl().path %}
 
 
+{% set pwstats = _User.getPaywallStats() %}
+
+{% set redirect = false %}
 
 {# Pages don't have a blogName so class has to be used #}
 {% if   not _User.isAdminUser()                                             and
@@ -51,23 +52,45 @@
         pageClass | lower               != 'page page-stv'                  and 
         pageClass | lower               != 'page page-special-offer'        and 
         pageClass | lower               != 'page page-covid-19'             and 
+        url                             != "/signup"                        and 
         url                             != _AppHelper.getEditProfileUrl()   and 
         url                             != "/auth/verify-email-thanks"      and 
         url                             != "/auth/reset-thanks"             and 
         url                             != _AppHelper.getResetPasswordUrl() and 
         blogData['showPaywall']         == true %}
 
-    {% set showPaywall = true %}
-    {% set layout = "layout-marketing" %}
+    {% set redirect = '/signup' %}
+
+{% endif %}
+
+{% set paymentPending = pwstats.payment_data | length > 0 ? true : false %}
+{% if paymentPending and (pwstats.status == "pending") %}
+    {% set StripeCheck = _Paywall.getCheckoutStripeIntent({"client_secret" : pwstats.payment_data.intent_id, "type" : pwstats.payment_data.type}) %}
+    {% set pwstats = _User.getPaywallStats(true, false, {'cache' : false}) %}
 {% endif %}
 
 
-{# {% if _AppHelper.getApplicationEnv() != 'PROD'%}
-    {% set showPaywall = true %}
-    {% set layout = "layout-marketing" %}
 
-{% endif %} #}
+{% if pwstats.error_data is defined and pwstats.error_data | length > 0 %}
 
+    {# When attemping a plan change, if there is a card error, we need to remove the error
+    so users aren't always redirected back to the my account page #}
+    {% if pwstats.error_data.type == 'plan change' %}
+        {% set StripeCheck = _Paywall.getPlanChangeStripeIntent({"client_secret" : pwstats.error_data.id}) %}
+    {% else %}
+        {% set redirect = '/user/edit-profile' %}
+    {% endif %}
+{% endif %}
+
+
+{% if redirect and url != redirect %}
+    {% set redir = _Page.setHttpRedirects(
+        {
+            '|^/.*|': networkData.defaultBlogUrl ~ redirect,
+            
+        }, false) 
+    %} 
+{% endif %}
 
 
 
@@ -110,10 +133,10 @@
 
 
     {% if _AppHelper.getApplicationEnv() == 'PROD'%}
-        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=c72d4113-18181818" type="text/css" media="all">
+        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=685318e2-18181818" type="text/css" media="all">
     {% else %}
 
-        <link rel='stylesheet' href='{{networkData.templatePath}}/static/css/concat.css?ver=666' type='text/css' media='all' />
+        <link rel='stylesheet' href='{{networkData.templatePath}}/static/css/concat.css' type='text/css' media='all' />
     {% endif %}
 
     {% if isPage %}
@@ -202,13 +225,7 @@
 
     
 
-
-
-    {% if showPaywall %}
-        {{ this.render('/layout-marketing.twig', {networkData: networkData}) | raw }}
-    {% else %}
-        {{ content | raw }}
-    {% endif %}
+    {{ content | raw }}
 
 
     <div class="modal" role="dialog">
