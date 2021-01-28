@@ -1,0 +1,179 @@
+@mixin card-100-base() {
+    @include card-name("100 mobile");
+    border: 1px solid #979797;
+    .c-cards-view {
+        @include flexbox();
+        @include flex-direction(row);
+
+        &__media {
+            flex-basis:170%;
+            order:2;
+        }
+
+        &__container {
+            padding: 36px 25px 30px 30px;
+        }
+
+        &__category {
+            @include font-size(10);
+            display: inline-block;
+            color: #97999c;
+            text-transform: uppercase;
+            margin: 0;
+            line-height: 1;
+        }
+        &__heading {
+            font-family: $font-family-serif !important;
+            // @include font-size(33);
+            font-size:33px !important;
+
+            line-height: 1.18;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            color:black;
+        }
+
+        &__description {
+            @include font-size(13);
+            line-height: 1.54;
+            max-height: 115px;
+            // display:none;
+        }
+
+        &__author {
+            // display:flex;
+            // position: relative;
+            // margin-top:7px;
+        }
+
+        &__author-name {
+            // margin-top: 3px;
+            // font-family: $base-font-family;
+            // font-weight:400;
+            // color: #6e6e6e;
+            // border:none;
+            // @include font-size(12);
+            // &:before {
+            //     content: "By ";
+            // }
+        }
+        &__author-time {
+            // display:none;
+        }
+
+        &__time {
+            // display:none;
+        }
+
+
+
+
+        &.without__image {
+
+            .c-cards-view {
+                // &__container {
+                //     width: 100%;
+                //     margin-left: 0px;
+                //     padding: 0px;
+                // }
+                // &__category {
+                //     margin-top: 0;
+                //     margin-bottom: 0px;
+                // }
+                // &__heading {
+                //     @include font-size(26);
+                //     margin-top:5px;
+                //     margin-bottom:0;
+                //     line-height: 2.10rem;
+                // }
+                // &__description {
+                //     display:none;
+                // }
+                // &__author {
+                //     position:relative;
+                //     margin-top:10px;
+                // }
+            }
+        }
+    }
+}
+
+.card-100-mobile {
+    @media #{$mobile} {
+        @include card-100-base();
+        .c-cards-view {
+            @include flex-direction(column);
+
+            &__container {
+                order:2;
+                padding:20px;
+            }
+    
+            &__media {
+                height: 50vw !important;
+                order:1;
+            }
+            &__heading {
+                font-size: 24px !important;
+            }
+            &__description {
+                font-size: 13px !important;
+            }
+
+
+        }
+    }
+}
+
+
+.card-100-tablet {
+    @media #{$tablet} {
+        @include card-100-base();
+        @include card-name("100 tablet");
+
+        .c-cards-view {
+
+            &__media {
+                // @include flex-width(780px);
+                height: 295px;
+            }
+            &__description {
+                display:none;
+            }
+        }
+
+
+    }
+}
+
+.card-100-desktop-sm {
+    @media #{$desktop-sm} {
+
+        @include card-100-base();
+        @include card-name("100 desktop");
+        .c-cards-view {
+
+            &__media {
+                // @include flex-width(780px);
+                flex-basis: 210%;
+                height: 380px;
+            }
+        }
+    }
+}
+
+.card-100-desktop-lg {
+    @media #{$desktop-lg} {
+        @include card-100-base();
+        @include card-name("100 desktop lg");
+        .c-cards-view {
+
+            &__media {
+                @include flex-width(980px);
+                height: 430px;
+            }
+        }
+
+    }
+}
+

@@ -2,7 +2,7 @@
 
 
 {% if (article.hasMedia == 'TRUE' or article.hasPreviewMedia == 'TRUE') and params.imageSuppress == 'false' %}
-    <figure class="{{params.figureClass}}">
+    <figure class="{{params.figureClass}} c-cards-view__media ">
         <picture>
             <source media="(max-width: 620px)" srcset="{{params.articleImgSmall}}">
             <img class="img-responsive" src="{{params.articleImg}}" data-original="{{params.articleImg}}"  {% if params.articleImg is not empty %} style="background-image:url('{{params.placeholder}}');" {% endif %}>
@@ -12,19 +12,19 @@
 
 
 
-<div class="content">
+<div class="{{params.cardType}}c-cards-view__container content">
     <div class="cat-time">
-        <p class="category">{{article.label}}</p
+        <p class="{{params.cardType}}c-cards-view__category category">{{article.label}}</p
         >{% if params.hideDate == false %}<time datetime="{{params.publishDate}}">{{params.publishDate}}</time>{% endif %}
     </div>
 
-    <h2>{{ params.articleTitle }}</h2>
+    <h2 class="{{params.cardType}}c-cards-view__heading">{{ params.articleTitle }}</h2>
     
-    <p class="excerpt">{{ quotes.smarten(article.excerpt | raw) }}</p>
+    <p class="{{params.cardType}}c-cards-view__description j-truncate excerpt">{{ quotes.smarten(article.excerpt | raw) }}</p>
                         
-    <div class="author">
+    <div class="{{params.cardType}}c-cards-view__author author">
         <img src="{{params.profileImg}}" class="img-circle">
-        <p>{{ article.createdBy['displayName'] }}</p>
+        <p class="{{params.cardType}}c-cards-view__author-name">{{ article.createdBy['displayName'] }}</p>
     </div>
-    <time class="lowerTime" datetime="{{params.publishDate}}">{{params.publishDate}}</time>
+    <time class="{{params.cardType}}c-cards-view__time lowerTime" datetime="{{params.publishDate}}">{{params.publishDate}}</time>
 </div>

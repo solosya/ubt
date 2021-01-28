@@ -4,6 +4,11 @@
 {% set imageSuppress = imageSuppress is defined and imageSuppress == 'true' ? 'true' : 'false'  %}
 {% set template = (template is defined and template != '') ? template : 'main'  %}
 {% set swap = swap is defined and swap == 'false' ? '' : 'swap'  %}
+
+{# This can add a prefix to the card class to segregate its styles #}
+{% set cardType      = cardType      is defined and cardType != ''          ? cardType  : ''      %}
+
+
 {% set lightbox = ''  %}
 {% set articleImg = '' %}
 
@@ -65,6 +70,7 @@
         articleImg:      _Media.getMediaUrl(article.featuredMedia,imgWidth, imgHeight, {'crop': 'fill', 'gravity': 'faces:auto'} ),
         publishDate:     publishDate,
         articleTitle:    articleTitle,
+        cardType: cardType,
         profileImg:      _Media.getMediaUrl(article.createdBy['media'], 34, 34, {radius: 'max', gravity: 'face', 'crop': 'thumb', type: 'user'}),
         imageSuppress:   imageSuppress,
         hideDate : hideDate
@@ -101,9 +107,13 @@
             data-article-text="{{Helper.htmlToText(article.title, -1) | raw | escape('html')}}"
             title="{{totalstring}}">
 
-            <article class="{{lightbox}} {{params.figureClass}}">
+            <article class="{{cardType}}c-cards-view {{lightbox}} {{params.figureClass}}">
 
-                {{ this.render('_article-'~template~'.twig', {article: article, params:params, networkData: networkData} ) | raw }}
+                {{ this.render('_article-' ~ template ~ '.twig', {
+                    article: article, 
+                    params:params, 
+                    networkData: networkData
+                } ) | raw }}
 
             </article>
 
