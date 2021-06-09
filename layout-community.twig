@@ -130,15 +130,22 @@
 
 
 
-
+        {% set adRandom = random(['D', 'C']) %}
         <div class="row">
-            <div class="advert banner hidden-sm hidden-md hidden-lg">
-                <div id='moBanner2'></div>
-                <script>loadNextAd(invSpace,'moBanner2','mob-banner',mOnlySize,mOnlyMap);</script>
-            </div>
-            <div class="advert banner hidden-xs" style="margin-left: 9.5%;margin-right: 9.5%;">
+            <div class="advert banner hidden-md hidden-lg">
+                {# <div id='moBanner2'></div>
+                <script>loadNextAd(invSpace,'moBanner2','mob-banner',mOnlySize,mOnlyMap);</script> #}
                 <a href="mailto:hello@franknews.global">
-                <img src="{{networkData.templatePath}}/static/images/ads/contributing.svg">
+                    <img src="{{networkData.templatePath}}/static/images/ads/documentary_m.svg">
+                </a>
+            </div>
+            <div class="advert banner hidden-xs hidden-sm" style="margin-left: 9.5%;margin-right: 9.5%;">
+                <a href="mailto:hello@franknews.global">
+                {% if adRandom == 'D' %}
+                     <img src="{{networkData.templatePath}}/static/images/ads/documentary_d.svg">
+                {% elseif adRandom == 'C' %}
+                    <img src="{{networkData.templatePath}}/static/images/ads/contributing.svg">
+                {% endif %}
                 </a>
             </div>
         </div>
