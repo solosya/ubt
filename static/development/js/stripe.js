@@ -377,11 +377,9 @@ if ($('#stripekey').length > 0) {
                     // Send the token to your server
 
                     formdata = {"stripetoken":result.token.id}
-                    formhandler(formdata, '/user/update-payment-details');
-
-                    setTimeout(( function() {
+                    formhandler(formdata, '/user/update-payment-details').then(function() {
                         $('button[type="submit"]').prop('disabled', false);
-                    }),2000);
+                    });
 
                 }
             });
