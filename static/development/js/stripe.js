@@ -360,22 +360,29 @@ if ($('#stripekey').length > 0) {
 
 
     var udform = document.getElementById('update-card-form');
-
     if (udform != null) {
 
         udform.addEventListener('submit', function(event) {
             event.preventDefault();
              $('#card-errors').text('');
+             $('button[type="submit"]').prop('disabled', true);
+             
             stripe.createToken(card).then(function(result) {
                 if (result.error) {
                     // Inform the user if there was an error
                     var errorElement = document.getElementById('card-errors');
                     errorElement.textContent = result.error.message;
+                    $('button[type="submit"]').prop('disabled', false);
                 } else {
                     // Send the token to your server
 
                     formdata = {"stripetoken":result.token.id}
                     formhandler(formdata, '/user/update-payment-details');
+
+                    setTimeout(( function() {
+                        $('button[type="submit"]').prop('disabled', false);
+                    }),2000);
+
                 }
             });
         });
