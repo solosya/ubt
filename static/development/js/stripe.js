@@ -321,16 +321,14 @@ if ($('#stripekey').length > 0) {
 
     var formhandler = function(formdata, path) {
         var csrfToken = $('meta[name="csrf-token"]').attr("content");
-
         return $.ajax({
             url: _appJsConfig.appHostName + path,
             type: 'post',
             data: formdata,
             dataType: 'json',
             success: function(data) {
-                console.log('success');
                 if(data.success) {
-                    $('#card-errors').text('Account created...');
+                    $('#card-errors').text('Completed successfully.');
 
                 } else {
                     modal.closeWindow();
@@ -364,21 +362,33 @@ if ($('#stripekey').length > 0) {
 
         udform.addEventListener('submit', function(event) {
             event.preventDefault();
+            modal.render("spinner", "Updating card details...");
              $('#card-errors').text('');
-             $('button[type="submit"]').prop('disabled', true);
+
+             var submitbutton = $('button[type="submit"]');
+             submitbutton.prop('disabled', true);
              
             stripe.createToken(card).then(function(result) {
                 if (result.error) {
+                    modal.closeWindow();
+
                     // Inform the user if there was an error
                     var errorElement = document.getElementById('card-errors');
                     errorElement.textContent = result.error.message;
-                    $('button[type="submit"]').prop('disabled', false);
+                    submitbutton.prop('disabled', false);
                 } else {
                     // Send the token to your server
 
                     formdata = {"stripetoken":result.token.id}
-                    formhandler(formdata, '/user/update-payment-details').then(function() {
-                        $('button[type="submit"]').prop('disabled', false);
+                    formhandler(formdata, '/user/update-payment-details').then(function(r) {
+                        modal.closeWindow();
+                        // console.log(r);
+                        if (r.success === 1) {
+                            cardElement.remove();
+                            submitbutton.hide();
+                        } else {
+                            submitbutton.prop('disabled', false);
+                        }
                     });
 
                 }
