@@ -356,6 +356,15 @@ if ($('#stripekey').length > 0) {
     }
 
 
+    var random = function(length) {
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+           result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    };
 
     var udform = document.getElementById('update-card-form');
     if (udform != null) {
@@ -379,7 +388,7 @@ if ($('#stripekey').length > 0) {
                 } else {
                     // Send the token to your server
 
-                    formdata = {"stripetoken":result.token.id}
+                    formdata = {"stripetoken":result.token.id, "uitoken": "ui." + random(8)};
                     formhandler(formdata, '/user/update-payment-details').then(function(r) {
                         modal.closeWindow();
                         // console.log(r);

@@ -27662,12 +27662,12 @@ jQuery.fn.liScroll = function(settings) {
                     opts.height = (opts.width * 9)/16;
 
                     content = 
-                        '<div style="display: block; position: relative; max-width: 100%;"><div style="padding-top: 56.25%;">\
+                        '<div style="display: block; position: relative; max-width: 100%;"><div style="padding-top: 56.25%;"> \
                             <iframe src="//players.brightcove.net/'+accountID+'/'+playerID+'_default/index.html?videoId='+videoId+'" \
-                            allowfullscreen\
-                            webkitallowfullscreen\
-                            mozallowfullscreen\
-                            style="width: 100%; height: 100%; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px;"></iframe>\
+                            allowfullscreen \
+                            webkitallowfullscreen \
+                            mozallowfullscreen \
+                            style="width: 100%; height: 100%; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px;"></iframe> \
                         </div></div>';
                 }
             }
@@ -36910,6 +36910,15 @@ if ($('#stripekey').length > 0) {
     }
 
 
+    var random = function(length) {
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+           result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    };
 
     var udform = document.getElementById('update-card-form');
     if (udform != null) {
@@ -36933,7 +36942,7 @@ if ($('#stripekey').length > 0) {
                 } else {
                     // Send the token to your server
 
-                    formdata = {"stripetoken":result.token.id}
+                    formdata = {"stripetoken":result.token.id, "uitoken": "ui." + random(8)};
                     formhandler(formdata, '/user/update-payment-details').then(function(r) {
                         modal.closeWindow();
                         // console.log(r);
@@ -37537,9 +37546,9 @@ UserArticlesController.Load = (function ($) {
 
   Acme.StripePayment = function () {};
   Acme.StripePayment.prototype.checkPaymentIntentStatus = function (
-    client_secret,
-    intent_id,
-    payment_method_id
+        client_secret,
+        intent_id,
+        payment_method_id
   ) {
     // console.log('checking user payment status 2');
     // console.log(client_secret);
@@ -37548,7 +37557,7 @@ UserArticlesController.Load = (function ($) {
 
     var cardElement = document.getElementById("fix-card-element");
     if (!cardElement) {
-      return;
+        return;
     }
 
     var self = this;
@@ -37558,26 +37567,26 @@ UserArticlesController.Load = (function ($) {
     var stripe = Stripe(stripekey);
     var elements = stripe.elements();
     var modal = new Acme.Signin("spinner", "acme-dialog", {
-      spinner: "spinnerTmpl",
+        spinner: "spinnerTmpl",
     });
 
     // Custom styling can be passed to options when creating an Element.
     // (Note that this demo uses a wider set of styles than the guide below.)
     var style = {
-      base: {
-        color: "#fff",
-        lineHeight: "24px",
-        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-        fontSmoothing: "antialiased",
-        fontSize: "16px",
-        "::placeholder": {
-          color: "#fff",
+        base: {
+            color: "#fff",
+            lineHeight: "24px",
+            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+            fontSmoothing: "antialiased",
+            fontSize: "16px",
+            "::placeholder": {
+                color: "#fff",
+            },
         },
-      },
-      invalid: {
-        color: "#fff",
-        iconColor: "#fff",
-      },
+        invalid: {
+            color: "#fff",
+            iconColor: "#fff",
+        },
     };
 
     // Create an instance of the card Element
@@ -37588,12 +37597,12 @@ UserArticlesController.Load = (function ($) {
 
     // Handle real-time validation errors from the card Element.
     card.addEventListener("change", function (event) {
-      var displayError = document.getElementById("card-errors");
-      if (event.error) {
-        displayError.textContent = event.error.message;
-      } else {
-        displayError.textContent = "";
-      }
+        var displayError = document.getElementById("card-errors");
+        if (event.error) {
+            displayError.textContent = event.error.message;
+        } else {
+            displayError.textContent = "";
+        }
     });
 
     var trial = null;
@@ -37601,145 +37610,130 @@ UserArticlesController.Load = (function ($) {
 
     var form = document.getElementById("fix-payment-form");
     if (form) {
-      trial = form.getAttribute("data-trial");
-      renewal = form.getAttribute("data-renewal");
+        trial = form.getAttribute("data-trial");
+        renewal = form.getAttribute("data-renewal");
     }
 
     var reqResult = function (result) {
-      if (result.error) {
-        modal.render("spinner", "Authentication error");
+        if (result.error) {
+            modal.render("spinner", "Authentication error");
 
-        setTimeout(function () {
-          window.location.reload();
-          return false;
-        }, 2000);
-        return false;
-      } else {
+            setTimeout(function () {
+                window.location.reload();
+                return false;
+            }, 2000);
+            return false;
+        } else {
         // The setup has succeeded. Display a success message.
-        modal.render(
-          "spinner",
-          "Looks good!  Please wait while we refresh the page..."
-        );
+            modal.render("spinner","Looks good!  Please wait while we refresh the page...");
 
-        setTimeout(function () {
-          window.location.reload();
-          //   window.location.href = location.origin;
-          return false;
-        }, 2000);
-        return false;
-      }
+            setTimeout(function () {
+                window.location.reload();
+            //   window.location.href = location.origin;
+                return false;
+            }, 2000);
+            return false;
+        }
     };
 
     if (form != null) {
-      form.addEventListener("submit", function (event) {
-        event.preventDefault();
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
 
-        modal.render("spinner", "Attempting to authenticate card");
-        $("#fix-submit").hide();
-        stripe.createToken(card).then(function (result) {
-          if (result.error) {
-            modal.closeWindow();
-            $("#fix-submit").show();
-            // Inform the user if there was an error
-            var errorElement = document.getElementById("card-errors");
-            errorElement.textContent = result.error.message;
-            return;
-          }
-
-          if (renewal) {
+            modal.render("spinner", "Attempting to authenticate card");
             $("#fix-submit").hide();
-            stripe
-              .confirmCardPayment(renewal, {
-                payment_method: {
-                  card: card,
-                },
-              })
-              .then(function (b) {
-                //console.log(b);
-                reqResult(b);
-                $("#fix-submit").show();
-              });
-            return;
-          }
+            stripe.createToken(card).then(function (result) {
+                if (result.error) {
+                    modal.closeWindow();
+                    $("#fix-submit").show();
+                    // Inform the user if there was an error
+                    var errorElement = document.getElementById("card-errors");
+                    errorElement.textContent = result.error.message;
+                    return;
+                }
 
-          // if failure happend during checkout a new intent is created
-          if (trial === 1) {
-            $("#fix-submit").hide();
-            stripe
-              .confirmCardSetup(client_secret, {
-                payment_method: {
-                  card: card,
-                },
-              })
-              .then(reqResult(r));
+                if (renewal) {
+                    $("#fix-submit").hide();
+                    stripe.confirmCardPayment(renewal, {
+                        payment_method: {
+                        card: card,
+                        },
+                    }).then(function (b) {
+                        //console.log(b);
+                        reqResult(b);
+                        $("#fix-submit").show();
+                    });
+                    return;
+                }
 
-            // The below code was used when i initially couldn't get the above code to work.
-            // Don't think it's needed anymore but leaving just in case
+                // if failure happend during checkout a new intent is created
+                if (trial === 1) {
+                    $("#fix-submit").hide();
+                    stripe.confirmCardSetup(client_secret, {
+                        payment_method: {
+                        card: card,
+                        },
+                    })
+                    .then(reqResult(r));
 
-            // Acme.server.fetch(_appJsConfig.appHostName + '/api/paywall/new-stripe-setup-intent?trial=' + trial).then(function(r) {
-            //     console.log(r);
-            //     stripe.confirmCardSetup(r.client_secret, {
-            //         payment_method: {
-            //             card: card,
-            //         },
-            //     }).then(reqResult(r));
+                    // The below code was used when i initially couldn't get the above code to work.
+                    // Don't think it's needed anymore but leaving just in case
 
-            // }).fail(function(r) {
-            //     modal.closeWindow();
-            // });
+                    // Acme.server.fetch(_appJsConfig.appHostName + '/api/paywall/new-stripe-setup-intent?trial=' + trial).then(function(r) {
+                    //     console.log(r);
+                    //     stripe.confirmCardSetup(r.client_secret, {
+                    //         payment_method: {
+                    //             card: card,
+                    //         },
+                    //     }).then(reqResult(r));
 
-            return;
-          }
+                    // }).fail(function(r) {
+                    //     modal.closeWindow();
+                    // });
 
-          Acme.server
-            .fetch(
-              _appJsConfig.appHostName +
-                "/api/paywall/new-stripe-payment-intent"
-            )
-            .then(function (r) {
-              stripe
-                .confirmCardPayment(r.client_secret, {
-                  payment_method: {
-                    card: card,
-                  },
-                })
-                .then(function (b) {
-                  console.log(b);
-                  reqResult(b);
+                    return;
+                }
+
+                Acme.server.fetch(_appJsConfig.appHostName + "/api/paywall/new-stripe-payment-intent").then(function (r) {
+                    stripe.confirmCardPayment(r.client_secret, {
+                        payment_method: {
+                            card: card,
+                        },
+                    })
+                    .then(function (b) {
+                        console.log(b);
+                        reqResult(b);
+                    });
                 });
             });
         });
-      });
     }
+
     var auth = document.getElementById("fix-auth-renewal");
     if (auth) {
-      auth.addEventListener("click", function (event) {
-        modal.render("spinner", "Authenticating card...");
-        var secret = event.target.dataset.clientSecret;
-        var paymentId = event.target.dataset.paymentId;
+        auth.addEventListener("click", function (event) {
+            modal.render("spinner", "Authenticating card...");
+            var secret = event.target.dataset.clientSecret;
+            var paymentId = event.target.dataset.paymentId;
 
-        stripe
-          .confirmCardPayment(secret, {
-            payment_method: paymentId,
-          })
-          .then(function (result) {
-            if (result.error) {
-              modal.render(
-                "spinner",
-                "Authentication failed. Refreshing page..."
-              );
-            } else {
-              modal.render("spinner", "Sucess! Refreshing page...");
-            }
-            // console.log(result);
-            setTimeout(function () {
-              window.location.reload();
-              return false;
-            }, 2000);
+            stripe.confirmCardPayment(secret, {
+                payment_method: paymentId,
+            })
+            .then(function (result) {
+                if (result.error) {
+                    modal.render( "spinner", "Authentication failed. Refreshing page..." );
+                } else {
+                    modal.render("spinner", "Sucess! Refreshing page...");
+                }
+                // console.log(result);
+                setTimeout(function () {
+                    window.location.reload();
+                    return false;
+                }, 2000);
 
             // Handle result.error or result.paymentIntent
-          });
-      });
+            });
+        });
     }
   };
 
