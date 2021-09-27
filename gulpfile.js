@@ -77,8 +77,8 @@ gulp.task('styles', gulp.series('sass', 'concat', 'minify-css', 'cache', functio
 }));
 
 
-gulp.task('scripts', function(){
-	return gulp.src([
+gulp.task('scripts-concat', function(done){
+	gulp.src([
 		'./bower_components/jquery/dist/jquery.js',
 		'./bower_components/bootstrap-sass/assets/javascripts/bootstrap.js',
 		
@@ -116,14 +116,22 @@ gulp.task('scripts', function(){
 		.pipe(gp_rename('scripts.js'))
 		.pipe(uglify().on('error', gutil.log))
         .pipe(gulp.dest('./static/deploy'));
+    return done();
 
 });
 
 
+gulp.task("scripts", gulp.series("scripts-concat", function (done) {
+    done();
+  })
+);
 
 gulp.task('watch', function (){
 	gulp.watch('./static/css/**/*.scss', ['styles']);
 	gulp.watch('./static/development/js/**/*.js', ['scripts']);
 });
+
+
+
 
 gulp.task('default', gulp.parallel('scripts', 'styles'));
