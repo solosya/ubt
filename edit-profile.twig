@@ -13,7 +13,6 @@
 {% set propListingsArr = [] %}
 {% set pwstats = _User.getPaywallStats(true) %}
 
-{# {% set plans = _Network.getNetworkData()['paywallPlans'] %} #}
 {% set plans = _Paywall.getActiveNetworkPaywallPlans() %}
 
 {% set currency_plans = [] %}
