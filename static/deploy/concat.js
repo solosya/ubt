@@ -27106,7 +27106,11 @@ jQuery.fn.liScroll = function(settings) {
             media : {},
             height: 500,
             width: 500,
-            mediaOptions: {}
+            mediaOptions: {
+                'quality' : 'auto',
+                'flags': 'lossy',
+                'dpr' : 'auto'
+            }
         };
 
         var opts = $.extend({}, defaults, options);
