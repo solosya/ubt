@@ -151,7 +151,15 @@ Card.prototype.renderCard = function(card, cardClass, template, type)
         height = card.imageOptions.height || height;
     }
 
-    var ImageUrl = $.image({media:card['featuredMedia'], mediaOptions:{width: width ,height:height, crop: 'limit'} });
+    var ImageUrl = $.image({media:card['featuredMedia'], mediaOptions:{
+        width: width,
+        height:height, 
+        crop: 'limit',
+        quality: 'auto',
+        flags: 'lossy',
+        dpr : 'auto'
+
+    } });
     card['imageUrl'] = ImageUrl;
     var articleId = parseInt(card.articleId);
     var articleTemplate;
