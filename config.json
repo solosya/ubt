@@ -1,10 +1,10 @@
 {
+    "feed" : {
+        "imageParams" : {
+            "width" : 750
+        }
+    },
     "module" : {
-        "feed" : {
-            "imageParams" : {
-                "width" : 750
-            }
-        },
         "event" : {
            "enabled" : true
         },
