@@ -48,7 +48,7 @@
     {% if article.titlePreview is defined and article.titlePreview != "" %}
         {% set articleTitle = quotes.smarten(article.titlePreview) %}
     {% endif %}
-
+    {% set getURLExtention = article.featuredMedia.path |split('.') | last %}
 
     {% set publishedDateTime =  (article.publishedDateTime is defined) ? article.publishedDateTime : article.publishDateTime %}
 
@@ -69,6 +69,8 @@
         articleImgSmall: _Media.getMediaUrl(article.featuredMedia,500, 500, {'crop': 'fill', 'gravity': 'faces:auto'} ),
         articleImg:      _Media.getMediaUrl(article.featuredMedia,imgWidth, imgHeight, {'crop': 'fill', 'gravity': 'faces:auto'} ),
         publishDate:     publishDate,
+        giffUrl         : getURLExtention == 'gif' ? true : false,
+        imagePath       : article.featuredMedia.path,
         articleTitle:    articleTitle,
         cardType: cardType,
         profileImg:      _Media.getMediaUrl(article.createdBy['media'], 34, 34, {radius: 'max', gravity: 'face', 'crop': 'thumb', type: 'user'}),

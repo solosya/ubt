@@ -12,7 +12,7 @@ var concat      = require('gulp-concat');
 var uglify      = require('gulp-uglify');
 var gp_rename   = require("gulp-rename");
 var gutil       = require('gulp-util');
-var sass        = require('gulp-sass');
+var sass = require("gulp-sass")(require("sass"));
 var sourcemaps  = require('gulp-sourcemaps');
 var minifyCss   = require("gulp-clean-css");
 var hasher      = require('gulp-hasher');
@@ -127,8 +127,8 @@ gulp.task("scripts", gulp.series("scripts-concat", function (done) {
 );
 
 gulp.task('watch', function (){
-	gulp.watch('./static/css/**/*.scss', ['styles']);
-	gulp.watch('./static/development/js/**/*.js', ['scripts']);
+	gulp.watch('./static/css/**/*.scss', gulp.series(["styles"]));
+	gulp.watch('./static/development/js/**/*.js', gulp.series(['scripts']));
 });
 
 

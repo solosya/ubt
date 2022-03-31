@@ -160,7 +160,12 @@ Card.prototype.renderCard = function(card, cardClass, template, type)
         dpr : 'auto'
 
     } });
+
+    card['gifExtention'] = card.featuredMedia['fileType'] == 'image/gif' ? true : false;
+
     card['imageUrl'] = ImageUrl;
+    card['imageUrlMp4'] = ImageUrl + '.mp4';
+    card['imageUrlOgg'] = ImageUrl + 'ogg';
     var articleId = parseInt(card.articleId);
     var articleTemplate;
 
