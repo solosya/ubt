@@ -161,11 +161,21 @@ Card.prototype.renderCard = function(card, cardClass, template, type)
 
     } });
 
-    card['gifExtention'] = card.featuredMedia['fileType'] == 'image/gif' ? true : false;
-
     card['imageUrl'] = ImageUrl;
-    card['imageUrlMp4'] = ImageUrl + '.mp4';
-    card['imageUrlOgg'] = ImageUrl + 'ogg';
+    card['gifExtention'] = card.featuredMedia['fileType'] == 'image/gif' ? true : false;
+    if (card['gifExtention']) {
+        var vidUrl = ImageUrl;
+        
+        var url = ImageUrl.split(".");
+        var gif = url.splice(-1);
+        if (gif.length > 0 && gif[0] === 'gif') {
+            vidUrl = url.join('.');
+        } 
+
+        card['imageUrlMp4'] = vidUrl + '.mp4';
+        card['imageUrlOgg'] = vidUrl + 'ogg';
+    }
+    
     var articleId = parseInt(card.articleId);
     var articleTemplate;
 
