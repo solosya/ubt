@@ -3,10 +3,23 @@
 
 {% if (article.hasMedia == 'TRUE' or article.hasPreviewMedia == 'TRUE') and params.imageSuppress == 'false' %}
     <figure class="{{params.figureClass}} c-cards-view__media ">
-        <picture>
-            <source media="(max-width: 620px)" srcset="{{params.articleImgSmall}}">
-            <img class="img-responsive" src="{{params.articleImg}}" data-original="{{params.articleImg}}"  {% if params.articleImg is not empty %} style="background-image:url('{{params.placeholder}}');" {% endif %}>
-        </picture>
+        {% if params.giffUrl %}	
+            {# remove the file extension #}
+            {% set url = params.imagePath | split(".")[0 : -1] | join(".") %}
+            {% set mp4Url = url ~ ".mp4" %}
+            {% set oggUrl = url ~ ".ogg" %}
+
+            <video class="gif-video" autoplay loop muted playsinline>
+                <source src={{ mp4Url }} type="video/mp4">
+                <source src={{ oggUrl }} type="video/ogg">
+            </video>
+
+        {% else %}
+            <picture>
+                <source media="(max-width: 620px)" srcset="{{params.articleImgSmall}}">
+                <img class="img-responsive" src="{{params.articleImg}}" data-original="{{params.articleImg}}"  {% if params.articleImg is not empty %} style="background-image:url('{{params.placeholder}}');" {% endif %}>
+            </picture>
+        {% endif %}
     </figure>
 {% endif %}
 

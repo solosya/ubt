@@ -431,9 +431,18 @@ Acme.communityPropertyCardTemplate =
 Acme.systemCardTemplate = 
     cardTemplateTop + 
         '{{#if hasMedia}}\
-            <figure>\
-                <img class="img-responsive {{imgClass}}" data-original="{{imageUrl}}" src="{{imageUrl}}" {{imgBackgroundStyle}}">\
-            </figure>\
+            {{#if gifExtention}}\
+                <figure>\
+                    <video class="gif-video" autoplay loop muted playsinline>\
+                        <source src="{{imageUrlMp4}}" type="video/mp4">\
+                        <source src="{{imageUrlOgg}}" type="video/ogg">\
+                    </video>\
+                </figure>\
+            {{else}}\
+                <figure>\
+                    <img class="img-responsive {{imgClass}}" data-original="{{imageUrl}}" src="{{imageUrl}}" {{imgBackgroundStyle}}">\
+                </figure>\
+            {{/if}} \
         {{/if}} \
         \
         <div class="content">\
