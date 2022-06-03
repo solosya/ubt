@@ -23,7 +23,18 @@
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
 
-{% set recentArticles = _Article.getRecentArticles({'limit': 5, 'scope': 'network'}) %}
+
+{% set cacheKey = "index_recent" %}
+{% set recentArticles = getCache(cacheKey) %}
+{% if (recentArticles is empty) %}
+    {% set recentArticles = _Article.getRecentArticles({'limit': 5, 'scope': 'network'}) %}
+    {% set cache = setCache(cacheKey, recentArticles, 500) %} 
+{% endif %} 
+
+
+
+
+
 {% set date = date() %}
 {% set events = _Event.getEvents({"limit": 5, "start_date": date() | date("Y-m-d")}) %}
 
