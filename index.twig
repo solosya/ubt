@@ -1,5 +1,7 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
 
+{% set timer = _AppHelper.startTimer('index', false) %}
+
 {% cache 'indexCache' 300 %}
 
 
@@ -447,3 +449,4 @@
     </main><!-- .site-main -->
 
     {% endcache %}
+    {% set timer = _AppHelper.stopTimer('index') %}
