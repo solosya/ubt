@@ -114,6 +114,8 @@
     }
 %}
 
+{% set timer = _AppHelper.startTimer('data', false) %}
+
 {% for key, value in sections %}
     {% for blog in networkData.networkBlogs %}
         {% if blog.title | lower == key %}
@@ -128,6 +130,7 @@
         {% endif %}
     {% endfor %}
 {% endfor %}
+{% set timer = _AppHelper.stopTimer('data') %}
 
 
 {# First set a common order then add site order to beginning #}
@@ -371,7 +374,7 @@
         </section>
 
 
-
+        {% set timer = _AppHelper.startTimer('sections', false) %}
         {% set sectionFeed = sections[ sectionOrder[0] ] %}
         {% if sectionFeed.feed.articles|length > 0 %}
             {{this.render('partials/index/panel-01.twig', {
@@ -443,6 +446,7 @@
             {% endif %}
         {% endif %}
 
+        {% set timer = _AppHelper.stopTimer('sections') %}
 
 
 
