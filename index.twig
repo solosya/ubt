@@ -1,7 +1,7 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
 
 {% set timer = _AppHelper.startTimer('index', false) %}
-
+{% set timer = _AppHelper.startTimer('setup', false) %}
 {% cache 'indexCache' 300 %}
 
 
@@ -21,17 +21,19 @@
 
 
 {% set limit = 15 %}
-
+{% set timer = _AppHelper.startTimer('mainblog', false) %}
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
+{% set timer = _AppHelper.stopTimer('mainblog') %}
 
-
+{% set timer = _AppHelper.startTimer('recent', false) %}
 {% set cacheKey = "index_recent" %}
 {% set recentArticles = getCache(cacheKey) %}
 {% if (recentArticles is empty) %}
     {% set recentArticles = _Article.getRecentArticles({'limit': 5, 'scope': 'network'}) %}
     {% set cache = setCache(cacheKey, recentArticles, 500) %} 
 {% endif %} 
+{% set timer = _AppHelper.stopTimer('recent') %}
 
 
 
@@ -113,6 +115,7 @@
         }
     }
 %}
+{% set timer = _AppHelper.stopTimer('setup') %}
 
 {% set timer = _AppHelper.startTimer('data', false) %}
 
@@ -154,6 +157,7 @@
 
 
 
+    {% set timer = _AppHelper.startTimer('top',false) %}
 
     <main id="main" class="container-fluid site-main" role="main">
         
@@ -372,7 +376,7 @@
             </div>
 
         </section>
-
+        {% set timer = _AppHelper.stopTimer('top') %}
 
         {% set timer = _AppHelper.startTimer('sections', false) %}
         {% set sectionFeed = sections[ sectionOrder[0] ] %}
