@@ -159,10 +159,15 @@
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 {% endfor %}
 
-                <div id='articleAdScroll' class="advert lockad visible-md-block visible-lg-block">
+                <div class="advertise">
+                    <img src="{{networkData.templatePath}}/static/images/UBT_Documentary_2022.png" alt="image" class="img-fluid img-responsive" />
+                </div>
+
+
+                {#<div id='articleAdScroll' class="advert lockad visible-md-block visible-lg-block">
                     <div id='hPage1'></div>
                     <script>loadNextAd(invSpace,'hPage1','hpage',hPageSize,hPageMap);</script>
-                </div>
+                </div>#}
 
             </div>
 
