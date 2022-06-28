@@ -25,8 +25,6 @@
 
 
     <main id="main" class="container-fluid channel-main" role="main" data-article-limit="{{limit}}" data-article-count="{{articles | length}}">
-        
-
 
 
         <section class="row">
@@ -159,15 +157,17 @@
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 {% endfor %}
 
-                <div class="advertise">
-                    <img src="{{networkData.templatePath}}/static/images/UBT_Documentary_2022.png" alt="image" class="img-fluid img-responsive" />
-                </div>
+                {% if blogData.url_prefix == 'documentaries' %}
 
-
-                {#<div id='articleAdScroll' class="advert lockad visible-md-block visible-lg-block">
-                    <div id='hPage1'></div>
-                    <script>loadNextAd(invSpace,'hPage1','hpage',hPageSize,hPageMap);</script>
-                </div>#}
+                    <div class="advertise">
+                        <img src="{{networkData.templatePath}}/static/images/UBT_Documentary_2022.png" alt="image" class="img-fluid img-responsive" />
+                    </div>
+                    {% else %}
+                        <div id='articleAdScroll' class="advert lockad visible-md-block visible-lg-block">
+                            <div id='hPage1'></div>
+                            <script>loadNextAd(invSpace,'hPage1','hpage',hPageSize,hPageMap);</script>
+                        </div>
+                    {% endif %}
 
             </div>
 
