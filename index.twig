@@ -215,6 +215,18 @@
                             </div>
                         </a>
                     </div>#}
+
+                    {% set cta = _CallToAction.getKeywordBasedCTA('documentaries')%}
+
+                    {{_AppHelper.printArray(cta)}}
+
+                    <div class="col-sm-3 col-md-12">
+                        <a target="{{cta.button.target  ? cta.button.target : '_self'}}" href="{{cta.button.url}}">
+                            <img src="{{cta.media.path}}" class="img-responsive" alt="{{cta.title}}" />
+                        </a>
+                    </div>
+
+
                     <div class="col-sm-5 col-md-12">
                         <div class="advert" style="margin-top:0;">
                             <div id='blockAd1'></div>
