@@ -218,7 +218,6 @@
 
                     {% set cta = _CallToAction.getKeywordBasedCTA('documentaries')%}
 
-                    {{_AppHelper.printArray(cta)}}
 
                     <div class="col-sm-3 col-md-12">
                         <a target="{{cta.button.target  ? cta.button.target : '_self'}}" href="{{cta.button.url}}">
