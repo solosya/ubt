@@ -4,8 +4,8 @@
 {{ this.registerLinkTag({rel:'amphtml', href:_AppHelper.getServerUrl(false)~'?amp=1'}) }}
 {{this.registerJs("Acme.lightbox = new Acme.Article();")}}
 
-{% set blogInfo = _Blog.getBlog() %}
-{% set networkData = _Network.getNetworkData() %}
+{# {% set blogInfo      = _Blog.getBlog(null, {'excludeMenus' : true}) %}
+{% set networkData = _Network.getNetworkData() %} #}
 
 
 {% set articleImg = false %}
