@@ -31,7 +31,7 @@
 {% set recentArticles = getCache(cacheKey) %}
 {% if (recentArticles is empty) %}
     {% set recentArticles = _Article.getRecentArticles({'limit': 5, 'scope': 'network'}) %}
-    {% set cache = setCache(cacheKey, recentArticles, 500) %} 
+    {% set cache = setCache(cacheKey, recentArticles, 900) %} 
 {% endif %} 
 {% set timer = _AppHelper.stopTimer('recent') %}
 
