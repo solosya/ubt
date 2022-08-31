@@ -26,7 +26,6 @@
 {% set cacheKey = "nrtham_recent" %}
 {% set getPopularArticles = getCache(cacheKey) %}
 {% if (getPopularArticles is empty) %}
-    {{'mayank'}}
     {% set getPopularArticles = _Article.getPopularArticles({'limit': 7, 'scope': 'network'}) %}
     {% set cache = setCache(cacheKey, getPopularArticles, 900) %} 
 {% endif %} 
