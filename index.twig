@@ -404,7 +404,14 @@
             }) | raw}}
         {% endif %}
 
-        {% set x = 3 %}
+        {% set sectionFeed = sections[ sectionOrder[2] ] %}
+        {% if sectionFeed.feed.articles|length > 0 %}
+            {{this.render('partials/index/panel-02.twig', {
+                sectionFeed : sectionFeed
+            }) | raw}}
+        {% endif %}
+
+        {% set x = 2 %}
         {% if blogNetworkNameIs != 'frank uk' %}
             {% set sectionFeed = sections[ sectionOrder[x] ] %}
             {% if sectionFeed.feed.articles|length > 0 %}
