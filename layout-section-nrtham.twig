@@ -26,15 +26,11 @@
 {% set cacheKey = "nrtham_recent" %}
 {% set getPopularArticles = getCache(cacheKey) %}
 {% if (getPopularArticles is empty) %}
+    {{'mayank'}}
     {% set getPopularArticles = _Article.getPopularArticles({'limit': 7, 'scope': 'network'}) %}
     {% set cache = setCache(cacheKey, getPopularArticles, 900) %} 
 {% endif %} 
 
-
-
-<div class="hide" style="display:none">
-{{_AppHelper.printArray(popularArticles)}}
-</div>
 
     <main id="main" class="container-fluid channel-main" role="main" data-article-limit="{{limit}}" data-article-count="{{articles | length}}">
 
@@ -87,9 +83,9 @@
             <div class="col-sm-3 top-stories top-stories--na">
                 <h2 class="panel-header">TOP STORIES</h2>
                 {% set topSettings = ["","","","","",""," top-stories__final"] %}
-                {% for i in 0..6 if popularArticles|length > 0 %}
+                {% for i in 0..6 if getPopularArticles|length > 0 %}
                     {{this.render('partials/_single-article.twig', {
-                        article: popularArticles[i], 
+                        article: getPopularArticles[i], 
                         imageSuppress: true,
                         swap: 'false',
                         containerClass: "card-top-story card-top-story-dt card-top-story-tablet card-top-story-mobile card-top-story__NA" ~ topSettings[i],
