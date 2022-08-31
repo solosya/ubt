@@ -145,7 +145,7 @@
 
 {% if blogNetworkNameIs == 'frank uk' %}
 
-    {% set sectionOrder = ["uk", "europe"] | merge(sectionOrder ) %}
+    {% set sectionOrder = ["uk", "europe", "usa"] | merge(sectionOrder ) %}
 
 {% else %}
 
@@ -404,7 +404,7 @@
             }) | raw}}
         {% endif %}
 
-        {% set x = 2 %}
+        {% set x = 3 %}
         {% if blogNetworkNameIs != 'frank uk' %}
             {% set sectionFeed = sections[ sectionOrder[x] ] %}
             {% if sectionFeed.feed.articles|length > 0 %}
