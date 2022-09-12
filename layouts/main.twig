@@ -282,13 +282,6 @@
     {% endif %}
 
 
-    {{this.registerJs("
-        if (window.location.port !== '80' && !_appJsConfig.appHostName.split(':')[2] ) {
-            console.log('fixing');
-            _appJsConfig.appHostName += ':' + window.location.port;
-        }
-        console.log(_appJsConfig.appHostName);
-    ") }}
 
 
 
