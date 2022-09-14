@@ -24,10 +24,10 @@
 
 
 {% set cacheKey = "nrtham_recent" %}
-{% set getPopularArticles = getCache(cacheKey) %}
+{% set getPopularArticles = getCache(cacheKey, true) %}
 {% if (getPopularArticles is empty) %}
     {% set getPopularArticles = _Article.getPopularArticles({'limit': 7, 'scope': 'network'}) %}
-    {% set cache = setCache(cacheKey, getPopularArticles, 900) %} 
+    {% set cache = setCache(cacheKey, getPopularArticles, 900, true) %} 
 {% endif %} 
 
 
