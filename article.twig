@@ -35,18 +35,22 @@
     {% set publishDate = timeOnly %}
 {% endif %}
 
+{% set timer = _AppHelper.startTimer('popular', false) %}
 {% set popularArticles = getCache("articlePopular"~article.blog.id) %}
 {% if (popularArticles is empty) %}
     {% set popularArticles = _Article.getPopularArticles({ blogId: article.blog.id, limit: 3, interval: 168 }) %}
     {% set cache = setCache("articlePopular"~article.blog.id, popularArticles, 900) %} 
 {% endif %}
+{% set timer = _AppHelper.stopTimer('popular') %}
 
-
+{% set timer = _AppHelper.startTimer('suggested', false) %}
 {% set suggestedArticles = getCache("articleSuggested") %}
 {% if (suggestedArticles is empty) %}
     {% set suggestedArticles = _Article.getPopularArticles({ limit: 3, interval: 168 }) %}
     {% set cache = setCache("articleSuggested", suggestedArticles, 900) %} 
 {% endif %}
+{% set timer = _AppHelper.stopTimer('suggested') %}
+
 
 {% set articleCount = 0 %}
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
