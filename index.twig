@@ -219,11 +219,17 @@
                     </div>#}
 
                     {% set cta = _CallToAction.getKeywordBasedCTA('documentaries')%}
-
+                    {% set cta2 = _CallToAction.getKeywordBasedCTA('feedback')%}
 
                     <div class="col-sm-3 col-md-12">
                         <a target="{{cta.button.target  ? cta.button.target : '_self'}}" href="{{cta.button.url}}">
                             <img src="{{cta.media.path}}" class="img-responsive" alt="{{cta.title}}" />
+                        </a>
+                    </div>
+
+                    <div class="col-sm-3 col-md-12">
+                        <a target="{{cta2.button.target  ? cta2.button.target : '_self'}}" href="{{cta2.button.url}}">
+                            <img src="{{cta2.media.path}}" class="img-responsive" alt="{{cta2.title}}" />
                         </a>
                     </div>
 
