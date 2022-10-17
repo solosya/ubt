@@ -180,4 +180,12 @@
 
         }
     }
+
+    .email_address {
+        a {
+            color: color(black);
+            font-size: rem(11);
+            font-weight:600;
+        }
+    }
 }
