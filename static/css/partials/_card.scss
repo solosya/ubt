@@ -69,7 +69,19 @@ a.card {
         }
 
 
+        .cat-time {
+            &--withLabel {
+                @include flexbox;
+                @include align-items(center);
 
+                .c-cards-view {
+                    &__labels {
+                        margin-bottom: 0;
+                        background-color: $colors(navyBlue);
+                    }
+                }
+            }
+        }
 
 
         > .content {
