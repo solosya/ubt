@@ -95,6 +95,18 @@
                             }
                         }
                     }
+                    .cat-time--withLabel {
+                        flex-direction: column;
+
+                        .c-cards-view__labels {
+                            margin-right: 0;
+                            margin-bottom: 10px;
+                        }
+
+                        .category{
+                            margin-bottom:240px;
+                        }
+                    }
                     > h2{
                         font-size: rem(18);
                         line-height: 1.44;
