@@ -15,6 +15,10 @@
                 position:relative;
                 padding: 0;
 
+                .cat-time {
+                    margin-top: 15px;
+                }
+
                 > div {
                     >time{
                         border-left:1px solid color(lightgrey);
@@ -45,10 +49,6 @@
             > article {
 
                 > .content{
-
-                    .cat-time {
-                        margin-top: 15px;
-                    }
                     
                     > h2{
                         font-family:$font-family-serif;
