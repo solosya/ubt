@@ -46,6 +46,9 @@
 
                 > .content{
 
+                    .cat-time {
+                        margin-top: 15px;
+                    }
                     
                     > h2{
                         font-family:$font-family-serif;
@@ -111,6 +114,7 @@
 
 
                 > .content{
+
                     > div {
                         >time{
                             border-left:1px solid color(lightgrey);
