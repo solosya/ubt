@@ -103,6 +103,13 @@
                 }
             }
             // height:130px;
+
+            &:after {
+                content: '';
+                display: block;
+                border-bottom: 1px solid #97999c;
+                // padding-top: 30px;                
+            }
         }
     }
 }
@@ -123,6 +130,13 @@
 
         a.card {
             // height:130px;
+
+            &:after {
+                content: '';
+                display: block;
+                border-bottom: 1px solid #97999c;
+                // padding-top: 30px;                
+            }
         }
     }
 }
