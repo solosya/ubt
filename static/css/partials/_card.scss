@@ -80,13 +80,13 @@ a.card {
                         background: color(navyblue);
                         color: white;
                         text-transform: uppercase;
-                        padding: 4px 4px 2px;
+                        padding: 4px 6px 4px;
                         @include border-radius(2px);
                         font-size: 10px;
-                        font-weight: 700;
+                        font-weight: 500;
                         letter-spacing: 0.23px;
                         line-height: 1;
-                        margin-right: 10px;
+                        margin-right: 8px;
                     }
                 }
             }

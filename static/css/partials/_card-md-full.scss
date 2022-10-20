@@ -19,6 +19,19 @@
                 z-index:10;
                 color:#fff;
 
+                .cat-time--withLabel {
+                    flex-direction: column;
+
+                    .c-cards-view__labels {
+                        margin-right: 0;
+                        margin-bottom: 10px;
+                    }
+
+                    .category{
+                        margin-bottom:240px;
+                    }
+                }
+
                 >div {
                     > .category{
                         display:block;
@@ -93,18 +106,6 @@
                                 margin: auto;
                                 margin-top: 10px;
                             }
-                        }
-                    }
-                    .cat-time--withLabel {
-                        flex-direction: column;
-
-                        .c-cards-view__labels {
-                            margin-right: 0;
-                            margin-bottom: 10px;
-                        }
-
-                        .category{
-                            margin-bottom:240px;
                         }
                     }
                     > h2{
