@@ -252,6 +252,14 @@
                                 text-transform: uppercase;
                                 line-height: 1;
                         }
+
+                        &.cat-time--withLabel {
+                            margin-left: -75px;
+
+                            .category{
+                                margin-left: 0;
+                            }
+                        }
                     }
 
                     > p.excerpt {
