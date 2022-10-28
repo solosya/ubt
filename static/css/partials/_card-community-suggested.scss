@@ -254,7 +254,9 @@
                         }
 
                         &.cat-time--withLabel {
-                            margin-left: -75px;
+                            .c-cards-view__labels {
+                                margin-left: -75px;
+                            }
 
                             .category{
                                 margin-left: 0;
