@@ -37768,6 +37768,34 @@ Handlebars.registerHelper('returnLoc', function(location, region) {
         return location +', ' + region;
 });
 
+Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
+
+    switch (operator) {
+        case '==':
+            return (v1 == v2) ? options.fn(this) : options.inverse(this);
+        case '===':
+            return (v1 === v2) ? options.fn(this) : options.inverse(this);
+        case '!=':
+            return (v1 != v2) ? options.fn(this) : options.inverse(this);
+        case '!==':
+            return (v1 !== v2) ? options.fn(this) : options.inverse(this);
+        case '<':
+            return (v1 < v2) ? options.fn(this) : options.inverse(this);
+        case '<=':
+            return (v1 <= v2) ? options.fn(this) : options.inverse(this);
+        case '>':
+            return (v1 > v2) ? options.fn(this) : options.inverse(this);
+        case '>=':
+            return (v1 >= v2) ? options.fn(this) : options.inverse(this);
+        case '&&':
+            return (v1 && v2) ? options.fn(this) : options.inverse(this);
+        case '||':
+            return (v1 || v2) ? options.fn(this) : options.inverse(this);
+        default:
+            return options.inverse(this);
+    }
+});
+
 
 window.templates.create_user = 
 '<div class="" style="height:100%; overflow:auto"> \
@@ -38176,8 +38204,11 @@ Acme.systemCardTemplate =
         {{/if}} \
         \
         <div class="content">\
-            <div class="cat-time">\
-                <p class="category">{{label}}</p>\
+            <div class="cat-time {{#ifCond blogTitle "!=" label}} cat-time--withLabel {{/ifCond}}">\
+                {{#ifCond blogTitle "!=" label}}\
+                    <p class="c-cards-view__labels">{{label}}</p>\
+                {{/ifCond}}\
+                <p class="category">{{blogTitle}}</p>\
                 <time datetime="{{publishDate}}">{{publishDate}}</time>\
             </div>\
             <h2>{{{ title }}}</h2>\
