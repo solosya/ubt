@@ -1,7 +1,6 @@
 {% import "quotes.twig" as quotes %}
 
-
-{% if (article.hasMedia == 'TRUE' or article.hasPreviewMedia == 'TRUE') and params.imageSuppress == 'false' %}
+{% if (article.hasMedia == 'TRUE' or article.hasPreviewMedia == 'TRUE') and params.imageSuppress != 'true' %}
     <figure class="{{params.figureClass}} c-cards-view__media ">
         {% if params.giffUrl %}	
             {# remove the file extension #}
