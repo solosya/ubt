@@ -96,10 +96,10 @@
     {% endif %}
 
 
+    {% set figureClass =  article.featuredMedia['type'] == 'video' ? 'video' : '' %}
 
     {% set params = {
         placeholder:     'https://placeholdit.imgix.net/~text?txtsize=33&txt=Loading&w='~imgWidth~'&h='~imgHeight~'',
-        figureClass:     article.featuredMedia['type'] == 'video' ? 'video' : '',
         figureClass:     forceVideo ? 'video' : figureClass,
         articleImgSmall: _Media.getMediaUrl(article.featuredMedia,500, 500, {'crop': 'fill', 'gravity': 'faces:auto'} ),
         articleImg:      _Media.getMediaUrl(article.featuredMedia,imgWidth, imgHeight, {'crop': 'fill', 'gravity': 'faces:auto'} ),
