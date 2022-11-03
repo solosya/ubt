@@ -1,12 +1,46 @@
 {% import "quotes.twig" as quotes %}
 
 
-{% set imageSuppress = imageSuppress is defined and imageSuppress == 'true' ? 'true' : 'false'  %}
+{% set imageSuppress = imageSuppress is defined and imageSuppress == true ? true : false  %}
 {% set template = (template is defined and template != '') ? template : 'main'  %}
 {% set swap = swap is defined and swap == 'false' ? '' : 'swap'  %}
 
 {# This can add a prefix to the card class to segregate its styles #}
 {% set cardType      = cardType      is defined and cardType != ''          ? cardType  : ''      %}
+
+
+{% set url = _AppHelper.getParsedUrl %}
+{% set params = url['query'] %}
+{% set premiumSuppress = false %}
+{% set forcePremium = false %}
+{% set forceVideo = false %}
+
+{% for k, p in params %}
+    {% if k == 'images' %}
+        {% if p == 'false' %}
+            {% set imageSuppress = 'true' %}
+        {% endif %}
+        {% if p == 'video' %}
+            {% set forceVideo = true %}
+        {% endif %}
+    {% endif %}
+    {% if k == 'premium' %}
+        {% if p == 'false' %}
+            {% set premiumSuppress = true %}
+        {% endif %}
+
+        {% if p == 'true' %}
+            {% set forcePremium = true %}
+        {% endif %}
+
+    {% endif %}
+    {% if k == 'dev' %}
+        {% if p == 'true' and isAdmin %}
+            {% set dev = true %}
+        {% endif %}
+    {% endif %}
+
+{% endfor %}
 
 
 {% set lightbox = ''  %}
@@ -42,7 +76,7 @@
 
 {% if article.articleId > 0 or (isArticle is defined and isArticle == 'true') %}
 
-    {% set hasArticleMediaClass = ((article.hasMedia == 'TRUE' or article.hasPreviewMedia == 'TRUE') and imageSuppress == 'false') ? 'withImage__content': 'without__image' %}
+    {% set hasArticleMediaClass = ((article.hasMedia == 'TRUE' or article.hasPreviewMedia == 'TRUE') and imageSuppress != 'true') ? 'withImage__content': 'without__image' %}
 
     {% set articleTitle = quotes.smarten(article.title)  %}
     {% if article.titlePreview is defined and article.titlePreview != "" %}
@@ -66,6 +100,7 @@
     {% set params = {
         placeholder:     'https://placeholdit.imgix.net/~text?txtsize=33&txt=Loading&w='~imgWidth~'&h='~imgHeight~'',
         figureClass:     article.featuredMedia['type'] == 'video' ? 'video' : '',
+        figureClass:     forceVideo ? 'video' : figureClass,
         articleImgSmall: _Media.getMediaUrl(article.featuredMedia,500, 500, {'crop': 'fill', 'gravity': 'faces:auto'} ),
         articleImg:      _Media.getMediaUrl(article.featuredMedia,imgWidth, imgHeight, {'crop': 'fill', 'gravity': 'faces:auto'} ),
         publishDate:     publishDate,
@@ -173,6 +208,7 @@
     {% set social = article.social %}
     {% set mediaClass = (social.hasMedia == 'TRUE') ? 'withImage__content' : 'without__image' %}
     {% set videoClass = (social.media['type'] == 'video') ? 'video' : '' %}
+    {% set videoClass = forceVideo ? 'video' : videoClass %}
     {% set hasArticleMediaClass = (social.hasMedia == 'TRUE') ? 'withImage__content': 'without__image' %}
     {% set hasArticleContentClass = (social.content) ? '': 'without__content' %}
 
