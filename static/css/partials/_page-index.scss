@@ -193,6 +193,48 @@
             }
         }
 
+        &.background_colored_layout {
+            background-color: #002d56;
+            margin-top: 0;
+            padding: 40px 0;
+            position: relative;
+
+            &:before {
+                content: '';
+                position: absolute;
+                background-color: #002d56;
+                height: 100%;
+                width: 100vw;
+                left: -100vw;
+                top: 0;
+                display: block;
+                z-index: -1;
+            }
+
+            &:after {
+                content: '';
+                position: absolute;
+                background-color: #002d56;
+                height: 100%;
+                width: 50vw;
+                left: calc(50% - 12px);
+                top: 0;
+                display: block;
+                z-index: -1;
+            }
+
+            .section-header {
+                &__link {
+                    color: #ffffff;
+                }
+                &__title {
+                    &:after {
+                        background-color: #ffffff;
+                    }
+                }
+            }
+        }
+
     }
 
 }
