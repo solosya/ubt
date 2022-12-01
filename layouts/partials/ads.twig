@@ -55,26 +55,33 @@
   var mOnlyMap = [[[768,0],[]],[[0,0],[300,50]]];
     
   var nextAdId = 1;
+
+  
   function generateNextAdName() {
      var id = nextAdId++;
      return 'adSlot' + id;
   }
 
   function loadNextAd(blogAd,adDivId,adClass,sizes,mapping) {
-    var adSlot = document.getElementById(adDivId);
-    var slotName = generateNextAdName();
-    var slotDiv = document.createElement('div');
-    adSlot.appendChild(slotDiv);
-    slotDiv.id = slotName;
-    slotDiv.setAttribute( 'class', 'google_ad' );
-    adSlot.id = "";
-    adSlot.setAttribute( 'class', adClass );
-    
-    googletag.cmd.push(function() {
-      var slot = googletag.defineSlot('/{{dfpAcct}}/'+blogAd, sizes, slotName).setTargeting().defineSizeMapping(mapping).addService(googletag.pubads());
-      googletag.display(slotName);
-      //googletag.pubads().refresh([slot]);
-    });
+    try {
+      var adSlot = document.getElementById(adDivId);
+      var slotName = generateNextAdName();
+      var slotDiv = document.createElement('div');
+      adSlot.appendChild(slotDiv);
+      slotDiv.id = slotName;
+      slotDiv.setAttribute( 'class', 'google_ad' );
+      adSlot.id = "";
+      adSlot.setAttribute( 'class', adClass );
+      
+      googletag.cmd.push(function() {
+        var slot = googletag.defineSlot('/{{dfpAcct}}/'+blogAd, sizes, slotName).setTargeting().defineSizeMapping(mapping).addService(googletag.pubads());
+        googletag.display(slotName);
+        //googletag.pubads().refresh([slot]);
+      });
+
+    } catch(e) {
+      console.log(e);
+    }
   }
 
 
