@@ -37,6 +37,21 @@
                     }
                 }
 
+                > .cat-time {
+                    &.cat-time--withLabel {
+                        .category{
+                            display: block;
+                            color: white;
+                        }
+
+                        time {
+                            margin-left: 10px;
+                            margin-top: 1px;
+                        }
+                    }
+
+                }
+
                 > h2{
                     width: 100%;
                     position: absolute;
