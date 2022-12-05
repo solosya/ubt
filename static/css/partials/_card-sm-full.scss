@@ -135,6 +135,21 @@
                         line-height: 1.33;
                         height:42px;
                     }
+
+                    > .cat-time {
+                        &.cat-time--withLabel {
+                            .category{
+                                display: block;
+                                color: white;
+                            }
+    
+                            time {
+                                margin-left: 10px;
+                                margin-top: 1px;
+                            }
+                        }
+    
+                    }
                 }
             }
         }
