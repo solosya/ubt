@@ -69,7 +69,28 @@ a.card {
         }
 
 
+        .cat-time {
+            &--withLabel {
+                @include flexbox;
+                @include align-items(center);
 
+                .c-cards-view {
+                    &__labels {
+                        margin-bottom: 0;
+                        background: color(navyblue);
+                        color: white;
+                        text-transform: uppercase;
+                        padding: 4px 6px 4px;
+                        @include border-radius(2px);
+                        font-size: 10px;
+                        font-weight: 500;
+                        letter-spacing: 0.23px;
+                        line-height: 1;
+                        margin-right: 8px;
+                    }
+                }
+            }
+        }
 
 
         > .content {
@@ -82,7 +103,7 @@ a.card {
                 .category{
                     display:inline-block;
                     font-size: rem(10);
-                    color:color(lightgrey);
+                    color:#ff0016;
                     text-transform:uppercase; 
                     margin:0;
                     line-height:1;

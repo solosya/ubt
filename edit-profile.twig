@@ -557,7 +557,7 @@ fraudulent #}
                             {% if pwstats['user_count'] > userLimit and managedUserScreenCount >= userLimit %} 
                                 {{ this.render('partials/ajaxarticles.twig', {
                                     limit           : userLimit,
-                                    label           : "Show more",
+                                    label           : "Load more",
                                     loadtype        : "user",
                                     name            : "user-load",
                                     card_class      : "userdetails",

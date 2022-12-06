@@ -30,7 +30,8 @@
                 padding: 0;
 
                 div > {
-                    .category{
+                    .category,
+                    .c-cards-view__labels{
                         display:none;
                     }
                     time {

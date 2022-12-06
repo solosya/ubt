@@ -279,7 +279,7 @@
                     {{ this.render('partials/ajaxarticles.twig', {
                         offset          : limit,
                         limit           : limit,
-                        label           : "Show more",
+                        label           : "Load more",
                         name            : "community-load",
                         non_pinned      : articlesArr.existingNonPinnedCount, 
                         card_class      : "col-sm-1 card-sm-short card-sm-short-tablet card-sm-mobile",
@@ -372,7 +372,7 @@
                     {{ this.render('partials/ajaxarticles.twig', {
                             offset:         sections['property listings'].limit, 
                             limit:          sections['property listings'].limit,
-                            label:          "Show more",
+                            label:          "Load more",
                             non_pinned:     sections['property listings']['feed'].existingNonPinnedCount, 
                             cardTemplate:   'communityPropertyCardTemplate',
                             card_class:     "col-sm-1 card-community-property-listing",
@@ -461,7 +461,7 @@
                     {{ this.render('partials/ajaxarticles.twig', {
                             offset:         sections['job listings'].limit, 
                             limit:          sections['job listings'].limit,
-                            label:          "Show more",
+                            label:          "Load more",
                             non_pinned:     sections['job listings']['feed'].existingNonPinnedCount, 
                             cardTemplate:   'communityJobCardTemplate',
                             card_class:     "col-sm-1 card-community-job-listing",

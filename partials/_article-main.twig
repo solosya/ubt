@@ -23,10 +23,13 @@
 {% endif %}
 
 
-
 <div class="{{params.cardType}}c-cards-view__container content">
-    <div class="cat-time">
-        <p class="{{params.cardType}}c-cards-view__category category">{{article.label}}</p
+    <div class="cat-time {% if article.label != article.blogTitle %} cat-time--withLabel {% endif %}">
+        {% if article.label != article.blogTitle %}
+            <p class="{{params.cardType}}c-cards-view__labels">{{article.label}}</p>
+        {% endif %}
+        
+        <p class="{{params.cardType}}c-cards-view__category category">{{article.blogTitle}}</p
         >{% if params.hideDate == false %}<time datetime="{{params.publishDate}}">{{params.publishDate}}</time>{% endif %}
     </div>
 

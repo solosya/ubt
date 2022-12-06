@@ -93,7 +93,6 @@
 
         a.card {
             @include card-image-left(150px, 170px);
-            height:200px;
             > article {
                 >figure {
                     margin-right:24px;
@@ -103,6 +102,13 @@
                 }
             }
             // height:130px;
+
+            &:after {
+                content: '';
+                display: block;
+                border-bottom: 1px solid #97999c;
+                // padding-top: 30px;                
+            }
         }
     }
 }
@@ -123,6 +129,13 @@
 
         a.card {
             // height:130px;
+
+            &:after {
+                content: '';
+                display: block;
+                border-bottom: 1px solid #97999c;
+                // padding-top: 30px;                
+            }
         }
     }
 }
