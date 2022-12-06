@@ -39,6 +39,7 @@
 
 {% set date = date() %}
 {% set events = _Event.getEvents({"limit": 5, "start_date": date() | date("Y-m-d")}) %}
+{% set recentArticles = _Article.getRecentArticles({ limit: 5, excludeArticleIds : [article.id] }) %}
 
 <!-- used to index each article as we loop over throughout the template -->
 {% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
