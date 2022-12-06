@@ -113,7 +113,7 @@
             > article {
 
                 > .content{
-                    padding: 100px 10px 20px 20px;
+                    padding: 90px 10px 20px 20px;
                   
                     >div {
                         > .category{
@@ -137,6 +137,8 @@
                     }
                     > .cat-time {
                         @include flexbox;
+                        @include align-items(center);
+                        min-height: 18px;
                         margin-bottom: 10px;
                         .category{
                             display: block;
