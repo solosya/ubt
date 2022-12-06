@@ -1,0 +1,28 @@
+{% set sectionCount = 0 %}
+
+<section class="section national background_colored_layout" panel="07">
+
+    <div class="row">
+
+        <div class="col-sm-12 section-header">
+            <h2 class="section-header__title">
+                <a class="section-header__link" href="{{sectionFeed.link}}">{{sectionFeed.title}}</a>
+            </h2>
+            <p class="section-header__description">{{sectionFeed.description}}</p>
+        </div>
+
+
+        {% for i in 0..3 if sectionFeed.feed.articles[i] %}
+            <div class="col-sm-3">
+                {{this.render('../_single-article.twig', {
+                    article: sectionFeed.feed.articles[sectionCount], 
+                    imageSize: {width: 300, height: 180},
+                    swap: 'false',
+                    containerClass: 'card-sm-full card-sm-full-tablet'
+                }) | raw}}
+                {% set sectionCount = (dev) ? sectionCount : sectionCount + 1 %}
+
+            </div>
+        {% endfor %}
+    </div>
+</section>

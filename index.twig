@@ -61,6 +61,13 @@
             "description": "",
             "limit": 4
         },
+        "documentaries": {
+            "title": "Documentaries",
+            "feed": "",
+            "link": "",
+            "description": "",
+            "limit": 4
+        },
         "community": {
             "title": "Community",
             "feed": "",
@@ -136,9 +143,9 @@
 
 {# First set a common order then add site order to beginning #}
 {% if 'School' not in userData.name %}
-    {% set sectionOrder = ["world", "videos", "community"] %}
+    {% set sectionOrder = ["world", "videos", "documentaries", "community"] %}
 {% else %}
-    {% set sectionOrder = ["world", "videos"] %}
+    {% set sectionOrder = ["world", "videos", "documentaries"] %}
 {% endif %}
 
 {% if blogNetworkNameIs == 'frank uk' %}
@@ -459,6 +466,15 @@
         {% set sectionFeed = sections[ sectionOrder[x] ] %}
         {% if sectionFeed.feed.articles|length > 0 %}
             {{this.render('partials/index/panel-05.twig', {
+                sectionFeed : sectionFeed
+            }) | raw}}
+        {% endif %}
+
+        {% set x = x + 1 %}
+
+        {% set sectionFeed = sections[ sectionOrder[x] ] %}
+        {% if sectionFeed.feed.articles|length > 0 %}
+            {{this.render('partials/index/panel-07.twig', {
                 sectionFeed : sectionFeed
             }) | raw}}
         {% endif %}
