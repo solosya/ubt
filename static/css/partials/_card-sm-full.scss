@@ -113,7 +113,7 @@
             > article {
 
                 > .content{
-                    padding: 110px 10px 20px 20px;
+                    padding: 100px 10px 20px 20px;
                   
                     >div {
                         > .category{
@@ -136,16 +136,15 @@
                         height:42px;
                     }
                     > .cat-time {
-                        &.cat-time--withLabel {
-                            .category{
-                                display: block;
-                                color: white;
-                            }
-    
-                            time {
-                                margin-left: 10px;
-                                margin-top: 1px;
-                            }
+                        @include flexbox;
+                        margin-bottom: 10px;
+                        .category{
+                            display: block;
+                            color: white;
+                        }
+                        time {
+                            margin-left: 10px;
+                            margin-top: 1px;
                         }
     
                     }
