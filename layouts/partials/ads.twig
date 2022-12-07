@@ -19,20 +19,12 @@
 {% set dfpAcct = '21651851619' %}
 
 <script>
-  var country = localStorage.getItem("weather-country");
-  if (country == 'United Kingdom') {
-    var invSpace = "Frank_UK";
-  } else if (country == 'New Zealand') {
-    var invSpace = "Frank_NZ";
-  } else if (country == 'Australia') {
-     var invSpace = 'Frank_AU';
-  } else {
-    var invSpace = 'Frank_US';
-  }
+
+  var invSpace = 'Frank_AU';
+
   console.log('loading ads');
   console.log(country);
   blogName = '{{blogNetworkName}}'
-  console.log(blogName);
   console.log({{dfpAcct}});
   googletag.cmd.push(function() {         
                 googletag.pubads().enableSingleRequest();
@@ -60,18 +52,14 @@
 
   
   function generateNextAdName() {
-
      var id = nextAdId++;
-     console.log(id);
      return 'adSlot' + id;
   }
 
   function loadNextAd(blogAd,adDivId,adClass,sizes,mapping) {
     try {
       var adSlot = document.getElementById(adDivId);
-      console.log(adSlot);
       var slotName = generateNextAdName();
-        console.log(slotName);
       var slotDiv = document.createElement('div');
 
       adSlot.appendChild(slotDiv);
