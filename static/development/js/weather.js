@@ -51,7 +51,8 @@
                     'GB/Nottingham',
                     'GB/Sheffield',
                     'GB/Southampton',
-                    'GB/St%20Austell'
+                    'GB/St%20Austell',
+                    'GB/Bristol'
                 ];
                 break;
             case 'United Kingdom-regional':

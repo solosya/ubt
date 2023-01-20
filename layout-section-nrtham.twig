@@ -146,6 +146,13 @@
                     <script>loadNextAd(invSpace,'blockAd1','mRec',mRecSize,mRecMap);</script>
                 </div>
 
+                {# <div class="advert banner">
+                    <a href="https://campusandco.com/" target="_blank" class="social-modal__image_wrap">
+                        <img src="{{networkData.templatePath}}/static/images/ads/Ad3_desktop.png" class="hidden-xs img-responsive" />
+                        <img src="{{networkData.templatePath}}/static/images/ads/Ad3_mobile.png" class="visible-xs img-responsive" />
+                    </a>
+                </div> #}
+
 
 
 
@@ -166,11 +173,18 @@
 
                 {% if blogData.url_prefix == 'documentaries' %}
 
-                    <div class="advertise">
+                    {# <div class="advertise">
                         <a href="mailto:hello@franknews.global?subject=Suggest a documentary">
                             <img src="{{networkData.templatePath}}/static/images/UBT_Documentary_2022.png" alt="image" class="img-fluid img-responsive" />
                         </a>
+                    </div> #}
+
+                    <div class="advert banner">
+                        <a href="{{networkData.defaultBlogUrl}}/get-in-touch" class="social-modal__image_wrap">
+                            <img src="{{networkData.templatePath}}/static/images/ads/Ad6_mrec.png" class="img-responsive" />
+                        </a>
                     </div>
+
                     {% else %}
                         <div id='articleAdScroll' class="advert lockad visible-md-block visible-lg-block">
                             <div id='hPage1'></div>

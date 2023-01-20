@@ -113,7 +113,7 @@
             > article {
 
                 > .content{
-                    padding: 110px 10px 20px 20px;
+                    padding: 90px 10px 20px 20px;
                   
                     >div {
                         > .category{
@@ -135,18 +135,18 @@
                         line-height: 1.33;
                         height:42px;
                     }
-
                     > .cat-time {
-                        &.cat-time--withLabel {
-                            .category{
-                                display: block;
-                                color: white;
-                            }
-    
-                            time {
-                                margin-left: 10px;
-                                margin-top: 1px;
-                            }
+                        @include flexbox;
+                        @include align-items(center);
+                        min-height: 18px;
+                        margin-bottom: 10px;
+                        .category{
+                            display: block;
+                            color: white;
+                        }
+                        time {
+                            margin-left: 10px;
+                            margin-top: 1px;
                         }
     
                     }
@@ -191,9 +191,7 @@
         }
     }
 }
-.test_conteeeett {
-    overflow: hidden;
-}
+
 
 
 

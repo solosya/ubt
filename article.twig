@@ -5,7 +5,7 @@
 {{this.registerJs("Acme.lightbox = new Acme.Article();")}}
 
 {% set blogInfo      = _Blog.getBlog(null, {'excludeMenus' : true}) %}
-{# {% set networkData = _Network.getNetworkData() %} #}
+{% set networkData = _Network.getNetworkData() %}
 
 {% set articleImg = false %}
 {% if article.media|length > 0 %}
@@ -251,6 +251,13 @@
                 <div class="advert banner">
                     <div id='banerAd2'></div>
                     <script>loadNextAd(invSpace,'banerAd2','bannerad',bannerSize,bannerMap);</script>
+                </div>
+
+                <div class="advert banner">
+                    <a href="{{networkData.defaultBlogUrl}}/get-in-touch" class="social-modal__image_wrap">
+                        <img src="{{networkData.templatePath}}/static/images/ads/Ad4_desktop.jpg" class="hidden-xs img-responsive" />
+                        <img src="{{networkData.templatePath}}/static/images/ads/Ad4_mobile.png" class="visible-xs img-responsive" />
+                    </a>
                 </div>
             </section>
             {% if article.label | lower != 'community' or 'School' not in userData.name %}

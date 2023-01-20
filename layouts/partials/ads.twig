@@ -19,19 +19,10 @@
 {% set dfpAcct = '21651851619' %}
 
 <script>
-  var country = localStorage.getItem("weather-country");
-  if (country == 'United Kingdom') {
-    var invSpace = "Frank_UK";
-  } else if (country == 'New Zealand') {
-    var invSpace = "Frank_NZ";
-  } else if (country == 'Australia') {
-     var invSpace = 'Frank_AU';
-  } else {
-    var invSpace = 'Frank_US';
-  }
+
+  var invSpace = 'Frank_AU';
 
   blogName = '{{blogNetworkName}}'
-
   googletag.cmd.push(function() {         
                 googletag.pubads().enableSingleRequest();
                 googletag.pubads().collapseEmptyDivs();
@@ -55,26 +46,35 @@
   var mOnlyMap = [[[768,0],[]],[[0,0],[300,50]]];
     
   var nextAdId = 1;
+
+  
   function generateNextAdName() {
      var id = nextAdId++;
      return 'adSlot' + id;
   }
 
   function loadNextAd(blogAd,adDivId,adClass,sizes,mapping) {
-    var adSlot = document.getElementById(adDivId);
-    var slotName = generateNextAdName();
-    var slotDiv = document.createElement('div');
-    adSlot.appendChild(slotDiv);
-    slotDiv.id = slotName;
-    slotDiv.setAttribute( 'class', 'google_ad' );
-    adSlot.id = "";
-    adSlot.setAttribute( 'class', adClass );
-    
-    googletag.cmd.push(function() {
-      var slot = googletag.defineSlot('/{{dfpAcct}}/'+blogAd, sizes, slotName).setTargeting().defineSizeMapping(mapping).addService(googletag.pubads());
-      googletag.display(slotName);
-      //googletag.pubads().refresh([slot]);
-    });
+    try {
+      var adSlot = document.getElementById(adDivId);
+      var slotName = generateNextAdName();
+      var slotDiv = document.createElement('div');
+
+      adSlot.appendChild(slotDiv);
+      slotDiv.id = slotName;
+      slotDiv.setAttribute( 'class', 'google_ad' );
+      adSlot.id = "";
+      adSlot.setAttribute( 'class', adClass );
+      googletag.cmd.push(function() {
+        console.log(blogAd, sizes, slotName);
+        var slot = googletag.defineSlot('/{{dfpAcct}}/'+blogAd, sizes, slotName).setTargeting().defineSizeMapping(mapping).addService(googletag.pubads());
+        console.log(slot);
+        googletag.display(slotName);
+        //googletag.pubads().refresh([slot]);
+      });
+
+    } catch(e) {
+      console.log(e);
+    }
   }
 
 
