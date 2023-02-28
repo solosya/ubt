@@ -37280,6 +37280,7 @@ UserArticlesController.Load = (function ($) {
                 return [
                     'GB/London',
                     'GB/Birmingham',
+                    'GB/Bristol',
                     'GB/Cardiff',
                     'GB/Dublin',
                     'GB/Edinburgh',
@@ -37292,8 +37293,7 @@ UserArticlesController.Load = (function ($) {
                     'GB/Nottingham',
                     'GB/Sheffield',
                     'GB/Southampton',
-                    'GB/St%20Austell',
-                    'GB/Bristol'
+                    'GB/St%20Austell'
                 ];
                 break;
             case 'United Kingdom-regional':
