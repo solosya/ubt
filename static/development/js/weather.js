@@ -180,7 +180,8 @@
             location = urlParams.get('weather');
         }
         var self = this;
-        Acme.server.fetch('https://weather.pagemasters.com.au/weather?q=' + location)
+        // Acme.server.fetch('https://weather.pagemasters.com.au/weather?q=' + location)
+        Acme.server.fetch('https://weather.publish.net.au/weather?q=' + location)
             .done(function(r) {
                 self.data = r.data;
                 var publishData = {};
