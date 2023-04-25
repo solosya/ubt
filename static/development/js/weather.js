@@ -425,7 +425,7 @@
             } else {
                 localStorage.setItem('temp-scale', 'C');
             }
-            location.reload();          
+            location.reload();
         });             
     };
     Acme.WeatherHeader_View.prototype.events = function()

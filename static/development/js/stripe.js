@@ -161,6 +161,15 @@ if ($('#stripekey').length > 0) {
             return;
         }
 
+        if (typeof window.Acme.captcha_site_key !== 'undefined') {
+            grecaptcha.ready(function() {
+                grecaptcha.execute(window.Acme.captcha_site_key, {action: 'submit'}).then(function(token) {
+                    self.data['g-recaptcha-response'] = token;
+                });
+            });
+        }
+
+
         // self.data['login'] = false;
         self.data['paymentIntent'] = true;
         self.data['redirect'] = false;
