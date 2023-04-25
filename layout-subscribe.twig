@@ -2,7 +2,7 @@
 {% set networkData = _Network.getNetworkData() %}
 {% set plans = _Paywall.getActiveNetworkPaywallPlans() %}
 
-
+{% set config = _Network.getThemeConfig() %}
 
 
 {% if not _User.isGuest() %}
@@ -322,3 +322,23 @@
     app_id: "zxwsoz9f"
   };    
 </script>
+
+
+{% set captcha = config.paywall.captcha.active is defined ? config.paywall.captcha.active : false %}
+{% set captchaOn = config.paywall.captcha.on is defined ? config.paywall.captcha.on : 'all' %}
+
+{% if captcha %}
+    {% if (captchaOn == 'trial' and plan.trial_status == '1') or captchaOn == 'all' %}
+        {% if networkData.thirdPartyIntegrations['recaptcha'] | length > 0 and networkData.thirdPartyIntegrations['recaptcha']['site_key'] != '' %}
+            {% set site_key = networkData.thirdPartyIntegrations['recaptcha']['site_key'] %}
+            <script src="https://www.google.com/recaptcha/api.js?render={{site_key}}"></script>
+            <script>
+                if (typeof window.Acme === "undefined") {
+                    window.Acme = {};
+                }
+
+                window.Acme.captcha_site_key = "{{site_key}}";
+            </script>
+        {% endif %}
+    {% endif %}
+{% endif %}
