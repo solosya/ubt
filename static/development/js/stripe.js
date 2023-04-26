@@ -164,11 +164,13 @@ if ($('#stripekey').length > 0) {
         if (typeof window.Acme.captcha_site_key !== 'undefined') {
             grecaptcha.ready(function() {
                 grecaptcha.execute(window.Acme.captcha_site_key, {action: 'submit'}).then(function(token) {
+                    console.log('adding captcha token');
                     self.data['g-recaptcha-response'] = token;
                 });
             });
         }
 
+                    console.log('signing up');
 
         // self.data['login'] = false;
         self.data['paymentIntent'] = true;

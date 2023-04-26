@@ -36783,6 +36783,17 @@ if ($('#stripekey').length > 0) {
             return;
         }
 
+        if (typeof window.Acme.captcha_site_key !== 'undefined') {
+            grecaptcha.ready(function() {
+                grecaptcha.execute(window.Acme.captcha_site_key, {action: 'submit'}).then(function(token) {
+                    console.log('adding captcha token');
+                    self.data['g-recaptcha-response'] = token;
+                });
+            });
+        }
+
+                    console.log('signing up');
+
         // self.data['login'] = false;
         self.data['paymentIntent'] = true;
         self.data['redirect'] = false;
@@ -38288,7 +38299,7 @@ UserArticlesController.Load = (function ($) {
             } else {
                 localStorage.setItem('temp-scale', 'C');
             }
-            location.reload();          
+            location.reload();
         });             
     };
     Acme.WeatherHeader_View.prototype.events = function()
