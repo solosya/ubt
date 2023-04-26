@@ -361,8 +361,9 @@ if ($('#stripekey').length > 0) {
 
 
 
-
+        var usingCaptcha = false;
         if (typeof window.Acme.captcha_site_key !== 'undefined') {
+            usingCaptcha = true;
             grecaptcha.ready(function() {
                 grecaptcha.execute(window.Acme.captcha_site_key, {action: 'submit'}).then(function(token) {
                     console.log('adding captcha token');
@@ -370,11 +371,11 @@ if ($('#stripekey').length > 0) {
                     return submitForm(formdata);
                 });
             });
-            return;
         }
 
-
-        return submitForm(formdata);
+        if (!usingCaptcha) {
+            return submitForm(formdata);
+        }
 
     }
 
