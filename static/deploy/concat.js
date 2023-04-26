@@ -36786,14 +36786,9 @@ if ($('#stripekey').length > 0) {
             return;
         }
 
-        if (typeof window.Acme.captcha_site_key !== 'undefined') {
-            grecaptcha.ready(function() {
-                grecaptcha.execute(window.Acme.captcha_site_key, {action: 'submit'}).then(function(token) {
-                    console.log('adding captcha token');
-                    self.data['g-recaptcha-response'] = token;
-                });
-            });
-        }
+
+
+        // function submitForm() {
 
                     console.log('signing up');
 
@@ -36825,6 +36820,8 @@ if ($('#stripekey').length > 0) {
                     modal.render("spinner", "Creating account");
                     var profilePage = location.origin + "/user/edit-profile";
                     var thankYouPage = window.location.origin + "/auth/thank-you";
+                    
+                    console.log(subscribe.data);
                     formhandler(subscribe.data, '/auth/paywall-signup').done( function(r) {
                         // console.log(r);
                         var clientSecret = typeof r.client_secret !== 'undefined' && r.client_secret ? r.client_secret : null;
@@ -36836,14 +36833,10 @@ if ($('#stripekey').length > 0) {
                         if (!r.trial) {
                             self.paymentIntent(clientSecret, card).then(function(result) {
                                 if (result.error) {
-                                    // return result.error;
                                     console.log(result);
-                                    // console.log(result.error.message);
-                                    // console.log("redirecting to profile page", profilePage);
                                     window.location.href = profilePage;
                                 } else {
                                   // The setup has succeeded. Display a success message.
-                                //   console.log('IT WORKED!!!', thankYouPage);
                                   window.location.href = thankYouPage;
                     
                                 }
@@ -36851,10 +36844,7 @@ if ($('#stripekey').length > 0) {
                         } else {
                             self.setupIntent(clientSecret, card).then(function(result) {
                                 if (result.error) {
-                                    // return result.error;
                                     console.log(result);
-                                    // console.log(result.error.message);
-                                    // console.log("redirecting to profile page");
                                     window.location.href = profilePage;
                                 } else {
                                   // The setup has succeeded. Display a success message.
@@ -36956,38 +36946,60 @@ if ($('#stripekey').length > 0) {
 
 
     var formhandler = function(formdata, path) {
-        var csrfToken = $('meta[name="csrf-token"]').attr("content");
-        return $.ajax({
-            url: _appJsConfig.appHostName + path,
-            type: 'post',
-            data: formdata,
-            dataType: 'json',
-            success: function(data) {
-                if(data.success) {
-                    $('#card-errors').text('Completed successfully.');
 
-                } else {
-                    modal.closeWindow();
-                    var text = '';
 
-                    if (!Object.prototype.toString.call(data.error) === '[object Array]') {
-                        var err = {
-                            "error": data.error
+        function submitForm(formdata) {
+            return $.ajax({
+                url: _appJsConfig.appHostName + path,
+                type: 'post',
+                data: formdata,
+                dataType: 'json',
+                success: function(data) {
+                    if(data.success) {
+                        $('#card-errors').text('Completed successfully.');
+    
+                    } else {
+                        modal.closeWindow();
+                        var text = '';
+    
+                        if (!Object.prototype.toString.call(data.error) === '[object Array]') {
+                            var err = {
+                                "error": data.error
+                            };
+                            data.error = err;
                         };
-                        data.error = err;
-                    };
-                    for (var key in data.error) {
-                        text = text + data.error[key] + " ";
-                    } 
-                    $('#card-errors').text(text);
-                }   
-                modal.closeWindow();
+                        for (var key in data.error) {
+                            text = text + data.error[key] + " ";
+                        } 
+                        $('#card-errors').text(text);
+                    }   
+                    modal.closeWindow();
+    
+                },
+                error: function(data) {
+                    modal.closeWindow();
+                }
+            });
 
-            },
-            error: function(data) {
-                modal.closeWindow();
-            }
-        });
+        }
+
+
+
+
+
+        if (typeof window.Acme.captcha_site_key !== 'undefined') {
+            grecaptcha.ready(function() {
+                grecaptcha.execute(window.Acme.captcha_site_key, {action: 'submit'}).then(function(token) {
+                    console.log('adding captcha token');
+                    formdata['g-recaptcha-response'] = token;
+                    return submitForm(formdata);
+                });
+            });
+            return;
+        }
+
+
+        return submitForm(formdata);
 
     }
 
