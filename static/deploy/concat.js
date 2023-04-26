@@ -36788,11 +36788,6 @@ if ($('#stripekey').length > 0) {
 
 
 
-        // function submitForm() {
-
-                    console.log('signing up');
-
-        // self.data['login'] = false;
         self.data['paymentIntent'] = true;
         self.data['redirect'] = false;
 
@@ -36818,42 +36813,22 @@ if ($('#stripekey').length > 0) {
                     errorElement.textContent = result.error.message;
                 } else {
                     modal.render("spinner", "Creating account");
-                    var profilePage = location.origin + "/user/edit-profile";
-                    var thankYouPage = window.location.origin + "/auth/thank-you";
                     
-                    console.log(subscribe.data);
-                    formhandler(subscribe.data, '/auth/paywall-signup').done( function(r) {
-                        // console.log(r);
-                        var clientSecret = typeof r.client_secret !== 'undefined' && r.client_secret ? r.client_secret : null;
-                        if (!clientSecret || r.error) {
-                            return false;
-                        }
+                    var usingCaptcha = false;
+                    if (typeof window.Acme.captcha_site_key !== 'undefined') {
+                        usingCaptcha = true;
+                        grecaptcha.ready(function() {
+                            grecaptcha.execute(window.Acme.captcha_site_key, {action: 'submit'}).then(function(token) {
+                                subscribe.data['g-recaptcha-response'] = token;
+                                self.submitForm(subscribe.data, modal);
+                            });
+                        });
+                    }
+            
 
-                        modal.render("spinner", "Authenticating payment");
-                        if (!r.trial) {
-                            self.paymentIntent(clientSecret, card).then(function(result) {
-                                if (result.error) {
-                                    console.log(result);
-                                    window.location.href = profilePage;
-                                } else {
-                                  // The setup has succeeded. Display a success message.
-                                  window.location.href = thankYouPage;
-                    
-                                }
-                            });
-                        } else {
-                            self.setupIntent(clientSecret, card).then(function(result) {
-                                if (result.error) {
-                                    console.log(result);
-                                    window.location.href = profilePage;
-                                } else {
-                                  // The setup has succeeded. Display a success message.
-                                  window.location.href = thankYouPage;
-                    
-                                }
-                            });
-                        }
-                    });
+                    if (!usingCaptcha) {
+                        self.submitForm(subscribe.data, modal);
+                    }
                 }
             });
         }
@@ -36928,7 +36903,6 @@ if ($('#stripekey').length > 0) {
 
         if (form != null) {
             form.addEventListener('submit', function(event) {
-                console.log('submitting');
                 self.submit(event);
             });
         }
@@ -36940,68 +36914,81 @@ if ($('#stripekey').length > 0) {
 
 
 
+    SubscribeForm.prototype.submitForm = function(formdata, modal) {
+        var self = this;
+        var profilePage = location.origin + "/user/edit-profile";
+        var thankYouPage = window.location.origin + "/auth/thank-you";
 
+        formhandler(formdata, '/auth/paywall-signup').done( function(r) {
+            var clientSecret = typeof r.client_secret !== 'undefined' && r.client_secret ? r.client_secret : null;
+            if (!clientSecret || r.error) {
+                return false;
+            }
 
+            modal.render("spinner", "Authenticating payment");
+            if (!r.trial) {
+                self.paymentIntent(clientSecret, card).then(function(result) {
+                    if (result.error) {
+                        window.location.href = profilePage;
+                    } else {
+                      // The setup has succeeded. Display a success message.
+                      window.location.href = thankYouPage;
+        
+                    }
+                });
+            } else {
+                self.setupIntent(clientSecret, card).then(function(result) {
+                    if (result.error) {
+                        window.location.href = profilePage;
+                    } else {
+                      // The setup has succeeded. Display a success message.
+                      window.location.href = thankYouPage;
+        
+                    }
+                });
+            }
+        });
+
+    };
 
 
 
     var formhandler = function(formdata, path) {
 
 
-        function submitForm(formdata) {
-            return $.ajax({
-                url: _appJsConfig.appHostName + path,
-                type: 'post',
-                data: formdata,
-                dataType: 'json',
-                success: function(data) {
-                    if(data.success) {
-                        $('#card-errors').text('Completed successfully.');
-    
-                    } else {
-                        modal.closeWindow();
-                        var text = '';
-    
-                        if (!Object.prototype.toString.call(data.error) === '[object Array]') {
-                            var err = {
-                                "error": data.error
-                            };
-                            data.error = err;
+        return $.ajax({
+            url: _appJsConfig.appHostName + path,
+            type: 'post',
+            data: formdata,
+            dataType: 'json',
+            success: function(data) {
+                if(data.success) {
+                    $('#card-errors').text('Completed successfully.');
+
+                } else {
+                    modal.closeWindow();
+                    var text = '';
+
+                    if (!Object.prototype.toString.call(data.error) === '[object Array]') {
+                        var err = {
+                            "error": data.error
                         };
-                        for (var key in data.error) {
-                            text = text + data.error[key] + " ";
-                        } 
-                        $('#card-errors').text(text);
-                    }   
-                    modal.closeWindow();
-    
-                },
-                error: function(data) {
-                    modal.closeWindow();
-                }
-            });
+                        data.error = err;
+                    };
+                    for (var key in data.error) {
+                        text = text + data.error[key] + " ";
+                    } 
+                    $('#card-errors').text(text);
+                }   
+                modal.closeWindow();
 
-        }
+            },
+            error: function(data) {
+                modal.closeWindow();
+            }
+        });
 
-
-
-
-        var usingCaptcha = false;
-        if (typeof window.Acme.captcha_site_key !== 'undefined') {
-            usingCaptcha = true;
-            grecaptcha.ready(function() {
-                grecaptcha.execute(window.Acme.captcha_site_key, {action: 'submit'}).then(function(token) {
-                    console.log('adding captcha token');
-                    formdata['g-recaptcha-response'] = token;
-                    return submitForm(formdata);
-                });
-            });
-        }
-
-        if (!usingCaptcha) {
-            return submitForm(formdata);
-        }
-
+ 
     }
 
 
