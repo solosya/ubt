@@ -32350,7 +32350,10 @@ jQuery(document).ready(function () {
 
 
 (function ($) {
-    window.Acme       = {};
+    if (typeof window.Acme === "undefined") {
+        window.Acme = {};
+    }
+
     Acme.View         = {};
     Acme.Model        = {};
     Acme.Collection   = {};
@@ -36783,18 +36786,8 @@ if ($('#stripekey').length > 0) {
             return;
         }
 
-        if (typeof window.Acme.captcha_site_key !== 'undefined') {
-            grecaptcha.ready(function() {
-                grecaptcha.execute(window.Acme.captcha_site_key, {action: 'submit'}).then(function(token) {
-                    console.log('adding captcha token');
-                    self.data['g-recaptcha-response'] = token;
-                });
-            });
-        }
 
-                    console.log('signing up');
 
-        // self.data['login'] = false;
         self.data['paymentIntent'] = true;
         self.data['redirect'] = false;
 
@@ -36820,47 +36813,22 @@ if ($('#stripekey').length > 0) {
                     errorElement.textContent = result.error.message;
                 } else {
                     modal.render("spinner", "Creating account");
-                    var profilePage = location.origin + "/user/edit-profile";
-                    var thankYouPage = window.location.origin + "/auth/thank-you";
-                    formhandler(subscribe.data, '/auth/paywall-signup').done( function(r) {
-                        // console.log(r);
-                        var clientSecret = typeof r.client_secret !== 'undefined' && r.client_secret ? r.client_secret : null;
-                        if (!clientSecret || r.error) {
-                            return false;
-                        }
+                    
+                    var usingCaptcha = false;
+                    if (typeof window.Acme.captcha_site_key !== 'undefined') {
+                        usingCaptcha = true;
+                        grecaptcha.ready(function() {
+                            grecaptcha.execute(window.Acme.captcha_site_key, {action: 'submit'}).then(function(token) {
+                                subscribe.data['g-recaptcha-response'] = token;
+                                self.submitForm(subscribe.data, modal);
+                            });
+                        });
+                    }
+            
 
-                        modal.render("spinner", "Authenticating payment");
-                        if (!r.trial) {
-                            self.paymentIntent(clientSecret, card).then(function(result) {
-                                if (result.error) {
-                                    // return result.error;
-                                    console.log(result);
-                                    // console.log(result.error.message);
-                                    // console.log("redirecting to profile page", profilePage);
-                                    window.location.href = profilePage;
-                                } else {
-                                  // The setup has succeeded. Display a success message.
-                                //   console.log('IT WORKED!!!', thankYouPage);
-                                  window.location.href = thankYouPage;
-                    
-                                }
-                            });
-                        } else {
-                            self.setupIntent(clientSecret, card).then(function(result) {
-                                if (result.error) {
-                                    // return result.error;
-                                    console.log(result);
-                                    // console.log(result.error.message);
-                                    // console.log("redirecting to profile page");
-                                    window.location.href = profilePage;
-                                } else {
-                                  // The setup has succeeded. Display a success message.
-                                  window.location.href = thankYouPage;
-                    
-                                }
-                            });
-                        }
-                    });
+                    if (!usingCaptcha) {
+                        self.submitForm(subscribe.data, modal);
+                    }
                 }
             });
         }
@@ -36935,7 +36903,6 @@ if ($('#stripekey').length > 0) {
 
         if (form != null) {
             form.addEventListener('submit', function(event) {
-                console.log('submitting');
                 self.submit(event);
             });
         }
@@ -36947,13 +36914,48 @@ if ($('#stripekey').length > 0) {
 
 
 
+    SubscribeForm.prototype.submitForm = function(formdata, modal) {
+        var self = this;
+        var profilePage = location.origin + "/user/edit-profile";
+        var thankYouPage = window.location.origin + "/auth/thank-you";
 
+        formhandler(formdata, '/auth/paywall-signup').done( function(r) {
+            var clientSecret = typeof r.client_secret !== 'undefined' && r.client_secret ? r.client_secret : null;
+            if (!clientSecret || r.error) {
+                return false;
+            }
 
+            modal.render("spinner", "Authenticating payment");
+            if (!r.trial) {
+                self.paymentIntent(clientSecret, card).then(function(result) {
+                    if (result.error) {
+                        window.location.href = profilePage;
+                    } else {
+                      // The setup has succeeded. Display a success message.
+                      window.location.href = thankYouPage;
+        
+                    }
+                });
+            } else {
+                self.setupIntent(clientSecret, card).then(function(result) {
+                    if (result.error) {
+                        window.location.href = profilePage;
+                    } else {
+                      // The setup has succeeded. Display a success message.
+                      window.location.href = thankYouPage;
+        
+                    }
+                });
+            }
+        });
+
+    };
 
 
 
     var formhandler = function(formdata, path) {
-        var csrfToken = $('meta[name="csrf-token"]').attr("content");
+
+
         return $.ajax({
             url: _appJsConfig.appHostName + path,
             type: 'post',
@@ -36986,6 +36988,7 @@ if ($('#stripekey').length > 0) {
             }
         });
 
+ 
     }
 
 
