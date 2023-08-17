@@ -141,13 +141,16 @@
 
 
 
-                                    <div class="col-sm-{{colSpan}} article-author media">
+                                    <div class="col-sm-{{colSpan}} article-author media" itemprop="author_photo" itemscope itemtype="https://schema.org/ImageObject">
                                         {% if profileImg %}
+                                        <meta itemprop="name" content="{{ article.title }}">
+                                        <meta itemprop="image" content="{{ profileImg }}" />
+                                        <meta itemprop="url" content="{{ profileImg }}">
                                             <img class="article-author__photo media__img" src="{{ profileImg }}" alt="Author photo">
                                         {% endif %}
 
-                                        <div class="media__body article-author__media-body">
-                                            <p class="article-author__name">{{ article.createdBy['displayName'] }}</p>
+                                        <div class="media__body article-author__media-body" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                                            <p itemprop="name" class="article-author__name">{{ article.createdBy['displayName'] }}</p>
 
                                             {% if article.createdBy['bio'] != null and article.createdBy['displayName'] != "AAP Newswire" %} 
                                                 <p class="article-author__bio">{{ article.createdBy['bio'] }}</p>
@@ -164,8 +167,8 @@
                                                     <img class="article-author__photo media__img" src="{{ _Media.getMediaUrl(author['media'], 54, 54, {radius: 'max', gravity: 'face', 'crop': 'thumb', type: 'user'}) }}" alt="Author photo">
                                                 {% endif %}
 
-                                                <div class="media__body article-author__media-body">
-                                                    <p class="article-author__name">{{ author['displayName'] }}</p>
+                                                <div class="media__body article-author__media-body" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                                                    <p itemprop="name" class="article-author__name">{{ author['displayName'] }}</p>
 
                                                     {% if author['bio'] != null and author['displayName'] != "AAP Newswire" %} 
                                                         <p class="article-author__bio">{{ author['bio'] }}</p>
@@ -253,10 +256,10 @@
                     <script>loadNextAd(invSpace,'banerAd2','bannerad',bannerSize,bannerMap);</script>
                 </div>
 
-                <div class="advert banner">
-                    <a href="{{networkData.defaultBlogUrl}}/get-in-touch" class="social-modal__image_wrap">
-                        <img src="{{networkData.templatePath}}/static/images/ads/Ad4_desktop.jpg" class="hidden-xs img-responsive" />
-                        <img src="{{networkData.templatePath}}/static/images/ads/Ad4_mobile.png" class="visible-xs img-responsive" />
+                <div class="advert banner" itemprop="banner" itemscope itemtype="https://schema.org/ImageObject">
+                    <a itemprop="url" href="{{networkData.defaultBlogUrl}}/get-in-touch" class="social-modal__image_wrap">
+                        <img itemprop="image" src="{{networkData.templatePath}}/static/images/ads/Ad4_desktop.jpg" class="hidden-xs img-responsive" />
+                        <img itemprop="image" src="{{networkData.templatePath}}/static/images/ads/Ad4_mobile.png" class="visible-xs img-responsive" />
                     </a>
                 </div>
             </section>
