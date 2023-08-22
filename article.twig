@@ -60,7 +60,21 @@
 
 
 
-<main id="main" class="article_container" role="main">
+<main id="main" class="article_container" role="main" itemscope itemtype="http://schema.org/NewsArticle">
+    <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="{{article.url}}"/>
+    <meta itemprop="url" content="{{article.url}}">
+    <meta itemprop="dateModified" content="{{article.updatedAt}}">
+    <meta itemprop="datePublished" content="{{article.publishedDate}}">
+    {% if publisher.logo is not empty %}
+        <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+            <meta itemprop="name" content="{{publisher.name}}"/>
+            <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+                <meta itemprop="url" content="{{publisher.logo}}"/>
+                <meta itemprop="width" content="{{publisher.width}}"/>
+                <meta itemprop="height" content="{{publisher.height}}"/>
+            </div>
+        </div>
+    {% endif %}
    
     <article class="article-main">
 
@@ -121,7 +135,7 @@
 
 
 
-                                <h1>{{ quotes.smarten(article.title) }}</h1>
+                                <h1 itemprop="headline">{{ quotes.smarten(article.title) }}</h1>
 
 
 
@@ -141,19 +155,16 @@
 
 
 
-                                    <div class="col-sm-{{colSpan}} article-author media" itemprop="author_photo" itemscope itemtype="https://schema.org/ImageObject">
+                                    <div class="col-sm-{{colSpan}} article-author media">
                                         {% if profileImg %}
-                                        <meta itemprop="name" content="{{ article.title }}">
-                                        <meta itemprop="image" content="{{ profileImg }}" />
-                                        <meta itemprop="url" content="{{ profileImg }}">
                                             <img class="article-author__photo media__img" src="{{ profileImg }}" alt="Author photo">
                                         {% endif %}
 
-                                        <div class="media__body article-author__media-body" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                                        <div class="media__body article-author__media-body" itemprop="author">
                                             <p itemprop="name" class="article-author__name">{{ article.createdBy['displayName'] }}</p>
 
                                             {% if article.createdBy['bio'] != null and article.createdBy['displayName'] != "AAP Newswire" %} 
-                                                <p class="article-author__bio">{{ article.createdBy['bio'] }}</p>
+                                                <p itemprop="name" class="article-author__bio">{{ article.createdBy['bio'] }}</p>
                                             {% endif %}  
                                         </div>
                                     </div>
@@ -167,8 +178,8 @@
                                                     <img class="article-author__photo media__img" src="{{ _Media.getMediaUrl(author['media'], 54, 54, {radius: 'max', gravity: 'face', 'crop': 'thumb', type: 'user'}) }}" alt="Author photo">
                                                 {% endif %}
 
-                                                <div class="media__body article-author__media-body" itemprop="author" itemscope itemtype="http://schema.org/Person">
-                                                    <p itemprop="name" class="article-author__name">{{ author['displayName'] }}</p>
+                                                <div class="media__body article-author__media-body">
+                                                    <p class="article-author__name">{{ author['displayName'] }}</p>
 
                                                     {% if author['bio'] != null and author['displayName'] != "AAP Newswire" %} 
                                                         <p class="article-author__bio">{{ author['bio'] }}</p>
@@ -194,7 +205,7 @@
                         ********************************************************* #}
 
 
-                            <div class="article_content">
+                            <div class="article_content" itemprop="articleBody">
                                 {{ article.content | _resizeImages({'width': 700}) | raw }}
                             </div><!-- .content-->
                         </div><!-- .content-->
@@ -256,10 +267,10 @@
                     <script>loadNextAd(invSpace,'banerAd2','bannerad',bannerSize,bannerMap);</script>
                 </div>
 
-                <div class="advert banner" itemprop="banner" itemscope itemtype="https://schema.org/ImageObject">
-                    <a itemprop="url" href="{{networkData.defaultBlogUrl}}/get-in-touch" class="social-modal__image_wrap">
-                        <img itemprop="image" src="{{networkData.templatePath}}/static/images/ads/Ad4_desktop.jpg" class="hidden-xs img-responsive" />
-                        <img itemprop="image" src="{{networkData.templatePath}}/static/images/ads/Ad4_mobile.png" class="visible-xs img-responsive" />
+                <div class="advert banner" itemprop="banner">
+                    <a href="{{networkData.defaultBlogUrl}}/get-in-touch" class="social-modal__image_wrap">
+                        <img src="{{networkData.templatePath}}/static/images/ads/Ad4_desktop.jpg" class="hidden-xs img-responsive" />
+                        <img src="{{networkData.templatePath}}/static/images/ads/Ad4_mobile.png" class="visible-xs img-responsive" />
                     </a>
                 </div>
             </section>
