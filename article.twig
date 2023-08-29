@@ -92,6 +92,13 @@
             <div class="gallery-container relative">
 
                 {% if article.media|length > 0 %}
+
+                {% if article.media[0]['type'] != 'video' %}
+                                        <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject" >
+                                            <meta itemprop="url" content="{{ _Media.getMediaUrl(article.media[0], 0, 0, {'crop': 'fill', 'gravity': 'auto'} )}}">
+                                        </div>
+                {% endif %}
+
                     {% set imageFeature = featured == 'image' ? true : false %}
                     {{this.render('partials/gallery.twig', {
                         media: article.media,
@@ -160,8 +167,9 @@
                                             <img class="article-author__photo media__img" src="{{ profileImg }}" alt="Author photo">
                                         {% endif %}
 
-                                        <div class="media__body article-author__media-body" itemprop="author">
-                                            <p itemprop="name" class="article-author__name">{{ article.createdBy['displayName'] }}</p>
+                                        <div class="media__body article-author__media-body" itemscope itemprop="author" itemtype="https://schema.org/Person">
+                                            <meta itemprop="name" content="{{article.createdBy['displayName']}}">
+                                            <p class="article-author__name">{{ article.createdBy['displayName'] }}</p>
 
                                             {% if article.createdBy['bio'] != null and article.createdBy['displayName'] != "AAP Newswire" %} 
                                                 <p itemprop="name" class="article-author__bio">{{ article.createdBy['bio'] }}</p>
