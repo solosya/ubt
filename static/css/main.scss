@@ -165,3 +165,33 @@
 @import "card-community-job-listing";
 @import "card-community-suggested";
 
+.crossword_wrapper {
+    background-color: #002D56;
+    padding: 26px;
+    .section_head {
+        h3, p {
+            color: #ffffff;
+        }
+        p {
+            margin-bottom: 20px;
+        }
+    }
+
+    .c-cards-view__heading {
+        color: #ffffff;
+    }
+    .c-cards-view__author {
+        display: none !important;
+    }
+
+    .without__image {
+        .c-cards-view__heading {
+            margin: 15px 0 5px 0px !important;
+        }
+    }
+
+    .c-cards-view__category.category {
+        color: #ffffff !important;
+    }
+     
+}
