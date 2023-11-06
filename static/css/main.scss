@@ -195,3 +195,20 @@
     }
      
 }
+
+.card_highlighter {
+    background-color: #AE232C;
+    min-height: 400px;
+
+    .c-cards-view__container {
+        padding: 0 26px !important;
+
+        .c-cards-view__heading, .c-cards-view__description {
+            color: #ffffff !important;
+        }
+    }
+
+    a.card article > .content > div time, a.card article > .content > div .category {
+        color: #ffffff !important;
+    }
+}
