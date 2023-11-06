@@ -136,8 +136,8 @@
 
     &:last-of-type {
         border-bottom: 1px solid color(lightgrey);
-        height: 260px;
-        margin-top: 32px;
+        /* height: 260px;
+        margin-top: 32px; */
         @media screen and (max-width: $mmd-break-down){
             border-bottom: none;
         }

@@ -8,7 +8,7 @@
 {{this.registerJs("Acme.cards = CardController();")}}
 {{this.registerJs("Acme.searchFeed = new Acme.View.articleFeed(Acme.cards);")}}
 
-{% set limit = 13 %}
+{% set limit = 11 %}
 
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
@@ -16,10 +16,7 @@
 {% set events = _Event.getEvents({'limit': 7, "start_date": date.date | split(" ")[0]}) %}
 
 {% set sections =  {
-        "job listings": {
-            "limit"         : 6
-        }, 
-        "property listings": {
+        "crosswords": {
             "limit"         : 7
         }
     }
@@ -67,405 +64,130 @@
 
 
         <section class="row section" style="margin-top:12px;">
-
-
-
-
-            <div class="col-sm-offset-1 col-sm-10 section-header">
+            <div class="col-xs-12 section-header">
                 <h2 class="section-header__title">{{this.title}}</h2>
                 <p class="section-header__description">{{blogData.shortDescription}}</p>
             </div>
 
-            <div class="col-sm-offset-1 col-sm-10 section-sub-header">
+            <div class="col-xs-12 section-sub-header">
                 <h2><span>Horizons</span> – Reports from the regions</h2>
             </div>
+        </section>
 
-            <div class="col-sm-offset-1 col-sm-5 col-md-3">
+        <section class="row section">
+            <div class="col-xs-12 col-md-9">
                 <div class="row">
-                    {% for i in 0..2 if articles[articleCount] %}
-                        <div class="col-sm-12">
+                    <div class="col-xs-12 col-md-4">
+                        {% if articles[articleCount] %}
+                            {{this.render('partials/_single-article.twig', {
+                                article: articles[articleCount], 
+                                position: (articleCount+1),
+                                imageSize: {width: 300, height: 180},
+                                containerClass: 'card-sm card-sm-tablet card-sm-mobile'
+                            }) | raw}}
+                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                        {% endif %}
+                    </div>
+                    <div class="col-xs-12 col-md-8">
+                        {% if articles[articleCount] %}
+                            {{this.render('partials/_single-article.twig', {
+                                article: articles[articleCount], 
+                                position: (articleCount+1),
+                                imageSize: {width: 640, height: 420},
+                                containerClass: 'card-md-full card-main-2col-tablet card-md-full-mobile'
+                            }) | raw}}
+                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    {% for i in 2..4 if articles[articleCount] %}
+                        <div class="col-xs-12 col-md-4">
                             {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
                                 position: (articleCount+1),
                                 imageSize: {width: 75, height: 64},
-                                containerClass: 'card-community-suggested card-rec-tablet card-community-suggested-mobile'
+                                containerClass: 'card-sm card-sm-tablet card-sm-mobile'
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                         </div>
                     {% endfor %}
                 </div>
-            </div>
 
-            <div class="col-sm-5 col-md-3">
+                {% set adRandom = random(['D', 'C']) %}
                 <div class="row">
-                    {% for i in 0..2 if articles[articleCount] %}
-                        <div class="col-sm-12">
+
+                    <div class="advert banner">
+                        <a href="{{networkData.defaultBlogUrl}}/get-in-touch" class="social-modal__image_wrap">
+                            <img src="{{networkData.templatePath}}/static/images/ads/Ad5_desktop.jpg" class="hidden-xs img-responsive" />
+                            <img src="{{networkData.templatePath}}/static/images/ads/Ad5_mobile.png" class="visible-xs img-responsive" />
+                        </a>
+                    </div> 
+                </div>
+
+
+                <section class="row section">
+                    {% for i in 5..10 if articles[articleCount] %}
+                        <div class="col-xs-12 col-md-4">
                             {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
                                 position: (articleCount+1),
                                 imageSize: {width: 75, height: 64},
-                                containerClass: "card-community-suggested card-rec-tablet card-community-suggested-mobile"
+                                containerClass: 'card-sm card-sm-tablet card-sm-mobile'
                             }) | raw}}
-
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                         </div>
                     {% endfor %}
-                </div>
-            </div>
+                </section>
 
+                {% if articles|length >= limit %}
+                <section class="row">
+                    <div class="col-xs-12 section-header">
+                        <div class="row three-cols">
 
-            <div class="col-sm-offset-1 col-sm-10 col-md-3">
-                {% if articles[articleCount] %}
-                    {{this.render('partials/_single-article.twig', {
-                        article: articles[articleCount], 
-                        position: (articleCount+1),
-                        imageSize: {width: 300, height: 180},
-                        containerClass: 'card-sm card-sm-tablet card-sm-mobile'
-                    }) | raw}}
-                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                            {{ this.render('partials/ajaxarticles.twig', {
+                                offset          : limit,
+                                limit           : limit,
+                                label           : "Load more",
+                                name            : "community-load",
+                                non_pinned      : articlesArr.existingNonPinnedCount, 
+                                card_class      : "col-xs-12 col-md-4 card-sm card-sm-tablet card-sm-mobile",
+                                container       : "mainAjaxArticles"
+                            }) | raw }}
+
+                        </div>
+                    </div>
+                </section>
                 {% endif %}
             </div>
-
-        </section>
-
-
-
-        {% set adRandom = random(['D', 'C']) %}
-        <div class="row">
-
-            <div class="advert banner">
-                <a href="{{networkData.defaultBlogUrl}}/get-in-touch" class="social-modal__image_wrap">
-                    <img src="{{networkData.templatePath}}/static/images/ads/Ad5_desktop.jpg" class="hidden-xs img-responsive" />
-                    <img src="{{networkData.templatePath}}/static/images/ads/Ad5_mobile.png" class="visible-xs img-responsive" />
-                </a>
-            </div> 
-        </div>
-
-
-
-
-
-
-
-
-        <section class="row section">
-
-            <div class="col-sm-offset-1 col-sm-6">
-                {% if articles[articleCount] %}
-                    {{this.render('partials/_single-article.twig', {
-                        article: articles[articleCount], 
-                        position: (articleCount+1),
-                        imageSize: {width: 640, height: 420},
-                        containerClass: 'card-main-2col card-main-2col-tablet card-main-2col-mobile'
-                    }) | raw}}
-                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                {% endif %}
-            </div>
-
-            {# <div class="col-sm-offset-1 col-sm-3 eventlist">
-                <div class="col-sm-8 col-xs-6" style="padding:0">
-                    <a href="{{networkData.defaultBlogUrl}}/@events"> 
-                        <h3 class="eventlist__link">EVENTS</h3>
-                    </a>
-                </div>
-                <div class="col-sm-4" style="padding:0">
-                    <a href="{{networkData.defaultBlogUrl}}/@events">
-                        <p class="eventlist__view" style="height:28px;">View All</p>
-                    </a>
-                </div>
-                <div class="col-sm-12 eventlist" style="padding:0;">
-                    {% set eventlisthide = ['','','',' hidden-sm',' hidden-sm',' hidden-sm',' hidden-sm'] %}
-                    {% for i in 0..6 if events[i] %}
-                        {{this.render('partials/_single-event.twig', {
-                            event: events[i], 
-                            imageSize: {width: 60, height: 37},
-                            containerClass: "card-event card-event-tablet card-event-mobile" ~ eventlisthide[i]
-                        }) | raw}}
-                    {% endfor %}
-                </div>
-            </div> #}
-
-
-
-        </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <section class="row section">
-
-            <div class="col-sm-offset-1 col-sm-10 sevent-cols section-header">
-            
-                <div class="row">
-                    <div class="col-sm-12 col-md-3">
-                        {% if articles[articleCount] %}
-                            {{this.render('partials/_single-article.twig', {
-                                article: articles[articleCount], 
-                                position: (articleCount+1),
-                                imageSize: {width: 454, height: 245},
-                                containerClass: 'card-ubt card-rec-tablet card-community-suggested-mobile'
-                            }) | raw}}
-                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                        {% endif %}
+            <div class="col-xs-12 col-md-3">
+                <div class="crossword_wrapper">
+                    <div class="section_head">
+                        <h3>Crosswords</h3>
+                        <p>Challenge yourself with a puzzling new crossword that will tease your brain and test your general knowledge.</p>
                     </div>
-
-                    <div class="col-sm-12 col-md-2">
-                        {% if articles[articleCount] %}
-                            {{this.render('partials/_single-article.twig', {
-                                article: articles[articleCount], 
-                                imageSize: {width: 198, height: 141},
-                                containerClass: "card-community-suggested-full card-rec-tablet card-community-suggested-mobile"
-                            }) | raw}}
-                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                    {% if sections['crosswords'].feed.articles|length > 0 %}
+                        {% set crosswordsCount = 0 %}
+                        
+                        {% if sections['crosswords'].feed.articles[crosswordsCount] %}
+                            {% for i in 0..sections['crosswords'].limit if sections['crosswords'].feed.articles[crosswordsCount] %}
+                                {{this.render('partials/_single-article.twig', {
+                                    article: sections['crosswords'].feed.articles[crosswordsCount], 
+                                    networkData: networkData,
+                                    position: (crosswordsCount+1),
+                                    imageSize: {width: 75, height: 64},
+                                    containerClass: 'card-community-suggested card-rec-tablet card-community-suggested-mobile'
+                                }) | raw}}
+                                {% set crosswordsCount = (dev) ? crosswordsCount : crosswordsCount + 1 %}
+                            {% endfor %}
                         {% endif %}
-                        {% if articles[articleCount] %}
-                            {{this.render('partials/_single-article.twig', {
-                                article: articles[articleCount], 
-                                imageSize: {width: 198, height: 141},
-                                containerClass: "card-community-suggested-semi card-rec-tablet card-community-suggested-mobile"
-                            }) | raw}}
-                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                        {% endif %}
-                    </div>
-
-
-                    <div class="col-sm-12 col-md-2">
-                        {% if articles[articleCount] %}
-                            {{this.render('partials/_single-article.twig', {
-                                article: articles[articleCount], 
-                                imageSize: {width: 198, height: 141},
-                                containerClass: "card-community-suggested-semi card-rec-tablet card-community-suggested-mobile"
-                            }) | raw}}
-                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                        {% endif %}
-                        {% if articles[articleCount] %}
-                            {{this.render('partials/_single-article.twig', {
-                                article: articles[articleCount], 
-                                imageSize: {width: 198, height: 141},
-                                containerClass: "card-community-suggested-full card-rec-tablet card-community-suggested-mobile"
-                            }) | raw}}
-                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                        {% endif %}
-                    </div>
-                </div>
+                    {% endif %}
             </div>
-
         </section>
 
-        {% if articles|length >= limit %}
-        <section class="row">
-            <div class="col-sm-offset-1 col-sm-10 section-header">
-                <div class="row three-cols">
-
-                    {{ this.render('partials/ajaxarticles.twig', {
-                        offset          : limit,
-                        limit           : limit,
-                        label           : "Load more",
-                        name            : "community-load",
-                        non_pinned      : articlesArr.existingNonPinnedCount, 
-                        card_class      : "col-sm-1 card-sm-short card-sm-short-tablet card-sm-mobile",
-                        container       : "mainAjaxArticles"
-                    }) | raw }}
-
-                </div>
-            </div>
-        </section>
-        {% endif %}
 
 
-
-        {# <section class="row section listings three-cols">
-
-            <div class="col-sm-offset-1 col-sm-10 section-header" data-test="1">
-                <h2 class="section-header__title">Community listings</h2>
-            </div> #}
-
-
-            {#  ------------  If you don't display this section if there are no listings then you can never get to 
-            the listing form unless you know the url ------------ #}
-
-            {# {% if sections['property listings'].feed.articles|length > 0 %} #}
-                {# {% set propertyCount = 0 %}
-                
-                <div class="col-sm-offset-1 col-sm-10">
-                    <div class="row">
-                
-                        <div class="col-sm-8 col-xs-6">
-                            <a href="{{networkData.defaultBlogUrl}}/@property-listings"> 
-                                <h3 class="listings__link">PROPERTY</h3>
-                            </a>
-                        </div>
-                        <div class="col-sm-4 listings__view" >
-                            <a href="{{networkData.defaultBlogUrl}}/@property-listings">
-                                <p style="font-weight:400"><i>View All</i></p>
-                            </a>
-                        </div>
-
-
-                        <div class="col-sm-1">
-                            {% if sections['property listings'].feed.articles[propertyCount] %}
-                                {{this.render('partials/_single-article.twig', {
-                                    article: sections['property listings'].feed.articles[propertyCount], 
-                                    imageSize: {width: 341, height: 207},
-                                    template: 'community-property',
-                                    networkData: networkData,
-                                    containerClass: "card-main-community-property-listing  card-community-property-listing-tablet card-community-property-listing-mobile"
-                                }) | raw}}
-                                {% set propertyCount = (dev) ? propertyCount : propertyCount + 1 %}
-                            {% endif %}
-                        </div>
-                        <div class="col-sm-1">
-                            {% for i in 0..2 if sections['property listings'].feed.articles[propertyCount] %}
-                                {{this.render('partials/_single-article.twig', {
-                                    article: sections['property listings'].feed.articles[propertyCount], 
-                                    imageSize: {width: 100, height: 82},
-                                    template: 'community-property',
-                                    networkData: networkData,
-                                    containerClass: "card-community-property-listing card-community-property-listing-tablet card-community-property-listing-mobile"
-                                }) | raw}}
-                                {% set propertyCount = (dev) ? propertyCount : propertyCount + 1 %}
-                            {% endfor %}
-                        </div>
-                        <div class="col-sm-1">
-                            {% for i in 0..2 if sections['property listings'].feed.articles[propertyCount] %}
-                                {{this.render('partials/_single-article.twig', {
-                                    article: sections['property listings'].feed.articles[propertyCount], 
-                                    imageSize: {width: 100, height: 82},
-                                    template: 'community-property',
-                                    networkData: networkData,
-                                    containerClass: "card-community-property-listing card-community-property-listing-tablet card-community-property-listing-mobile"
-                                }) | raw}}
-                                {% set propertyCount = (dev) ? propertyCount : propertyCount + 1 %}
-                            {% endfor %}
-
-                        </div> #}
-                    {# {% endif %} #}
-                {# </div>
-            </div>
-        </section> #}
-
-
-{#         {% if sections['property listings'].feed.articles|length >= sections['property listings'].limit %}
-        <section class="row listings three-cols">
-            <div class="col-sm-offset-1 col-sm-10">
-                <div class="row">
-
-                    {{ this.render('partials/ajaxarticles.twig', {
-                            offset:         sections['property listings'].limit, 
-                            limit:          sections['property listings'].limit,
-                            label:          "Load more",
-                            non_pinned:     sections['property listings']['feed'].existingNonPinnedCount, 
-                            cardTemplate:   'communityPropertyCardTemplate',
-                            card_class:     "col-sm-1 card-community-property-listing",
-                            container:      "propertyAjaxArticles",
-                            blogid:         sections['property listings']['blogid']
-                        }) | raw }}
-                </div>
-            </div>
-        </section>
-        {% endif %}
- #}
-
-
-        {# <section class="row section listings three-cols"> #}
-            {#  ------------  If you don't display this section if there are no listings then you can never get to 
-            the listing form unless you know the url ------------ #}
-
-            {# {% if sections['job listings'].feed.articles|length > 0 %} #}
-                {# {% set propertyCount = 0 %}
-
-
-
-                <div class="col-sm-offset-1 col-sm-10">
-                    <div class="row">
-                
-                        <div class="col-sm-8 col-xs-6">
-                            <a href="{{networkData.defaultBlogUrl}}/@job-listings"> 
-                                <h3 class="listings__link">EMPLOYMENT</h3>
-                            </a>
-                        </div>
-                        <div class="col-sm-4 listings__view" >
-                            <a href="{{networkData.defaultBlogUrl}}/@job-listings">
-                                <p style="font-weight:400"><i>View All</i></p>
-                            </a>
-                        </div>
-
-
-                        <div class="col-sm-1">
-                            {% for i in 0..1 if sections['job listings'].feed.articles[propertyCount] %}
-                                {{this.render('partials/_single-article.twig', {
-                                    article: sections['job listings'].feed.articles[propertyCount], 
-                                    imageSize: {width: 60, height: 60},
-                                    template: 'community-jobs',
-                                    networkData: networkData,
-                                    containerClass: "card-community-job-listing card-community-job-listing-tablet card-community-job-listing-mobile"
-                                }) | raw}}
-                                {% set propertyCount = (dev) ? propertyCount : propertyCount + 1 %}
-                            {% endfor %}
-                        </div>
-                         <div class="col-sm-1">
-                            {% for i in 0..1 if sections['job listings'].feed.articles[propertyCount] %}
-                                {{this.render('partials/_single-article.twig', {
-                                    article: sections['job listings'].feed.articles[propertyCount], 
-                                    imageSize: {width: 60, height: 60},
-                                    template: 'community-jobs',
-                                    networkData: networkData,
-                                    containerClass: "card-community-job-listing card-community-job-listing-tablet card-community-job-listing-mobile"
-                                }) | raw}}
-                                {% set propertyCount = (dev) ? propertyCount : propertyCount + 1 %}
-                            {% endfor %}
-                        </div>
-                        <div class="col-sm-1">
-                            {% for i in 0..1 if sections['job listings'].feed.articles[propertyCount] %}
-                                {{this.render('partials/_single-article.twig', {
-                                    article: sections['job listings'].feed.articles[propertyCount], 
-                                    imageSize: {width: 60, height: 60},
-                                    template: 'community-jobs',
-                                    networkData: networkData,
-                                    containerClass: "card-community-job-listing card-community-job-listing-tablet card-community-job-listing-mobile"
-                                }) | raw}}
-                                {% set propertyCount = (dev) ? propertyCount : propertyCount + 1 %}
-                            {% endfor %}
-
-                        </div> #}
-                    {# {% endif %} #}
-                {# </div>
-            </div>
-        </section> #}
-
-
-{#         {% if sections['job listings'].feed.articles|length >= sections['job listings'].limit %}
-        <section class="row listings three-cols">
-            <div class="col-sm-offset-1 col-sm-10">
-                <div class="row">
-
-                    {{ this.render('partials/ajaxarticles.twig', {
-                            offset:         sections['job listings'].limit, 
-                            limit:          sections['job listings'].limit,
-                            label:          "Load more",
-                            non_pinned:     sections['job listings']['feed'].existingNonPinnedCount, 
-                            cardTemplate:   'communityJobCardTemplate',
-                            card_class:     "col-sm-1 card-community-job-listing",
-                            container:      "jobsAjaxArticles",
-                            blogid:         sections['job listings']['blogid']
-                        }) | raw }}
-                </div>
-            </div>
-        </section>
-        {% endif %}
- #}
-
-
+        
 
     </main><!-- .site-main -->
 

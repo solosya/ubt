@@ -60,7 +60,21 @@
 
 
 
-<main id="main" class="article_container" role="main">
+<main id="main" class="article_container" role="main" itemscope itemtype="http://schema.org/NewsArticle">
+    <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="{{article.url}}"/>
+    <meta itemprop="url" content="{{article.url}}">
+    <meta itemprop="dateModified" content="{{article.updatedAt}}">
+    <meta itemprop="datePublished" content="{{article.publishedDate}}">
+    {% if publisher.logo is not empty %}
+        <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+            <meta itemprop="name" content="{{publisher.name}}"/>
+            <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+                <meta itemprop="url" content="{{publisher.logo}}"/>
+                <meta itemprop="width" content="{{publisher.width}}"/>
+                <meta itemprop="height" content="{{publisher.height}}"/>
+            </div>
+        </div>
+    {% endif %}
    
     <article class="article-main">
 
@@ -78,6 +92,13 @@
             <div class="gallery-container relative">
 
                 {% if article.media|length > 0 %}
+
+                {% if article.media[0]['type'] != 'video' %}
+                                        <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject" >
+                                            <meta itemprop="url" content="{{ _Media.getMediaUrl(article.media[0], 0, 0, {'crop': 'fill', 'gravity': 'auto'} )}}">
+                                        </div>
+                {% endif %}
+
                     {% set imageFeature = featured == 'image' ? true : false %}
                     {{this.render('partials/gallery.twig', {
                         media: article.media,
@@ -121,7 +142,7 @@
 
 
 
-                                <h1>{{ quotes.smarten(article.title) }}</h1>
+                                <h1 itemprop="headline">{{ quotes.smarten(article.title) }}</h1>
 
 
 
@@ -146,11 +167,12 @@
                                             <img class="article-author__photo media__img" src="{{ profileImg }}" alt="Author photo">
                                         {% endif %}
 
-                                        <div class="media__body article-author__media-body">
+                                        <div class="media__body article-author__media-body" itemscope itemprop="author" itemtype="https://schema.org/Person">
+                                            <meta itemprop="name" content="{{article.createdBy['displayName']}}">
                                             <p class="article-author__name">{{ article.createdBy['displayName'] }}</p>
 
                                             {% if article.createdBy['bio'] != null and article.createdBy['displayName'] != "AAP Newswire" %} 
-                                                <p class="article-author__bio">{{ article.createdBy['bio'] }}</p>
+                                                <p itemprop="name" class="article-author__bio">{{ article.createdBy['bio'] }}</p>
                                             {% endif %}  
                                         </div>
                                     </div>
@@ -191,7 +213,7 @@
                         ********************************************************* #}
 
 
-                            <div class="article_content">
+                            <div class="article_content" itemprop="articleBody">
                                 {{ article.content | _resizeImages({'width': 700}) | raw }}
                             </div><!-- .content-->
                         </div><!-- .content-->
