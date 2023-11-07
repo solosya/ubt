@@ -165,3 +165,83 @@
 @import "card-community-job-listing";
 @import "card-community-suggested";
 
+
+body.home {
+    .home_ticker {
+        position: absolute;
+        left: 0;
+        top: 30px;
+        width: 100%;
+        z-index: 9999999;
+        background-color: #F6F5F5;
+        height: 50px;
+
+        &_box {
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: #1C509E;
+            height: 50px;
+            color: white;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-size: 16px;
+            padding: 8px 30px 8px 12px;
+
+            .arrow-right {
+                position: absolute;
+                right: -24px;
+                top: 0;
+                width: 0; 
+                height: 0; 
+                border-top: 25px solid transparent;
+                border-bottom: 25px solid transparent;
+                border-left: 25px solid #1C509E;
+            }
+        }
+
+        .ticker {
+            min-height: 50px;
+            height: 50px;
+            max-height: 50px;
+            background-color: transparent;
+
+            &__list {
+                display: flex;
+                height: 50px;
+                padding: 0;
+                overflow: hidden;
+            }
+
+            &__item {
+                color: #000000;
+                font-size: 15px;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                margin-top: 0;
+                margin-right: 20px;
+
+                &:after {
+                    margin-top: 0;
+                    background-color: #C0C0C0;
+                    margin-left: 20px;
+                    height: 20px;
+                }
+
+                p {
+                    color: #000000;
+                    font-size: 15px;
+                    font-weight: 700;
+                    margin-bottom: 0;  
+                }
+            }
+        }
+    }
+
+    .site-header-main {
+        margin-top: 50px;
+    }
+}
