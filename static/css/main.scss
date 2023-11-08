@@ -3,19 +3,14 @@
 @import "datetimepicker";
 @import "font-awesome-4.7.0/scss/font-awesome";
 
-
-
 //settings
 @import "settings.variables";
-
 
 //tools
 @import "tools.functions";
 @import "tools.mixins";
 @import "tools.grid";
 @import "tools.placeholder";
-
-
 
 @import "login";
 @import "profile";
@@ -31,7 +26,6 @@
 //elements
 @import "elements";
 
-
 //objects
 @import "object.media";
 @import "object.article-container";
@@ -39,8 +33,6 @@
 @import "object.index-container";
 @import "object.spinner";
 @import "object.carousel-tray";
-
-
 
 //components
 @import "component.modal";
@@ -73,22 +65,12 @@
 @import "component.payment-fix";
 @import "component.pending-account";
 
-
-
-
-
-
 //trumps
 @import "trumps.utilities";
-
-
-
 
 //Partials
 @import "site-footer";
 @import "page-hero";
-
-
 
 //Header
 @import "primary-menu";
@@ -97,14 +79,11 @@
 
 @import "component.default-weather";
 
-
-
 //Home page
 @import "page-index";
 @import "page-jobs";
 @import "page-search";
 @import "page-channel";
-
 
 //Article page
 @import "article";
@@ -112,14 +91,11 @@
 
 //Static Pages
 
-
 @import "event";
 
 // Screens
 @import "card-sm-screen";
 @import "card-lg-screen";
-
-
 
 // layouts
 @import "layout-community";
@@ -128,7 +104,6 @@
 @import "layout-article-jobs";
 @import "layout-article-property";
 @import "layout-screen";
-
 
 //Cards
 @import "card";
@@ -210,5 +185,94 @@
 
     a.card article > .content > div time, a.card article > .content > div .category {
         color: #ffffff !important;
+    }
+}
+body.home {
+    .home_ticker {
+        display: none;
+    }
+    @media screen and (min-width: 767px) {
+        .home_ticker {
+            position: absolute;
+            left: 0;
+            top: 30px;
+            width: 100%;
+            z-index: 9999999;
+            background-color: #f6f5f5;
+            height: 50px;
+            display: block;
+
+            &_box {
+                position: absolute;
+                left: 0;
+                top: 0;
+                background-color: #1c509e;
+                height: 50px;
+                color: white;
+                z-index: 10;
+                display: flex;
+                align-items: center;
+                font-weight: 600;
+                font-size: 16px;
+                padding: 8px 30px 8px 12px;
+
+                .arrow-right {
+                    position: absolute;
+                    right: -24px;
+                    top: 0;
+                    width: 0;
+                    height: 0;
+                    border-top: 25px solid transparent;
+                    border-bottom: 25px solid transparent;
+                    border-left: 25px solid #1c509e;
+                }
+            }
+
+            .ticker {
+                min-height: 50px;
+                height: 50px;
+                max-height: 50px;
+                background-color: transparent;
+
+                &__list {
+                    display: flex;
+                    height: 50px;
+                    padding: 0;
+                    overflow: hidden;
+                }
+
+                &__item {
+                    color: #000000;
+                    font-size: 15px;
+                    font-weight: 700;
+                    display: flex;
+                    align-items: center;
+                    margin-top: 0;
+                    margin-right: 20px;
+
+                    .blog-name {
+                        color: #de0619;
+                    }
+
+                    &:after {
+                        margin-top: 0;
+                        background-color: #c0c0c0;
+                        margin-left: 20px;
+                        height: 20px;
+                    }
+
+                    p {
+                        color: #000000;
+                        font-size: 15px;
+                        font-weight: 700;
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+
+        .site-header-main {
+            margin-top: 50px;
+        }
     }
 }

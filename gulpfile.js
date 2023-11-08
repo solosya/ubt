@@ -98,7 +98,8 @@ gulp.task('scripts-concat', function(done){
         './static/development/js/plugins/owl.carousel2.thumbs.js',
         './static/development/js/plugins/moment.js',
         './static/development/js/plugins/bootstrap-datetimepicker.js',
-        './static/development/js/plugins/ticker.js',
+        //'./static/development/js/plugins/ticker.js',
+        './static/development/js/plugins/jquery.li-scroller.1.0.js',
 
 
         './static/development/js/sdk/*.js', // all files that end in .js
