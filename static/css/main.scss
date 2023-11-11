@@ -170,10 +170,23 @@
     }
      
 }
+.card_highlighter_row {
+    display: flex;
 
+    > .div {
+        display: flex;
+    }
+}
 .card_highlighter {
     background-color: #AE232C;
-    min-height: 400px;
+    flex: 1;
+    display: flex;
+
+    .without__image {
+        height: auto !important;
+        flex:1;
+        padding-top: 40px;
+    }
 
     .c-cards-view__container {
         padding: 0 26px !important;
