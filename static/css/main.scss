@@ -168,12 +168,14 @@
     .c-cards-view__category.category {
         color: #ffffff !important;
     }
-     
+    a.card article>.content>div time {
+        display: none !important;
+    }
 }
 .card_highlighter_row {
     display: flex;
 
-    > .div {
+    > div {
         display: flex;
     }
 }
