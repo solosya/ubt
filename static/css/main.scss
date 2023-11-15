@@ -200,8 +200,16 @@
 .card_highlighter_row {
     display: flex;
 
+    @media screen and (max-width:767px) {
+        display: block;
+    }
+
     > div {
         display: flex;
+    }
+
+    .card-md-full {
+        width: 100%;
     }
 }
 .card_highlighter {
