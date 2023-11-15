@@ -155,6 +155,11 @@ body.home {
             height: 50px;
             display: block;
 
+            &.screen {
+                top: auto;
+                bottom: 0;
+            }
+
             &_box {
                 position: absolute;
                 left: 0;

@@ -66,14 +66,18 @@
                 href="#">Load more articles</a>
                 
         </div>
-
-        <div class="ticker flex1 flex-shrink0">
-            <ul class="ticker__list" id="screenTicker">
-                {% for article in sections['ticker'].feed.articles %}
-                    <li class="ticker__item"><p class="ticker__text">{{article.title}}</p></li>
-                {% endfor %}
-            </ul>
-
+        <div class="home_ticker screen">
+            <div class="home_ticker_box">
+            frank. first <br/> with the facts
+            <div class="arrow-right"></div>
+            </div>
+            <div class="ticker flex1 flex-shrink0">
+                <ul class="ticker__list" id="screenTicker">
+                    {% for article in sections['news'].feed.articles %}
+                        <li class="ticker__item"><span class="blog-name">{{article.label}}</span><a href={{article.url}}><p class="ticker__text">{{article.title}}</p></a></li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </div>
 
