@@ -210,6 +210,35 @@
         color: #ffffff !important;
     }
 }
+
+
+$duration: 10s;
+
+@-webkit-keyframes ticker {
+  0% {
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+  }
+
+  100% {
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes ticker {
+  0% {
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+  }
+
+  100% {
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+  }
+}
+
+
 body.home {
     .home_ticker {
         display: none;
@@ -224,6 +253,12 @@ body.home {
             background-color: #f6f5f5;
             height: 50px;
             display: block;
+            overflow: hidden;
+
+            &.screen {
+                top: auto;
+                bottom: 0;
+            }
 
             &.screen {
                 top: auto;
@@ -257,17 +292,34 @@ body.home {
                 }
             }
 
-            .ticker {
+            .generic_ticker {
                 min-height: 50px;
                 height: 50px;
                 max-height: 50px;
                 background-color: transparent;
+                white-space: nowrap;
+                width: 100%;
+                -webkit-animation-iteration-count: infinite; 
+                animation-iteration-count: infinite;
+                -webkit-animation-timing-function: linear;
+                animation-timing-function: linear;
+                -webkit-animation-name: ticker;
+                animation-name: ticker;
+                -webkit-animation-duration: $duration;
+                animation-duration: $duration;
+
+                &:hover {
+                    -webkit-animation-play-state: paused;
+                     -moz-animation-play-state: paused;
+                     -ms-animation-play-state: paused;
+                     -o-animation-play-state: paused;  
+                     animation-play-state: paused;
+                }
 
                 &__list {
                     display: flex;
                     height: 50px;
                     padding: 0;
-                    overflow: hidden;
                 }
 
                 &__item {
@@ -281,13 +333,17 @@ body.home {
 
                     .blog-name {
                         color: #de0619;
+                        margin-right: 10px;
                     }
 
                     &:after {
+                        content:"";
                         margin-top: 0;
                         background-color: #c0c0c0;
                         margin-left: 20px;
                         height: 20px;
+                        width:2px;
+                        display: block;
                     }
 
                     p {
