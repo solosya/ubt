@@ -165,3 +165,73 @@
 @import "card-community-job-listing";
 @import "card-community-suggested";
 
+.crossword_wrapper {
+    background-color: #002D56;
+    padding: 26px;
+    .section_head {
+        h3, p {
+            color: #ffffff;
+        }
+        p {
+            margin-bottom: 20px;
+        }
+    }
+
+    .c-cards-view__heading {
+        color: #ffffff;
+    }
+    .c-cards-view__author {
+        display: none !important;
+    }
+
+    .without__image {
+        .c-cards-view__heading {
+            margin: 15px 0 5px 0px !important;
+        }
+    }
+
+    .c-cards-view__category.category {
+        color: #ffffff !important;
+    }
+    a.card article>.content>div time {
+        display: none !important;
+    }
+}
+.card_highlighter_row {
+    display: flex;
+
+    @media screen and (max-width:767px) {
+        display: block;
+    }
+
+    > div {
+        display: flex;
+    }
+
+    .card-md-full {
+        width: 100%;
+    }
+}
+.card_highlighter {
+    background-color: #AE232C;
+    flex: 1;
+    display: flex;
+
+    .without__image {
+        height: auto !important;
+        flex:1;
+        padding-top: 40px;
+    }
+
+    .c-cards-view__container {
+        padding: 0 26px !important;
+
+        .c-cards-view__heading, .c-cards-view__description {
+            color: #ffffff !important;
+        }
+    }
+
+    a.card article > .content > div time, a.card article > .content > div .category {
+        color: #ffffff !important;
+    }
+}
