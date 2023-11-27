@@ -45,7 +45,7 @@
 <!-- used to index each article as we loop over throughout the template -->
 {% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
-
+{% set getPopularArticles = _Article.getPopularArticles({'limit': 7, 'blogId':6}) %}
 {% set sectionCount = 0 %}
 
 {% set sections =  {
@@ -498,6 +498,86 @@
         {% endif %}
 
         {% set x = x + 1 %}
+
+        <section class="row section new_popular_section">
+            <div class="col-xs-12 col-md-4 col-lg-2">
+                <div class="new_popular_section_text">
+                    <div class="new_popular_section_text_head">
+                        <span>frank.</span>
+                        news from around the globe
+                    </div>
+                    <div class="new_popular_section_text_bottom">
+                        A quick glance at the top headlines on frank today.
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4 col-lg-2">
+                <div class="new_popular_section">
+                    <h2 class="new_popular_section_title">Australia</h2>
+                    {% for i in 0..3 if getPopularArticles|length > 0 %}
+                        {{this.render('partials/_single-article.twig', {
+                            article: getPopularArticles[i], 
+                            imageSuppress: true,
+                            swap: 'false',
+                            containerClass: "card_country_wise_article"
+                        }) | raw}}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4 col-lg-2">
+                <div class="new_popular_section">
+                    <h2 class="new_popular_section_title">New Zealand</h2>
+
+                    {% for i in 0..3 if getPopularArticles|length > 0 %}
+                        {{this.render('partials/_single-article.twig', {
+                            article: getPopularArticles[i], 
+                            imageSuppress: true,
+                            swap: 'false',
+                            containerClass: "card_country_wise_article"
+                        }) | raw}}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4 col-lg-2">
+                <div class="new_popular_section">
+                    <h2 class="new_popular_section_title">USA</h2>
+                    {% for i in 0..3 if getPopularArticles|length > 0 %}
+                        {{this.render('partials/_single-article.twig', {
+                            article: getPopularArticles[i], 
+                            imageSuppress: true,
+                            swap: 'false',
+                            containerClass: "card_country_wise_article"
+                        }) | raw}}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4 col-lg-2">
+                <div class="new_popular_section">
+                    <h2 class="new_popular_section_title">Europe</h2>
+                    {% for i in 0..3 if getPopularArticles|length > 0 %}
+                        {{this.render('partials/_single-article.twig', {
+                            article: getPopularArticles[i], 
+                            imageSuppress: true,
+                            swap: 'false',
+                            containerClass: "card_country_wise_article"
+                        }) | raw}}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4 col-lg-2">
+                <div class="new_popular_section">
+                    <h2 class="new_popular_section_title">United Kingdom</h2>
+                    {% for i in 0..3 if getPopularArticles|length > 0 %}
+                        {{this.render('partials/_single-article.twig', {
+                            article: getPopularArticles[i], 
+                            imageSuppress: true,
+                            swap: 'false',
+                            containerClass: "card_country_wise_article"
+                        }) | raw}}
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
 
         {% if 'School' not in userData.name %}
             {% set sectionFeed = sections[ sectionOrder[x] ] %}
