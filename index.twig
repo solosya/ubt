@@ -502,7 +502,7 @@
 
         {% set x = x + 1 %}
 
-        <section class="row section new_popular_section">
+        {# <section class="row section new_popular_section">
             <div class="col-xs-12 col-md-4 col-lg-2">
                 <div class="new_popular_section_text">
                     <div class="new_popular_section_text_head">
@@ -580,7 +580,7 @@
                     {% endfor %}
                 </div>
             </div>
-        </section>
+        </section> #}
 
         {% if 'School' not in userData.name %}
             {% set sectionFeed = sections[ sectionOrder[x] ] %}
