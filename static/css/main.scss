@@ -361,3 +361,56 @@ body.home {
         }
     }
 }
+.new_popular_section {
+    &_text {
+        &_head {
+            color: #000000;
+            font-family: $base-font-family;
+            font-size: 26px;
+            font-weight: 400;
+            margin-bottom: 20px;
+            span {
+                font-weight: 700;
+            }
+        }
+        &_bottom {
+            color: #636567;
+            font-family: $base-font-family;
+        }
+    }
+
+    &_title {
+        color: #636567;
+        font-family: $base-font-family;
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    .card_country_wise_article {
+        .c-cards-view {
+            border-bottom: 1px dotted #C0C0C0;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            &__category {
+                font-weight: 600;
+                font-size: 14px !important;
+                text-transform: capitalize !important;
+            }
+
+            &__heading {
+                font-size: 16px;
+                font-weight: 700;
+                color: #000000;
+            }
+            &__container {
+                time {
+                    display: none;
+                }
+            }
+            &__description {
+                display: none;
+            }
+        }
+    }
+}
