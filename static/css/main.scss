@@ -140,7 +140,7 @@
 @import "card-community-job-listing";
 @import "card-community-suggested";
 
-.crossword_wrapper {
+.crossword_wrapper { 
     background-color: #002D56;
     padding: 26px;
     .section_head {
@@ -413,4 +413,8 @@ body.home {
             }
         }
     }
+}
+
+.test_m {
+    overflow: hidden;
 }
