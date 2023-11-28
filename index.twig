@@ -45,11 +45,11 @@
 <!-- used to index each article as we loop over throughout the template -->
 {% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
-{% set getPopularAustralia = _Article.getPopularArticles({limit: 4, blogId:657, interval:1440}) %}
-{% set getPopularNZ = _Article.getPopularArticles({limit: 4, blogId:657, interval:1440}) %}
-{% set getPopularUSA = _Article.getPopularArticles({limit: 4, blogId:657, interval:1440}) %}
-{% set getPopularEurope = _Article.getPopularArticles({limit: 4, blogId:657, interval:1440}) %}
-{% set getPopularUK = _Article.getPopularArticles({limit: 4, blogId:657, interval:1440}) %}
+{% set getPopularAustralia = _Article.getPopularArticles({limit: 4, blogId:956, interval:1440}) %}
+{% set getPopularNZ = _Article.getPopularArticles({limit: 4, blogId:957, interval:1440}) %}
+{% set getPopularUSA = _Article.getPopularArticles({limit: 4, blogId:3144, interval:1440}) %}
+{% set getPopularEurope = _Article.getPopularArticles({limit: 4, blogId:1528, interval:1440}) %}
+{% set getPopularUK = _Article.getPopularArticles({limit: 4, blogId:1527, interval:1440}) %}
 {% set sectionCount = 0 %}
 {% set sections =  {
         "world": {
