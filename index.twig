@@ -512,7 +512,7 @@
                 </div>
                 {% for i in 0..config.popularBlogs | length - 1 %}
                     {% set popBlogInfo = config.popularBlogs[i] %}
-                    {% set getPopularBlog = _Article.getPopularArticles({limit: 4, blogId:popBlogInfo.blogId}) %}
+                    {% set getPopularBlog = _Article.getPopularArticles({limit: 4}) %}
 
                     {{_AppHelper.printArray(popBlogInfo)}}
                     {{_AppHelper.printArray(getPopularBlog)}}
