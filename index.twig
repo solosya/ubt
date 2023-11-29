@@ -516,14 +516,14 @@
                     <div class="col-xs-12 col-md-4 col-lg-2">
                         <div class="new_popular_section">
                             <h2 class="new_popular_section_title">{{popBlogInfo.blogName}}</h2>
-                            {% for i in 0..3 if getPopularBlog|length > 0 %}
+                            {# {% for i in 0..3 if getPopularBlog|length > 0 %}
                                 {{this.render('partials/_single-article.twig', {
                                     article: getPopularBlog[i], 
                                     imageSuppress: true,
                                     swap: 'false',
                                     containerClass: "card_country_wise_article"
                                 }) | raw}}
-                            {% endfor %}
+                            {% endfor %} #}
                         </div>
                     </div>
                 {% endfor %}
