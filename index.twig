@@ -510,14 +510,9 @@
                         </div>
                     </div>
                 </div>
-                {% set getPopularBlog = _Article.getPopularArticles({limit: 4, blogId:661}) %}
-                <div>custom data</div>
-                {{_AppHelper.printArray(getPopularBlog)}}
-                {# {% for i in 0..config.popularBlogs | length - 1 %}
+                {% for i in 0..config.popularBlogs | length - 1 %}
                     {% set popBlogInfo = config.popularBlogs[i] %}
-                    
-                        {{_AppHelper.printArray(popBlogInfo)}}
-                        {{_AppHelper.printArray(getPopularBlog)}}
+                    {% set getPopularBlog = _Article.getPopularArticles({limit: 4, blogId:popBlogInfo['blogId']}) %}
                     <div class="col-xs-12 col-md-4 col-lg-2">
                         <div class="new_popular_section">
                             <h2 class="new_popular_section_title">{{popBlogInfo.blogName}}</h2>
@@ -531,7 +526,7 @@
                             {% endfor %}
                         </div>
                     </div>
-                {% endfor %} #}
+                {% endfor %}
             {% endif %}
         </section>
         {% if 'School' not in userData.name %}
