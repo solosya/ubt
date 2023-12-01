@@ -7,7 +7,7 @@
 
 {% set networkData = _Network.getNetworkData() %}
 {% set blogNetworkNameIs = networkData.title | lower %}
-
+{% set config = _Network.getThemeConfig() %}
 
 {{this.registerJs("CardController();")}}
 {{this.registerJs('$("#screenTicker").liScroll({travelocity:.07});')}}
@@ -119,7 +119,7 @@
             "description": "",
             "limit": 4
         },
-        "news": {
+        "ticker": {
             "limit" : 10
         }
     }
