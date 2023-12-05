@@ -518,6 +518,10 @@
                 {% for i in 0..config.popularBlogs | length - 1 %}
                     {% set popBlogInfo = config.popularBlogs[i] %}
                     {% set getPopularBlog = _Article.getPopularArticles({limit: 4, blogId:popBlogInfo['blogId']}) %}
+                    {% set blogLink = "#" %}
+                    {% if popBlogInfo.blogLink is defined and popBlogInfo.blogLink is not empty %}
+                        {% set blogLink = popBlogInfo.blogLink %}
+                    {% endif %}
                     <div class="col-xs-12 col-md-4 col-lg-2">
                         <div class="new_popular_section">
                             <h2 class="new_popular_section_title">{{popBlogInfo.blogName}}</h2>
@@ -529,6 +533,8 @@
                                     containerClass: "card_country_wise_article"
                                 }) | raw}}
                             {% endfor %}
+                            <a href={{blogLink}} class="new_popular_section_link">View {{popBlogInfo.blogName}} news</a>
+                            
                         </div>
                     </div>
                 {% endfor %}
