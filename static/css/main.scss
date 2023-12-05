@@ -430,3 +430,56 @@ body.home {
         }
     }
 }
+
+.cta_audio_bulletin {
+    background-color: #F6F5F5;
+    padding: 20px;
+
+    &_icon {
+        width: 50px;
+        height: 50px;
+        background-color: #AE232C;
+        border-radius: 50%;
+        border: none;
+        outline: none;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+
+        span {
+            width: 30px;
+
+            &#play-music {
+                margin-left: 5px;
+            }
+        }
+    }
+
+    &_content {
+        display: flex;
+        align-items: center;      
+    }
+    &_info {
+        width: calc(100% - 60px);
+        &_subText {
+            font-size: 10px;
+            font-weight: 600;
+            color: #002D56;
+            font-style: italic;
+            margin-bottom: 3px;
+        }
+        &_title {
+            font-size: 18px;
+            line-height: 24px;
+            font-weight: 700;
+            font-family: $font-family-serif;
+            margin-bottom: 5px;
+        }
+        &_desc {
+            color: #97999C;
+            font-size: 10px;
+        }
+    }
+}
