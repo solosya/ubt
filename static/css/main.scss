@@ -211,7 +211,7 @@
     }
 }
 
-$duration: 20s;
+$duration: 200s;
 
 @-webkit-keyframes ticker {
   0% {
@@ -220,8 +220,8 @@ $duration: 20s;
   }
 
   100% {
-    -webkit-transform: translateX(-100%);
-    transform: translateX(-100%);
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
   }
 }
 
@@ -232,8 +232,8 @@ $duration: 20s;
   }
 
   100% {
-    -webkit-transform: translateX(-100%);
-    transform: translateX(-100%);
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
   }
 }
 
@@ -269,8 +269,9 @@ body.home {
                 display: flex;
                 align-items: center;
                 font-weight: 600;
-                font-size: 16px;
+                font-size: 15px;
                 padding: 8px 30px 8px 12px;
+                line-height: 16px;
 
                 .arrow-right {
                     position: absolute;
@@ -290,7 +291,6 @@ body.home {
                 max-height: 50px;
                 background-color: transparent;
                 white-space: nowrap;
-                width: 100%;
                 -webkit-animation-iteration-count: infinite; 
                 animation-iteration-count: infinite;
                 -webkit-animation-timing-function: linear;
@@ -299,6 +299,7 @@ body.home {
                 animation-name: ticker;
                 -webkit-animation-duration: $duration;
                 animation-duration: $duration;
+                display: inline-block;
 
                 &:hover {
                     -webkit-animation-play-state: paused;
