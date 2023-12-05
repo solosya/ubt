@@ -211,7 +211,7 @@
     }
 }
 
-$duration: 10s;
+$duration: 20s;
 
 @-webkit-keyframes ticker {
   0% {
@@ -220,8 +220,8 @@ $duration: 10s;
   }
 
   100% {
-    -webkit-transform: translateX(-50%);
-    transform: translateX(-50%);
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
   }
 }
 
@@ -232,8 +232,8 @@ $duration: 10s;
   }
 
   100% {
-    -webkit-transform: translateX(-50%);
-    transform: translateX(-50%);
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
   }
 }
 

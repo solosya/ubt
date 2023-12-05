@@ -74,7 +74,7 @@
             <div class="generic_ticker">
                 <ul class="generic_ticker__list">
                     {% for article in sections['ticker'].feed.articles %}
-                        <li class="generic_ticker__item"><span class="blog-name">{{article.label}}</span><a href={{article.url}}><p class="ticker__text">{{article.title}}</p></a></li>
+                        <li class="generic_ticker__item"><span class="blog-name">{{article.blog.title}}</span><a href={{article.url}}><p class="ticker__text">{{article.title}}</p></a></li>
                     {% endfor %}
                 </ul>
             </div>
