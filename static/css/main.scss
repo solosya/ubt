@@ -151,6 +151,16 @@
             margin-bottom: 20px;
         }
     }
+    .crossword_link {
+        color: #ffffff;
+        display: block;
+        font-weight: 700;
+        text-decoration: underline;
+
+        svg {
+            margin-left: 10px;
+        }
+    }
 
     .c-cards-view__heading {
         color: #ffffff;
@@ -211,7 +221,7 @@
     }
 }
 
-$duration: 200s;
+$duration: 150s;
 
 @-webkit-keyframes ticker {
   0% {
@@ -355,7 +365,6 @@ body.home {
     }
 }
 .new_popular_section {
-    display: none;
     &_text {
         &_head {
             color: #000000;
@@ -381,11 +390,24 @@ body.home {
         margin-bottom: 20px;
     }
 
+    &_link {
+        color: #002D56;
+        font-size: 13px;
+        font-weight: 600;
+        margin-top: 20px;
+        display: block;
+    }
+
     .card_country_wise_article {
         .c-cards-view {
             border-bottom: 1px dotted #C0C0C0;
             margin-bottom: 10px;
             padding-bottom: 10px;
+
+            &__labels {
+                display: none !important;
+            }
+
             &__category {
                 font-weight: 600;
                 font-size: 14px !important;
