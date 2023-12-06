@@ -529,43 +529,45 @@
 
         {% set x = x + 1 %}
 
-        <section class="row section new_popular_section">
-            {% if config.popularBlogs is defined and config.popularBlogs is not empty %}
-                <div class="col-xs-12 col-md-4 col-lg-2">
-                    <div class="new_popular_section_text">
-                        <div class="new_popular_section_text_head tesst">
-                            <span>frank.</span>
-                            news from around the globe
-                        </div>
-                        <div class="new_popular_section_text_bottom">
-                            A quick glance at the top headlines on frank today.
-                        </div>
-                    </div>
-                </div>
-                {% for i in 0..config.popularBlogs | length - 1 %}
-                    {% set popBlogInfo = config.popularBlogs[i] %}
-                    {% set getPopularBlog = _Article.getPopularArticles({limit: 4, blogId:popBlogInfo['blogId']}) %}
-                    {% set blogLink = "#" %}
-                    {% if popBlogInfo.blogLink is defined and popBlogInfo.blogLink is not empty %}
-                        {% set blogLink = popBlogInfo.blogLink %}
-                    {% endif %}
+        <section class="section new_popular_section">
+            <div class="row">
+                {% if config.popularBlogs is defined and config.popularBlogs is not empty %}
                     <div class="col-xs-12 col-md-4 col-lg-2">
-                        <div class="new_popular_section">
-                            <h2 class="new_popular_section_title">{{popBlogInfo.blogName}}</h2>
-                            {% for i in 0..3 if getPopularBlog|length > 0 %}
-                                {{this.render('partials/_single-article.twig', {
-                                    article: getPopularBlog[i], 
-                                    imageSuppress: true,
-                                    swap: 'false',
-                                    containerClass: "card_country_wise_article"
-                                }) | raw}}
-                            {% endfor %}
-                            <a href={{blogLink}} class="new_popular_section_link">View {{popBlogInfo.blogName}} news</a>
-                            
+                        <div class="new_popular_section_text">
+                            <div class="new_popular_section_text_head tesst">
+                                <span>frank.</span>
+                                news from around the globe
+                            </div>
+                            <div class="new_popular_section_text_bottom">
+                                A quick glance at the top headlines on frank today.
+                            </div>
                         </div>
                     </div>
-                {% endfor %}
-            {% endif %}
+                    {% for i in 0..config.popularBlogs | length - 1 %}
+                        {% set popBlogInfo = config.popularBlogs[i] %}
+                        {% set getPopularBlog = _Article.getPopularArticles({limit: 4, blogId:popBlogInfo['blogId']}) %}
+                        {% set blogLink = "#" %}
+                        {% if popBlogInfo.blogLink is defined and popBlogInfo.blogLink is not empty %}
+                            {% set blogLink = popBlogInfo.blogLink %}
+                        {% endif %}
+                        <div class="col-xs-12 col-md-4 col-lg-2">
+                            <div class="new_popular_section_container">
+                                <h2 class="new_popular_section_title">{{popBlogInfo.blogName}}</h2>
+                                {% for i in 0..3 if getPopularBlog|length > 0 %}
+                                    {{this.render('partials/_single-article.twig', {
+                                        article: getPopularBlog[i], 
+                                        imageSuppress: true,
+                                        swap: 'false',
+                                        containerClass: "card_country_wise_article"
+                                    }) | raw}}
+                                {% endfor %}
+                                <a href={{blogLink}} class="new_popular_section_link">View {{popBlogInfo.blogName}} news</a>
+                                
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
         </section>
 
         {% if 'School' not in userData.name %}

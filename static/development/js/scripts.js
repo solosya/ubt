@@ -216,12 +216,12 @@ var adScroll = function() {
 
 });
 
-const audio = document.getElementById("background-music");
-const playPauseButton = document.getElementById("play-pause-button");
-const playIcon = document.getElementById("play-music");
-const pauseIcon = document.getElementById("pause-music");
+var audio = document.getElementById("background-music");
+var playPauseButton = document.getElementById("play-pause-button");
+var playIcon = document.getElementById("play-music");
+var pauseIcon = document.getElementById("pause-music");
 
-let isPlaying = false;
+var isPlaying = false;
 
 function togglePlayPause() {
   if (isPlaying) {

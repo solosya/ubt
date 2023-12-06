@@ -365,11 +365,41 @@ body.home {
     }
 }
 .new_popular_section {
+    background-color: #F6F5F5;
+    margin-top: 0 !important;
+    padding: 40px 0;
+    position: relative;
+
+    &:before {
+        content: '';
+        position: absolute;
+        background-color: #F6F5F5;
+        height: 100%;
+        width: 100vw;
+        left: -100vw;
+        top: 0;
+        display: block;
+        z-index: -1;
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        background-color: #F6F5F5;
+        height: 100%;
+        width: 50vw;
+        left: calc(50% - 12px);
+        top: 0;
+        display: block;
+        z-index: -1;
+    }
+
     &_text {
         &_head {
             color: #000000;
             font-family: $base-font-family;
             font-size: 26px;
+            line-height: 1.2;
             font-weight: 400;
             margin-bottom: 20px;
             span {
@@ -396,6 +426,7 @@ body.home {
         font-weight: 600;
         margin-top: 20px;
         display: block;
+        text-decoration: underline;
     }
 
     .card_country_wise_article {
