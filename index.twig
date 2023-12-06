@@ -7,7 +7,7 @@
 {% set config = _Network.getThemeConfig() %}
 {% set networkData = _Network.getNetworkData() %}
 {% set blogNetworkNameIs = networkData.title | lower %}
-
+{% set config = _Network.getThemeConfig() %}
 
 {{this.registerJs("CardController();")}}
 {{this.registerJs('$("#screenTicker").liScroll({travelocity:.07});')}}
@@ -176,10 +176,14 @@
             </div>
             <div class="generic_ticker">
                 <ul class="generic_ticker__list">
-                    {% for article in sections['ticker'].feed.articles %}
-                        <li class="generic_ticker__item"><span class="blog-name">{{article.label}}</span><a href={{article.url}}><p class="ticker__text">{{article.title}}</p></a></li>
+                    {% for article in sections['ticker'].feed.articles |slice(0, 9) %}
+                        <li class="generic_ticker__item"><span class="blog-name">{{article.blog.title}}</span><a href={{article.url}}><p class="ticker__text">{{article.title}}</p></a></li>
                     {% endfor %}
+                    {% for article in sections['ticker'].feed.articles |slice(0, 9) %}
+                        <li class="generic_ticker__item"><span class="blog-name">{{article.blog.title}}</span><a href={{article.url}}><p class="ticker__text">{{article.title}}</p></a></li>
+                    {% endfor %}      
                 </ul>
+                    
             </div>
         </div>
 
@@ -237,11 +241,38 @@
 
                     {% set cta = _CallToAction.getKeywordBasedCTA('documentaries')%}
                     {% set cta2 = _CallToAction.getKeywordBasedCTA('feedback')%}
+                    {% set cta3 = _CallToAction.getKeywordBasedCTA('audiobulletin')%}
 
                     <div class="col-sm-3 col-md-12">
                         <a target="{{cta.button.target  ? cta.button.target : '_self'}}" href="{{cta.button.url}}">
                             <img src="{{cta.media.path}}" class="img-responsive" alt="{{cta.title}}" />
                         </a>
+                    </div>
+                    
+                    <div class="col-sm-3 col-md-12 u-margin-top-40">
+                        <div class="cta_audio_bulletin">
+                            <audio id="background-music" loop>
+                                <source src={{cta3.button.url}} type="audio/mpeg">
+                            </audio>
+                            <div class="cta_audio_bulletin_content">
+                                <button class="cta_audio_bulletin_icon" id="play-pause-button">
+                                    <span id="play-music">
+                                        <img src="{{networkData.templatePath}}/static/icons/play_icon.svg" class="" />
+                                    </span>
+
+                                    <span id="pause-music" class="hidden">
+                                        <img src="{{networkData.templatePath}}/static/icons/pause_icon.svg" class="" />
+                                    </span>
+                                </button>
+                                <div class="cta_audio_bulletin_info">
+                                    {% if cta3.button.text is defined and cta3.button.text is not empty %}
+                                        <div class="cta_audio_bulletin_info_subText">{{cta3.button.text}}</div>
+                                    {% endif %}
+                                    <div class="cta_audio_bulletin_info_title">{{cta3.title}}</div>
+                                    <div class="cta_audio_bulletin_info_desc">{{cta3.description}}</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-sm-3 col-md-12 u-margin-top-40">
                         <a target="{{cta2.button.target  ? cta2.button.target : '_self'}}" href="{{cta2.button.url}}">
@@ -513,6 +544,10 @@
                 {% for i in 0..config.popularBlogs | length - 1 %}
                     {% set popBlogInfo = config.popularBlogs[i] %}
                     {% set getPopularBlog = _Article.getPopularArticles({limit: 4, blogId:popBlogInfo['blogId']}) %}
+                    {% set blogLink = "#" %}
+                    {% if popBlogInfo.blogLink is defined and popBlogInfo.blogLink is not empty %}
+                        {% set blogLink = popBlogInfo.blogLink %}
+                    {% endif %}
                     <div class="col-xs-12 col-md-4 col-lg-2">
                         <div class="new_popular_section">
                             <h2 class="new_popular_section_title">{{popBlogInfo.blogName}}</h2>
@@ -524,6 +559,8 @@
                                     containerClass: "card_country_wise_article"
                                 }) | raw}}
                             {% endfor %}
+                            <a href={{blogLink}} class="new_popular_section_link">View {{popBlogInfo.blogName}} news</a>
+                            
                         </div>
                     </div>
                 {% endfor %}

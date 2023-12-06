@@ -12,7 +12,9 @@
 		}
 	}
 	a {
-		color:#f08b56;
+		color:#1C509E;
+		text-decoration: underline;
+		font-weight: bold;
 		font-family: $font-family-sans-serif;
 		@media screen and (max-width: $sm-break) {
 				word-wrap: break-word;
