@@ -210,10 +210,15 @@ function togglePlayPause() {
   isPlaying = !isPlaying;
 }
 
-// Add an event listener for when the music ends
-audio.addEventListener("ended", function () {
-  audio.currentTime = 0;
-  audio.play();
-});
 
-playPauseButton.addEventListener("click", togglePlayPause);
+if(audio !== null) {
+    audio.addEventListener("ended", function () {
+        audio.currentTime = 0;
+        audio.play();
+    });
+}
+
+if(playPauseButton !== null) {
+    playPauseButton.addEventListener("click", togglePlayPause);
+}
+
