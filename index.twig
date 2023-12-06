@@ -249,32 +249,33 @@
                             <img src="{{cta.media.path}}" class="img-responsive" alt="{{cta.title}}" />
                         </a>
                     </div>
-                    
-                    <div class="col-sm-3 col-md-12 u-margin-top-40">
-                        <div class="cta_audio_bulletin">
-                            <audio id="background-music" loop>
-                                <source src={{cta3.button.url}} type="audio/mpeg">
-                            </audio>
-                            <div class="cta_audio_bulletin_content">
-                                <button class="cta_audio_bulletin_icon" id="play-pause-button">
-                                    <span id="play-music">
-                                        <img src="{{networkData.templatePath}}/static/icons/play_icon.svg" class="" />
-                                    </span>
+                    {% if cta3 is defined and cta3 is not empty %}
+                        <div class="col-sm-3 col-md-12 u-margin-top-40">
+                            <div class="cta_audio_bulletin">
+                                <audio id="background-music" loop>
+                                    <source src={{cta3.button.url}} type="audio/mpeg">
+                                </audio>
+                                <div class="cta_audio_bulletin_content">
+                                    <button class="cta_audio_bulletin_icon" id="play-pause-button">
+                                        <span id="play-music">
+                                            <img src="{{networkData.templatePath}}/static/icons/play_icon.svg" class="" />
+                                        </span>
 
-                                    <span id="pause-music" class="hidden">
-                                        <img src="{{networkData.templatePath}}/static/icons/pause_icon.svg" class="" />
-                                    </span>
-                                </button>
-                                <div class="cta_audio_bulletin_info">
-                                    {% if cta3.button.text is defined and cta3.button.text is not empty %}
-                                        <div class="cta_audio_bulletin_info_subText">{{cta3.button.text}}</div>
-                                    {% endif %}
-                                    <div class="cta_audio_bulletin_info_title">{{cta3.title}}</div>
-                                    <div class="cta_audio_bulletin_info_desc">{{cta3.description}}</div>
+                                        <span id="pause-music" class="hidden">
+                                            <img src="{{networkData.templatePath}}/static/icons/pause_icon.svg" class="" />
+                                        </span>
+                                    </button>
+                                    <div class="cta_audio_bulletin_info">
+                                        {% if cta3.button.text is defined and cta3.button.text is not empty %}
+                                            <div class="cta_audio_bulletin_info_subText">{{cta3.button.text}}</div>
+                                        {% endif %}
+                                        <div class="cta_audio_bulletin_info_title">{{cta3.title}}</div>
+                                        <div class="cta_audio_bulletin_info_desc">{{cta3.description}}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    {% endif %}
                     <div class="col-sm-3 col-md-12 u-margin-top-40">
                         <a target="{{cta2.button.target  ? cta2.button.target : '_self'}}" href="{{cta2.button.url}}">
                             <img src="{{cta2.media.path}}" class="img-responsive" alt="{{cta2.title}}" />
