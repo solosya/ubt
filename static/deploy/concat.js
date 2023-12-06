@@ -36323,6 +36323,34 @@ var adScroll = function() {
 
 });
 
+var audio = document.getElementById("background-music");
+var playPauseButton = document.getElementById("play-pause-button");
+var playIcon = document.getElementById("play-music");
+var pauseIcon = document.getElementById("pause-music");
+
+var isPlaying = false;
+
+function togglePlayPause() {
+  if (isPlaying) {
+    audio.pause();
+    playIcon.classList.remove("hidden");
+    pauseIcon.classList.add("hidden");
+  } else {
+    audio.play();
+    playIcon.classList.add("hidden");
+    pauseIcon.classList.remove("hidden");
+  }
+  isPlaying = !isPlaying;
+}
+
+// Add an event listener for when the music ends
+audio.addEventListener("ended", function () {
+  audio.currentTime = 0;
+  audio.play();
+});
+
+playPauseButton.addEventListener("click", togglePlayPause);
+
 var SearchController = (function ($) {
     return {
         listing: function () {
