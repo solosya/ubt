@@ -242,11 +242,38 @@
 
                     {% set cta = _CallToAction.getKeywordBasedCTA('documentaries')%}
                     {% set cta2 = _CallToAction.getKeywordBasedCTA('feedback')%}
+                    {% set cta3 = _CallToAction.getKeywordBasedCTA('audiobulletin')%}
 
                     <div class="col-sm-3 col-md-12">
                         <a target="{{cta.button.target  ? cta.button.target : '_self'}}" href="{{cta.button.url}}">
                             <img src="{{cta.media.path}}" class="img-responsive" alt="{{cta.title}}" />
                         </a>
+                    </div>
+                    
+                    <div class="col-sm-3 col-md-12 u-margin-top-40">
+                        <div class="cta_audio_bulletin">
+                            <audio id="background-music" loop>
+                                <source src={{cta3.button.url}} type="audio/mpeg">
+                            </audio>
+                            <div class="cta_audio_bulletin_content">
+                                <button class="cta_audio_bulletin_icon" id="play-pause-button">
+                                    <span id="play-music">
+                                        <img src="{{networkData.templatePath}}/static/icons/play_icon.svg" class="" />
+                                    </span>
+
+                                    <span id="pause-music" class="hidden">
+                                        <img src="{{networkData.templatePath}}/static/icons/pause_icon.svg" class="" />
+                                    </span>
+                                </button>
+                                <div class="cta_audio_bulletin_info">
+                                    {% if cta3.button.text is defined and cta3.button.text is not empty %}
+                                        <div class="cta_audio_bulletin_info_subText">{{cta3.button.text}}</div>
+                                    {% endif %}
+                                    <div class="cta_audio_bulletin_info_title">{{cta3.title}}</div>
+                                    <div class="cta_audio_bulletin_info_desc">{{cta3.description}}</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-sm-3 col-md-12 u-margin-top-40">
                         <a target="{{cta2.button.target  ? cta2.button.target : '_self'}}" href="{{cta2.button.url}}">
@@ -502,43 +529,45 @@
 
         {% set x = x + 1 %}
 
-        <section class="row section new_popular_section">
-            {% if config.popularBlogs is defined and config.popularBlogs is not empty %}
-                <div class="col-xs-12 col-md-4 col-lg-2">
-                    <div class="new_popular_section_text">
-                        <div class="new_popular_section_text_head tesst">
-                            <span>frank.</span>
-                            news from around the globe
-                        </div>
-                        <div class="new_popular_section_text_bottom">
-                            A quick glance at the top headlines on frank today.
-                        </div>
-                    </div>
-                </div>
-                {% for i in 0..config.popularBlogs | length - 1 %}
-                    {% set popBlogInfo = config.popularBlogs[i] %}
-                    {% set getPopularBlog = _Article.getPopularArticles({limit: 4, blogId:popBlogInfo['blogId']}) %}
-                    {% set blogLink = "#" %}
-                    {% if popBlogInfo.blogLink is defined and popBlogInfo.blogLink is not empty %}
-                        {% set blogLink = popBlogInfo.blogLink %}
-                    {% endif %}
+        <section class="section new_popular_section">
+            <div class="row">
+                {% if config.popularBlogs is defined and config.popularBlogs is not empty %}
                     <div class="col-xs-12 col-md-4 col-lg-2">
-                        <div class="new_popular_section">
-                            <h2 class="new_popular_section_title">{{popBlogInfo.blogName}}</h2>
-                            {% for i in 0..3 if getPopularBlog|length > 0 %}
-                                {{this.render('partials/_single-article.twig', {
-                                    article: getPopularBlog[i], 
-                                    imageSuppress: true,
-                                    swap: 'false',
-                                    containerClass: "card_country_wise_article"
-                                }) | raw}}
-                            {% endfor %}
-                            <a href={{blogLink}} class="new_popular_section_link">View {{popBlogInfo.blogName}} news</a>
-                            
+                        <div class="new_popular_section_text">
+                            <div class="new_popular_section_text_head tesst">
+                                <span>frank.</span>
+                                news from around the globe
+                            </div>
+                            <div class="new_popular_section_text_bottom">
+                                A quick glance at the top headlines on frank today.
+                            </div>
                         </div>
                     </div>
-                {% endfor %}
-            {% endif %}
+                    {% for i in 0..config.popularBlogs | length - 1 %}
+                        {% set popBlogInfo = config.popularBlogs[i] %}
+                        {% set getPopularBlog = _Article.getPopularArticles({limit: 4, blogId:popBlogInfo['blogId']}) %}
+                        {% set blogLink = "#" %}
+                        {% if popBlogInfo.blogLink is defined and popBlogInfo.blogLink is not empty %}
+                            {% set blogLink = popBlogInfo.blogLink %}
+                        {% endif %}
+                        <div class="col-xs-12 col-md-4 col-lg-2">
+                            <div class="new_popular_section_container">
+                                <h2 class="new_popular_section_title">{{popBlogInfo.blogName}}</h2>
+                                {% for i in 0..3 if getPopularBlog|length > 0 %}
+                                    {{this.render('partials/_single-article.twig', {
+                                        article: getPopularBlog[i], 
+                                        imageSuppress: true,
+                                        swap: 'false',
+                                        containerClass: "card_country_wise_article"
+                                    }) | raw}}
+                                {% endfor %}
+                                <a href={{blogLink}} class="new_popular_section_link">View {{popBlogInfo.blogName}} news</a>
+                                
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
         </section>
 
         {% if 'School' not in userData.name %}
