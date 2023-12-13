@@ -36297,38 +36297,33 @@ $("document").ready(function () {
   });
 });
 
-var audio = document.getElementById("background-music");
-var playPauseButton = document.getElementById("play-pause-button");
-var playIcon = document.getElementById("play-music");
-var pauseIcon = document.getElementById("pause-music");
+// var audio = document.getElementById("background-music");
+// var playPauseButton = document.getElementById("play-pause-button");
+// var playIcon = document.getElementById("play-music");
+// var pauseIcon = document.getElementById("pause-music");
 
-var isPlaying = false;
+// var isPlaying = false;
 
-function togglePlayPause() {
-  if (isPlaying) {
-    audio.pause();
-    playIcon.classList.remove("hidden");
-    pauseIcon.classList.add("hidden");
-  } else {
-    audio.play();
-    playIcon.classList.add("hidden");
-    pauseIcon.classList.remove("hidden");
-  }
-  isPlaying = !isPlaying;
-}
+// function togglePlayPause() {
+//   if (isPlaying) {
+//     audio.pause();
+//     playIcon.classList.remove("hidden");
+//     pauseIcon.classList.add("hidden");
+//   } else {
+//     audio.play();
+//     playIcon.classList.add("hidden");
+//     pauseIcon.classList.remove("hidden");
+//   }
+//   isPlaying = !isPlaying;
+// }
 
+// // Add an event listener for when the music ends
+// audio.addEventListener("ended", function () {
+//   audio.currentTime = 0;
+//   audio.play();
+// });
 
-if(audio !== null) {
-    audio.addEventListener("ended", function () {
-        audio.currentTime = 0;
-        audio.play();
-    });
-}
-
-if(playPauseButton !== null) {
-    playPauseButton.addEventListener("click", togglePlayPause);
-}
-
+// playPauseButton.addEventListener("click", togglePlayPause);
 
 var SearchController = (function ($) {
     return {
