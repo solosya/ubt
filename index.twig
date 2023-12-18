@@ -540,13 +540,13 @@
                                 news from around the globe
                             </div>
                             <div class="new_popular_section_text_bottom">
-                                A quick glance at the top headlines on frank today.
+                                A quick glance at the week's most popular headlines on frank.
                             </div>
                         </div>
                     </div>
                     {% for i in 0..config.popularBlogs | length - 1 %}
                         {% set popBlogInfo = config.popularBlogs[i] %}
-                        {% set getPopularBlog = _Article.getPopularArticles({limit: 4, blogId:popBlogInfo['blogId']}) %}
+                        {% set getPopularBlog = _Article.getPopularArticles({limit: 4, blogId:popBlogInfo['blogId'], interval: 168}) %}
                         {% set blogLink = "#" %}
                         {% if popBlogInfo.blogLink is defined and popBlogInfo.blogLink is not empty %}
                             {% set blogLink = popBlogInfo.blogLink %}
