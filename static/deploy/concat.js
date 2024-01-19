@@ -33486,7 +33486,7 @@ window.templates.defaultWeatherTmpl =
         <div class="account-modal__error_text">Done!</div> \
     </div> \
     \
-    <button id="signinBtn" type="submit" class="_btn _btn--red default-weather">Close</button> \
+    <button id="signinBtn" type="submit" class="_btn _btn--red default-weather">Save and Close</button> \
 </form>';
 
 
@@ -38202,7 +38202,7 @@ UserArticlesController.Load = (function ($) {
             });
         }
 
-        $('#default_weather').on('click', function(e) {
+        $('#default_weather').unbind().on('click', function(e) {
             var countries = ['Australia','New Zealand','United Kingdom','USA']
 
             Acme.SigninView.render("default_weather", "Select default weather location");
