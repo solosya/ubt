@@ -332,7 +332,7 @@
             });
         }
 
-        $('#default_weather').on('click', function(e) {
+        $('#default_weather').unbind().on('click', function(e) {
             var countries = ['Australia','New Zealand','United Kingdom','USA']
 
             Acme.SigninView.render("default_weather", "Select default weather location");
