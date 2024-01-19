@@ -278,7 +278,7 @@ window.templates.defaultWeatherTmpl =
         <div class="account-modal__error_text">Done!</div> \
     </div> \
     \
-    <button id="signinBtn" type="submit" class="_btn _btn--red default-weather">Close</button> \
+    <button id="signinBtn" type="submit" class="_btn _btn--red default-weather">Save and Close</button> \
 </form>';
 
 
