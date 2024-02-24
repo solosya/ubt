@@ -547,9 +547,6 @@
                     {% for i in 0..config.popularBlogs | length - 1 %}
                         {% set popBlogInfo = config.popularBlogs[i] %}
                         {% set getPopularBlog = _Article.getPopularArticles({limit: 4, blogId:popBlogInfo['blogId'], interval:168}) %}
-                        
-                        {% set getDocBlogData     = _Blog.getBlogFeed({'limit': 4, 'offset': 0, 'blogid':'6'}) %}
-                        {% set getDocBlog = getDocBlogData.articles %}
                         {% set blogLink = "#" %}
                         {% if popBlogInfo.blogLink is defined and popBlogInfo.blogLink is not empty and popBlogInfo.blogName != "documentaries" %}
                             {% set blogLink = popBlogInfo.blogLink %}
@@ -571,6 +568,8 @@
                                 </div>
                             </div>
                             {% else %}
+                            {% set getDocBlogData     = _Blog.getBlogFeed({'limit': 4, 'offset': 0, 'blogid':popBlogInfo['blogId']}) %}
+                            {% set getDocBlog = getDocBlogData.articles %}
                             <div class="col-xs-12 col-md-4 col-lg-2 u-margin-bottom-40">
                                 <div class="new_popular_section_container">
                                     <h2 class="new_popular_section_title">{{popBlogInfo.blogName}}</h2>
