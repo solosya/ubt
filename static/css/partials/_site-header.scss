@@ -50,6 +50,13 @@
     max-width:none;
     z-index:140;
 
+    &.search_box_active {
+        z-index: 9999;
+        + .site-main .home_ticker {
+            z-index: 0 !important;
+        }
+    }
+
     .index_container {
         @media screen and (max-width: $sm-break-down) {
             padding: 0;

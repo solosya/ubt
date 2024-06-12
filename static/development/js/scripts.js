@@ -90,6 +90,7 @@ $("document").ready(function () {
   $("ul > li.menu-item-search").on("click", function (e) {
     if (window.innerWidth > sbCustomMenuBreakPoint) {
       $("#searchpanel").toggleClass("active");
+      $(".site-header").toggleClass("search_box_active");
       e.preventDefault();
     }
   });
