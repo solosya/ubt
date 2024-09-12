@@ -33966,7 +33966,7 @@ Acme.View.articleFeed.prototype.render = function(data)
 
     self.elem.html(label);
 
-    (data.articles.length < self.options.limit) 
+    (data.articles.length === 0) 
         ? self.elem.css('display', 'none')
         : self.elem.show();
 
@@ -33994,7 +33994,7 @@ Acme.View.articleFeed.prototype.render = function(data)
         : self.options.container.append( html.join('') );
         
     if (self.waypoint) {
-        (data.articles.length < self.options.limit)
+        (data.articles.length===0)
             ? self.waypoint.disable()
             : self.waypoint.enable();
     }
