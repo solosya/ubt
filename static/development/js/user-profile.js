@@ -296,7 +296,16 @@
           data: requestData,
           success: function (data, textStatus, jqXHR) {
             if (data.success == 1) {
-              window.location.reload(false);
+
+              if (status == "cancelled") {
+                let currentUrl = new URL(window.location.href);
+                currentUrl.searchParams.append('status', status);
+                window.location.href = currentUrl.toString()
+              }
+              else {
+                window.location.href = "/user/edit-profile"
+              }
+              
             } else {
               var text = "";
               for (var key in data.error) {

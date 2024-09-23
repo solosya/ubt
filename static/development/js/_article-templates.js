@@ -170,6 +170,9 @@ window.templates.modal =
     </div> \
 </div>';
 
+
+
+
 window.templates.spinnerTmpl = '<div class="spinner"></div>';
 
 
@@ -214,6 +217,13 @@ window.templates.userCancelPlan =
 </form>';
 
 
+window.templates.cancelSubscriptionTmpl = 
+'<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
+    <p class="u-font-bold">Unsubscribed Successfully!</p>\
+    <p>We are sorry to see you go. Your subscription has been successfully cancelled.<br/>We would appreciate your feedback to help us improve</p>\
+    <button id="okaybutton" class="_btn _btn--gray okay u-margin-right-10" data-role="okay">PROVIDE FEEDBACK</button> \
+    <button id="cancelbutton" class="_btn _btn--red close" data-role="cancel">CANCEL</button> \
+</form>';
 
 window.templates.signinFormTmpl = 
 // <script> tag possible ios safari login fix

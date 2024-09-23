@@ -56,6 +56,13 @@ fraudulent #}
 {% set signup = pwstats.status == "pending" ? true : false %}
 
 
+
+{% set queryParams = _AppHelper.getRequestParam('status') %}
+{% if queryParams == "cancelled" %}
+    {{this.registerJs('Acme.cancelSubscriptionView.render("cancel_subscription","").done(function () { window.location.href="https://docs.google.com/forms/d/1s2Xxt3KhAOc8dFsyJKYE3ug8NzW9svX5X8Lt10Ri3F0/viewform?ts=66e22a46&edit_requested=true"});')}}
+{% endif %}
+
+
 {% set stripeError = pwstats.error_data | length > 0 %}
 
 
