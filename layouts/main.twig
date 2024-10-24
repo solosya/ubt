@@ -230,7 +230,7 @@
     data-version="8"
 >
     {{ this.beginBody() }}
-
+    <div id="idempotency_key" class="u-hide" >{{_AppHelper.getStripeIdempotencyKey()}}</div>
       
 
     {{ this.render('partials/_header_navigation.twig', {

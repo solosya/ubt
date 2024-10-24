@@ -146,7 +146,7 @@ if ($('#stripekey').length > 0) {
             ],
         }).init().render();
     };
-    SubscribeForm.prototype.submit = function(event) 
+    SubscribeForm.prototype.submit = async function(event) 
     {
         var self = this;
         event.preventDefault();
@@ -162,6 +162,40 @@ if ($('#stripekey').length > 0) {
         }
 
 
+        async function generateRecaptchaToken() {
+            return new Promise((resolve) => {
+                grecaptcha.ready(function () {
+                grecaptcha
+                    .execute(window.Acme.captcha_site_key, { action: "submit" })
+                    .then(function (token) {
+                    resolve(token);
+                    });
+                });
+            });
+        }
+
+        async function submitForm() {
+
+            if (typeof window.Acme.captcha_site_key !== "undefined") {
+                self.data["g-recaptcha-response"] = await generateRecaptchaToken();
+            }
+
+            var idempotency_key = $("#idempotency_key").html();
+            if (typeof idempotency_key !== "undefined" && idempotency_key != "") {
+                self.data["idempotency_key"] = idempotency_key; // Duplicate Request Prevent
+            }
+            
+            formhandler(self.data, '/auth/paywall-signup').then(function(response) {
+
+                if (response.success == 1) {
+                    // setTimeout('window.location.href = location.origin + "/auth/thank-you";', 2000);
+                    window.location.href = location.origin + '/auth/thank-you';
+                }
+                
+            });
+        }
+
+
 
         self.data['paymentIntent'] = true;
         self.data['redirect'] = false;
@@ -174,13 +208,14 @@ if ($('#stripekey').length > 0) {
             modal.render("spinner", "Authorising code");
             subscribe.data['planid'] = $('#planid').val();
             subscribe.data['giftcode'] = $('#code-redeem').val();
-            formhandler(subscribe.data, '/auth/paywall-signup');
+            await submitForm();
+            //formhandler(subscribe.data, '/auth/paywall-signup');
         } else {
             subscribe.data['planid'] = $('#planid').val();
             
             // tokens are no longer needed, however running createToken() will alert card errors,
             // and stop the sign up process from continuing. 
-            stripe.createToken(card).then(function(result) {
+            stripe.createToken(card).then(async function(result) {
                 if (result.error) {
                     modal.closeWindow();
                     // Inform the user if there was an error
@@ -189,21 +224,25 @@ if ($('#stripekey').length > 0) {
                 } else {
                     modal.render("spinner", "Creating account");
                     
-                    var usingCaptcha = false;
-                    if (typeof window.Acme.captcha_site_key !== 'undefined') {
-                        usingCaptcha = true;
-                        grecaptcha.ready(function() {
-                            grecaptcha.execute(window.Acme.captcha_site_key, {action: 'submit'}).then(function(token) {
-                                subscribe.data['g-recaptcha-response'] = token;
-                                self.submitForm(subscribe.data, modal);
-                            });
-                        });
-                    }
+                    // var usingCaptcha = false;
+                    // if (typeof window.Acme.captcha_site_key !== 'undefined') {
+                    //     usingCaptcha = true;
+                    //     grecaptcha.ready(function() {
+                    //         grecaptcha.execute(window.Acme.captcha_site_key, {action: 'submit'}).then(function(token) {
+                    //             subscribe.data['g-recaptcha-response'] = token;
+                    //             self.submitForm(subscribe.data, modal);
+                    //         });
+                    //     });
+                    // }
             
 
-                    if (!usingCaptcha) {
-                        self.submitForm(subscribe.data, modal);
-                    }
+                    // if (!usingCaptcha) {
+                    //     self.submitForm(subscribe.data, modal);
+                    // }
+                    self.data['stripetoken'] = result.token.id;
+                    self.data['planid'] = $('#planid').val();
+                    self.data['redirect'] = false;
+                    await submitForm();
                 }
             });
         }
@@ -401,6 +440,10 @@ if ($('#stripekey').length > 0) {
 
                     formdata = {"stripetoken":result.token.id, "uitoken": "ui." + random(8)};
                     formhandler(formdata, '/user/update-payment-details').then(function(r) {
+                        var idempotency_key = $('#idempotency_key').html();
+                        if(typeof idempotency_key !== "undefined" && idempotency_key != "") { 
+                            requestData['idempotency_key'] = idempotency_key; // Duplicate Request Prevent 
+                        } 
                         modal.closeWindow();
                         // console.log(r);
                         if (r.success === 1) {
