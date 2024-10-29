@@ -36923,6 +36923,11 @@ if ($('#stripekey').length > 0) {
         var profilePage = location.origin + "/user/edit-profile";
         var thankYouPage = window.location.origin + "/auth/thank-you";
 
+        var idempotency_key = $("#idempotency_key").html();
+        if (typeof idempotency_key !== "undefined" && idempotency_key != "") {
+            self.data["idempotency_key"] = idempotency_key; // Duplicate Request Prevent
+        }
+
         formhandler(formdata, '/auth/paywall-signup').done( function(r) {
             var clientSecret = typeof r.client_secret !== 'undefined' && r.client_secret ? r.client_secret : null;
             if (!clientSecret || r.error) {
@@ -37030,6 +37035,10 @@ if ($('#stripekey').length > 0) {
 
                     formdata = {"stripetoken":result.token.id, "uitoken": "ui." + random(8)};
                     formhandler(formdata, '/user/update-payment-details').then(function(r) {
+                        var idempotency_key = $("#idempotency_key").html();
+                        if (typeof idempotency_key !== "undefined" && idempotency_key != "") {
+                            self.data["idempotency_key"] = idempotency_key; // Duplicate Request Prevent
+                        }
                         modal.closeWindow();
                         // console.log(r);
                         if (r.success === 1) {
