@@ -37034,11 +37034,11 @@ if ($('#stripekey').length > 0) {
                     // Send the token to your server
 
                     formdata = {"stripetoken":result.token.id, "uitoken": "ui." + random(8)};
+                    var idempotency_key = $("#idempotency_key").html();
+                    if (typeof idempotency_key !== "undefined" && idempotency_key != "") {
+                        formdata["idempotency_key"] = idempotency_key; // Duplicate Request Prevent
+                    }
                     formhandler(formdata, '/user/update-payment-details').then(function(r) {
-                        var idempotency_key = $("#idempotency_key").html();
-                        if (typeof idempotency_key !== "undefined" && idempotency_key != "") {
-                            self.data["idempotency_key"] = idempotency_key; // Duplicate Request Prevent
-                        }
                         modal.closeWindow();
                         // console.log(r);
                         if (r.success === 1) {
