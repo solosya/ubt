@@ -121,7 +121,7 @@
         },
         "ticker": {
             "limit" : 10
-        }
+        },
         "screen": {
             "limit" : 10
         }
@@ -180,7 +180,13 @@
             </div>
             <div class="generic_ticker">
                 <ul class="generic_ticker__list">
+                    {% for article in sections['screen'].feed.articles |slice(0, 9) %}
+                        <li class="generic_ticker__item"><span class="blog-name">{{article.blog.title}}</span><a href={{article.url}}><p class="ticker__text">{{article.title}}</p></a></li>
+                    {% endfor %}
                     {% for article in sections['ticker'].feed.articles |slice(0, 9) %}
+                        <li class="generic_ticker__item"><span class="blog-name">{{article.blog.title}}</span><a href={{article.url}}><p class="ticker__text">{{article.title}}</p></a></li>
+                    {% endfor %}  
+                    {% for article in sections['screen'].feed.articles |slice(0, 9) %}
                         <li class="generic_ticker__item"><span class="blog-name">{{article.blog.title}}</span><a href={{article.url}}><p class="ticker__text">{{article.title}}</p></a></li>
                     {% endfor %}
                     {% for article in sections['ticker'].feed.articles |slice(0, 9) %}
