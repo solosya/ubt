@@ -84,6 +84,7 @@
                     'NZ/Dargaville',
                     'NZ/Thames',
                     'NZ/Gisborne',
+                    'NZ/Hamilton',
                     'NZ/Hastings',
                     'NZ/Wanganui',
                     'NZ/Masterton',
