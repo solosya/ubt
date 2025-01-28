@@ -87,6 +87,10 @@ a.card {
                         letter-spacing: 0.23px;
                         line-height: 1;
                         margin-right: 8px;
+
+                        &.label_odd_spot {
+                            background: #ae232c !important;
+                        }
                     }
                 }
             }
