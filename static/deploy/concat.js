@@ -37985,18 +37985,19 @@ UserArticlesController.Load = (function ($) {
                     'America/Boston',
                     'America/Chicago',
                     'America/Columbus',
-                    'America/Edmonton',
+                    //'America/Edmonton',
                     'America/Knoxville',
                     'America/Minneapolis',
-                    'America/Montreal',
+                    //'America/Montreal',
                     'America/Portland',
                     'America/San%20Antonio',
                     'America/San%20Francisco',
                     'America/Seattle',
-                    'America/Toronto',
-                    'America/Vancouver',
+                    'America/Los%20Angels',
+                    //'America/Toronto',
+                    //'America/Vancouver',
 					'America/Washington%20DC',
-                    'America/Winnipeg'
+                    //'America/Winnipeg'
                 ];
             case 'United Kingdom':
                 Acme.State.Country = 'GB';
@@ -38027,14 +38028,14 @@ UserArticlesController.Load = (function ($) {
             case 'New Zealand':
                 Acme.State.Country = 'NZ';
                 return [
-                    'NZ/Auckland',
                     'NZ/Wellington',
-                    'NZ/Nelson',
+                    'NZ/Auckland',
                     'NZ/Christchurch',
                     'NZ/Dunedin',
                     'NZ/Invercargill',
-                    'NZ/Palmerston%20North',
+                    'NZ/Nelson',
                     'NZ/New%20Plymouth',
+                    'NZ/Palmerston%20North',
                     'NZ/Tauranga',
                 ];
                 break;
@@ -38042,24 +38043,24 @@ UserArticlesController.Load = (function ($) {
 
             case 'New Zealand-regional':
                 return [
-                    'NZ/Kaitaia',
-                    'NZ/Kerikeri',
-                    'NZ/Whangarei',
+                    'NZ/Ashburton',
+                    'NZ/Blenheim',
                     'NZ/Dargaville',
-                    'NZ/Thames',
                     'NZ/Gisborne',
+                    'NZ/Gore',
+                    'NZ/Greymouth',
                     'NZ/Hamilton',
                     'NZ/Hastings',
-                    'NZ/Wanganui',
+                    'NZ/Kaitaia',
+                    'NZ/Kerikeri',
                     'NZ/Masterton',
-                    'NZ/Blenheim',
-                    'NZ/Westport',
-                    'NZ/Greymouth',
-                    'NZ/Ashburton',
-                    'NZ/Timaru',
+                    'NZ/Napier',
                     'NZ/Oamaru',
-                    'NZ/Gore',
-                    'NZ/Napier'
+                    'NZ/Thames',
+                    'NZ/Timaru',
+                    'NZ/Wanganui',
+                    'NZ/Westport',
+                    'NZ/Whangarei'
                 ];
                 break;
 
