@@ -29,7 +29,7 @@
                     'America/San%20Antonio',
                     'America/San%20Francisco',
                     'America/Seattle',
-                    'America/Los%20Angels',
+                    'America/Los%20Angeles',
                     //'America/Toronto',
                     //'America/Vancouver',
 					'America/Washington%20DC',
