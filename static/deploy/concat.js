@@ -38101,6 +38101,48 @@ UserArticlesController.Load = (function ($) {
                     'Australia/Canberra',
                     'Australia/Darwin',
                 ];
+                break;
+            case 'Canada':
+                Acme.State.Country = 'Canada';
+                return [
+                    'America/Edmonton',
+                    'America/Calgary',
+                    'America/Mississauga',
+                    'America/Montréal',
+                    'America/Ottawa',
+                    'America/Scarborough%20Village',
+                    'America/Toronto',
+                    'America/Vancouver',
+                    'America/Winnipeg',
+                ];
+                break;
+            case 'Europe':
+                Acme.State.Country = 'Europe';
+                return [
+                    'Europe/Amsterdam',
+                    'Europe/Barcelona',
+                    'Europe/Berlin',
+                    'Europe/Dublin',
+                    'Europe/Madrid',
+                    'Europe/Milan',
+                    'Europe/Paris',
+                    'Europe/Rome',
+                    'Europe/Stockholm',
+                    'Europe/Zurich',
+                ];
+                break;
+            case 'Caribbean':
+                Acme.State.Country = 'Caribbean';
+                return [
+                    'America/Bridgetown',
+                    'America/Havana',
+                    'America/Kingston',
+                    'America/Kingstown',
+                    'America/Port%20au%20Prince',
+                    'America/Port%20of%20Spain',
+                    'America/Santo%20Domingo',
+                    'America/San%20Juan',
+                ];
 
             default:
                 Acme.State.Country = 'America';
@@ -38299,7 +38341,7 @@ UserArticlesController.Load = (function ($) {
         }
 
         $('#default_weather').unbind().on('click', function(e) {
-            var countries = ['Australia','New Zealand','United Kingdom','USA']
+            var countries = ['Australia','New Zealand','United Kingdom','USA', 'Canada', 'Europe', 'Caribbean']
 
             Acme.SigninView.render("default_weather", "Select default weather location");
             if (localStorage.getItem("weather-country")) {
