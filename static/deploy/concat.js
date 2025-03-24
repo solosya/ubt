@@ -38130,7 +38130,7 @@ UserArticlesController.Load = (function ($) {
                     'Europe/Stockholm',
                     'Europe/Zurich',
                 ];
-                break;
+            break;
             case 'Caribbean':
                 Acme.State.Country = 'Caribbean';
                 return [
@@ -38138,17 +38138,15 @@ UserArticlesController.Load = (function ($) {
                     'America/Havana',
                     'America/Kingston',
                     'America/Kingstown',
-                    'America/Port%20au%20Prince',
-                    'America/Port%20of%20Spain',
+                    'America/Port-au-Prince',
+                    'America/Port of Spain',
                     'America/Santo%20Domingo',
                     'America/San%20Juan',
                 ];
 
             default:
                 Acme.State.Country = 'America';
-                return [
-                    'America/New%20York',
-                ];
+                return [];
         }
     };
 
