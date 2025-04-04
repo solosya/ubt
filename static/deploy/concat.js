@@ -38363,7 +38363,7 @@ UserArticlesController.Load = (function ($) {
                 Acme.WeatherSelector = new Acme.listMenu({
                     'parent'        : $('#weather-dropdown'),
                     'list'          : locations.map(function(l) {
-                        return l.split('/')[1].replace('%20', ' ');
+                        return l.split('/')[1].replaceAll('%20', ' ');
                     }),
                     'class'         : 'weather-pulldown u-no-margin-top default-weather__pulldown',
                     'defaultSelect' : {"label": 'Select city'},
@@ -38396,7 +38396,7 @@ UserArticlesController.Load = (function ($) {
                 Acme.WeatherSelector = new Acme.listMenu({
                     'parent'        : $('#weather-dropdown'),
                     'list'          : locations.map(function(l) {
-                        return l.split('/')[1].replace('%20', ' ');
+                        return l.split('/')[1].replaceAll('%20', ' ');
                     }),
                     'class'         : 'weather-pulldown u-no-margin-top default-weather__pulldown',
                     'defaultSelect' : {"label": 'Select city'},
@@ -38407,7 +38407,7 @@ UserArticlesController.Load = (function ($) {
                 $('#city-weather > .Acme-pulldown__list > li').on('click', function(e) {
                     var locations = new Acme.Locations(localStorage.getItem("weather-country"));
                     var citySelect = this.innerText;
-                    var citySet = Acme.State.Country + '/' + citySelect.replace(' ', '%20');
+                    var citySet = Acme.State.Country + '/' + citySelect.replaceAll(' ', '%20');
                     localStorage.setItem('city', citySet);
                 });
 
@@ -38416,7 +38416,7 @@ UserArticlesController.Load = (function ($) {
             $('#city-weather > .Acme-pulldown__list > li').on('click', function(e) {
                 var locations = new Acme.Locations(localStorage.getItem("weather-country"));
                 var citySelect = this.innerText;
-                var citySet = Acme.State.Country + '/' + citySelect.replace(' ', '%20');
+                var citySet = Acme.State.Country + '/' + citySelect.replaceAll(' ', '%20');
                 localStorage.setItem('city', citySet);
             });
             
