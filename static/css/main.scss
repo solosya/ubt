@@ -532,3 +532,90 @@ body.home {
 .u-hide {
     display: none !important;
 }
+
+.crossword_panel {
+    background-color: #002d56;
+    padding: 60px 0 100px;
+    margin: 0;
+
+    div.section-header{
+        > h2 {
+            color: #ffffff;
+        }
+    }
+
+    &_container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .card-100-desktop-lg {
+            border: none;
+            border-bottom: 1px solid #979797;
+            padding-bottom: 30px;
+
+            .c-cards-view__media {
+                min-width: auto;
+                max-width: auto;
+            }
+
+            a.card {
+                .content > h2, .content > p {
+                    color: #ffffff !important;
+                }
+            }
+        }
+
+        .loadMoreArticles {
+            border-color: white;
+            color: white;
+        }
+        &_list, #mainAjaxArticles {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        &_cards {
+            // flex: 0 0 calc(100% / 3 - 20px);
+            // margin: 0 10px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            margin-bottom: 0;
+
+            &.col-xs-12 {
+                height: inherit;
+            }
+
+            a.card {
+                display: flex;
+                flex-direction: column;
+                height: calc(100% - 30px);
+                margin: 25px 0 20px;
+                border-bottom: 1px solid #97999c !important;
+
+                article > .content > div .category {
+                    color: #ffffff;
+                }
+                figure, &.c-cards-view__description, .excerpt {
+                    display: none !important;
+                }
+                .content > h2 {
+                    color: #ffffff !important;
+                    font-size: 18px !important;
+                    font-weight: 600;
+                    @media screen and (max-width: $sm-break-down){
+                        margin-bottom: 15px;
+                    }
+                    @media screen and (min-width: $sm-break) and (max-width: $mmd-break-down) {
+                        max-height: 44px !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .advert.banner {
+        border: 2px solid #ffffff;
+        overflow: hidden;
+    }
+}

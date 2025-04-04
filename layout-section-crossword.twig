@@ -1,0 +1,108 @@
+{{ set(this, 'title', _Blog.getBlogTitle()) }}
+{% set blogData    = _Blog.getBlog() %}
+
+
+
+{% cache 'sectionCache'~blogData['id'] 300 %}
+
+
+{% set networkData = _Network.getNetworkData() %}
+
+{{this.registerJs("Acme.cards = CardController();")}}
+{{this.registerJs("Acme.searchFeed = new Acme.View.articleFeed(Acme.cards);")}}
+
+
+{% set limit = 16 %}
+{% set articlesArr  = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
+{% set articles     = articlesArr.articles %}
+{% set firstCount = articles | length %}
+{% set dateHide = true %}
+
+                                                     {# renders the card    fetch-limit      fetch-offset    infinite scroll #}
+                                                     {#            ↑             ↑                 ↑            ↑            #}
+{{this.registerJs("Acme.searchFeed = new Acme.View.articleFeed(Acme.cards, " ~ limit ~ ", " ~ firstCount ~ ", true);")}}
+
+
+<!-- used to index each article as we loop over throughout the template -->
+{% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
+{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
+
+
+
+    <main id="main" class="crossword_panel channel-main" role="main" data-article-limit="{{limit}}" data-article-count="{{articles | length}}">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-header">
+                        <h2>{{blogData.title}}</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-9">
+                    <div class="crossword_panel_container">
+                        <section class="row">
+                            <div class="col-sm-12">
+                                {% if articles[articleCount] %}
+                                    {{this.render('partials/_single-article.twig', {
+                                        article: articles[articleCount], 
+                                        position: (articleCount+1),
+                                        imageSize: {width: 640, height: 309},
+                                        containerClass: 'card-100-mobile card-100-tablet card-100-desktop-sm card-100-desktop-lg',
+                                        dateHide: dateHide
+                                    }) | raw}}
+                                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                                {% endif %}
+                            </div>
+                        </section>
+                        <div class="crossword_panel_container_list row">
+                            {% for i in 1..15 if articles[articleCount] %}
+                                <div class="col-xs-12 col-sm-6 col-md-4">
+                                    {{this.render('partials/_single-article.twig', {
+                                        article: articles[articleCount], 
+                                        position: (articleCount+1),
+                                        imageSize: {width: 200, height: 140},
+                                        containerClass: 'card-rec card-rec-tablet card-rec-mobile crossword_panel_container_cards',
+                                        dateHide: dateHide
+                                    }) | raw}}
+                                </div>
+                                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                            {% endfor %}
+                        </div>
+
+                        {% if articles|length >= limit %}
+                            {{ this.render('partials/ajaxarticles.twig', {
+                                ads             : "no",
+                                name            : "section-load",
+                                limit           : limit,
+                                offset          : limit,
+                                imgwidth        : "200",
+                                imgheight       : "140",
+                                container       : "mainAjaxArticles",
+                                non_pinned      : articlesArr.existingNonPinnedCount, 
+                                card_class      : "col-xs-12 col-sm-6 col-md-4 card-rec card-rec-tablet card-rec-mobile crossword_panel_container_cards",
+                                buttonClass     : "infinite",
+                                dateHide: dateHide
+                            }) | raw }}
+                        
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="advert">
+                        <div id='blockAd1'></div>
+                        <script>loadNextAd(invSpace,'blockAd1','mRec',mRecSize,mRecMap);</script>
+                    </div>
+
+                    <div class="advert banner">
+                        <a href="{{networkData.defaultBlogUrl}}/get-in-touch" class="social-modal__image_wrap">
+                            <img src="{{networkData.templatePath}}/static/images/ads/Ad6_mrec.png?t=18022025" class="img-responsive" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main><!-- .site-main -->
+
+{% endcache %}
