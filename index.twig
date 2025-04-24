@@ -11,6 +11,7 @@
 
 {{this.registerJs("CardController();")}}
 {{this.registerJs('$("#screenTicker").liScroll({travelocity:.07});')}}
+{% set today = "now"|date("l") %}
 
 {% set userData = []  %}
 {% if not _User.isGuest() %}
@@ -18,7 +19,6 @@
     {% set userData = _User.getPaywallStats(false)  %}
 
 {% endif %}
-
 
 
 {% set limit = 15 %}
@@ -246,6 +246,7 @@
                     {% set cta = _CallToAction.getKeywordBasedCTA('documentaries')%}
                     {% set cta2 = _CallToAction.getKeywordBasedCTA('feedback')%}
                     {% set cta3 = _CallToAction.getKeywordBasedCTA('audiobulletin')%}
+                    {% set cta4 = _CallToAction.getKeywordBasedCTA('crossword')%}
 
                     <div class="col-sm-3 col-md-12">
                         <a target="{{cta.button.target  ? cta.button.target : '_self'}}" href="{{cta.button.url}}">
@@ -279,11 +280,20 @@
                             </div>
                         </div>
                     {% endif %}
-                    <div class="col-sm-3 col-md-12 u-margin-top-40">
-                        <a target="{{cta2.button.target  ? cta2.button.target : '_self'}}" href="{{cta2.button.url}}">
-                            <img src="{{cta2.media.path}}" class="img-responsive" alt="{{cta2.title}}" />
-                        </a>
-                    </div>
+                    {% if today in ['Monday', 'Wednesday', 'Friday', 'Sunday'] %}
+                        <div class="col-sm-3 col-md-12 u-margin-top-40">
+                            <a target="{{cta4.button.target  ? cta4.button.target : '_self'}}" href="{{cta4.button.url}}">
+                                <img src="{{cta4.media.path}}" class="img-responsive" alt="{{cta4.title}}" />
+                            </a>
+                        </div>
+                    {% elseif today in ['Tuesday', 'Thursday', 'Saturday'] %}
+                        <div class="col-sm-3 col-md-12 u-margin-top-40">
+                            <a target="{{cta2.button.target  ? cta2.button.target : '_self'}}" href="{{cta2.button.url}}">
+                                <img src="{{cta2.media.path}}" class="img-responsive" alt="{{cta2.title}}" />
+                            </a>
+                        </div>
+                    {% endif %}
+                    
 
 
                     <div class="col-sm-5 col-md-12">
@@ -420,12 +430,22 @@
                        <div id='bannerAd3'></div>
                         <script>loadNextAd(invSpace,'bannerAd3','bannerad',sBannerSize,sBannerMap);</script>
                     </div> #}
-                    <div class="advert banner">
-                        <a href="{{networkData.defaultBlogUrl}}/get-in-touch">
-                            <img src="{{networkData.templatePath}}/static/images/ads/Ad2_desktop.jpg" class="hidden-xs img-responsive" />
-                            <img src="{{networkData.templatePath}}/static/images/ads/Ad2_mobile.png" class="visible-xs img-responsive" />
-                        </a>
-                    </div>
+                    {% if today in ['Monday', 'Wednesday', 'Friday', 'Sunday'] %}
+                        <div class="advert banner">
+                            <a href="{{networkData.defaultBlogUrl}}/get-in-touch">
+                                <img src="{{networkData.templatePath}}/static/images/ads/Ad8_desktop.jpg" class="hidden-xs img-responsive" style="max-width: 728px" />
+                                <img src="{{networkData.templatePath}}/static/images/ads/Ad8_mobile.jpg" class="visible-xs img-responsive" />
+                            </a>
+                        </div>
+                    {% elseif today in ['Tuesday', 'Thursday', 'Saturday'] %}
+                        <div class="advert banner">
+                            <a href="{{networkData.defaultBlogUrl}}/get-in-touch">
+                                <img src="{{networkData.templatePath}}/static/images/ads/Ad2_desktop.jpg" class="hidden-xs img-responsive" />
+                                <img src="{{networkData.templatePath}}/static/images/ads/Ad2_mobile.png" class="visible-xs img-responsive" />
+                            </a>
+                        </div>
+                    {% endif %}
+                    
 
                 </section>
             </div>
